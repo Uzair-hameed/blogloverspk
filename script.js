@@ -1,297 +1,188 @@
-// DOM لود ہونے پر
-document.addEventListener('DOMContentLoaded', function() {
-    // پوسٹ سلائیڈر فنکشن
+/*
+   ================================================
+   DATA BASE (یہاں آپ کے 370 لنکس آئیں گے)
+   ================================================
+   نوٹ: 'thumb' میں تصویر کا لنک ڈالیں۔ اگر نہ ہو تو خالی چھوڑ دیں، سسٹم خودکار طریقے سے پلیس ہولڈر لگا دے گا۔
+   کیٹیگریز کے نام PDF کے مطابق رکھے گئے ہیں:
+   1. minor-signs (علامات صغریٰ)
+   2. major-signs (علامات کبریٰ)
+   3. islamic (تعلیمات اسلامی)
+   4. history (تاریخ)
+   5. education (ایجوکیشن)
+   6. tech (انگلش ادب و ٹیکنالوجی)
+   7. kids (کڈز سیکشن)
+*/
+
+const posts = [
+    // --- SAMPLE DATA (یہاں اپنے 370 لنکس اسی فارمیٹ میں پیسٹ کریں) ---
+    
+    // SLIDER & FEATURED POSTS
+    { title: "کیا آپ ﷺ کا دنیا سے تشریف لے جانا قیامت کی نشانی ہے؟", cat: "minor-signs", url: "posts/post1.html", thumb: "https://source.unsplash.com/random/800x600/?mosque", featured: true },
+    { title: "فتنہ دجال: وہ 5 واقعات جو اس سے پہلے پیش آئیں گے", cat: "major-signs", url: "posts/post2.html", thumb: "https://source.unsplash.com/random/800x600/?desert", featured: true },
+    { title: "سلطنت عثمانیہ کا زوال اور آج کا مسلمان", cat: "history", url: "posts/post3.html", thumb: "https://source.unsplash.com/random/800x600/?turkey", featured: true },
+
+    // Minor Signs
+    { title: "چاند کے دو ٹکڑے ہونے کی سائنسی و اسلامی حقیقت", cat: "minor-signs", url: "posts/moon.html", thumb: "" },
+    { title: "صحابہ کرام کا دنیا سے رخصت ہونا ہمیں کیا درس دیتا ہے؟", cat: "minor-signs", url: "posts/sahaba.html", thumb: "" },
+
+    // Major Signs
+    { title: "مصائب دجال (حصہ اول): ایمان کیسے بچائیں؟", cat: "major-signs", url: "posts/dajjal1.html", thumb: "" },
+    { title: "نزول عیسیٰ علیہ السلام اور یاجوج ماجوج", cat: "major-signs", url: "posts/isa.html", thumb: "" },
+    { title: "دابہ الارض کا نکلنا: قرآن کی روشنی میں", cat: "major-signs", url: "posts/dabba.html", thumb: "" },
+
+    // Islamic
+    { title: "عصر حاضر کے 10 بڑے گناہ جن سے بچنا ضروری ہے", cat: "islamic", url: "posts/sins.html", thumb: "https://source.unsplash.com/random/300x200/?quran" },
+    { title: "میں اور آپ اللہ کو کیسے پکاریں؟ دعا کے آداب", cat: "islamic", url: "posts/dua.html", thumb: "https://source.unsplash.com/random/300x200/?pray" },
+    
+    // History & Education
+    { title: "مسلم تاریخ کی 50 اہم شخصیات - ابن سینا", cat: "history", url: "posts/ibn-sina.html", thumb: "" },
+    { title: "ٹیپو سلطان: شیر میسور کی ان کہی داستان", cat: "history", url: "posts/tipu.html", thumb: "" },
+    { title: "کورونا کی صورت میں بچوں کی تعلیم کیسے ممکن ہے؟", cat: "education", url: "posts/covid-edu.html", thumb: "" },
+    { title: "آج کا استاد پریشان کیوں ہے؟ وجوہات اور حل", cat: "education", url: "posts/teacher.html", thumb: "" },
+
+    // Tech
+    { title: "آرٹیفیشل انٹیلیجنس کے نقصانات اور فوائد", cat: "tech", url: "posts/ai.html", thumb: "" },
+    { title: "انگریزی ادب: شیکسپیئر کے ڈراموں کا تجزیہ", cat: "tech", url: "posts/lit.html", thumb: "" },
+
+    // Kids
+    { title: "ایک ننھی چیونٹی اور پیغمبر سلیمانؑ کی ملاقات", cat: "kids", url: "posts/ant.html", thumb: "" },
+    { title: "ایمانداری بہترین پالیسی ہے: شیخ سعدی کی حکایت", cat: "kids", url: "posts/honesty.html", thumb: "" },
+    { title: "کڈز کوئز: اسلامی معلومات عامہ", cat: "kids", url: "posts/quiz1.html", thumb: "" },
+    { title: "جنگل کا بادشاہ کون؟ بچوں کی کہانی", cat: "kids", url: "posts/lion.html", thumb: "" },
+];
+
+/* ================= LOGIC START ================= */
+
+// Helper: Get Image or Placeholder
+const getImg = (p) => p.thumb ? p.thumb : 'https://placehold.co/600x400/0056b3/ffffff?text=BlogLovers';
+const getCatName = (c) => {
+    const map = {
+        'minor-signs': 'علامات صغریٰ', 'major-signs': 'علامات کبریٰ', 'islamic': 'تعلیمات اسلامی',
+        'history': 'تاریخ', 'education': 'تعلیم', 'tech': 'ٹیکنالوجی', 'kids': 'بچوں کی دنیا'
+    };
+    return map[c] || c;
+};
+
+// 1. Initialize Slider
+function initSlider() {
+    const sliderWrap = document.getElementById('main-slider');
+    const featured = posts.filter(p => p.featured).slice(0, 5); // Take first 5 featured
+    
+    if(featured.length === 0) return; // if no featured posts
+
+    let html = '';
+    featured.forEach((p, index) => {
+        html += `
+        <div class="slide ${index === 0 ? 'active' : ''}" style="background-image: url('${getImg(p)}');">
+            <div class="slide-caption">
+                <span style="background:var(--gold); color:#000; padding:2px 8px; border-radius:3px;">${getCatName(p.cat)}</span>
+                <a href="${p.url}"><h2>${p.title}</h2></a>
+            </div>
+        </div>`;
+    });
+    sliderWrap.innerHTML = html;
+}
+
+// Auto Move Slider
+let currentSlide = 0;
+function moveSlide(dir) {
     const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.slider-prev');
-    const nextBtn = document.querySelector('.slider-next');
-    let currentSlide = 0;
-    const slideInterval = 5000; // 5 سیکنڈ
-    let slideTimer;
-    
-    // سلائیڈ دکھانے کا فنکشن
-    function showSlide(n) {
-        // تمام سلائیڈز اور ڈاٹس سے active کلاس ہٹائیں
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-        
-        // کرنٹ سلائیڈ سیٹ کریں
-        currentSlide = (n + slides.length) % slides.length;
-        
-        // نئی سلائیڈ اور ڈاٹ کو active کریں
-        slides[currentSlide].classList.add('active');
-        dots[currentSlide].classList.add('active');
-    }
-    
-    // اگلی سلائیڈ دکھانے کا فنکشن
-    function nextSlide() {
-        showSlide(currentSlide + 1);
-    }
-    
-    // پچھلی سلائیڈ دکھانے کا فنکشن
-    function prevSlide() {
-        showSlide(currentSlide - 1);
-    }
-    
-    // سلائیڈر ٹائمر شروع کریں
-    function startSlideTimer() {
-        slideTimer = setInterval(nextSlide, slideInterval);
-    }
-    
-    // سلائیڈر ٹائمر روکیں
-    function stopSlideTimer() {
-        clearInterval(slideTimer);
-    }
-    
-    // سلائیڈر کنٹرولز پر ایونٹ لسٹنر
-    if (nextBtn && prevBtn) {
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            stopSlideTimer();
-            startSlideTimer();
-        });
-        
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            stopSlideTimer();
-            startSlideTimer();
-        });
-    }
-    
-    // ڈاٹس پر کلک ایونٹ
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            showSlide(index);
-            stopSlideTimer();
-            startSlideTimer();
-        });
-    });
-    
-    // سلائیڈر پر ہوور کرنے پر ٹائمر روکیں
-    const slider = document.querySelector('.slider');
-    if (slider) {
-        slider.addEventListener('mouseenter', stopSlideTimer);
-        slider.addEventListener('mouseleave', startSlideTimer);
-    }
-    
-    // سلائیڈر شروع کریں
-    showSlide(0);
-    startSlideTimer();
-    
-    // موبائل مینو ٹوگل فنکشن
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const mainMenu = document.querySelector('.main-menu');
-    
-    if (mobileMenuBtn && mainMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mainMenu.classList.toggle('active');
-            this.querySelector('i').classList.toggle('fa-bars');
-            this.querySelector('i').classList.toggle('fa-times');
-        });
-        
-        // مینو آئٹم پر کلک کرنے پر مینو بند ہو
-        const menuItems = mainMenu.querySelectorAll('a');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    mainMenu.classList.remove('active');
-                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                }
-            });
-        });
-    }
-    
-    // ڈارک تھیم ٹوگل
-    const themeToggle = document.querySelector('a[href="#"] .fa-moon');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.body.classList.toggle('dark-theme');
-            
-            // تھیم کو لوکل اسٹوریج میں محفوظ کریں
-            if (document.body.classList.contains('dark-theme')) {
-                localStorage.setItem('theme', 'dark');
-                this.classList.remove('fa-moon');
-                this.classList.add('fa-sun');
-            } else {
-                localStorage.setItem('theme', 'light');
-                this.classList.remove('fa-sun');
-                this.classList.add('fa-moon');
-            }
-        });
-        
-        // پیج لود ہونے پر تھیم چیک کریں
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            themeToggle.classList.remove('fa-moon');
-            themeToggle.classList.add('fa-sun');
+    if(slides.length === 0) return;
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + dir + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+setInterval(() => moveSlide(1), 5000); // Change every 5 seconds
+
+// 2. Load Categories
+function loadSections() {
+    // Generate Cards Helper
+    const makeCard = (p, style) => {
+        const img = getImg(p);
+        if (style === 'grid') {
+            return `
+            <div class="news-card">
+                <a href="${p.url}">
+                    <div class="thumb" style="background-image: url('${img}')">
+                        <span class="cat-tag">${getCatName(p.cat)}</span>
+                    </div>
+                </a>
+                <div class="details">
+                    <a href="${p.url}"><h3>${p.title}</h3></a>
+                </div>
+            </div>`;
+        } else if (style === 'list') {
+            return `
+            <div class="news-card">
+                <a href="${p.url}"><div class="thumb" style="background-image: url('${img}')"></div></a>
+                <div class="details">
+                    <a href="${p.url}"><h3>${p.title}</h3></a>
+                    <span style="color:#888; font-size:0.8rem;">${getCatName(p.cat)}</span>
+                </div>
+            </div>`;
+        } else if (style === 'simple') {
+            return `<div class="item"><a href="${p.url}">${p.title}</a></div>`;
         }
-    }
+    };
+
+    // Filter & Render
+    const render = (id, cat, style, limit=6) => {
+        const items = posts.filter(p => p.cat === cat).slice(0, limit);
+        const container = document.getElementById(id);
+        if(container) container.innerHTML = items.map(p => makeCard(p, style)).join('');
+    };
+
+    render('sec-minor-signs', 'minor-signs', 'grid', 4);
+    render('sec-major-signs', 'major-signs', 'grid', 6);
+    render('sec-islamic', 'islamic', 'list', 5);
+    render('sec-history', 'history', 'simple', 8);
+    render('sec-education', 'education', 'simple', 8);
+    render('sec-tech', 'tech', 'grid', 4);
+    render('sec-kids', 'kids', 'grid', 4);
     
-    // ڈارک تھیم اسٹائلز
-    const darkThemeStyles = `
-        <style id="dark-theme-styles">
-            body.dark-theme {
-                background-color: #121212;
-                color: #e0e0e0;
-            }
-            
-            body.dark-theme .post-card,
-            body.dark-theme .sidebar-widget,
-            body.dark-theme .small-category-section,
-            body.dark-theme .list-post {
-                background-color: #1e1e1e;
-                color: #e0e0e0;
-                border-color: #333;
-            }
-            
-            body.dark-theme .post-card h3,
-            body.dark-theme .list-post-content h3,
-            body.dark-theme .small-posts-list a,
-            body.dark-theme .popular-post-title,
-            body.dark-theme .recent-post-title,
-            body.dark-theme .categories-list a {
-                color: #e0e0e0;
-            }
-            
-            body.dark-theme .post-excerpt,
-            body.dark-theme .post-meta,
-            body.dark-theme .small-posts-list a:hover {
-                color: #aaa;
-            }
-            
-            body.dark-theme .ad-placeholder {
-                background-color: #2d2d2d;
-                border-color: #444;
-                color: #aaa;
-            }
-            
-            body.dark-theme .section-header {
-                border-color: #444;
-            }
-            
-            body.dark-theme .small-posts-list a,
-            body.dark-theme .popular-post,
-            body.dark-theme .recent-post,
-            body.dark-theme .categories-list a {
-                border-color: #333;
-            }
-            
-            body.dark-theme .categories-list a span {
-                background-color: #333;
-                color: #aaa;
-            }
-            
-            body.dark-theme .footer {
-                background-color: #0d1b2a;
-            }
-        </style>
-    `;
-    
-    // ڈارک تھیم اسٹائلز شامل کریں
-    document.head.insertAdjacentHTML('beforeend', darkThemeStyles);
-    
-    // نیوز ٹکر کنٹرول
-    const tickerContent = document.querySelector('.ticker-content');
-    if (tickerContent) {
-        // نیوز ٹکر کی رفتار کو کنٹرول کرنے کے لیے
-        let tickerSpeed = 30; // سیکنڈز میں
-        let tickerWidth = tickerContent.scrollWidth;
-        
-        // ریسائز ایونٹ پر ٹکر کی رفتار ایڈجسٹ کریں
-        window.addEventListener('resize', function() {
-            tickerWidth = tickerContent.scrollWidth;
-        });
-        
-        // ٹکر پر ہوور کرنے پر رفتار کم کریں
-        tickerContent.addEventListener('mouseenter', function() {
-            this.style.animationDuration = '60s';
-        });
-        
-        tickerContent.addEventListener('mouseleave', function() {
-            this.style.animationDuration = '30s';
-        });
-    }
-    
-    // سکرول پر ہیڈر اسٹائل بدلیں
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
-    
-    window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // نیچے سکرول کرنے پر
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            // اوپر سکرول کرنے پر
-            navbar.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollTop = scrollTop;
+    // Popular in Sidebar (Random)
+    const randoms = [...posts].sort(() => 0.5 - Math.random()).slice(0, 5);
+    document.getElementById('sidebar-popular').innerHTML = randoms.map(p => makeCard(p, 'list')).join('');
+
+    // Categories Widget
+    const cats = [...new Set(posts.map(p => p.cat))];
+    document.getElementById('sidebar-cats').innerHTML = cats.map(c => 
+        `<li><a href="#">${getCatName(c)}</a> <span>${posts.filter(x=>x.cat===c).length}</span></li>`
+    ).join('');
+
+    // Dynamic Menu
+    const menu = document.getElementById('main-menu');
+    cats.forEach(c => {
+        menu.innerHTML += `<li><a href="#">${getCatName(c)}</a></li>`;
     });
+
+    // Ticker
+    const ticker = document.getElementById('news-ticker');
+    ticker.innerHTML = posts.slice(0,10).map(p => `<a href="${p.url}">${p.title}</a>`).join(' | ');
+}
+
+// 3. Search Function
+function searchPosts() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const box = document.getElementById('searchResultBox');
+    if (input.length < 2) { box.style.display = 'none'; return; }
     
-    // نیوز لیٹر فارم
-    const newsletterForm = document.querySelector('.newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const emailInput = this.querySelector('input[type="email"]');
-            const email = emailInput.value.trim();
-            
-            if (email) {
-                // یہاں AJAX ریکویسٹ بھیجی جا سکتی ہے
-                alert('آپ کی سبسکرپشن کامیابی کے ساتھ رجسٹر ہو گئی ہے!');
-                emailInput.value = '';
-            }
-        });
+    const results = posts.filter(p => p.title.toLowerCase().includes(input));
+    if (results.length > 0) {
+        box.style.display = 'block';
+        box.innerHTML = results.map(p => `<div class="search-item" onclick="location.href='${p.url}'">${p.title}</div>`).join('');
+    } else {
+        box.style.display = 'none';
     }
-    
-    // لکھائی ایفیکٹس
-    const typedElements = document.querySelectorAll('.typed-effect');
-    typedElements.forEach(el => {
-        const text = el.textContent;
-        el.textContent = '';
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < text.length) {
-                el.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
-            }
-        }
-        
-        // ایلیمینٹ نظر آنے پر ٹائپ رائٹر ایفیکٹ شروع کریں
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    typeWriter();
-                    observer.unobserve(el);
-                }
-            });
-        });
-        
-        observer.observe(el);
-    });
-    
-    // سائیڈبار ویجٹس کو فولڈ ایبل بنانا (موبائل پر)
-    if (window.innerWidth <= 768) {
-        const sidebarWidgets = document.querySelectorAll('.sidebar-widget h3');
-        sidebarWidgets.forEach(widgetTitle => {
-            widgetTitle.style.cursor = 'pointer';
-            widgetTitle.addEventListener('click', function() {
-                const widgetContent = this.nextElementSibling;
-                if (widgetContent.style.display === 'none' || widgetContent.style.display === '') {
-                    widgetContent.style.display = 'block';
-                    this.querySelector('i').style.transform = 'rotate(0deg)';
-                } else {
-                    widgetContent.style.display = 'none';
-                    this.querySelector('i').style.transform = 'rotate(-90deg)';
-                }
-            });
-        });
-    }
-});
+}
+
+// Mobile Menu
+function toggleMobileMenu() {
+    document.querySelector('.menu').classList.toggle('active');
+}
+
+// Initialize
+window.onload = function() {
+    initSlider();
+    loadSections();
+};
