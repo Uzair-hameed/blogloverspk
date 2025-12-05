@@ -4,13 +4,14 @@
    ================================================
    نوٹ: 'thumb' میں تصویر کا لنک ڈالیں۔ اگر نہ ہو تو خالی چھوڑ دیں، سسٹم خودکار طریقے سے پلیس ہولڈر لگا دے گا۔
    کیٹیگریز کے نام PDF کے مطابق رکھے گئے ہیں:
-   1. minor-signs (علامات صغریٰ)
-   2. major-signs (علامات کبریٰ)
-   3. islamic (تعلیمات اسلامی)
-   4. history (تاریخ)
-   5. education (ایجوکیشن)
-   6. tech (انگلش ادب و ٹیکنالوجی)
-   7. kids (کڈز سیکشن)
+   1. alamaat-sughra (علامات صغریٰ)
+   2. alamaat-kubra (علامات کبریٰ)
+   3. islami-taleemat (تعلیمات اسلامی)
+   4. tareekh (تاریخ)
+   5. taleem (ایجوکیشن)
+   6. english-adab (انگلش ادب )
+   7. technology ( ٹیکنالوجی)
+   8. kids (کڈز سیکشن)
 */
 
 const posts = [
@@ -40,7 +41,7 @@ const posts = [
     { title: "کورونا کی صورت میں بچوں کی تعلیم کیسے ممکن ہے؟", cat: "education", url: "posts/covid-edu.html", thumb: "" },
     { title: "آج کا استاد پریشان کیوں ہے؟ وجوہات اور حل", cat: "education", url: "posts/teacher.html", thumb: "" },
 
-    // Tech
+    // Technology
     { title: "آرٹیفیشل انٹیلیجنس کے نقصانات اور فوائد", cat: "tech", url: "posts/ai.html", thumb: "" },
     { title: "انگریزی ادب: شیکسپیئر کے ڈراموں کا تجزیہ", cat: "tech", url: "posts/lit.html", thumb: "" },
 
@@ -186,3 +187,4 @@ window.onload = function() {
     initSlider();
     loadSections();
 };
+
