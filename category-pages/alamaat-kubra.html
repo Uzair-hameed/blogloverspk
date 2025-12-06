@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>علامات کبریٰ | بلاگ لوورز.pk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #B22222;
+            --accent: #FF4500;
+            --light: #FFE4E1;
+            --dark: #400000;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Nastaliq Urdu', 'Segoe UI', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #2c0000 0%, #8b0000 100%);
+            color: #FFE4E1;
+            min-height: 100vh;
+        }
+        .fire-bg {
+            background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        .fire-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 0, 0, 0.7);
+        }
+        header {
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.9), rgba(178, 34, 34, 0.9));
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            border-bottom: 5px solid var(--accent);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.5);
+        }
+        header h1 {
+            font-size: 3.5rem;
+            text-shadow: 0 0 20px #FF4500;
+            animation: flicker 2s infinite alternate;
+            margin-bottom: 15px;
+        }
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            top: 20px;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .floating-icons i {
+            position: absolute;
+            font-size: 2rem;
+            color: #FF4500;
+            animation: float 6s infinite ease-in-out;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 3rem;
+            position: relative;
+            z-index: 1;
+            background: rgba(64, 0, 0, 0.85);
+            border-radius: 20px;
+            margin-top: 50px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+        .post-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .post-card {
+            background: linear-gradient(145deg, rgba(139, 0, 0, 0.9), rgba(178, 34, 34, 0.9));
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.5s;
+            border-left: 8px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        .post-card::before {
+            content: '🔥';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+        .post-card:hover {
+            transform: scale(1.05) rotate(-1deg);
+            box-shadow: 0 15px 30px rgba(255, 69, 0, 0.7);
+            border-left-color: #FFD700;
+            background: linear-gradient(145deg, rgba(255, 69, 0, 0.9), rgba(139, 0, 0, 0.9));
+        }
+        .post-card h3 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.7rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.5);
+            padding-bottom: 10px;
+        }
+        .post-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .post-card .url {
+            font-size: 0.85rem;
+            color: #FFA07A;
+            word-break: break-all;
+            margin-top: 15px;
+            direction: ltr;
+            text-align: left;
+            font-family: monospace;
+        }
+        .warning-sign {
+            background: rgba(255, 69, 0, 0.2);
+            border: 2px dashed #FF4500;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 40px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(255, 69, 0, 0); }
+        }
+        footer {
+            background: linear-gradient(to right, var(--dark), #2c0000);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 70px;
+            border-top: 5px solid var(--accent);
+            position: relative;
+            z-index: 1;
+        }
+        @media (max-width: 768px) {
+            .post-list {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="fire-bg">
+    <div class="floating-icons">
+        <i class="fas fa-fire" style="top:10%; left:10%;"></i>
+        <i class="fas fa-dragon" style="top:30%; left:80%;"></i>
+        <i class="fas fa-skull-crossbones" style="top:60%; left:15%;"></i>
+        <i class="fas fa-exclamation-triangle" style="top:80%; left:70%;"></i>
+        <i class="fas fa-meteor" style="top:40%; left:40%;"></i>
+    </div>
+
+    <header>
+        <h1>🔥 علامات کبریٰ</h1>
+        <p>قیامت کی بڑی نشانیوں پر مبنی تحریریں - دجال، یاجوج ماجوج، سورج کا مغرب سے طلوع ہونا</p>
+    </header>
+
+    <div class="container">
+        <h2 style="text-align:center;color:#FFD700;margin-bottom:30px;font-size:2.5rem;text-shadow:0 0 10px #FF4500;">بڑی نشانیاں</h2>
+        
+        <div class="warning-sign">
+            <i class="fas fa-exclamation-circle" style="font-size:3rem;color:#FF4500;margin-bottom:15px;"></i>
+            <h3 style="color:#FFD700;">انتباہ: یہ قیامت کی بڑی نشانیاں ہیں</h3>
+            <p>ان مضامین میں قیامت کے قریب ظاہر ہونے والی عظیم نشانیوں کی تفصیل بیان کی گئی ہے۔</p>
+        </div>
+
+        <div class="post-list">
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl" target="_blank">
+                    <h3>5 ایسے کون سے واقعات پیش آئیں گے ؟ فتنہ دجال سے قبل</h3>
+                    <p>دجال کے ظہور سے پہلے پیش آنے والے پانچ اہم واقعات کی تفصیل۔</p>
+                    <div class="url">https://www.bloglovers.pk/.../5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl</div>
+                </a>
+            </div>
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol" target="_blank">
+                    <h3>مصائب ِ دجال (حصہ اول)</h3>
+                    <p>دجال کے فتنے اور اس کی طرف سے آنے والی مصیبتوں کی تفصیل۔</p>
+                    <div class="url">https://www.bloglovers.pk/.../msab-djal-hsh-aol</div>
+                </a>
+            </div>
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom" target="_blank">
+                    <h3>مصائب ِ دجال (حصہ دوم)</h3>
+                    <p>دجال کے فتنے کی مزید تفصیلات اور احادیث میں اس کی وضاحت۔</p>
+                    <div class="url">https://www.bloglovers.pk/.../msab-djal-hsh-dom</div>
+                </a>
+            </div>
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-som" target="_blank">
+                    <h3>مصائبِ دجال (حصہ سوم)</h3>
+                    <p>دجال کے فتنے کا تسلسل اور اس سے بچاؤ کے طریقے۔</p>
+                    <div class="url">https://www.bloglovers.pk/.../msab-djal-hsh-som</div>
+                </a>
+            </div>
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi" target="_blank">
+                    <h3>دجال کو کون کون سے طاقتیں دی گئی ہونگی؟</h3>
+                    <p>دجال کو ملنے والی خارق العادت طاقتوں اور صلاحیتوں کی تفصیل۔</p>
+                    <div class="url">https://www.bloglovers.pk/.../dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi</div>
+                </a>
+            </div>
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay" target="_blank">
+                    <h3>دجال کے ساتھی کون لوگ ہونگے؟</h3>
+                    <p>دجال کے پیروکاروں اور ساتھیوں کی شناخت اور ان کی خصوصیات۔</p>
+                    <div class="url">https://www.bloglovers.pk/.../dajjal-ke-sathi-kon-log-hongay</div>
+                </a>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:50px;">
+            <div style="background:rgba(255,69,0,0.2); padding:20px; border-radius:15px; border:2px solid #FF4500;">
+                <h3 style="color:#FFD700;">مجموعی پوسٹس: 17</h3>
+                <p style="color:#FFA07A;">یہ تمام مضامین علامات کبریٰ پر مشتمل ہیں جن کا مطالعہ ایمان میں اضافے کا باعث بنتا ہے۔</p>
+                <button style="background:#FF4500; color:white; border:none; padding:12px 30px; border-radius:50px; margin-top:15px; cursor:pointer; font-size:1.1rem; transition:0.3s;" 
+                        onmouseover="this.style.background='#FFD700';this.style.color='#8B0000'" 
+                        onmouseout="this.style.background='#FF4500';this.style.color='white'">
+                    📖 تمام مضامین پڑھیں
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 بلاگ لوورز.pk | علامات کبریٰ | قیامت کی بڑی نشانیاں</p>
+        <p>🔥 ایمان افروز مضامین کا خزانہ | 💌 رابطہ: info@bloglovers.pk</p>
+        <div style="margin-top:20px;">
+            <i class="fab fa-whatsapp" style="margin:0 15px;font-size:1.8rem;color:#25D366;cursor:pointer;"></i>
+            <i class="fab fa-telegram" style="margin:0 15px;font-size:1.8rem;color:#0088cc;cursor:pointer;"></i>
+            <i class="fab fa-youtube" style="margin:0 15px;font-size:1.8rem;color:#FF0000;cursor:pointer;"></i>
+        </div>
+    </footer>
+
+    <script>
+        // Floating icons movement
+        document.querySelectorAll('.floating-icons i').forEach(icon => {
+            icon.style.animationDelay = Math.random() * 2 + 's';
+        });
+
+        // Post cards glow effect
+        document.querySelectorAll('.post-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 0 30px rgba(255, 69, 0, 0.9)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.5)';
+            });
+        });
+
+        // Warning sign click effect
+        document.querySelector('.warning-sign').addEventListener('click', function() {
+            this.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 300);
+        });
+    </script>
+</body>
+</html>

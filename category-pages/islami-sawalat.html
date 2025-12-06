@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اسلامی سوالات | بلاگ لوورز.pk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --quran-green: #2E8B57;
+            --light-green: #90EE90;
+            --dark-green: #006400;
+            --gold: #DAA520;
+            --cream: #FAF0E6;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Nastaliq Urdu', 'Arial', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f0fff0 0%, #e0ffe0 100%);
+            color: #2e2e2e;
+            min-height: 100vh;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(46, 139, 87, 0.05) 10px, rgba(46, 139, 87, 0.05) 20px);
+            z-index: -1;
+        }
+        header {
+            background: linear-gradient(45deg, var(--dark-green), var(--quran-green));
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            border-bottom: 12px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(46, 139, 87, 0.4);
+        }
+        .quran-icon {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.2);
+            animation: quranFloat 6s infinite ease-in-out;
+        }
+        .quran-icon:nth-child(2) {
+            top: auto;
+            bottom: 20px;
+            left: 40px;
+            right: auto;
+            animation-delay: 3s;
+        }
+        header h1 {
+            font-size: 4rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            position: relative;
+        }
+        header h1::before {
+            content: '❓';
+            position: absolute;
+            top: -15px;
+            right: -30px;
+            font-size: 3rem;
+            animation: questionPulse 2s infinite;
+        }
+        header h1::after {
+            content: '❔';
+            position: absolute;
+            bottom: -15px;
+            left: -30px;
+            font-size: 3rem;
+            animation: questionPulse 2s infinite reverse;
+        }
+        .question-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .question-icons .q-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, var(--quran-green), var(--light-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: all 0.5s;
+            box-shadow: 0 8px 20px rgba(46, 139, 87, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .question-icons .q-icon::after {
+            content: '?';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .question-icons .q-icon:hover {
+            transform: scale(1.3) rotate(360deg);
+            box-shadow: 0 0 30px var(--light-green);
+            background: linear-gradient(45deg, var(--light-green), var(--quran-green));
+        }
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 3rem;
+        }
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+        .question-card {
+            background: linear-gradient(145deg, #ffffff, #f0fff0);
+            border-radius: 25px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--quran-green);
+            box-shadow: 15px 15px 30px #d1e7d1, -15px -15px 30px #ffffff;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .question-card::before {
+            content: '?';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 5rem;
+            color: rgba(46, 139, 87, 0.1);
+            font-weight: bold;
+            font-family: 'Arial', sans-serif;
+        }
+        .question-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 20px 20px 40px #b8d9b8, -20px -20px 40px #ffffff;
+            border-color: var(--gold);
+        }
+        .question-card h3 {
+            color: var(--dark-green);
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-align: center;
+            line-height: 1.6;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .question-card .answer-preview {
+            background: rgba(144, 238, 144, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-right: 5px solid var(--quran-green);
+            font-style: italic;
+            display: none;
+            transition: all 0.5s;
+        }
+        .question-card.active .answer-preview {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        .question-card .question-number {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--gold);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid var(--quran-green);
+        }
+        .search-box input {
+            width: 70%;
+            padding: 15px;
+            border: 2px solid var(--quran-green);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-right: 15px;
+            text-align: right;
+        }
+        .search-box button {
+            background: var(--quran-green);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .search-box button:hover {
+            background: var(--dark-green);
+            transform: scale(1.05);
+        }
+        @keyframes quranFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes questionPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        footer {
+            background: linear-gradient(to right, var(--dark-green), var(--quran-green));
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 80px;
+            border-top: 5px solid var(--gold);
+        }
+        @media (max-width: 768px) {
+            .questions-grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.8rem;
+            }
+            .question-icons .q-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
+            }
+            .search-box input {
+                width: 100%;
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <i class="fas fa-quran quran-icon"></i>
+    <i class="fas fa-quran quran-icon"></i>
+
+    <header>
+        <h1>❓ اسلامی سوالات</h1>
+        <p>قرآن مجید، نماز، عقائد اور اسلامی تعلیمات پر دلچسپ سوالات و جوابات</p>
+        
+        <div class="question-icons">
+            <div class="q-icon"><i class="fas fa-question"></i></div>
+            <div class="q-icon"><i class="fas fa-book-quran"></i></div>
+            <div class="q-icon"><i class="fas fa-pray"></i></div>
+            <div class="q-icon"><i class="fas fa-mosque"></i></div>
+            <div class="q-icon"><i class="fas fa-star-and-crescent"></i></div>
+            <div class="q-icon"><i class="fas fa-hands-praying"></i></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 style="text-align:center;color:var(--dark-green);margin-bottom:40px;font-size:2.8rem;">
+            <i class="fas fa-lightbulb"></i> 
+            سوالات کا خزانہ 
+            <i class="fas fa-lightbulb"></i>
+        </h2>
+        
+        <div class="search-box">
+            <h3 style="color:var(--dark-green); margin-bottom:20px;">
+                <i class="fas fa-search"></i> سوال تلاش کریں
+            </h3>
+            <input type="text" id="searchInput" placeholder="سوال کے الفاظ لکھیں..." onkeyup="searchQuestions()">
+            <button onclick="searchQuestions()">
+                <i class="fas fa-search"></i> تلاش کریں
+            </button>
+            <div id="searchResults" style="margin-top:20px; text-align:right;"></div>
+        </div>
+        
+        <div class="questions-grid">
+            <div class="question-card" onclick="toggleAnswer(this)" data-number="1">
+                <div class="question-number">1</div>
+                <a href="https://www.bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat" target="_blank">
+                    <h3>"قرآن مجید پر 50 دلچسپ سوالات"</h3>
+                    <p>قرآن پاک کے بارے میں 50 اہم اور دلچسپ سوالات اور ان کے جوابات۔</p>
+                </a>
+                <div class="answer-preview">
+                    <strong>جواب کا خلاصہ:</strong> قرآن مجید کی آیات، سورتوں، مضامین اور معجزات پر مبنی سوالات۔
+                </div>
+            </div>
+            <div class="question-card" onclick="toggleAnswer(this)" data-number="2">
+                <div class="question-number">2</div>
+                <a href="https://www.bloglovers.pk/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat" target="_blank">
+                    <h3>"نماز کی اہمیت پر مبنی 50 سوالات"</h3>
+                    <p>نماز کے فضائل، اہمیت، شرائط اور احکامات پر 50 سوالات۔</p>
+                </a>
+                <div class="answer-preview">
+                    <strong>جواب کا خلاصہ:</strong> نماز کی فرضیت، اوقات، رکعات اور سنتوں سے متعلق تفصیلی سوالات۔
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:60px; padding:35px; background:rgba(218,165,32,0.1); border-radius:25px; text-align:center; border:3px solid var(--gold);">
+            <h3 style="color:var(--dark-green); font-size:2.2rem; margin-bottom:25px;">
+                <i class="fas fa-info-circle"></i> اسلامی سوالات کی اہمیت
+            </h3>
+            <p style="color:#2e2e2e; font-size:1.3rem; line-height:1.9; margin-bottom:30px;">
+                اسلامی سوالات کا مطالعہ انسان کے علم میں اضافہ کرتا ہے اور دینی معلومات کو مضبوط بناتا ہے۔ 
+                سوالات کے ذریعے ہم اپنے عقائد، عبادات اور اسلامی تعلیمات کو بہتر طور پر سمجھ سکتے ہیں۔
+            </p>
+            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+                    <div style="width:80px;height:80px;background:var(--quran-green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-brain" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>علم میں اضافہ</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">سوالات کے ذریعے نئے علم کا حصول</p>
+                </div>
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+                    <div style="width:80px;height:80px;background:var(--dark-green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-book-open" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>دینی معلومات</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">اسلامی تعلیمات کی بہتر تفہیم</p>
+                </div>
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+                    <div style="width:80px;height:80px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-question-circle" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>شکوک و شبہات</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">شکوک دور کرنے کا بہترین ذریعہ</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:50px; text-align:center;">
+            <div style="display:inline-block; background:var(--dark-green); color:white; padding:15px 40px; border-radius:50px; cursor:pointer; transition:0.3s;" 
+                 onmouseover="this.style.background='var(--quran-green)';this.style.transform='scale(1.05)'" 
+                 onmouseout="this.style.background='var(--dark-green)';this.style.transform='scale(1)'"
+                 onclick="showRandomQuestion()">
+                <i class="fas fa-random" style="margin-left:10px;"></i>
+                رینڈم سوال دیکھیں
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 بلاگ لوورز.pk | اسلامی سوالات | دینی معلومات کا خزانہ</p>
+        <p>❓ سوال علم کی کنجی ہے | 📧 رابطہ: sawalat@bloglovers.pk</p>
+        <div style="margin-top:25px;">
+            <i class="fas fa-question-circle" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
+               onclick="showRandomQuestion()"></i>
+            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+            <i class="fas fa-share-alt" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+            <i class="fab fa-whatsapp" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle answer preview
+        function toggleAnswer(card) {
+            const allCards = document.querySelectorAll('.question-card');
+            allCards.forEach(c => {
+                if(c !== card) {
+                    c.classList.remove('active');
+                }
+            });
+            card.classList.toggle('active');
+        }
+
+        // Search questions
+        function searchQuestions() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const resultsDiv = document.getElementById('searchResults');
+            const cards = document.querySelectorAll('.question-card');
+            
+            let foundCount = 0;
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if(text.includes(input)) {
+                    card.style.display = 'block';
+                    foundCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            resultsDiv.innerHTML = `<p style="color:${input ? 'var(--dark-green)' : 'gray'}">${input ? `تلاش کے نتائج: ${foundCount} سوالات ملے` : 'سوال تلاش کرنے کے لیے اوپر لکھیں'}</p>`;
+        }
+
+        // Random question
+        function showRandomQuestion() {
+            const questions = [
+                "قرآن مجید میں کل کتنی سورتیں ہیں؟",
+                "نماز میں کن حالات میں سجدہ سہو واجب ہوتا ہے؟",
+                "زکوۃ کا نصاب کیا ہے؟",
+                "حج کے ارکان کتنے ہیں؟",
+                "روزے کی نیت کب تک درست ہے؟"
+            ];
+            const answers = [
+                "کل 114 سورتیں ہیں۔",
+                "نماز میں کمی یا زیادتی کی صورت میں سجدہ سہو واجب ہوتا ہے۔",
+                "ساڑھے سات تولہ سونا یا ساڑھے باون تولہ چاندی۔",
+                "حج کے تین ارکان ہیں: احرام، وقوف عرفہ اور طواف زیارت۔",
+                "روزے کی نیت فجر طلوع ہونے سے پہلے تک درست ہے۔"
+            ];
+            
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            alert(`❓ سوال:\n${questions[randomIndex]}\n\n💡 جواب:\n${answers[randomIndex]}`);
+        }
+
+        // Question icons interaction
+        document.querySelectorAll('.question-icons .q-icon').forEach((icon, index) => {
+            icon.addEventListener('click', function() {
+                const topics = [
+                    "عام سوالات",
+                    "قرآن سے متعلق",
+                    "نماز کے بارے میں",
+                    "مسجد سے متعلق",
+                    "اسلامی نشانات",
+                    "دعا کے بارے میں"
+                ];
+                alert(`📚 موضوع: ${topics[index]}\n\nاس موضوع سے متعلق تمام سوالات دیکھنے کے لیے نیچے سکرول کریں۔`);
+                
+                // Add effect
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+            });
+        });
+
+        // Auto highlight questions
+        let currentHighlight = 0;
+        function highlightQuestion() {
+            const cards = document.querySelectorAll('.question-card');
+            cards.forEach(card => card.style.boxShadow = '');
+            cards[currentHighlight].style.boxShadow = '0 0 30px rgba(46, 139, 87, 0.5)';
+            currentHighlight = (currentHighlight + 1) % cards.length;
+        }
+        setInterval(highlightQuestion, 2000);
+    </script>
+</body>
+</html>
