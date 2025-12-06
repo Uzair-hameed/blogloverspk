@@ -93,7 +93,7 @@ rawData.split('\n').forEach(line => {
 });
 
 /* =========================================
-   GLOBAL FUNCTION FOR IFRAME (Existing Logic)
+   GLOBAL FUNCTION FOR IFRAME (Home Page)
    ========================================= */
 window.openPost = function(url) {
     const mainArea = document.getElementById('mainContentArea');
@@ -113,19 +113,19 @@ window.openPost = function(url) {
 };
 
 /* =========================================
-   NEW: AUTOMATIC POST FEATURES (Comments & Related)
+   NEW: AUTOMATIC POST FEATURES (Updated Logic)
    ========================================= */
 function initPostFeatures() {
-    // Check if we are inside the 'category-pages' folder AND not on a main index page
-    // Also checks if a .post-content class exists in the page
-    const isPostPage = window.location.href.includes('category-pages') && document.querySelector('.post-content');
+    // 1. Check if we are in the 'category-pages' folder
+    const isPostPage = window.location.href.includes('category-pages');
 
     if (isPostPage) {
-        // Add class to body for background styling
+        // Add class for styling
         document.body.classList.add('post-page');
 
-        // Create HTML Structure
-        const footerHTML = `
+        // 2. Create HTML Structure (Comments + Related)
+        const div = document.createElement('div');
+        div.innerHTML = `
             <div class="dynamic-footer-section">
                 <!-- Comments -->
                 <h3 class="footer-sec-title"><i class="fas fa-comments"></i> اپنی رائے کا اظہار کریں</h3>
@@ -152,20 +152,22 @@ function initPostFeatures() {
             </div>
         `;
 
-        // Inject into the page (after .post-content or .container)
-        const container = document.querySelector('.post-content') 
-                          ? document.querySelector('.post-content').parentNode 
-                          : (document.querySelector('.container') || document.body);
-        
-        const div = document.createElement('div');
-        div.innerHTML = footerHTML;
-        container.appendChild(div);
+        // 3. FORCE INJECTION (The Update)
+        // پہلے چیک کریں فوٹر کہاں ہے، اور اس سے بالکل پہلے ڈال دیں۔
+        const footer = document.querySelector('footer');
+        if (footer) {
+            footer.parentNode.insertBefore(div, footer);
+        } else {
+            // اگر فوٹر نہیں ملتا تو باڈی کے آخر میں ڈال دیں۔
+            document.body.appendChild(div);
+        }
 
         // Load Posts
         loadRelatedPosts();
     }
 }
 
+// کمنٹ فنکشن
 function postComment() {
     const name = document.getElementById('cName').value;
     const msg = document.getElementById('cMsg').value;
@@ -183,6 +185,7 @@ function postComment() {
     }
 }
 
+// مزید پوسٹس لوڈ کرنے کا فنکشن
 function loadRelatedPosts() {
     const grid = document.getElementById('relatedGrid');
     if(!grid) return;
@@ -190,7 +193,7 @@ function loadRelatedPosts() {
     grid.innerHTML = '';
     const currentTitle = document.title; 
     
-    // Get random posts
+    // شفل کریں اور ڈیٹا نکالیں
     const shuffled = rawData.trim().split('\n').filter(l => !l.startsWith('source:') && l.includes(',')).sort(() => 0.5 - Math.random());
     let count = 0;
 
@@ -201,11 +204,15 @@ function loadRelatedPosts() {
             const url = parts[1];
             const title = parts.slice(2).join(',');
             
+            // موجودہ پیج کا لنک نہ دکھائیں
             if(!title.includes(currentTitle)) {
-                // Determine color based on index for variety
+                // رنگوں کا انتخاب
                 const colors = ['#e67e22', '#2ecc71', '#3498db', '#9b59b6'];
                 const color = colors[count % colors.length];
 
+                // لنک کو درست کریں (کیونکہ ہم category-pages فولڈر میں ہیں)
+                // اگر URL پورا ہے (https://...) تو ویسا ہی رہے گا، اگر relative ہے تو ایڈجسٹ کریں
+                
                 grid.innerHTML += `
                     <div class="r-card">
                         <div class="r-thumb" style="background:${color}"><i class="fas fa-book-open"></i></div>
@@ -222,10 +229,10 @@ function loadRelatedPosts() {
 // MAIN INITIALIZATION ON LOAD
 window.onload = function() {
     
-    // 1. Run Dynamic Post Features (If on a post page)
+    // 1. Run Dynamic Post Features (Always run this if in folder)
     initPostFeatures();
 
-    // 2. Logic for Main Index Page Only (checking for elements that only exist on home)
+    // 2. Logic for Main Index Page Only
     if(document.getElementById('slider')) {
         
         // Ticker
