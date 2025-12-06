@@ -1,8 +1,4 @@
-/* 
-   =========================================================
-   DATA SOURCE
-   =========================================================
-*/
+/* Data Source (Same Links) */
 const rawData = `
 source: alamaat-sughra
 https://www.bloglovers.pk/2020/06/blog-post.html,https://www.bloglovers.pk/alamaat-sughra/aap-ka-is-dnya-main-tshryf-lana,آپ ﷺ کا اس دنیا میں تشریف لانا
@@ -59,13 +55,7 @@ source: motivation
 https://www.bloglovers.pk/2024/10/50_56.html,https://www.bloglovers.pk/motivation/hausla-afzai-ke-50-paighamaat,حوصلہ افزائی کے 50 پیغامات
 `;
 
-/* 
-   =========================================================
-   LOGIC & CONFIGURATION
-   =========================================================
-*/
-
-const sectionsConfig = [
+const config = [
     { key: 'alamaat-sughra', title: 'علامات صغریٰ', type: 'grid', color: '#e67e22' },
     { key: 'alamaat-kubra', title: 'علامات کبریٰ', type: 'grid', color: '#c0392b' },
     { key: 'islami-taleemat', title: 'اسلامی تعلیمات', type: 'list', color: '#27ae60' },
@@ -82,194 +72,149 @@ const sectionsConfig = [
     { key: 'motivation', title: 'موٹیویشنل تحریریں', type: 'grid', color: '#2ecc71' }
 ];
 
-// 1. Parsing Data
+// Parser
 const posts = [];
-let currentCategoryKey = '';
-
+let currentKey = '';
 rawData.split('\n').forEach(line => {
     line = line.trim();
-    if (!line) return;
-    if (line.toLowerCase().startsWith('source:')) {
-        currentCategoryKey = line.split(':')[1].trim();
+    if(!line) return;
+    if(line.startsWith('source:')) {
+        currentKey = line.split(':')[1].trim();
     } else {
         const parts = line.split(',');
-        if (parts.length >= 3 && currentCategoryKey) {
+        if(parts.length >= 3 && currentKey) {
             posts.push({
-                oldUrl: parts[0],
                 newUrl: parts[1],
                 title: parts.slice(2).join(','),
-                categoryKey: currentCategoryKey
+                category: currentKey
             });
         }
     }
 });
 
-// 2. Generate Menu (Fixed Dropdown Logic)
-const menuContainer = document.getElementById('mainMenu');
-const dropdownLimit = 6;
-const menuItems = sectionsConfig.map(s => ({ key: s.key, title: s.title }));
+// 1. Navigation with Dropdown
+const menu = document.getElementById('mainMenu');
+const limit = 6;
 
-// Add initial items
-menuItems.forEach((item, index) => {
-    if (index < dropdownLimit) {
-        menuContainer.innerHTML += `<li><a href="#sec-${item.key}">${item.title}</a></li>`;
+config.forEach((item, i) => {
+    if(i < limit) {
+        menu.innerHTML += `<li><a href="#sec-${item.key}">${item.title}</a></li>`;
     }
 });
 
-// Add Dropdown for "More"
-if (menuItems.length > dropdownLimit) {
-    // Note the class "dropdown" on the LI
+if(config.length > limit) {
     let dropHtml = `
-    <li class="dropdown">
+    <li>
         <a href="javascript:void(0)">مزید <i class="fas fa-caret-down"></i></a>
-        <ul class="dropdown-content">
-    `;
-    
-    for (let i = dropdownLimit; i < menuItems.length; i++) {
-        dropHtml += `<li><a href="#sec-${menuItems[i].key}">${menuItems[i].title}</a></li>`;
+        <ul class="dropdown-content">`;
+    for(let i = limit; i < config.length; i++) {
+        dropHtml += `<li><a href="#sec-${config[i].key}">${config[i].title}</a></li>`;
     }
     dropHtml += `</ul></li>`;
-    menuContainer.innerHTML += dropHtml;
+    menu.innerHTML += dropHtml;
 }
 
-// 3. Generate Slider (Random 5)
-const sliderContainer = document.getElementById('slider');
-const randomPosts = [...posts].sort(() => 0.5 - Math.random()).slice(0, 5);
-
-randomPosts.forEach((post, index) => {
-    const config = sectionsConfig.find(c => c.key === post.categoryKey) || {title:'General', color:'#333'};
-    const slide = document.createElement('div');
-    slide.className = index === 0 ? 'slide active' : 'slide';
-    slide.innerHTML = `
-        <div style="width:100%; height:100%; background:${config.color}; display:flex; justify-content:center; align-items:center;">
-            <i class="fas fa-newspaper" style="font-size:80px; color:rgba(255,255,255,0.3)"></i>
-        </div>
-        <div class="slide-content">
-            <span class="cat-badge">${config.title}</span>
-            <h2><a href="${post.newUrl}" style="color:#fff">${post.title}</a></h2>
-        </div>
-    `;
-    sliderContainer.appendChild(slide);
+// 2. Ticker
+const ticker = document.getElementById('tickerContent');
+posts.slice(0, 10).forEach(p => {
+    ticker.innerHTML += `<div class="ticker-item"><a href="${p.newUrl}">${p.title}</a> &nbsp;&bull;&nbsp; </div>`;
 });
 
-// Slider Auto Move
-let slideIndex = 0;
+// 3. Slider
+const slider = document.getElementById('slider');
+const randoms = [...posts].sort(() => 0.5 - Math.random()).slice(0, 5);
+randoms.forEach((p, i) => {
+    const c = config.find(x => x.key === p.category) || {title:'News', color:'#333'};
+    slider.innerHTML += `
+        <div class="slide ${i===0?'active':''}">
+            <div style="height:100%; background:${c.color}; display:flex; justify-content:center; align-items:center;">
+                 <i class="fas fa-newspaper" style="font-size:80px; color:rgba(255,255,255,0.2)"></i>
+            </div>
+            <div class="slide-caption">
+                <span class="cat-tag">${c.title}</span>
+                <h2><a href="${p.newUrl}" style="color:#fff">${p.title}</a></h2>
+            </div>
+        </div>
+    `;
+});
+
+// Slider Animation
+let sIdx = 0;
 const slides = document.querySelectorAll('.slide');
-if(slides.length > 0) {
-    setInterval(() => {
-        slides[slideIndex].classList.remove('active');
-        slideIndex = (slideIndex + 1) % slides.length;
-        slides[slideIndex].classList.add('active');
-    }, 4000);
-}
+if(slides.length) setInterval(() => {
+    slides[sIdx].classList.remove('active');
+    sIdx = (sIdx + 1) % slides.length;
+    slides[sIdx].classList.add('active');
+}, 4000);
 
-// 4. Generate Main Content (14 Sections)
-const mainContentArea = document.getElementById('mainContentArea');
-
-sectionsConfig.forEach((section) => {
-    const sectionPosts = posts.filter(p => p.categoryKey === section.key).slice(0, 4);
-    
-    const sectionDiv = document.createElement('section');
-    sectionDiv.id = `sec-${section.key}`;
+// 4. Main Sections
+const mainArea = document.getElementById('mainContentArea');
+config.forEach(sec => {
+    const secPosts = posts.filter(p => p.category === sec.key).slice(0, 4);
+    const secDiv = document.createElement('section');
+    secDiv.id = `sec-${sec.key}`;
     
     let html = `
-        <div class="section-header">
-            <h2>${section.title}</h2>
-            <a href="#" style="font-size:0.8em; color:#fff;">مزید دیکھیں</a>
+        <div class="sec-head">
+            <h2>${sec.title}</h2>
+            <a href="#" style="color:#fff; font-size:12px;">مزید دیکھیں</a>
         </div>
     `;
-
-    if (section.type === 'grid') {
-        html += `<div class="grid-style">`;
-        sectionPosts.forEach(post => {
+    
+    if(sec.type === 'grid') {
+        html += `<div class="grid-box">`;
+        secPosts.forEach(p => {
             html += `
-                <div class="post-card">
-                    <div class="thumb-placeholder" style="background:${section.color}">
-                        <i class="fas fa-book-open" style="opacity:0.5; font-size:40px;"></i>
-                    </div>
-                    <div class="post-info">
-                        <a href="${post.newUrl}" class="post-title">${post.title}</a>
-                    </div>
+            <div class="post-card">
+                <div class="thumb" style="background:${sec.color}">
+                    <i class="fas fa-book-open" style="opacity:0.6"></i>
                 </div>
-            `;
+                <div class="p-info">
+                    <a href="${p.newUrl}" class="p-title">${p.title}</a>
+                </div>
+            </div>`;
         });
         html += `</div>`;
     } else {
-        html += `<div class="list-style">`;
-        sectionPosts.forEach(post => {
+        html += `<div class="list-box">`;
+        secPosts.forEach(p => {
             html += `
-                <div class="list-item">
-                    <div class="list-thumb" style="background:${section.color}">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="list-info" style="flex:1; padding-left:10px;">
-                        <a href="${post.newUrl}"><h3 style="font-size:15px; font-weight:bold;">${post.title}</h3></a>
-                    </div>
+            <div class="list-item">
+                <div class="l-thumb" style="background:${sec.color}"><i class="fas fa-file-alt"></i></div>
+                <div style="padding-left:15px; flex:1;">
+                    <a href="${p.newUrl}" style="font-weight:bold;">${p.title}</a>
                 </div>
-            `;
+            </div>`;
         });
         html += `</div>`;
     }
-
-    sectionDiv.innerHTML = html;
-    mainContentArea.appendChild(sectionDiv);
+    
+    secDiv.innerHTML = html;
+    mainArea.appendChild(secDiv);
 });
 
-// 5. Sidebar & Footer Populators
-
-// Fixed Ticker Populator
-const ticker = document.getElementById('tickerContent');
-// Taking latest 10 posts
-posts.slice(0, 10).forEach(post => {
-    // Add spaces for ticker separation
-    const span = document.createElement('span');
-    span.className = 'ticker-item';
-    span.innerHTML = `<a href="${post.newUrl}">${post.title}</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; `;
-    ticker.appendChild(span);
+// 5. Sidebar
+const popDiv = document.getElementById('popularPosts');
+posts.slice(0, 5).forEach(p => {
+    popDiv.innerHTML += `
+    <div style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+        <a href="${p.newUrl}" style="font-weight:bold; font-size:13px;">${p.title}</a>
+    </div>`;
 });
 
-// Popular Posts
-const popContainer = document.getElementById('popularPosts');
-posts.slice(0, 5).forEach(post => {
-    const config = sectionsConfig.find(c => c.key === post.categoryKey);
-    popContainer.innerHTML += `
-        <div style="display:flex; gap:10px; margin-bottom:10px; align-items:center;">
-            <div style="width:50px; height:40px; background:${config ? config.color : '#333'}; border-radius:3px;"></div>
-            <a href="${post.newUrl}" style="font-size:13px; font-weight:bold; line-height:1.2;">${post.title}</a>
-        </div>
-    `;
+const tagDiv = document.getElementById('labelsCloud');
+config.forEach(c => tagDiv.innerHTML += `<a href="#sec-${c.key}">${c.title}</a>`);
+
+const footDiv = document.getElementById('footerBestPosts');
+posts.slice(5, 8).forEach(p => footDiv.innerHTML += `<div style="border-bottom:1px solid #444; padding:5px 0;"><a href="${p.newUrl}">${p.title}</a></div>`);
+
+// Mobile Menu
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+    document.getElementById('mainMenu').classList.toggle('active');
 });
 
-// Labels
-const labelsContainer = document.getElementById('labelsCloud');
-sectionsConfig.forEach(s => {
-    labelsContainer.innerHTML += `<a href="#sec-${s.key}">${s.title}</a>`;
-});
-
-// Footer Best
-const footerBest = document.getElementById('footerBestPosts');
-posts.slice(5, 9).forEach(post => {
-    footerBest.innerHTML += `<div style="border-bottom:1px solid #333; padding:5px 0;"><a href="${post.newUrl}">${post.title}</a></div>`;
-});
-
-// 6. Functionality (Dark Mode, Date, Mobile Menu)
-document.getElementById('theme-toggle').addEventListener('click', () => {
-    const isDark = document.body.getAttribute('data-theme') === 'dark';
-    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    document.querySelector('#theme-toggle i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-});
-
-document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
-    const menu = document.getElementById('mainMenu');
-    if (menu.style.display === 'flex') {
-        menu.style.display = 'none';
-    } else {
-        menu.style.display = 'flex';
-        menu.style.flexDirection = 'column';
-    }
-});
-
+// Date
 const d = new Date();
-const months = ["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"];
 const days = ["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"];
+const months = ["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"];
 document.getElementById('dateDisplay').innerText = `${days[d.getDay()]}، ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
