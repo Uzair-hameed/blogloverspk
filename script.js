@@ -92,17 +92,17 @@ rawData.split('\n').forEach(line => {
     }
 });
 
-// GLOBAL FUNCTION FOR OPENING POSTS IN IFRAME
+/* =========================================
+   GLOBAL FUNCTION FOR IFRAME (Existing Logic)
+   ========================================= */
 window.openPost = function(url) {
     const mainArea = document.getElementById('mainContentArea');
     if(mainArea) {
-        // Scroll to top for better experience
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
         mainArea.innerHTML = `
             <div style="margin-bottom:15px; text-align:right;">
                 <button onclick="location.reload()" style="background:#c0392b; color:white; border:none; padding:10px 20px; cursor:pointer; border-radius:3px; font-family:inherit; font-size:14px;">
-                    <i class="fas fa-arrow-right"></i> واپس جائیں (Go Back)
+                    <i class="fas fa-arrow-right"></i> واپس جائیں
                 </button>
             </div>
             <div style="border:1px solid #ddd; background:#fff; padding:5px;">
@@ -112,119 +112,236 @@ window.openPost = function(url) {
     }
 };
 
-// 1. Navigation (Static Links now used in HTML, JS generation disabled)
-const menu = document.getElementById('mainMenu');
-/*
-const limit = 6;
-config.forEach((item, i) => {
-    if(i < limit) {
-        menu.innerHTML += `<li><a href="#sec-${item.key}">${item.title}</a></li>`;
+/* =========================================
+   NEW: AUTOMATIC POST FEATURES (Comments & Related)
+   ========================================= */
+function initPostFeatures() {
+    // Check if we are inside the 'category-pages' folder AND not on a main index page
+    // Also checks if a .post-content class exists in the page
+    const isPostPage = window.location.href.includes('category-pages') && document.querySelector('.post-content');
+
+    if (isPostPage) {
+        // Add class to body for background styling
+        document.body.classList.add('post-page');
+
+        // Create HTML Structure
+        const footerHTML = `
+            <div class="dynamic-footer-section">
+                <!-- Comments -->
+                <h3 class="footer-sec-title"><i class="fas fa-comments"></i> اپنی رائے کا اظہار کریں</h3>
+                <div class="comment-form">
+                    <input type="text" id="cName" placeholder="آپ کا نام">
+                    <textarea id="cMsg" rows="3" placeholder="یہاں اپنا کمنٹ لکھیں..."></textarea>
+                    <button class="comment-btn" onclick="postComment()">تبصرہ بھیجیں</button>
+                </div>
+                <div id="commentList">
+                    <div class="single-comment">
+                        <span class="c-date">1 دن پہلے</span>
+                        <div class="c-name">عبداللہ</div>
+                        <p>ماشاءاللہ! بہت اچھی معلومات ہیں۔</p>
+                    </div>
+                </div>
+
+                <br><hr style="border:0; border-top:1px dashed #ddd; margin:30px 0;"><br>
+
+                <!-- Related Posts -->
+                <h3 class="footer-sec-title" style="border-color:#e67e22"><i class="fas fa-layer-group"></i> مزید پوسٹس پڑھیں</h3>
+                <div class="related-grid" id="relatedGrid">
+                    Loading...
+                </div>
+            </div>
+        `;
+
+        // Inject into the page (after .post-content or .container)
+        const container = document.querySelector('.post-content') 
+                          ? document.querySelector('.post-content').parentNode 
+                          : (document.querySelector('.container') || document.body);
+        
+        const div = document.createElement('div');
+        div.innerHTML = footerHTML;
+        container.appendChild(div);
+
+        // Load Posts
+        loadRelatedPosts();
     }
-});
-*/
+}
 
-// 2. Ticker (Updated to use openPost)
-const ticker = document.getElementById('tickerContent');
-posts.slice(0, 10).forEach(p => {
-    ticker.innerHTML += `<div class="ticker-item"><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')">${p.title}</a> &nbsp;&bull;&nbsp; </div>`;
-});
-
-// 3. Slider (Updated to use openPost)
-const slider = document.getElementById('slider');
-const randoms = [...posts].sort(() => 0.5 - Math.random()).slice(0, 5);
-randoms.forEach((p, i) => {
-    const c = config.find(x => x.key === p.category) || {title:'News', color:'#333'};
-    slider.innerHTML += `
-        <div class="slide ${i===0?'active':''}">
-            <div style="height:100%; background:${c.color}; display:flex; justify-content:center; align-items:center;">
-                 <i class="fas fa-newspaper" style="font-size:80px; color:rgba(255,255,255,0.2)"></i>
-            </div>
-            <div class="slide-caption">
-                <span class="cat-tag">${c.title}</span>
-                <h2><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="color:#fff">${p.title}</a></h2>
-            </div>
-        </div>
-    `;
-});
-
-// Slider Animation
-let sIdx = 0;
-const slides = document.querySelectorAll('.slide');
-if(slides.length) setInterval(() => {
-    slides[sIdx].classList.remove('active');
-    sIdx = (sIdx + 1) % slides.length;
-    slides[sIdx].classList.add('active');
-}, 4000);
-
-// 4. Main Sections (Updated to use openPost)
-const mainArea = document.getElementById('mainContentArea');
-config.forEach(sec => {
-    const secPosts = posts.filter(p => p.category === sec.key).slice(0, 4);
-    const secDiv = document.createElement('section');
-    secDiv.id = `sec-${sec.key}`;
-    
-    // Note: The "More" link still points to the category page
-    let html = `
-        <div class="sec-head">
-            <h2>${sec.title}</h2>
-            <a href="category-pages/${sec.key}.html" style="color:#fff; font-size:12px;">مزید دیکھیں</a>
-        </div>
-    `;
-    
-    if(sec.type === 'grid') {
-        html += `<div class="grid-box">`;
-        secPosts.forEach(p => {
-            html += `
-            <div class="post-card">
-                <div class="thumb" style="background:${sec.color}">
-                    <i class="fas fa-book-open" style="opacity:0.6"></i>
-                </div>
-                <div class="p-info">
-                    <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" class="p-title">${p.title}</a>
-                </div>
-            </div>`;
-        });
-        html += `</div>`;
+function postComment() {
+    const name = document.getElementById('cName').value;
+    const msg = document.getElementById('cMsg').value;
+    if(name && msg) {
+        const list = document.getElementById('commentList');
+        const newC = document.createElement('div');
+        newC.className = 'single-comment';
+        newC.innerHTML = `<span class="c-date">ابھی</span><div class="c-name">${name}</div><p>${msg}</p>`;
+        list.insertBefore(newC, list.firstChild);
+        document.getElementById('cName').value = '';
+        document.getElementById('cMsg').value = '';
+        alert('شکریہ! آپ کا تبصرہ شامل ہو گیا ہے۔');
     } else {
-        html += `<div class="list-box">`;
-        secPosts.forEach(p => {
-            html += `
-            <div class="list-item">
-                <div class="l-thumb" style="background:${sec.color}"><i class="fas fa-file-alt"></i></div>
-                <div style="padding-left:15px; flex:1;">
-                    <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="font-weight:bold;">${p.title}</a>
-                </div>
-            </div>`;
-        });
-        html += `</div>`;
+        alert('براہ کرم نام اور پیغام لکھیں۔');
     }
+}
+
+function loadRelatedPosts() {
+    const grid = document.getElementById('relatedGrid');
+    if(!grid) return;
     
-    secDiv.innerHTML = html;
-    mainArea.appendChild(secDiv);
-});
+    grid.innerHTML = '';
+    const currentTitle = document.title; 
+    
+    // Get random posts
+    const shuffled = rawData.trim().split('\n').filter(l => !l.startsWith('source:') && l.includes(',')).sort(() => 0.5 - Math.random());
+    let count = 0;
 
-// 5. Sidebar (Updated to use openPost)
-const popDiv = document.getElementById('popularPosts');
-posts.slice(0, 5).forEach(p => {
-    popDiv.innerHTML += `
-    <div style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
-        <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="font-weight:bold; font-size:13px;">${p.title}</a>
-    </div>`;
-});
+    shuffled.forEach(line => {
+        if(count >= 4) return;
+        const parts = line.split(',');
+        if(parts.length >= 3) {
+            const url = parts[1];
+            const title = parts.slice(2).join(',');
+            
+            if(!title.includes(currentTitle)) {
+                // Determine color based on index for variety
+                const colors = ['#e67e22', '#2ecc71', '#3498db', '#9b59b6'];
+                const color = colors[count % colors.length];
 
-const tagDiv = document.getElementById('labelsCloud');
-config.forEach(c => tagDiv.innerHTML += `<a href="category-pages/${c.key}.html">${c.title}</a>`);
+                grid.innerHTML += `
+                    <div class="r-card">
+                        <div class="r-thumb" style="background:${color}"><i class="fas fa-book-open"></i></div>
+                        <a href="javascript:void(0)" onclick="openPost('${url}')" class="r-title">${title}</a>
+                    </div>
+                `;
+                count++;
+            }
+        }
+    });
+}
 
-const footDiv = document.getElementById('footerBestPosts');
-posts.slice(5, 8).forEach(p => footDiv.innerHTML += `<div style="border-bottom:1px solid #444; padding:5px 0;"><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')">${p.title}</a></div>`);
 
-// Mobile Menu
-document.querySelector('.mobile-toggle').addEventListener('click', () => {
-    document.getElementById('mainMenu').classList.toggle('active');
-});
+// MAIN INITIALIZATION ON LOAD
+window.onload = function() {
+    
+    // 1. Run Dynamic Post Features (If on a post page)
+    initPostFeatures();
 
-// Date
-const d = new Date();
-const days = ["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"];
-const months = ["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"];
-document.getElementById('dateDisplay').innerText = `${days[d.getDay()]}، ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    // 2. Logic for Main Index Page Only (checking for elements that only exist on home)
+    if(document.getElementById('slider')) {
+        
+        // Ticker
+        const ticker = document.getElementById('tickerContent');
+        if(ticker) {
+            posts.slice(0, 10).forEach(p => {
+                ticker.innerHTML += `<div class="ticker-item"><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')">${p.title}</a> &nbsp;&bull;&nbsp; </div>`;
+            });
+        }
+
+        // Slider
+        const slider = document.getElementById('slider');
+        if(slider) {
+            const randoms = [...posts].sort(() => 0.5 - Math.random()).slice(0, 5);
+            randoms.forEach((p, i) => {
+                const c = config.find(x => x.key === p.category) || {title:'News', color:'#333'};
+                slider.innerHTML += `
+                    <div class="slide ${i===0?'active':''}">
+                        <div style="height:100%; background:${c.color}; display:flex; justify-content:center; align-items:center;">
+                            <i class="fas fa-newspaper" style="font-size:80px; color:rgba(255,255,255,0.2)"></i>
+                        </div>
+                        <div class="slide-caption">
+                            <span class="cat-tag">${c.title}</span>
+                            <h2><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="color:#fff">${p.title}</a></h2>
+                        </div>
+                    </div>
+                `;
+            });
+            // Animation
+            let sIdx = 0;
+            const slides = document.querySelectorAll('.slide');
+            if(slides.length) setInterval(() => {
+                slides[sIdx].classList.remove('active');
+                sIdx = (sIdx + 1) % slides.length;
+                slides[sIdx].classList.add('active');
+            }, 4000);
+        }
+
+        // Main Sections
+        const mainArea = document.getElementById('mainContentArea');
+        if(mainArea) {
+            config.forEach(sec => {
+                const secPosts = posts.filter(p => p.category === sec.key).slice(0, 4);
+                const secDiv = document.createElement('section');
+                secDiv.id = `sec-${sec.key}`;
+                
+                let html = `
+                    <div class="sec-head">
+                        <h2>${sec.title}</h2>
+                        <a href="category-pages/${sec.key}.html" style="color:#fff; font-size:12px;">مزید دیکھیں</a>
+                    </div>
+                `;
+                
+                if(sec.type === 'grid') {
+                    html += `<div class="grid-box">`;
+                    secPosts.forEach(p => {
+                        html += `
+                        <div class="post-card">
+                            <div class="thumb" style="background:${sec.color}">
+                                <i class="fas fa-book-open" style="opacity:0.6"></i>
+                            </div>
+                            <div class="p-info">
+                                <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" class="p-title">${p.title}</a>
+                            </div>
+                        </div>`;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `<div class="list-box">`;
+                    secPosts.forEach(p => {
+                        html += `
+                        <div class="list-item">
+                            <div class="l-thumb" style="background:${sec.color}"><i class="fas fa-file-alt"></i></div>
+                            <div style="padding-left:15px; flex:1;">
+                                <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="font-weight:bold;">${p.title}</a>
+                            </div>
+                        </div>`;
+                    });
+                    html += `</div>`;
+                }
+                
+                secDiv.innerHTML = html;
+                mainArea.appendChild(secDiv);
+            });
+        }
+
+        // Sidebar
+        const popDiv = document.getElementById('popularPosts');
+        if(popDiv) {
+            posts.slice(0, 5).forEach(p => {
+                popDiv.innerHTML += `
+                <div style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                    <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="font-weight:bold; font-size:13px;">${p.title}</a>
+                </div>`;
+            });
+        }
+
+        const tagDiv = document.getElementById('labelsCloud');
+        if(tagDiv) config.forEach(c => tagDiv.innerHTML += `<a href="category-pages/${c.key}.html">${c.title}</a>`);
+
+        const footDiv = document.getElementById('footerBestPosts');
+        if(footDiv) posts.slice(5, 8).forEach(p => footDiv.innerHTML += `<div style="border-bottom:1px solid #444; padding:5px 0;"><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')">${p.title}</a></div>`);
+    }
+
+    // Date
+    const d = new Date();
+    const days = ["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"];
+    const months = ["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","ستمبر","اکتوبر","نومبر","دسمبر"];
+    const dateDisplay = document.getElementById('dateDisplay');
+    if(dateDisplay) dateDisplay.innerText = `${days[d.getDay()]}، ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    
+    // Mobile Menu Toggle
+    const mobToggle = document.querySelector('.mobile-toggle');
+    if(mobToggle) {
+        mobToggle.addEventListener('click', () => {
+            document.getElementById('mainMenu').classList.toggle('active');
+        });
+    }
+};
