@@ -1,47 +1,47 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. Live Urdu Date (خودکار اردو تاریخ) ---
-    function updateDate() {
-        const dateEl = document.getElementById("current-date");
-        if(dateEl) {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            // پاکستان کے ٹائم کے مطابق اردو تاریخ
-            dateEl.innerText = "آج کی تاریخ: " + now.toLocaleDateString('ur-PK', options);
-        }
-    }
-    updateDate();
+    // --- Date Feature (Urdu) ---
+    const dateElement = document.getElementById('current-date');
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const today = new Date();
+    // Using Urdu locale for date
+    dateElement.textContent = today.toLocaleDateString('ur-PK', options);
 
-    // --- 2. Mobile Menu (موبائل مینو) ---
-    const toggleBtn = document.querySelector(".mobile-toggle");
-    const menuUl = document.getElementById("menu");
+    // --- Mobile Menu Toggle ---
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navList = document.querySelector('.nav-list');
 
-    if(toggleBtn && menuUl) {
-        toggleBtn.addEventListener("click", function() {
-            menuUl.classList.toggle("show");
+    if(menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
         });
     }
 
-    // --- 3. Auto Slider (سلائیڈر) ---
-    const slides = document.querySelectorAll(".slide");
-    let slideIndex = 0;
+    // --- Slider Logic ---
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
 
-    function runSlider() {
-        if(slides.length === 0) return;
-        
-        // Remove active class from current
-        slides[slideIndex].classList.remove("active");
-        
-        // Move to next
-        slideIndex++;
-        if(slideIndex >= slides.length) {
-            slideIndex = 0;
+    if(slides.length > 0) {
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+
+            slides[currentSlide].classList.add('active');
         }
 
-        // Add active class to new
-        slides[slideIndex].classList.add("active");
-    }
+        // Auto play slider
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
 
-    // ہر 4 سیکنڈ بعد سلائیڈ بدلے گی
-    setInterval(runSlider, 4000);
+        // Manual Controls
+        if(nextBtn) nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+        if(prevBtn) prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+    }
 });
