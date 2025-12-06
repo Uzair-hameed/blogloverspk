@@ -92,10 +92,10 @@ rawData.split('\n').forEach(line => {
     }
 });
 
-// 1. Navigation with Dropdown
+// 1. Navigation with Dropdown - DISABLED (Using HTML links instead)
 const menu = document.getElementById('mainMenu');
+/*
 const limit = 6;
-
 config.forEach((item, i) => {
     if(i < limit) {
         menu.innerHTML += `<li><a href="#sec-${item.key}">${item.title}</a></li>`;
@@ -113,6 +113,7 @@ if(config.length > limit) {
     dropHtml += `</ul></li>`;
     menu.innerHTML += dropHtml;
 }
+*/
 
 // 2. Ticker
 const ticker = document.getElementById('tickerContent');
@@ -157,7 +158,7 @@ config.forEach(sec => {
     let html = `
         <div class="sec-head">
             <h2>${sec.title}</h2>
-            <a href="#" style="color:#fff; font-size:12px;">مزید دیکھیں</a>
+            <a href="category-pages/${sec.key}.html" style="color:#fff; font-size:12px;">مزید دیکھیں</a>
         </div>
     `;
     
@@ -203,7 +204,7 @@ posts.slice(0, 5).forEach(p => {
 });
 
 const tagDiv = document.getElementById('labelsCloud');
-config.forEach(c => tagDiv.innerHTML += `<a href="#sec-${c.key}">${c.title}</a>`);
+config.forEach(c => tagDiv.innerHTML += `<a href="category-pages/${c.key}.html">${c.title}</a>`);
 
 const footDiv = document.getElementById('footerBestPosts');
 posts.slice(5, 8).forEach(p => footDiv.innerHTML += `<div style="border-bottom:1px solid #444; padding:5px 0;"><a href="${p.newUrl}">${p.title}</a></div>`);
