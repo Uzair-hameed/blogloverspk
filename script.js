@@ -61,14 +61,10 @@ https://www.bloglovers.pk/2024/10/50_56.html,https://www.bloglovers.pk/motivatio
 
 /* 
    =========================================================
-   LOGIC & CONFIGURATION (Based on PDF Layout)
+   LOGIC & CONFIGURATION
    =========================================================
 */
 
-// Configuration for the 14 Sections as per PDF
-// type: 'grid' or 'list'
-// key: matches the 'source' in rawData
-// title: Urdu title for display
 const sectionsConfig = [
     { key: 'alamaat-sughra', title: 'علامات صغریٰ', type: 'grid', color: '#e67e22' },
     { key: 'alamaat-kubra', title: 'علامات کبریٰ', type: 'grid', color: '#c0392b' },
@@ -79,7 +75,7 @@ const sectionsConfig = [
     { key: 'technology', title: 'ٹیکنالوجی', type: 'grid', color: '#f1c40f' },
     { key: 'tareekh', title: 'تاریخ', type: 'list', color: '#d35400' },
     { key: 'shakhsiyat', title: 'اہم شخصیات', type: 'list', color: '#7f8c8d' },
-    { key: 'mazameen', title: 'جنرل ڈسکشن', type: 'list', color: '#34495e' }, // Mapping Mazameen to General
+    { key: 'mazameen', title: 'جنرل ڈسکشن', type: 'list', color: '#34495e' },
     { key: 'aqwal', title: 'اقوال زریں', type: 'list', color: '#9b59b6' },
     { key: 'kids', title: 'کڈز سیکشن', type: 'grid', color: '#e91e63' },
     { key: 'islami-sawalat', title: 'اسلامی سوالات گیم', type: 'grid', color: '#e74c3c' },
@@ -101,27 +97,34 @@ rawData.split('\n').forEach(line => {
             posts.push({
                 oldUrl: parts[0],
                 newUrl: parts[1],
-                title: parts.slice(2).join(','), // Join rest in case title has comma
+                title: parts.slice(2).join(','),
                 categoryKey: currentCategoryKey
             });
         }
     }
 });
 
-// 2. Generate Menu (Auto Dropdown)
+// 2. Generate Menu (Fixed Dropdown Logic)
 const menuContainer = document.getElementById('mainMenu');
 const dropdownLimit = 6;
-// Get unique categories from config
 const menuItems = sectionsConfig.map(s => ({ key: s.key, title: s.title }));
 
+// Add initial items
 menuItems.forEach((item, index) => {
     if (index < dropdownLimit) {
         menuContainer.innerHTML += `<li><a href="#sec-${item.key}">${item.title}</a></li>`;
     }
 });
 
+// Add Dropdown for "More"
 if (menuItems.length > dropdownLimit) {
-    let dropHtml = `<li class="dropdown"><a href="#">مزید <i class="fas fa-caret-down"></i></a><ul class="dropdown-content">`;
+    // Note the class "dropdown" on the LI
+    let dropHtml = `
+    <li class="dropdown">
+        <a href="javascript:void(0)">مزید <i class="fas fa-caret-down"></i></a>
+        <ul class="dropdown-content">
+    `;
+    
     for (let i = dropdownLimit; i < menuItems.length; i++) {
         dropHtml += `<li><a href="#sec-${menuItems[i].key}">${menuItems[i].title}</a></li>`;
     }
@@ -163,14 +166,12 @@ if(slides.length > 0) {
 // 4. Generate Main Content (14 Sections)
 const mainContentArea = document.getElementById('mainContentArea');
 
-sectionsConfig.forEach((section, index) => {
+sectionsConfig.forEach((section) => {
     const sectionPosts = posts.filter(p => p.categoryKey === section.key).slice(0, 4);
     
-    // Create Section HTML
     const sectionDiv = document.createElement('section');
     sectionDiv.id = `sec-${section.key}`;
     
-    // Header
     let html = `
         <div class="section-header">
             <h2>${section.title}</h2>
@@ -178,7 +179,6 @@ sectionsConfig.forEach((section, index) => {
         </div>
     `;
 
-    // Content container based on type
     if (section.type === 'grid') {
         html += `<div class="grid-style">`;
         sectionPosts.forEach(post => {
@@ -216,10 +216,16 @@ sectionsConfig.forEach((section, index) => {
 });
 
 // 5. Sidebar & Footer Populators
-// Ticker
+
+// Fixed Ticker Populator
 const ticker = document.getElementById('tickerContent');
+// Taking latest 10 posts
 posts.slice(0, 10).forEach(post => {
-    ticker.innerHTML += `<div class="ticker-item"><a href="${post.newUrl}">${post.title}</a></div>`;
+    // Add spaces for ticker separation
+    const span = document.createElement('span');
+    span.className = 'ticker-item';
+    span.innerHTML = `<a href="${post.newUrl}">${post.title}</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; `;
+    ticker.appendChild(span);
 });
 
 // Popular Posts
@@ -246,7 +252,7 @@ posts.slice(5, 9).forEach(post => {
     footerBest.innerHTML += `<div style="border-bottom:1px solid #333; padding:5px 0;"><a href="${post.newUrl}">${post.title}</a></div>`;
 });
 
-// 6. Extras (Dark Mode, Date)
+// 6. Functionality (Dark Mode, Date, Mobile Menu)
 document.getElementById('theme-toggle').addEventListener('click', () => {
     const isDark = document.body.getAttribute('data-theme') === 'dark';
     document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
@@ -254,11 +260,13 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
 });
 
 document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
-    document.getElementById('mainMenu').classList.toggle('active'); // CSS needs .active logic for mobile
-    // Add simple inline toggle for mobile if CSS class logic is missing
     const menu = document.getElementById('mainMenu');
-    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-    menu.style.flexDirection = 'column';
+    if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'flex';
+        menu.style.flexDirection = 'column';
+    }
 });
 
 const d = new Date();
