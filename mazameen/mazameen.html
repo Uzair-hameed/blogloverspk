@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مضامین | بلاگ لوورز.pk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --deep-blue: #1E3A8A;
+            --navy: #000080;
+            --sky-blue: #87CEEB;
+            --silver: #C0C0C0;
+            --cream: #FFFDD0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Nastaliq Urdu', 'Georgia', serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
+            color: #1a1a2e;
+            min-height: 100vh;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(30, 58, 138, 0.05) 50px, rgba(30, 58, 138, 0.05) 100px);
+            z-index: -1;
+        }
+        header {
+            background: linear-gradient(45deg, var(--navy), var(--deep-blue));
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            border-bottom: 12px solid var(--silver);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 128, 0.3);
+        }
+        .ink-spot {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.2), transparent 70%);
+            border-radius: 50%;
+            animation: inkSpread 8s infinite alternate;
+        }
+        .ink-spot:nth-child(1) { top: -100px; left: -100px; }
+        .ink-spot:nth-child(2) { bottom: -100px; right: -100px; animation-delay: 4s; }
+        header h1 {
+            font-size: 4rem;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+            position: relative;
+            z-index: 1;
+        }
+        header h1::before {
+            content: '✍️';
+            position: absolute;
+            top: -20px;
+            right: -40px;
+            font-size: 3rem;
+            animation: penWrite 3s infinite;
+        }
+        .writing-tools {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .writing-tools .tool {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, var(--silver), white);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--navy);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.5s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .writing-tools .tool:hover {
+            transform: scale(1.3) rotate(15deg);
+            box-shadow: 0 0 30px var(--sky-blue);
+            background: linear-gradient(45deg, white, var(--silver));
+        }
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 3rem;
+        }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+        .article-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9ff);
+            border-radius: 25px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--deep-blue);
+            box-shadow: 15px 15px 30px #d1d9e6, -15px -15px 30px #ffffff;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--navy), var(--sky-blue), var(--navy));
+        }
+        .article-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 20px 20px 40px #b8c4d6, -20px -20px 40px #ffffff;
+            border-color: var(--sky-blue);
+        }
+        .article-card h3 {
+            color: var(--navy);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-align: center;
+            line-height: 1.6;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .article-card .category-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--sky-blue);
+            color: var(--navy);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .article-card .summary {
+            background: rgba(135, 206, 235, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-right: 5px solid var(--deep-blue);
+            display: none;
+            transition: all 0.5s;
+        }
+        .article-card.active .summary {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .typewriter {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 3px solid var(--silver);
+            font-family: monospace;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        @keyframes inkSpread {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.5); opacity: 0.1; }
+        }
+        @keyframes penWrite {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(-10px) rotate(-15deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        footer {
+            background: linear-gradient(to right, var(--navy), var(--deep-blue));
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 80px;
+            border-top: 5px solid var(--silver);
+        }
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.8rem;
+            }
+            .writing-tools .tool {
+                width: 55px;
+                height: 55px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ink-spot"></div>
+    <div class="ink-spot"></div>
+
+    <header>
+        <h1>📝 مضامین</h1>
+        <p>سماجی، تعلیمی، تاریخی اور اسلامی موضوعات پر تحقیقی مضامین</p>
+        
+        <div class="writing-tools">
+            <div class="tool"><i class="fas fa-pen-nib"></i></div>
+            <div class="tool"><i class="fas fa-highlighter"></i></div>
+            <div class="tool"><i class="fas fa-ruler"></i></div>
+            <div class="tool"><i class="fas fa-sticky-note"></i></div>
+            <div class="tool"><i class="fas fa-bookmark"></i></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 style="text-align:center;color:var(--navy);margin-bottom:40px;font-size:2.8rem;font-family:'Georgia',serif;">
+            <i class="fas fa-scroll"></i> 
+            فکر انگیز تحریریں 
+            <i class="fas fa-scroll"></i>
+        </h2>
+        
+        <div class="articles-grid">
+            <div class="article-card" onclick="toggleSummary(this)">
+                <div class="category-tag">سماجیات</div>
+                <a href="https://www.bloglovers.pk/mazameen/musalmanon-ne-apna-waqar-kaise-khoya" target="_blank">
+                    <h3>"مسلمانوں نے اپنا وقار کیسے کھویا؟"</h3>
+                    <p>مسلم امہ کے زوال کے اسباب اور وقار کی بحالی کے ممکنہ طریقے۔</p>
+                </a>
+                <div class="summary">
+                    <strong>خلاصہ:</strong> اس مضمون میں مسلمانوں کے تاریخی عروج اور موجودہ زوال کے اسباب پر روشنی ڈالی گئی ہے۔
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleSummary(this)">
+                <div class="category-tag">فلسفہ</div>
+                <a href="https://www.bloglovers.pk/mazameen/ek-jhalak-aflatoon-aur-arastoo-ke-falsafa-par" target="_blank">
+                    <h3>"ایک جھلک افلاطون اور ارسطو کے فلسفہ پر"</h3>
+                    <p>یونانی فلسفی افلاطون اور ارسطو کے نظریات کا تقابلی جائزہ۔</p>
+                </a>
+                <div class="summary">
+                    <strong>خلاصہ:</strong> قدیم یونانی فلسفے کے دو عظیم ستونوں کے نظریات کا تجزیہ۔
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleSummary(this)">
+                <div class="category-tag">تعلیم</div>
+                <a href="https://www.bloglovers.pk/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai" target="_blank">
+                    <h3>"بچوں کے لئے اسکرین کا وقت کیوں کنٹرول کرنے کی ضرورت ہے؟"</h3>
+                    <p>ڈیجیٹل دور میں بچوں کی صحت پر اسکرین ٹائم کے اثرات۔</p>
+                </a>
+                <div class="summary">
+                    <strong>خلاصہ:</strong> جدید ٹیکنالوجی کے بچوں پر منفی اثرات اور ان سے بچاؤ کے طریقے۔
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleSummary(this)">
+                <div class="category-tag">تعلیمی ٹپس</div>
+                <a href="https://www.bloglovers.pk/mazameen/tap-10-rydng-tps" target="_blank">
+                    <h3>"ٹاپ 10 ریڈنگ ٹپس"</h3>
+                    <p>مطالعہ کی مہارت بڑھانے کے لیے 10 مؤثر تجاویز۔</p>
+                </a>
+                <div class="summary">
+                    <strong>خلاصہ:</strong> مؤثر مطالعہ کے طریقے جو علم حاصل کرنے میں مددگار ہیں۔
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleSummary(this)">
+                <div class="category-tag">زندگی کی مہارتیں</div>
+                <a href="https://www.bloglovers.pk/mazameen/tap-10-laf-asklz" target="_blank">
+                    <h3>"ٹاپ 10 لائف اسکلز"</h3>
+                    <p>کامیاب زندگی کے لیے 10 ضروری صلاحیتیں۔</p>
+                </a>
+                <div class="summary">
+                    <strong>خلاصہ:</strong> وہ صلاحیتیں جو ہر انسان کو زندگی میں کامیابی کے لیے درکار ہیں۔
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleSummary(this)">
+                <div class="category-tag">ٹیکنالوجی</div>
+                <a href="https://www.bloglovers.pk/mazameen/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal" target="_blank">
+                    <h3>"آج کی دنیا میں 21ویں صدی کے سیکھنے کی مہارتوں کی اہمیت پر تبادلہ خیال"</h3>
+                    <p>جدید دور میں درکار تعلیمی مہارتوں کا تجزیہ۔</p>
+                </a>
+                <div class="summary">
+                    <strong>خلاصہ:</strong> 21ویں صدی میں کامیابی کے لیے ضروری تعلیمی اور تکنیکی مہارتیں۔
+                </div>
+            </div>
+        </div>
+
+        <div class="typewriter" id="typewriter">
+            <span id="typed-text"></span><span id="cursor">|</span>
+        </div>
+
+        <div style="margin-top:50px; padding:35px; background:linear-gradient(45deg, rgba(30,58,138,0.1), rgba(135,206,235,0.1)); border-radius:25px; text-align:center;">
+            <h3 style="color:var(--navy); font-size:2.2rem; margin-bottom:25px;">
+                <i class="fas fa-chart-line"></i> مضامین کی اقسام
+            </h3>
+            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+                    <div style="width:80px;height:80px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-users" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>سماجی مضامین</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">معاشرتی مسائل پر تجزیہ</p>
+                </div>
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+                    <div style="width:80px;height:80px;background:var(--deep-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-graduation-cap" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>تعلیمی مضامین</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">تعلیم و تربیت پر تحریریں</p>
+                </div>
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
+                    <div style="width:80px;height:80px;background:var(--sky-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;color:var(--navy);">
+                        <i class="fas fa-history" style="font-size:2.5rem;"></i>
+                    </div>
+                    <h4>تاریخی مضامین</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">تاریخ کے اہم واقعات</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:50px; text-align:center;">
+            <div style="display:inline-block; background:var(--navy); color:white; padding:15px 40px; border-radius:50px; cursor:pointer; transition:0.3s;" 
+                 onmouseover="this.style.background='var(--sky-blue)';this.style.color='var(--navy)';this.style.transform='scale(1.05)'" 
+                 onmouseout="this.style.background='var(--navy)';this.style.color='white';this.style.transform='scale(1)'"
+                 onclick="suggestTopic()">
+                <i class="fas fa-lightbulb" style="margin-left:10px;"></i>
+                مضمون کا موضوع تجویز کریں
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 بلاگ لوورز.pk | مضامین | فکر انگیز تحریریں</p>
+        <p>📚 علم بڑھانے کا بہترین ذریعہ | 📧 رابطہ: mazameen@bloglovers.pk</p>
+        <div style="margin-top:25px;">
+            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
+               onclick="alert('📄 مضامین PDF میں ڈاؤن لوڈ کریں!')"></i>
+            <i class="fas fa-print" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+            <i class="fas fa-share-alt" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+            <i class="fab fa-twitter" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+        </div>
+    </footer>
+
+    <script>
+        // Typewriter effect
+        const texts = [
+            "مضامین فکر کو جلا بخشتے ہیں...",
+            "تحقیق علم کا دروازہ کھولتی ہے...",
+            "ہر مضمون ایک نئی دنیا کا تعارف کراتا ہے...",
+            "پڑھنا ذہن کو وسیع کرتا ہے..."
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeWriter() {
+            const currentText = texts[textIndex];
+            const cursor = document.getElementById('cursor');
+            
+            if (!isDeleting && charIndex <= currentText.length) {
+                document.getElementById('typed-text').textContent = currentText.substring(0, charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            } else if (isDeleting && charIndex >= 0) {
+                document.getElementById('typed-text').textContent = currentText.substring(0, charIndex);
+                charIndex--;
+                setTimeout(typeWriter, 50);
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) {
+                    textIndex = (textIndex + 1) % texts.length;
+                }
+                setTimeout(typeWriter, 1000);
+            }
+            
+            // Blinking cursor
+            cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+        }
+        
+        // Start typewriter
+        setTimeout(typeWriter, 1000);
+        
+        // Toggle summary
+        function toggleSummary(card) {
+            const allCards = document.querySelectorAll('.article-card');
+            allCards.forEach(c => {
+                if(c !== card) {
+                    c.classList.remove('active');
+                }
+            });
+            card.classList.toggle('active');
+        }
+        
+        // Writing tools interaction
+        document.querySelectorAll('.writing-tools .tool').forEach((tool, index) => {
+            tool.addEventListener('click', function() {
+                const toolNames = [
+                    "قلم: تحریر کا بنیادی آلہ",
+                    "ہائی لائٹر: اہم نکات نمایاں کریں",
+                    "رولر: تحریر کو درست کریں",
+                    "نوٹ: خیالات محفوظ کریں",
+                    "بک مارک: اہم جگہیں نشان زد کریں"
+                ];
+                alert(`🛠️ تحریر کا آلہ:\n${toolNames[index]}`);
+                
+                // Visual effect
+                this.style.transform = 'scale(1.5) rotate(360deg)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 500);
+            });
+        });
+        
+        // Suggest topic
+        function suggestTopic() {
+            const topics = [
+                "سماجی بہبود کے لیے اسلامی تعلیمات کا کردار",
+                "ڈیجیٹل دور میں نوجوانوں کے چیلنجز",
+                "پاکستان کی تعلیمی پالیسیوں کا جائزہ",
+                "عالمی سطح پر مسلمانوں کی موجودہ صورت حال",
+                "خاندانی نظام کو جدید چیلنجز"
+            ];
+            const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+            alert(`💡 مضمون کا موضوع تجویز:\n\n"${randomTopic}"\n\nاس موضوع پر آپ بھی اپنا مضمون لکھ سکتے ہیں!`);
+        }
+        
+        // Auto highlight articles
+        let currentArticle = 0;
+        function highlightArticle() {
+            const articles = document.querySelectorAll('.article-card');
+            articles.forEach(article => article.style.boxShadow = '');
+            articles[currentArticle].style.boxShadow = '0 0 30px rgba(135, 206, 235, 0.5)';
+            currentArticle = (currentArticle + 1) % articles.length;
+        }
+        setInterval(highlightArticle, 3000);
+    </script>
+</body>
+</html>
