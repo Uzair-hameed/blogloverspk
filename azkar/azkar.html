@@ -3,80 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اذکار نافعہ - BlogLovers.pk</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>اذکار | بلاگ لوورز.pk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --green1: #006400;
+            --green2: #228B22;
+            --green3: #32CD32;
+            --light: #F0FFF0;
+            --dark: #003300;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Nastaliq Urdu', 'Arial', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #e6ffe6 0%, #ccffcc 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/islamic.png');
+            opacity: 0.1;
+            z-index: -1;
+        }
+        header {
+            background: linear-gradient(45deg, var(--green1), var(--green2));
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            border-bottom: 10px solid var(--green3);
+            box-shadow: 0 10px 30px rgba(0, 100, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .mosque-icon {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+            animation: floatUpDown 4s infinite ease-in-out;
+        }
+        .mosque-icon:nth-child(2) {
+            top: auto;
+            bottom: 20px;
+            right: 30px;
+            left: auto;
+            animation-delay: 2s;
+        }
+        header h1 {
+            font-size: 3.5rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            animation: fadeIn 1.5s ease;
+        }
+        .tasbih-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        .tasbih-bar .bead {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 30% 30%, #32CD32, #006400);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 100, 0, 0.3);
+            animation: beadGlow 2s infinite alternate;
+        }
+        .tasbih-bar .bead:hover {
+            transform: scale(1.3) rotate(360deg);
+            background: radial-gradient(circle at 30% 30%, #00FF00, #228B22);
+            box-shadow: 0 0 30px #32CD32;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 3rem;
+        }
+        .azkar-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .azkar-card {
+            background: linear-gradient(145deg, #ffffff, #e6ffe6);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            border-image: linear-gradient(45deg, var(--green1), var(--green2), var(--green3)) 1;
+            box-shadow: 10px 10px 20px #d9f2d9, -10px -10px 20px #ffffff;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .azkar-card::before {
+            content: '🕌';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+        .azkar-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 15px 15px 30px #c2e8c2, -15px -15px 30px #ffffff;
+            border-image: linear-gradient(45deg, #32CD32, #00FF00, #32CD32) 1;
+        }
+        .azkar-card h3 {
+            color: var(--green1);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+            line-height: 1.5;
+            min-height: 85px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .azkar-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .azkar-card .benefit {
+            background: rgba(50, 205, 50, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-right: 5px solid var(--green2);
+        }
+        .counter-box {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0, 100, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        .counter-box button {
+            background: var(--green3);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin: 10px 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .counter-box button:hover {
+            background: #00FF00;
+            color: var(--dark);
+        }
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes beadGlow {
+            0% { box-shadow: 0 5px 15px rgba(0, 100, 0, 0.3); }
+            100% { box-shadow: 0 0 25px #32CD32; }
+        }
+        footer {
+            background: linear-gradient(to right, var(--green1), var(--green2));
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 80px;
+            border-top: 5px solid var(--green3);
+        }
+        @media (max-width: 768px) {
+            .azkar-list {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.5rem;
+            }
+            .tasbih-bar .bead {
+                width: 40px;
+                height: 40px;
+            }
+            .counter-box {
+                position: static;
+                margin: 30px auto;
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
+    <i class="fas fa-mosque mosque-icon"></i>
+    <i class="fas fa-star-and-crescent mosque-icon"></i>
 
-    <header class="main-header">
-        <div class="container header-flex">
-            <div class="logo"><h1>بلاگ لورز<span>.pk</span></h1></div>
-            <nav class="main-nav" style="width: 100%; margin-top: 10px;">
-                <ul class="nav-list"><li><a href="/"><i class="fas fa-home"></i> ہوم پر واپس</a></li></ul>
-            </nav>
+    <header>
+        <h1>🕌 اذکار و دعائیں</h1>
+        <p>روحانی علاج، ذکر و اذکار، دعاؤں کے فضائل اور ان کے اثرات</p>
+        
+        <div class="tasbih-bar">
+            <div class="bead">س</div>
+            <div class="bead">ب</div>
+            <div class="bead">ح</div>
+            <div class="bead">ا</div>
+            <div class="bead">ن</div>
+            <div class="bead">ا</div>
+            <div class="bead">ل</div>
+            <div class="bead">ل</div>
+            <div class="bead">ہ</div>
         </div>
     </header>
 
-    <div class="container main-layout" style="margin-top: 30px;">
-        <main class="content-area">
-            
-            <div class="section-header islam-header">
-                <h3><i class="fas fa-praying-hands"></i> اذکار و دعائیں</h3>
-            </div>
-
-            <div class="grid-3">
-                <article class="news-card">
-                    <div class="img-container">
-                        <img src="https://placehold.co/300x200/27ae60/FFF?text=Dua" alt="Dua">
-                    </div>
-                    <div class="card-body">
-                        <h4><a href="/azkar/main-aur-aap-allah-ko-kaise-na-pukareen">میں اور آپ اللہ کو کیسے نہ پکاریں؟</a></h4>
-                        <a href="/azkar/main-aur-aap-allah-ko-kaise-na-pukareen" class="more-btn">پڑھیں</a>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="img-container">
-                        <img src="https://placehold.co/300x200/27ae60/FFF?text=Rukawat" alt="Rukawat">
-                    </div>
-                    <div class="card-body">
-                        <h4><a href="/azkar/7-aysi-rkaotyn-jn-se-daa-qbol-nahi-hoti">7 ایسی رکاوٹیں جن سے دعا قبول نہیں ہوتی</a></h4>
-                        <a href="/azkar/7-aysi-rkaotyn-jn-se-daa-qbol-nahi-hoti" class="more-btn">پڑھیں</a>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="img-container">
-                        <img src="https://placehold.co/300x200/27ae60/FFF?text=Azkar" alt="Azkar">
-                    </div>
-                    <div class="card-body">
-                        <h4><a href="/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai">8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</a></h4>
-                        <a href="/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai" class="more-btn">پڑھیں</a>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="img-container">
-                        <img src="https://placehold.co/300x200/27ae60/FFF?text=Susti" alt="Susti">
-                    </div>
-                    <div class="card-body">
-                        <h4><a href="/azkar/hum-dua-mangne-mein-sust-kyun-ho-gaye-hain">ہم دعا مانگنے میں سست کیوں ہو گئے ہیں؟</a></h4>
-                        <a href="/azkar/hum-dua-mangne-mein-sust-kyun-ho-gaye-hain" class="more-btn">پڑھیں</a>
-                    </div>
-                </article>
-
-                <article class="news-card">
-                    <div class="img-container">
-                        <img src="https://placehold.co/300x200/27ae60/FFF?text=Razi" alt="Razi">
-                    </div>
-                    <div class="card-body">
-                        <h4><a href="/azkar/kya-allah-mujh-se-raazi-hai-apni-zindagi-mein-alamaat-ko-pehchaniye">کیا اللہ مجھ سے راضی ہے؟ اپنی زندگی میں علامات کو پہچانیے</a></h4>
-                        <a href="/azkar/kya-allah-mujh-se-raazi-hai-apni-zindagi-mein-alamaat-ko-pehchaniye" class="more-btn">پڑھیں</a>
-                    </div>
-                </article>
-            </div>
-        </main>
+    <div class="counter-box">
+        <h4 style="margin-bottom:10px;">📿 ذکر کا شمار</h4>
+        <div id="count" style="font-size:2.5rem; margin:10px 0;">0</div>
+        <button onclick="increment()">➕ اضافہ</button>
+        <button onclick="resetCounter()">🔄 دوبارہ</button>
     </div>
+
+    <div class="container">
+        <h2 style="text-align:center;color:var(--green1);margin-bottom:40px;font-size:2.5rem;">
+            <i class="fas fa-pray"></i> 
+            ذکر و دعا کے فضائل 
+            <i class="fas fa-hands-praying"></i>
+        </h2>
+        
+        <div class="azkar-list">
+            <div class="azkar-card">
+                <a href="https://www.bloglovers.pk/azkar/main-aur-aap-allah-ko-kaise-na-pukareen" target="_blank">
+                    <h3>"میں اور آپ اللہ کو کیسے نہ پکاریں؟"</h3>
+                    <p>دعا کی اہمیت، اس کے آداب اور قبولیت کی شرائط پر جامع مضمون۔</p>
+                    <div class="benefit">
+                        <strong>💎 فائدہ:</strong> دعا قبول ہونے کے طریقے
+                    </div>
+                </a>
+            </div>
+            <div class="azkar-card">
+                <a href="https://www.bloglovers.pk/azkar/7-aysi-rkaotyn-jn-se-daa-qbol-nahi-hoti" target="_blank">
+                    <h3>"7 ایسی رکاوٹیں جن سے دعا قبول نہیں ہوتی"</h3>
+                    <p>سات ایسی چیزوں کی نشاندہی جو دعا کی قبولیت میں رکاوٹ بنتی ہیں۔</p>
+                    <div class="benefit">
+                        <strong>💎 فائدہ:</strong> دعا کی رکاوٹوں سے آگاہی
+                    </div>
+                </a>
+            </div>
+            <div class="azkar-card">
+                <a href="https://www.bloglovers.pk/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai" target="_blank">
+                    <h3>"8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے"</h3>
+                    <p>آٹھ خصوصی اذکار جو ہر حاجت پوری کرنے کے لیے مؤثر ہیں۔</p>
+                    <div class="benefit">
+                        <strong>💎 فائدہ:</strong> مراد پوری کرنے کے اذکار
+                    </div>
+                </a>
+            </div>
+            <div class="azkar-card">
+                <a href="https://www.bloglovers.pk/azkar/hum-dua-mangne-mein-sust-kyun-ho-gaye-hain" target="_blank">
+                    <h3>"ہم دعا مانگنے میں سست کیوں ہوگئے ہیں؟"</h3>
+                    <p>دعا میں سستی کے اسباب اور اس سے نکلنے کے عملی طریقے۔</p>
+                    <div class="benefit">
+                        <strong>💎 فائدہ:</strong> دعا میں دلچسپی پیدا کرنا
+                    </div>
+                </a>
+            </div>
+            <div class="azkar-card">
+                <a href="https://www.bloglovers.pk/azkar/kya-allah-mujh-se-raazi-hai-apni-zindagi-mein-alamaat-ko-pehchaniye" target="_blank">
+                    <h3>"کیا اللہ مجھ سے راضی ہے؟ اپنی زندگی میں علامات کو پہچانیں"</h3>
+                    <p>اللہ کی رضا کی علامات اور انہیں پہچاننے کا طریقہ۔</p>
+                    <div class="benefit">
+                        <strong>💎 فائدہ:</strong> اللہ کی رضا کی پہچان
+                    </div>
+                </a>
+            </div>
+            <div class="azkar-card">
+                <a href="https://www.bloglovers.pk/azkar/bara-hi-bad-naseeb-hai-woh-shakhs-jo-in-azkar-ka-mamool-nahi-banata" target="_blank">
+                    <h3>"بڑاہی بدنصیب ہے وہ شخص جو ان اذکار کا معمول نہیں بناتا"</h3>
+                    <p>روزمرہ اذکار کی اہمیت اور ان کے معمول نہ بنانے کے نقصانات۔</p>
+                    <div class="benefit">
+                        <strong>💎 فائدہ:</strong> اذکار کا معمول بنانا
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top:60px; padding:30px; background:rgba(50,205,50,0.1); border-radius:20px; text-align:center; border:2px solid var(--green2);">
+            <h3 style="color:var(--green1); font-size:2rem; margin-bottom:20px;">
+                <i class="fas fa-info-circle"></i> روحانی علاج
+            </h3>
+            <p style="color:var(--dark); font-size:1.2rem; line-height:1.8; margin-bottom:25px;">
+                اس کیٹیگری میں آپ کو مختلف مسائل کے روحانی علاج، روزمرہ کے اذکار، نمازوں کے بعد کی دعائیں، 
+                اور مشکلات سے نجات پانے کے لیے مخصوص اذکار ملیں گے۔
+            </p>
+            <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+                <div style="background:white; padding:15px; border-radius:10px; width:200px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+                    <i class="fas fa-heart" style="color:var(--green2); font-size:2rem; margin-bottom:10px;"></i>
+                    <h4>دل کی سکون</h4>
+                </div>
+                <div style="background:white; padding:15px; border-radius:10px; width:200px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+                    <i class="fas fa-shield-alt" style="color:var(--green2); font-size:2rem; margin-bottom:10px;"></i>
+                    <h4>حفاظتی اذکار</h4>
+                </div>
+                <div style="background:white; padding:15px; border-radius:10px; width:200px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+                    <i class="fas fa-hand-holding-heart" style="color:var(--green2); font-size:2rem; margin-bottom:10px;"></i>
+                    <h4>حاجات پوری</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 بلاگ لوورز.pk | اذکار و دعائیں | روحانی علاج کا ذریعہ</p>
+        <p>🕌 ذکر سے دل کو سکون ملتا ہے | 📧 رابطہ: azkar@bloglovers.pk</p>
+        <div style="margin-top:25px;">
+            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
+               onclick="alert('📲 اذکار کی ایپ ڈاؤن لوڈ کریں!')"></i>
+            <i class="fas fa-print" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+            <i class="fas fa-share-alt" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+        </div>
+    </footer>
+
+    <script>
+        // Tasbih counter
+        let count = 0;
+        function increment() {
+            count++;
+            document.getElementById('count').textContent = count;
+            if(count % 33 === 0) {
+                alert('🎉 مبارک ہو! آپ نے 33 بار ذکر کیا۔ سبحان اللہ!');
+            }
+        }
+        
+        function resetCounter() {
+            count = 0;
+            document.getElementById('count').textContent = count;
+        }
+
+        // Tasbih beads click
+        document.querySelectorAll('.tasbih-bar .bead').forEach(bead => {
+            bead.addEventListener('click', function() {
+                increment();
+                this.style.animation = 'none';
+                this.style.transform = 'scale(1.5)';
+                setTimeout(() => {
+                    this.style.animation = '';
+                    this.style.transform = '';
+                }, 300);
+            });
+        });
+
+        // Azkar cards effect
+        document.querySelectorAll('.azkar-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('h3').style.color = 'var(--green3)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('h3').style.color = 'var(--green1)';
+            });
+        });
+
+        // Auto scroll for benefits
+        let benefitIndex = 0;
+        const benefits = document.querySelectorAll('.benefit');
+        function highlightBenefit() {
+            benefits.forEach(b => b.style.background = 'rgba(50, 205, 50, 0.1)');
+            benefits[benefitIndex].style.background = 'rgba(50, 205, 50, 0.3)';
+            benefits[benefitIndex].style.transform = 'scale(1.02)';
+            benefitIndex = (benefitIndex + 1) % benefits.length;
+        }
+        setInterval(highlightBenefit, 3000);
+    </script>
 </body>
 </html>
