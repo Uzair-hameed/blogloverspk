@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلیم | بلاگ لوورز.pk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --academic: #2C3E50;
+            --knowledge: #3498DB;
+            --learning: #1ABC9C;
+            --wisdom: #F39C12;
+            --light: #ECF0F1;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Nastaliq Urdu', 'Arial', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(52, 152, 219, 0.05) 20px, rgba(52, 152, 219, 0.05) 40px);
+            z-index: -1;
+        }
+        header {
+            background: linear-gradient(45deg, var(--academic), var(--knowledge));
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            border-bottom: 12px solid var(--wisdom);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(44, 62, 80, 0.3);
+        }
+        .graduation-cap {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.2);
+            animation: capFloat 6s infinite ease-in-out;
+        }
+        .graduation-cap:nth-child(2) {
+            top: auto;
+            bottom: 20px;
+            left: 40px;
+            right: auto;
+            animation-delay: 3s;
+        }
+        header h1 {
+            font-size: 4rem;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        .edu-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .edu-icons .edu-icon {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, white, var(--light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--knowledge);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.5s;
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+            animation: eduBounce 3s infinite;
+        }
+        .edu-icons .edu-icon:hover {
+            transform: scale(1.3) rotate(15deg);
+            box-shadow: 0 0 40px var(--learning);
+            animation: none;
+        }
+        .edu-icons .edu-icon:nth-child(2) { color: var(--learning); animation-delay: 0.5s; }
+        .edu-icons .edu-icon:nth-child(3) { color: var(--wisdom); animation-delay: 1s; }
+        .edu-icons .edu-icon:nth-child(4) { color: var(--academic); animation-delay: 1.5s; }
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 3rem;
+        }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+        .article-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 25px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--knowledge);
+            box-shadow: 15px 15px 30px #d1d9e6, -15px -15px 30px #ffffff;
+            transition: all 0.6s;
+            cursor: pointer;
+        }
+        .article-card::before {
+            content: '📚';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+        .article-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 20px 20px 40px #b8c4d6, -20px -20px 40px #ffffff;
+            border-color: var(--learning);
+        }
+        .article-card h3 {
+            color: var(--academic);
+            margin-bottom: 20px;
+            font-size: 1.9rem;
+            text-align: center;
+            line-height: 1.6;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .article-card .level-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--learning);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .article-card .tips {
+            background: rgba(26, 188, 156, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid var(--learning);
+            display: none;
+        }
+        .article-card.active .tips {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        .interactive-board {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            margin-top: 50px;
+            border: 5px solid var(--wisdom);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .calculator {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        .calculator input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid var(--knowledge);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        @keyframes capFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        @keyframes eduBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        footer {
+            background: linear-gradient(to right, var(--academic), var(--knowledge));
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 80px;
+            border-top: 5px solid var(--wisdom);
+        }
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.8rem;
+            }
+            .edu-icons .edu-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <i class="fas fa-graduation-cap graduation-cap"></i>
+    <i class="fas fa-graduation-cap graduation-cap"></i>
+
+    <header>
+        <h1>🎓 تعلیم</h1>
+        <p>تعلیمی حکمت عملیاں، تدریسی طریقے، نصاب اور تعلیمی مسائل پر تحریریں</p>
+        
+        <div class="edu-icons">
+            <div class="edu-icon"><i class="fas fa-book-open"></i></div>
+            <div class="edu-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div class="edu-icon"><i class="fas fa-user-graduate"></i></div>
+            <div class="edu-icon"><i class="fas fa-school"></i></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 style="text-align:center;color:var(--academic);margin-bottom:40px;font-size:2.8rem;">
+            <i class="fas fa-lightbulb"></i> 
+            تعلیمی رہنمائی 
+            <i class="fas fa-lightbulb"></i>
+        </h2>
+        
+        <div class="articles-grid">
+            <div class="article-card" onclick="toggleTips(this)">
+                <div class="level-tag">اساتذہ</div>
+                <a href="https://www.bloglovers.pk/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn" target="_blank">
+                    <h3>"کرونا کی صورت میں کمیونٹی بیسڈ سکولز کے بچوں کو کیسے سنبھالیں؟"</h3>
+                    <p>کورونا وبا کے دوران کمیونٹی سکولز میں تعلیمی چیلنجز اور ان کا حل۔</p>
+                </a>
+                <div class="tips">
+                    <strong>💡 تجاویز:</strong> آن لائن تعلیم، گھریلو مشقیں، والدین کی شرکت
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleTips(this)">
+                <div class="level-tag">اساتذہ</div>
+                <a href="https://www.bloglovers.pk/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye" target="_blank">
+                    <h3>"دورِحاضر کے اساتذہ کو کیسا ہونا چاہیے؟"</h3>
+                    <p>جدید دور میں استاد کی خصوصیات اور فرائض۔</p>
+                </a>
+                <div class="tips">
+                    <strong>💡 تجاویز:</strong> ٹیکنالوجی کا علم، مواصلاتی مہارت، تخلیقی سوچ
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleTips(this)">
+                <div class="level-tag">والدین</div>
+                <a href="https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan" target="_blank">
+                    <h3>"4-5سال کے بچوں کے لئے ٹاپ 16 پری-رائٹنگ سرگرمیاں"</h3>
+                    <p>چھوٹے بچوں کی تحریری مہارت بڑھانے کے لیے سرگرمیاں۔</p>
+                </a>
+                <div class="tips">
+                    <strong>💡 تجاویز:</strong> خاکہ کشی، رنگ بھرنا، ٹریسنگ، کٹنگ
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleTips(this)">
+                <div class="level-tag">طالب علم</div>
+                <a href="https://www.bloglovers.pk/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe" target="_blank">
+                    <h3>"ای سی سی ای میں ریاضی کے 10 عملی طریقے"</h3>
+                    <p>ابتدائی بچپن کی تعلیم میں ریاضی سکھانے کے عملی طریقے۔</p>
+                </a>
+                <div class="tips">
+                    <strong>💡 تجاویز:</strong> کھیلوں کے ذریعے تعلیم، عملی مشقیں، بصری مواد
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleTips(this)">
+                <div class="level-tag">نظام تعلیم</div>
+                <a href="https://www.bloglovers.pk/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm" target="_blank">
+                    <h3>"میٹرک کے بعد زیرہ سے کیوں شروع کرتا ہے پاکستانی طالب علم؟"</h3>
+                    <p>پاکستان کے تعلیمی نظام کی ایک دلچسپ حقیقت۔</p>
+                </a>
+                <div class="tips">
+                    <strong>💡 تجاویز:</strong> تعلیمی اصلاحات، کیریئر گائیڈنس، عملی تعلیم
+                </div>
+            </div>
+            <div class="article-card" onclick="toggleTips(this)">
+                <div class="level-tag">جدید تعلیم</div>
+                <a href="https://www.bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd" target="_blank">
+                    <h3>"کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اور آن لائن ایجوکیشن کا عہد"</h3>
+                    <p>پاکستان میں آن لائن تعلیم کا ارتقاء اور مستقبل۔</p>
+                </a>
+                <div class="tips">
+                    <strong>💡 تجاویز:</strong> ڈیجیٹل تعلیم، آن لائن وسائل، ورچوئل کلاس روم
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-board">
+            <h3 style="color:var(--academic); font-size:2.2rem; margin-bottom:20px;">
+                <i class="fas fa-calculator"></i> تعلیمی کیلکولیٹر
+            </h3>
+            <p style="color:#666; margin-bottom:20px;">
+                اپنے تعلیمی اہداف کے لیے درکار نمبرز کا حساب لگائیں۔
+            </p>
+            
+            <div class="calculator">
+                <input type="number" id="currentMarks" placeholder="فی الحال نمبر" min="0" max="100">
+                <input type="number" id="targetMarks" placeholder="ہدف نمبر" min="0" max="100">
+                <button onclick="calculateImprovement()" style="background:var(--learning); color:white; border:none; padding:12px 30px; border-radius:10px; cursor:pointer; font-size:1.1rem; margin-top:10px;">
+                    حساب کریں
+                </button>
+                <div id="result" style="margin-top:15px; font-size:1.2rem;"></div>
+            </div>
+        </div>
+
+        <div style="margin-top:60px; padding:35px; background:linear-gradient(45deg, rgba(52,152,219,0.1), rgba(26,188,156,0.1)); border-radius:25px; text-align:center;">
+            <h3 style="color:var(--academic); font-size:2.2rem; margin-bottom:25px;">
+                <i class="fas fa-chart-line"></i> تعلیم کی اہمیت
+            </h3>
+            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1); border:2px solid var(--knowledge);">
+                    <div style="width:80px;height:80px;background:var(--knowledge);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-brain" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>ذہنی نشوونما</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">سوچنے سمجھنے کی صلاحیت</p>
+                </div>
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1); border:2px solid var(--learning);">
+                    <div style="width:80px;height:80px;background:var(--learning);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-briefcase" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>کیریئر کے مواقع</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">بہتر روزگار کے مواقع</p>
+                </div>
+                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1); border:2px solid var(--wisdom);">
+                    <div style="width:80px;height:80px;background:var(--wisdom);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
+                        <i class="fas fa-users" style="font-size:2.5rem;color:white;"></i>
+                    </div>
+                    <h4>سماجی ترقی</h4>
+                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">معاشرے کی بہتری</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:50px; text-align:center;">
+            <div style="display:inline-block; background:var(--academic); color:white; padding:15px 40px; border-radius:50px; cursor:pointer; transition:0.3s;" 
+                 onmouseover="this.style.background='var(--learning)';this.style.transform='scale(1.05)'" 
+                 onmouseout="this.style.background='var(--academic)';this.style.transform='scale(1)'"
+                 onclick="studyTip()">
+                <i class="fas fa-lightbulb" style="margin-left:10px;"></i>
+                مطالعہ کا ٹپ حاصل کریں
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 بلاگ لوورز.pk | تعلیم | علم کی روشنی</p>
+        <p>🎓 علم روشنی ہے، جہالت اندھیرا | 📧 رابطہ: taleem@bloglovers.pk</p>
+        <div style="margin-top:25px;">
+            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
+               onclick="alert('📚 تعلیمی مواد ڈاؤن لوڈ کریں!')"></i>
+            <i class="fas fa-print" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+            <i class="fas fa-share-alt" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+            <i class="fab fa-youtube" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle tips
+        function toggleTips(card) {
+            const allCards = document.querySelectorAll('.article-card');
+            allCards.forEach(c => {
+                if(c !== card) {
+                    c.classList.remove('active');
+                }
+            });
+            card.classList.toggle('active');
+        }
+        
+        // Calculator
+        function calculateImprovement() {
+            const current = parseFloat(document.getElementById('currentMarks').value);
+            const target = parseFloat(document.getElementById('targetMarks').value);
+            const resultDiv = document.getElementById('result');
+            
+            if(isNaN(current) || isNaN(target)) {
+                resultDiv.innerHTML = '<span style="color:red;">براہ کرم درست نمبر درج کریں!</span>';
+                return;
+            }
+            
+            if(current > target) {
+                resultDiv.innerHTML = `<span style="color:green;">مبارک ہو! آپ کا ہدف پہلے ہی حاصل ہو چکا ہے! 🎉</span>`;
+            } else {
+                const improvement = target - current;
+                const percentage = ((improvement / current) * 100).toFixed(2);
+                resultDiv.innerHTML = `
+                    <span style="color:var(--academic);">
+                        درکار بہتری: <strong>${improvement}</strong> نمبر<br>
+                        فیصد بہتری: <strong>${percentage}%</strong><br>
+                        روزانہ اضافہ: <strong>${(improvement/30).toFixed(2)}</strong> نمبر (30 دنوں میں)
+                    </span>
+                `;
+            }
+        }
+        
+        // Study tip
+        function studyTip() {
+            const tips = [
+                "پڑھتے وقت وقفہ ضرور لیں: 25 منٹ پڑھیں، 5 منٹ آرام کریں",
+                "مطالعہ کا مقررہ وقت طے کریں اور اس پر قائم رہیں",
+                "مشکل مضامین صبح کے وقت پڑھیں جب ذہن تازہ ہو",
+                "خلاصہ نوٹس بنائیں - یہ یادداشت میں مدد کرتا ہے",
+                "خود سے سوالات بنائیں اور ان کے جوابات دیں",
+                "گروپ سٹڈی بہت مفید ہوتی ہے - بحث سے سمجھ بڑھتی ہے",
+                "پڑھائی کا ماحول صاف ستھرا اور پر سکون رکھیں",
+                "ہر دن کا مقصد طے کریں اور اسے پورا کریں",
+                "پچھلے پیپرز حل کریں - امتحان کی تیاری کا بہترین طریقہ",
+                "نیند پوری کریں - تھکا ہوا دماغ اچھی طرح نہیں سیکھ سکتا"
+            ];
+            
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            alert(`📖 مطالعہ کا ٹپ:\n\n${randomTip}`);
+        }
+        
+        // Education icons interaction
+        document.querySelectorAll('.edu-icons .edu-icon').forEach((icon, index) => {
+            icon.addEventListener('click', function() {
+                const topics = [
+                    "مطالعہ کے طریقے",
+                    "تدریس کی حکمت عملیاں",
+                    "طالب علم کی رہنمائی",
+                    "تعلیمی اداروں کا انتظام"
+                ];
+                alert(`🎓 موضوع:\n${topics[index]}\n\nاس موضوع سے متعلق مضامین نیچے دیکھیں۔`);
+                
+                // Visual effect
+                this.style.transform = 'scale(1.5) rotate(360deg)';
+                this.style.boxShadow = '0 0 40px var(--learning)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                }, 500);
+            });
+        });
+        
+        // Auto calculator example
+        function showExample() {
+            document.getElementById('currentMarks').value = 65;
+            document.getElementById('targetMarks').value = 85;
+            calculateImprovement();
+        }
+        
+        // Show example after 5 seconds
+        setTimeout(showExample, 5000);
+    </script>
+</body>
+</html>
