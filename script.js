@@ -92,7 +92,27 @@ rawData.split('\n').forEach(line => {
     }
 });
 
-// 1. Navigation with Dropdown - DISABLED (Using HTML links instead)
+// GLOBAL FUNCTION FOR OPENING POSTS IN IFRAME
+window.openPost = function(url) {
+    const mainArea = document.getElementById('mainContentArea');
+    if(mainArea) {
+        // Scroll to top for better experience
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        mainArea.innerHTML = `
+            <div style="margin-bottom:15px; text-align:right;">
+                <button onclick="location.reload()" style="background:#c0392b; color:white; border:none; padding:10px 20px; cursor:pointer; border-radius:3px; font-family:inherit; font-size:14px;">
+                    <i class="fas fa-arrow-right"></i> واپس جائیں (Go Back)
+                </button>
+            </div>
+            <div style="border:1px solid #ddd; background:#fff; padding:5px;">
+                <iframe src="${url}" style="width:100%; height:1000px; border:none; display:block;" title="Post Content"></iframe>
+            </div>
+        `;
+    }
+};
+
+// 1. Navigation (Static Links now used in HTML, JS generation disabled)
 const menu = document.getElementById('mainMenu');
 /*
 const limit = 6;
@@ -101,27 +121,15 @@ config.forEach((item, i) => {
         menu.innerHTML += `<li><a href="#sec-${item.key}">${item.title}</a></li>`;
     }
 });
-
-if(config.length > limit) {
-    let dropHtml = `
-    <li>
-        <a href="javascript:void(0)">مزید <i class="fas fa-caret-down"></i></a>
-        <ul class="dropdown-content">`;
-    for(let i = limit; i < config.length; i++) {
-        dropHtml += `<li><a href="#sec-${config[i].key}">${config[i].title}</a></li>`;
-    }
-    dropHtml += `</ul></li>`;
-    menu.innerHTML += dropHtml;
-}
 */
 
-// 2. Ticker
+// 2. Ticker (Updated to use openPost)
 const ticker = document.getElementById('tickerContent');
 posts.slice(0, 10).forEach(p => {
-    ticker.innerHTML += `<div class="ticker-item"><a href="${p.newUrl}">${p.title}</a> &nbsp;&bull;&nbsp; </div>`;
+    ticker.innerHTML += `<div class="ticker-item"><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')">${p.title}</a> &nbsp;&bull;&nbsp; </div>`;
 });
 
-// 3. Slider
+// 3. Slider (Updated to use openPost)
 const slider = document.getElementById('slider');
 const randoms = [...posts].sort(() => 0.5 - Math.random()).slice(0, 5);
 randoms.forEach((p, i) => {
@@ -133,7 +141,7 @@ randoms.forEach((p, i) => {
             </div>
             <div class="slide-caption">
                 <span class="cat-tag">${c.title}</span>
-                <h2><a href="${p.newUrl}" style="color:#fff">${p.title}</a></h2>
+                <h2><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="color:#fff">${p.title}</a></h2>
             </div>
         </div>
     `;
@@ -148,13 +156,14 @@ if(slides.length) setInterval(() => {
     slides[sIdx].classList.add('active');
 }, 4000);
 
-// 4. Main Sections
+// 4. Main Sections (Updated to use openPost)
 const mainArea = document.getElementById('mainContentArea');
 config.forEach(sec => {
     const secPosts = posts.filter(p => p.category === sec.key).slice(0, 4);
     const secDiv = document.createElement('section');
     secDiv.id = `sec-${sec.key}`;
     
+    // Note: The "More" link still points to the category page
     let html = `
         <div class="sec-head">
             <h2>${sec.title}</h2>
@@ -171,7 +180,7 @@ config.forEach(sec => {
                     <i class="fas fa-book-open" style="opacity:0.6"></i>
                 </div>
                 <div class="p-info">
-                    <a href="${p.newUrl}" class="p-title">${p.title}</a>
+                    <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" class="p-title">${p.title}</a>
                 </div>
             </div>`;
         });
@@ -183,7 +192,7 @@ config.forEach(sec => {
             <div class="list-item">
                 <div class="l-thumb" style="background:${sec.color}"><i class="fas fa-file-alt"></i></div>
                 <div style="padding-left:15px; flex:1;">
-                    <a href="${p.newUrl}" style="font-weight:bold;">${p.title}</a>
+                    <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="font-weight:bold;">${p.title}</a>
                 </div>
             </div>`;
         });
@@ -194,12 +203,12 @@ config.forEach(sec => {
     mainArea.appendChild(secDiv);
 });
 
-// 5. Sidebar
+// 5. Sidebar (Updated to use openPost)
 const popDiv = document.getElementById('popularPosts');
 posts.slice(0, 5).forEach(p => {
     popDiv.innerHTML += `
     <div style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
-        <a href="${p.newUrl}" style="font-weight:bold; font-size:13px;">${p.title}</a>
+        <a href="javascript:void(0)" onclick="openPost('${p.newUrl}')" style="font-weight:bold; font-size:13px;">${p.title}</a>
     </div>`;
 });
 
@@ -207,7 +216,7 @@ const tagDiv = document.getElementById('labelsCloud');
 config.forEach(c => tagDiv.innerHTML += `<a href="category-pages/${c.key}.html">${c.title}</a>`);
 
 const footDiv = document.getElementById('footerBestPosts');
-posts.slice(5, 8).forEach(p => footDiv.innerHTML += `<div style="border-bottom:1px solid #444; padding:5px 0;"><a href="${p.newUrl}">${p.title}</a></div>`);
+posts.slice(5, 8).forEach(p => footDiv.innerHTML += `<div style="border-bottom:1px solid #444; padding:5px 0;"><a href="javascript:void(0)" onclick="openPost('${p.newUrl}')">${p.title}</a></div>`);
 
 // Mobile Menu
 document.querySelector('.mobile-toggle').addEventListener('click', () => {
