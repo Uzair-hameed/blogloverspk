@@ -3,515 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بچوں کے لیے | بلاگ لوورز.pk</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>بچوں کی دنیا | کہانیاں اور سرگرمیاں | BlogLovers.pk</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (Reliable CDN for Vercel) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         :root {
-            --rainbow1: #FF6B6B;
-            --rainbow2: #FFD93D;
-            --rainbow3: #6BCF7F;
-            --rainbow4: #4D96FF;
-            --rainbow5: #9D4EDD;
-            --light: #FFF9E6;
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --text: #2C3E50;
+            --bg-gradient: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --font-urdu: 'Noto Nastaliq Urdu', serif;
+            --font-eng: 'Fredoka', sans-serif;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Nastaliq Urdu', 'Comic Sans MS', sans-serif;
         }
+
         body {
-            background: linear-gradient(135deg, #fff0f0 0%, #f0fff0 50%, #f0f0ff 100%);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
             min-height: 100vh;
-            position: relative;
+            font-family: var(--font-urdu);
+            color: var(--text);
             overflow-x: hidden;
+            position: relative;
         }
-        body::before {
-            content: '';
+
+        /* Floating Background Icons */
+        .bg-icons {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                url('https://www.transparenttextures.com/patterns/cartoon-clouds.png'),
-                url('https://www.transparenttextures.com/patterns/stars.png');
-            opacity: 0.2;
             z-index: -1;
-            animation: cloudsMove 60s linear infinite;
-        }
-        header {
-            background: linear-gradient(90deg, 
-                var(--rainbow1), 
-                var(--rainbow2), 
-                var(--rainbow3), 
-                var(--rainbow4), 
-                var(--rainbow5));
-            color: white;
-            padding: 2.5rem;
-            text-align: center;
-            border-bottom: 15px dotted white;
-            position: relative;
+            pointer-events: none;
             overflow: hidden;
         }
-        .floating-toys {
+
+        .bg-icons i {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+            color: rgba(255, 255, 255, 0.4);
+            animation: float 20s infinite linear;
         }
-        .floating-toys i {
-            position: absolute;
-            font-size: 2.5rem;
-            animation: floatAround 15s infinite linear;
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 1rem;
+            position: relative;
+        }
+
+        .header-content {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 2rem 4rem;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 4px solid var(--secondary);
+            animation: bounceIn 1s ease;
+        }
+
         header h1 {
-            font-size: 4rem;
-            text-shadow: 3px 3px 0 var(--rainbow5);
-            margin-bottom: 15px;
-            font-family: 'Comic Sans MS', cursive;
-            animation: bounce 2s infinite alternate;
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px var(--accent);
+            font-weight: 700;
         }
-        .toy-bar {
+
+        header p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Grid */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        /* Story Card */
+        .card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
+            position: relative;
             display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 25px 0;
-            flex-wrap: wrap;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
         }
-        .toy-bar .toy {
-            width: 70px;
-            height: 70px;
-            background: white;
-            border-radius: 20px;
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: var(--secondary);
+        }
+
+        .card-icon {
+            height: 150px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--rainbow1);
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: all 0.4s;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            animation: toyShake 3s infinite;
-        }
-        .toy-bar .toy:hover {
-            transform: scale(1.3) rotate(20deg);
-            animation: none;
-        }
-        .toy-bar .toy:nth-child(2) { color: var(--rainbow2); animation-delay: 0.5s; }
-        .toy-bar .toy:nth-child(3) { color: var(--rainbow3); animation-delay: 1s; }
-        .toy-bar .toy:nth-child(4) { color: var(--rainbow4); animation-delay: 1.5s; }
-        .toy-bar .toy:nth-child(5) { color: var(--rainbow5); animation-delay: 2s; }
-        .container {
-            max-width: 1300px;
-            margin: auto;
-            padding: 3rem;
-        }
-        .stories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .story-card {
-            background: white;
-            border-radius: 25px;
-            padding: 30px;
+            font-size: 4rem;
+            color: white;
             position: relative;
             overflow: hidden;
-            border: 5px solid;
-            border-image: linear-gradient(45deg, 
-                var(--rainbow1), 
-                var(--rainbow2), 
-                var(--rainbow3), 
-                var(--rainbow4)) 1;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.5s;
-            cursor: pointer;
         }
-        .story-card::before {
-            content: '✨';
+
+        .card-icon::after {
+            content: '';
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 2rem;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3;
         }
-        .story-card:hover {
-            transform: translateY(-20px) rotate(-2deg);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            border-image: linear-gradient(45deg, 
-                var(--rainbow5), 
-                var(--rainbow4), 
-                var(--rainbow3), 
-                var(--rainbow2)) 1;
+
+        .card:hover .card-icon i {
+            animation: shake 0.5s ease-in-out;
         }
-        .story-card h3 {
-            color: var(--rainbow1);
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #666;
             margin-bottom: 20px;
-            font-size: 1.8rem;
-            text-align: center;
-            line-height: 1.5;
-            min-height: 85px;
+            line-height: 1.8;
+            flex-grow: 1;
         }
-        .story-card a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .story-card .age {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--rainbow3);
+
+        .read-btn {
+            background: var(--secondary);
             color: white;
-            padding: 5px 15px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: bold;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card:hover .read-btn {
+            background: var(--primary);
+        }
+
+        /* Drawing Section */
+        .drawing-section {
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 5px dashed var(--primary);
+        }
+
+        .drawing-title {
+            color: var(--secondary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            border: 3px solid #eee;
+            border-radius: 15px;
+            background: #fff;
+            cursor: crosshair;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            max-width: 100%;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .action-btn {
+            padding: 10px 25px;
+            border: none;
             border-radius: 20px;
-            font-size: 0.9rem;
+            background: var(--text);
+            color: white;
+            cursor: pointer;
+            font-family: var(--font-urdu);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(to top, rgba(255,255,255,0.8), transparent);
+            margin-top: 3rem;
+        }
+
+        footer p {
+            color: var(--text);
             font-weight: bold;
         }
-        .story-card .moral {
-            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(77, 150, 255, 0.1));
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border-left: 5px solid var(--rainbow3);
-            display: none;
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .story-card.active .moral {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        .interactive-area {
-            background: linear-gradient(45deg, #FFE6E6, #E6FFE6, #E6E6FF);
-            padding: 30px;
-            border-radius: 25px;
-            margin-top: 50px;
-            text-align: center;
-            border: 5px dashed var(--rainbow2);
-        }
-        .drawing-board {
-            background: white;
-            height: 200px;
-            border-radius: 15px;
-            margin: 20px auto;
-            border: 3px solid var(--rainbow4);
-            cursor: crosshair;
-            position: relative;
-            overflow: hidden;
-        }
-        @keyframes cloudsMove {
-            0% { background-position: 0 0, 0 0; }
-            100% { background-position: 100px 100px, 50px 50px; }
-        }
-        @keyframes floatAround {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(100px, 50px) rotate(90deg); }
-            50% { transform: translate(50px, 100px) rotate(180deg); }
-            75% { transform: translate(-50px, 50px) rotate(270deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        @keyframes toyShake {
+
+        @keyframes shake {
             0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        footer {
-            background: linear-gradient(90deg, 
-                var(--rainbow5), 
-                var(--rainbow4), 
-                var(--rainbow3), 
-                var(--rainbow2));
-            color: white;
-            text-align: center;
-            padding: 2.5rem;
-            margin-top: 80px;
-            border-top: 10px dotted white;
-        }
+
         @media (max-width: 768px) {
-            .stories-grid {
-                grid-template-columns: 1fr;
-            }
-            header h1 {
-                font-size: 2.8rem;
-            }
-            .toy-bar .toy {
-                width: 55px;
-                height: 55px;
-                font-size: 2rem;
-            }
+            header h1 { font-size: 2.5rem; }
+            .header-content { padding: 1.5rem; width: 90%; }
         }
     </style>
 </head>
 <body>
-    <div class="floating-toys">
-        <i class="fas fa-bicycle" style="top:10%; left:10%; color:var(--rainbow1);"></i>
-        <i class="fas fa-gamepad" style="top:30%; left:80%; color:var(--rainbow2);"></i>
-        <i class="fas fa-robot" style="top:60%; left:15%; color:var(--rainbow3);"></i>
-        <i class="fas fa-rocket" style="top:80%; left:70%; color:var(--rainbow4);"></i>
-        <i class="fas fa-unicorn" style="top:40%; left:40%; color:var(--rainbow5);"></i>
+
+    <!-- Animated Background Icons -->
+    <div class="bg-icons">
+        <i class="fas fa-star" style="left: 10%; animation-duration: 15s; font-size: 20px;"></i>
+        <i class="fas fa-cloud" style="left: 20%; animation-duration: 25s; font-size: 40px;"></i>
+        <i class="fas fa-heart" style="left: 35%; animation-duration: 18s; font-size: 25px;"></i>
+        <i class="fas fa-rocket" style="left: 50%; animation-duration: 22s; font-size: 35px;"></i>
+        <i class="fas fa-music" style="left: 70%; animation-duration: 20s; font-size: 28px;"></i>
+        <i class="fas fa-moon" style="left: 85%; animation-duration: 28s; font-size: 45px;"></i>
     </div>
 
     <header>
-        <h1>🧸 بچوں کے لیے</h1>
-        <p>تعلیمی کہانیاں، اکبر بیربل کی کہانیاں، اسلامی واقعات اور دلچسپ سرگرمیاں</p>
-        
-        <div class="toy-bar">
-            <div class="toy"><i class="fas fa-book"></i></div>
-            <div class="toy"><i class="fas fa-puzzle-piece"></i></div>
-            <div class="toy"><i class="fas fa-paint-brush"></i></div>
-            <div class="toy"><i class="fas fa-music"></i></div>
-            <div class="toy"><i class="fas fa-gamepad"></i></div>
+        <div class="header-content">
+            <h1><i class="fas fa-shapes"></i> بچوں کی دنیا</h1>
+            <p>دلچسپ کہانیاں، سبق آموز واقعات اور تفریحی سرگرمیاں</p>
         </div>
     </header>
 
     <div class="container">
-        <h2 style="text-align:center;color:var(--rainbow5);margin-bottom:40px;font-size:2.8rem;font-family:'Comic Sans MS',cursive;">
-            <i class="fas fa-star"></i> 
-            دلچسپ کہانیوں کا جہاں 
-            <i class="fas fa-star"></i>
-        </h2>
         
-        <div class="stories-grid">
-            <div class="story-card" onclick="toggleMoral(this)">
-                <div class="age">5+ سال</div>
-                <a href="https://www.bloglovers.pk/kids/bachchon-ke-liye-akbar-birbal-ki-10-behtareen-kahaniyan" target="_blank">
-                    <h3>"بچوں کے لیے اکبر بیربل کی 10 بہترین کہانیاں"</h3>
-                    <p>اکبر بیربل کی مشہور کہانیوں کا دلچسپ مجموعہ جو بچوں کی ذہنی نشوونما کرے گا۔</p>
-                </a>
-                <div class="moral">
-                    <strong>🎯 سبق:</strong> ہمیشہ ذہانت سے مسئلے حل کریں۔
+        <!-- Posts Grid -->
+        <div class="posts-grid">
+            
+            <!-- Post 1: Akbar Birbal 10 Stories -->
+            <a href="https://www.bloglovers.pk/kids/bachchon-ke-liye-akbar-birbal-ki-10-behtareen-kahaniyan" class="card" target="_blank">
+                <div class="card-icon"><i class="fas fa-crown"></i></div>
+                <div class="card-body">
+                    <h3>بچوں کے لیے اکبر بیربل کی 10 بہترین کہانیاں</h3>
+                    <p>اکبر اور بیربل کی ذہانت اور طنز و مزاح سے بھرپور کہانیاں جو بچوں کو سوچنے پر مجبور کریں۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-book-open"></i></div>
                 </div>
-            </div>
-            <div class="story-card" onclick="toggleMoral(this)">
-                <div class="age">4+ سال</div>
-                <a href="https://www.bloglovers.pk/kids/billi-khala-ki-aakhri-maham" target="_blank">
-                    <h3>"بلی خالہ کی آخری مہم"</h3>
-                    <p>بلی خالہ کی دلچسپ مہم جواری جس میں وہ نئے دوست بناتی ہے۔</p>
-                </a>
-                <div class="moral">
-                    <strong>🎯 سبق:</strong> دوستی کی اہمیت اور ہمت کے ساتھ آگے بڑھنا۔
+            </a>
+
+            <!-- Post 2: Billi Khala -->
+            <a href="https://www.bloglovers.pk/kids/billi-khala-ki-aakhri-maham" class="card" target="_blank">
+                <div class="card-icon" style="background: linear-gradient(45deg, #FF9A9E, #FECFEF);"><i class="fas fa-cat"></i></div>
+                <div class="card-body">
+                    <h3>بلی خالہ کی آخری مہم</h3>
+                    <p>ایک شرارتی بلی اور اس کی دلچسپ مہم جوئی کی داستان۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-paw"></i></div>
                 </div>
-            </div>
-            <div class="story-card" onclick="toggleMoral(this)">
-                <div class="age">6+ سال</div>
-                <a href="https://www.bloglovers.pk/kids/aymandari-bhtryn-palysi-hai" target="_blank">
-                    <h3>"ایمانداری بہترین پالیسی ہے"</h3>
-                    <p>ایک ایسی کہانی جو بچوں کو ایمانداری کی اہمیت سکھاتی ہے۔</p>
-                </a>
-                <div class="moral">
-                    <strong>🎯 سبق:</strong> ایمانداری ہمیشہ بہترین پالیسی ہے۔
+            </a>
+
+            <!-- Post 3: Honesty -->
+            <a href="https://www.bloglovers.pk/kids/aymandari-bhtryn-palysi-hai" class="card" target="_blank">
+                <div class="card-icon" style="background: linear-gradient(45deg, #a18cd1, #fbc2eb);"><i class="fas fa-hand-holding-heart"></i></div>
+                <div class="card-body">
+                    <h3>ایمانداری بہترین پالیسی ہے</h3>
+                    <p>سچائی اور ایمانداری کی اہمیت پر مبنی ایک خوبصورت سبق آموز کہانی۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-star"></i></div>
                 </div>
-            </div>
-            <div class="story-card" onclick="toggleMoral(this)">
-                <div class="age">7+ سال</div>
-                <a href="https://www.bloglovers.pk/kids/ayk-nnhi-chyonti-aur-ayk-azym-pyghmbrhkmt-bhri-anokhi-mlaqat" target="_blank">
-                    <h3>"ایک ننھی چیونٹی اور ایک عظیم پیغمبرحکمت بھری انوکھی ملاقات"</h3>
-                    <p>ایک چیونٹی اور نبی کریم ﷺ کی ملاقات کی کہانی جو حکمت سے بھری ہے۔</p>
-                </a>
-                <div class="moral">
-                    <strong>🎯 سبق:</strong> اللہ کی ہر مخلوق کی اہمیت اور احترام۔
+            </a>
+
+            <!-- Post 4: Ant and Prophet -->
+            <a href="https://www.bloglovers.pk/kids/ayk-nnhi-chyonti-aur-ayk-azym-pyghmbrhkmt-bhri-anokhi-mlaqat" class="card" target="_blank">
+                <div class="card-icon" style="background: linear-gradient(45deg, #84fab0, #8fd3f4);"><i class="fas fa-bug"></i></div>
+                <div class="card-body">
+                    <h3>ایک ننھی چیونٹی اور ایک عظیم پیغمبر: حکمت بھری انوکھی ملاقات</h3>
+                    <p>حضرت سلیمان علیہ السلام اور ایک ننھی چیونٹی کے درمیان ہونے والی حکمت بھری گفتگو۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-scroll"></i></div>
                 </div>
-            </div>
-            <div class="story-card" onclick="toggleMoral(this)">
-                <div class="age">8+ سال</div>
-                <a href="https://www.bloglovers.pk/kids/kshsh-sql-ki-pydash-nyotn-aur-syb-ka-dlchsp-sfr" target="_blank">
-                    <h3>"کششِ ثقل کی پیدائش نیوٹن اور سیب کا دلچسپ سفر"</h3>
-                    <p>نیوٹن اور سیب کی مشہور کہانی جو سائنس کی دنیا میں اہمیت رکھتی ہے۔</p>
-                </a>
-                <div class="moral">
-                    <strong>🎯 سبق:</strong> مشاہدہ اور سوچ سے نئی دریافتیں ہوتی ہیں۔
+            </a>
+
+            <!-- Post 5: Newton Gravity -->
+            <a href="https://www.bloglovers.pk/kids/kshsh-sql-ki-pydash-nyotn-aur-syb-ka-dlchsp-sfr" class="card" target="_blank">
+                <div class="card-icon" style="background: linear-gradient(45deg, #ff9a9e, #fad0c4);"><i class="fas fa-apple-alt"></i></div>
+                <div class="card-body">
+                    <h3>کششِ ثقل کی پیدائش: نیوٹن اور سیب کا دلچسپ سفر</h3>
+                    <p>سائنس کی دنیا کا وہ واقعہ جس نے دنیا بدل دی۔ نیوٹن اور سیب کی کہانی۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-atom"></i></div>
                 </div>
-            </div>
-            <div class="story-card" onclick="toggleMoral(this)">
-                <div class="age">5+ سال</div>
-                <a href="https://www.bloglovers.pk/kids/akbr-byrbl-ki-khanyon-par-kchh-ne-aur-prkshsh-mozoaat" target="_blank">
-                    <h3>"کہانیوں کا تحفہ اکبر اور بیربل کے 10 نئے موضوعات"</h3>
-                    <p>اکبر بیربل کی مزید 10 نئی کہانیوں کا مجموعہ۔</p>
-                </a>
-                <div class="moral">
-                    <strong>🎯 سبق:</strong> علم اور حکمت سے ہر مسئلہ حل ہو سکتا ہے۔
+            </a>
+
+            <!-- Post 6: Akbar Birbal New Topics -->
+            <a href="https://www.bloglovers.pk/kids/akbr-byrbl-ki-khanyon-par-kchh-ne-aur-prkshsh-mozoaat" class="card" target="_blank">
+                <div class="card-icon" style="background: linear-gradient(45deg, #f093fb, #f5576c);"><i class="fas fa-chess-knight"></i></div>
+                <div class="card-body">
+                    <h3>اکبر بیربل کی کہانیوں پر کچھ نئے اور پرکشش موضوعات</h3>
+                    <p>بیربل کی حاضر جوابی اور بادشاہ اکبر کے سوالات کے نئے سلسلے۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-book-reader"></i></div>
                 </div>
+            </a>
+
+            <!-- Post 7: Magical Box -->
+            <a href="https://www.bloglovers.pk/kids/kahaniyon-ka-jadooi-sandooq-akbar-birbal-ki-anokhi-dastaanein" class="card" target="_blank">
+                <div class="card-icon" style="background: linear-gradient(45deg, #4facfe, #00f2fe);"><i class="fas fa-box-open"></i></div>
+                <div class="card-body">
+                    <h3>کہانیوں کا جادوئی صندوق: اکبر بیربل کی انوکھی داستانیں</h3>
+                    <p>اس صندوق میں چھپی ہیں وہ کہانیاں جو آپ کو ہنسنے پر مجبور کر دیں گی۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-magic"></i></div>
+                </div>
+            </a>
+
+            <!-- Post 8: Gift of Stories -->
+            <a href="https://www.bloglovers.pk/kids/kahaniyon-ka-tohfa-akbar-aur-birbal-ke-10-naye-mauzuaat" class="card" target="_blank">
+                <div class="card-icon" style="background: linear-gradient(45deg, #43e97b, #38f9d7);"><i class="fas fa-gift"></i></div>
+                <div class="card-body">
+                    <h3>کہانیوں کا تحفہ: اکبر اور بیربل کے 10 نئے موضوعات</h3>
+                    <p>بچوں کے لیے خاص طور پر منتخب کردہ 10 نئی اور سبق آموز کہانیاں۔</p>
+                    <div class="read-btn">کہانی پڑھیں <i class="fas fa-folder-open"></i></div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Interactive Drawing Board -->
+        <div class="drawing-section">
+            <h2 class="drawing-title"><i class="fas fa-palette"></i> ننھے مصور (ڈرائنگ بورڈ)</h2>
+            <p>اپنی پسند کے رنگ سے کچھ بھی بنائیں!</p>
+            
+            <canvas id="paintCanvas" height="400"></canvas>
+            
+            <div class="controls">
+                <div class="color-btn" style="background: #FF6B6B;" onclick="changeColor('#FF6B6B')"></div>
+                <div class="color-btn" style="background: #4ECDC4;" onclick="changeColor('#4ECDC4')"></div>
+                <div class="color-btn" style="background: #FFE66D;" onclick="changeColor('#FFE66D')"></div>
+                <div class="color-btn" style="background: #2C3E50;" onclick="changeColor('#2C3E50')"></div>
+                <div class="color-btn" style="background: #e056fd;" onclick="changeColor('#e056fd')"></div>
+                
+                <button class="action-btn" onclick="clearCanvas()"><i class="fas fa-trash"></i> صاف کریں</button>
             </div>
         </div>
 
-        <div class="interactive-area">
-            <h3 style="color:var(--rainbow5); font-size:2rem; margin-bottom:20px;">
-                <i class="fas fa-palette"></i> بچوں کے لیے ڈرائنگ بورڈ
-            </h3>
-            <p style="color:#666; margin-bottom:20px;">
-                نیچے والے بورڈ پر کلک کر کے ڈرائنگ کریں! رنگ بدلنے کے لیے نیچے دیے گئے بٹن استعمال کریں۔
-            </p>
-            
-            <div class="drawing-board" id="drawingBoard"></div>
-            
-            <div style="margin-top:20px;">
-                <button onclick="changeColor('#FF6B6B')" style="background:#FF6B6B; color:white; border:none; padding:10px 20px; border-radius:20px; margin:5px; cursor:pointer;">
-                    سرخ
-                </button>
-                <button onclick="changeColor('#6BCF7F')" style="background:#6BCF7F; color:white; border:none; padding:10px 20px; border-radius:20px; margin:5px; cursor:pointer;">
-                    سبز
-                </button>
-                <button onclick="changeColor('#4D96FF')" style="background:#4D96FF; color:white; border:none; padding:10px 20px; border-radius:20px; margin:5px; cursor:pointer;">
-                    نیلا
-                </button>
-                <button onclick="changeColor('#FFD93D')" style="background:#FFD93D; color:white; border:none; padding:10px 20px; border-radius:20px; margin:5px; cursor:pointer;">
-                    پیلا
-                </button>
-                <button onclick="clearDrawing()" style="background:#9D4EDD; color:white; border:none; padding:10px 20px; border-radius:20px; margin:5px; cursor:pointer;">
-                    صاف کریں
-                </button>
-            </div>
-        </div>
-
-        <div style="margin-top:50px; padding:30px; background:rgba(255,255,255,0.9); border-radius:25px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,0.1);">
-            <h3 style="color:var(--rainbow1); font-size:2.2rem; margin-bottom:25px;">
-                <i class="fas fa-child"></i> بچوں کی نشوونما کے لیے مفید
-            </h3>
-            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
-                <div style="text-align:center; flex:1; min-width:200px;">
-                    <div style="width:100px;height:100px;background:var(--rainbow1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-brain" style="font-size:3rem;color:white;"></i>
-                    </div>
-                    <h4>ذہنی نشوونما</h4>
-                    <p>کہانیاں بچوں کی ذہنی صلاحیتوں کو بڑھاتی ہیں</p>
-                </div>
-                <div style="text-align:center; flex:1; min-width:200px;">
-                    <div style="width:100px;height:100px;background:var(--rainbow3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-heart" style="font-size:3rem;color:white;"></i>
-                    </div>
-                    <h4>اخلاقی تعلیم</h4>
-                    <p>اچھے اخلاق اور اقدار سکھاتی ہیں</p>
-                </div>
-                <div style="text-align:center; flex:1; min-width:200px;">
-                    <div style="width:100px;height:100px;background:var(--rainbow5);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-language" style="font-size:3rem;color:white;"></i>
-                    </div>
-                    <h4>زبان کی مہارت</h4>
-                    <p>زبان اور بولنے کی صلاحیت بڑھاتی ہیں</p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <footer>
-        <p>© 2025 بلاگ لوورز.pk | بچوں کے لیے | تعلیم و تفریح کا مرکز</p>
-        <p>🧸 ہر کہانی ایک سبق لے کر آتی ہے | 📧 رابطہ: kids@bloglovers.pk</p>
-        <div style="margin-top:25px;">
-            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
-               onclick="alert('📚 بچوں کی کہانیاں ڈاؤن لوڈ کریں!')"></i>
-            <i class="fas fa-print" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fas fa-gamepad" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fas fa-music" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+        <p>© 2025 BlogLovers.pk | بچوں کے لیے پیار سے بنایا گیا <i class="fas fa-heart" style="color:red;"></i></p>
+        <div style="margin-top: 15px; font-size: 1.5rem;">
+            <i class="fas fa-bicycle" style="margin: 0 10px; color: var(--primary);"></i>
+            <i class="fas fa-gamepad" style="margin: 0 10px; color: var(--secondary);"></i>
+            <i class="fas fa-ice-cream" style="margin: 0 10px; color: var(--accent);"></i>
         </div>
     </footer>
 
     <script>
-        // Drawing board functionality
-        let currentColor = '#FF6B6B';
-        let isDrawing = false;
-        const drawingBoard = document.getElementById('drawingBoard');
-        const ctx = drawingBoard.getContext('2d');
-        
-        // Set canvas size
-        drawingBoard.width = drawingBoard.offsetWidth;
-        drawingBoard.height = drawingBoard.offsetHeight;
-        
-        // Set initial background
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, drawingBoard.width, drawingBoard.height);
-        
-        // Drawing functions
-        drawingBoard.addEventListener('mousedown', startDrawing);
-        drawingBoard.addEventListener('mousemove', draw);
-        drawingBoard.addEventListener('mouseup', stopDrawing);
-        
-        function startDrawing(e) {
-            isDrawing = true;
+        // Drawing Functionality
+        const canvas = document.getElementById('paintCanvas');
+        const ctx = canvas.getContext('2d');
+        let painting = false;
+        let color = '#2C3E50';
+
+        // Resize canvas correctly
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 400; // Fixed height
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function startPosition(e) {
+            painting = true;
             draw(e);
         }
-        
-        function draw(e) {
-            if (!isDrawing) return;
-            
-            const rect = drawingBoard.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            ctx.fillStyle = currentColor;
+
+        function finishedPosition() {
+            painting = false;
             ctx.beginPath();
-            ctx.arc(x, y, 5, 0, Math.PI * 2);
-            ctx.fill();
         }
-        
-        function stopDrawing() {
-            isDrawing = false;
-        }
-        
-        function changeColor(color) {
-            currentColor = color;
-            alert(`🎨 رنگ تبدیل ہو گیا: ${color}`);
-        }
-        
-        function clearDrawing() {
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, drawingBoard.width, drawingBoard.height);
-        }
-        
-        // Toggle moral lesson
-        function toggleMoral(card) {
-            const allCards = document.querySelectorAll('.story-card');
-            allCards.forEach(c => {
-                if(c !== card) {
-                    c.classList.remove('active');
-                }
-            });
-            card.classList.toggle('active');
+
+        function draw(e) {
+            if (!painting) return;
             
-            // Play sound
-            const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-cartoon-toy-whistle-616.mp3');
-            audio.volume = 0.3;
-            audio.play().catch(e => console.log('Audio play failed:', e));
+            // Mouse position relative to canvas
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = color;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
         }
-        
-        // Toy interaction
-        document.querySelectorAll('.toy-bar .toy').forEach(toy => {
-            toy.addEventListener('click', function() {
-                const toySounds = [
-                    'https://assets.mixkit.co/sfx/preview/mixkit-cartoon-toy-whistle-616.mp3',
-                    'https://assets.mixkit.co/sfx/preview/mixkit-game-ball-tap-2073.mp3',
-                    'https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3',
-                    'https://assets.mixkit.co/sfx/preview/mixkit-cartoon-toy-whistle-616.mp3',
-                    'https://assets.mixkit.co/sfx/preview/mixkit-game-ball-tap-2073.mp3'
-                ];
-                
-                const index = Array.from(this.parentElement.children).indexOf(this);
-                const audio = new Audio(toySounds[index]);
-                audio.volume = 0.2;
-                audio.play().catch(e => console.log('Audio play failed:', e));
-                
-                // Visual effect
-                this.style.transform = 'scale(1.5) rotate(360deg)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 500);
-            });
-        });
-        
-        // Auto floating toys movement
-        window.addEventListener('resize', () => {
-            drawingBoard.width = drawingBoard.offsetWidth;
-            drawingBoard.height = drawingBoard.offsetHeight;
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, drawingBoard.width, drawingBoard.height);
-        });
+
+        // Event Listeners for Mouse and Touch
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', finishedPosition);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseleave', finishedPosition);
+
+        // Touch support for mobile
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startPosition(e); });
+        canvas.addEventListener('touchend', (e) => { e.preventDefault(); finishedPosition(); });
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+
+        function changeColor(newColor) {
+            color = newColor;
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     </script>
 </body>
 </html>
