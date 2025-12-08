@@ -3,462 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حوصلہ افزائی | بلاگ لوورز.pk</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>حوصلہ اور امید | BlogLovers.pk</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (Reliable CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         :root {
-            --sunrise: #FF6B35;
-            --sunlight: #FFA500;
-            --golden: #FFD700;
-            --warm: #FFE5B4;
-            --dark: #8B4513;
+            --bg-dark: #09090b;
+            --bg-card: rgba(24, 24, 27, 0.6);
+            --fire-1: #f59e0b; /* Amber */
+            --fire-2: #ef4444; /* Red */
+            --fire-3: #fbbf24; /* Gold */
+            --text-main: #fafafa;
+            --text-muted: #a1a1aa;
+            --glow: 0 0 25px rgba(245, 158, 11, 0.3);
+            --font-urdu: 'Noto Nastaliq Urdu', serif;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Nastaliq Urdu', 'Arial', sans-serif;
         }
+
         body {
-            background: linear-gradient(135deg, #fff8f0 0%, #fff0e0 100%);
-            color: #5a3e1b;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-urdu);
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
+            position: relative;
         }
-        body::before {
-            content: '';
+
+        /* Animated Embers Background */
+        canvas#embers {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
             z-index: -1;
+            background: radial-gradient(circle at bottom, #1c1917 0%, #09090b 100%);
         }
+
+        /* Header */
         header {
-            background: linear-gradient(45deg, var(--sunrise), var(--sunlight));
-            color: white;
-            padding: 3rem;
             text-align: center;
-            border-bottom: 15px solid var(--golden);
+            padding: 5rem 1rem 3rem;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.3);
+            z-index: 10;
         }
-        .sun {
-            position: absolute;
-            top: 50%;
-            left: 10%;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, var(--golden), var(--sunlight));
-            border-radius: 50%;
-            animation: sunRise 10s infinite alternate;
-            filter: blur(2px);
-            opacity: 0.7;
-        }
-        .sun:nth-child(2) {
-            top: 20%;
-            left: 80%;
-            width: 70px;
-            height: 70px;
-            animation-delay: 5s;
-        }
-        header h1 {
+
+        .header-content h1 {
             font-size: 4rem;
-            text-shadow: 3px 3px 5px rgba(139, 69, 19, 0.5);
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
-            animation: glow 2s infinite alternate;
+            margin-bottom: 1rem;
+            background: linear-gradient(to top, var(--fire-2), var(--fire-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 40px rgba(245, 158, 11, 0.4);
+            animation: burnText 2s infinite alternate;
         }
-        .motivation-icons {
+
+        .header-content p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            border-bottom: 2px solid rgba(245, 158, 11, 0.2);
+            padding-bottom: 25px;
+        }
+
+        /* Quote Section */
+        .quote-box {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .quote-box i {
+            font-size: 2rem;
+            color: var(--fire-3);
+            margin-bottom: 1rem;
+        }
+
+        .quote-text {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(45deg, var(--fire-2), var(--fire-1));
+            border: none;
+            padding: 10px 25px;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font-urdu);
+            font-size: 1rem;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.6);
+        }
+
+        /* Container & Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .grid-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            color: var(--fire-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .grid-title::before, .grid-title::after {
+            content: '';
+            height: 2px;
+            width: 50px;
+            background: var(--fire-3);
+            display: block;
+        }
+
+        .posts-grid {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin: 30px 0;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
         }
-        .motivation-icons .m-icon {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle at 30% 30%, white, var(--warm));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--sunrise);
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: all 0.5s;
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
-            animation: floatIcon 4s infinite ease-in-out;
-        }
-        .motivation-icons .m-icon:hover {
-            transform: scale(1.3);
-            box-shadow: 0 0 40px var(--golden);
-            animation: none;
-        }
-        .motivation-icons .m-icon:nth-child(2) { animation-delay: 0.5s; }
-        .motivation-icons .m-icon:nth-child(3) { animation-delay: 1s; }
-        .motivation-icons .m-icon:nth-child(4) { animation-delay: 1.5s; }
-        .motivation-icons .m-icon:nth-child(5) { animation-delay: 2s; }
-        .container {
-            max-width: 1300px;
-            margin: auto;
-            padding: 3rem;
-        }
-        .messages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 35px;
-            margin-top: 50px;
-        }
-        .message-card {
-            background: linear-gradient(145deg, #ffffff, #fff8f0);
-            border-radius: 25px;
-            padding: 35px;
-            position: relative;
+
+        /* Hero Card Design (Special for Single Post) */
+        .hero-card {
+            width: 100%;
+            max-width: 600px;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 30px;
             overflow: hidden;
-            border: 3px solid transparent;
-            border-image: linear-gradient(45deg, var(--sunrise), var(--golden)) 1;
-            box-shadow: 15px 15px 30px #e8d9c9, -15px -15px 30px #ffffff;
-            transition: all 0.6s;
-            cursor: pointer;
-        }
-        .message-card::before {
-            content: '"';
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 6rem;
-            color: rgba(255, 107, 53, 0.1);
-            font-family: 'Georgia', serif;
-        }
-        .message-card::after {
-            content: '"';
-            position: absolute;
-            bottom: 15px;
-            left: 20px;
-            font-size: 6rem;
-            color: rgba(255, 107, 53, 0.1);
-            font-family: 'Georgia', serif;
-        }
-        .message-card:hover {
-            transform: translateY(-20px) rotate(1deg);
-            box-shadow: 20px 20px 40px #d9c9b8, -20px -20px 40px #ffffff;
-            border-image: linear-gradient(45deg, var(--golden), var(--sunrise)) 1;
-        }
-        .message-card h3 {
-            color: var(--dark);
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            text-align: center;
-            line-height: 1.6;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .message-card a {
             text-decoration: none;
-            color: inherit;
-            display: block;
+            color: var(--text-main);
+            transition: all 0.5s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
-        .message-card .effect {
-            background: linear-gradient(45deg, rgba(255, 107, 53, 0.1), rgba(255, 215, 0, 0.1));
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border-left: 5px solid var(--sunrise);
-            display: none;
+
+        .hero-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--fire-3);
+            box-shadow: 0 0 50px rgba(245, 158, 11, 0.2);
         }
-        .message-card.active .effect {
-            display: block;
-            animation: slideUp 0.5s ease;
-        }
-        .daily-quote {
-            background: linear-gradient(45deg, var(--warm), white);
-            padding: 30px;
-            border-radius: 25px;
-            margin-top: 50px;
-            text-align: center;
-            border: 5px solid var(--golden);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+
+        .card-img {
+            height: 250px;
+            background: linear-gradient(45deg, #27272a, #18181b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow: hidden;
         }
-        .daily-quote::before {
-            content: '💫';
+
+        .card-img i {
+            font-size: 6rem;
+            background: linear-gradient(to bottom, var(--fire-3), var(--fire-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            z-index: 2;
+        }
+
+        .card-img::after {
+            content: '';
             position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 4rem;
-            opacity: 0.2;
-            animation: sparkle 3s infinite;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.1), transparent 60%);
+            animation: rotateGlow 10s infinite linear;
         }
-        @keyframes sunRise {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-20px) scale(1.1); }
-        }
-        @keyframes glow {
-            0% { text-shadow: 3px 3px 5px rgba(139, 69, 19, 0.5); }
-            100% { text-shadow: 0 0 20px var(--golden), 0 0 30px var(--golden); }
-        }
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.2; transform: rotate(0deg); }
-            50% { opacity: 0.4; transform: rotate(180deg); }
-        }
-        footer {
-            background: linear-gradient(to right, var(--sunrise), var(--sunlight));
-            color: white;
+
+        .card-content {
+            padding: 2rem;
             text-align: center;
-            padding: 2.5rem;
-            margin-top: 80px;
-            border-top: 5px solid var(--golden);
         }
+
+        .card-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--fire-3);
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-btn {
+            display: inline-block;
+            border: 2px solid var(--fire-3);
+            padding: 10px 30px;
+            border-radius: 50px;
+            color: var(--fire-3);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-card:hover .read-btn {
+            background: var(--fire-3);
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* Animations */
+        @keyframes burnText {
+            from { text-shadow: 0 0 20px rgba(245, 158, 11, 0.2); opacity: 0.9; }
+            to { text-shadow: 0 0 50px rgba(239, 68, 68, 0.6); opacity: 1; }
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
-            .messages-grid {
-                grid-template-columns: 1fr;
-            }
-            header h1 {
-                font-size: 2.8rem;
-            }
-            .motivation-icons .m-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 2rem;
-            }
-            .sun {
-                width: 60px;
-                height: 60px;
-            }
+            .header-content h1 { font-size: 2.5rem; }
+            .quote-text { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
-    <div class="sun"></div>
-    <div class="sun"></div>
+
+    <!-- Animated Embers Background -->
+    <canvas id="embers"></canvas>
 
     <header>
-        <h1>💫 حوصلہ افزائی</h1>
-        <p>زندگی میں امید، ہمت اور کامیابی کے لیے متاثر کن پیغامات</p>
-        
-        <div class="motivation-icons">
-            <div class="m-icon"><i class="fas fa-rocket"></i></div>
-            <div class="m-icon"><i class="fas fa-trophy"></i></div>
-            <div class="m-icon"><i class="fas fa-medal"></i></div>
-            <div class="m-icon"><i class="fas fa-flag-checkered"></i></div>
-            <div class="m-icon"><i class="fas fa-mountain"></i></div>
+        <div class="header-content">
+            <h1><i class="fas fa-fire-alt"></i> عزم و ہمت</h1>
+            <p>جب ارادے مضبوط ہوں تو منزلیں خود بخود قدم چومتی ہیں۔ مایوسی کفر ہے، اور امید مومن کی ڈھال۔</p>
         </div>
     </header>
 
     <div class="container">
-        <h2 style="text-align:center;color:var(--dark);margin-bottom:40px;font-size:2.8rem;">
-            <i class="fas fa-fire"></i> 
-            متاثر کن پیغامات 
-            <i class="fas fa-fire"></i>
-        </h2>
         
-        <div class="messages-grid">
-            <div class="message-card" onclick="toggleEffect(this)">
-                <a href="https://www.bloglovers.pk/motivation/hausla-afzai-ke-50-paighamaat" target="_blank">
-                    <h3>"حوصلہ افزائی کے 50 پیغامات"</h3>
-                    <p>زندگی کے مختلف مراحل میں حوصلہ بڑھانے والے 50 قیمتی پیغامات۔</p>
-                </a>
-                <div class="effect">
-                    <strong>✨ اثر:</strong> یہ پیغامات آپ کو مشکلات کا مقابلہ کرنے کی طاقت دیتے ہیں۔
-                </div>
+        <!-- Daily Motivation Generator -->
+        <div class="quote-box">
+            <i class="fas fa-quote-right"></i>
+            <div class="quote-text" id="daily-quote">
+                "ہزاروں میل کا سفر ایک قدم سے شروع ہوتا ہے۔ اٹھو! اور اپنا پہلا قدم بڑھاؤ۔"
             </div>
-        </div>
-
-        <div class="daily-quote">
-            <h3 style="color:var(--sunrise); font-size:2.2rem; margin-bottom:20px;">
-                <i class="fas fa-calendar-day"></i> آج کا متاثر کن پیغام
-            </h3>
-            <p id="dailyQuote" style="font-size:1.8rem; line-height:1.6; color:var(--dark); font-style:italic; margin-bottom:20px;">
-                "ہارنا آسان ہے، لڑنا مشکل ہے، اور جیتنا سب سے مشکل ہے۔ مگر جو لڑتے ہیں، وہی جیتتے ہیں۔"
-            </p>
-            <button onclick="newQuote()" style="background:var(--sunrise); color:white; border:none; padding:12px 30px; border-radius:50px; cursor:pointer; font-size:1.1rem; transition:0.3s;">
-                <i class="fas fa-sync-alt"></i> نیا پیغام دیکھیں
+            <button class="refresh-btn" onclick="newQuote()">
+                <i class="fas fa-sync-alt"></i> نیا پیغام
             </button>
         </div>
 
-        <div style="margin-top:60px; padding:35px; background:linear-gradient(45deg, rgba(255,215,0,0.1), rgba(255,107,53,0.1)); border-radius:25px; text-align:center;">
-            <h3 style="color:var(--dark); font-size:2.2rem; margin-bottom:25px;">
-                <i class="fas fa-chart-line"></i> حوصلہ افزائی کیوں ضروری ہے؟
-            </h3>
-            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
-                    <div style="width:80px;height:80px;background:var(--sunrise);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-brain" style="font-size:2.5rem;color:white;"></i>
-                    </div>
-                    <h4>ذہنی صحت</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">دماغی طور پر مضبوط بناتی ہے</p>
-                </div>
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
-                    <div style="width:80px;height:80px;background:var(--sunlight);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-heart" style="font-size:2.5rem;color:white;"></i>
-                    </div>
-                    <h4>جذباتی توازن</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">جذبات کو مثبت رکھتی ہے</p>
-                </div>
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
-                    <div style="width:80px;height:80px;background:var(--golden);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;color:var(--dark);">
-                        <i class="fas fa-bullseye" style="font-size:2.5rem;"></i>
-                    </div>
-                    <h4>مقصد کی طرف</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">ہدف کی طرف رہنمائی کرتی ہے</p>
-                </div>
-            </div>
-        </div>
+        <!-- Content Grid -->
+        <h2 class="grid-title">منتخب مضامین</h2>
+        
+        <div class="posts-grid">
 
-        <div style="margin-top:50px; text-align:center;">
-            <div style="display:inline-block; background:linear-gradient(45deg, var(--sunrise), var(--sunlight)); color:white; padding:15px 40px; border-radius:50px; cursor:pointer; transition:0.3s;" 
-                 onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 0 30px var(--golden)'" 
-                 onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'"
-                 onclick="motivateMe()">
-                <i class="fas fa-magic" style="margin-left:10px;"></i>
-                مجھے حوصلہ دیں!
+            <!-- Featured Post (Single Link Available) -->
+            <a href="https://www.bloglovers.pk/motivation/hausla-afzai-ke-50-paighamaat" class="hero-card" target="_blank">
+                <div class="card-img">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <div class="card-content">
+                    <h3>حوصلہ افزائی کے 50 پیغامات</h3>
+                    <p>زندگی کی مشکلات میں امید کی کرن۔ وہ اقوال اور باتیں جو آپ کے اندر سوئی ہوئی طاقت کو جگا دیں اور آپ کو کامیابی کی راہ پر گامزن کریں۔</p>
+                    <span class="read-btn">پڑھیں اور عمل کریں <i class="fas fa-arrow-left"></i></span>
+                </div>
+            </a>
+
+            <!-- Placeholder Card 1 (To show layout capability) -->
+            <div class="hero-card" style="opacity: 0.7; pointer-events: none; filter: grayscale(1);">
+                <div class="card-img">
+                    <i class="fas fa-hourglass-half"></i>
+                </div>
+                <div class="card-content">
+                    <h3>جلد آرہا ہے...</h3>
+                    <p>مزید موٹیویشنل تحریریں جلد شامل کی جائیں گی۔ ہمارے ساتھ جڑے رہیں۔</p>
+                    <span class="read-btn" style="border-color: #555; color: #555;">انتظار فرمائیں</span>
+                </div>
             </div>
+
         </div>
     </div>
 
     <footer>
-        <p>© 2025 بلاگ لوورز.pk | حوصلہ افزائی | مثبت سوچ کا مرکز</p>
-        <p>✨ ہر مشکل کے بعد آسانی ہے | 📧 رابطہ: motivation@bloglovers.pk</p>
-        <div style="margin-top:25px;">
-            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
-               onclick="alert('📄 حوصلہ افزائی کے پیغامات ڈاؤن لوڈ کریں!')"></i>
-            <i class="fas fa-share-alt" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fab fa-whatsapp" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fas fa-print" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
+        <p>© 2025 بلاگ لوورز.pk | عزمِ سفر</p>
+        <div style="margin-top: 15px; font-size: 1.5rem;">
+            <i class="fas fa-fist-raised" style="margin: 0 10px; color: var(--fire-1);"></i>
+            <i class="fas fa-lightbulb" style="margin: 0 10px; color: var(--fire-3);"></i>
+            <i class="fas fa-heart" style="margin: 0 10px; color: var(--fire-2);"></i>
         </div>
     </footer>
 
     <script>
-        // Daily quotes
-        const quotes = [
-            "کامیابی کا راستہ مشکل ضرور ہے، مگر ناممکن نہیں۔",
-            "ہار ماننا آسان ہے، لڑنا مشکل ہے، اور جیتنا سب سے مشکل ہے۔",
-            "ہر صبح نیا موقع ہے، نیا آغاز ہے، نئی کامیابی ہے۔",
-            "آپ کے خواب آپ کی منزل ہیں، بس ان تک پہنچنے کا حوصلہ چاہیے۔",
-            "مشکلیں آتی ہیں تاکہ ہم مضبوط ہوں، ناکہ ہم کمزور ہوں۔",
-            "جو چاہو، وہ کرو۔ جو کرو، اس میں بہترین بنو۔",
-            "کامیابی کا راز یہ ہے کہ ہار سے ڈرو نہیں، ہار سے سیکھو۔",
-            "آج کا کام کل پر مت چھوڑو، کیونکہ کل کب آئے گا، کسی کو نہیں معلوم۔",
-            "خود پر بھروسہ رکھو، کیونکہ آپ ہی اپنی سب سے بڑی طاقت ہو۔",
-            "چھوٹے چھوٹے قدم بڑے بڑے سفر کی بنیاد بنتے ہیں۔"
-        ];
-        
-        function newQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            document.getElementById('dailyQuote').textContent = `"${quotes[randomIndex]}"`;
-            
-            // Add animation
-            const quoteElement = document.getElementById('dailyQuote');
-            quoteElement.style.animation = 'none';
-            setTimeout(() => {
-                quoteElement.style.animation = '';
-            }, 10);
-        }
-        
-        // Toggle effect
-        function toggleEffect(card) {
-            const allCards = document.querySelectorAll('.message-card');
-            allCards.forEach(c => {
-                if(c !== card) {
-                    c.classList.remove('active');
+        // Embers Animation
+        const canvas = document.getElementById('embers');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+
+        class Ember {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.opacity = 1;
+                this.color = `255, ${Math.floor(Math.random() * 100 + 100)}, 0`; // Orange/Yellow shades
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.opacity -= 0.005;
+                
+                if (this.opacity <= 0) {
+                    this.y = canvas.height + Math.random() * 100;
+                    this.opacity = 1;
+                    this.x = Math.random() * canvas.width;
                 }
-            });
-            card.classList.toggle('active');
-        }
-        
-        // Motivate me button
-        function motivateMe() {
-            const motivations = [
-                "آپ بہت قابل ہیں! آپ کچھ بھی کر سکتے ہیں! 🚀",
-                "آج آپ کا دن ہے! پوری طاقت سے آگے بڑھیں! 💪",
-                "آپ میں وہ سب کچھ ہے جو کامیابی کے لیے درکار ہے! 🌟",
-                "مسکرائیں! آپ کی مسکراہٹ دنیا کو روشن کر سکتی ہے! 😊",
-                "آپ کی کوششیں رنگ لائیں گی، بس جاری رکھیں! 🏆"
-            ];
-            
-            const randomMotivation = motivations[Math.floor(Math.random() * motivations.length)];
-            alert(`💫 حوصلہ افزائی:\n\n${randomMotivation}`);
-            
-            // Confetti effect
-            createConfetti();
-        }
-        
-        // Confetti effect
-        function createConfetti() {
-            const colors = ['#FF6B35', '#FFA500', '#FFD700', '#8B4513'];
-            const confettiCount = 50;
-            
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.width = '10px';
-                confetti.style.height = '10px';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.borderRadius = '50%';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '-10px';
-                confetti.style.zIndex = '9999';
-                confetti.style.pointerEvents = 'none';
-                document.body.appendChild(confetti);
-                
-                // Animation
-                const animation = confetti.animate([
-                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                    { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                ], {
-                    duration: 2000 + Math.random() * 2000,
-                    easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
-                });
-                
-                animation.onfinish = () => confetti.remove();
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = `rgba(${this.color}, 1)`;
+                ctx.fill();
+                ctx.shadowBlur = 0;
             }
         }
-        
-        // Motivation icons interaction
-        document.querySelectorAll('.motivation-icons .m-icon').forEach((icon, index) => {
-            icon.addEventListener('click', function() {
-                const messages = [
-                    "🚀 آگے بڑھیں! آپ کا سفر شاندار ہے!",
-                    "🏆 آپ جیتنے کے لیے بنے ہیں!",
-                    "🥇 آپ کی کوششیں رنگ لائیں گی!",
-                    "🏁 منزل قریب ہے، بس تھوڑا اور!",
-                    "⛰️ بلندیوں کو چھونے کا وقت آ گیا ہے!"
-                ];
-                alert(messages[index]);
-                
-                // Visual effect
-                this.style.transform = 'scale(1.5)';
-                this.style.boxShadow = '0 0 40px gold';
-                setTimeout(() => {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                }, 500);
+
+        function initEmbers() {
+            const count = (canvas.width * canvas.height) / 15000;
+            for (let i = 0; i < count; i++) {
+                particles.push(new Ember());
+            }
+        }
+
+        function animateEmbers() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
             });
+            requestAnimationFrame(animateEmbers);
+        }
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles.length = 0;
+            initEmbers();
         });
-        
-        // Auto change quote every 30 seconds
-        setInterval(newQuote, 30000);
+
+        initEmbers();
+        animateEmbers();
+
+        // Quote Logic
+        const quotes = [
+            "گرنا اہم نہیں، گر کر دوبارہ اٹھ کھڑا ہونا اہم ہے۔",
+            "آپ کی سوچ ہی آپ کی دنیا کی تعمیر کرتی ہے۔ مثبت سوچیں، مثبت رہیں۔",
+            "کامیابی کا راز: شروعات کرنے میں ہے۔",
+            "مشکلات صرف بہترین لوگوں کے حصے میں آتی ہیں، کیونکہ وہ ہی اسے بہترین طریقے سے انجام دینے کی صلاحیت رکھتے ہیں۔",
+            "وقت آپ کا ہے، چاہو تو سونا بنا لو، چاہو تو سونے میں گزار دو۔",
+            "جس کے پاس صبر ہے، اس کے پاس سب کچھ ہے۔"
+        ];
+
+        function newQuote() {
+            const display = document.getElementById('daily-quote');
+            const random = Math.floor(Math.random() * quotes.length);
+            
+            // Fade out effect
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.innerText = `"${quotes[random]}"`;
+                display.style.opacity = 1;
+            }, 300);
+        }
     </script>
 </body>
 </html>
