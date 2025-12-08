@@ -1,0 +1,102 @@
+// sitemap.js
+const fs = require('fs');
+const path = require('path');
+
+const DOMAIN = 'https://bloglovers.pk';
+
+// آپ کے redirects سے تمام نئے URLs جمع کریں
+function extractUrlsFromRedirects() {
+  const redirectsContent = fs.readFileSync('vercel.json', 'utf8');
+  const vercelConfig = JSON.parse(redirectsContent);
+  
+  const urls = new Set();
+  
+  // Home page اور static صفحات
+  urls.add({ url: '/', priority: '1.0', changefreq: 'daily' });
+  urls.add({ url: '/about.html', priority: '0.8', changefreq: 'monthly' });
+  urls.add({ url: '/contact.html', priority: '0.7', changefreq: 'monthly' });
+  
+  // تمام redirects سے destinations جمع کریں
+  vercelConfig.redirects.forEach(redirect => {
+    if (redirect.destination && !redirect.destination.startsWith('http')) {
+      urls.add({ 
+        url: redirect.destination, 
+        priority: '0.7', 
+        changefreq: 'weekly',
+        lastmod: extractDateFromSource(redirect.source)
+      });
+    }
+  });
+  
+  // آپ کی categories شامل کریں
+  const categories = [
+    'alamaat-sughra', 'alamaat-kubra', 'islami-taleemat', 'azkar',
+    'taleem', 'mazameen', 'english-adab', 'technology', 'kids',
+    'aqwal', 'islami-sawalat', 'motivation', 'tareekh', 'shakhsiyat'
+  ];
+  
+  categories.forEach(category => {
+    urls.add({ 
+      url: `/${category}`, 
+      priority: '0.9', 
+      changefreq: 'weekly'
+    });
+  });
+  
+  return Array.from(urls);
+}
+
+// تاریخ extract کرنے کا function
+function extractDateFromSource(source) {
+  const dateMatch = source.match(/\/(\d{4})\/(\d{2})\//);
+  if (dateMatch) {
+    return `${dateMatch[1]}-${dateMatch[2]}-01`;
+  }
+  return new Date().toISOString().split('T')[0];
+}
+
+// XML generate کریں
+function generateSitemap(urls) {
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+
+  urls.forEach(item => {
+    const lastmod = item.lastmod || new Date().toISOString().split('T')[0];
+    xml += `
+  <url>
+    <loc>${DOMAIN}${item.url}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${item.changefreq}</changefreq>
+    <priority>${item.priority}</priority>
+  </url>`;
+  });
+
+  xml += '\n</urlset>';
+  return xml;
+}
+
+// Main function
+function main() {
+  console.log('🔍 Redirects سے URLs جمع کر رہا ہوں...');
+  const urls = extractUrlsFromRedirects();
+  console.log(`✅ ${urls.length} URLs مل گئیں`);
+  
+  const sitemapXml = generateSitemap(urls);
+  
+  // public folder میں sitemap.xml لکھیں
+  const publicDir = path.join(__dirname, 'public');
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+  
+  fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml);
+  console.log('✅ sitemap.xml public/ folder میں بن گئی ہے');
+  
+  // sitemap کی summary بھی بنائیں
+  console.log('\n📊 Sitemap Summary:');
+  console.log(`- کل URLs: ${urls.length}`);
+  console.log(`- Sitemap URL: ${DOMAIN}/sitemap.xml`);
+  console.log(`- Robots.txt میں شامل کریں: Sitemap: ${DOMAIN}/sitemap.xml`);
+}
+
+main();
