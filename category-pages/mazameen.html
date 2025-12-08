@@ -3,464 +3,474 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مضامین | بلاگ لوورز.pk</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>مضامین و خیالات | BlogLovers.pk</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (Reliable CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         :root {
-            --deep-blue: #1E3A8A;
-            --navy: #000080;
-            --sky-blue: #87CEEB;
-            --silver: #C0C0C0;
-            --cream: #FFFDD0;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --primary: #38bdf8; /* Cyan */
+            --secondary: #818cf8; /* Indigo */
+            --accent: #fcd34d; /* Gold */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --glow: 0 0 20px rgba(56, 189, 248, 0.3);
+            --font-urdu: 'Noto Nastaliq Urdu', serif;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Nastaliq Urdu', 'Georgia', serif;
         }
+
         body {
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f0ff 100%);
-            color: #1a1a2e;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-urdu);
             min-height: 100vh;
+            overflow-x: hidden;
             position: relative;
         }
-        body::before {
-            content: '';
+
+        /* Animated Background Canvas */
+        #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(30, 58, 138, 0.05) 50px, rgba(30, 58, 138, 0.05) 100px);
             z-index: -1;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
         }
+
+        /* Header */
         header {
-            background: linear-gradient(45deg, var(--navy), var(--deep-blue));
-            color: white;
-            padding: 3rem;
             text-align: center;
-            border-bottom: 12px solid var(--silver);
+            padding: 4rem 1rem;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 128, 0.3);
+            z-index: 10;
         }
-        .ink-spot {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(135, 206, 235, 0.2), transparent 70%);
-            border-radius: 50%;
-            animation: inkSpread 8s infinite alternate;
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+            animation: floatText 3s ease-in-out infinite alternate;
         }
-        .ink-spot:nth-child(1) { top: -100px; left: -100px; }
-        .ink-spot:nth-child(2) { bottom: -100px; right: -100px; animation-delay: 4s; }
-        header h1 {
-            font-size: 4rem;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-            margin-bottom: 15px;
-            font-family: 'Georgia', serif;
-            position: relative;
-            z-index: 1;
+
+        .header-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
         }
-        header h1::before {
-            content: '✍️';
-            position: absolute;
-            top: -20px;
-            right: -40px;
-            font-size: 3rem;
-            animation: penWrite 3s infinite;
-        }
-        .writing-tools {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        .writing-tools .tool {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(45deg, var(--silver), white);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--navy);
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: all 0.5s;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        .writing-tools .tool:hover {
-            transform: scale(1.3) rotate(15deg);
-            box-shadow: 0 0 30px var(--sky-blue);
-            background: linear-gradient(45deg, white, var(--silver));
-        }
+
+        /* Grid Layout */
         .container {
-            max-width: 1300px;
-            margin: auto;
-            padding: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
         }
-        .articles-grid {
+
+        .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 35px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
-        .article-card {
-            background: linear-gradient(145deg, #ffffff, #f8f9ff);
-            border-radius: 25px;
-            padding: 35px;
+
+        /* Card Design */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border: 3px solid var(--deep-blue);
-            box-shadow: 15px 15px 30px #d1d9e6, -15px -15px 30px #ffffff;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
         }
-        .article-card::before {
+
+        /* Hover Effects */
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--glow);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .card::before {
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
+            left: -100%;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--navy), var(--sky-blue), var(--navy));
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: 0.5s;
         }
-        .article-card:hover {
-            transform: translateY(-20px);
-            box-shadow: 20px 20px 40px #b8c4d6, -20px -20px 40px #ffffff;
-            border-color: var(--sky-blue);
+
+        .card:hover::before {
+            left: 100%;
         }
-        .article-card h3 {
-            color: var(--navy);
-            margin-bottom: 20px;
-            font-size: 2rem;
-            text-align: center;
+
+        /* Icons */
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            color: var(--primary);
+            transition: 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card:hover .icon-box {
+            background: var(--primary);
+            color: #0f172a;
+            transform: rotateY(180deg);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
             line-height: 1.6;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-weight: 700;
         }
-        .article-card a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        .article-card .category-tag {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--sky-blue);
-            color: var(--navy);
-            padding: 8px 20px;
+
+        .card .badge {
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
             border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            color: var(--accent);
+            margin-top: auto;
+            border: 1px solid rgba(252, 211, 77, 0.2);
         }
-        .article-card .summary {
-            background: rgba(135, 206, 235, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border-right: 5px solid var(--deep-blue);
-            display: none;
-            transition: all 0.5s;
-        }
-        .article-card.active .summary {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        .typewriter {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            margin-top: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            border: 3px solid var(--silver);
-            font-family: monospace;
-            min-height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        @keyframes inkSpread {
-            0% { transform: scale(1); opacity: 0.3; }
-            100% { transform: scale(1.5); opacity: 0.1; }
-        }
-        @keyframes penWrite {
-            0%, 100% { transform: translateX(0) rotate(0deg); }
-            50% { transform: translateX(-10px) rotate(-15deg); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+
+        /* Footer */
         footer {
-            background: linear-gradient(to right, var(--navy), var(--deep-blue));
-            color: white;
             text-align: center;
-            padding: 2.5rem;
-            margin-top: 80px;
-            border-top: 5px solid var(--silver);
+            padding: 3rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
         }
+
+        /* Animation Keyframes */
+        @keyframes floatText {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .articles-grid {
-                grid-template-columns: 1fr;
-            }
-            header h1 {
-                font-size: 2.8rem;
-            }
-            .writing-tools .tool {
-                width: 55px;
-                height: 55px;
-                font-size: 2rem;
-            }
+            .header-content h1 { font-size: 2.5rem; }
+            .posts-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="ink-spot"></div>
-    <div class="ink-spot"></div>
+
+    <!-- Dynamic Background -->
+    <canvas id="particle-canvas"></canvas>
 
     <header>
-        <h1>📝 مضامین</h1>
-        <p>سماجی، تعلیمی، تاریخی اور اسلامی موضوعات پر تحقیقی مضامین</p>
-        
-        <div class="writing-tools">
-            <div class="tool"><i class="fas fa-pen-nib"></i></div>
-            <div class="tool"><i class="fas fa-highlighter"></i></div>
-            <div class="tool"><i class="fas fa-ruler"></i></div>
-            <div class="tool"><i class="fas fa-sticky-note"></i></div>
-            <div class="tool"><i class="fas fa-bookmark"></i></div>
+        <div class="header-content">
+            <h1><i class="fas fa-feather-alt"></i> مضامین و خیالات</h1>
+            <p>سماجی، تعلیمی اور تاریخی موضوعات پر فکر انگیز تحریروں کا مجموعہ</p>
         </div>
     </header>
 
     <div class="container">
-        <h2 style="text-align:center;color:var(--navy);margin-bottom:40px;font-size:2.8rem;font-family:'Georgia',serif;">
-            <i class="fas fa-scroll"></i> 
-            فکر انگیز تحریریں 
-            <i class="fas fa-scroll"></i>
-        </h2>
-        
-        <div class="articles-grid">
-            <div class="article-card" onclick="toggleSummary(this)">
-                <div class="category-tag">سماجیات</div>
-                <a href="https://www.bloglovers.pk/mazameen/musalmanon-ne-apna-waqar-kaise-khoya" target="_blank">
-                    <h3>"مسلمانوں نے اپنا وقار کیسے کھویا؟"</h3>
-                    <p>مسلم امہ کے زوال کے اسباب اور وقار کی بحالی کے ممکنہ طریقے۔</p>
-                </a>
-                <div class="summary">
-                    <strong>خلاصہ:</strong> اس مضمون میں مسلمانوں کے تاریخی عروج اور موجودہ زوال کے اسباب پر روشنی ڈالی گئی ہے۔
-                </div>
-            </div>
-            <div class="article-card" onclick="toggleSummary(this)">
-                <div class="category-tag">فلسفہ</div>
-                <a href="https://www.bloglovers.pk/mazameen/ek-jhalak-aflatoon-aur-arastoo-ke-falsafa-par" target="_blank">
-                    <h3>"ایک جھلک افلاطون اور ارسطو کے فلسفہ پر"</h3>
-                    <p>یونانی فلسفی افلاطون اور ارسطو کے نظریات کا تقابلی جائزہ۔</p>
-                </a>
-                <div class="summary">
-                    <strong>خلاصہ:</strong> قدیم یونانی فلسفے کے دو عظیم ستونوں کے نظریات کا تجزیہ۔
-                </div>
-            </div>
-            <div class="article-card" onclick="toggleSummary(this)">
-                <div class="category-tag">تعلیم</div>
-                <a href="https://www.bloglovers.pk/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai" target="_blank">
-                    <h3>"بچوں کے لئے اسکرین کا وقت کیوں کنٹرول کرنے کی ضرورت ہے؟"</h3>
-                    <p>ڈیجیٹل دور میں بچوں کی صحت پر اسکرین ٹائم کے اثرات۔</p>
-                </a>
-                <div class="summary">
-                    <strong>خلاصہ:</strong> جدید ٹیکنالوجی کے بچوں پر منفی اثرات اور ان سے بچاؤ کے طریقے۔
-                </div>
-            </div>
-            <div class="article-card" onclick="toggleSummary(this)">
-                <div class="category-tag">تعلیمی ٹپس</div>
-                <a href="https://www.bloglovers.pk/mazameen/tap-10-rydng-tps" target="_blank">
-                    <h3>"ٹاپ 10 ریڈنگ ٹپس"</h3>
-                    <p>مطالعہ کی مہارت بڑھانے کے لیے 10 مؤثر تجاویز۔</p>
-                </a>
-                <div class="summary">
-                    <strong>خلاصہ:</strong> مؤثر مطالعہ کے طریقے جو علم حاصل کرنے میں مددگار ہیں۔
-                </div>
-            </div>
-            <div class="article-card" onclick="toggleSummary(this)">
-                <div class="category-tag">زندگی کی مہارتیں</div>
-                <a href="https://www.bloglovers.pk/mazameen/tap-10-laf-asklz" target="_blank">
-                    <h3>"ٹاپ 10 لائف اسکلز"</h3>
-                    <p>کامیاب زندگی کے لیے 10 ضروری صلاحیتیں۔</p>
-                </a>
-                <div class="summary">
-                    <strong>خلاصہ:</strong> وہ صلاحیتیں جو ہر انسان کو زندگی میں کامیابی کے لیے درکار ہیں۔
-                </div>
-            </div>
-            <div class="article-card" onclick="toggleSummary(this)">
-                <div class="category-tag">ٹیکنالوجی</div>
-                <a href="https://www.bloglovers.pk/mazameen/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal" target="_blank">
-                    <h3>"آج کی دنیا میں 21ویں صدی کے سیکھنے کی مہارتوں کی اہمیت پر تبادلہ خیال"</h3>
-                    <p>جدید دور میں درکار تعلیمی مہارتوں کا تجزیہ۔</p>
-                </a>
-                <div class="summary">
-                    <strong>خلاصہ:</strong> 21ویں صدی میں کامیابی کے لیے ضروری تعلیمی اور تکنیکی مہارتیں۔
-                </div>
-            </div>
-        </div>
+        <div class="posts-grid">
 
-        <div class="typewriter" id="typewriter">
-            <span id="typed-text"></span><span id="cursor">|</span>
-        </div>
+            <!-- 2020/21 Old Articles -->
+            <a href="https://www.bloglovers.pk/mazameen/musalmanon-ne-apna-waqar-kaise-khoya" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-crown"></i></div>
+                <h3>مسلمانوں نے اپنا وقار کیسے کھویا؟</h3>
+                <span class="badge">تاریخی تجزیہ</span>
+            </a>
 
-        <div style="margin-top:50px; padding:35px; background:linear-gradient(45deg, rgba(30,58,138,0.1), rgba(135,206,235,0.1)); border-radius:25px; text-align:center;">
-            <h3 style="color:var(--navy); font-size:2.2rem; margin-bottom:25px;">
-                <i class="fas fa-chart-line"></i> مضامین کی اقسام
-            </h3>
-            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
-                    <div style="width:80px;height:80px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-users" style="font-size:2.5rem;color:white;"></i>
-                    </div>
-                    <h4>سماجی مضامین</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">معاشرتی مسائل پر تجزیہ</p>
-                </div>
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
-                    <div style="width:80px;height:80px;background:var(--deep-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-graduation-cap" style="font-size:2.5rem;color:white;"></i>
-                    </div>
-                    <h4>تعلیمی مضامین</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">تعلیم و تربیت پر تحریریں</p>
-                </div>
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1);">
-                    <div style="width:80px;height:80px;background:var(--sky-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;color:var(--navy);">
-                        <i class="fas fa-history" style="font-size:2.5rem;"></i>
-                    </div>
-                    <h4>تاریخی مضامین</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">تاریخ کے اہم واقعات</p>
-                </div>
-            </div>
-        </div>
+            <a href="https://www.bloglovers.pk/mazameen/ek-jhalak-aflatoon-aur-arastoo-ke-falsafa-par" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-brain"></i></div>
+                <h3>ایک جھلک افلاطون اور ارسطو کے فلسفہ پر</h3>
+                <span class="badge">فلسفہ</span>
+            </a>
 
-        <div style="margin-top:50px; text-align:center;">
-            <div style="display:inline-block; background:var(--navy); color:white; padding:15px 40px; border-radius:50px; cursor:pointer; transition:0.3s;" 
-                 onmouseover="this.style.background='var(--sky-blue)';this.style.color='var(--navy)';this.style.transform='scale(1.05)'" 
-                 onmouseout="this.style.background='var(--navy)';this.style.color='white';this.style.transform='scale(1)'"
-                 onclick="suggestTopic()">
-                <i class="fas fa-lightbulb" style="margin-left:10px;"></i>
-                مضمون کا موضوع تجویز کریں
-            </div>
+            <a href="https://www.bloglovers.pk/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-mobile-alt"></i></div>
+                <h3>بچوں کے لیے اسکرین کا وقت کنٹرول کرنا کیوں ضروری ہے؟</h3>
+                <span class="badge">تربیت</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/tap-10-rydng-tps" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-book-reader"></i></div>
+                <h3>ٹاپ 10 ریڈنگ ٹپس (مطالعہ کے اصول)</h3>
+                <span class="badge">تعلیمی</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/tap-10-laf-asklz" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-running"></i></div>
+                <h3>ٹاپ 10 لائف اسکلز (زندگی کی مہارتیں)</h3>
+                <span class="badge">خود سازی</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/tap-10-lsnng-tps" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-ear-listen"></i></div>
+                <h3>ٹاپ 10 لسننگ ٹپس (سننے کی مہارت)</h3>
+                <span class="badge">مہارت</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/talym-ki-ahmyt-par-60-bhtryn-kotyshnz" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-quote-right"></i></div>
+                <h3>تعلیم کی اہمیت پر 60 بہترین کوٹیشنز</h3>
+                <span class="badge">اقوال</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/aort-ki-azmt-par-55-bhtryn-kotyshnz" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-venus"></i></div>
+                <h3>عورت کی عظمت پر 55 بہترین کوٹیشنز</h3>
+                <span class="badge">خواتین</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/bchon-ki-trbyt-par-16-bhtryn-tps" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-child"></i></div>
+                <h3>بچوں کی تربیت پر 16 بہترین ٹپس</h3>
+                <span class="badge">پرنٹنگ</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/spokn-prykts-ke-le-105-bhtryn-ghyr-rsmi-soalat" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-comments"></i></div>
+                <h3>سپوکن پریکٹس کے لیے 105 بہترین غیر رسمی سوالات</h3>
+                <span class="badge">انگریزی</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-heart-crack"></i></div>
+                <h3>عشق یا دماغی خلل؟</h3>
+                <span class="badge">نفسیات</span>
+            </a>
+
+            <!-- 2025 New Articles -->
+            <a href="https://www.bloglovers.pk/mazameen/iddat-ki-ahmiyat-ko-kyun-nazar-andaz-kiya-ja-raha-hai-masharti-be-hisi-ka-almia" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-balance-scale"></i></div>
+                <h3>عدت کی اہمیت کو کیوں نظر انداز کیا جا رہا ہے؟</h3>
+                <span class="badge">سماجی المیہ</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-synagogue"></i></div>
+                <h3>ہیکل سلیمانی: تعمیر سے تباہی تک</h3>
+                <span class="badge">تاریخ</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/hj-w-amrh-abadt-ya-nmash-rohanyt-khan-kho-gi" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-kaaba"></i></div>
+                <h3>حج و عمرہ: عبادت یا نمائش؟ روحانیت کہاں کھو گئی؟</h3>
+                <span class="badge">اصلاح</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/musafhay-se-munafiqat-tak-kya-muslim-rahnuma-sifarat-kari-ke-liye-islam-se-samjhota-kar-rahe-hain" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-handshake"></i></div>
+                <h3>مصافحے سے منافقت تک: مسلم رہنما اور سفارت کاری</h3>
+                <span class="badge">سیاست</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/allah-ke-ghar-weran-bandon-ke-ghar-aabad-kya-umat-raah-e-haq-se-bhatak-rahi-hai" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-mosque"></i></div>
+                <h3>اللہ کے گھر ویران، بندوں کے گھر آباد؟</h3>
+                <span class="badge">فکر</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/dhlyz-ka-phre-dar" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+                <h3>دہلیز کا پہرے دار</h3>
+                <span class="badge">معاشرہ</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/walidain-ki-wafat-ke-baad-aulad-ki-10-eham-deeni-zimma-dariyan" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-praying-hands"></i></div>
+                <h3>والدین کی وفات کے بعد اولاد کی 10 اہم دینی ذمہ داریاں</h3>
+                <span class="badge">اسلامی</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/mobile-phone-se-doori-ka-khauf-kaheen-aap-bhi-nomophobia-ka-shikar-to-nahi" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-mobile-screen-button"></i></div>
+                <h3>موبائل فون سے دوری کا خوف (Nomophobia)</h3>
+                <span class="badge">ٹیکنالوجی</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/kya-aap-apne-naujawan-bachchay-ki-pareshani-ko-samajhte-hain" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-user-injured"></i></div>
+                <h3>کیا آپ اپنے نوجوان بچے کی پریشانی کو سمجھتے ہیں؟</h3>
+                <span class="badge">والدین</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/kya-aap-sirf-teen-ghante-ki-neend-par-bhi-chaaq-o-choband-rahte-hain-mumkin-hai-ke-aap-short-sleeper-syndrome-ho" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-bed"></i></div>
+                <h3>کیا آپ شارٹ سلیپر سنڈروم کا شکار ہیں؟</h3>
+                <span class="badge">صحت</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/dnya-ki-ajyb-w-ghryb-rsomat-aur-thoar" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-mask"></i></div>
+                <h3>دنیا کی عجیب و غریب رسومات اور تہوار</h3>
+                <span class="badge">معلومات</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/bryn-dryn-se-bryn-gyn-tak-pakstan-ke-mstqbl-ka-ayk-bara-chylnj" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-plane-departure"></i></div>
+                <h3>برین ڈرین سے برین گین تک: پاکستان کا مستقبل</h3>
+                <span class="badge">معیشت</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/insani-dawain-banane-se-le-kar-robotics-tak-jadeed-science-ount-ki-salahiyaton-ki-naql-kyun-kar-rahi-hai" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-flask"></i></div>
+                <h3>جدید سائنس اونٹ کی صلاحیتوں کی نقل کیوں کر رہی ہے؟</h3>
+                <span class="badge">سائنس</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/pakistan-ka-mosamiati-safar-tabahi-se-paida-dari-tak" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-cloud-showers-heavy"></i></div>
+                <h3>پاکستان کا موسمیاتی سفر: تباہی سے پائیداری تک</h3>
+                <span class="badge">ماحولیات</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/sylab-zdh-pakstan-aorhkomti-hkmt-amlyon-ka-jazh" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-house-flood-water"></i></div>
+                <h3>سیلاب زدہ پاکستان اور حکومتی حکمت عملیوں کا جائزہ</h3>
+                <span class="badge">کرنٹ افیئرز</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/saadah-shadi-sunnat-bhi-samaaji-zaroorat-bhi" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-ring"></i></div>
+                <h3>سادہ شادی: سنت بھی سماجی ضرورت بھی</h3>
+                <span class="badge">معاشرت</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/sirf-mehangi-nahi-bekar-degree-woh-asal-wajah-jis-ne-awami-jamiat-ka-trust-tor-diya" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
+                <h3>صرف مہنگی نہیں بیکار ڈگری: تعلیمی نظام کا المیہ</h3>
+                <span class="badge">تعلیم</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/doctors-kyun-rothe-pakistani-sehat-ka-mustaqbil-daau-par" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-user-doctor"></i></div>
+                <h3>ڈاکٹرز کیوں روٹھے؟ پاکستانی صحت کا مستقبل داؤ پر</h3>
+                <span class="badge">صحت</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/kya-aap-bhi-baithe-baithe-so-jate-hain-janiye-esi-khatar-naak-bimari-ke-bare-mein" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-couch"></i></div>
+                <h3>کیا آپ بھی بیٹھے بیٹھے سو جاتے ہیں؟ (Narcolepsy)</h3>
+                <span class="badge">بیماری</span>
+            </a>
+
+            <a href="https://www.bloglovers.pk/mazameen/jab-haya-rukhasat-hui-ek-mashare-ke-zawal-ki-dastaan" class="card" target="_blank">
+                <div class="icon-box"><i class="fas fa-eye-slash"></i></div>
+                <h3>جب حیا رخصت ہوئی: ایک معاشرے کے زوال کی داستان</h3>
+                <span class="badge">اخلاقیات</span>
+            </a>
+
         </div>
     </div>
 
     <footer>
-        <p>© 2025 بلاگ لوورز.pk | مضامین | فکر انگیز تحریریں</p>
-        <p>📚 علم بڑھانے کا بہترین ذریعہ | 📧 رابطہ: mazameen@bloglovers.pk</p>
-        <div style="margin-top:25px;">
-            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
-               onclick="alert('📄 مضامین PDF میں ڈاؤن لوڈ کریں!')"></i>
-            <i class="fas fa-print" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fas fa-share-alt" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fab fa-twitter" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-        </div>
+        <p>© 2025 بلاگ لوورز.pk | جملہ حقوق محفوظ ہیں</p>
+        <p style="font-size: 0.9rem; margin-top: 10px; color: var(--primary);">علم، تحقیق اور شعور کا سفر</p>
     </footer>
 
     <script>
-        // Typewriter effect
-        const texts = [
-            "مضامین فکر کو جلا بخشتے ہیں...",
-            "تحقیق علم کا دروازہ کھولتی ہے...",
-            "ہر مضمون ایک نئی دنیا کا تعارف کراتا ہے...",
-            "پڑھنا ذہن کو وسیع کرتا ہے..."
-        ];
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        
-        function typeWriter() {
-            const currentText = texts[textIndex];
-            const cursor = document.getElementById('cursor');
-            
-            if (!isDeleting && charIndex <= currentText.length) {
-                document.getElementById('typed-text').textContent = currentText.substring(0, charIndex);
-                charIndex++;
-                setTimeout(typeWriter, 100);
-            } else if (isDeleting && charIndex >= 0) {
-                document.getElementById('typed-text').textContent = currentText.substring(0, charIndex);
-                charIndex--;
-                setTimeout(typeWriter, 50);
-            } else {
-                isDeleting = !isDeleting;
-                if (!isDeleting) {
-                    textIndex = (textIndex + 1) % texts.length;
-                }
-                setTimeout(typeWriter, 1000);
+        // Particle Animation Script
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() * 0.5) - 0.25;
+                this.speedY = (Math.random() * 0.5) - 0.25;
+                this.color = `rgba(129, 140, 248, ${Math.random() * 0.5})`; // Indigo with alpha
             }
-            
-            // Blinking cursor
-            cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Wrap around screen
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
-        
-        // Start typewriter
-        setTimeout(typeWriter, 1000);
-        
-        // Toggle summary
-        function toggleSummary(card) {
-            const allCards = document.querySelectorAll('.article-card');
-            allCards.forEach(c => {
-                if(c !== card) {
-                    c.classList.remove('active');
-                }
-            });
-            card.classList.toggle('active');
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
         }
-        
-        // Writing tools interaction
-        document.querySelectorAll('.writing-tools .tool').forEach((tool, index) => {
-            tool.addEventListener('click', function() {
-                const toolNames = [
-                    "قلم: تحریر کا بنیادی آلہ",
-                    "ہائی لائٹر: اہم نکات نمایاں کریں",
-                    "رولر: تحریر کو درست کریں",
-                    "نوٹ: خیالات محفوظ کریں",
-                    "بک مارک: اہم جگہیں نشان زد کریں"
-                ];
-                alert(`🛠️ تحریر کا آلہ:\n${toolNames[index]}`);
-                
-                // Visual effect
-                this.style.transform = 'scale(1.5) rotate(360deg)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 500);
-            });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
         });
-        
-        // Suggest topic
-        function suggestTopic() {
-            const topics = [
-                "سماجی بہبود کے لیے اسلامی تعلیمات کا کردار",
-                "ڈیجیٹل دور میں نوجوانوں کے چیلنجز",
-                "پاکستان کی تعلیمی پالیسیوں کا جائزہ",
-                "عالمی سطح پر مسلمانوں کی موجودہ صورت حال",
-                "خاندانی نظام کو جدید چیلنجز"
-            ];
-            const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-            alert(`💡 مضمون کا موضوع تجویز:\n\n"${randomTopic}"\n\nاس موضوع پر آپ بھی اپنا مضمون لکھ سکتے ہیں!`);
-        }
-        
-        // Auto highlight articles
-        let currentArticle = 0;
-        function highlightArticle() {
-            const articles = document.querySelectorAll('.article-card');
-            articles.forEach(article => article.style.boxShadow = '');
-            articles[currentArticle].style.boxShadow = '0 0 30px rgba(135, 206, 235, 0.5)';
-            currentArticle = (currentArticle + 1) % articles.length;
-        }
-        setInterval(highlightArticle, 3000);
+
+        init();
+        animate();
     </script>
 </body>
 </html>
