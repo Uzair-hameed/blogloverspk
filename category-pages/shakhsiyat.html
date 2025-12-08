@@ -3,479 +3,522 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شخصیات | بلاگ لوورز.pk</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>تاریخی شخصیات | BlogLovers.pk</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome (Reliable CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         :root {
-            --history: #654321;
-            --gold: #D4AF37;
-            --parchment: #F5E6CA;
-            --ink: #2C1810;
-            --bronze: #CD7F32;
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 20, 0.8);
+            --gold: #FFD700;
+            --gold-dim: #b8860b;
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --font-urdu: 'Noto Nastaliq Urdu', serif;
+            --font-eng: 'Cinzel', serif;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Nastaliq Urdu', 'Times New Roman', serif;
         }
+
         body {
-            background: linear-gradient(135deg, #f5f0e6 0%, #e8e1d1 100%);
-            color: var(--ink);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-urdu);
             min-height: 100vh;
+            overflow-x: hidden;
             position: relative;
         }
-        body::before {
-            content: '';
+
+        /* Constellation Canvas Background */
+        #constellation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                url('https://www.transparenttextures.com/patterns/old-map.png');
-            opacity: 0.3;
             z-index: -1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
         }
+
+        /* Header */
         header {
-            background: linear-gradient(45deg, var(--history), var(--bronze));
-            color: var(--parchment);
-            padding: 3rem;
             text-align: center;
-            border-bottom: 15px double var(--gold);
+            padding: 5rem 1rem 3rem;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(101, 67, 33, 0.4);
+            z-index: 10;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
         }
-        .ancient-seal {
-            position: absolute;
-            top: 50%;
-            left: 10%;
-            width: 100px;
-            height: 100px;
-            border: 5px solid var(--gold);
-            border-radius: 50%;
-            background: radial-gradient(circle, transparent 60%, rgba(212, 175, 55, 0.1) 100%);
-            animation: sealRotate 20s infinite linear;
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            font-weight: 700;
+            letter-spacing: 1px;
         }
-        .ancient-seal::before {
-            content: '⚜️';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+
+        .header-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header-icon {
             font-size: 3rem;
+            color: var(--gold-dim);
+            margin-bottom: 1rem;
+            animation: float 4s ease-in-out infinite;
         }
-        header h1 {
-            font-size: 4rem;
-            text-shadow: 3px 3px 5px rgba(44, 24, 16, 0.5);
-            margin-bottom: 15px;
-            font-family: 'Times New Roman', serif;
-            position: relative;
-            z-index: 1;
-        }
-        .timeline-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
-        .timeline-icons .t-icon {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle at 30% 30%, var(--parchment), #e8d8b6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--history);
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: all 0.5s;
-            box-shadow: 0 10px 25px rgba(101, 67, 33, 0.3);
-            border: 3px solid var(--gold);
-            animation: iconPulse 3s infinite;
-        }
-        .timeline-icons .t-icon:hover {
-            transform: scale(1.3) rotate(15deg);
-            box-shadow: 0 0 40px var(--gold);
-            animation: none;
-        }
-        .timeline-icons .t-icon:nth-child(2) { animation-delay: 0.5s; }
-        .timeline-icons .t-icon:nth-child(3) { animation-delay: 1s; }
-        .timeline-icons .t-icon:nth-child(4) { animation-delay: 1.5s; }
+
+        /* Container & Grid */
         .container {
             max-width: 1300px;
-            margin: auto;
-            padding: 3rem;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 2;
         }
-        .personalities-grid {
+
+        .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: 35px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
-        .person-card {
-            background: linear-gradient(145deg, #ffffff, var(--parchment));
-            border-radius: 25px;
-            padding: 35px;
+
+        /* Card Design */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            border: 3px solid var(--bronze);
-            box-shadow: 15px 15px 30px #d9cdb8, -15px -15px 30px #ffffff;
-            transition: all 0.6s;
-            cursor: pointer;
+            backdrop-filter: blur(5px);
         }
-        .person-card::before {
+
+        /* Golden Corner Accents */
+        .card::before, .card::after {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(45deg, transparent 95%, rgba(212, 175, 55, 0.1) 100%);
-            pointer-events: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            transition: 0.4s;
         }
-        .person-card:hover {
-            transform: translateY(-20px);
-            box-shadow: 20px 20px 40px #c9bda8, -20px -20px 40px #ffffff;
+
+        .card::before {
+            top: 0;
+            left: 0;
+            border-top-color: var(--gold-dim);
+            border-left-color: var(--gold-dim);
+        }
+
+        .card::after {
+            bottom: 0;
+            right: 0;
+            border-bottom-color: var(--gold-dim);
+            border-right-color: var(--gold-dim);
+        }
+
+        /* Hover Effects */
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(30, 30, 30, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 215, 0, 0.2);
             border-color: var(--gold);
         }
-        .person-card h3 {
-            color: var(--history);
-            margin-bottom: 20px;
-            font-size: 2rem;
-            text-align: center;
-            line-height: 1.6;
-            min-height: 120px;
+
+        .card:hover::before, .card:hover::after {
+            width: 100%;
+            height: 100%;
+            border-color: var(--gold);
+            opacity: 0.1;
+        }
+
+        /* Icon Circle */
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a1a, #333);
+            border: 2px solid var(--gold-dim);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Times New Roman', serif;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.5s;
         }
-        .person-card a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
+
+        .card:hover .icon-circle {
+            transform: rotate(360deg) scale(1.1);
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold);
         }
-        .person-card .era-tag {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--history);
-            color: var(--parchment);
-            padding: 8px 20px;
-            border-radius: 20px;
+
+        /* Typography */
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.8;
+            font-weight: 700;
+        }
+
+        .number-badge {
+            font-family: var(--font-eng);
+            font-size: 0.8rem;
+            color: var(--gold-dim);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .read-more {
+            margin-top: auto;
             font-size: 0.9rem;
-            font-weight: bold;
-            border: 2px solid var(--gold);
+            color: var(--gold);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.4s;
         }
-        .person-card .contribution {
-            background: rgba(212, 175, 55, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            border-right: 5px solid var(--bronze);
-            display: none;
+
+        .card:hover .read-more {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .person-card.active .contribution {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        .timeline-view {
-            background: var(--parchment);
-            padding: 30px;
-            border-radius: 25px;
-            margin-top: 50px;
-            border: 5px solid var(--bronze);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        .timeline-view::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 5px;
-            height: 80%;
-            background: linear-gradient(to bottom, var(--gold), var(--bronze));
-            border-radius: 5px;
-        }
-        @keyframes sealRotate {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+
+        /* Footer */
         footer {
-            background: linear-gradient(to right, var(--history), var(--bronze));
-            color: var(--parchment);
             text-align: center;
-            padding: 2.5rem;
-            margin-top: 80px;
-            border-top: 5px solid var(--gold);
+            padding: 3rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            color: var(--text-muted);
+            margin-top: 4rem;
+            background: #000;
         }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
         @media (max-width: 768px) {
-            .personalities-grid {
-                grid-template-columns: 1fr;
-            }
-            header h1 {
-                font-size: 2.8rem;
-            }
-            .timeline-icons .t-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 2rem;
-            }
-            .timeline-view::before {
-                display: none;
-            }
+            .header-content h1 { font-size: 2.5rem; }
+            .posts-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="ancient-seal"></div>
+
+    <!-- Constellation Canvas -->
+    <canvas id="constellation"></canvas>
 
     <header>
-        <h1>⚜️ شخصیات</h1>
-        <p>مسلم تاریخ کی عظیم ہستیوں، سائنسدانوں، مفکرین اور علما کا تعارف</p>
-        
-        <div class="timeline-icons">
-            <div class="t-icon"><i class="fas fa-user-tie"></i></div>
-            <div class="t-icon"><i class="fas fa-atom"></i></div>
-            <div class="t-icon"><i class="fas fa-book"></i></div>
-            <div class="t-icon"><i class="fas fa-flask"></i></div>
-            <div class="t-icon"><i class="fas fa-pen-fancy"></i></div>
+        <div class="header-content">
+            <div class="header-icon"><i class="fas fa-scroll"></i></div>
+            <h1>تاریخ کے ستارے</h1>
+            <p>مسلم تاریخ کی عظیم شخصیات، سائنسدان اور مفکرین جن کے علم نے دنیا کو روشن کیا۔</p>
         </div>
     </header>
 
     <div class="container">
-        <h2 style="text-align:center;color:var(--history);margin-bottom:40px;font-size:2.8rem;font-family:'Times New Roman',serif;">
-            <i class="fas fa-crown"></i> 
-            تاریخ کے ستارے 
-            <i class="fas fa-crown"></i>
-        </h2>
-        
-        <div class="personalities-grid">
-            <div class="person-card" onclick="toggleContribution(this)">
-                <div class="era-tag">980-1037</div>
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna" target="_blank">
-                    <h3>"مسلم تاریخ کی 50 اہم شخصیات 1-ابن سینا (Avicenna)"</h3>
-                    <p>عظیم مسلم طبیب، فلسفی اور سائنسدان جنہیں "امیر الاطباء" کہا جاتا ہے۔</p>
-                </a>
-                <div class="contribution">
-                    <strong>خدمات:</strong> طب، فلسفہ، طبیعیات، ریاضی میں بنیادی کام
-                </div>
-            </div>
-            <div class="person-card" onclick="toggleContribution(this)">
-                <div class="era-tag">1213-1288</div>
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys" target="_blank">
-                    <h3>"مسلم تاریخ کی 50 اہم شخصیات 2-ابن النفیس"</h3>
-                    <p>عظیم مسلم طبیب جنہوں نے خون کی گردش دریافت کی۔</p>
-                </a>
-                <div class="contribution">
-                    <strong>خدمات:</strong> خون کی گردش کی دریافت، طب میں تحقیق
-                </div>
-            </div>
-            <div class="person-card" onclick="toggleContribution(this)">
-                <div class="era-tag">1201-1274</div>
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi" target="_blank">
-                    <h3>"مسلم تاریخ کی 50 اہم شخصیات3- نصیر الدین طوسی"</h3>
-                    <p>عظیم مسلم ریاضی دان، فلکیات دان اور فلسفی۔</p>
-                </a>
-                <div class="contribution">
-                    <strong>خدمات:</strong> ریاضی، فلکیات، فلسفہ میں اہم کام
-                </div>
-            </div>
-            <div class="person-card" onclick="toggleContribution(this)">
-                <div class="era-tag">940-1010</div>
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh" target="_blank">
-                    <h3>"مسلم تاریخ کی 50 اہم شخصیات4- ابن مسکویہ"</h3>
-                    <p>مسلم فلسفی، مورخ اور طبیب۔</p>
-                </a>
-                <div class="contribution">
-                    <strong>خدمات:</strong> فلسفہ، اخلاقیات، تاریخ نگاری
-                </div>
-            </div>
-            <div class="person-card" onclick="toggleContribution(this)">
-                <div class="era-tag">973-1048</div>
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni" target="_blank">
-                    <h3>"مسلم تاریخ کی 50 اہم شخصیات5-ابوریحان البیرونی"</h3>
-                    <p>عظیم مسلم سائنسدان، ماہر فلکیات اور جغرافیہ دان۔</p>
-                </a>
-                <div class="contribution">
-                    <strong>خدمات:</strong> فلکیات، ریاضی، جغرافیہ، تاریخ
-                </div>
-            </div>
-            <div class="person-card" onclick="toggleContribution(this)">
-                <div class="era-tag">965-1040</div>
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm" target="_blank">
-                    <h3>"مسلم تاریخ کی 50 اہم شخصیات6-ابن الہیثم"</h3>
-                    <p>عظیم مسلم طبیعیات دان، ریاضی دان اور موجد۔</p>
-                </a>
-                <div class="contribution">
-                    <strong>خدمات:</strong> روشنی کا علم، بصریات، ریاضی
-                </div>
-            </div>
-        </div>
+        <div class="posts-grid">
 
-        <div class="timeline-view">
-            <h3 style="text-align:center;color:var(--history);font-size:2.2rem;margin-bottom:30px;">
-                <i class="fas fa-history"></i> تاریخی ٹائم لائن
-            </h3>
-            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
-                <div style="text-align:center; flex:1; min-width:200px; position:relative;">
-                    <div style="width:20px;height:20px;background:var(--gold);border-radius:50%;margin:0 auto 10px;position:relative;z-index:2;"></div>
-                    <h4>8ویں-10ویں صدی</h4>
-                    <p>سائنسی تجدید کا آغاز</p>
-                </div>
-                <div style="text-align:center; flex:1; min-width:200px; position:relative;">
-                    <div style="width:20px;height:20px;background:var(--gold);border-radius:50%;margin:0 auto 10px;position:relative;z-index:2;"></div>
-                    <h4>10ویں-12ویں صدی</h4>
-                    <p>سنہری دور</p>
-                </div>
-                <div style="text-align:center; flex:1; min-width:200px; position:relative;">
-                    <div style="width:20px;height:20px;background:var(--gold);border-radius:50%;margin:0 auto 10px;position:relative;z-index:2;"></div>
-                    <h4>13ویں-15ویں صدی</h4>
-                    <p>علمی ترقی کا عروج</p>
-                </div>
-                <div style="text-align:center; flex:1; min-width:200px; position:relative;">
-                    <div style="width:20px;height:20px;background:var(--gold);border-radius:50%;margin:0 auto 10px;position:relative;z-index:2;"></div>
-                    <h4>16ویں صدی سے بعد</h4>
-                    <p>وراثت کا دور</p>
-                </div>
-            </div>
-        </div>
+            <!-- 1. Ibn-e-Sina -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna" class="card" target="_blank">
+                <div class="number-badge">Personality #1</div>
+                <div class="icon-circle"><i class="fas fa-user-md"></i></div>
+                <h3>ابن سینا (Avicenna)</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
 
-        <div style="margin-top:60px; padding:35px; background:linear-gradient(45deg, rgba(212,175,55,0.1), rgba(205,127,50,0.1)); border-radius:25px; text-align:center;">
-            <h3 style="color:var(--history); font-size:2.2rem; margin-bottom:25px;">
-                <i class="fas fa-lightbulb"></i> مسلم سائنسدانوں کی خدمات
-            </h3>
-            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1); border:2px solid var(--gold);">
-                    <div style="width:80px;height:80px;background:var(--history);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-flask" style="font-size:2.5rem;color:white;"></i>
-                    </div>
-                    <h4>سائنس</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">طبیعیات، کیمسٹری، حیاتیات</p>
-                </div>
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1); border:2px solid var(--gold);">
-                    <div style="width:80px;height:80px;background:var(--bronze);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;">
-                        <i class="fas fa-calculator" style="font-size:2.5rem;color:white;"></i>
-                    </div>
-                    <h4>ریاضی</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">الجبرا، حساب، ہندسہ</p>
-                </div>
-                <div style="text-align:center; background:white; padding:25px; border-radius:20px; width:250px; box-shadow:0 10px 25px rgba(0,0,0,0.1); border:2px solid var(--gold);">
-                    <div style="width:80px;height:80px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;color:var(--history);">
-                        <i class="fas fa-star-and-crescent" style="font-size:2.5rem;"></i>
-                    </div>
-                    <h4>طب</h4>
-                    <p style="margin-top:10px;font-size:0.9rem;color:#666;">جراحت، دواسازی، علاج</p>
-                </div>
-            </div>
-        </div>
+            <!-- 2. Ibn Al-Nafis -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys" class="card" target="_blank">
+                <div class="number-badge">Personality #2</div>
+                <div class="icon-circle"><i class="fas fa-heartbeat"></i></div>
+                <h3>ابن النفیس</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
 
-        <div style="margin-top:50px; text-align:center;">
-            <div style="display:inline-block; background:var(--history); color:var(--parchment); padding:15px 40px; border-radius:50px; cursor:pointer; transition:0.3s; border:2px solid var(--gold);" 
-                 onmouseover="this.style.background='var(--gold)';this.style.color='var(--history)';this.style.transform='scale(1.05)'" 
-                 onmouseout="this.style.background='var(--history)';this.style.color='var(--parchment)';this.style.transform='scale(1)'"
-                 onclick="randomPersonality()">
-                <i class="fas fa-random" style="margin-left:10px;"></i>
-                رینڈم شخصیت دیکھیں
-            </div>
+            <!-- 3. Nasir al-Din Tusi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi" class="card" target="_blank">
+                <div class="number-badge">Personality #3</div>
+                <div class="icon-circle"><i class="fas fa-star"></i></div>
+                <h3>نصیر الدین طوسی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 4. Ibn Miskawayh -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh" class="card" target="_blank">
+                <div class="number-badge">Personality #4</div>
+                <div class="icon-circle"><i class="fas fa-book-open"></i></div>
+                <h3>ابن مسکویہ</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 5. Abul Rayhan Al-Biruni -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni" class="card" target="_blank">
+                <div class="number-badge">Personality #5</div>
+                <div class="icon-circle"><i class="fas fa-globe-asia"></i></div>
+                <h3>ابوریحان البیرونی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 6. Ibn al-Haytham -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm" class="card" target="_blank">
+                <div class="number-badge">Personality #6</div>
+                <div class="icon-circle"><i class="fas fa-eye"></i></div>
+                <h3>ابن الہیثم</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 7. Omar Khayyam -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam" class="card" target="_blank">
+                <div class="number-badge">Personality #7</div>
+                <div class="icon-circle"><i class="fas fa-calculator"></i></div>
+                <h3>عمر خیام</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 8. Ibn Battuta -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth" class="card" target="_blank">
+                <div class="number-badge">Personality #8</div>
+                <div class="icon-circle"><i class="fas fa-shoe-prints"></i></div>
+                <h3>ابن بطوطہ</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 9. Ibn-e-Khaldoon -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon" class="card" target="_blank">
+                <div class="number-badge">Personality #9</div>
+                <div class="icon-circle"><i class="fas fa-landmark"></i></div>
+                <h3>ابن خلدون</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 10. Al-Khawarizmi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi" class="card" target="_blank">
+                <div class="number-badge">Personality #10</div>
+                <div class="icon-circle"><i class="fas fa-superscript"></i></div>
+                <h3>الخوارزمی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 11. Kamal ud-Din Farsi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi" class="card" target="_blank">
+                <div class="number-badge">Personality #11</div>
+                <div class="icon-circle"><i class="fas fa-microscope"></i></div>
+                <h3>کمال الدین فارسی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 12. Jabir bin Hayan -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan" class="card" target="_blank">
+                <div class="number-badge">Personality #12</div>
+                <div class="icon-circle"><i class="fas fa-flask"></i></div>
+                <h3>جابر بن حیان</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 13. Ibn-e-Rushd -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd" class="card" target="_blank">
+                <div class="number-badge">Personality #13</div>
+                <div class="icon-circle"><i class="fas fa-brain"></i></div>
+                <h3>ابن رشد</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 14. Al-Farabi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" class="card" target="_blank">
+                <div class="number-badge">Personality #14</div>
+                <div class="icon-circle"><i class="fas fa-music"></i></div>
+                <h3>الفارابی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 15. Abu al-Qasim Al-Zahrawi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi" class="card" target="_blank">
+                <div class="number-badge">Personality #15</div>
+                <div class="icon-circle"><i class="fas fa-scalpel"></i></div>
+                <h3>ابوالقاسم الزہراوی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 16. Abu Ma'shar al-Balkhi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi" class="card" target="_blank">
+                <div class="number-badge">Personality #16</div>
+                <div class="icon-circle"><i class="fas fa-moon"></i></div>
+                <h3>ابو معشر بلخی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 17. Abu al-Wafa Buzjani -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani" class="card" target="_blank">
+                <div class="number-badge">Personality #17</div>
+                <div class="icon-circle"><i class="fas fa-draw-polygon"></i></div>
+                <h3>ابوالوفا بوزجانی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 18. Abu Yusuf Kindi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi" class="card" target="_blank">
+                <div class="number-badge">Personality #18</div>
+                <div class="icon-circle"><i class="fas fa-code-branch"></i></div>
+                <h3>ابو یوسف الکندی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 19. Abu Bakr Al-Razi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi" class="card" target="_blank">
+                <div class="number-badge">Personality #19</div>
+                <div class="icon-circle"><i class="fas fa-vial"></i></div>
+                <h3>ابوبکر الرازی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 20. Abu Nasr Mansoor -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor" class="card" target="_blank">
+                <div class="number-badge">Personality #20</div>
+                <div class="icon-circle"><i class="fas fa-compass"></i></div>
+                <h3>ابو نصر منصور</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 21. Sharaf al-Din Tusi -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi" class="card" target="_blank">
+                <div class="number-badge">Personality #21</div>
+                <div class="icon-circle"><i class="fas fa-square-root-alt"></i></div>
+                <h3>شرف الدین طوسی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 22. Ibn Qutaybah -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh" class="card" target="_blank">
+                <div class="number-badge">Personality #22</div>
+                <div class="icon-circle"><i class="fas fa-feather-alt"></i></div>
+                <h3>ابن قتیبہ</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
+            <!-- 23. Al-Farghani -->
+            <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani" class="card" target="_blank">
+                <div class="number-badge">Personality #23</div>
+                <div class="icon-circle"><i class="fas fa-meteor"></i></div>
+                <h3>الفرغانی</h3>
+                <span class="read-more">پڑھیں <i class="fas fa-arrow-left"></i></span>
+            </a>
+
         </div>
     </div>
 
     <footer>
-        <p>© 2025 بلاگ لوورز.pk | شخصیات | تاریخ کے روشن ستارے</p>
-        <p>⚜️ علم کی میراث | 📧 رابطہ: shakhsiyat@bloglovers.pk</p>
-        <div style="margin-top:25px;">
-            <i class="fas fa-download" style="margin:0 15px;font-size:1.8rem;cursor:pointer;" 
-               onclick="alert('📚 شخصیات کی سوانح عمری ڈاؤن لوڈ کریں!')"></i>
-            <i class="fas fa-print" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fas fa-share-alt" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-            <i class="fab fa-wikipedia-w" style="margin:0 15px;font-size:1.8rem;cursor:pointer;"></i>
-        </div>
+        <p>© 2025 بلاگ لوورز.pk | شخصیات کی دنیا</p>
+        <p style="font-size: 0.9rem; margin-top: 10px; color: var(--gold);">ہمارے اسلاف، ہماری پہچان</p>
     </footer>
 
     <script>
-        // Toggle contribution
-        function toggleContribution(card) {
-            const allCards = document.querySelectorAll('.person-card');
-            allCards.forEach(c => {
-                if(c !== card) {
-                    c.classList.remove('active');
-                }
-            });
-            card.classList.toggle('active');
+        // Constellation Animation
+        const canvas = document.getElementById('constellation');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let stars = [];
+        const numStars = 100;
+        const connectionDistance = 150;
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = '#FFD700';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
-        
-        // Random personality
-        function randomPersonality() {
-            const personalities = [
-                {name: "ابن سینا", field: "طب و فلسفہ", contribution: "قانون فی الطب کے مصنف"},
-                {name: "الخوارزمی", field: "ریاضی", contribution: "الجبرا کے بانی"},
-                {name: "ابن الہیثم", field: "بصریات", contribution: "روشنی کے علم میں انقلاب"},
-                {name: "البیرونی", field: "فلکیات", contribution: "زمین کے محیط کی پیمائش"},
-                {name: "ابن النفیس", field: "طب", contribution: "خون کی گردش کی دریافت"}
-            ];
+
+        function init() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            const randomPerson = personalities[Math.floor(Math.random() * personalities.length)];
-            alert(`⚜️ عظیم شخصیت:\n\nنام: ${randomPerson.name}\nشعبہ: ${randomPerson.field}\nخدمت: ${randomPerson.contribution}`);
-        }
-        
-        // Timeline icons interaction
-        document.querySelectorAll('.timeline-icons .t-icon').forEach((icon, index) => {
-            icon.addEventListener('click', function() {
-                const fields = [
-                    "قائدین اور حکمران",
-                    "سائنسدان",
-                    "علما اور مفکرین",
-                    "ماہرین طب",
-                    "مصنفین اور شاعر"
-                ];
-                alert(`📜 شعبہ:\n${fields[index]}\n\nاس شعبے کی تمام شخصیات دیکھنے کے لیے نیچے سکرول کریں۔`);
-                
-                // Visual effect
-                this.style.transform = 'scale(1.5) rotate(360deg)';
-                this.style.boxShadow = '0 0 40px gold';
-                setTimeout(() => {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                }, 500);
+            stars.forEach(star => {
+                star.update();
+                star.draw();
             });
-        });
-        
-        // Auto highlight cards
-        let currentPerson = 0;
-        function highlightPerson() {
-            const cards = document.querySelectorAll('.person-card');
-            cards.forEach(card => card.style.boxShadow = '');
-            cards[currentPerson].style.boxShadow = '0 0 30px rgba(212, 175, 55, 0.5)';
-            currentPerson = (currentPerson + 1) % cards.length;
+
+            // Draw Lines
+            for (let i = 0; i < stars.length; i++) {
+                for (let j = i; j < stars.length; j++) {
+                    const dx = stars[i].x - stars[j].x;
+                    const dy = stars[i].y - stars[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 215, 0, ${1 - distance / connectionDistance})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(stars[i].x, stars[i].y);
+                        ctx.lineTo(stars[j].x, stars[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
         }
-        setInterval(highlightPerson, 3000);
-        
-        // Seal rotation on hover
-        const seal = document.querySelector('.ancient-seal');
-        seal.addEventListener('mouseenter', () => {
-            seal.style.animationDuration = '5s';
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
         });
-        seal.addEventListener('mouseleave', () => {
-            seal.style.animationDuration = '20s';
-        });
+
+        init();
+        animate();
     </script>
 </body>
 </html>
