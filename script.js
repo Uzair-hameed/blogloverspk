@@ -20,6 +20,7 @@ source: azkar
 https://www.bloglovers.pk/2022/06/blog-post.html,https://www.bloglovers.pk/azkar/main-aur-aap-allah-ko-kaise-na-pukareen,میں اور آپ اللہ کو کیسے نہ پکاریں
 https://www.bloglovers.pk/2022/06/7.html,https://www.bloglovers.pk/azkar/7-aysi-rkaotyn-jn-se-daa-qbol-nahi-hoti,7 ایسی رکاوٹیں جن سے دعا قبول نہیں ہوتی
 https://www.bloglovers.pk/2022/07/8.html,https://www.bloglovers.pk/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai,8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے
+https://www.bloglovers.pk/images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai
 https://www.bloglovers.pk/2025/06/blog-post.html,https://www.bloglovers.pk/azkar/hum-dua-mangne-mein-sust-kyun-ho-gaye-hain,ہم دعا مانگنے میں سست کیوں ہو گئے ہیں؟
 source: taleem
 https://www.bloglovers.pk/2020/06/blog-post_22.html,https://www.bloglovers.pk/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn,کرونا کی صورت میں کمیونٹی سکولز کے بچوں کو کیسے سنبھالیں؟
@@ -352,3 +353,4 @@ window.onload = function() {
         });
     }
 };
+
