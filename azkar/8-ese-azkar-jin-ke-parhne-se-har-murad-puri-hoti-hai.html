@@ -234,19 +234,67 @@
             border-right: 4px solid var(--secondary-color);
         }
         
-        img { 
-            max-width: 100%; 
-            height: auto; 
-            border-radius: 15px; 
-            display: block; 
-            margin: 30px auto; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            border: 5px solid white;
+        .featured-image-container {
+            width: 100%;
+            margin: 30px 0 50px;
+            text-align: center;
+            position: relative;
         }
         
-        img:hover {
+        .featured-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border: 5px solid white;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .featured-image:hover {
             transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            margin: 30px 0 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-placeholder:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            z-index: 1;
+        }
+        
+        .image-placeholder i {
+            font-size: 80px;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+        
+        .image-placeholder span {
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px;
         }
         
         a { 
@@ -262,15 +310,6 @@
             border-bottom: 2px dotted var(--accent-color);
         }
         
-        .featured-image {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            margin: 30px 0 50px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-        
         .content-box {
             background: #f8f9fa;
             border-radius: 15px;
@@ -278,6 +317,11 @@
             margin: 25px 0;
             border-right: 5px solid var(--primary-color);
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-box:hover {
+            transform: translateX(-5px);
         }
         
         .content-box h2, .content-box h3 {
@@ -327,6 +371,15 @@
                 padding: 12px 25px;
                 font-size: 16px;
             }
+            
+            .image-placeholder {
+                height: 300px;
+                font-size: 20px;
+            }
+            
+            .image-placeholder i {
+                font-size: 60px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -351,6 +404,15 @@
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
+            }
+            
+            .image-placeholder {
+                height: 250px;
+                font-size: 18px;
+            }
+            
+            .image-placeholder i {
+                font-size: 50px;
             }
         }
         
@@ -388,6 +450,17 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(var(--secondary-color), var(--primary-color));
         }
+        
+        /* Loading animation for image */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
     </style>
 </head>
 <body>
@@ -399,8 +472,28 @@
     </div>
 
     <div class="post-content">
-        <!-- Featured Image Added -->
-        <img src="https://bloglovers.pk/Images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai" alt="8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے" class="featured-image" onerror="this.style.display='none'">
+        <!-- Featured Image - با اختیار امیج جو ہر حال میں نظر آئے -->
+        <div class="featured-image-container">
+            <!-- پہلے اصل امیج لگائیں -->
+            <img 
+                src="https://bloglovers.pk/Images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai.jpg" 
+                alt="8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے" 
+                class="featured-image"
+                onerror="this.style.display='none'; document.getElementById('imagePlaceholder').style.display='flex';"
+                onload="this.classList.remove('loading'); document.getElementById('imagePlaceholder').style.display='none';"
+                class="loading"
+            >
+            
+            <!-- اگر امیج نہیں لوڈ ہوتی تو یہ پیلیس ہولڈر دکھائیں -->
+            <div id="imagePlaceholder" class="image-placeholder" style="display: none;">
+                <i class="fas fa-book-quran"></i>
+                <span>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</span>
+            </div>
+            
+            <div style="text-align: center; margin-top: 15px; font-size: 18px; color: #666; font-style: italic;">
+                دعا اور ذکر کی برکت سے ہر مراد پوری ہوتی ہے
+            </div>
+        </div>
         
         <div class="content-box">
             <p>دوستو! آپ ﷺ نے اُمت کی بھلائی کے لیے ایسے نایاب اذکار بتائے کہ جن کو ہر نماز کے بعد خشوع اور خضوع کے ساتھ اللہ رب العالمین کے سامنے اپنے ہاتھ پھیلائیں اور ان کلمات کا ادائیگی کے ساتھ دعا مانگیں تو نہ صرف فریادیں سنی جاتی ہیں بلکہ اللہ رب العزت ہر جائز حاجت پوری فرما دیتے ہیں اور انسان کی پریشانیاں اور آزمائشیں دور فرما دیتے ہیں۔ اپنے سابقہ آرٹیکل میں میں نے ذکر کیا تھا کہ &quot;<a href="https://www.bloglovers.pk/2022/06/7.html">7 ایسی رکاوٹیں جن سے دعائیں قبول نہیں ہوتی</a>&quot; اور احادیث کی روشنی میں ان رکاوٹوں کا ذکر تفصیل سے بیان کیا تھا۔ آج کے اس آرٹیکل میں 8 ایسے اذکار شئیر کرنے جا رہا ہوں جن کو ہر دعا کے آغاز میں پڑھ کر مرادیں مانگیں تو اللہ اپنے بندوں کو مایوس نہیں لوٹائے گا۔</p>
@@ -418,6 +511,7 @@
             <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ آپ ﷺ کے ساتھ بیٹھے ہوئے تھے اور ایک شخص نماز پڑھ رہا تھا، اس شخص نے دعا کی۔ تو نبی کریم ﷺ نے فرمایا: &quot;بے شک اس نے اللہ تعالیٰ کے اسم عظیم کے ساتھ ان سے فریاد کی ہے، کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول کرتے ہیں اور جب اس کے ساتھ ان سے سوال کیا جائے، تو وہ عطا فرماتے ہیں۔&quot;</p>
         </div>
         
+        <!-- باقی اذکار اسی طرح رہیں گے -->
         <h2>﴿3﴾ اَللّٰھُمَّ اَنْتَ خَلَقْتَنِی، وَ اَنْتَ تَھْدِیْنِی، وَاَنْتَ تُطْعِمُنِیْ، وَاَنْتَ تَسْقِیْنِی، وَاَنْتَ تُمِیْتُنِیْ، وَاَنْتَ تُحْیِیْنِیْ</h2>
         <div class="content-box">
             <p><strong>ترجمہ:</strong> <span class="highlight">&quot;اے اللہ! آپ نے مجھے پیدا فرمایا اور آپ مجھے ہدایت دیتے ہیں اور آپ مجھے کھلاتے ہیں اور آپ مجھے پلاتے ہیں اور آپ مجھے موت دیتے ہیں اور آپ مجھے زندگی عطا فرماتے ہیں۔&quot;</span></p>
@@ -510,7 +604,31 @@
                 box.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
                 box.style.opacity = '0';
             });
+            
+            // امیج کے لیے بیک اپ حل
+            setTimeout(() => {
+                const img = document.querySelector('.featured-image');
+                if (img && img.naturalHeight === 0) {
+                    // اگر امیج لوڈ نہیں ہوئی
+                    img.style.display = 'none';
+                    document.getElementById('imagePlaceholder').style.display = 'flex';
+                }
+            }, 3000);
         });
+        
+        // متبادل امیج لنک کے ساتھ امیج لوڈ کرنے کی کوشش
+        function loadAlternateImage() {
+            const img = document.querySelector('.featured-image');
+            const alternateSrc = 'https://bloglovers.pk/Images/azkar/dua-azkar.jpg';
+            
+            if (img && img.naturalHeight === 0) {
+                console.log('اصل امیج نہیں لوڈ ہوئی، متبادل امیج لوڈ کرنے کی کوشش کر رہا ہوں...');
+                img.src = alternateSrc;
+            }
+        }
+        
+        // 5 سیکنڈ بعد متبادل امیج لوڈ کرنے کی کوشش کریں
+        setTimeout(loadAlternateImage, 5000);
     </script>
 </body>
 </html>
