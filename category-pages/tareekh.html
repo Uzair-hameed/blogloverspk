@@ -3,425 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تاریخ کے دریچے | BlogLovers.pk</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome (Reliable CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <title>تاریخ | بلاگ لوورز</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- Font Loading --- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+        
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Regular');
+        }
+
         :root {
-            --bg-dark: #000000;
-            --bg-card: #121212;
-            --gold: #C5A059;
-            --gold-light: #ebd5a0;
-            --text-main: #e0e0e0;
-            --text-muted: #888888;
-            --font-urdu: 'Noto Nastaliq Urdu', serif;
-            --font-eng: 'Cinzel', serif;
+            --primary: #d4af37; /* Gold */
+            --bg-dark: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-light: #e0e0e0;
+            --accent: #8b0000; /* Deep Red */
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
 
         body {
             background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-urdu);
-            min-height: 100vh;
+            color: var(--text-light);
             overflow-x: hidden;
-            position: relative;
+            font-size: 14px; /* Small font requirement */
         }
 
-        /* Animated Sands of Time Canvas */
-        #sands-canvas {
+        /* --- Live Animated Background --- */
+        .background-anim {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at center, #1c1c1c 0%, #000000 100%);
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
         }
-
-        /* Header */
-        header {
-            text-align: center;
-            padding: 6rem 1rem 4rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .header-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            font-family: var(--font-urdu);
-            text-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
-            animation: glow 3s infinite alternate;
-        }
-
-        .header-content p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-            border-top: 1px solid var(--gold);
-            border-bottom: 1px solid var(--gold);
-            padding: 15px 0;
-            position: relative;
-        }
-
-        .header-content p::before {
-            content: '⏳';
+        
+        .particle {
             position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-dark);
-            padding: 0 10px;
-            color: var(--gold);
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
         }
 
-        /* Container & Grid */
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 2rem;
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+            background: var(--primary);
+            color: black;
+        }
+
+        h1 {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .spinning-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            animation: spin 5s infinite linear;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- Main Slider --- */
+        .slider-container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 20px auto;
             position: relative;
-            z-index: 2;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--primary);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, black);
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .slide-caption h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        /* --- Small Moving Slider (Marquee) --- */
+        .marquee-container {
+            background: var(--accent);
+            padding: 8px 0;
+            margin: 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+        }
+
+        .marquee-item {
+            display: inline-block;
+            margin: 0 20px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- Post Grid --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
         .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
-            perspective: 1000px; /* For 3D effect */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
-        /* Card Design */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid #333;
-            border-radius: 4px;
-            padding: 0;
-            text-decoration: none;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            position: relative;
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 10px;
             overflow: hidden;
-            transition: all 0.5s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #333;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: 0 0 25px rgba(197, 160, 89, 0.2);
+        .post-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+            border-color: var(--primary);
+            z-index: 10;
         }
 
-        /* Image/Icon Area */
-        .card-visual {
-            height: 200px;
-            background: linear-gradient(45deg, #0f0f0f, #2a2a2a);
+        .img-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .post-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .post-card:hover img {
+            transform: scale(1.2);
+        }
+
+        .post-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .post-title {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-decoration: none;
+            line-height: 1.6;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .post-card:hover .post-title {
+            color: var(--primary);
+        }
+
+        /* Hide raw links as requested */
+        .raw-link {
+            display: none;
+        }
+
+        /* --- Share Button --- */
+        .share-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px; /* Urdu RTL layout */
+            background: var(--primary);
+            color: black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            animation: pulse 2s infinite;
+            z-index: 1000;
         }
 
-        .card-visual i {
-            font-size: 5rem;
-            color: #1a1a1a;
-            transition: 0.5s;
-            z-index: 1;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
         }
 
-        .card:hover .card-visual i {
-            color: var(--gold);
-            transform: scale(1.2) rotate(10deg);
-            text-shadow: 0 0 30px var(--gold);
-        }
-
-        .card-visual::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.1;
-        }
-
-        /* Content Area */
-        .card-content {
-            padding: 25px;
-            position: relative;
-        }
-
-        .card-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: 0.5s;
-        }
-
-        .card:hover .card-content::before {
-            width: 80%;
-        }
-
-        .card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--text-main);
-            transition: 0.3s;
-            line-height: 1.6;
-        }
-
-        .card:hover h3 {
-            color: var(--gold);
-        }
-
-        .card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .read-btn {
-            align-self: flex-start;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-            padding: 8px 20px;
-            transition: 0.3s;
-            font-family: var(--font-eng);
-        }
-
-        .card:hover .read-btn {
-            background: var(--gold);
-            color: #000;
-        }
-
-        /* Timeline Decoration */
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* Footer */
         footer {
             text-align: center;
-            padding: 3rem;
-            margin-top: 5rem;
+            padding: 20px;
+            background: #000;
+            color: #666;
+            margin-top: 50px;
+            font-size: 0.8rem;
             border-top: 1px solid #333;
-            color: var(--text-muted);
-            background: #050505;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
-            to { text-shadow: 0 0 30px rgba(197, 160, 89, 0.8); }
-        }
-
+        /* Mobile adjustments */
         @media (max-width: 768px) {
-            .header-content h1 { font-size: 3rem; }
-            .posts-grid { grid-template-columns: 1fr; }
-            .timeline-line { display: none; }
+            .posts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+            }
+            .slide img {
+                height: 200px;
+            }
+            h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Sands of Time Canvas -->
-    <canvas id="sands-canvas"></canvas>
+    <!-- Live Particle Background -->
+    <div class="background-anim" id="particles"></div>
 
+    <!-- Header -->
     <header>
-        <div class="header-content">
-            <h1>تاریخ کے دریچے</h1>
-            <p>ماضی کی راکھ کرید کر مستقبل کے لیے چنگاری تلاش کرنا</p>
-        </div>
+        <div class="spinning-icon"><i class="fas fa-hourglass-half"></i></div>
+        <h1>تاریخ کے دریچوں سے</h1>
+        <a href="index.html" class="back-btn">
+            واپس جائیں <i class="fas fa-arrow-left"></i>
+        </a>
     </header>
 
-    <div class="container">
-        <!-- Decorative Timeline Line -->
-        <div class="timeline-line"></div>
+    <!-- Main Slider (Featured Posts) -->
+    <div class="slider-container">
+        <div class="slides" id="mainSlider">
+            <!-- Slide 1 -->
+            <div class="slide">
+                <a href="https://www.bloglovers.pk/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai">
+                    <img src="https://www.bloglovers.pk/images/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai.png" alt="Taxila">
+                    <div class="slide-caption">
+                        <h3>تکشاشیلا سے نالندہ تک علم کی وہ شاہراہ</h3>
+                    </div>
+                </a>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide">
+                <a href="https://www.bloglovers.pk/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay">
+                    <img src="https://www.bloglovers.pk/images/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay.png" alt="Mughal">
+                    <div class="slide-caption">
+                        <h3>سلطنتِ مغلیہ کے پوشیدہ راز</h3>
+                    </div>
+                </a>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide">
+                <a href="https://www.bloglovers.pk/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi">
+                    <img src="https://www.bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" alt="Ottoman">
+                    <div class="slide-caption">
+                        <h3>سلطنتِ عثمانیہ کا زوال</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 
+    <!-- Moving Small Slider (Marquee) -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span class="marquee-item"><i class="fas fa-star"></i> تکشاشیلا سے نالندہ تک علم کا سفر</span>
+            <span class="marquee-item"><i class="fas fa-star"></i> سقوطِ ڈھاکہ کی وجوہات</span>
+            <span class="marquee-item"><i class="fas fa-star"></i> سلطنت عثمانیہ کا زوال</span>
+            <span class="marquee-item"><i class="fas fa-star"></i> دیوار برلن کی کہانی</span>
+            <span class="marquee-item"><i class="fas fa-star"></i> مایا تہذیب کا انہدام</span>
+        </div>
+    </div>
+
+    <!-- Main Post Grid -->
+    <div class="container">
         <div class="posts-grid">
 
-            <!-- Post 1: Ancient History -->
-            <a href="https://www.bloglovers.pk/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-torii-gate"></i></div>
-                <div class="card-content">
-                    <h3>تکشاشیلا سے نالندہ تک: علم کی شاہراہ</h3>
-                    <p>قدیم دنیا کے وہ تعلیمی مراکز جنہوں نے انسانیت کی سوچ کا رخ موڑ دیا۔</p>
-                    <span class="read-btn">قدیم تاریخ</span>
-                </div>
-            </a>
+            <!-- Post 1 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">تکشاشیلا سے نالندہ تک علم کی وہ شاہراہ جس پر چل کر دنیا بدل گئی</span>
+                    </div>
+                </a>
+            </div>
 
-            <!-- Post 2: Modern History (1971) -->
-            <a href="https://www.bloglovers.pk/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-heart-broken"></i></div>
-                <div class="card-content">
-                    <h3>سقوطِ ڈھاکہ: وہ کون سی غلطیاں تھیں؟</h3>
-                    <p>1971 کے سانحے کا ایک غیر جانبدارانہ تاریخی جائزہ اور اسباق۔</p>
-                    <span class="read-btn">سیاسی تاریخ</span>
-                </div>
-            </a>
+            <!-- Post 2 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">سقوطِ ڈھاکہ وہ کون سی غلطیاں تھیں جنہوں نے پاکستان کو دو لخت کیا؟</span>
+                    </div>
+                </a>
+            </div>
 
-            <!-- Post 3: Ottoman Empire -->
-            <a href="https://www.bloglovers.pk/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-moon"></i></div>
-                <div class="card-content">
-                    <h3>سلطنتِ عثمانیہ کا زوال: کیا صرف جنگ وجہ تھی؟</h3>
-                    <p>تین براعظموں پر پھیلی سلطنت کے بکھرنے کے اندرونی اسباب۔</p>
-                    <span class="read-btn">اسلامی تاریخ</span>
-                </div>
-            </a>
+            <!-- Post 3 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">سلطنتِ عثمانیہ کا زوال کیا صرف جنگ ہی وجہ تھی؟</span>
+                    </div>
+                </a>
+            </div>
 
-            <!-- Post 4: Berlin Wall -->
-            <a href="https://www.bloglovers.pk/tareekh/anti-fascist-rampart-ya-insaniyat-ka-qaid-khana-dewar-e-berlin-ki-asal-kahani" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-th"></i></div> <!-- Wall icon substitute -->
-                <div class="card-content">
-                    <h3>دیوارِ برلن: انسانیت کا قید خانہ یا حفاظتی حصار؟</h3>
-                    <p>سرد جنگ کی سب سے بڑی علامت کی تعمیر اور انہدام کی کہانی۔</p>
-                    <span class="read-btn">عالمی تاریخ</span>
-                </div>
-            </a>
+            <!-- Post 4 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/anti-fascist-rampart-ya-insaniyat-ka-qaid-khana-dewar-e-berlin-ki-asal-kahani">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/anti-fascist-rampart-ya-insaniyat-ka-qaid-khana-dewar-e-berlin-ki-asal-kahani.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">اینٹی فاشسٹ ریمپارٹ یا انسانیت کا قید خانہ؟ دیوارِ برلن کی اصل کہانی</span>
+                    </div>
+                </a>
+            </div>
 
-            <!-- Post 5: Mughal Empire -->
-            <a href="https://www.bloglovers.pk/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-crown"></i></div>
-                <div class="card-content">
-                    <h3>سلطنتِ مغلیہ کے وہ راز جو کتابوں میں نہیں</h3>
-                    <p>لال قلعہ کی دیواروں میں چھپی مغل بادشاہوں کی ان کہی داستانیں۔</p>
-                    <span class="read-btn">برصغیر</span>
-                </div>
-            </a>
+            <!-- Post 5 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">سلطنتِ مغلیہ کے وہ راز جو تاریخ کی کتابوں میں نہیں ملتے</span>
+                    </div>
+                </a>
+            </div>
 
-            <!-- Post 6: Nymogram (Buddhism) -->
-            <a href="https://www.bloglovers.pk/tareekh/nymogram-bdh-mt-ki-azmt-rfth-ka-gm-shdh-shhr" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-dharmachakra"></i></div>
-                <div class="card-content">
-                    <h3>نیموگرام: بدھ مت کی عظمتِ رفتہ کا گمشدہ شہر</h3>
-                    <p>سوات کی وادیوں میں چھپا ایک قدیم شہر جو کبھی علم کا مرکز تھا۔</p>
-                    <span class="read-btn">آثار قدیمہ</span>
-                </div>
-            </a>
+            <!-- Post 6 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/nymogram-bdh-mt-ki-azmt-rfth-ka-gm-shdh-shhr">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/nymogram-bdh-mt-ki-azmt-rfth-ka-gm-shdh-shhr.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">نیم و گرام بدھ مت کی عظمت رفتہ کا گم شدہ شہر</span>
+                    </div>
+                </a>
+            </div>
 
-            <!-- Post 7: Maya Civilization -->
-            <a href="https://www.bloglovers.pk/tareekh/maya-tahzeeb-ke-inhidaam-ka-raaz-qahat-jang-ya-koi-aur-wajah" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-mask"></i></div>
-                <div class="card-content">
-                    <h3>مایا تہذیب کے انہدام کا راز</h3>
-                    <p>جنگلوں میں گم ہو جانے والی پراسرار تہذیب کیسے ختم ہوئی؟</p>
-                    <span class="read-btn">پراسرار تاریخ</span>
-                </div>
-            </a>
+            <!-- Post 7 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/maya-tahzeeb-ke-inhidaam-ka-raaz-qahat-jang-ya-koi-aur-wajah">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/maya-tahzeeb-ke-inhidaam-ka-raaz-qahat-jang-ya-koi-aur-wajah.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">مایا تہذیب کے انہدام کا راز قحط جنگ یا کوئی اور وجہ</span>
+                    </div>
+                </a>
+            </div>
 
-            <!-- Post 8: Mongols & Islam -->
-            <a href="https://www.bloglovers.pk/tareekh/jin-mangoloon-ne-islam-ko-mitana-tha-woh-is-ke-muhafiz-kaise-ban-gaye" class="card" target="_blank">
-                <div class="card-visual"><i class="fas fa-horse-head"></i></div>
-                <div class="card-content">
-                    <h3>منگول: اسلام کے قاتل سے محافظ تک</h3>
-                    <p>تاریخ کا سب سے بڑا یو ٹرن جب ہلاکو خان کی نسل مسلمان ہوگئی۔</p>
-                    <span class="read-btn">اسلامی تاریخ</span>
-                </div>
-            </a>
+            <!-- Post 8 -->
+            <div class="post-card">
+                <a href="https://www.bloglovers.pk/tareekh/jin-mangoloon-ne-islam-ko-mitana-tha-woh-is-ke-muhafiz-kaise-ban-gaye">
+                    <div class="img-container">
+                        <img src="https://www.bloglovers.pk/images/tareekh/jin-mangoloon-ne-islam-ko-mitana-tha-woh-is-ke-muhafiz-kaise-ban-gaye.png" loading="lazy">
+                    </div>
+                    <div class="post-content">
+                        <span class="post-title">جن منگولوں نے اسلام کو مٹانا تھا، وہ اس کے محافظ کیسےبن گئے؟</span>
+                    </div>
+                </a>
+            </div>
 
         </div>
     </div>
 
+    <!-- Share Button -->
+    <div class="share-float" onclick="sharePage()">
+        <i class="fas fa-share-alt"></i>
+    </div>
+
     <footer>
-        <p>© 2025 بلاگ لوورز.pk | تاریخ کے اوراق</p>
-        <div style="margin-top: 15px; font-size: 1.5rem;">
-            <i class="fas fa-hourglass-half" style="margin: 0 10px; color: var(--gold);"></i>
-        </div>
+        <p>&copy; 2025 بلاگ لوورز - جملہ حقوق محفوظ ہیں</p>
+        <p> <i class="fas fa-cog fa-spin" style="font-size:10px;"></i> اپڈیٹڈ</p>
     </footer>
 
     <script>
-        // Sands of Time Animation
-        const canvas = document.getElementById('sands-canvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particles = [];
-        const particleCount = 150;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2;
-                this.speedY = Math.random() * 0.5 + 0.2; // Moving down/up
-                this.color = `rgba(197, 160, 89, ${Math.random() * 0.5})`; // Gold opacity
-            }
-
-            update() {
-                this.y -= this.speedY; // Moving UP like dust/time
-                if (this.y < 0) {
-                    this.y = canvas.height;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        // --- Create Particles ---
+        const particleContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const span = document.createElement('div');
+            span.classList.add('particle');
+            span.style.left = Math.random() * 100 + '%';
+            span.style.width = Math.random() * 10 + 5 + 'px';
+            span.style.height = span.style.width;
+            span.style.animationDelay = Math.random() * 5 + 's';
+            span.style.animationDuration = Math.random() * 10 + 10 + 's';
+            particleContainer.appendChild(span);
         }
 
-        function init() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
+        // --- Slider Logic ---
+        let slideIndex = 0;
+        const slides = document.getElementById('mainSlider');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function showSlides() {
+            slideIndex++;
+            if (slideIndex >= totalSlides) { slideIndex = 0; }
+            slides.style.transform = `translateX(${slideIndex * 100}%)`; // RTL Adjustment
+            setTimeout(showSlides, 4000);
+        }
+        setTimeout(showSlides, 4000);
+
+        // --- Share Function ---
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                alert(' لنک کاپی کر لیا گیا!');
+                // Fallback copy to clipboard could go here
             }
         }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
-
-        init();
-        animate();
     </script>
 </body>
 </html>
