@@ -3,996 +3,1556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>علامات صغریٰ | قیامت کی چھوٹی نشانیاں</title>
+    <title>علاماتِ صغریٰ | مکمل مجموعہ</title>
     
-    <!-- Urdu Font -->
+    <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Reliable Icon CDN (Works on Vercel) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- General Settings & Font --- */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Kasheeda'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v18/IONv7VFLir0wyV3C1bK6y5iQ06T6L7i0.woff2') format('woff2');
+        }
+
         :root {
-            --primary-dark: #0f3d3e;
-            --primary-light: #105c5e;
-            --accent: #d4af37; /* Gold */
-            --text-light: #f1f1f1;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --card-hover: #ffffff;
-            --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --gold: #ffd700;
+            --accent: #0ea5e9;
+            --hover-glow: 0 0 15px rgba(14, 165, 233, 0.5);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Nastaliq Urdu', serif;
         }
 
         body {
-            background: var(--bg-gradient);
-            color: #333;
-            min-height: 100vh;
-            line-height: 1.8;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 20%);
+            color: var(--text-color);
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
             overflow-x: hidden;
+            font-size: 16px; /* Small base size as requested */
+            line-height: 1.8;
         }
 
-        /* Floating Particles Background */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
+        /* --- Animations --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- Header --- */
         header {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            color: var(--text-light);
-            padding: 3rem 1rem;
             text-align: center;
-            border-bottom: 3px solid var(--accent);
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, #020617, transparent);
+            border-bottom: 2px solid var(--gold);
         }
 
         header h1 {
-            font-size: 3rem;
-            color: var(--accent);
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            color: var(--gold);
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
             margin-bottom: 10px;
-            animation: slideDown 1s ease-out;
+            animation: float 3s ease-in-out infinite;
         }
 
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
-            color: #e0e0e0;
+        /* --- Main Slider --- */
+        .main-slider {
+            max-width: 900px;
+            height: 300px;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--accent);
         }
 
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active { opacity: 1; }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            color: white;
+        }
+
+        /* --- Post Updater --- */
+        .post-updater {
+            background: linear-gradient(45deg, #1e1e2e, #2a2a40);
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            border-radius: 50px;
+            text-align: center;
+            border: 1px solid var(--gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .update-badge {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* --- Small Moving Slider (Ticker) --- */
+        .ticker-wrap {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            padding: 10px 0;
+            margin-bottom: 30px;
+            white-space: nowrap;
+        }
+
+        .ticker {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        /* --- Grid & Cards --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
+            padding: 20px;
         }
 
-        .grid-container {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
-            margin-top: 40px;
         }
 
-        /* Card Styles */
-        .card {
+        .post-card {
             background: var(--card-bg);
             border-radius: 15px;
-            padding: 25px;
-            text-decoration: none;
-            color: #333;
-            position: relative;
             overflow: hidden;
+            position: relative;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-right: 5px solid var(--primary-light);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            display: block;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .post-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border-color: var(--gold);
+            z-index: 10;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-container img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            transform: translateX(-100%);
-            transition: 0.5s;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .card:hover::before {
-            transform: translateX(100%);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            border-right-color: var(--accent);
-            background: var(--card-hover);
+        .post-card:hover .img-container img {
+            transform: scale(1.1);
         }
 
         .card-icon {
-            font-size: 2rem;
-            color: var(--primary-light);
-            margin-bottom: 15px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gold);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            z-index: 2;
+            animation: spin-slow 5s linear infinite;
         }
 
-        .card-icon i {
-            background: rgba(16, 92, 94, 0.1);
-            padding: 10px;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
-
-        .card:hover .card-icon i {
-            background: var(--primary-light);
-            color: white;
-            transform: rotate(360deg);
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #1a1a1a;
-            font-weight: 700;
-            line-height: 1.5;
-        }
-
-        .card p.link-text {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: auto;
-            direction: ltr;
-            text-align: left;
-            opacity: 0.7;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .badge {
-            font-size: 0.8rem;
-            background: var(--accent);
-            color: #000;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0,0,0,0.8);
-            color: white;
+        .card-content {
+            padding: 15px;
             text-align: center;
-            padding: 2rem;
-            margin-top: 50px;
-            border-top: 3px solid var(--accent);
-            position: relative;
-            z-index: 1;
         }
 
-        .social-icons i {
-            font-size: 1.5rem;
-            margin: 0 10px;
-            color: var(--accent);
+        .post-title {
+            color: var(--text-color);
+            font-size: 1.1rem; /* Small size */
+            font-weight: bold;
+            margin-bottom: 0;
+            transition: color 0.3s;
+        }
+
+        .post-card:hover .post-title {
+            color: var(--gold);
+        }
+
+        /* --- Buttons --- */
+        .btn-container {
+            text-align: center;
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
             cursor: pointer;
-            transition: 0.3s;
+            font-family: 'Jameel Noori Nastaleeq', serif;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
         }
-        .social-icons i:hover { transform: scale(1.2); color: white; }
 
-        /* Animations */
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .btn-share { background: linear-gradient(45deg, #2563eb, #1d4ed8); }
+        .btn-share:hover { box-shadow: 0 0 15px rgba(37, 99, 235, 0.6); }
+
+        .btn-back { background: linear-gradient(45deg, #b91c1c, #991b1b); }
+        .btn-back:hover { box-shadow: 0 0 15px rgba(185, 28, 28, 0.6); }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
         }
 
-        /* Responsive */
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 5px; }
+
         @media (max-width: 768px) {
-            .grid-container { grid-template-columns: 1fr; }
-            header h1 { font-size: 2.2rem; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); }
+            header h1 { font-size: 1.8rem; }
+            .main-slider { height: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="particles"></div>
-
+    <!-- Header -->
     <header>
-        <div style="font-size: 3rem; margin-bottom: 10px;">⏳</div>
+        <i class="fas fa-moon fa-2x" style="color: var(--gold); margin-bottom: 10px; animation: spin-slow 10s linear infinite;"></i>
         <h1>علاماتِ صغریٰ</h1>
-        <p>قیامت کی چھوٹی نشانیاں، احادیثِ مبارکہ اور عصرِ حاضر کے تناظر میں</p>
+        <p style="color: #94a3b8;">آخری زمانے کی نشانیاں اور فتنوں کا بیان</p>
     </header>
 
-    <div class="container">
-        
-        <div style="text-align: center; margin-bottom: 20px;">
-            <span style="background: rgba(255,255,255,0.1); color: white; padding: 10px 20px; border-radius: 30px; border: 1px solid var(--accent);">
-                <i class="fas fa-layer-group"></i> کل مضامین: 60+
-            </span>
+    <!-- Main Slider -->
+    <div class="main-slider">
+        <!-- Using images from your list for the slider -->
+        <div class="slide active" style="background-image: url('https://www.bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png');">
+            <div class="slide-content"><h3>ان گنت فتنوں کا ظہور</h3></div>
         </div>
-
-        <div class="grid-container">
-
-            <!-- Card 1 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ka-is-dnya-main-tshryf-lana" class="card">
-                <div class="card-icon"><i class="fas fa-star-and-crescent"></i> <span class="badge">آغاز</span></div>
-                <h3>آپ ﷺ کا اس دنیا میں تشریف لانا</h3>
-                <p class="link-text">.../aap-ka-is-dnya-main-tshryf-lana</p>
-            </a>
-
-            <!-- Card 2 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ka-is-dunya-se-rukhasat-ho-jana" class="card">
-                <div class="card-icon"><i class="fas fa-mosque"></i></div>
-                <h3>آپ ﷺ کا اس دنیا سے رخصت ہو جانا</h3>
-                <p class="link-text">.../ap-saw-ka-is-dunya-se-rukhasat-ho-jana</p>
-            </a>
-
-            <!-- Card 3 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/chand-ke-do-tukre-ho-ne-ki-haqeeqat-kya-hai" class="card">
-                <div class="card-icon"><i class="fas fa-moon"></i></div>
-                <h3>چاند کے دو ٹکڑے ہونے کی حقیقت کیا ہے؟</h3>
-                <p class="link-text">.../chand-ke-do-tukre-ho-ne-ki-haqeeqat-kya-hai</p>
-            </a>
-
-            <!-- Card 4 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/shabh-kram-rzi-allah-anhm-ka-is-dnya-se-rkhst-ho-jana-hmyn-kya-drs-dyta-hai" class="card">
-                <div class="card-icon"><i class="fas fa-users"></i></div>
-                <h3>صحابہ کرامؓ کا دنیا سے رخصت ہونا ہمیں کیا درس دیتا ہے؟</h3>
-                <p class="link-text">.../shabh-kram-rzi-allah-anhm-ka-is-dnya...</p>
-            </a>
-
-            <!-- Card 5 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="card">
-                <div class="card-icon"><i class="fas fa-place-of-worship"></i></div>
-                <h3>قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</h3>
-                <p class="link-text">.../qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt</p>
-            </a>
-
-            <!-- Card 6 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="card">
-                <div class="card-icon"><i class="fas fa-fire"></i></div>
-                <h3>ان گنت فتنوں کا ظہور اور ان کے نقصانات</h3>
-                <p class="link-text">.../in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat</p>
-            </a>
-
-            <!-- Card 7 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/hijaz-ki-sarzameen-par-azab-aag-aur-iski-haqeeqat" class="card">
-                <div class="card-icon"><i class="fas fa-fire-alt"></i></div>
-                <h3>حجاز کی سرزمین پر عذابِ آگ اور اس کی حقیقت</h3>
-                <p class="link-text">.../hijaz-ki-sarzameen-par-azab-aag</p>
-            </a>
-
-            <!-- Card 8 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/tatari-mangoloon-ka-sahaba-karam-se-larna" class="card">
-                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>تاتاری منگولوں کا صحابہ کرام سے لڑنا</h3>
-                <p class="link-text">.../tatari-mangoloon-ka-sahaba-karam-se-larna</p>
-            </a>
-
-            <!-- Card 9 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/logon-ke-dilon-se-diyanat-dari-ka-khatma-aur-ap-saw-ki-waeed" class="card">
-                <div class="card-icon"><i class="fas fa-heart-broken"></i></div>
-                <h3>لوگوں کے دلوں سے دیانت داری کا خاتمہ</h3>
-                <p class="link-text">.../logon-ke-dilon-se-diyanat-dari-ka-khatma</p>
-            </a>
-
-            <!-- Card 10 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/pichli-ummaton-ke-tareeqon-ki-andhi-taqleed-aur-masharti-tabah-kariyan" class="card">
-                <div class="card-icon"><i class="fas fa-blind"></i></div>
-                <h3>پچھلی امتوں کے طریقوں کی اندھی تقلید اور تباہ کاریاں</h3>
-                <p class="link-text">.../pichli-ummaton-ke-tareeqon-ki-andhi-taqleed</p>
-            </a>
-
-            <!-- Card 11 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/sirf-jan-pehchan-ke-logon-ko-salam-karne-ke-kya-nuqsanat-hain" class="card">
-                <div class="card-icon"><i class="fas fa-handshake-slash"></i></div>
-                <h3>صرف جان پہچان کے لوگوں کو سلام کرنے کے نقصانات</h3>
-                <p class="link-text">.../sirf-jan-pehchan-ke-logon-ko-salam-karne</p>
-            </a>
-
-            <!-- Card 12 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="card">
-                <div class="card-icon"><i class="fas fa-tshirt"></i></div>
-                <h3>تنگ لباس پہننے والیوں کے بارے میں وعید</h3>
-                <p class="link-text">.../tang-libas-pehnne-wali-nangi-auraton</p>
-            </a>
-
-            <!-- Card 13 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/jhooti-gawahi-ka-aam-hona-aur-masharti-tabahi-ka-tezi-se-barhna" class="card">
-                <div class="card-icon"><i class="fas fa-gavel"></i></div>
-                <h3>جھوٹی گواہی کا عام ہونا اور معاشرتی تباہی</h3>
-                <p class="link-text">.../jhooti-gawahi-ka-aam-hona</p>
-            </a>
-
-            <!-- Card 14 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-book-dead"></i></div>
-                <h3>علم کے اٹھ جانے کے بارے میں آپ ﷺ کا فرمان</h3>
-                <p class="link-text">.../ilm-ke-uth-jane-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 15 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="card">
-                <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                <h3>کن چھ چیزوں کو حلال سمجھنے پر عذابِ الٰہی کی وعید؟</h3>
-                <p class="link-text">.../kin-chhe-chizon-ko-halal-samajhne-par</p>
-            </a>
-
-            <!-- Card 16 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-halal-aur-haraam-maal-ke-bare-mein-kya-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-coins"></i></div>
-                <h3>حلال اور حرام مال کے بارے میں نبوی ﷺ فرمان</h3>
-                <p class="link-text">.../halal-aur-haraam-maal-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 17 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-walidain-ki-be-hurmati-aur-bivi-ki-ataat-karne-wale-shakhs-ke-liye-kya-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-user-injured"></i></div>
-                <h3>والدین کی بے حرمتی اور بیوی کی اطاعت کرنے والے کا انجام</h3>
-                <p class="link-text">.../walidain-ki-be-hurmati-aur-bivi-ki-ataat</p>
-            </a>
-
-            <!-- Card 18 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-walidain-se-doori-aur-ajnabi-logon-se-qurbat-walon-ke-liye-kya-hukm-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-people-arrows"></i></div>
-                <h3>والدین سے دوری اور اجنبیوں سے قربت</h3>
-                <p class="link-text">.../walidain-se-doori-aur-ajnabi-logon-se</p>
-            </a>
-
-            <!-- Card 19 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="card">
-                <div class="card-icon"><i class="fas fa-ban"></i></div>
-                <h3>وہ کون سے چار حرام کام ہیں جو امت حلال سمجھ لے گی؟</h3>
-                <p class="link-text">.../woh-kon-se-char-hram-kam-hain</p>
-            </a>
-
-            <!-- Card 20 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-ek-shakhs-subah-ko-momin-aur-sham-ko-kafir-kyun-ho-jaye-ga" class="card">
-                <div class="card-icon"><i class="fas fa-sync-alt"></i></div>
-                <h3>صبح مومن اور شام کو کافر ہو جانے کا فتنہ</h3>
-                <p class="link-text">.../subah-ko-momin-aur-sham-ko-kafir</p>
-            </a>
-
-            <!-- Card 21 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/apne-gharon-ko-muzain-karne-walon-ke-liye-ap-saw-ne-kya-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-home"></i></div>
-                <h3>گھروں کو سجانے والوں کے لیے کیا حکم ہے؟</h3>
-                <p class="link-text">.../apne-gharon-ko-muzain-karne-walon</p>
-            </a>
-
-            <!-- Card 22 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/zabaan-ka-najaiz-istemal-karke-maal-kamane-walon-ke-liye-kya-hukm-farmaya-gaya" class="card">
-                <div class="card-icon"><i class="fas fa-comment-dollar"></i></div>
-                <h3>زبان کا ناجائز استعمال کر کے مال کمانا</h3>
-                <p class="link-text">.../zabaan-ka-najaiz-istemal-karke</p>
-            </a>
-
-            <!-- Card 23 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qrb-qyamt-log-jahl-logon-se-alm-hasl-krne-par-mjbor-kyun-ho-jayn-ge" class="card">
-                <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
-                <h3>جاہل لوگوں سے علم حاصل کرنے پر مجبوری</h3>
-                <p class="link-text">.../log-jahl-logon-se-alm-hasl-krne</p>
-            </a>
-
-            <!-- Card 24 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ki-wafat-ke-saat-saal-baad-amwas-ke-logon-par-kaisa-azab-nazil-hua" class="card">
-                <div class="card-icon"><i class="fas fa-virus"></i></div>
-                <h3>عمواس کے طاعون کا واقعہ اور عذاب</h3>
-                <p class="link-text">.../amwas-ke-logon-par-kaisa-azab</p>
-            </a>
-
-            <!-- Card 25 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>دورِ جدید کے فتنوں کے بارے میں حکم</h3>
-                <p class="link-text">.../door-jadeed-ke-fitnon-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 26 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="card">
-                <div class="card-icon"><i class="fas fa-gamepad"></i></div>
-                <h3>اللہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ</h3>
-                <p class="link-text">.../allah-ki-yaad-se-ghafil-kar-dene-wala</p>
-            </a>
-
-            <!-- Card 27 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/frqh-khoarj-ne-hzrt-ali-rzi-allah-anh-ki-ataat-se-pyth-kyun-phyr-li" class="card">
-                <div class="card-icon"><i class="fas fa-users-slash"></i></div>
-                <h3>فرقہ خوارج اور حضرت علیؓ کی اطاعت سے انکار</h3>
-                <p class="link-text">.../frqh-khoarj-ne-hzrt-ali</p>
-            </a>
-
-            <!-- Card 28 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ne-mslmanon-kemabyn-hone-wali-jng-sfyn-ki-kya-pyshyn-goi-frmai-thi" class="card">
-                <div class="card-icon"><i class="fas fa-swords"></i></div>
-                <h3>جنگِ صفین کی پیشین گوئی</h3>
-                <p class="link-text">.../jng-sfyn-ki-kya-pyshyn-goi</p>
-            </a>
-
-            <!-- Card 29 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/jhooti-nabuwat-ke-30-daawa-daron-ke-zahir-hone-se-mashare-mein-shar-kaise-phile-ga" class="card">
-                <div class="card-icon"><i class="fas fa-theater-masks"></i></div>
-                <h3>جھوٹی نبوت کے 30 دعویداروں کا ظہور</h3>
-                <p class="link-text">.../jhooti-nabuwat-ke-30-daawa-daron</p>
-            </a>
-
-            <!-- Card 30 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-bazaron-par-qabza-karne-aur-tijarat-ke-wasee-hone-par-kya-pasheen-goi-farmai" class="card">
-                <div class="card-icon"><i class="fas fa-store"></i></div>
-                <h3>بازاروں پر قبضہ اور تجارت کی وسعت</h3>
-                <p class="link-text">.../bazaron-par-qabza-karne</p>
-            </a>
-
-            <!-- Card 31 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="card">
-                <div class="card-icon"><i class="fas fa-skull"></i></div>
-                <h3>قتل و خونریزی کی کثرت کیوں ہو جائے گی؟</h3>
-                <p class="link-text">.../qatl-o-khoon-rezi-ki-kasrat</p>
-            </a>
-
-            <!-- Card 32 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/arbo-n-ke-le-hlakt-hai-aysa-aap-ne-kyun-kha" class="card">
-                <div class="card-icon"><i class="fas fa-kaaba"></i></div>
-                <h3>عربوں کے لیے ہلاکت ہے، ایسا کیوں کہا گیا؟</h3>
-                <p class="link-text">.../arbo-n-ke-le-hlakt-hai</p>
-            </a>
-
-            <!-- Card 33 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/nek-logon-ka-rukhasat-hona-aur-bure-logon-ka-zahir-hone-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-user-check"></i></div>
-                <h3>نیک لوگوں کا رخصت ہونا اور بروں کا غلبہ</h3>
-                <p class="link-text">.../nek-logon-ka-rukhasat-hona</p>
-            </a>
-
-            <!-- Card 34 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/log-eman-dar-shakhs-ko-jhoota-aur-jhootay-ko-qabil-e-etemaad-kyun-samajhne-lageen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-balance-scale-right"></i></div>
-                <h3>جھوٹے کو سچا اور سچے کو جھوٹا سمجھنا</h3>
-                <p class="link-text">.../log-eman-dar-shakhs-ko-jhoota</p>
-            </a>
-
-            <!-- Card 35 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/agar-hum-sachi-gawahi-ko-chupaeen-ge-to-mashare-mein-kya-hoga" class="card">
-                <div class="card-icon"><i class="fas fa-eye-slash"></i></div>
-                <h3>سچی گواہی چھپانے کے معاشرتی نقصانات</h3>
-                <p class="link-text">.../agar-hum-sachi-gawahi-ko-chupaeen-ge</p>
-            </a>
-
-            <!-- Card 36 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="card">
-                <div class="card-icon"><i class="fas fa-hand-holding-water"></i></div>
-                <h3>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ</h3>
-                <p class="link-text">.../insaan-ki-jaldi-pakad-karwa-dene-wala</p>
-            </a>
-
-            <!-- Card 37 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/parosi-se-bure-sulook-par-ap-saw-ne-kya-hukm-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-house-user"></i></div>
-                <h3>پڑوسی سے برے سلوک پر وعید</h3>
-                <p class="link-text">.../parosi-se-bure-sulook-par</p>
-            </a>
-
-            <!-- Card 38 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/kin-logon-ke-dilon-mein-lalach-aur-kanjoosi-barhti-chali-jae-gi" class="card">
-                <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                <h3>لوگوں کے دلوں میں لالچ اور کنجوسی کا بڑھنا</h3>
-                <p class="link-text">.../kin-logon-ke-dilon-mein-lalach</p>
-            </a>
-
-            <!-- Card 39 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/londi-ka-apne-malik-aqa-khwand-ko-janam-dena" class="card">
-                <div class="card-icon"><i class="fas fa-baby"></i></div>
-                <h3>لونڈی کا اپنے آقا کو جنم دینا (علامت قیامت)</h3>
-                <p class="link-text">.../londi-ka-apne-malik-aqa</p>
-            </a>
-
-            <!-- Card 40 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/dnyaoi-aysh-washrt-kmaneke-le-alm-ka-hsol" class="card">
-                <div class="card-icon"><i class="fas fa-money-bill-wave"></i></div>
-                <h3>دنیاوی عیش و عشرت کے لیے علم کا حصول</h3>
-                <p class="link-text">.../dnyaoi-aysh-washrt-kmaneke-le-alm</p>
-            </a>
-
-            <!-- Card 41 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/bad-kirdar-aur-fasadi-logon-ke-dar-se-unki-izzat-ki-jae-gi" class="card">
-                <div class="card-icon"><i class="fas fa-angry"></i></div>
-                <h3>بدکردار لوگوں کی عزت ان کے ڈر سے کی جائے گی</h3>
-                <p class="link-text">.../bad-kirdar-aur-fasadi-logon-ke-dar</p>
-            </a>
-
-            <!-- Card 42 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/amton-ke-tor-tryqon-ki-andhi-tqlyd" class="card">
-                <div class="card-icon"><i class="fas fa-users-cog"></i></div>
-                <h3>غیر قوموں کے طور طریقوں کی اندھی تقلید</h3>
-                <p class="link-text">.../amton-ke-tor-tryqon-ki-andhi-tqlyd</p>
-            </a>
-
-            <!-- Card 43 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-apni-ummat-ko-asmani-bijli-girne-ke-bare-mein-kya-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-bolt"></i></div>
-                <h3>آسمانی بجلی گرنے کے واقعات کی کثرت</h3>
-                <p class="link-text">.../asmani-bijli-girne-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 44 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-tombstone"></i></div>
-                <h3>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</h3>
-                <p class="link-text">.../log-apni-maut-ki-tamanna</p>
-            </a>
-
-            <!-- Card 45 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/mazhabi-o-masharti-tabahi-ka-zimma-dar-kon-hum-khud-ya-koi-aur" class="card">
-                <div class="card-icon"><i class="fas fa-search"></i></div>
-                <h3>مذہبی و معاشرتی تباہی کا ذمہ دار کون؟</h3>
-                <p class="link-text">.../mazhabi-o-masharti-tabahi</p>
-            </a>
-
-            <!-- Card 46 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
-                <h3>اچانک اموات کی کثرت کے بارے میں فرمان</h3>
-                <p class="link-text">.../achaanak-amwat-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 47 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/masajid-par-fakhr-karne-walon-ke-liye-kya-barbadi-hai" class="card">
-                <div class="card-icon"><i class="fas fa-quran"></i></div>
-                <h3>مساجد کی سجاوٹ پر فخر کرنے والوں کی بربادی</h3>
-                <p class="link-text">.../masajid-par-fakhr-karne-walon</p>
-            </a>
-
-            <!-- Card 48 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ne-zko-kojrmanh-smjhne-walon-ke-le-kya-wayd-snai" class="card">
-                <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                <h3>زکوٰۃ کو تاوان سمجھنے والوں کے لیے وعید</h3>
-                <p class="link-text">.../zko-kojrmanh-smjhne-walon</p>
-            </a>
-
-            <!-- Card 49 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qom-ki-qayadat-gathiya-aur-fasiq-logon-ke-hathon-mein-kyun-hogi" class="card">
-                <div class="card-icon"><i class="fas fa-crown"></i></div>
-                <h3>قوم کی قیادت گھٹیا اور فاسق لوگوں کے ہاتھوں میں</h3>
-                <p class="link-text">.../qom-ki-qayadat-gathiya-aur-fasiq</p>
-            </a>
-
-            <!-- Card 50 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ne-amt-ko-ghyr-dyni-ktb-ki-ashaat-ke-bare-main-kya-pyshgoi-frmai" class="card">
-                <div class="card-icon"><i class="fas fa-print"></i></div>
-                <h3>غیر دینی کتب کی اشاعت کی کثرت</h3>
-                <p class="link-text">.../ghyr-dyni-ktb-ki-ashaat</p>
-            </a>
-
-            <!-- Card 51 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/be-waqoof-hakam-rano-ke-bare-mein-ap-saw-ne-kya-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-chess-king"></i></div>
-                <h3>بے وقوف حکمرانوں کے بارے میں فرمان</h3>
-                <p class="link-text">.../be-waqoof-hakam-rano-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 52 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/zamane-ke-qareeb-ho-jane-ke-bare-mein-ap-saw-ne-kya-irshad-farmaya" class="card">
-                <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
-                <h3>زمانے کا قریب ہو جانا (وقت کی تیزی)</h3>
-                <p class="link-text">.../zamane-ke-qareeb-ho-jane-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 53 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-be-waqoof-logon-ke-bare-mein-kya-pasheen-goi-farmai" class="card">
-                <div class="card-icon"><i class="fas fa-dizzy"></i></div>
-                <h3>بے وقوف لوگوں کے بارے میں پیشین گوئی</h3>
-                <p class="link-text">.../be-waqoof-logon-ke-bare-mein</p>
-            </a>
-
-            <!-- Card 54 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/dunya-par-jahilon-aur-ehmoqon-ka-ghalba-kyun-ho-jae-ga" class="card">
-                <div class="card-icon"><i class="fas fa-globe"></i></div>
-                <h3>دنیا پر جاہلوں اور احمقوں کا غلبہ</h3>
-                <p class="link-text">.../dunya-par-jahilon-aur-ehmoqon-ka-ghalba</p>
-            </a>
-
-            <!-- Card 55 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ahl-e-maghrib-musalmanon-par-kyun-tot-padeen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-utensils"></i></div>
-                <h3>اہلِ مغرب مسلمانوں پر کیوں ٹوٹ پڑیں گے؟</h3>
-                <p class="link-text">.../ahl-e-maghrib-musalmanon-par</p>
-            </a>
-
-            <!-- Card 56 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-namaz-ki-imamat-karane-se-kyun-hichkichaen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-praying-hands"></i></div>
-                <h3>قربِ قیامت لوگ امامت سے کیوں ہچکچائیں گے؟</h3>
-                <p class="link-text">.../log-namaz-ki-imamat-karane-se</p>
-            </a>
-
-            <!-- Card 57 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/zlzlon-msybton-aur-bri-pryshanyon-ke-bare-aap-ka-frman" class="card">
-                <div class="card-icon"><i class="fas fa-house-damage"></i></div>
-                <h3>زلزلوں اور مصیبتوں کی کثرت</h3>
-                <p class="link-text">.../zlzlon-msybton-aur-bri-pryshanyon</p>
-            </a>
-
-            <!-- Card 58 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/hukm-ilahi-ke-mutabiq-faisla-na-karne-walon-ke-liye-kya-waeed-hai" class="card">
-                <div class="card-icon"><i class="fas fa-balance-scale-left"></i></div>
-                <h3>حکمِ الٰہی کے مطابق فیصلہ نہ کرنے والوں کی سزا</h3>
-                <p class="link-text">.../hukm-ilahi-ke-mutabiq-faisla-na-karne</p>
-            </a>
-
-            <!-- Card 59 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-taaqatwar-kamzor-ko-kha-jae-ga" class="card">
-                <div class="card-icon"><i class="fas fa-fist-raised"></i></div>
-                <h3>طاقتور کمزور کو کھا جائے گا</h3>
-                <p class="link-text">.../qurb-qayamat-taaqatwar-kamzor-ko</p>
-            </a>
-
-            <!-- Card 60 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-essai-zyada-aur-arab-kam-kyun-ho-jaeen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>عیسائیوں کی کثرت اور عربوں کی کمی</h3>
-                <p class="link-text">.../qurb-qayamat-essai-zyada-aur-arab-kam</p>
-            </a>
-
-            <!-- Card 61 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-motapay-jesi-bimari-mein-mubtala-kyun-ho-jaeen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-weight"></i></div>
-                <h3>موٹاپے جیسی بیماری کا عام ہونا</h3>
-                <p class="link-text">.../log-motapay-jesi-bimari-mein</p>
-            </a>
-
-            <!-- Card 62 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/shohrat-ki-khatir-ki-jane-wali-tilawat-par-farman-nabawi-saw" class="card">
-                <div class="card-icon"><i class="fas fa-microphone-alt"></i></div>
-                <h3>شہرت کی خاطر تلاوت کرنے والوں پر وعید</h3>
-                <p class="link-text">.../shohrat-ki-khatir-ki-jane-wali-tilawat</p>
-            </a>
-
-            <!-- Card 63 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-momin-ka-sacha-khawab-dekhne-se-kya-murad-li-gai-hai" class="card">
-                <div class="card-icon"><i class="fas fa-bed"></i></div>
-                <h3>مومن کے سچے خواب کی حقیقت</h3>
-                <p class="link-text">.../momin-ka-sacha-khawab-dekhne</p>
-            </a>
-
-            <!-- Card 64 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-mard-kam-aur-auraten-zyada-kyun-ho-jaeen-gi" class="card">
-                <div class="card-icon"><i class="fas fa-female"></i></div>
-                <h3>مردوں کی کمی اور عورتوں کی زیادتی</h3>
-                <p class="link-text">.../qurb-qayamat-mard-kam-aur-auraten</p>
-            </a>
-
-            <!-- Card 65 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-sar-aam-badkari-kyun-karen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-video-slash"></i></div>
-                <h3>سرِ عام بے حیائی اور بدکاری کا پھیلاؤ</h3>
-                <p class="link-text">.../qurb-qayamat-log-sar-aam-badkari</p>
-            </a>
-
-            <!-- Card 66 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/jhoot-bolne-wale-ke-liye-halaakat-ki-waeed-kyun" class="card">
-                <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
-                <h3>جھوٹ بولنے والے کے لیے ہلاکت کی وعید</h3>
-                <p class="link-text">.../jhoot-bolne-wale-ke-liye-halaakat</p>
-            </a>
-
-            <!-- Card 67 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/mashare-mein-har-so-jhoot-ka-tezi-se-phail-jana" class="card">
-                <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                <h3>معاشرے میں جھوٹ کا تیزی سے پھیلنا</h3>
-                <p class="link-text">.../mashare-mein-har-so-jhoot</p>
-            </a>
-
-             <!-- Card 68 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/qayamat-ke-nazdeek-logon-ke-darmiyan-ajnabiyat-kyun-dal-di-jae-gi" class="card">
-                <div class="card-icon"><i class="fas fa-user-friends"></i></div>
-                <h3>لوگوں کے درمیان اجنبیت کا بڑھنا</h3>
-                <p class="link-text">.../logon-ke-darmiyan-ajnabiyat</p>
-            </a>
-
-             <!-- Card 69 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-logon-ke-pas-daulat-ki-kasrat-kyun-ho-jae-gi" class="card">
-                <div class="card-icon"><i class="fas fa-sack-dollar"></i></div>
-                <h3>دولت کی فراوانی اور کثرت</h3>
-                <p class="link-text">.../logon-ke-pas-daulat-ki-kasrat</p>
-            </a>
-
-             <!-- Card 70 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/insaan-aur-jinon-ko-saqalain-kyun-kaha-gaya-hai" class="card">
-                <div class="card-icon"><i class="fas fa-users"></i></div>
-                <h3>انسان اور جنوں کو ثقلین کیوں کہا گیا؟</h3>
-                <p class="link-text">.../insaan-aur-jinon-ko-saqalain</p>
-            </a>
-
-            <!-- Card 71 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/gunaahon-ko-dekh-kar-khamosh-rehne-walon-ke-liye-azab-ilahi-ki-waeed" class="card">
-                <div class="card-icon"><i class="fas fa-comment-slash"></i></div>
-                <h3>گناہوں پر خاموش رہنے والوں کے لیے وعید</h3>
-                <p class="link-text">.../gunaahon-ko-dekh-kar-khamosh</p>
-            </a>
-
-             <!-- Card 72 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-shadeed-barishon-se-kuch-bhi-baqi-na-rahe-ga" class="card">
-                <div class="card-icon"><i class="fas fa-cloud-showers-heavy"></i></div>
-                <h3>شدید بارشوں سے تباہی</h3>
-                <p class="link-text">.../qurb-qayamat-shadeed-barishon</p>
-            </a>
-
-             <!-- Card 73 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-asman-se-esi-barishon-ka-barsna-jo-nafa-bakhsh-na-honghi" class="card">
-                <div class="card-icon"><i class="fas fa-cloud-rain"></i></div>
-                <h3>بے نفع اور نقصان دہ بارشیں</h3>
-                <p class="link-text">.../asman-se-esi-barishon-ka-barsna</p>
-            </a>
-
-            <!-- Card 74 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ahl-arb-ko-hlak-krdyne-wala-ftnh-kysa-hoga" class="card">
-                <div class="card-icon"><i class="fas fa-skull-crossbones"></i></div>
-                <h3>اہل عرب کو ہلاک کر دینے والا فتنہ</h3>
-                <p class="link-text">.../ahl-arb-ko-hlak-krdyne-wala-ftnh</p>
-            </a>
-
-            <!-- Card 75 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/kon-sa-darakht-musalmanon-ke-haq-mein-nahi-bole-ga" class="card">
-                <div class="card-icon"><i class="fas fa-tree"></i></div>
-                <h3>کون سا درخت مسلمانوں کے حق میں نہیں بولے گا؟</h3>
-                <p class="link-text">.../kon-sa-darakht-musalmanon-ke-haq</p>
-            </a>
-
-             <!-- Card 76 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="card">
-                <div class="card-icon"><i class="fas fa-water"></i></div>
-                <h3>دریائے فرات کا خشک ہونا اور سونے کا پہاڑ</h3>
-                <p class="link-text">.../furat-ka-khushk-hona</p>
-            </a>
-
-             <!-- Card 77 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-farmaya-aajiz-ban-jana-magar-fasiq-kabhi-na-banna" class="card">
-                <div class="card-icon"><i class="fas fa-pray"></i></div>
-                <h3>عاجز بن جانا مگر فاسق نہ بننا</h3>
-                <p class="link-text">.../aajiz-ban-jana-magar-fasiq</p>
-            </a>
-
-            <!-- Card 78 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-arab-ki-chara-gaahon-ke-bare-mein-kya-pasheen-goi-farmai" class="card">
-                <div class="card-icon"><i class="fas fa-leaf"></i></div>
-                <h3>عرب کی سرزمین کا دوبارہ سرسبز ہونا</h3>
-                <p class="link-text">.../arab-ki-chara-gaahon-ke-bare-mein</p>
-            </a>
-
-             <!-- Card 79 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/ese-fitne-jo-anaqreeb-zahir-ho-ne-wale-hain" class="card">
-                <div class="card-icon"><i class="fas fa-exclamation"></i></div>
-                <h3>عنقریب ظاہر ہونے والے فتنے</h3>
-                <p class="link-text">.../ese-fitne-jo-anaqreeb-zahir-ho-ne-wale</p>
-            </a>
-
-             <!-- Card 80 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/kis-zamane-mein-ek-sajda-dunya-ke-tamam-khazanon-se-qeemti-hoga" class="card">
-                <div class="card-icon"><i class="fas fa-gem"></i></div>
-                <h3>وہ زمانہ جب ایک سجدہ دنیا سے قیمتی ہوگا</h3>
-                <p class="link-text">.../kis-zamane-mein-ek-sajda</p>
-            </a>
-
-             <!-- Card 81 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/chand-ka-maamool-se-bara-nazar-ane-par-ap-saw-ne-kya-pasheen-goi-farmai" class="card">
-                <div class="card-icon"><i class="fas fa-moon"></i></div>
-                <h3>چاند کا معمول سے بڑا نظر آنا</h3>
-                <p class="link-text">.../chand-ka-maamool-se-bara-nazar-ane</p>
-            </a>
-
-            <!-- Card 82 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/srzmyn-sham-ki-trf-hjrt-krne-ke-10-ahm-tryn-asharekon-se-hain" class="card">
-                <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
-                <h3>سرزمین شام کی طرف ہجرت کے اشارے</h3>
-                <p class="link-text">.../srzmyn-sham-ki-trf-hjrt-krne</p>
-            </a>
-
-            <!-- Card 83 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/imam-mehdi-se-qabl-kin-jamatoun-mein-zabardast-jang-hogi" class="card">
-                <div class="card-icon"><i class="fas fa-horse-head"></i></div>
-                <h3>امام مہدی سے قبل عظیم جنگیں</h3>
-                <p class="link-text">.../imam-mehdi-se-qabl-kin-jamatoun</p>
-            </a>
-
-            <!-- Card 84 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qrb-qyamt-byt-almqds-aabad-aur-mdynh-mnorh-brbad-kyun-ho-jae-ga" class="card">
-                <div class="card-icon"><i class="fas fa-city"></i></div>
-                <h3>بیت المقدس کی آبادی اور مدینہ کی ویرانی</h3>
-                <p class="link-text">.../qrb-qyamt-byt-almqds-aabad</p>
-            </a>
-
-            <!-- Card 85 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/islam-ki-aakhri-basti-kon-si-hai-jo-qurb-qayamat-weran-ho-jae-gi" class="card">
-                <div class="card-icon"><i class="fas fa-ruins"></i></div>
-                <h3>اسلام کی آخری بستی جو ویران ہو جائے گی</h3>
-                <p class="link-text">.../islam-ki-aakhri-basti-kon-si-hai</p>
-            </a>
-
-            <!-- Card 86 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-miras-ki-taqseem-aur-maal-e-ghanimat-par-khushi-kyun-na-hogi" class="card">
-                <div class="card-icon"><i class="fas fa-sad-tear"></i></div>
-                <h3>وراثت اور مالِ غنیمت پر خوشی کا نہ ہونا</h3>
-                <p class="link-text">.../log-miras-ki-taqseem-aur-maal-e-ghanimat</p>
-            </a>
-
-            <!-- Card 87 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/logon-ke-dilon-se-shehr-madina-mein-basne-ki-tarap-kyun-dam-tor-jae-gi" class="card">
-                <div class="card-icon"><i class="fas fa-heart-broken"></i></div>
-                <h3>مدینہ میں بسنے کی تڑپ کا ختم ہونا</h3>
-                <p class="link-text">.../logon-ke-dilon-se-shehr-madina</p>
-            </a>
-
-             <!-- Card 88 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-kohsar-apni-jagah-se-kyun-khisk-jaeen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-mountain"></i></div>
-                <h3>پہاڑوں کا اپنی جگہ سے کھسک جانا</h3>
-                <p class="link-text">.../qurb-qayamat-kohsar-apni-jagah-se</p>
-            </a>
-
-            <!-- Card 89 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qrb-qyamt-arb-main-ayk-salh-shkhs-zahr-hoga-js-ki-log-ataat-kryn-ge" class="card">
-                <div class="card-icon"><i class="fas fa-user-tie"></i></div>
-                <h3>عرب میں ایک صالح شخص کا ظہور</h3>
-                <p class="link-text">.../arb-main-ayk-salh-shkhs-zahr-hoga</p>
-            </a>
-
-            <!-- Card 90 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-wehshi-janwar-be-jaan-cheezen-koray-jootay-aur-insani-raan-baten-karen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-shoe-prints"></i></div>
-                <h3>بے جان چیزوں اور جانوروں کا کلام کرنا</h3>
-                <p class="link-text">.../wehshi-janwar-be-jaan-cheezen</p>
-            </a>
-
-            <!-- Card 91 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qayamat-se-pehle-islam-aur-quran-ka-uthna-ek-dard-naak-gumraahi" class="card">
-                <div class="card-icon"><i class="fas fa-book-open"></i></div>
-                <h3>اسلام اور قرآن کا اٹھ جانا</h3>
-                <p class="link-text">.../islam-aur-quran-ka-uthna</p>
-            </a>
-
-            <!-- Card 92 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/qayamat-ke-qareeb-bait-ullah-par-hamla-aawar-lashkar-ka-bhayank-anjaam" class="card">
-                <div class="card-icon"><i class="fas fa-kaaba"></i></div>
-                <h3>بیت اللہ پر حملہ آور لشکر کا انجام</h3>
-                <p class="link-text">.../bait-ullah-par-hamla-aawar-lashkar</p>
-            </a>
-
-            <!-- Card 93 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/kya-qurb-qayamat-bait-ullah-ka-haj-hamesha-ke-liye-khatam-ho-jae-ga" class="card">
-                <div class="card-icon"><i class="fas fa-ban"></i></div>
-                <h3>کیا حج ہمیشہ کے لیے ختم ہو جائے گا؟</h3>
-                <p class="link-text">.../bait-ullah-ka-haj-hamesha-ke-liye</p>
-            </a>
-
-            <!-- Card 94 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/arab-dunya-mein-butt-parasti-ka-dobara-aaghaz" class="card">
-                <div class="card-icon"><i class="fas fa-vihara"></i></div>
-                <h3>عرب دنیا میں بت پرستی کا دوبارہ آغاز</h3>
-                <p class="link-text">.../arab-dunya-mein-butt-parasti</p>
-            </a>
-
-            <!-- Card 95 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/kaaba-ki-barbadi-aur-qayamat-ke-aasaar" class="card">
-                <div class="card-icon"><i class="fas fa-cube"></i></div>
-                <h3>کعبہ کی ویرانی اور قیامت کے آثار</h3>
-                <p class="link-text">.../kaaba-ki-barbadi-aur-qayamat</p>
-            </a>
-
-             <!-- Card 96 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/hzrt-essa-ki-wafat-ke-baad-mominon-ki-ruhon-ko-qabz-kyun-kar-liya-jae-ga" class="card">
-                <div class="card-icon"><i class="fas fa-wind"></i></div>
-                <h3>مومنوں کی روحوں کا قبض ہونا (نرم ہوا)</h3>
-                <p class="link-text">.../hzrt-essa-ki-wafat-ke-baad</p>
-            </a>
-
-            <!-- Card 97 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/paharon-se-buland-makka-ki-imaaraat-aakhri-zamane-ki-tabdeeliyon-ka-ishara" class="card">
-                <div class="card-icon"><i class="fas fa-building"></i></div>
-                <h3>مکہ کی عمارتوں کا پہاڑوں سے بلند ہونا</h3>
-                <p class="link-text">.../paharon-se-buland-makka-ki-imaaraat</p>
-            </a>
-
-             <!-- Card 98 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/bidaat-aur-gumraahi-ka-urooj-aakhri-zamane-ke-logon-ka-guzre-buzurgo-par-laant-bhejna" class="card">
-                <div class="card-icon"><i class="fas fa-users-slash"></i></div>
-                <h3>بدعات کا عروج اور بزرگوں پر لعنت</h3>
-                <p class="link-text">.../bidaat-aur-gumraahi-ka-urooj</p>
-            </a>
-
-             <!-- Card 99 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/amt-mhmdyh-ki-jdyd-soaryon-ki-rghbt-aur-qyamt-ki-pyshgoyan" class="card">
-                <div class="card-icon"><i class="fas fa-car"></i></div>
-                <h3>جدید سواریوں کی رغبت اور پیشین گوئیاں</h3>
-                <p class="link-text">.../amt-mhmdyh-ki-jdyd-soaryon</p>
-            </a>
-
-            <!-- Card 100 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-aol" class="card">
-                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
-                <h3>امام مہدی کی آمد اور توبہ کے مواقع (حصہ اول)</h3>
-                <p class="link-text">.../amam-mhdi-ki-aamd-hsh-aol</p>
-            </a>
-
-             <!-- Card 101 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-dom" class="card">
-                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
-                <h3>امام مہدی کی آمد اور توبہ کے مواقع (حصہ دوم)</h3>
-                <p class="link-text">.../amam-mhdi-ki-aamd-hsh-dom</p>
-            </a>
-
-             <!-- Card 102 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-som" class="card">
-                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
-                <h3>امام مہدی کی آمد اور توبہ کے مواقع (حصہ سوم)</h3>
-                <p class="link-text">.../amam-mhdi-ki-aamd-hsh-som</p>
-            </a>
-
-             <!-- Card 103 -->
-             <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-chharm" class="card">
-                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
-                <h3>امام مہدی کی آمد اور توبہ کے مواقع (حصہ چہارم)</h3>
-                <p class="link-text">.../amam-mhdi-ki-aamd-hsh-chharm</p>
-            </a>
-
-            <!-- Card 104 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-pnjm" class="card">
-                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
-                <h3>امام مہدی کی آمد اور توبہ کے مواقع (حصہ پنجم)</h3>
-                <p class="link-text">.../amam-mhdi-ki-aamd-hsh-pnjm</p>
-            </a>
-
-            <!-- Card 105 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/tik-tak-aur-rails-kya-yeh-zamana-qareeb-ho-jane-ki-jadeed-tafseer-hai" class="card">
-                <div class="card-icon"><i class="fab fa-tiktok"></i></div>
-                <h3>ٹک ٹاک اور ریلز: زمانہ قریب ہونے کی جدید تفسیر؟</h3>
-                <p class="link-text">.../tik-tak-aur-rails-kya-yeh-zamana</p>
-            </a>
-
-            <!-- Card 106 -->
-            <a href="https://www.bloglovers.pk/alamaat-sughra/kya-waqai-waqt-mein-barkat-khatam-ho-rahi-hai-ek-esa-sawal-jis-ne-sab-ko-pareshan-kar-rakha-hai" class="card">
-                <div class="card-icon"><i class="fas fa-clock"></i></div>
-                <h3>کیا واقعی وقت میں برکت ختم ہو رہی ہے؟</h3>
-                <p class="link-text">.../kya-waqai-waqt-mein-barkat-khatam</p>
-            </a>
-
+        <div class="slide" style="background-image: url('https://www.bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.png');">
+            <div class="slide-content"><h3>بیت المقدس کی فتح</h3></div>
         </div>
-
+        <div class="slide" style="background-image: url('https://www.bloglovers.pk/images/alamaat-sughra/chand-ke-do-tukre-ho-ne-ki-haqeeqat-kya-hai.png');">
+            <div class="slide-content"><h3>شق القمر کا معجزہ</h3></div>
+        </div>
     </div>
 
-    <footer>
-        <div class="social-icons">
-            <i class="fab fa-facebook"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-instagram"></i>
-            <i class="fab fa-youtube"></i>
+    <!-- Post Updater -->
+    <div class="post-updater">
+        <i class="fas fa-sync fa-spin" style="color: var(--accent);"></i>
+        <span>کل پوسٹس: <strong style="color: var(--gold);">107</strong></span>
+        <span class="update-badge">Updated</span>
+    </div>
+
+    <!-- Small Moving Slider -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker-item"><i class="fas fa-star-of-david"></i> قرب قیامت کی نشانیاں</span>
+            <span class="ticker-item"><i class="fas fa-book-open"></i> فتنہ دجال سے پہلے کے حالات</span>
+            <span class="ticker-item"><i class="fas fa-mosque"></i> احادیث مبارکہ کی روشنی میں</span>
+            <span class="ticker-item"><i class="fas fa-history"></i> اسلامی تاریخ کے اہم واقعات</span>
+            <span class="ticker-item"><i class="fas fa-exclamation-triangle"></i> دورِ حاضر کے فتنے</span>
+            <span class="ticker-item"><i class="fas fa-star-of-david"></i> قرب قیامت کی نشانیاں</span>
         </div>
-        <p style="margin-top: 15px;">© 2025 بلاگ لوورز.pk | جملہ حقوق محفوظ ہیں</p>
+    </div>
+
+    <!-- Main Grid Content -->
+    <div class="container">
+        <div class="grid">
+            
+            <!-- Post 1 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ka-is-dnya-main-tshryf-lana" class="post-card">
+                <div class="card-icon"><i class="fas fa-star"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/aap-ka-is-dnya-main-tshryf-lana.png" loading="lazy" alt="آپ ﷺ کا اس دنیا میں تشریف لانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">آپ ﷺ کا اس دنیا میں تشریف لانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 2 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ka-is-dunya-se-rukhasat-ho-jana" class="post-card">
+                <div class="card-icon"><i class="fas fa-moon"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ka-is-dunya-se-rukhasat-ho-jana.png" loading="lazy" alt="آپ ﷺ کا اس دنیا سے رخصت ہو جانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">آپ ﷺ کا اس دنیا سے رخصت ہو جانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 3 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/chand-ke-do-tukre-ho-ne-ki-haqeeqat-kya-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-cloud"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/chand-ke-do-tukre-ho-ne-ki-haqeeqat-kya-hai.png" loading="lazy" alt="چاند کے دو ٹکڑے ہونے کی حقیقت کیا ہے؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">چاند کے دو ٹکڑے ہونے کی حقیقت کیا ہے؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 4 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/shabh-kram-rzi-allah-anhm-ka-is-dnya-se-rkhst-ho-jana-hmyn-kya-drs-dyta-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-users"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/shabh-kram-rzi-allah-anhm-ka-is-dnya-se-rkhst-ho-jana-hmyn-kya-drs-dyta-hai.png" loading="lazy" alt="صحابہ کرام کا اس دنیا سے رخصت ہو جانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">صحابہ کرام کا اس دنیا سے رخصت ہو جانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 5 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="post-card">
+                <div class="card-icon"><i class="fas fa-mosque"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.png" loading="lazy" alt="قبلہ اول (بیت المقدس) کی فتح">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">قبلہ اول (بیت المقدس) کی فتح</h3>
+                </div>
+            </a>
+
+            <!-- Post 6 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="post-card">
+                <div class="card-icon"><i class="fas fa-fire"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" loading="lazy" alt="ان گنت فتنوں کا ظہور اور ان کے نقصانات">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">ان گنت فتنوں کا ظہور اور ان کے نقصانات</h3>
+                </div>
+            </a>
+
+            <!-- Post 7 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/hijaz-ki-sarzameen-par-azab-aag-aur-iski-haqeeqat" class="post-card">
+                <div class="card-icon"><i class="fas fa-mountain"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/hijaz-ki-sarzameen-par-azab-aag-aur-iski-haqeeqat.png" loading="lazy" alt="حجاز کی سرزمین پر عذاب آگ اور اس کی حقیقت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">حجاز کی سرزمین پر عذاب آگ اور اس کی حقیقت</h3>
+                </div>
+            </a>
+
+            <!-- Post 8 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/tatari-mangoloon-ka-sahaba-karam-se-larna" class="post-card">
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/tatari-mangoloon-ka-sahaba-karam-se-larna.png" loading="lazy" alt="تاتاری منگولوں کا صحابہ کرام سے لڑنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">تاتاری منگولوں کا صحابہ کرام سے لڑنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 9 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/logon-ke-dilon-se-diyanat-dari-ka-khatma-aur-ap-saw-ki-waeed" class="post-card">
+                <div class="card-icon"><i class="fas fa-heart-broken"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/logon-ke-dilon-se-diyanat-dari-ka-khatma-aur-ap-saw-ki-waeed.png" loading="lazy" alt="لوگوں کے دلوں سے دیانتداری کا خاتمہ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">لوگوں کے دلوں سے دیانتداری کا خاتمہ</h3>
+                </div>
+            </a>
+
+            <!-- Post 10 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/pichli-ummaton-ke-tareeqon-ki-andhi-taqleed-aur-masharti-tabah-kariyan" class="post-card">
+                <div class="card-icon"><i class="fas fa-blind"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/pichli-ummaton-ke-tareeqon-ki-andhi-taqleed-aur-masharti-tabah-kariyan.png" loading="lazy" alt="پچھلی امتوں کے طریقوں کی اندھی تقلید">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">پچھلی امتوں کے طریقوں کی اندھی تقلید</h3>
+                </div>
+            </a>
+
+            <!-- Post 11 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/sirf-jan-pehchan-ke-logon-ko-salam-karne-ke-kya-nuqsanat-hain" class="post-card">
+                <div class="card-icon"><i class="fas fa-handshake"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/sirf-jan-pehchan-ke-logon-ko-salam-karne-ke-kya-nuqsanat-hain.png" loading="lazy" alt="صرف جان پہچان کے لوگوں کو سلام کرنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">صرف جان پہچان کے لوگوں کو سلام کرنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 12 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="post-card">
+                <div class="card-icon"><i class="fas fa-female"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" loading="lazy" alt="تنگ لباس پہننے والی عورتوں کے بارے میں وعید">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">تنگ لباس پہننے والی عورتوں کے بارے میں وعید</h3>
+                </div>
+            </a>
+
+            <!-- Post 13 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/jhooti-gawahi-ka-aam-hona-aur-masharti-tabahi-ka-tezi-se-barhna" class="post-card">
+                <div class="card-icon"><i class="fas fa-gavel"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/jhooti-gawahi-ka-aam-hona-aur-masharti-tabahi-ka-tezi-se-barhna.png" loading="lazy" alt="جھوٹی گواہی کا عام ہونا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جھوٹی گواہی کا عام ہونا</h3>
+                </div>
+            </a>
+
+            <!-- Post 14 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-book"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" loading="lazy" alt="علم کے اُٹھ جانے کے بارے میں فرمان">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">علم کے اُٹھ جانے کے بارے میں فرمان</h3>
+                </div>
+            </a>
+
+            <!-- Post 15 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="post-card">
+                <div class="card-icon"><i class="fas fa-exclamation"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" loading="lazy" alt="چھ چیزوں کو حلال سمجھنے پر عذاب">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">چھ چیزوں کو حلال سمجھنے پر عذاب</h3>
+                </div>
+            </a>
+
+            <!-- Post 16 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-halal-aur-haraam-maal-ke-bare-mein-kya-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-coins"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-halal-aur-haraam-maal-ke-bare-mein-kya-farmaya.png" loading="lazy" alt="حلال اور حرام مال کے بارے میں فرمان">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">حلال اور حرام مال کے بارے میں فرمان</h3>
+                </div>
+            </a>
+
+            <!-- Post 17 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-walidain-ki-be-hurmati-aur-bivi-ki-ataat-karne-wale-shakhs-ke-liye-kya-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-home"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-walidain-ki-be-hurmati-aur-bivi-ki-ataat-karne-wale-shakhs-ke-liye-kya-farmaya.png" loading="lazy" alt="والدین کی بے حرمتی اور بیوی کی اطاعت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">والدین کی بے حرمتی اور بیوی کی اطاعت</h3>
+                </div>
+            </a>
+
+            <!-- Post 18 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-walidain-se-doori-aur-ajnabi-logon-se-qurbat-walon-ke-liye-kya-hukm-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-user-friends"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-walidain-se-doori-aur-ajnabi-logon-se-qurbat-walon-ke-liye-kya-hukm-farmaya.png" loading="lazy" alt="والدین سے دوری اور اجنبی لوگوں سے قربت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">والدین سے دوری اور اجنبی لوگوں سے قربت</h3>
+                </div>
+            </a>
+
+            <!-- Post 19 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-ban"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" loading="lazy" alt="چار حرام کام جنہیں امت حلال سمجھ لے گی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">چار حرام کام جنہیں امت حلال سمجھ لے گی</h3>
+                </div>
+            </a>
+
+            <!-- Post 20 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-ek-shakhs-subah-ko-momin-aur-sham-ko-kafir-kyun-ho-jaye-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-random"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-ek-shakhs-subah-ko-momin-aur-sham-ko-kafir-kyun-ho-jaye-ga.png" loading="lazy" alt="صبح کو مومن اور شام کو کافر">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">صبح کو مومن اور شام کو کافر</h3>
+                </div>
+            </a>
+
+            <!-- Post 21 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/apne-gharon-ko-muzain-karne-walon-ke-liye-ap-saw-ne-kya-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-paint-roller"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/apne-gharon-ko-muzain-karne-walon-ke-liye-ap-saw-ne-kya-farmaya.png" loading="lazy" alt="گھروں کو مزین کرنے والوں کے لئے فرمان">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">گھروں کو مزین کرنے والوں کے لئے فرمان</h3>
+                </div>
+            </a>
+
+            <!-- Post 22 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zabaan-ka-najaiz-istemal-karke-maal-kamane-walon-ke-liye-kya-hukm-farmaya-gaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-comments"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zabaan-ka-najaiz-istemal-karke-maal-kamane-walon-ke-liye-kya-hukm-farmaya-gaya.png" loading="lazy" alt="زبان کا ناجائز استعمال کرکے مال کمانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">زبان کا ناجائز استعمال کرکے مال کمانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 23 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qrb-qyamt-log-jahl-logon-se-alm-hasl-krne-par-mjbor-kyun-ho-jayn-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qrb-qyamt-log-jahl-logon-se-alm-hasl-krne-par-mjbor-kyun-ho-jayn-ge.png" loading="lazy" alt="جاہل لوگوں سے علم حاصل کرنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جاہل لوگوں سے علم حاصل کرنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 24 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ki-wafat-ke-saat-saal-baad-amwas-ke-logon-par-kaisa-azab-nazil-hua" class="post-card">
+                <div class="card-icon"><i class="fas fa-skull"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ki-wafat-ke-saat-saal-baad-amwas-ke-logon-par-kaisa-azab-nazil-hua.png" loading="lazy" alt="عمواس کے لوگوں پر عذاب">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عمواس کے لوگوں پر عذاب</h3>
+                </div>
+            </a>
+
+            <!-- Post 25 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" loading="lazy" alt="دور جدید کے فتنوں کے بارے میں حکم">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">دور جدید کے فتنوں کے بارے میں حکم</h3>
+                </div>
+            </a>
+
+            <!-- Post 26 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-bell-slash"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" loading="lazy" alt="اللہ کی یاد سے غافل کر دینے والا فتنہ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">اللہ کی یاد سے غافل کر دینے والا فتنہ</h3>
+                </div>
+            </a>
+
+            <!-- Post 27 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/frqh-khoarj-ne-hzrt-ali-rzi-allah-anh-ki-ataat-se-pyth-kyun-phyr-li" class="post-card">
+                <div class="card-icon"><i class="fas fa-history"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/frqh-khoarj-ne-hzrt-ali-rzi-allah-anh-ki-ataat-se-pyth-kyun-phyr-li.png" loading="lazy" alt="فرقہ خوارج اور حضرت علی ؓ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">فرقہ خوارج اور حضرت علی ؓ</h3>
+                </div>
+            </a>
+
+            <!-- Post 28 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ne-mslmanon-kemabyn-hone-wali-jng-sfyn-ki-kya-pyshyn-goi-frmai-thi" class="post-card">
+                <div class="card-icon"><i class="fas fa-fist-raised"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/aap-ne-mslmanon-kemabyn-hone-wali-jng-sfyn-ki-kya-pyshyn-goi-frmai-thi.png" loading="lazy" alt="جنگ صفین کی پیشین گوئی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جنگ صفین کی پیشین گوئی</h3>
+                </div>
+            </a>
+
+            <!-- Post 29 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/jhooti-nabuwat-ke-30-daawa-daron-ke-zahir-hone-se-mashare-mein-shar-kaise-phile-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-user-secret"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/jhooti-nabuwat-ke-30-daawa-daron-ke-zahir-hone-se-mashare-mein-shar-kaise-phile-ga.png" loading="lazy" alt="جھوٹی نبوت کے 30 دعویدار">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جھوٹی نبوت کے 30 دعویدار</h3>
+                </div>
+            </a>
+
+            <!-- Post 30 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-bazaron-par-qabza-karne-aur-tijarat-ke-wasee-hone-par-kya-pasheen-goi-farmai" class="post-card">
+                <div class="card-icon"><i class="fas fa-store"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-bazaron-par-qabza-karne-aur-tijarat-ke-wasee-hone-par-kya-pasheen-goi-farmai.png" loading="lazy" alt="بازاروں اور تجارت کے بارے میں پیشین گوئی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بازاروں اور تجارت کے بارے میں پیشین گوئی</h3>
+                </div>
+            </a>
+
+            <!-- Post 31 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-tint"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" loading="lazy" alt="قرب قیامت قتل و خونریزی کی کثرت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">قرب قیامت قتل و خونریزی کی کثرت</h3>
+                </div>
+            </a>
+
+            <!-- Post 32 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/arbo-n-ke-le-hlakt-hai-aysa-aap-ne-kyun-kha" class="post-card">
+                <div class="card-icon"><i class="fas fa-globe-asia"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/arbo-n-ke-le-hlakt-hai-aysa-aap-ne-kyun-kha.png" loading="lazy" alt="عربوں کے لئے ہلاکت ہے">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عربوں کے لئے ہلاکت ہے</h3>
+                </div>
+            </a>
+
+            <!-- Post 33 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/woh-kon-se-log-hongay-jin-par-allah-ki-shadeed-tareen-narazgi-hogi" class="post-card">
+                <div class="card-icon"><i class="fas fa-angry"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/woh-kon-se-log-hongay-jin-par-allah-ki-shadeed-tareen-narazgi-hogi.png" loading="lazy" alt="اللہ کی شدید ترین ناراضگی والے لوگ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">اللہ کی شدید ترین ناراضگی والے لوگ</h3>
+                </div>
+            </a>
+
+            <!-- Post 34 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/nek-logon-ka-rukhasat-hona-aur-bure-logon-ka-zahir-hone-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-users-slash"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/nek-logon-ka-rukhasat-hona-aur-bure-logon-ka-zahir-hone-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" loading="lazy" alt="نیک لوگوں کا رخصت ہونا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">نیک لوگوں کا رخصت ہونا</h3>
+                </div>
+            </a>
+
+            <!-- Post 35 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/log-eman-dar-shakhs-ko-jhoota-aur-jhootay-ko-qabil-e-etemaad-kyun-samajhne-lageen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-theater-masks"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/log-eman-dar-shakhs-ko-jhoota-aur-jhootay-ko-qabil-e-etemaad-kyun-samajhne-lageen-ge.png" loading="lazy" alt="جھوٹے کو سچا اور سچے کو جھوٹا سمجھنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جھوٹے کو سچا اور سچے کو جھوٹا سمجھنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 36 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/agar-hum-sachi-gawahi-ko-chupaeen-ge-to-mashare-mein-kya-hoga" class="post-card">
+                <div class="card-icon"><i class="fas fa-eye-slash"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/agar-hum-sachi-gawahi-ko-chupaeen-ge-to-mashare-mein-kya-hoga.png" loading="lazy" alt="سچی گواہی کو چھپانے کے اثرات">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">سچی گواہی کو چھپانے کے اثرات</h3>
+                </div>
+            </a>
+
+            <!-- Post 37 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" loading="lazy" alt="جلد پکڑ کروا دینے والا بدترین گناہ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جلد پکڑ کروا دینے والا بدترین گناہ</h3>
+                </div>
+            </a>
+
+            <!-- Post 38 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/parosi-se-bure-sulook-par-ap-saw-ne-kya-hukm-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-house-user"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/parosi-se-bure-sulook-par-ap-saw-ne-kya-hukm-farmaya.png" loading="lazy" alt="پڑوسی سے برے سلوک پر حکم">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">پڑوسی سے برے سلوک پر حکم</h3>
+                </div>
+            </a>
+
+            <!-- Post 39 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/kin-logon-ke-dilon-mein-lalach-aur-kanjoosi-barhti-chali-jae-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/kin-logon-ke-dilon-mein-lalach-aur-kanjoosi-barhti-chali-jae-gi.png" loading="lazy" alt="لالچ اور کنجوسی کا بڑھنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">لالچ اور کنجوسی کا بڑھنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 40 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/londi-ka-apne-malik-aqa-khwand-ko-janam-dena" class="post-card">
+                <div class="card-icon"><i class="fas fa-child"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/londi-ka-apne-malik-aqa-khwand-ko-janam-dena.png" loading="lazy" alt="لونڈی کا اپنے مالک کو جنم دینا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">لونڈی کا اپنے مالک کو جنم دینا</h3>
+                </div>
+            </a>
+
+            <!-- Post 41 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/dnyaoi-aysh-washrt-kmaneke-le-alm-ka-hsol" class="post-card">
+                <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/dnyaoi-aysh-washrt-kmaneke-le-alm-ka-hsol.png" loading="lazy" alt="دنیا کمانے کے لئے علم کا حصول">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">دنیا کمانے کے لئے علم کا حصول</h3>
+                </div>
+            </a>
+
+            <!-- Post 42 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/bad-kirdar-aur-fasadi-logon-ke-dar-se-unki-izzat-ki-jae-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-fist-raised"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/bad-kirdar-aur-fasadi-logon-ke-dar-se-unki-izzat-ki-jae-gi.png" loading="lazy" alt="فسادی لوگوں کی عزت ڈر کی وجہ سے">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">فسادی لوگوں کی عزت ڈر کی وجہ سے</h3>
+                </div>
+            </a>
+
+            <!-- Post 43 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/amton-ke-tor-tryqon-ki-andhi-tqlyd" class="post-card">
+                <div class="card-icon"><i class="fas fa-walking"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/amton-ke-tor-tryqon-ki-andhi-tqlyd.png" loading="lazy" alt="غیر امتوں کے طریقوں کی اندھی تقلید">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">غیر امتوں کے طریقوں کی اندھی تقلید</h3>
+                </div>
+            </a>
+
+            <!-- Post 44 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-apni-ummat-ko-asmani-bijli-girne-ke-bare-mein-kya-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-apni-ummat-ko-asmani-bijli-girne-ke-bare-mein-kya-farmaya.png" loading="lazy" alt="آسمانی بجلی گرنے کے بارے میں فرمان">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">آسمانی بجلی گرنے کے بارے میں فرمان</h3>
+                </div>
+            </a>
+
+            <!-- Post 45 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-bed"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" loading="lazy" alt="لوگ اپنی موت کی تمنا کیوں کریں گے؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">لوگ اپنی موت کی تمنا کیوں کریں گے؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 46 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/mazhabi-o-masharti-tabahi-ka-zimma-dar-kon-hum-khud-ya-koi-aur" class="post-card">
+                <div class="card-icon"><i class="fas fa-question-circle"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/mazhabi-o-masharti-tabahi-ka-zimma-dar-kon-hum-khud-ya-koi-aur.png" loading="lazy" alt="مذہبی و معاشرتی تباہی کا ذمہ دار کون؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">مذہبی و معاشرتی تباہی کا ذمہ دار کون؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 47 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.png" loading="lazy" alt="اچانک اموات کے بارے میں فرمان">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">اچانک اموات کے بارے میں فرمان</h3>
+                </div>
+            </a>
+
+            <!-- Post 48 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/masajid-par-fakhr-karne-walon-ke-liye-kya-barbadi-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-mosque"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/masajid-par-fakhr-karne-walon-ke-liye-kya-barbadi-hai.png" loading="lazy" alt="مساجد پر فخر کرنے والوں کے لئے بربادی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">مساجد پر فخر کرنے والوں کے لئے بربادی</h3>
+                </div>
+            </a>
+
+            <!-- Post 49 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ne-zko-kojrmanh-smjhne-walon-ke-le-kya-wayd-snai" class="post-card">
+                <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/aap-ne-zko-kojrmanh-smjhne-walon-ke-le-kya-wayd-snai.png" loading="lazy" alt="زکوٰۃ کو جرمانہ سمجھنے والوں کے لئے وعید">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">زکوٰۃ کو جرمانہ سمجھنے والوں کے لئے وعید</h3>
+                </div>
+            </a>
+
+            <!-- Post 50 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qom-ki-qayadat-gathiya-aur-fasiq-logon-ke-hathon-mein-kyun-hogi" class="post-card">
+                <div class="card-icon"><i class="fas fa-crown"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qom-ki-qayadat-gathiya-aur-fasiq-logon-ke-hathon-mein-kyun-hogi.png" loading="lazy" alt="قوم کی قیادت فاسق لوگوں کے ہاتھوں میں">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">قوم کی قیادت فاسق لوگوں کے ہاتھوں میں</h3>
+                </div>
+            </a>
+            
+            <!-- Post 51 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/aap-ne-amt-ko-ghyr-dyni-ktb-ki-ashaat-ke-bare-main-kya-pyshgoi-frmai" class="post-card">
+                <div class="card-icon"><i class="fas fa-book-dead"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/aap-ne-amt-ko-ghyr-dyni-ktb-ki-ashaat-ke-bare-main-kya-pyshgoi-frmai.png" loading="lazy" alt="غیر دینی کتب کی اشاعت پر پیشگوئی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">غیر دینی کتب کی اشاعت پر پیشگوئی</h3>
+                </div>
+            </a>
+
+            <!-- Post 52 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/be-waqoof-hakam-rano-ke-bare-mein-ap-saw-ne-kya-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/be-waqoof-hakam-rano-ke-bare-mein-kya-farmaya.png" loading="lazy" alt="بے وقوف حکمرانوں کے بارے میں فرمان">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بے وقوف حکمرانوں کے بارے میں فرمان</h3>
+                </div>
+            </a>
+
+            <!-- Post 53 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zamane-ke-qareeb-ho-jane-ke-bare-mein-ap-saw-ne-kya-irshad-farmaya" class="post-card">
+                <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zamane-ke-qareeb-ho-jane-ke-bare-mein-ap-saw-ne-kya-irshad-farmaya.png" loading="lazy" alt="زمانے کے قریب ہو جانے کی پیشین گوئی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">زمانے کے قریب ہو جانے کی پیشین گوئی</h3>
+                </div>
+            </a>
+
+            <!-- Post 54 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-be-waqoof-logon-ke-bare-mein-kya-pasheen-goi-farmai" class="post-card">
+                <div class="card-icon"><i class="fas fa-meh-blank"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-be-waqoof-logon-ke-bare-mein-kya-pasheen-goi-farmai.png" loading="lazy" alt="بے وقوف لوگوں کے بارے میں پیشین گوئی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بے وقوف لوگوں کے بارے میں پیشین گوئی</h3>
+                </div>
+            </a>
+
+            <!-- Post 55 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/dunya-par-jahilon-aur-ehmoqon-ka-ghalba-kyun-ho-jae-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-dunce"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/dunya-par-jahilon-aur-ehmoqon-ka-ghalba-kyun-ho-jae-ga.png" loading="lazy" alt="دنیا پر جاہلوں اور احمقوں کا غلبہ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">دنیا پر جاہلوں اور احمقوں کا غلبہ</h3>
+                </div>
+            </a>
+
+            <!-- Post 56 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ahl-e-maghrib-musalmanon-par-kyun-tot-padeen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-users-cog"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ahl-e-maghrib-musalmanon-par-kyun-tot-padeen-ge.png" loading="lazy" alt="اہل مغرب مسلمانوں پر کیوں ٹوٹ پڑیں گے؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">اہل مغرب مسلمانوں پر کیوں ٹوٹ پڑیں گے؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 57 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-namaz-ki-imamat-karane-se-kyun-hichkichaen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-pray"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-log-namaz-ki-imamat-karane-se-kyun-hichkichaen-ge.png" loading="lazy" alt="امامت کرانے سے ہچکچاہٹ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">امامت کرانے سے ہچکچاہٹ</h3>
+                </div>
+            </a>
+
+            <!-- Post 58 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zlzlon-msybton-aur-bri-pryshanyon-ke-bare-aap-ka-frman" class="post-card">
+                <div class="card-icon"><i class="fas fa-house-damage"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zlzlon-msybton-aur-bri-pryshanyon-ke-bare-aap-ka-frman.png" loading="lazy" alt="زلزلوں اور بڑی پریشانیوں کے بارے میں فرمان">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">زلزلوں اور بڑی پریشانیوں کے بارے میں فرمان</h3>
+                </div>
+            </a>
+
+            <!-- Post 59 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/hukm-ilahi-ke-mutabiq-faisla-na-karne-walon-ke-liye-kya-waeed-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-balance-scale-right"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/hukm-ilahi-ke-mutabiq-faisla-na-karne-walon-ke-liye-kya-waeed-hai.png" loading="lazy" alt="حکم الٰہی کے مطابق فیصلہ نہ کرنے والوں کے لئے وعید">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">حکم الٰہی کے مطابق فیصلہ نہ کرنے والوں کے لئے وعید</h3>
+                </div>
+            </a>
+
+            <!-- Post 60 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-taaqatwar-kamzor-ko-kha-jae-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-fist-raised"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-taaqatwar-kamzor-ko-kha-jae-ga.png" loading="lazy" alt="طاقتور کا کمزور کو کھا جانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">طاقتور کا کمزور کو کھا جانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 61 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-essai-zyada-aur-arab-kam-kyun-ho-jaeen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-essai-zyada-aur-arab-kam-kyun-ho-jaeen-ge.png" loading="lazy" alt="عیسائی زیادہ اور عرب کم کیوں ہو جائیں گے؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عیسائی زیادہ اور عرب کم کیوں ہو جائیں گے؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 62 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-motapay-jesi-bimari-mein-mubtala-kyun-ho-jaeen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-weight"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-log-motapay-jesi-bimari-mein-mubtala-kyun-ho-jaeen-ge.png" loading="lazy" alt="موٹاپے جیسی بیماری کی کثرت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">موٹاپے جیسی بیماری کی کثرت</h3>
+                </div>
+            </a>
+
+            <!-- Post 63 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/shohrat-ki-khatir-ki-jane-wali-tilawat-par-farman-nabawi-saw" class="post-card">
+                <div class="card-icon"><i class="fas fa-microphone-alt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/shohrat-ki-khatir-ki-jane-wali-tilawat-par-farman-nabawi-saw.png" loading="lazy" alt="شہرت کی خاطر کی جانے والی تلاوت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">شہرت کی خاطر کی جانے والی تلاوت</h3>
+                </div>
+            </a>
+
+            <!-- Post 64 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-momin-ka-sacha-khawab-dekhne-se-kya-murad-li-gai-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-moon"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-momin-ka-sacha-khawab-dekhne-se-kya-murad-li-gai-hai.png" loading="lazy" alt="مومن کا سچا خواب">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">مومن کا سچا خواب</h3>
+                </div>
+            </a>
+
+            <!-- Post 65 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-mard-kam-aur-auraten-zyada-kyun-ho-jaeen-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-venus-mars"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-mard-kam-aur-auraten-zyada-kyun-ho-jaeen-gi.png" loading="lazy" alt="مرد کم اور عورتیں زیادہ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">مرد کم اور عورتیں زیادہ</h3>
+                </div>
+            </a>
+
+            <!-- Post 66 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-sar-aam-badkari-kyun-karen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-heart-broken"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-log-sar-aam-badkari-kyun-karen-ge.png" loading="lazy" alt="سرعام بدکاری کا فتنہ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">سرعام بدکاری کا فتنہ</h3>
+                </div>
+            </a>
+
+            <!-- Post 67 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/jhoot-bolne-wale-ke-liye-halaakat-ki-waeed-kyun" class="post-card">
+                <div class="card-icon"><i class="fas fa-comment-slash"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/jhoot-bolne-wale-ke-liye-halaakat-ki-waeed-kyun.png" loading="lazy" alt="جھوٹ بولنے والے کے لیے ہلاکت کی وعید">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جھوٹ بولنے والے کے لیے ہلاکت کی وعید</h3>
+                </div>
+            </a>
+
+            <!-- Post 68 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/mashare-mein-har-so-jhoot-ka-tezi-se-phail-jana" class="post-card">
+                <div class="card-icon"><i class="fas fa-bullhorn"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/mashare-mein-har-so-jhoot-ka-tezi-se-phail-jana.png" loading="lazy" alt="جھوٹ کا تیزی سے پھیل جانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جھوٹ کا تیزی سے پھیل جانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 69 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qayamat-ke-nazdeek-logon-ke-darmiyan-ajnabiyat-kyun-dal-di-jae-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-user-slash"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qayamat-ke-nazdeek-logon-ke-darmiyan-ajnabiyat-kyun-dal-di-jae-gi.png" loading="lazy" alt="لوگوں کے درمیان اجنبیت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">لوگوں کے درمیان اجنبیت</h3>
+                </div>
+            </a>
+
+            <!-- Post 70 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-logon-ke-pas-daulat-ki-kasrat-kyun-ho-jae-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-coins"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-logon-ke-pas-daulat-ki-kasrat-kyun-ho-jae-gi.png" loading="lazy" alt="دولت کی کثرت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">دولت کی کثرت</h3>
+                </div>
+            </a>
+
+            <!-- Post 71 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/insaan-aur-jinon-ko-saqalain-kyun-kaha-gaya-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-users"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/insaan-aur-jinon-ko-saqalain-kyun-kaha-gaya-hai.png" loading="lazy" alt="انسان اور جنوں کو ثقلین کیوں کہا گیا؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">انسان اور جنوں کو ثقلین کیوں کہا گیا؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 72 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/gunaahon-ko-dekh-kar-khamosh-rehne-walon-ke-liye-azab-ilahi-ki-waeed" class="post-card">
+                <div class="card-icon"><i class="fas fa-comment-slash"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/gunaahon-ko-dekh-kar-khamosh-rehne-walon-ke-liye-azab-ilahi-ki-waeed.png" loading="lazy" alt="گناہوں کو دیکھ کر خاموش رہنے والوں کے لیے وعید">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">گناہوں کو دیکھ کر خاموش رہنے والوں کے لیے وعید</h3>
+                </div>
+            </a>
+
+            <!-- Post 73 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-shadeed-barishon-se-kuch-bhi-baqi-na-rahe-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-cloud-showers-heavy"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-shadeed-barishon-se-kuch-bhi-baqi-na-rahe-ga.png" loading="lazy" alt="شدید بارشوں سے تباہی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">شدید بارشوں سے تباہی</h3>
+                </div>
+            </a>
+
+            <!-- Post 74 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-asman-se-esi-barishon-ka-barsna-jo-nafa-bakhsh-na-honghi" class="post-card">
+                <div class="card-icon"><i class="fas fa-cloud-rain"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-asman-se-esi-barishon-ka-barsna-jo-nafa-bakhsh-na-honghi.png" loading="lazy" alt="بے فائدہ بارشوں کا برسنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بے فائدہ بارشوں کا برسنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 75 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ahl-arb-ko-hlak-krdyne-wala-ftnh-kysa-hoga" class="post-card">
+                <div class="card-icon"><i class="fas fa-bomb"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ahl-arb-ko-hlak-krdyne-wala-ftnh-kysa-hoga.png" loading="lazy" alt="اہل عرب کو ہلاک کر دینے والا فتنہ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">اہل عرب کو ہلاک کر دینے والا فتنہ</h3>
+                </div>
+            </a>
+
+            <!-- Post 76 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/kon-sa-darakht-musalmanon-ke-haq-mein-nahi-bole-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-tree"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/kon-sa-darakht-musalmanon-ke-haq-mein-nahi-bole-ga.png" loading="lazy" alt="کون سا درخت مسلمانوں کے حق میں نہیں بولے گا؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">کون سا درخت مسلمانوں کے حق میں نہیں بولے گا؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 77 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-water"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" loading="lazy" alt="دریائے فرات کا خشک ہونا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">دریائے فرات کا خشک ہونا</h3>
+                </div>
+            </a>
+
+            <!-- Post 78 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-farmaya-aajiz-ban-jana-magar-fasiq-kabhi-na-banna" class="post-card">
+                <div class="card-icon"><i class="fas fa-praying-hands"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-farmaya-aajiz-ban-jana-magar-fasiq-kabhi-na-banna.png" loading="lazy" alt="عاجز بن جانا مگر فاسق کبھی نہ بننا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عاجز بن جانا مگر فاسق کبھی نہ بننا</h3>
+                </div>
+            </a>
+
+            <!-- Post 79 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ap-saw-ne-arab-ki-chara-gaahon-ke-bare-mein-kya-pasheen-goi-farmai" class="post-card">
+                <div class="card-icon"><i class="fas fa-leaf"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ap-saw-ne-arab-ki-chara-gaahon-ke-bare-mein-kya-pasheen-goi-farmai.png" loading="lazy" alt="عرب کی چراگاہوں کے بارے میں پیشین گوئی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عرب کی چراگاہوں کے بارے میں پیشین گوئی</h3>
+                </div>
+            </a>
+
+            <!-- Post 80 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/ese-fitne-jo-anaqreeb-zahir-ho-ne-wale-hain" class="post-card">
+                <div class="card-icon"><i class="fas fa-fire-alt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/ese-fitne-jo-anaqreeb-zahir-ho-ne-wale-hain.png" loading="lazy" alt="عنقریب ظاہر ہونے والے فتنے">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عنقریب ظاہر ہونے والے فتنے</h3>
+                </div>
+            </a>
+
+            <!-- Post 81 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/kis-zamane-mein-ek-sajda-dunya-ke-tamam-khazanon-se-qeemti-hoga" class="post-card">
+                <div class="card-icon"><i class="fas fa-pray"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/kis-zamane-mein-ek-sajda-dunya-ke-tamam-khazanon-se-qeemti-hoga.png" loading="lazy" alt="ایک سجدہ دنیا کے تمام خزانوں سے قیمتی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">ایک سجدہ دنیا کے تمام خزانوں سے قیمتی</h3>
+                </div>
+            </a>
+
+            <!-- Post 82 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/chand-ka-maamool-se-bara-nazar-ane-par-ap-saw-ne-kya-pasheen-goi-farmai" class="post-card">
+                <div class="card-icon"><i class="fas fa-moon"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/chand-ka-maamool-se-bara-nazar-ane-par-ap-saw-ne-kya-pasheen-goi-farmai.png" loading="lazy" alt="چاند کا معمول سے بڑا نظر آنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">چاند کا معمول سے بڑا نظر آنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 83 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/srzmyn-sham-ki-trf-hjrt-krne-ke-10-ahm-tryn-asharekon-se-hain" class="post-card">
+                <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/srzmyn-sham-ki-trf-hjrt-krne-ke-10-ahm-tryn-asharekon-se-hain.png" loading="lazy" alt="سرزمین شام کی طرف ہجرت کے 10 اشارے">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">سرزمین شام کی طرف ہجرت کے 10 اشارے</h3>
+                </div>
+            </a>
+
+            <!-- Post 84 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/imam-mehdi-se-qabl-kin-jamatoun-mein-zabardast-jang-hogi" class="post-card">
+                <div class="card-icon"><i class="fas fa-fighter-jet"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/imam-mehdi-se-qabl-kin-jamatoun-mein-zabardast-jang-hogi.png" loading="lazy" alt="امام مہدی سے قبل زبردست جنگ">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">امام مہدی سے قبل زبردست جنگ</h3>
+                </div>
+            </a>
+
+            <!-- Post 85 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qrb-qyamt-byt-almqds-aabad-aur-mdynh-mnorh-brbad-kyun-ho-jae-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-kaaba"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qrb-qyamt-byt-almqds-aabad-aur-mdynh-mnorh-brbad-kyun-ho-jae-ga.png" loading="lazy" alt="بیت المقدس آباد اور مدینہ منورہ برباد">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بیت المقدس آباد اور مدینہ منورہ برباد</h3>
+                </div>
+            </a>
+
+            <!-- Post 86 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/islam-ki-aakhri-basti-kon-si-hai-jo-qurb-qayamat-weran-ho-jae-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-city"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/islam-ki-aakhri-basti-kon-si-hai-jo-qurb-qayamat-weran-ho-jae-gi.png" loading="lazy" alt="اسلام کی آخری بستی جو ویران ہوگی">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">اسلام کی آخری بستی جو ویران ہوگی</h3>
+                </div>
+            </a>
+
+            <!-- Post 87 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-log-miras-ki-taqseem-aur-maal-e-ghanimat-par-khushi-kyun-na-hogi" class="post-card">
+                <div class="card-icon"><i class="fas fa-sad-tear"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-log-miras-ki-taqseem-aur-maal-e-ghanimat-par-khushi-kyun-na-hogi.png" loading="lazy" alt="میراث اور مال غنیمت پر خوشی نہ ہونا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">میراث اور مال غنیمت پر خوشی نہ ہونا</h3>
+                </div>
+            </a>
+
+            <!-- Post 88 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/logon-ke-dilon-se-shehr-madina-mein-basne-ki-tarap-kyun-dam-tor-jae-gi" class="post-card">
+                <div class="card-icon"><i class="fas fa-heart-broken"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/logon-ke-dilon-se-shehr-madina-mein-basne-ki-tarap-kyun-dam-tor-jae-gi.png" loading="lazy" alt="مدینہ میں بسنے کی تڑپ کا ختم ہونا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">مدینہ میں بسنے کی تڑپ کا ختم ہونا</h3>
+                </div>
+            </a>
+
+            <!-- Post 89 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-kohsar-apni-jagah-se-kyun-khisk-jaeen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-mountain"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-kohsar-apni-jagah-se-kyun-khisk-jaeen-ge.png" loading="lazy" alt="پہاڑوں کا اپنی جگہ سے کھسک جانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">پہاڑوں کا اپنی جگہ سے کھسک جانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 90 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qrb-qyamt-arb-main-ayk-salh-shkhs-zahr-hoga-js-ki-log-ataat-kryn-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qrb-qyamt-arb-main-ayk-salh-shkhs-zahr-hoga-js-ki-log-ataat-kryn-ge.png" loading="lazy" alt="عرب میں ایک صالح شخص کا ظہور">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عرب میں ایک صالح شخص کا ظہور</h3>
+                </div>
+            </a>
+
+            <!-- Post 91 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qurb-qayamat-wehshi-janwar-be-jaan-cheezen-koray-jootay-aur-insani-raan-baten-karen-ge" class="post-card">
+                <div class="card-icon"><i class="fas fa-comment-dots"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qurb-qayamat-wehshi-janwar-be-jaan-cheezen-koray-jootay-aur-insani-raan-baten-karen-ge.png" loading="lazy" alt="بے جان چیزوں اور جانوروں کا باتیں کرنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بے جان چیزوں اور جانوروں کا باتیں کرنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 92 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qayamat-se-pehle-islam-aur-quran-ka-uthna-ek-dard-naak-gumraahi" class="post-card">
+                <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qayamat-se-pehle-islam-aur-quran-ka-uthna-ek-dard-naak-gumraahi.png" loading="lazy" alt="اسلام اور قرآن کا اٹھ جانا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">اسلام اور قرآن کا اٹھ جانا</h3>
+                </div>
+            </a>
+
+            <!-- Post 93 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/qayamat-ke-qareeb-bait-ullah-par-hamla-aawar-lashkar-ka-bhayank-anjaam" class="post-card">
+                <div class="card-icon"><i class="fas fa-kaaba"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/qayamat-ke-qareeb-bait-ullah-par-hamla-aawar-lashkar-ka-bhayank-anjaam.png" loading="lazy" alt="بیت اللہ پر حملہ آور لشکر کا انجام">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بیت اللہ پر حملہ آور لشکر کا انجام</h3>
+                </div>
+            </a>
+
+            <!-- Post 94 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/kya-qurb-qayamat-bait-ullah-ka-haj-hamesha-ke-liye-khatam-ho-jae-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-times-circle"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/kya-qurb-qayamat-bait-ullah-ka-haj-hamesha-ke-liye-khatam-ho-jae-ga.png" loading="lazy" alt="کیا بیت اللہ کا حج ختم ہو جائے گا؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">کیا بیت اللہ کا حج ختم ہو جائے گا؟</h3>
+                </div>
+            </a>
+
+            <!-- Post 95 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/arab-dunya-mein-butt-parasti-ka-dobara-aaghaz" class="post-card">
+                <div class="card-icon"><i class="fas fa-praying-hands"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/arab-dunya-mein-butt-parasti-ka-dobara-aaghaz.png" loading="lazy" alt="عرب دنیا میں بت پرستی کا دوبارہ آغاز">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">عرب دنیا میں بت پرستی کا دوبارہ آغاز</h3>
+                </div>
+            </a>
+
+            <!-- Post 96 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/kaaba-ki-barbadi-aur-qayamat-ke-aasaar" class="post-card">
+                <div class="card-icon"><i class="fas fa-cube"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/kaaba-ki-barbadi-aur-qayamat-ke-aasaar.png" loading="lazy" alt="کعبہ کی بربادی اور قیامت کے آثار">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">کعبہ کی بربادی اور قیامت کے آثار</h3>
+                </div>
+            </a>
+
+            <!-- Post 97 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/hazrat-essa-ki-wafat-ke-baad-mominon-ki-ruhon-ko-qabz-kyun-kar-liya-jae-ga" class="post-card">
+                <div class="card-icon"><i class="fas fa-wind"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/hazrat-essa-ki-wafat-ke-baad-mominon-ki-ruhon-ko-qabz-kyun-kar-liya-jae-ga.png" loading="lazy" alt="مومنوں کی روحوں کا قبض ہونا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">مومنوں کی روحوں کا قبض ہونا</h3>
+                </div>
+            </a>
+
+            <!-- Post 98 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/paharon-se-buland-makka-ki-imaaraat-aakhri-zamane-ki-tabdeeliyon-ka-ishara" class="post-card">
+                <div class="card-icon"><i class="fas fa-building"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/paharon-se-buland-makka-ki-imaaraat-aakhri-zamane-ki-tabdeeliyon-ka-ishara.png" loading="lazy" alt="مکہ کی بلند عمارات">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">مکہ کی بلند عمارات</h3>
+                </div>
+            </a>
+
+            <!-- Post 99 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/bidaat-aur-gumraahi-ka-urooj-aakhri-zamane-ke-logon-ka-guzre-buzurgo-par-laant-bhejna" class="post-card">
+                <div class="card-icon"><i class="fas fa-skull-crossbones"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/bidaat-aur-gumraahi-ka-urooj-aakhri-zamane-ke-logon-ka-guzre-buzurgo-par-laant-bhejna.png" loading="lazy" alt="بزرگوں پر لعنت بھیجنا">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">بزرگوں پر لعنت بھیجنا</h3>
+                </div>
+            </a>
+
+            <!-- Post 100 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/amt-mhmdyh-ki-jdyd-soaryon-ki-rghbt-aur-qyamt-ki-pyshgoyan" class="post-card">
+                <div class="card-icon"><i class="fas fa-car"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/amt-mhmdyh-ki-jdyd-soaryon-ki-rghbt-aur-qyamt-ki-pyshgoyan.png" loading="lazy" alt="جدید سواریوں کی رغبت">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">جدید سواریوں کی رغبت</h3>
+                </div>
+            </a>
+
+            <!-- Post 101 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-aol" class="post-card">
+                <div class="card-icon"><i class="fas fa-scroll"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-aol.png" loading="lazy" alt="امام مہدی کی آمد (حصہ اول)">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">امام مہدی کی آمد (حصہ اول)</h3>
+                </div>
+            </a>
+
+            <!-- Post 102 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-dom" class="post-card">
+                <div class="card-icon"><i class="fas fa-scroll"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-dom.png" loading="lazy" alt="امام مہدی کی آمد (حصہ دوم)">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">امام مہدی کی آمد (حصہ دوم)</h3>
+                </div>
+            </a>
+
+            <!-- Post 103 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-som" class="post-card">
+                <div class="card-icon"><i class="fas fa-scroll"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-som.png" loading="lazy" alt="امام مہدی کی آمد (حصہ سوم)">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">امام مہدی کی آمد (حصہ سوم)</h3>
+                </div>
+            </a>
+
+            <!-- Post 104 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-chharm" class="post-card">
+                <div class="card-icon"><i class="fas fa-scroll"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-chharm.png" loading="lazy" alt="امام مہدی کی آمد (حصہ چہارم)">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">امام مہدی کی آمد (حصہ چہارم)</h3>
+                </div>
+            </a>
+
+            <!-- Post 105 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-pnjm" class="post-card">
+                <div class="card-icon"><i class="fas fa-scroll"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-pnjm.png" loading="lazy" alt="امام مہدی کی آمد (حصہ پنجم)">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">امام مہدی کی آمد (حصہ پنجم)</h3>
+                </div>
+            </a>
+
+            <!-- Post 106 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/tik-tak-aur-rails-kya-yeh-zamana-qareeb-ho-jane-ki-jadeed-tafseer-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/tik-tak-aur-rails-kya-yeh-zamana-qareeb-ho-jane-ki-jadeed-tafseer-hai.png" loading="lazy" alt="ٹک ٹاک اور ریلز: زمانہ قریب ہونے کی تفسیر">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">ٹک ٹاک اور ریلز: زمانہ قریب ہونے کی تفسیر</h3>
+                </div>
+            </a>
+
+            <!-- Post 107 -->
+            <a href="https://www.bloglovers.pk/alamaat-sughra/kya-waqai-waqt-mein-barkat-khatam-ho-rahi-hai-ek-esa-sawal-jis-ne-sab-ko-pareshan-kar-rakha-hai" class="post-card">
+                <div class="card-icon"><i class="fas fa-clock"></i></div>
+                <div class="img-container">
+                    <img src="https://www.bloglovers.pk/images/alamaat-sughra/kya-waqai-waqt-mein-barkat-khatam-ho-rahi-hai-ek-esa-sawal-jis-ne-sab-ko-pareshan-kar-rakha-hai.png" loading="lazy" alt="کیا وقت میں برکت ختم ہو رہی ہے؟">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">کیا وقت میں برکت ختم ہو رہی ہے؟</h3>
+                </div>
+            </a>
+            
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-container">
+        <button onclick="sharePage()" class="btn btn-share"><i class="fas fa-share-alt"></i> شیئر کریں</button>
+        <a href="https://www.bloglovers.pk/" class="btn btn-back"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 بلاگ لوورز - تمام حقوق محفوظ ہیں</p>
     </footer>
 
+    <!-- Scripts -->
+    <script>
+        // Slider Logic
+        let slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 5000);
+
+        // Share Logic
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'علاماتِ صغریٰ',
+                    text: 'علاماتِ صغریٰ اور قرب قیامت کے فتنوں پر مبنی مضامین',
+                    url: window.location.href
+                });
+            } else {
+                alert(' لنک کاپی ہو گیا ہے!');
+                navigator.clipboard.writeText(window.location.href);
+            }
+        }
+    </script>
 </body>
 </html>
