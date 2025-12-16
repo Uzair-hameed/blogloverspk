@@ -6,88 +6,128 @@
     <title>علامات کبریٰ | بلاگ لوورز</title>
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Jameel Noori Nastaleeq Font -->
+    <!-- Google Font for fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Gulzar&display=swap" rel="stylesheet">
+    
     <style>
+        /* Jameel Noori Nastaleeq Setup */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
-            src: url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.eot');
-            src: url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.eot?#iefix') format('embedded-opentype'),
-                 url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.woff') format('woff'),
-                 url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
+            src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Kasheeda'), url('https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/Sahel.woff2') format('woff2'); 
         }
         
         * {
-            font-family: 'Jameel Noori Nastaleeq', serif !important;
-        }
-    </style>
-    
-    <style>
-        :root {
-            --primary-color: #8B0000; /* Dark Red */
-            --secondary-color: #000000;
-            --accent-color: #FFD700; /* Gold */
-            --text-color: #F0E6D2;
-            --card-bg: rgba(30, 30, 30, 0.95);
-            --hover-glow: rgba(255, 69, 0, 0.5);
-        }
-
-        * {
+            /* Priority to Jameel Noori, then Gulzar (Google Font), then generic serif */
+            font-family: 'Jameel Noori Nastaleeq', 'Gulzar', 'Arial', serif !important;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a001a 50%, #0a0a0a 100%);
-            color: var(--text-color);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            line-height: 1.8;
+        :root {
+            --bg-color: #050505;
+            --card-bg: #121212;
+            --primary-yellow: #FFD700; /* Gold */
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+            --glow: rgba(255, 215, 0, 0.3);
         }
 
-        /* ===== Animated Background Elements ===== */
-        .bg-particles {
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            overflow-x: hidden;
+            font-size: 16px; /* Font size increased slightly for better readability in Urdu */
+            line-height: 2.2; /* Increased line height for Nastaleeq */
+        }
+
+        /* ===== Background Animation ===== */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            overflow: hidden;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a00 0%, #000000 100%);
         }
 
-        .particle {
+        .star {
             position: absolute;
-            background: rgba(255, 69, 0, 0.1);
+            background: white;
             border-radius: 50%;
-            animation: float 20s infinite linear;
+            animation: twinkle 5s infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* ===== Spinning Icons ===== */
-        .spinning-icons {
+        /* ===== Header & Back Button ===== */
+        header {
+            padding: 20px;
+            background: rgba(0,0,0,0.9);
+            border-bottom: 2px solid var(--primary-yellow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--primary-yellow);
+            border: 1px solid var(--primary-yellow);
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-yellow);
+            color: black;
+            box-shadow: 0 0 15px var(--primary-yellow);
+        }
+
+        .page-title {
+            color: var(--primary-yellow);
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px var(--glow);
+            padding-top: 5px; /* Adjust for Nastaleeq vertical alignment */
+        }
+
+        /* ===== Floating Icons ===== */
+        .floating-icons {
             position: fixed;
-            top: 20%;
-            right: 5%;
-            z-index: 1;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 50;
         }
 
         .spin-icon {
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 30px;
-            display: block;
-            animation: spin 8s infinite linear;
-            text-shadow: 0 0 10px var(--accent-color);
+            font-size: 1.5rem;
+            color: var(--primary-yellow);
+            opacity: 0.6;
+            animation: spin 10s linear infinite;
+        }
+
+        .spin-icon:nth-child(even) {
+            animation-direction: reverse;
+            animation-duration: 15s;
         }
 
         @keyframes spin {
@@ -95,644 +135,476 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ===== Header ===== */
-        header {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-bottom: 3px solid var(--primary-color);
-            box-shadow: 0 5px 25px rgba(139, 0, 0, 0.4);
-            position: relative;
-            z-index: 10;
-            backdrop-filter: blur(10px);
-        }
-
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto 20px;
-        }
-
-        .back-btn {
-            background: linear-gradient(45deg, var(--primary-color), #FF4500);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.5);
-            border: 1px solid transparent;
-        }
-
-        .back-btn:hover {
-            background: transparent;
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            transform: translateX(10px);
-            box-shadow: 0 0 25px var(--accent-color);
-        }
-
-        h1.main-title {
-            text-align: center;
-            color: var(--accent-color);
-            font-size: 2.8rem;
-            text-shadow: 
-                0 0 10px var(--primary-color),
-                0 0 20px var(--primary-color),
-                0 0 30px var(--primary-color);
-            margin: 15px 0;
-            animation: titleGlow 3s infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            0% { text-shadow: 0 0 10px var(--primary-color); }
-            100% { text-shadow: 0 0 30px #FF4500, 0 0 40px #FF4500; }
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #ccc;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
         /* ===== Main Slider ===== */
-        .main-slider {
-            max-width: 1100px;
-            height: 450px;
+        .slider-container {
+            max-width: 900px;
             margin: 40px auto;
             position: relative;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--accent-color);
-            z-index: 5;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
+            border: 1px solid #333;
         }
 
-        .slider-item {
+        .slide {
             display: none;
             width: 100%;
-            height: 100%;
             position: relative;
         }
 
-        .slider-item.active {
+        .slide.active {
             display: block;
+            animation: fadeIn 1.5s;
         }
 
-        .slider-item img {
+        .slide img {
             width: 100%;
-            height: 100%;
+            height: 400px;
             object-fit: cover;
-            filter: brightness(0.6) contrast(1.1);
+            filter: brightness(0.6);
             transition: transform 10s linear;
         }
-
-        .slider-item.active img {
-            animation: zoomSlow 8s linear;
+        
+        .slide.active img {
+            transform: scale(1.1);
         }
 
-        @keyframes zoomSlow {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        .slider-caption {
+        .slide-caption {
             position: absolute;
             bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
             width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-            color: white;
+            padding: 20px;
             text-align: center;
-            padding: 30px;
-            font-size: 1.7rem;
-            text-shadow: 0 3px 6px black;
+            color: var(--primary-yellow);
+            font-size: 1.6rem;
+            text-shadow: 2px 2px 4px #000;
         }
 
-        /* ===== Moving Ticker ===== */
-        .ticker-container {
-            background: rgba(20, 0, 0, 0.9);
-            padding: 15px 0;
-            margin: 40px 0;
-            border-top: 2px solid var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
+        @keyframes fadeIn {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        /* ===== Ticker ===== */
+        .ticker-wrap {
+            width: 100%;
+            background: linear-gradient(90deg, #000, #111, #000);
+            padding: 12px 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
             overflow: hidden;
-            position: relative;
-            z-index: 5;
+            margin-bottom: 40px;
         }
 
-        .ticker-track {
-            display: flex;
-            animation: tickerMove 40s linear infinite;
+        .ticker {
+            display: inline-block;
             white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 35s linear infinite;
         }
 
         .ticker-item {
-            padding: 0 40px;
-            font-size: 1.2rem;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            display: inline-block;
+            padding: 0 3rem;
+            font-size: 1.3rem;
+            color: var(--text-gray);
         }
 
         .ticker-item i {
-            color: var(--accent-color);
-            font-size: 1.4rem;
+            color: var(--primary-yellow);
+            margin-left: 10px;
         }
 
-        @keyframes tickerMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(100%, 0, 0); }
         }
 
         /* ===== Posts Grid ===== */
         .container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 30px;
+            padding: 20px;
             position: relative;
-            z-index: 5;
+            z-index: 10;
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 35px;
+            gap: 30px;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border: 1px solid #333;
+            border-radius: 15px;
             overflow: hidden;
-            border: 1px solid #444;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-15px) scale(1.03);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 35px var(--hover-glow);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 69, 0, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .card:hover::before {
-            opacity: 1;
+            transform: translateY(-10px);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
         }
 
         .card-img {
+            width: 100%;
             height: 200px;
             overflow: hidden;
             position: relative;
-            border-bottom: 2px solid #333;
         }
 
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.7s ease;
+            transition: transform 0.6s ease;
         }
 
         .card:hover .card-img img {
-            transform: scale(1.15) rotate(1deg);
+            transform: scale(1.15) rotate(2deg);
         }
 
         .card-content {
-            padding: 25px;
+            padding: 20px;
             text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .card-title {
-            font-size: 1.1rem; /* Small font size as requested */
-            color: var(--accent-color);
-            margin-bottom: 25px;
-            line-height: 1.9;
-            font-weight: 600;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-shadow: 0 1px 3px black;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--text-white);
+            line-height: 1.8;
+            text-shadow: 0 1px 2px black;
         }
 
         .card-btn {
-            background: linear-gradient(45deg, var(--primary-color), #FF4500);
-            color: white;
-            text-decoration: none;
-            padding: 12px 35px;
-            border-radius: 30px;
-            font-size: 0.95rem;
             display: inline-block;
-            transition: all 0.4s;
-            border: 1px solid transparent;
-            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            padding: 8px 30px;
+            background: transparent;
+            color: var(--primary-yellow);
+            border: 1px solid var(--primary-yellow);
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
 
         .card-btn::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
+            left: 0;
+            width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s;
+            background: var(--primary-yellow);
+            transition: width 0.3s;
+            z-index: -1;
         }
 
         .card-btn:hover::before {
-            left: 100%;
+            width: 100%;
         }
 
         .card-btn:hover {
-            background: transparent;
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            box-shadow: 0 0 20px var(--accent-color);
+            color: black;
+            box-shadow: 0 0 20px var(--primary-yellow);
         }
 
         /* ===== Share Button ===== */
-        .share-btn {
+        .share-float {
             position: fixed;
-            bottom: 40px;
-            left: 40px;
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(45deg, var(--primary-color), #FF4500);
-            color: white;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary-yellow);
+            color: black;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 0 25px rgba(255, 69, 0, 0.6);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
             z-index: 100;
             border: none;
-            transition: all 0.4s;
-            animation: sharePulse 2s infinite;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
         }
 
-        .share-btn:hover {
-            transform: scale(1.15) rotate(20deg);
-            box-shadow: 0 0 35px var(--accent-color);
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
-        @keyframes sharePulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 69, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); }
+        .share-float:hover {
+            transform: scale(1.1) rotate(15deg);
         }
 
-        /* ===== Footer ===== */
-        footer {
-            text-align: center;
-            padding: 50px 30px;
-            background: rgba(0, 0, 0, 0.95);
-            margin-top: 80px;
-            border-top: 4px solid var(--primary-color);
-            font-size: 1rem;
-            color: #aaa;
-            position: relative;
-            z-index: 5;
-        }
-
-        /* ===== Responsive Design ===== */
-        @media (max-width: 1100px) {
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 30px;
-            }
-            
-            .main-slider {
-                height: 380px;
-                margin: 30px auto;
-            }
-            
-            h1.main-title {
-                font-size: 2.3rem;
-            }
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .main-slider {
-                height: 280px;
-            }
-            
-            .slider-caption {
-                font-size: 1.3rem;
-                padding: 20px;
-            }
-            
-            h1.main-title {
-                font-size: 1.9rem;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .card-title {
-                font-size: 1rem;
-                min-height: 70px;
-            }
-            
-            .share-btn {
-                bottom: 20px;
-                left: 20px;
-                width: 55px;
-                height: 55px;
-                font-size: 1.4rem;
-            }
-            
-            .spinning-icons {
-                display: none;
-            }
+            .page-title { font-size: 1.8rem; }
+            .grid { grid-template-columns: 1fr; }
+            .floating-icons { display: none; }
+            .slide img { height: 250px; }
+            .slide-caption { font-size: 1.2rem; }
+            .card-img { height: 220px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Animated Background Particles -->
-    <div class="bg-particles" id="bgParticles"></div>
-
-    <!-- Spinning Icons -->
-    <div class="spinning-icons">
-        <i class="fas fa-star spin-icon"></i>
-        <i class="fas fa-fire spin-icon" style="animation-delay: 1s;"></i>
-        <i class="fas fa-cross spin-icon" style="animation-delay: 2s;"></i>
-        <i class="fas fa-moon spin-icon" style="animation-delay: 3s;"></i>
-    </div>
+    <!-- Background Animation -->
+    <div class="bg-animation" id="stars"></div>
 
     <!-- Header -->
     <header>
-        <div class="header-top">
-            <a href="index.html" class="back-btn">
-                <i class="fas fa-arrow-right"></i> ہوم پیج پر واپس
-            </a>
-            <div style="font-weight: bold; color:white; font-size: 1.3rem; text-shadow: 0 0 10px var(--accent-color);">بلاگ لوورز</div>
-        </div>
-        <h1 class="main-title">علامات کبریٰ</h1>
-        <p class="subtitle">قیامت کی بڑی نشانیاں، فتنہ دجال، یاجوج ماجوج اور ظہور مہدی علیہ السلام</p>
+        <div class="page-title">علامات کبریٰ</div>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-home"></i> ہوم پیج
+        </a>
     </header>
 
+    <!-- Floating Icons -->
+    <div class="floating-icons">
+        <i class="fas fa-moon spin-icon"></i>
+        <i class="fas fa-sun spin-icon"></i>
+        <i class="fas fa-star spin-icon"></i>
+        <i class="fas fa-cloud spin-icon"></i>
+    </div>
+
     <!-- Main Slider -->
-    <div class="main-slider">
-        <div class="slider-item active">
-            <img src="https://www.bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl" alt="فتنہ دجال سے پہلے" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'">
-            <div class="slider-caption">فتنہ دجال: امت محمدیہ کی سب سے بڑی آزمائش</div>
-        </div>
-        <div class="slider-item">
-            <img src="https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal" alt="یاجوج ماجوج" onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'">
-            <div class="slider-caption">یاجوج ماجوج کا خروج: دنیا پر تباہی کا سیلاب</div>
-        </div>
-        <div class="slider-item">
-            <img src="https://www.bloglovers.pk/images/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga" alt="سورج مغرب سے طلوع" onerror="this.src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'">
-            <div class="slider-caption">سورج مغرب سے طلوع ہونے پر توبہ کا دروازہ بند</div>
-        </div>
+    <div class="slider-container" id="mainSlider">
+        <!-- Slider content injected by JS -->
     </div>
 
     <!-- Moving Ticker -->
-    <div class="ticker-container">
-        <div class="ticker-track">
-            <div class="ticker-item"><i class="fas fa-exclamation-triangle"></i> دجال کا فتنہ تاریخ کا سب سے بڑا فتنہ ہے</div>
-            <div class="ticker-item"><i class="fas fa-book-quran"></i> علامات کبریٰ کا علم ایمان کی تکمیل ہے</div>
-            <div class="ticker-item"><i class="fas fa-shield-alt"></i> یاجوج ماجوج سے نجات حضرت عیسیٰ علیہ السلام کی دعا سے</div>
-            <div class="ticker-item"><i class="fas fa-sun"></i> سورج مغرب سے نکلے گا تو توبہ قبول نہ ہوگی</div>
-            <div class="ticker-item"><i class="fas fa-exclamation-triangle"></i> دجال کا فتنہ تاریخ کا سب سے بڑا فتنہ ہے</div>
-            <div class="ticker-item"><i class="fas fa-book-quran"></i> علامات کبریٰ کا علم ایمان کی تکمیل ہے</div>
-            <div class="ticker-item"><i class="fas fa-shield-alt"></i> یاجوج ماجوج سے نجات حضرت عیسیٰ علیہ السلام کی دعا سے</div>
-            <div class="ticker-item"><i class="fas fa-sun"></i> سورج مغرب سے نکلے گا تو توبہ قبول نہ ہوگی</div>
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item"><i class="fas fa-exclamation-circle"></i> دجال کا فتنہ: امت کے لیے سب سے بڑی آزمائش</div>
+            <div class="ticker-item"><i class="fas fa-book"></i> سورج مغرب سے طلوع ہونے کے بعد توبہ کا دروازہ بند ہو جائے گا</div>
+            <div class="ticker-item"><i class="fas fa-star"></i> حضرت عیسیٰ علیہ السلام کا نزول اور انصاف کا دور</div>
+            <div class="ticker-item"><i class="fas fa-globe"></i> یاجوج ماجوج کا خروج اور زمین پر فساد</div>
+            <div class="ticker-item"><i class="fas fa-fire"></i> دھواں اور زمین کا دھنس جانا</div>
         </div>
     </div>
 
-    <!-- Posts Grid -->
+    <!-- Main Content Grid -->
     <div class="container">
         <div class="grid" id="postsGrid">
-            <!-- Posts will be dynamically inserted here -->
+            <!-- Posts injected by JS -->
         </div>
     </div>
 
     <!-- Share Button -->
-    <button class="share-btn" onclick="sharePage()" title="اس صفحے کو شیئر کریں">
+    <button class="share-float" onclick="sharePage()" title="اس صفحے کو شیئر کریں">
         <i class="fas fa-share-alt"></i>
     </button>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 علامات کبریٰ | بلاگ لوورز | تمام حقوق محفوظ ہیں</p>
-        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">قیامت کی بڑی نشانیوں سے متعلق مکمل معلومات</p>
+    <footer style="text-align: center; padding: 30px; color: #888; font-size: 1rem; margin-top: 50px; border-top: 1px solid #333; background: #0a0a0a;">
+        <p>&copy; 2025 بلاگ لوورز | علامات کبریٰ | تمام حقوق محفوظ ہیں</p>
     </footer>
 
     <script>
-        // ===== 1. Create Animated Background Particles =====
-        function createParticles() {
-            const container = document.getElementById('bgParticles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 100 + 20;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                particle.style.opacity = Math.random() * 0.2 + 0.05;
-                
-                container.appendChild(particle);
-            }
-        }
-
-        // ===== 2. Main Slider Functionality =====
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slider-item');
-        
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            slides[index].classList.add('active');
-        }
-        
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-        
-        // Auto slide every 5 seconds
-        setInterval(nextSlide, 5000);
-
-        // ===== 3. Posts Data from Excel (alamaat-kubra category only) =====
-        const postsData = [
+        // 1. Data Source (Updated with .png extension as requested)
+        const posts = [
             {
                 title: "5 ایسے کون سے واقعات پیش آئیں گے ؟ فتنہ دجال سے قبل",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl",
-                url: "https://www.bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl"
+                url: "https://www.bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.png"
             },
             {
                 title: "مصائب ِ دجال (حصہ اول)",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol",
-                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol"
+                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.png"
             },
             {
                 title: "مصائب ِ دجال (حصہ دوم)",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom",
-                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom"
+                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom.png"
             },
             {
                 title: "مصائبِ دجال (حصہ سوم)",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som",
-                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-som"
+                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-som",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som.jpg"
             },
             {
                 title: "دجال کو کون کون سے طاقتیں دی گئی ہونگی؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi",
-                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi"
+                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi.png"
             },
             {
                 title: "دجال کے ساتھی کون لوگ ہونگے؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay",
-                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay"
+                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay.png"
             },
             {
-                title: "دجال  سے نجات کے لئے ہمیں کیا تعلیمات دی گئی ہیں؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain",
-                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain"
+                title: "دجال سے نجات کے لئے ہمیں کیا تعلیمات دی گئی ہیں؟",
+                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain.png"
             },
             {
                 title: "حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ اول)",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol",
-                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol"
+                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol.jpg"
             },
             {
                 title: "حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ دوم)",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom",
-                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom"
+                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom.jpg"
             },
             {
                 title: "تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai",
-                url: "https://www.bloglovers.pk/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai"
+                url: "https://www.bloglovers.pk/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai.png"
             },
             {
                 title: "حضرت عیسیٰ کا دور حکومت کیسا ہوگا؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysy-ka-dor-hkomt-kysa-hoga",
-                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysy-ka-dor-hkomt-kysa-hoga"
+                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysy-ka-dor-hkomt-kysa-hoga",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysy-ka-dor-hkomt-kysa-hoga.jpg"
             },
             {
-                title: "یاجوج وماجوج کے فتنہ سے لوگ کیسے نجاپ پائیں گے؟ حصہ اول",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal",
-                url: "https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal"
+                title: "یاجوج وماجوج کے فتنہ سے لوگ کیسے نجات پائیں گے؟ حصہ اول",
+                url: "https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal.png"
             },
             {
-                title: "یاجوج وماجوج کے فتنہ سے لوگ کیسے نجاپ پائیں گے؟ حصہ  دوم",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-doyam",
-                url: "https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-doyam"
+                title: "یاجوج وماجوج کے فتنہ سے لوگ کیسے نجات پائیں گے؟ حصہ دوم",
+                url: "https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-doyam",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-doyam.png"
             },
             {
                 title: "آپ ﷺ نے امت کو زمین کے دھنس جانے کی کیا وعید سنائی؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai",
-                url: "https://www.bloglovers.pk/alamaat-kubra/ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai"
+                url: "https://www.bloglovers.pk/alamaat-kubra/ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai.png"
             },
             {
                 title: "دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge",
-                url: "https://www.bloglovers.pk/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge"
+                url: "https://www.bloglovers.pk/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge.png"
             },
             {
-                title: "ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرے گا۔",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga",
-                url: "https://www.bloglovers.pk/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga"
+                title: "ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرے گا",
+                url: "https://www.bloglovers.pk/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga.jpg"
             },
             {
                 title: "سورج کے مغرب سے طلوع ہوتے ہی کیا کیا ہوگا؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga",
-                url: "https://www.bloglovers.pk/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga"
+                url: "https://www.bloglovers.pk/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga.png"
             },
             {
-                title: "لوگوں کے محشر کی طرف ہانک کر لے جانے والی آگ کیسی ہوگی؟",
-                image: "https://www.bloglovers.pk/images/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi",
-                url: "https://www.bloglovers.pk/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi"
+                title: "لوگوں کو محشر کی طرف ہانک کر لے جانے والی آگ کیسی ہوگی؟",
+                url: "https://www.bloglovers.pk/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi.png"
             }
         ];
 
-        // ===== 4. Render Posts Dynamically =====
-        function renderPosts() {
-            const grid = document.getElementById('postsGrid');
-            
-            postsData.forEach(post => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                card.innerHTML = `
-                    <div class="card-img">
-                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">${post.title}</h3>
-                        <a href="${post.url}" class="card-btn">پوسٹ پڑھیں</a>
-                    </div>
-                `;
-                
-                grid.appendChild(card);
-            });
-        }
+        // 2. Render Posts (All 18 posts with correct Titles and PNG images)
+        const grid = document.getElementById('postsGrid');
+        
+        posts.forEach(post => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-img">
+                    <img src="${post.image}" alt="${post.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">${post.title}</div>
+                    <a href="${post.url}" class="card-btn">پوسٹ پڑھیں</a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
 
-        // ===== 5. Share Page Function =====
+        // 3. Render Slider (Using specific impactful posts)
+        const sliderContainer = document.getElementById('mainSlider');
+        // Selecting 3 specific posts for slider manually for better impact
+        const sliderPosts = [
+            posts[0],  // Dajjal events
+            posts[16], // Sun rising from West
+            posts[11]  // Yajuj Majuj
+        ];
+
+        sliderPosts.forEach((post, index) => {
+            const slide = document.createElement('div');
+            slide.className = index === 0 ? 'slide active' : 'slide';
+            slide.innerHTML = `
+                <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <div class="slide-caption">${post.title}</div>
+            `;
+            sliderContainer.appendChild(slide);
+        });
+
+        // 4. Slider Logic
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlides() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].classList.add('active');
+            setTimeout(showSlides, 5000); // Change image every 5 seconds
+        }
+        showSlides();
+
+        // 5. Star Animation Logic
+        function createStars() {
+            const container = document.getElementById('stars');
+            for(let i=0; i<50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const xy = Math.random() * 100;
+                const duration = Math.random() * 5 + 2;
+                const size = Math.random() * 3;
+                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDuration = duration + 's';
+                
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // 6. Share Function
         async function sharePage() {
             if (navigator.share) {
                 try {
                     await navigator.share({
-                        title: 'علامات کبریٰ | قیامت کی بڑی نشانیاں',
-                        text: 'قیامت کی بڑی نشانیوں، فتنہ دجال اور یاجوج ماجوج کے بارے میں مکمل معلومات پڑھیں',
+                        title: 'علامات کبریٰ',
+                        text: 'قیامت کی بڑی نشانیاں، فتنہ دجال اور ظہور مہدی کے بارے میں مکمل معلومات',
                         url: window.location.href
                     });
                 } catch (err) {
-                    console.log('شیئرنگ میں مسئلہ:', err);
+                    console.log('Share failed');
                 }
             } else {
-                // Fallback: Copy to clipboard
                 navigator.clipboard.writeText(window.location.href).then(() => {
-                    alert('📋 صفحے کا لنک کلپ بورڈ میں کاپی ہو گیا ہے!');
+                    alert('لنک کاپی ہو گیا ہے!');
                 });
             }
         }
-
-        // ===== 6. Initialize Everything =====
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            renderPosts();
-            showSlide(0);
-        });
     </script>
-
 </body>
 </html>
