@@ -3,529 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تعلیم و تربیت | BlogLovers.pk</title>
+    <title>تعلیم | بلاگ لوورز.pk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for Fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Teko:wght@300;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome (Reliable CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
+        /* --- FONT SETUP --- */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Kasheeda');
+        }
+
         :root {
-            --bg-dark: #0f172a;
-            --bg-card: rgba(30, 41, 59, 0.7);
-            --primary: #38bdf8; /* Sky Blue */
-            --secondary: #818cf8; /* Indigo */
-            --highlight: #2dd4bf; /* Teal */
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --font-urdu: 'Noto Nastaliq Urdu', serif;
-            --font-eng: 'Teko', sans-serif;
+            --bg-dark: #050510;
+            --card-bg: rgba(20, 20, 35, 0.7);
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-purple: #bc13fe;
+            --text-main: #ffffff;
+            --text-sec: #cccccc;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
 
         body {
             background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(188, 19, 254, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 20%);
             color: var(--text-main);
-            font-family: var(--font-urdu);
-            min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
+            min-height: 100vh;
         }
 
-        /* Animated Background Canvas */
-        #edu-canvas {
+        /* Animated Background Particles */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3;
+            animation: bgMove 100s linear infinite;
             z-index: -1;
-            background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+            pointer-events: none;
         }
 
-        /* Header */
-        header {
-            text-align: center;
-            padding: 4rem 1rem;
-            position: relative;
-            z-index: 10;
-            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
+        @keyframes bgMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 1000px 1000px; }
         }
 
-        .header-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--primary), var(--highlight));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
-        }
-
-        .header-content p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .typing-effect {
-            font-family: monospace;
-            color: var(--highlight);
-            font-size: 1.1rem;
-            margin-top: 10px;
-            min-height: 24px;
-        }
-
-        /* Grid Layout */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            color: var(--primary);
-            font-size: 2rem;
-            margin: 40px 0 20px;
-            border-right: 4px solid var(--highlight);
-            padding-right: 15px;
-            background: linear-gradient(90deg, rgba(56,189,248,0.1), transparent);
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        /* Card Design */
-        .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 25px;
-            text-decoration: none;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Hover Effects */
-        .card:hover {
-            transform: translateY(-8px);
-            background: rgba(30, 41, 59, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-color: var(--primary);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary);
-            transform: scaleY(0);
-            transition: transform 0.3s;
-            transform-origin: bottom;
-        }
-
-        .card:hover::before {
-            transform: scaleY(1);
-        }
-
-        /* Icons and Text */
-        .card-icon {
-            font-size: 2rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
+        /* --- NAVIGATION & HEADER --- */
+        .top-nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 30px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .card:hover .card-icon i {
-            color: var(--highlight);
-            animation: bounce 0.5s;
+        .back-btn {
+            text-decoration: none;
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            border: 1px solid var(--neon-cyan);
+            padding: 5px 15px;
+            border-radius: 20px;
         }
 
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            line-height: 1.6;
-            font-weight: 700;
+        .back-btn:hover {
+            background: var(--neon-cyan);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-cyan);
         }
 
-        .card .tag {
-            font-size: 0.8rem;
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--primary);
-            padding: 4px 10px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: auto;
-            width: fit-content;
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
         }
 
-        /* Stats Section */
-        .stats-container {
+        header h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+            margin-bottom: 20px;
+            animation: glowText 3s infinite alternate;
+        }
+
+        @keyframes glowText {
+            0% { filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.5)); }
+            100% { filter: drop-shadow(0 0 15px rgba(188, 19, 254, 0.8)); }
+        }
+
+        /* Spinning Icons */
+        .icon-container {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
-            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
         }
 
-        .stat-box {
-            background: rgba(15, 23, 42, 0.8);
-            padding: 20px 40px;
-            border-radius: 10px;
-            border: 1px solid var(--secondary);
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .stat-box:hover {
-            box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
-        }
-
-        .stat-number {
-            font-family: var(--font-eng);
+        .spin-icon {
             font-size: 2.5rem;
-            color: var(--highlight);
-            display: block;
+            color: var(--neon-pink);
+            animation: spin 8s linear infinite;
+            text-shadow: 0 0 10px var(--neon-pink);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            background: #0b1120;
+        .spin-icon:nth-child(2) { color: var(--neon-cyan); animation-duration: 6s; animation-direction: reverse; text-shadow: 0 0 10px var(--neon-cyan); }
+        .spin-icon:nth-child(3) { color: var(--neon-purple); animation-duration: 10s; text-shadow: 0 0 10px var(--neon-purple); }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        /* --- MARQUEE SLIDER (Small Moving Slider) --- */
+        .marquee-container {
+            background: rgba(0, 243, 255, 0.1);
+            border-top: 1px solid var(--neon-cyan);
+            border-bottom: 1px solid var(--neon-cyan);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 10px 0;
+            margin-bottom: 30px;
         }
 
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+
+        .marquee-item {
+            display: inline-block;
+            margin: 0 30px;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- MAIN SLIDER --- */
+        .main-slider {
+            width: 90%;
+            max-width: 1000px;
+            height: 350px;
+            margin: 0 auto 50px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--neon-purple);
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active { opacity: 1; }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, black, transparent);
+            color: white;
+        }
+
+        .slide-content h2 {
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 4px black;
+            margin-bottom: 10px;
+        }
+
+        /* --- POST GRID --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 80px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 20px var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            z-index: 10;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--neon-purple);
+            transition: 0.4s;
+        }
+
+        .card:hover .card-img {
+            filter: brightness(1.2);
+        }
+
+        .card-content {
+            padding: 15px;
+            text-align: right;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.2rem; /* Small font size as requested */
+            color: var(--text-main);
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+
+        .card:hover .card-title {
+            color: var(--neon-cyan);
+        }
+
+        /* Hide URL text but keep card clickable */
+        .card-link-text {
+            display: none;
+        }
+
+        /* --- SHARE BUTTON --- */
+        .share-btn-fixed {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
+            z-index: 1000;
+            transition: 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .share-btn-fixed:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(188, 19, 254, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(188, 19, 254, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(188, 19, 254, 0); }
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .header-content h1 { font-size: 2.5rem; }
-            .posts-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 2.2rem; }
+            .main-slider { height: 250px; }
+            .grid { grid-template-columns: 1fr; }
+            .icon-container { gap: 20px; }
+            .spin-icon { font-size: 2rem; }
         }
+
     </style>
 </head>
 <body>
 
-    <!-- Animated Background -->
-    <canvas id="edu-canvas"></canvas>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="../index.html" class="back-btn">
+            <i class="fas fa-arrow-right"></i> واپس جائیں
+        </a>
+        <div style="color:var(--neon-cyan); font-weight:bold;">بلاگ لوورز.pk</div>
+    </nav>
 
+    <!-- Header -->
     <header>
-        <div class="header-content">
-            <h1><i class="fas fa-graduation-cap"></i> تعلیم و تربیت</h1>
-            <p>اساتذہ، والدین اور طلباء کے لیے تعلیمی مضامین، نصاب اور جدید تدریسی طریقے</p>
-            <div class="typing-effect" id="typing"></div>
+        <div class="icon-container">
+            <i class="fas fa-graduation-cap spin-icon"></i>
+            <i class="fas fa-book-open spin-icon"></i>
+            <i class="fas fa-atom spin-icon"></i>
         </div>
+        <h1>تعلیم و تربیت</h1>
+        <p style="color:var(--text-sec); font-size:1.1rem;">علم کی روشنی، کامیابی کا راستہ</p>
     </header>
 
-    <div class="container">
-        
-        <!-- Stats -->
-        <div class="stats-container">
-            <div class="stat-box">
-                <span class="stat-number">25+</span>
-                <span>تعلیمی مضامین</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number">10+</span>
-                <span>تدریسی ٹپس</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number">∞</span>
-                <span>علمی فائدہ</span>
-            </div>
+    <!-- Small Moving Slider (Marquee) -->
+    <div class="marquee-container">
+        <div class="marquee-content" id="marquee-content">
+            <!-- Items will be injected by JS -->
         </div>
-
-        <!-- Section 1: For Teachers & Schools -->
-        <div class="section-title"><i class="fas fa-chalkboard-teacher"></i> اساتذہ اور اسکولز کے لیے</div>
-        <div class="posts-grid">
-            <a href="https://www.bloglovers.pk/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-school"></i></div>
-                <h3>کمیونٹی بیسڈ سکولز کے بچوں کو کیسے سنبھالیں؟ (کرونا تناظر)</h3>
-                <span class="tag">انتظامیہ</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-user-tie"></i></div>
-                <h3>دورِ حاضر کے اساتذہ کو کیسا ہونا چاہیے؟</h3>
-                <span class="tag">تربیت اساتذہ</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/islam-mein-ustaad-ka-miyar-kya-hai" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-quran"></i></div>
-                <h3>اسلام میں استاد کا معیار کیا ہے؟</h3>
-                <span class="tag">اسلامی تعلیم</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/1400-saal-qabl-istemal-hone-wali-islami-tadrisi-hikmat-amliyan-kon-si-hain" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-history"></i></div>
-                <h3>1400 سال قبل استعمال ہونے والی اسلامی تدریسی حکمت عملی</h3>
-                <span class="tag">تاریخ</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/aaj-ka-ustaad-pareshan-kyun" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-question-circle"></i></div>
-                <h3>آج کا استاد پریشان کیوں ہے؟</h3>
-                <span class="tag">مسائل</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/akysoyn-sdi-ka-nyt-wrk-tychr" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-network-wired"></i></div>
-                <h3>اکیسویں صدی کا نیٹ ورک ٹیچر</h3>
-                <span class="tag">جدید دور</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-cloud"></i></div>
-                <h3>کلاس روم سے کلاؤڈ تک: پاکستان کا تعلیمی سفر</h3>
-                <span class="tag">آن لائن تعلیم</span>
-            </a>
-        </div>
-
-        <!-- Section 2: Student Guidance & Skills -->
-        <div class="section-title"><i class="fas fa-user-graduate"></i> طلباء کی رہنمائی اور مہارتیں</div>
-        <div class="posts-grid">
-            <a href="https://www.bloglovers.pk/taleem/akysoyn-sdi-ka-talymi-chylnj-kya-ho-ga" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                <h3>اکیسویں صدی کا تعلیمی چیلنج کیا ہوگا؟</h3>
-                <span class="tag">مستقبل</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-redo"></i></div>
-                <h3>میٹرک کے بعد زیرو سے کیوں شروع کرتا ہے پاکستانی طالب علم؟</h3>
-                <span class="tag">کیرئیر</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/asanmnt-tfoyz-kaise-lkhyn" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-pen-alt"></i></div>
-                <h3>اسائنمنٹ (تفویض) کیسے لکھیں؟</h3>
-                <span class="tag">مہارت</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/rysrch-propozl-kaise-lkhyn" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-search"></i></div>
-                <h3>ریسرچ پروپوزل کیسے لکھیں؟</h3>
-                <span class="tag">تحقیق</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
-                <h3>21ویں صدی میں سیکھنے کی مہارت کی اہمیت</h3>
-                <span class="tag">سکلز</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-tlba-main-prhne-ki-mhart-ko-brhane-ke-10-bhtryn-tryqe" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
-                <h3>طلباء میں پڑھنے کی مہارت بڑھانے کے 10 بہترین طریقے</h3>
-                <span class="tag">مطالعہ</span>
-            </a>
-        </div>
-
-        <!-- Section 3: Early Childhood & Parenting -->
-        <div class="section-title"><i class="fas fa-child"></i> ابتدائی تعلیم اور والدین</div>
-        <div class="posts-grid">
-            <a href="https://www.bloglovers.pk/taleem/naslon-mein-sudhar-lane-ke-liye-taleemi-nisab-kaisa-hona-chahiye" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-book"></i></div>
-                <h3>نسلوں میں سدھار لانے کے لیے تعلیمی نصاب کیسا ہونا چاہیے؟</h3>
-                <span class="tag">نصاب</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-ban"></i></div>
-                <h3>10 ایسی دشواریاں جو بچوں کے سیکھنے میں رکاوٹ ہیں</h3>
-                <span class="tag">مسائل</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-pencil-alt"></i></div>
-                <h3>4 سے 5 سال کے بچوں کے لیے 16 پری رائٹنگ سرگرمیاں</h3>
-                <span class="tag">سرگرمیاں</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-headphones"></i></div>
-                <h3>4 سے 5 سال کے بچوں کے لیے سننے کی 10 تفریحی سرگرمیاں</h3>
-                <span class="tag">سرگرمیاں</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-main-chori-ki-aadt-ko-khtm-krne-ke-10-bhtryn-tryqe" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-hand-paper"></i></div>
-                <h3>بچوں میں چوری کی عادت ختم کرنے کے 10 بہترین طریقے</h3>
-                <span class="tag">تربیت</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/10-esi-kotahiyan-jo-walidain-ko-apni-aulad-ke-samne-nahi-karni-chahiye" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-exclamation-circle"></i></div>
-                <h3>10 کوتاہیاں جو والدین کو اولاد کے سامنے نہیں کرنی چاہئیں</h3>
-                <span class="tag">والدین</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-calculator"></i></div>
-                <h3>ای سی سی ای (ECCE) میں ریاضی کے 10 عملی طریقے</h3>
-                <span class="tag">ریاضی</span>
-            </a>
-            
-             <a href="https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-ki-talymi-karkrdgi-ko-prkhne-ke-10-msr-tryqe" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>بچوں کی تعلیمی کارکردگی پرکھنے کے 10 موثر طریقے</h3>
-                <span class="tag">جائزہ</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-language"></i></div>
-                <h3>بچوں میں زبان کی نشوونما: کامیاب زندگی کی بنیاد</h3>
-                <span class="tag">زبان</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/5.html" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-comments"></i></div>
-                <h3>بچوں میں زبان کی نشوونما کے لیے 5 بہترین حکمت عملی</h3>
-                <span class="tag">زبان</span>
-            </a>
-        </div>
-
-        <!-- Section 4: General Education -->
-        <div class="section-title"><i class="fas fa-university"></i> عمومی تعلیم اور مسائل</div>
-        <div class="posts-grid">
-            <a href="https://www.bloglovers.pk/taleem/islami-taleem-ka-bunyadi-maqsad-achhay-aur-nek-aadmi-ki-takhleeq-kyun-hai" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-star"></i></div>
-                <h3>اسلامی تعلیم کا بنیادی مقصد: نیک آدمی کی تخلیق</h3>
-                <span class="tag">مقصد</span>
-            </a>
-
-            <a href="https://www.bloglovers.pk/taleem/skol-aur-kmyonti-maashre-ke-le-kaise-mfyd-ho-skte-hain" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-building"></i></div>
-                <h3>سکول اور کمیونٹی معاشرے کے لیے کیسے مفید ہو سکتے ہیں؟</h3>
-                <span class="tag">معاشرہ</span>
-            </a>
-
-             <a href="https://www.bloglovers.pk/taleem/jab-memar-e-qoom-hi-bad-diyanat-ho-jaye" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-sad-tear"></i></div>
-                <h3>جب معمارِ قوم ہی بددیانت ہو جائے</h3>
-                <span class="tag">المیہ</span>
-            </a>
-            
-             <a href="https://www.bloglovers.pk/taleem/brhti-hoi-fyson-ke-dor-main-mayari-talym-ke-hsol-ke-mtbadl-zraa-aan-lan-askalrshps-aur-mft-korsz" class="card" target="_blank">
-                <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                <h3>مہنگی فیسوں کے دور میں معیاری تعلیم کے متبادل ذرائع</h3>
-                <span class="tag">اسکالرشپ</span>
-            </a>
-        </div>
-
     </div>
 
-    <footer>
-        <p>© 2025 بلاگ لوورز.pk | علم کی شمع جلاتے رہیں</p>
-        <p style="font-size: 0.9rem; margin-top: 10px; color: var(--highlight);">تعلیم سب کے لیے، ہر جگہ</p>
-    </footer>
+    <!-- Main Slider -->
+    <div class="main-slider" id="main-slider">
+        <!-- Slides will be injected by JS -->
+    </div>
+
+    <!-- Main Grid -->
+    <div class="container">
+        <div class="grid" id="posts-grid">
+            <!-- Posts will be injected by JS -->
+        </div>
+    </div>
+
+    <!-- Fixed Share Button -->
+    <div class="share-btn-fixed" onclick="sharePage()">
+        <i class="fas fa-share-alt"></i>
+    </div>
 
     <script>
-        // Floating Symbols Animation
-        const canvas = document.getElementById('edu-canvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const symbols = ['∑', 'π', '∫', '√', '∞', 'α', 'β', '?', 'A', 'B', '1', '2'];
-        const particles = [];
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.text = symbols[Math.floor(Math.random() * symbols.length)];
-                this.size = Math.random() * 20 + 10;
-                this.speedX = (Math.random() - 0.5) * 1;
-                this.speedY = (Math.random() - 0.5) * 1;
-                this.opacity = Math.random() * 0.5;
+        // Data Array - Containing ONLY "Taleem" category posts
+        const taleemPosts = [
+            {
+                url: "https://www.bloglovers.pk/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn",
+                img: "https://www.bloglovers.pk/images/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn.png",
+                title: "کرونا کی صورت میں کمیونٹی بیسڈ سکولز کے بچوں کو کیسے سنبھالیں؟"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye",
+                img: "https://www.bloglovers.pk/images/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye.png",
+                title: "دورِحاضر کے اساتذہ کو کیسا ہونا چاہیے؟"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/islam-mein-ustaad-ka-miyar-kya-hai",
+                img: "https://www.bloglovers.pk/images/taleem/islam-mein-ustaad-ka-miyar-kya-hai.png",
+                title: "اسلام میں استاد کا معیار کیا ہے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/1400-saal-qabl-istemal-hone-wali-islami-tadrisi-hikmat-amliyan-kon-si-hain",
+                img: "https://www.bloglovers.pk/images/taleem/1400-saal-qabl-istemal-hone-wali-islami-tadrisi-hikmat-amliyan-kon-si-hain.png",
+                title: "1400 سال قبل استعمال ہونے والی اسلامی تدریسی حکمت عملی کیا تھیں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/aaj-ka-ustaad-pareshan-kyun",
+                img: "https://www.bloglovers.pk/images/taleem/aaj-ka-ustaad-pareshan-kyun.png",
+                title: "آج کا استاد پریشان کیوں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/islami-taleem-ka-bunyadi-maqsad-achhay-aur-nek-aadmi-ki-takhleeq-kyun-hai",
+                img: "https://www.bloglovers.pk/images/taleem/islami-taleem-ka-bunyadi-maqsad-achhay-aur-nek-aadmi-ki-takhleeq-kyun-hai.png",
+                title: "اسلامی تعلیم کا بنیادی مقصد اچھے اور نیک آدمی کی تخلیق کیوں ہے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/akysoyn-sdi-ka-talymi-chylnj-kya-ho-ga",
+                img: "https://www.bloglovers.pk/images/taleem/akysoyn-sdi-ka-talymi-chylnj-kya-ho-ga.png",
+                title: "اکیسویں صدی کا تعلیمی چیلنج کیا ہوگا"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/naslon-mein-sudhar-lane-ke-liye-taleemi-nisab-kaisa-hona-chahiye",
+                img: "https://www.bloglovers.pk/images/taleem/naslon-mein-sudhar-lane-ke-liye-taleemi-nisab-kaisa-hona-chahiye.png",
+                title: "نسلوں میں سدھار لانے کے لیے تعلیمی نصاب کیسا ہونا چاہیے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/skol-aur-kmyonti-maashre-ke-le-kaise-mfyd-ho-skte-hain",
+                img: "https://www.bloglovers.pk/images/taleem/skol-aur-kmyonti-maashre-ke-le-kaise-mfyd-ho-skte-hain.png",
+                title: "سکول اور کمیونٹی معاشرے کے لیے کیسے مفید ہو سکتے ہیں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/asanmnt-tfoyz-kaise-lkhyn",
+                img: "https://www.bloglovers.pk/images/taleem/asanmnt-tfoyz-kaise-lkhyn.png",
+                title: "اسائنمنٹ/ تفویض کیسے لکھیں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/rysrch-propozl-kaise-lkhyn",
+                img: "https://www.bloglovers.pk/images/taleem/rysrch-propozl-kaise-lkhyn.png",
+                title: "ریسرچ پروپوزل کیسے لکھیں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain",
+                img: "https://www.bloglovers.pk/images/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain.jpg",
+                title: "10ایسی دشواریاں جو بچوں کو سیکھنے میں رکاوٹ کا باعث بنتی ہیں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan",
+                img: "https://www.bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan.png",
+                title: "4-5سال کے بچوں کے لئے ٹاپ 16 پری-رائٹنگ سرگرمیاں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan",
+                img: "https://www.bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan.png",
+                title: "4-5سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-main-chori-ki-aadt-ko-khtm-krne-ke-10-bhtryn-tryqe",
+                img: "https://www.bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-main-chori-ki-aadt-ko-khtm-krne-ke-10-bhtryn-tryqe.jpg",
+                title: "4-5سال کے بچوں میں چوری کی عادت کو ختم کرنے کے 10 بہترین طریقے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/10-esi-kotahiyan-jo-walidain-ko-apni-aulad-ke-samne-nahi-karni-chahiye",
+                img: "https://www.bloglovers.pk/images/taleem/10-esi-kotahiyan-jo-walidain-ko-apni-aulad-ke-samne-nahi-karni-chahiye.png",
+                title: "10 ایسی کوتاہیاں والدین کو اپنی اولاد کے سامنے نہیں کرنی چاہیے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal",
+                img: "https://www.bloglovers.pk/images/taleem/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal.png",
+                title: "آج کی دنیا میں 21ویں صدی کے سیکھنے کی مہارت کی اہمیت پر تبادلہ خیال"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/akysoyn-sdi-ka-nyt-wrk-tychr",
+                img: "https://www.bloglovers.pk/images/taleem/akysoyn-sdi-ka-nyt-wrk-tychr.jpg",
+                title: "اکیسویں صدی کا نیٹ ورک ٹیچر"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe",
+                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe.png",
+                title: "ای سی سی ای میں ریاضی کے 10 عملی طریقے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-tlba-main-prhne-ki-mhart-ko-brhane-ke-10-bhtryn-tryqe",
+                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-tlba-main-prhne-ki-mhart-ko-brhane-ke-10-bhtryn-tryqe.png",
+                title: "ای سی سی ای کے طلبہ میں پڑھنے کی مہارت کو بڑھانے کے 10 بہترین طریقے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-ki-talymi-karkrdgi-ko-prkhne-ke-10-msr-tryqe",
+                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-ki-talymi-karkrdgi-ko-prkhne-ke-10-msr-tryqe.webp",
+                title: "ای سی سی ای کے بچوں کی تعلیمی کارکردگی کو پرکھنے کے 10 موثر طریقے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad",
+                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad.webp",
+                title: "ای سی سی ای کے بچوں میں زبان کی نشوونما کامیاب زندگی کی بنیاد"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-ke-lye5bhtryn-hkmt-amlyan",
+                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-ke-lye5bhtryn-hkmt-amlyan.webp",
+                title: "ای سی سی ای کے بچوں میں زبان کی نشوونما کے لیے 5 بہترین حکمت عملی"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm",
+                img: "https://www.bloglovers.pk/images/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm.png",
+                title: "میٹرک کے بعد زیرہ سے کیوں شروع کرتا ہے پاکستانی طالب علم؟"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/jab-memar-e-qoom-hi-bad-diyanat-ho-jaye",
+                img: "https://www.bloglovers.pk/images/taleem/jab-memar-e-qoom-hi-bad-diyanat-ho-jaye.png",
+                title: "جب معمار قوم ہی بد دیانت ہو جائے"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd",
+                img: "https://www.bloglovers.pk/images/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd.png",
+                title: "کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اور آن لائن ایجوکیشن کا عہد"
+            },
+            {
+                url: "https://www.bloglovers.pk/taleem/brhti-hoi-fyson-ke-dor-main-mayari-talym-ke-hsol-ke-mtbadl-zraa-aan-lan-askalrshps-aur-mft-korsz",
+                img: "https://www.bloglovers.pk/images/taleem/brhti-hoi-fyson-ke-dor-main-mayari-talym-ke-hsol-ke-mtbadl-zraa-aan-lan-askalrshps-aur-mft-korsz.png",
+                title: "بڑھتی ہوئی فیسوں کے دور میں معیاری تعلیم کے حصول کے متبادل ذرائع آن لائن اسکالرشپس اور مفت کورسز"
             }
+        ];
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+        const gridContainer = document.getElementById('posts-grid');
+        const sliderContainer = document.getElementById('main-slider');
+        const marqueeContainer = document.getElementById('marquee-content');
 
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
-                ctx.font = `${this.size}px monospace`;
-                ctx.fillText(this.text, this.x, this.y);
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Render Posts Grid
+        taleemPosts.forEach(post => {
+            const card = document.createElement('a');
+            card.className = 'card';
+            card.href = post.url;
+            card.target = '_blank'; // Open in new tab
+            
+            card.innerHTML = `
+                <img src="${post.img}" alt="${post.title}" class="card-img" onerror="this.src='https://via.placeholder.com/300x180?text=BlogLovers';">
+                <div class="card-content">
+                    <div class="card-title">${post.title}</div>
+                </div>
+            `;
+            gridContainer.appendChild(card);
         });
 
-        init();
-        animate();
+        // Render Small Marquee
+        taleemPosts.forEach(post => {
+            const span = document.createElement('span');
+            span.className = 'marquee-item';
+            span.innerHTML = `<i class="fas fa-star" style="color:var(--neon-pink);font-size:0.8rem;"></i> ${post.title}`;
+            marqueeContainer.appendChild(span);
+        });
+        // Duplicate for infinite scroll visual
+        taleemPosts.forEach(post => {
+            const span = document.createElement('span');
+            span.className = 'marquee-item';
+            span.innerHTML = `<i class="fas fa-star" style="color:var(--neon-pink);font-size:0.8rem;"></i> ${post.title}`;
+            marqueeContainer.appendChild(span);
+        });
 
-        // Typing Effect
-        const textToType = "علم حاصل کرو، چاہے تمہیں چین جانا پڑے...";
-        const typingElement = document.getElementById('typing');
-        let index = 0;
+        // Render Main Slider (First 5 Posts)
+        const sliderPosts = taleemPosts.slice(0, 5); // Take first 5 for slider
+        sliderPosts.forEach((post, index) => {
+            const slide = document.createElement('div');
+            slide.className = index === 0 ? 'slide active' : 'slide';
+            slide.style.backgroundImage = `url('${post.img}')`;
+            
+            slide.innerHTML = `
+                <div class="slide-content">
+                    <h2>${post.title}</h2>
+                    <a href="${post.url}" style="color:var(--neon-cyan); text-decoration:none; font-weight:bold;">مزید پڑھیں <i class="fas fa-arrow-left"></i></a>
+                </div>
+            `;
+            sliderContainer.appendChild(slide);
+        });
 
-        function typeText() {
-            if (index < textToType.length) {
-                typingElement.innerHTML += textToType.charAt(index);
-                index++;
-                setTimeout(typeText, 100);
+        // Main Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 4000); // Change slide every 4 seconds
+
+        // Share Function
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'تعلیم | بلاگ لوورز.pk',
+                    text: 'تعلیم اور تربیت کے بہترین مضامین پڑھیں۔',
+                    url: window.location.href,
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+            } else {
+                alert(' لنک کاپی ہو گیا!\n' + window.location.href);
             }
         }
-        
-        setTimeout(typeText, 1000);
     </script>
 </body>
 </html>
