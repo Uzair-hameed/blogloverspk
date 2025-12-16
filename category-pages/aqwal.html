@@ -3,348 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اقوال زریں | حکمت و دانائی کا خزانہ</title>
+    <title>اقوال زریں | بلاگ لوورز</title>
+    <!-- Urdu Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Google Fonts for Urdu -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gulzar&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-
     <style>
-        /* --- CSS VARIABLES --- */
-        :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --gold-primary: #fbbf24;
-            --gold-secondary: #d97706;
-            --text-light: #f1f5f9;
-            --text-dim: #94a3b8;
-            --border-glow: rgba(251, 191, 36, 0.3);
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* --- Font & Colors --- */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Kasheeda'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v18/IONv7VFLir0wyV3C1bK6y5iQ06T6L7i0.woff2') format('woff2');
         }
 
-        /* --- RESET & BASE STYLES --- */
+        :root {
+            --bg-dark: #0a0a0a;
+            --card-bg: #141414;
+            --gold: #FFD700;
+            --gold-dim: #998100;
+            --text: #f0f0f0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            outline: none;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
 
         body {
             background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(251, 191, 36, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(217, 119, 6, 0.05) 0%, transparent 40%);
-            color: var(--text-light);
-            font-family: 'Noto Nastaliq Urdu', serif;
-            line-height: 1.8;
+            background-image: linear-gradient(to bottom, #000 0%, #111 100%);
+            color: var(--text);
+            font-size: 16px;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* --- HEADER SECTION --- */
+        /* --- Header --- */
         header {
             text-align: center;
-            padding: 5rem 1rem 3rem;
+            padding: 30px 10px;
+            border-bottom: 2px solid var(--gold-dim);
+            background: rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .symbol-decor {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin: 0 10px;
+        }
+
+        /* --- Slider --- */
+        .slider-container {
+            width: 95%;
+            max-width: 800px;
+            height: 250px;
+            margin: 25px auto;
+            border-radius: 15px;
+            border: 1px solid var(--gold-dim);
             position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.1);
         }
 
-        .header-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            filter: drop-shadow(0 0 15px var(--gold-primary));
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .header-icon svg {
+        .slide {
             width: 100%;
             height: 100%;
-            fill: none;
-            stroke: var(--gold-primary);
-            stroke-width: 1.5;
-        }
-
-        h1 {
-            font-family: 'Gulzar', serif;
-            font-size: 3.5rem;
-            background: linear-gradient(to right, var(--gold-primary), #fff, var(--gold-primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        p.subtitle {
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* --- GRID CONTAINER --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            padding-bottom: 5rem;
-        }
-
-        /* --- CARD DESIGN --- */
-        .card {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            position: relative;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            animation: fadeInUp 0.8s ease-out forwards;
+            position: absolute;
+            background-size: cover;
+            background-position: center;
             opacity: 0;
-            text-decoration: none;
-        }
-
-        /* Staggered Animation Delays */
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-
-        /* Card Hover Effects */
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-            border-color: var(--gold-primary);
-            box-shadow: 0 20px 40px -5px rgba(251, 191, 36, 0.15);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gold-primary), var(--gold-secondary));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: var(--transition);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(251, 191, 36, 0.1);
-            border-radius: 12px;
+            transition: opacity 1s ease;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            transition: var(--transition);
         }
 
-        .card:hover .card-icon {
-            background: var(--gold-primary);
-            transform: rotate(15deg);
-        }
+        .slide.active { opacity: 1; }
 
-        .card-icon svg {
-            width: 28px;
-            height: 28px;
-            stroke: var(--gold-primary);
-            stroke-width: 2;
-            transition: var(--transition);
-        }
-
-        .card:hover .card-icon svg {
-            stroke: var(--bg-dark);
-        }
-
-        .card h2 {
-            color: var(--text-light);
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-            font-weight: 700;
-        }
-
-        .card p {
-            color: var(--text-dim);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            flex-grow: 1; /* Pushes button to bottom */
-        }
-
-        .read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--gold-primary);
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: auto;
-            transition: var(--transition);
-        }
-
-        .card:hover .read-more {
-            gap: 15px;
-            color: #fff;
-        }
-
-        .read-more svg {
-            width: 18px;
-            height: 18px;
-            stroke: currentColor;
-            stroke-width: 2.5;
-        }
-
-        /* --- DECORATIVE ELEMENTS --- */
-        .decoration-circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-        }
-        .dc-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: rgba(251, 191, 36, 0.08); }
-        .dc-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: rgba(217, 119, 6, 0.08); }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding: 2rem;
+        .slide-caption {
+            background: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            padding: 15px;
             text-align: center;
-            color: var(--text-dim);
-            font-size: 0.9rem;
+            color: var(--gold);
+            font-size: 1.2rem;
+            border-top: 1px solid var(--gold-dim);
         }
 
-        /* --- MOBILE TWEAKS --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .container { padding: 1rem; }
-            .posts-grid { grid-template-columns: 1fr; }
+        /* --- Stats Bar --- */
+        .stats-bar {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text);
+            font-size: 0.9rem;
+            background: #111;
+            padding: 8px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
         }
+        .live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0.2; } }
+
+        /* --- Grid --- */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.15);
+        }
+
+        .card-img-box {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img-box img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .card-title {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin: 0;
+            transition: color 0.3s;
+        }
+
+        .card:hover .card-title {
+            color: var(--gold);
+        }
+
+        /* --- Buttons --- */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #111;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #222;
+            color: #555;
+            font-size: 0.8rem;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Decorative Glows -->
-    <div class="decoration-circle dc-1"></div>
-    <div class="decoration-circle dc-2"></div>
-
     <header>
-        <div class="header-icon">
-            <!-- Diamond Icon SVG -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 3h12l4 6-10 13L2 9z"></path>
-                <path d="M10 22L8 9l5.5-6"></path>
-                <path d="M14 22l2-13-5.5-6"></path>
-            </svg>
-        </div>
+        <span class="symbol-decor">✦</span>
         <h1>اقوال زریں</h1>
-        <p class="subtitle">دانشوروں، مفکرین اور علما کے وہ سنہری الفاظ جو زندگی بدلنے کی طاقت رکھتے ہیں۔</p>
+        <span class="symbol-decor">✦</span>
+        <p>حکمت و دانائی کے نایاب موتی</p>
     </header>
 
-    <main class="container">
-        <div class="posts-grid">
+    <!-- Slider -->
+    <div class="slider-container" id="slider">
+        <!-- Slides inserted via JS -->
+    </div>
 
-            <!-- Post 1 -->
-            <a href="https://www.bloglovers.pk/aqwal/taleem-ki-roshni-par-50-aqwal-zareen" class="card" target="_blank">
-                <div class="card-icon">
-                    <!-- Book Icon SVG -->
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                    </svg>
-                </div>
-                <h2>تعلیم کی روشنی پر 50 اقوال زریں</h2>
-                <p>علم ایک ایسا نور ہے جو اندھیروں کو مٹاتا ہے۔ جانیں تعلیم کی اہمیت پر دنیا کے عظیم مفکرین کے 50 بہترین اقوال جو طلباء کے لیے مشعل راہ ہیں۔</p>
-                <span class="read-more">
-                    پڑھیں 
-                    <!-- Arrow Left SVG (Since RTL) -->
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
-                </span>
-            </a>
+    <!-- Stats -->
+    <div class="stats-bar">
+        <span class="live-dot"></span>
+        لائیو اپڈیٹ | کل پوسٹس: <span id="count">0</span>
+    </div>
 
-            <!-- Post 2 -->
-            <a href="https://www.bloglovers.pk/aqwal/dyjytl-gmrahi-aur-aqbal-ki-rhnmai-aaj-ke-nojoan-ke-lye-10-bhtryn-hkmt-amlyantxt" class="card" target="_blank">
-                <div class="card-icon">
-                    <!-- Compass/Guidance Icon SVG -->
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                    </svg>
-                </div>
-                <h2>ڈیجیٹل گمراہی اور اقبال کی رہنمائی</h2>
-                <p>آج کے ڈیجیٹل دور میں نوجوانوں کو درپیش چیلنجز اور علامہ اقبال کی شاعری کی روشنی میں 10 بہترین حکمت عملیاں جو کامیابی کی ضمانت ہیں۔</p>
-                <span class="read-more">
-                    پڑھیں 
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
-                </span>
-            </a>
-
-            <!-- Placeholder for Future Posts (Optional Visual Balance) -->
-            <!-- اگر آپ مزید پوسٹس ایڈ کریں گے تو وہ یہاں خودکار طور پر اسی سٹائل میں آئیں گی -->
-
+    <!-- Main Content -->
+    <div class="container">
+        <div class="grid" id="posts-grid">
+            <!-- Posts inserted via JS -->
         </div>
-    </main>
+    </div>
+
+    <!-- Buttons -->
+    <div class="actions">
+        <button class="btn" onclick="sharePage()">➦ دوستوں سے شیئر کریں</button>
+        <a href="https://www.bloglovers.pk" class="btn">🏠 مرکزی صفحہ</a>
+    </div>
 
     <footer>
-        <p>&copy; 2025 بلاگ لوورز.pk - جملہ حقوق محفوظ ہیں</p>
-        <div style="margin-top: 10px; opacity: 0.6;">
-            <svg style="width:20px; vertical-align:middle; margin:0 5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            <svg style="width:20px; vertical-align:middle; margin:0 5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            <svg style="width:20px; vertical-align:middle; margin:0 5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-        </div>
+        <p>© 2025 بلاگ لوورز - جملہ حقوق محفوظ ہیں</p>
     </footer>
 
     <script>
-        // Simple script to add extra staggered animation on scroll if needed
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 * index);
-            });
+        // --- DATA SECTION: Only Aqwal Posts ---
+        const posts = [
+            {
+                url: "https://www.bloglovers.pk/aqwal/taleem-ki-roshni-par-50-aqwal-zareen",
+                img: "https://www.bloglovers.pk/images/aqwal/taleem-ki-roshni-par-50-aqwal-zareen.html",
+                title: "تعلیم کی روشنی پر 50 اقوال زریں"
+            },
+            {
+                url: "https://www.bloglovers.pk/aqwal/dyjytl-gmrahi-aur-aqbal-ki-rhnmai-aaj-ke-nojoan-ke-lye-10-bhtryn-hkmt-amlyantxt",
+                img: "https://www.bloglovers.pk/images/aqwal/dyjytl-gmrahi-aur-aqbal-ki-rhnmai-aaj-ke-nojoan-ke-lye-10-bhtryn-hkmt-amlyantxt.png",
+                title: "ڈیجیٹل گمراہی اور اقبال کی رہنمائی: نوجوانوں کے لیے 10 حکمت عملیاں"
+            }
+        ];
+
+        // --- Render Functions ---
+        const sliderContainer = document.getElementById('slider');
+        const gridContainer = document.getElementById('posts-grid');
+        document.getElementById('count').innerText = posts.length;
+
+        posts.forEach((post, index) => {
+            // 1. Add to Slider
+            const slideDiv = document.createElement('div');
+            slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
+            slideDiv.style.backgroundImage = `url('${post.img}')`;
+            slideDiv.innerHTML = `<div class="slide-caption">${post.title}</div>`;
+            sliderContainer.appendChild(slideDiv);
+
+            // 2. Add to Grid
+            const cardLink = document.createElement('a');
+            cardLink.href = post.url;
+            cardLink.className = 'card';
+            cardLink.innerHTML = `
+                <div class="card-img-box">
+                    <img src="${post.img}" onerror="this.src='https://via.placeholder.com/300x180/000/FFD700?text=Aqwal'" alt="${post.title}">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">${post.title}</h3>
+                </div>
+            `;
+            gridContainer.appendChild(cardLink);
         });
+
+        // --- Slider Animation Logic ---
+        let current = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function runSlider() {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }
+        setInterval(runSlider, 4000); // Change slide every 4 seconds
+
+        // --- Share Logic ---
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('لنک کاپی ہو گیا ہے!');
+            }
+        }
     </script>
 </body>
 </html>
