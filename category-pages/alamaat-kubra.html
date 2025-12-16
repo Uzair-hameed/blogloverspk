@@ -3,127 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>علاماتِ کبریٰ | قیامت کی بڑی نشانیاں</title>
+    <title>علامات کبریٰ | بلاگ لوورز</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Jameel Noori Nastaleeq Font -->
+    <style>
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.eot');
+            src: url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.eot?#iefix') format('embedded-opentype'),
+                 url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.woff') format('woff'),
+                 url('https://cdn.rawgit.com/rastikerdar/sahel-font/v1.0.0-alpha23/dist/Farsi-Digits/SAHEL-FD-WOL.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            font-family: 'Jameel Noori Nastaleeq', serif !important;
+        }
+    </style>
     
-    <!-- Urdu Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Reliable Icon CDN (Works on Vercel) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
         :root {
-            --bg-dark: #1a0505;
-            --card-bg: rgba(40, 10, 10, 0.7);
-            --text-main: #ffe4e1;
-            --gold: #FFD700;
-            --red-glow: #ff4500;
-            --border-color: #8B0000;
+            --primary-color: #8B0000; /* Dark Red */
+            --secondary-color: #000000;
+            --accent-color: #FFD700; /* Gold */
+            --text-color: #F0E6D2;
+            --card-bg: rgba(30, 30, 30, 0.95);
+            --hover-glow: rgba(255, 69, 0, 0.5);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Nastaliq Urdu', serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.2) 0%, transparent 60%),
-                linear-gradient(to bottom, #0f0202, #2d0a0a);
-            color: var(--text-main);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a001a 50%, #0a0a0a 100%);
+            color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
             line-height: 1.8;
         }
 
-        /* Ember Animation Background */
-        .embers {
+        /* ===== Animated Background Elements ===== */
+        .bg-particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: 0;
             overflow: hidden;
         }
-        .ember {
+
+        .particle {
             position: absolute;
-            bottom: -10px;
-            width: 4px;
-            height: 4px;
-            background: orange;
+            background: rgba(255, 69, 0, 0.1);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--red-glow);
-            animation: rise 10s infinite linear;
-            opacity: 0;
-        }
-        @keyframes rise {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+            animation: float 20s infinite linear;
         }
 
-        /* Header Section */
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* ===== Spinning Icons ===== */
+        .spinning-icons {
+            position: fixed;
+            top: 20%;
+            right: 5%;
+            z-index: 1;
+        }
+
+        .spin-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            display: block;
+            animation: spin 8s infinite linear;
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== Header ===== */
         header {
-            text-align: center;
-            padding: 4rem 1rem;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            box-shadow: 0 5px 25px rgba(139, 0, 0, 0.4);
             position: relative;
-            z-index: 2;
-            border-bottom: 2px solid var(--border-color);
-            background: rgba(0,0,0,0.3);
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto 20px;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, var(--primary-color), #FF4500);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.5);
+            border: 1px solid transparent;
+        }
+
+        .back-btn:hover {
+            background: transparent;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            transform: translateX(10px);
+            box-shadow: 0 0 25px var(--accent-color);
+        }
+
+        h1.main-title {
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 2.8rem;
+            text-shadow: 
+                0 0 10px var(--primary-color),
+                0 0 20px var(--primary-color),
+                0 0 30px var(--primary-color);
+            margin: 15px 0;
+            animation: titleGlow 3s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 10px var(--primary-color); }
+            100% { text-shadow: 0 0 30px #FF4500, 0 0 40px #FF4500; }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* ===== Main Slider ===== */
+        .main-slider {
+            max-width: 1100px;
+            height: 450px;
+            margin: 40px auto;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--accent-color);
+            z-index: 5;
+        }
+
+        .slider-item {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slider-item.active {
+            display: block;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6) contrast(1.1);
+            transition: transform 10s linear;
+        }
+
+        .slider-item.active img {
+            animation: zoomSlow 8s linear;
+        }
+
+        @keyframes zoomSlow {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .slider-caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.7rem;
+            text-shadow: 0 3px 6px black;
+        }
+
+        /* ===== Moving Ticker ===== */
+        .ticker-container {
+            background: rgba(20, 0, 0, 0.9);
+            padding: 15px 0;
+            margin: 40px 0;
+            border-top: 2px solid var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            overflow: hidden;
+            position: relative;
+            z-index: 5;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: tickerMove 40s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            padding: 0 40px;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ticker-item i {
+            color: var(--accent-color);
+            font-size: 1.4rem;
+        }
+
+        @keyframes tickerMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== Posts Grid ===== */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #444;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(5px);
         }
 
-        header h1 {
-            font-size: 3.5rem;
-            color: var(--gold);
-            text-shadow: 0 0 20px var(--red-glow), 0 0 10px orange;
-            margin-bottom: 10px;
-            animation: pulseText 3s infinite alternate;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: #ccc;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Grid Layout */
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            padding-bottom: 50px;
-        }
-
-        /* Card Design */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 25px;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            text-decoration: none;
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 35px var(--hover-glow);
         }
 
         .card::before {
@@ -131,344 +288,451 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 100%;
             height: 100%;
-            background: var(--gold);
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--gold);
-            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.3);
-            background: rgba(60, 10, 10, 0.9);
+            background: linear-gradient(45deg, transparent, rgba(255, 69, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s;
         }
 
         .card:hover::before {
-            width: 100%;
-            opacity: 0.1;
+            opacity: 1;
         }
 
-        /* Card Content */
-        .card-icon {
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-            background: rgba(0,0,0,0.4);
-            width: 60px;
-            height: 60px;
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 2px solid #333;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.15) rotate(1deg);
+        }
+
+        .card-content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.1rem; /* Small font size as requested */
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            line-height: 1.9;
+            font-weight: 600;
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-shadow: 0 1px 3px black;
+        }
+
+        .card-btn {
+            background: linear-gradient(45deg, var(--primary-color), #FF4500);
+            color: white;
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: all 0.4s;
+            border: 1px solid transparent;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .card-btn:hover::before {
+            left: 100%;
+        }
+
+        .card-btn:hover {
+            background: transparent;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        /* ===== Share Button ===== */
+        .share-btn {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(45deg, var(--primary-color), #FF4500);
+            color: white;
             border-radius: 50%;
-            border: 1px solid var(--border-color);
-            transition: 0.4s;
-        }
-
-        .card:hover .card-icon {
-            background: var(--gold);
-            color: var(--bg-dark);
-            transform: rotate(360deg);
-        }
-
-        .card h3 {
-            font-size: 1.4rem;
-            color: #fff;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .card-meta {
-            font-size: 0.8rem;
-            color: #aaa;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 69, 0, 0.6);
+            z-index: 100;
+            border: none;
+            transition: all 0.4s;
+            animation: sharePulse 2s infinite;
         }
 
-        .read-btn {
-            color: var(--gold);
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .share-btn:hover {
+            transform: scale(1.15) rotate(20deg);
+            box-shadow: 0 0 35px var(--accent-color);
         }
 
-        /* Section Separator */
-        .section-title {
-            grid-column: 1 / -1;
-            margin: 40px 0 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--gold);
-            font-size: 1.8rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+        @keyframes sharePulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 69, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); }
         }
-        .section-title i { color: var(--red-glow); }
 
-        /* Footer */
+        /* ===== Footer ===== */
         footer {
             text-align: center;
-            padding: 2rem;
-            background: #000;
-            color: #888;
+            padding: 50px 30px;
+            background: rgba(0, 0, 0, 0.95);
+            margin-top: 80px;
+            border-top: 4px solid var(--primary-color);
+            font-size: 1rem;
+            color: #aaa;
             position: relative;
-            z-index: 2;
-            border-top: 3px solid var(--border-color);
+            z-index: 5;
         }
 
-        /* Responsive */
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1100px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 30px;
+            }
+            
+            .main-slider {
+                height: 380px;
+                margin: 30px auto;
+            }
+            
+            h1.main-title {
+                font-size: 2.3rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
-            .posts-grid { grid-template-columns: 1fr; }
-        }
-
-        @keyframes pulseText {
-            0% { text-shadow: 0 0 20px var(--red-glow); }
-            100% { text-shadow: 0 0 40px red, 0 0 10px var(--gold); }
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .main-slider {
+                height: 280px;
+            }
+            
+            .slider-caption {
+                font-size: 1.3rem;
+                padding: 20px;
+            }
+            
+            h1.main-title {
+                font-size: 1.9rem;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .card-title {
+                font-size: 1rem;
+                min-height: 70px;
+            }
+            
+            .share-btn {
+                bottom: 20px;
+                left: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.4rem;
+            }
+            
+            .spinning-icons {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Animation Elements -->
-    <div class="embers" id="embersContainer"></div>
+    <!-- Animated Background Particles -->
+    <div class="bg-particles" id="bgParticles"></div>
 
-    <header>
-        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--red-glow); margin-bottom: 1rem;"></i>
-        <h1>علاماتِ کبریٰ</h1>
-        <p>قیامت کے قریب ظاہر ہونے والی عظیم اور ہیبت ناک نشانیاں</p>
-        <p style="font-size: 0.9rem; margin-top: 10px; color: var(--gold);">
-            (کل مضامین: 18)
-        </p>
-    </header>
-
-    <div class="container">
-
-        <div class="posts-grid">
-
-            <!-- Section: Fitna-e-Dajjal -->
-            <div class="section-title">
-                <i class="fas fa-eye-slash"></i> فتنہ دجال
-            </div>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl" class="card">
-                <div class="card-icon"><i class="fas fa-list-ol"></i></div>
-                <h3>5 ایسے کون سے واقعات پیش آئیں گے ؟ فتنہ دجال سے قبل</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-clock"></i> مطالعہ کا وقت: 5 منٹ</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol" class="card">
-                <div class="card-icon"><i class="fas fa-fire-alt"></i></div>
-                <h3>مصائب ِ دجال (حصہ اول)</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-book-open"></i> ابتدائی تفصیلات</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom" class="card">
-                <div class="card-icon"><i class="fas fa-fire"></i></div>
-                <h3>مصائب ِ دجال (حصہ دوم)</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-book-open"></i> تفصیلات جاری</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-som" class="card">
-                <div class="card-icon"><i class="fas fa-skull"></i></div>
-                <h3>مصائبِ دجال (حصہ سوم)</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-book-open"></i> آخری حصہ</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi" class="card">
-                <div class="card-icon"><i class="fas fa-bolt"></i></div>
-                <h3>دجال کو کون کون سے طاقتیں دی گئی ہونگی؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-magic"></i> شیطانی طاقتیں</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay" class="card">
-                <div class="card-icon"><i class="fas fa-users-slash"></i></div>
-                <h3>دجال کے ساتھی کون لوگ ہونگے؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-user-secret"></i> پیروکاروں کی شناخت</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain" class="card">
-                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>دجال سے نجات کے لیے ہمیں کیا تعلیمات دی گئی ہیں؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-praying-hands"></i> حفاظت کے طریقے</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <!-- Section: Hazrat Isa (AS) -->
-            <div class="section-title">
-                <i class="fas fa-star-and-crescent"></i> نزولِ حضرت عیسیٰ علیہ السلام
-            </div>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol" class="card">
-                <div class="card-icon"><i class="fas fa-cloud-sun"></i></div>
-                <h3>حضرت عیسیٰؑ دوبارہ زمین پر کیوں تشریف لائیں گے؟ (حصہ اول)</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-history"></i> نزول کا مقصد</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom" class="card">
-                <div class="card-icon"><i class="fas fa-cloud-sun-rain"></i></div>
-                <h3>حضرت عیسیٰؑ دوبارہ زمین پر کیوں تشریف لائیں گے؟ (حصہ دوم)</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-info-circle"></i> مزید وجوہات</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/hzrt-aysy-ka-dor-hkomt-kysa-hoga" class="card">
-                <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
-                <h3>حضرت عیسیٰؑ کا دورِ حکومت کیسا ہوگا؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-globe"></i> عدل و انصاف</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai" class="card">
-                <div class="card-icon"><i class="fas fa-ban"></i></div>
-                <h3>تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-scroll"></i> قتل خنزیر کا پس منظر</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <!-- Section: Yajooj Majooj & Others -->
-            <div class="section-title">
-                <i class="fas fa-mountain"></i> یاجوج ماجوج اور دیگر آفات
-            </div>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal" class="card">
-                <div class="card-icon"><i class="fas fa-people-group"></i></div>
-                <h3>یاجوج ماجوج کے فتنہ سے لوگ کیسے نجات پائیں گے؟ (حصہ اول)</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-dungeon"></i> دیوارِ ذوالقرنین</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-doyam" class="card">
-                <div class="card-icon"><i class="fas fa-users"></i></div>
-                <h3>یاجوج ماجوج کے فتنہ سے لوگ کیسے نجات پائیں گے؟ (حصہ دوم)</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-pray"></i> اللہ کی مدد</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga" class="card">
-                <div class="card-icon"><i class="fas fa-paw"></i></div>
-                <h3>ایسا عجیب جانور جو قربِ قیامت لوگوں سے بات کرے گا</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-comment-dots"></i> دابتہ الارض</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <!-- Section: Cosmic Signs -->
-            <div class="section-title">
-                <i class="fas fa-meteor"></i> کائناتی نشانیاں
-            </div>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga" class="card">
-                <div class="card-icon"><i class="fas fa-sun"></i></div>
-                <h3>سورج کے مغرب سے طلوع ہوتے ہی کیا کیا ہوگا؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-door-closed"></i> توبہ کا دروازہ</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge" class="card">
-                <div class="card-icon"><i class="fas fa-smog"></i></div>
-                <h3>دھوئیں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-exclamation-circle"></i> دخان کا بیان</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai" class="card">
-                <div class="card-icon"><i class="fas fa-house-crack"></i></div>
-                <h3>آپ ﷺ نے امت کو زمین کے دھنس جانے کی کیا وعید سنائی؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-globe-americas"></i> خسف کا عذاب</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-            <a href="https://www.bloglovers.pk/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi" class="card">
-                <div class="card-icon"><i class="fas fa-fire-extinguisher"></i></div>
-                <h3>لوگوں کے محشر کی طرف ہانک کر لے جانے والی آگ کیسی ہوگی؟</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-running"></i> آخری نشانی</span>
-                    <span class="read-btn">پڑھیں <i class="fas fa-arrow-left"></i></span>
-                </div>
-            </a>
-
-        </div>
-
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="/" style="background: var(--gold); color: #000; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s;">
-                <i class="fas fa-home"></i> ہوم پیج پر جائیں
-            </a>
-        </div>
-
+    <!-- Spinning Icons -->
+    <div class="spinning-icons">
+        <i class="fas fa-star spin-icon"></i>
+        <i class="fas fa-fire spin-icon" style="animation-delay: 1s;"></i>
+        <i class="fas fa-cross spin-icon" style="animation-delay: 2s;"></i>
+        <i class="fas fa-moon spin-icon" style="animation-delay: 3s;"></i>
     </div>
 
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i> ہوم پیج پر واپس
+            </a>
+            <div style="font-weight: bold; color:white; font-size: 1.3rem; text-shadow: 0 0 10px var(--accent-color);">بلاگ لوورز</div>
+        </div>
+        <h1 class="main-title">علامات کبریٰ</h1>
+        <p class="subtitle">قیامت کی بڑی نشانیاں، فتنہ دجال، یاجوج ماجوج اور ظہور مہدی علیہ السلام</p>
+    </header>
+
+    <!-- Main Slider -->
+    <div class="main-slider">
+        <div class="slider-item active">
+            <img src="https://www.bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl" alt="فتنہ دجال سے پہلے" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'">
+            <div class="slider-caption">فتنہ دجال: امت محمدیہ کی سب سے بڑی آزمائش</div>
+        </div>
+        <div class="slider-item">
+            <img src="https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal" alt="یاجوج ماجوج" onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'">
+            <div class="slider-caption">یاجوج ماجوج کا خروج: دنیا پر تباہی کا سیلاب</div>
+        </div>
+        <div class="slider-item">
+            <img src="https://www.bloglovers.pk/images/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga" alt="سورج مغرب سے طلوع" onerror="this.src='https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'">
+            <div class="slider-caption">سورج مغرب سے طلوع ہونے پر توبہ کا دروازہ بند</div>
+        </div>
+    </div>
+
+    <!-- Moving Ticker -->
+    <div class="ticker-container">
+        <div class="ticker-track">
+            <div class="ticker-item"><i class="fas fa-exclamation-triangle"></i> دجال کا فتنہ تاریخ کا سب سے بڑا فتنہ ہے</div>
+            <div class="ticker-item"><i class="fas fa-book-quran"></i> علامات کبریٰ کا علم ایمان کی تکمیل ہے</div>
+            <div class="ticker-item"><i class="fas fa-shield-alt"></i> یاجوج ماجوج سے نجات حضرت عیسیٰ علیہ السلام کی دعا سے</div>
+            <div class="ticker-item"><i class="fas fa-sun"></i> سورج مغرب سے نکلے گا تو توبہ قبول نہ ہوگی</div>
+            <div class="ticker-item"><i class="fas fa-exclamation-triangle"></i> دجال کا فتنہ تاریخ کا سب سے بڑا فتنہ ہے</div>
+            <div class="ticker-item"><i class="fas fa-book-quran"></i> علامات کبریٰ کا علم ایمان کی تکمیل ہے</div>
+            <div class="ticker-item"><i class="fas fa-shield-alt"></i> یاجوج ماجوج سے نجات حضرت عیسیٰ علیہ السلام کی دعا سے</div>
+            <div class="ticker-item"><i class="fas fa-sun"></i> سورج مغرب سے نکلے گا تو توبہ قبول نہ ہوگی</div>
+        </div>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="container">
+        <div class="grid" id="postsGrid">
+            <!-- Posts will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Share Button -->
+    <button class="share-btn" onclick="sharePage()" title="اس صفحے کو شیئر کریں">
+        <i class="fas fa-share-alt"></i>
+    </button>
+
+    <!-- Footer -->
     <footer>
-        <p>© 2025 بلاگ لوورز.pk | تمام حقوق محفوظ ہیں</p>
-        <p>اَللّٰھُمَّ اَجِرْنَا مِنَ النَّارِ</p>
+        <p>&copy; 2025 علامات کبریٰ | بلاگ لوورز | تمام حقوق محفوظ ہیں</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">قیامت کی بڑی نشانیوں سے متعلق مکمل معلومات</p>
     </footer>
 
     <script>
-        // Generating flying embers
-        const embersContainer = document.getElementById('embersContainer');
-        const emberCount = 30;
-
-        for (let i = 0; i < emberCount; i++) {
-            let ember = document.createElement('div');
-            ember.className = 'ember';
-            ember.style.left = Math.random() * 100 + 'vw';
-            ember.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            ember.style.animationDelay = (Math.random() * 5) + 's';
+        // ===== 1. Create Animated Background Particles =====
+        function createParticles() {
+            const container = document.getElementById('bgParticles');
+            const particleCount = 30;
             
-            // Random size variation
-            let size = Math.random() * 5 + 2;
-            ember.style.width = size + 'px';
-            ember.style.height = size + 'px';
-            
-            embersContainer.appendChild(ember);
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 100 + 20;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.opacity = Math.random() * 0.2 + 0.05;
+                
+                container.appendChild(particle);
+            }
         }
+
+        // ===== 2. Main Slider Functionality =====
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-item');
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Auto slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // ===== 3. Posts Data from Excel (alamaat-kubra category only) =====
+        const postsData = [
+            {
+                title: "5 ایسے کون سے واقعات پیش آئیں گے ؟ فتنہ دجال سے قبل",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl",
+                url: "https://www.bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl"
+            },
+            {
+                title: "مصائب ِ دجال (حصہ اول)",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol",
+                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol"
+            },
+            {
+                title: "مصائب ِ دجال (حصہ دوم)",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom",
+                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom"
+            },
+            {
+                title: "مصائبِ دجال (حصہ سوم)",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som",
+                url: "https://www.bloglovers.pk/alamaat-kubra/msab-djal-hsh-som"
+            },
+            {
+                title: "دجال کو کون کون سے طاقتیں دی گئی ہونگی؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi",
+                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi"
+            },
+            {
+                title: "دجال کے ساتھی کون لوگ ہونگے؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay",
+                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay"
+            },
+            {
+                title: "دجال  سے نجات کے لئے ہمیں کیا تعلیمات دی گئی ہیں؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain",
+                url: "https://www.bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain"
+            },
+            {
+                title: "حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ اول)",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol",
+                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol"
+            },
+            {
+                title: "حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ دوم)",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom",
+                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom"
+            },
+            {
+                title: "تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai",
+                url: "https://www.bloglovers.pk/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai"
+            },
+            {
+                title: "حضرت عیسیٰ کا دور حکومت کیسا ہوگا؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/hzrt-aysy-ka-dor-hkomt-kysa-hoga",
+                url: "https://www.bloglovers.pk/alamaat-kubra/hzrt-aysy-ka-dor-hkomt-kysa-hoga"
+            },
+            {
+                title: "یاجوج وماجوج کے فتنہ سے لوگ کیسے نجاپ پائیں گے؟ حصہ اول",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal",
+                url: "https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal"
+            },
+            {
+                title: "یاجوج وماجوج کے فتنہ سے لوگ کیسے نجاپ پائیں گے؟ حصہ  دوم",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-doyam",
+                url: "https://www.bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-doyam"
+            },
+            {
+                title: "آپ ﷺ نے امت کو زمین کے دھنس جانے کی کیا وعید سنائی؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai",
+                url: "https://www.bloglovers.pk/alamaat-kubra/ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai"
+            },
+            {
+                title: "دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge",
+                url: "https://www.bloglovers.pk/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge"
+            },
+            {
+                title: "ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرے گا۔",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga",
+                url: "https://www.bloglovers.pk/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga"
+            },
+            {
+                title: "سورج کے مغرب سے طلوع ہوتے ہی کیا کیا ہوگا؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga",
+                url: "https://www.bloglovers.pk/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga"
+            },
+            {
+                title: "لوگوں کے محشر کی طرف ہانک کر لے جانے والی آگ کیسی ہوگی؟",
+                image: "https://www.bloglovers.pk/images/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi",
+                url: "https://www.bloglovers.pk/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi"
+            }
+        ];
+
+        // ===== 4. Render Posts Dynamically =====
+        function renderPosts() {
+            const grid = document.getElementById('postsGrid');
+            
+            postsData.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${post.image}" alt="${post.title}" onerror="this.src='https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${post.title}</h3>
+                        <a href="${post.url}" class="card-btn">پوسٹ پڑھیں</a>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // ===== 5. Share Page Function =====
+        async function sharePage() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'علامات کبریٰ | قیامت کی بڑی نشانیاں',
+                        text: 'قیامت کی بڑی نشانیوں، فتنہ دجال اور یاجوج ماجوج کے بارے میں مکمل معلومات پڑھیں',
+                        url: window.location.href
+                    });
+                } catch (err) {
+                    console.log('شیئرنگ میں مسئلہ:', err);
+                }
+            } else {
+                // Fallback: Copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('📋 صفحے کا لنک کلپ بورڈ میں کاپی ہو گیا ہے!');
+                });
+            }
+        }
+
+        // ===== 6. Initialize Everything =====
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            renderPosts();
+            showSlide(0);
+        });
     </script>
+
 </body>
 </html>
