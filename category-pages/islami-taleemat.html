@@ -4,392 +4,540 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اسلامی تعلیمات | بلاگ لوورز.pk</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gulzar&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-
     <style>
-        /* --- CSS VARIABLES --- */
-        :root {
-            --bg-dark: #051e16; /* Deep Dark Green */
-            --bg-card: #0c3126;
-            --gold-primary: #d4af37;
-            --gold-glow: rgba(212, 175, 55, 0.4);
-            --text-light: #ecfdf5;
-            --text-dim: #a7f3d0;
-            --border-color: rgba(212, 175, 55, 0.2);
+        /* --- Fonts Setup --- */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('https://misbah.pk/fonts/JameelNooriNastaleeq.ttf') format('truetype'); /* Online fallback */
         }
 
-        /* --- RESET & BASE --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        :root {
+            --bg-dark: #050505;
+            --card-bg: #141414;
+            --gold: #D4AF37;
+            --gold-hover: #FFC000;
+            --text-white: #ffffff;
+            --neon-glow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+        }
 
         body {
             background-color: var(--bg-dark);
-            font-family: 'Noto Nastaliq Urdu', serif;
-            color: var(--text-light);
-            min-height: 100vh;
+            color: var(--text-white);
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* --- ANIMATED BACKGROUND --- */
-        .bg-animation {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(4, 120, 87, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
-            animation: pulseBg 10s infinite alternate;
-        }
-
-        @keyframes pulseBg {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        /* --- HEADER --- */
+        /* --- Header --- */
         header {
-            text-align: center;
-            padding: 4rem 1.5rem 2rem;
+            background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);
+            padding: 20px;
+            border-bottom: 4px double var(--gold);
             position: relative;
-            border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
         }
 
-        .header-icon {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 1.5rem;
-            filter: drop-shadow(0 0 20px var(--gold-glow));
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .header-icon svg {
-            width: 100%; height: 100%;
-            fill: none; stroke: var(--gold-primary); stroke-width: 1.2;
-        }
-
-        h1 {
-            font-family: 'Gulzar', serif;
-            font-size: 3.5rem;
-            background: linear-gradient(to right, #fff, var(--gold-primary), #fff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        p.subtitle {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            max-width: 700px;
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
 
-        /* --- SEARCH BAR --- */
-        .search-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            position: relative;
-            padding: 0 1.5rem;
+        .logo-area h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px #000;
+            animation: pulse 3s infinite;
         }
 
-        .search-box {
-            background: rgba(12, 49, 38, 0.8);
-            border: 2px solid var(--gold-primary);
+        .back-btn {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 25px;
             border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
             display: flex;
             align-items: center;
-            padding: 0.5rem 1.5rem;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
-            backdrop-filter: blur(5px);
+            gap: 10px;
         }
 
-        .search-box input {
-            background: transparent;
-            border: none;
-            color: white;
-            flex-grow: 1;
-            padding: 10px;
-            font-family: 'Noto Nastaliq Urdu', serif;
+        .back-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        /* --- Animated Icons --- */
+        .islamic-icons {
+            display: flex;
+            gap: 25px;
+        }
+        .spin-icon {
+            font-size: 2.2rem;
+            color: var(--gold);
+            animation: float 4s ease-in-out infinite;
+        }
+        .spin-icon:nth-child(2) { animation-delay: 1s; color: #fff; }
+        .spin-icon:nth-child(3) { animation-delay: 2s; }
+
+        /* --- Main Slider --- */
+        .main-slider {
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid #333;
+            margin-bottom: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        .slide.active { opacity: 1; }
+
+        .slide-overlay {
+            background: linear-gradient(0deg, #000 0%, transparent 80%);
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 50px;
+        }
+
+        .slide-title {
+            background: rgba(0,0,0,0.7);
+            padding: 15px 40px;
+            border-right: 5px solid var(--gold);
+            border-left: 5px solid var(--gold);
+            font-size: 2.5rem;
+            color: var(--gold);
+            border-radius: 10px;
+        }
+
+        /* --- Ticker --- */
+        .ticker-wrap {
+            background: #111;
+            border-bottom: 1px solid var(--gold);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px 0;
+        }
+        .ticker {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+        .ticker-item {
+            display: inline-block;
+            padding: 0 30px;
             font-size: 1.1rem;
+            color: #ccc;
+        }
+        .ticker-item i { color: var(--gold); margin-left: 8px; }
+
+        /* --- Grid Section --- */
+        .container {
+            max-width: 1400px;
+            margin: 50px auto;
+            padding: 0 20px;
         }
 
-        .search-box input::placeholder { color: rgba(255,255,255,0.4); }
-
-        .search-icon { color: var(--gold-primary); margin-left: 10px; }
-
-        /* --- GRID --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+        .section-heading {
+            text-align: center;
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-heading::after {
+            content: '﮼';
+            display: block;
+            font-size: 2rem;
+            margin-top: -10px;
+            color: #fff;
         }
 
         .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
         }
 
-        /* --- CARD DESIGN --- */
-        .card {
-            background: rgba(12, 49, 38, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.5rem;
+        .post-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 15px;
+            overflow: hidden;
             position: relative;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
+            transition: all 0.4s ease;
+            height: 280px;
             display: flex;
             flex-direction: column;
+        }
+
+        .post-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .card-img {
+            height: 160px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .post-card:hover .card-img img {
+            transform: scale(1.1) rotate(2deg);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--gold-primary);
-            opacity: 0.5;
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-8px) scale(1.02);
-            background: rgba(12, 49, 38, 0.9);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-color: var(--gold-primary);
-        }
-
-        .card:hover::before { opacity: 1; width: 6px; box-shadow: 0 0 15px var(--gold-primary); }
-
-        .card-number {
-            position: absolute;
-            top: 15px; left: 15px;
-            font-size: 3rem;
-            font-weight: 900;
-            color: rgba(255,255,255,0.03);
-            font-family: sans-serif;
-            transition: 0.3s;
-        }
-
-        .card:hover .card-number { color: rgba(212, 175, 55, 0.1); transform: scale(1.2); }
-
-        .tag {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold-primary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-            width: fit-content;
-        }
-
-        .card h2 {
-            font-size: 1.4rem;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        .read-more {
-            margin-top: auto;
-            padding-top: 1rem;
-            color: var(--gold-primary);
-            font-size: 0.9rem;
+        .card-content {
+            padding: 15px;
+            flex-grow: 1;
             display: flex;
             align-items: center;
-            gap: 5px;
-            opacity: 0.8;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .card-title {
+            color: #ddd;
+            font-size: 1.1rem; /* Small font size as requested */
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .post-card:hover .card-title {
+            color: var(--gold);
+        }
+
+        .full-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* --- Share Button --- */
+        .share-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            z-index: 100;
             transition: 0.3s;
         }
+        .share-btn:hover { transform: scale(1.1); background: #fff; }
 
-        .card:hover .read-more { opacity: 1; gap: 10px; }
-
-        /* --- FOOTER --- */
+        /* --- Footer --- */
         footer {
+            background: #000;
+            border-top: 2px solid var(--gold);
+            padding: 40px;
             text-align: center;
-            padding: 3rem;
-            margin-top: 3rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-dim);
-            background: rgba(0,0,0,0.2);
+            margin-top: 60px;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+        /* --- Keyframes --- */
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes pulse { 0%, 100% { text-shadow: 2px 2px 4px #000; } 50% { text-shadow: 0 0 20px var(--gold); } }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .posts-grid { grid-template-columns: 1fr; }
+            .main-slider { height: 220px; }
+            .slide-title { font-size: 1.2rem; padding: 10px; }
+            .logo-area h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-animation"></div>
-
     <header>
-        <div class="header-icon">
-            <!-- Islamic Star / Quran Stand Icon -->
-            <svg viewBox="0 0 24 24">
-                <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z" opacity="0.5"/>
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-        </div>
-        <h1>اسلامی تعلیمات</h1>
-        <p class="subtitle">قرآن و سنت کی روشنی میں زندگی گزارنے کے اصول، گناہوں سے بچاؤ اور اصلاحی مضامین کا مکمل انسائیکلوپیڈیا۔</p>
-
-        <div class="search-container">
-            <div class="search-box">
-                <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="searchInput" placeholder="موضوع تلاش کریں (مثلاً: گناہ، غیبت، نماز)...">
+        <div class="header-content">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i> واپسی
+            </a>
+            
+            <div class="logo-area">
+                <h1>اسلامی تعلیمات</h1>
             </div>
-            <div id="countDisplay" style="text-align:center; margin-top:10px; font-size:0.9rem; color:var(--gold-primary);">
-                کل مضامین: 117
+
+            <div class="islamic-icons">
+                <i class="fas fa-kaaba spin-icon"></i>
+                <i class="fas fa-quran spin-icon"></i>
+                <i class="fas fa-mosque spin-icon"></i>
             </div>
         </div>
     </header>
 
-    <main class="container">
-        <div class="posts-grid" id="postsContainer">
-            <!-- Posts will be injected here via JavaScript -->
+    <div class="main-slider" id="mainSlider">
+        <!-- Slider JS injected -->
+    </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker" id="tickerItems">
+            <!-- Ticker JS injected -->
         </div>
-    </main>
+    </div>
+
+    <div class="container">
+        <h2 class="section-heading">تازہ ترین تحریریں</h2>
+        
+        <div class="posts-grid" id="grid">
+            <!-- Posts JS injected -->
+        </div>
+    </div>
+
+    <div class="share-btn" onclick="sharePage()">
+        <i class="fas fa-share-alt"></i>
+    </div>
 
     <footer>
-        <p>&copy; 2025 بلاگ لوورز.pk | تمام حقوق محفوظ ہیں</p>
-        <p style="margin-top:10px; font-size:0.9rem;">دین کی بات پھیلانا صدقہ جاریہ ہے</p>
+        <p>© 2025 بلاگ لوورز - دینی و دنیاوی تعلیمات کا مرکز</p>
+        <p style="color:var(--gold); margin-top:10px; font-size:0.9rem;">علم پھیلانا صدقہ جاریہ ہے</p>
     </footer>
 
     <script>
-        // --- DATA SOURCE (All 117 Links) ---
-        const postsData = [
-            // General
-            { title: "احکاماتِ شرعی: لباس و اہمیت", url: "https://www.bloglovers.pk/islami-taleemat/ahkamat-e-sharai-libas-w-ahmiyat", tag: "فقہ" },
+        // All 117 Posts with manually fixed Urdu Titles based on your URLs
+        const posts = [
+            // General Islami Taleemat
+            { t: "احکاماتِ شرعی: لباس اور اس کی اہمیت", u: "https://www.bloglovers.pk/islami-taleemat/ahkamat-e-sharai-libas-w-ahmiyat", i: "https://www.bloglovers.pk/images/islami-taleemat/ahkamat-e-sharai-libas-w-ahmiyat.png" },
             
-            // 10 Bare Gunah (1-10)
-            { title: "عصر حاضر کے 10 بڑے گناہ: 1- غیر اللہ کی پکار", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-1-ghair-allah-ki-pukar", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 2- بت پرستی", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-2-butt-parasti", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 3- مردہ پرستی", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-3-murda-parasti", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 4- اکابر پرستی", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-4-akabir-parasti", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 5- فرقہ پرستی", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-5-firqa-parasti", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 6- تعویذات", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-6-taweezat", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 7- توہم پرستی", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 8- بدشگونی", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-8-bad-shaguni", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 9- ریاکاری", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-9-riya-kari", tag: "اصلاح" },
-            { title: "عصر حاضر کے 10 بڑے گناہ: 10- غیر اللہ کی قسمیں کھانا", url: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-10-ghair-allah-ki-qasmein-khana", tag: "اصلاح" },
+            // Asr-e-Hazir Ke Gunah (1-10)
+            { t: "عصر حاضر کا پہلا بڑا گناہ: غیر اللہ کی پکار", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-1-ghair-allah-ki-pukar", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-1-ghair-allah-ki-pukar.jpg" },
+            { t: "عصر حاضر کا دوسرا بڑا گناہ: بت پرستی", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-2-butt-parasti", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-2-butt-parasti.png" },
+            { t: "عصر حاضر کا تیسرا بڑا گناہ: مردہ پرستی", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-3-murda-parasti", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-3-murda-parasti.png" },
+            { t: "عصر حاضر کا چوتھا بڑا گناہ: اکابر پرستی", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-4-akabir-parasti", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-4-akabir-parasti.jpg" },
+            { t: "عصر حاضر کا پانچواں بڑا گناہ: فرقہ پرستی", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-5-firqa-parasti", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-5-firqa-parasti.jpg" },
+            { t: "عصر حاضر کا چھٹا بڑا گناہ: تعویذات کا استعمال", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-6-taweezat", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-6-taweezat.jpg" },
+            { t: "عصر حاضر کا ساتواں بڑا گناہ: توہم پرستی", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+            { t: "عصر حاضر کا اٹھواں بڑا گناہ: بد شگونی لینا", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-8-bad-shaguni", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-8-bad-shaguni.jpg" },
+            { t: "عصر حاضر کا نواں بڑا گناہ: ریا کاری", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-9-riya-kari", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-9-riya-kari.jpg" },
+            { t: "عصر حاضر کا دسواں بڑا گناہ: غیر اللہ کی قسمیں کھانا", u: "https://www.bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-10-ghair-allah-ki-qasmein-khana", i: "https://www.bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-10-ghair-allah-ki-qasmein-khana.jpg" },
 
-            // Miscellaneous New
-            { title: "عذاب الٰہی کو دعوت دینے والے تین گھر", url: "https://www.bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", tag: "تنبیہ" },
-            { title: "تین لوگ جن کی عبادت قبول نہیں ہوتی", url: "https://www.bloglovers.pk/islami-taleemat/tyn-log-jn-ki-abadt-qbol-nahi", tag: "تنبیہ" },
-            { title: "مذاق میں کسی کا دل دکھانا", url: "https://www.bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", tag: "اخلاقیات" },
-            { title: "اسلامی تعلیمات اور تاریخ کے آئینے میں عورت کی حکمرانی", url: "https://www.bloglovers.pk/islami-taleemat/aslami-talymat-aur-tarykh-ke-aayne-main-aort-ki-hkmrani-aur-is-ke-mnfi-ntaj", tag: "معاشرت" },
-            { title: "حلال روزی کے سنہرے اصول: تجارت میں دیانت", url: "https://www.bloglovers.pk/islami-taleemat/hlal-rozi-ke-snhre-asol-tjart-main-dyant", tag: "معیشت" },
-            { title: "ڈیجیٹل دور میں غیبت: سکرین شاٹس اور سٹیٹس", url: "https://www.bloglovers.pk/islami-taleemat/dyjytl-dor-main-ghybt-askryn-shats-astyts-aur-hmari-zmh-dari", tag: "جدید مسائل" }
+            // Ghaflat Main Chupe 50 Gunah (1-50)
+            { t: "غفلت میں چھپے 50 گناہ: 1- حقارت سے کسی پر ہنسنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-1-hqart-se-ksi-par-hnsna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-1-hqart-se-ksi-par-hnsna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 2- دھوکہ دینا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-2-dhokh-dyna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-2-dhokh-dyna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 3- چغلی کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 4- بدگمانی کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-4-bdgmani-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-4-bdgmani-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 5- طعنہ دینا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-5-tanh-dyna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-5-tanh-dyna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 6- کسی کا عیب تلاش کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-6-ksi-ka-ayb-tlash-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-6-ksi-ka-ayb-tlash-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 7- تہمت لگانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-7-thmt-lgana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-7-thmt-lgana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 8- تکبر کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-8-tkbr-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-8-tkbr-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 9- بھوکوں کی مدد نہ کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-9-bhokon-aur-nngon-ki-hysyt-ke-mtabq-mdd-na-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-9-bhokon-aur-nngon-ki-hysyt-ke-mtabq-mdd-na-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 10- بلا عذر بھیک مانگنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 11- جاندار کی تصویر بنانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-11-ksi-jandar-ki-tsoyr-bnana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-11-ksi-jandar-ki-tsoyr-bnana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 12- کسی اور کی زمین پر قبضہ", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 13- چوری کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-13-chori-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-13-chori-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 14- زنا کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-14-zna-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-14-zna-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 15- رشوت لینا یا دینا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-15-rshot-lyna-ya-dyna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-15-rshot-lyna-ya-dyna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 16- ظلم کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-16-zlm-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-16-zlm-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 17- سود کھانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-17-sod-khana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-17-sod-khana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 18- پیشاب کے چھینٹوں سے نہ بچنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-18-pyshab-ke-chhynton-se-na-bchna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-18-pyshab-ke-chhynton-se-na-bchna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 19- جاندار کو آگ میں جلانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-19-ksi-jandar-ko-aag-main-jlana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-19-ksi-jandar-ko-aag-main-jlana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 20- مال کو گناہ میں خرچ کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-20-mal-ko-gnah-ke-kamon-main-khrch-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-20-mal-ko-gnah-ke-kamon-main-khrch-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 21- مزدور کی مزدوری نہ دینا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-21-mzdor-se-kam-kroa-kar-mzdori-na-dyna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-21-mzdor-se-kam-kroa-kar-mzdori-na-dyna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 22- خودکشی کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 23- جادو ٹونا کرنا یا کرانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-23-jado-tona-krna-ya-krana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-23-jado-tona-krna-ya-krana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 24- اللہ کی رحمت سے مایوس ہونا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 25- عمل قوم لوط (ہم جنس پرستی)", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-25-aml-lot-hum-jns-prsti", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-25-aml-lot-hum-jns-prsti.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 26- حلالہ کرنا اور کروانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-26-hlalh-krna-aur-kroana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-26-hlalh-krna-aur-kroana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 27- میلاد منانا یا کرانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-27-mylad-mnana-ya-krana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-27-mylad-mnana-ya-krana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 28- دیوث بننا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-28-dyos-bnna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-28-dyos-bnna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 29- احسان جتلانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-29-ahsan-jtlana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-29-ahsan-jtlana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 30- لعنت کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-30-lant-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-30-lant-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 31- بیوی کو خاوند کے خلاف بھڑکانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-31-byoi-ko-khaond-ke-khlaf-bhrkana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-31-byoi-ko-khaond-ke-khlaf-bhrkana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 32- جوا کھیلنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-32-joa-khylna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-32-joa-khylna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 33- نجومی کاہن کی تصدیق کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-33-njomi-kahn-se-tsdyq-kroana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-33-njomi-kahn-se-tsdyq-kroana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 34- نوحہ اور بین کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-34-nohh-aur-byn-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-34-nohh-aur-byn-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 35- سرکشی کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 36- گانا سننا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-36-gana-snna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-36-gana-snna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 37- غیر اللہ کے نام پر ذبح کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-37-ghyr-allah-ke-nam-par-zbh-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-37-ghyr-allah-ke-nam-par-zbh-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 38- حرام کھانا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-38-hram-khana", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-38-hram-khana.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 39- عالم کا اپنے علم پر عمل نہ کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 40- لغو گفتگو کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-40-lgho-gftgo-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-40-lgho-gftgo-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 41- غیر محرم عورت کی طرف دیکھنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-41-ghyr-mhrm-aort-ki-trf-bh-qsd-dykhna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-41-ghyr-mhrm-aort-ki-trf-bh-qsd-dykhna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 42- وعدہ خلافی کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-42-wadh-khlafi-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-42-wadh-khlafi-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 43- ناحق لڑائی جھگڑا کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-43-nahq-lrai-jhgra-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-43-nahq-lrai-jhgra-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 44- بلا عذر رمضان کے روزے ترک کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-44-blaazr-rmzan-ke-roze-trk-krdyna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-44-blaazr-rmzan-ke-roze-trk-krdyna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 45- مسجد میں گردنوں کو پھلانگنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-45-msjd-main-logon-ki-grdnon-ko-phlang-kar-aage-brhna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-45-msjd-main-logon-ki-grdnon-ko-phlang-kar-aage-brhna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 46- پڑوسی کو تکلیف دینا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-46-prosi-ko-tklyf-dyna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-46-prosi-ko-tklyf-dyna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 47- بغیر عذر جماعت چھوڑنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-47-bghyr-azr-shrai-jmaat-ki-nmaz-chhorna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-47-bghyr-azr-shrai-jmaat-ki-nmaz-chhorna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 48- کسی کے بھید کو ظاہر کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-48-ksi-ke-bhyd-ko-zahr-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-48-ksi-ke-bhyd-ko-zahr-krna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 49- اصحاب رسول کو گالی دینا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-49-ashab-rsol-ko-gali-dyna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-49-ashab-rsol-ko-gali-dyna.png" },
+            { t: "غفلت میں چھپے 50 گناہ: 50- کسی جانور سے بدفعلی کرنا", u: "https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-50-ksi-janor-gae-bkri-se-jmaa-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-50-ksi-janor-gae-bkri-se-jmaa-krna.png" },
+
+            // Deen Ki Pakeezgi Par 50 Bidati Hamle (1-50)
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 1- پکی قبریں بنانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-1-pki-qbryn-bnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-1-pki-qbryn-bnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 2- قل خوانی کرنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 3- عرس اور میلے منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-3-ars-myle-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-3-ars-myle-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 4- پیری مریدی کا دھندہ", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-4-pyri-mrydi", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-4-pyri-mrydi.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 5- قوالی گانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-5-qoali-gana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-5-qoali-gana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 6- قبروں پر چادریں چڑھانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-6-qbron-par-chadryn-chrhana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-6-qbron-par-chadryn-chrhana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 7- گدی نشینی", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-7-gdi-nshyni", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-7-gdi-nshyni.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 8- تیجہ منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-8-tyjh-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-8-tyjh-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 9- ساتہ منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-9-sata-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-9-sata-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 10- دسواں منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-10-dsoan-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-10-dsoan-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 11- چالیسواں منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-11-chalysoan-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-11-chalysoan-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 12- گیارہویں منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 13- رجب کے کونڈے", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-13-rjb-keknde", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-13-rjb-keknde.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 14- ختم دلوانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-14-khtm-dloana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-14-khtm-dloana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 15- برسی منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-15-brsi-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-15-brsi-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 16- تعویذ لکھنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 17- تعویذ پہننا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-17-taoyz-phnna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-17-taoyz-phnna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 18- قبروں پر دیے جلانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-18-qbron-par-dye-jlana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-18-qbron-par-dye-jlana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 19- انگوٹھے چومنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-19-aap-ke-nam-par-angothe-chomna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-19-aap-ke-nam-par-angothe-chomna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 20- اذان سے پہلے درود پڑھنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-20-azan-se-phle-drod-w-slam-prhna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-20-azan-se-phle-drod-w-slam-prhna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 21- شب برات منانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-21-shb-brat-mnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-21-shb-brat-mnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 22- محرم میں ماتم کرنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-22-mhrm-alhram-main-matm-aur-synh-kobi-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-22-mhrm-alhram-main-matm-aur-synh-kobi-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 23- دین کے نام پر ڈرانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-23-dyn-ke-nam-par-logon-ko-drana-ya-lalch-dyna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-23-dyn-ke-nam-par-logon-ko-drana-ya-lalch-dyna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 24- محرم میں نیاز کا اہتمام", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-24-mhrm-main-nyaz-ka-ahtmam-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-24-mhrm-main-nyaz-ka-ahtmam-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 25- عورتوں کا قبرستان جانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-25-mrdon-ki-qbron-par-aorton-ka-jana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-25-mrdon-ki-qbron-par-aorton-ka-jana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 26- غیر شرعی خواب اور دین", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-26-ghyr-shrai-khoabon-ko-dyn-ka-hsh-bnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-26-ghyr-shrai-khoabon-ko-dyn-ka-hsh-bnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 27- قبروں پر دھاگے باندھنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 28- درباروں پر چڑھاوے", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-28-drbaron-par-chrhaoe-chrhana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-28-drbaron-par-chrhaoe-chrhana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 29- پیر کو سجدہ کرنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 30- درگاہوں کا طواف کرنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-30-drgahon-par-toaf-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-30-drgahon-par-toaf-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 31- نام رکھنے کے مخصوص دن", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-31-bchon-ke-nam-rkhne-ke-le-mkhsos-dnon-ka-antkhab", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-31-bchon-ke-nam-rkhne-ke-le-mkhsos-dnon-ka-antkhab.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 32- مخصوص دنوں میں تقسیم", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-32-khane-pyne-ki-ashya-ko-mkhsos-dnon-main-tqsym-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-32-khane-pyne-ki-ashya-ko-mkhsos-dnon-main-tqsym-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 33- درگاہوں پر عورتوں کی حاضری", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-33-drgahon-par-aorton-ki-mkhsos-hazri", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-33-drgahon-par-aorton-ki-mkhsos-hazri.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 34- ہر جمعرات کو قبرستان جانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-34-hr-jmarat-ko-qbron-par-jana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-34-hr-jmarat-ko-qbron-par-jana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 35- کالے جادو کے خلاف غیر شرعی اقدامات", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-35-kale-jado-ya-jnat-ke-khlaf-ghyr-shrai-aqdamat", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-35-kale-jado-ya-jnat-ke-khlaf-ghyr-shrai-aqdamat.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 36- پیر کی اجازت بغیر نکاح نہ کرنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-36-pyr-ki-ajazt-ke-bghyr-nkah-na-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-36-pyr-ki-ajazt-ke-bghyr-nkah-na-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 37- مخصوص رنگوں کو متبرک سمجھنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-37-mkhsos-rngon-ya-kpron-ko-mtbrk-smjhna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-37-mkhsos-rngon-ya-kpron-ko-mtbrk-smjhna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 38- جھوٹی کرامت کا پرچار", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-38-jhoti-kramat-ka-prchar", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-38-jhoti-kramat-ka-prchar.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 39- شادی بیاہ میں شرکیہ رسومات", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-39-shadi-byah-ki-tqrybat-main-shrk-aamyz-rsomat", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-39-shadi-byah-ki-tqrybat-main-shrk-aamyz-rsomat.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 40- نذرانے کو دین کا حصہ سمجھنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-40-nzrane-ko-dyn-ka-lazmi-hsh-smjhna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-40-nzrane-ko-dyn-ka-lazmi-hsh-smjhna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 41- من گھڑت حدیثیں پھیلانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-41-mn-ghrt-hdysyn-phylana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-41-mn-ghrt-hdysyn-phylana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 42- لوگوں میں بے حیائی پھیلانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 43- تنہائی میں گناہ کرنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 44- سلام کے بعد اللہ ہو کا ورد", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-44-slam-phyrne-ke-bad-allah-ho-ka-wrd-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-44-slam-phyrne-ke-bad-allah-ho-ka-wrd-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 45- جنازے پر ڈھول بجانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-45-jnaze-par-dhol-bjana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-45-jnaze-par-dhol-bjana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 46- میت کو دفن کیے بغیر دعوت کرنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-46-myt-ko-dfn-kye-bghyr-khane-ki-daot-krna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-46-myt-ko-dfn-kye-bghyr-khane-ki-daot-krna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 47- جنتی دروازوں کا عقیدہ", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-47-jnti-droazon-ka-aqydh", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-47-jnti-droazon-ka-aqydh.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 48- سالگرہ کو دین کا حصہ بنانا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-48-salgrh-ko-dyn-ka-hsh-bnana", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-48-salgrh-ko-dyn-ka-hsh-bnana.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 49- مجالس میں حاضری کو فرض سمجھنا", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-49-mjals-main-hazr-hona-aur-asko-frz-smjhna", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-49-mjals-main-hazr-hona-aur-asko-frz-smjhna.png" },
+            { t: "دین کی پاکیزگی پر بدعتی حملے: 50- محافل نعت میں موسیقی کا استعمال", u: "https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-50-mhafl-nat-main-mosyqi-ka-astamal", i: "https://www.bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-50-mhafl-nat-main-mosyqi-ka-astamal.png" },
+
+            // Miscellaneous
+            { t: "عذاب الٰہی کو دعوت دینے والے تین گھر", u: "https://www.bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", i: "https://www.bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+            { t: "تین لوگ جن کی عبادت قبول نہیں ہوتی", u: "https://www.bloglovers.pk/islami-taleemat/tyn-log-jn-ki-abadt-qbol-nahi", i: "https://www.bloglovers.pk/images/islami-taleemat/tyn-log-jn-ki-abadt-qbol-nahi.png" },
+            { t: "مذاق میں کسی کا دل دکھانا", u: "https://www.bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", i: "https://www.bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" },
+            { t: "عورت کی حکمرانی اور اس کے منفی نتائج", u: "https://www.bloglovers.pk/islami-taleemat/aslami-talymat-aur-tarykh-ke-aayne-main-aort-ki-hkmrani-aur-is-ke-mnfi-ntaj", i: "https://www.bloglovers.pk/images/islami-taleemat/aslami-talymat-aur-tarykh-ke-aayne-main-aort-ki-hkmrani-aur-is-ke-mnfi-ntaj.png" },
+            { t: "حلال روزی کے سنہرے اصول: تجارت میں دیانت", u: "https://www.bloglovers.pk/islami-taleemat/hlal-rozi-ke-snhre-asol-tjart-main-dyant", i: "https://www.bloglovers.pk/images/islami-taleemat/hlal-rozi-ke-snhre-asol-tjart-main-dyant.png" },
+            { t: "ڈیجیٹل دور میں غیبت، سکرین شاٹس اور سٹیٹس", u: "https://www.bloglovers.pk/islami-taleemat/dyjytl-dor-main-ghybt-askryn-shats-astyts-aur-hmari-zmh-dari", i: "https://www.bloglovers.pk/images/islami-taleemat/dyjytl-dor-main-ghybt-askryn-shats-astyts-aur-hmari-zmh-dari.png" }
         ];
 
-        // 50 Ghaflat ke Gunah (Adding Loop)
-        const ghaflatTitles = [
-            "حقارت سے کسی پر ہنسنا", "دھوکہ دینا", "چغلی کرنا", "بدگمانی کرنا", "طعنہ دینا", "کسی کا عیب تلاش کرنا", "تہمت لگانا", "تکبر کرنا", "بھوکوں اور ننگوں کی مدد نہ کرنا", "بلا عذر بھیک مانگنا",
-            "کسی جاندار کی تصویر بنانا", "کسی اور کی زمین پر قبضہ کرنا", "چوری کرنا", "زنا کرنا", "رشوت لینا یا دینا", "ظلم کرنا", "سود کھانا", "پیشاب کے چھینٹوں سے نہ بچنا", "کسی جاندار کو آگ میں جلانا", "مال کو گناہ کے کاموں میں خرچ کرنا",
-            "مزدور کی مزدوری نہ دینا", "خودکشی کرنا", "جادو ٹونا کرنا یا کرانا", "اللہ کی رحمت سے مایوس ہونا", "عملِ قومِ لوط (ہم جنس پرستی)", "حلالہ کرنا اور کروانا", "میلاد منانا", "دیوث بننا", "احسان جتلانا", "لعنت کرنا",
-            "بیوی کو خاوند کے خلاف بھڑکانا", "جوا کھیلنا", "نجومی/کاہن سے تصدیق کروانا", "نوحہ اور بین کرنا", "سرکشی کرنا", "گانا سننا", "غیر اللہ کے نام پر ذبح کرنا", "حرام کھانا", "عالم کا اپنے علم پر عمل نہ کرنا", "لغو گفتگو کرنا",
-            "غیر محرم عورت کی طرف بدقصد دیکھنا", "وعدہ خلافی کرنا", "ناحق لڑائی جھگڑا کرنا", "بلا عذر رمضان کے روزے ترک کرنا", "مسجد میں لوگوں کی گردنیں پھلانگنا", "پڑوسی کو تکلیف دینا", "بغیر عذرِ شرعی جماعت چھوڑنا", "کسی کے بھید کو ظاہر کرنا", "اصحاب رسول ﷺ کو گالی دینا", "کسی جانور سے جماع کرنا"
-        ];
+        // --- Functions ---
+        function renderSlider() {
+            const container = document.getElementById('mainSlider');
+            // Select random 5 posts for diversity in slider
+            const shuffled = [...posts].sort(() => 0.5 - Math.random());
+            const slidesData = shuffled.slice(0, 5);
 
-        // Adding 50 Ghaflat Posts dynamically
-        for(let i=0; i<50; i++) {
-            let urlSlug = (i === 20) ? "50-21" : (i === 29) ? "50-21_14" : `50-${i+1}`; // Handling slight URL variations in CSV
-            // Normalizing URL logic based on standard pattern, handling exceptions if needed
-            // For simplicity in this demo, using standard counter. Real links from CSV map to:
-            let fileName = `50-${i+1}`;
-            if(i===11) fileName = "50-21"; // Correction from CSV
-            if(i===20) fileName = "50-21_14"; // Correction from CSV
-            
-            postsData.push({
-                title: `غفلت میں چھپے 50 گناہ: ${i+1}- ${ghaflatTitles[i]}`,
-                url: `https://www.bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-${fileName}.html`,
-                tag: "گناہِ کبیرہ"
+            slidesData.forEach((post, i) => {
+                const slide = document.createElement('div');
+                slide.className = `slide ${i === 0 ? 'active' : ''}`;
+                slide.style.backgroundImage = `url('${post.i}')`;
+                slide.innerHTML = `
+                    <div class="slide-overlay">
+                        <div class="slide-title">${post.t}</div>
+                    </div>
+                `;
+                container.appendChild(slide);
+            });
+
+            let current = 0;
+            setInterval(() => {
+                const slides = document.querySelectorAll('.slide');
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 5000);
+        }
+
+        function renderTicker() {
+            const container = document.getElementById('tickerItems');
+            posts.slice(0, 20).forEach(post => {
+                const item = document.createElement('div');
+                item.className = 'ticker-item';
+                item.innerHTML = `<i class="fas fa-star-and-crescent"></i> ${post.t}`;
+                container.appendChild(item);
             });
         }
 
-        // 50 Bidati Hamle (Adding Loop)
-        const bidatiTitles = [
-            "پکی قبریں بنانا", "قل خوانی کرنا", "عرس میلے منانا", "پیری مریدی", "قوالی گانا", "قبروں پر چادریں چڑھانا", "گدی نشینی", "تیجہ منانا", "ستا منانا", "دسواں منانا",
-            "چالیسواں منانا", "گیارہویں منانا", "رجب کے کونڈے", "ختم دلوانا", "برسی منانا", "تعویذ لکھنا", "تعویذ پہننا", "قبروں پر دیے جلانا", "نام پر انگوٹھے چومنا", "اذان سے پہلے درود پڑھنا",
-            "شب برات منانا", "محرم میں ماتم کرنا", "دین کے نام پر ڈرانا/لالچ", "محرم میں نیاز کا اہتمام", "عورتوں کا قبروں پر جانا", "غیر شرعی خوابوں کو دین بنانا", "بزرگوں کی قبروں پر دھاگے باندھنا", "درباروں پر چڑھاوے", "پیر کو سجدہ کرنا", "درگاہوں پر طواف کرنا",
-            "بچوں کے نام رکھنے کے لیے مخصوص دن", "کھانے پینے کی اشیاء مخصوص کرنا", "درگاہوں پر عورتوں کی حاضری", "ہر جمعرات قبروں پر جانا", "کالے جادو کے خلاف غیر شرعی اقدامات", "پیر کی اجازت بغیر نکاح نہ کرنا", "مخصوص رنگوں کو متبرک سمجھنا", "جھوٹی کرامات کا پرچار", "شادی میں شرکیہ رسومات", "نذرانے کو دین سمجھنا",
-            "من گھڑت حدیثیں پھیلانا", "لوگوں میں بے حیائی پھیلانا", "تنہائی میں گناہ کرنا", "سلام کے بعد اللہ ھو کا ورد", "جنازے پر ڈھول بجانا", "میت کو دفن کیے بغیر دعوت", "جنتی دروازوں کا عقیدہ", "سالگرہ منانا", "مجالس کو فرض سمجھنا", "محافل نعت میں موسیقی"
-        ];
-
-        for(let i=0; i<50; i++) {
-            let fileName = `50-${i+1}`;
-            if(i===19) fileName = "50-20"; // Adjustments based on CSV variations if strict mapping needed
-            if(i===20) fileName = "50-20_16"; 
-
-            postsData.push({
-                title: `دین کی پاکیزگی پر 50 بدعتی حملے: ${i+1}- ${bidatiTitles[i]}`,
-                url: `https://www.bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-${fileName}.html`,
-                tag: "ردِ بدعت"
+        function renderGrid() {
+            const grid = document.getElementById('grid');
+            posts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${post.i}" loading="lazy" alt="${post.t}" onerror="this.src='https://via.placeholder.com/400x200/000000/FFFFFF?text=بلاگ+لوورز'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${post.t}</h3>
+                    </div>
+                    <a href="${post.u}" class="full-link" target="_blank"></a>
+                `;
+                grid.appendChild(card);
             });
         }
 
-        // --- RENDER FUNCTIONS ---
-        const postsContainer = document.getElementById('postsContainer');
-        const searchInput = document.getElementById('searchInput');
-        const countDisplay = document.getElementById('countDisplay');
-
-        function renderPosts(filter = "") {
-            postsContainer.innerHTML = "";
-            let count = 0;
-            
-            postsData.forEach((post, index) => {
-                if (post.title.includes(filter)) {
-                    count++;
-                    const card = document.createElement('a');
-                    card.href = post.url;
-                    card.className = 'card';
-                    card.target = '_blank';
-                    
-                    card.innerHTML = `
-                        <div class="card-number">${index + 1}</div>
-                        <span class="tag">${post.tag}</span>
-                        <h2>${post.title}</h2>
-                        <div class="read-more">
-                            مطالعہ کریں 
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                        </div>
-                    `;
-                    postsContainer.appendChild(card);
-                }
-            });
-            
-            // Update counts or show empty state
-            if(count === 0) {
-                postsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:2rem; opacity:0.6;">کوئی مضمون نہیں ملا۔</div>`;
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'اسلامی تعلیمات',
+                    text: 'دیکھیں بہترین اسلامی معلومات اور مضامین',
+                    url: window.location.href
+                });
+            } else {
+                alert(' لنک کاپی ہو گیا!');
             }
         }
 
-        // Initial Render
-        renderPosts();
-
-        // Search Event Listener
-        searchInput.addEventListener('input', (e) => {
-            renderPosts(e.target.value);
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSlider();
+            renderTicker();
+            renderGrid();
         });
-
     </script>
 </body>
 </html>
