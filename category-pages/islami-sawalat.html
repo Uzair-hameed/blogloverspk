@@ -3,395 +3,582 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اسلامی سوالات | دینی معلومات کا خزانہ</title>
+    <title>اسلامی سوالات | بلاگ لوورز</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gulzar&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-
     <style>
-        /* --- CSS VARIABLES --- */
-        :root {
-            --emerald-primary: #047857;
-            --emerald-dark: #064e3b;
-            --emerald-light: #d1fae5;
-            --gold: #d4af37;
-            --gold-light: #fcd34d;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-pattern: #f3f4f6;
-            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        /* --- FONT SETUP --- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+        
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('https://misbah.pk/font/JameelNooriNastaleeq.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
 
-        /* --- RESET --- */
+        :root {
+            /* New Royal Theme Colors */
+            --royal-blue: #1B263B;
+            --deep-navy: #0D1B2A;
+            --luxury-gold: #C5A059;
+            --soft-gold: #E0C097;
+            --text-color: #E0E1DD;
+            --glass-bg: rgba(27, 38, 59, 0.7);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            outline: none;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
 
         body {
-            background-color: var(--bg-pattern);
-            /* Islamic Geometric Pattern Background */
-            background-image: radial-gradient(var(--emerald-light) 2px, transparent 2px), radial-gradient(var(--emerald-light) 2px, transparent 2px);
-            background-size: 32px 32px;
-            background-position: 0 0, 16px 16px;
-            font-family: 'Noto Nastaliq Urdu', serif;
-            color: var(--text-dark);
-            line-height: 1.8;
-            min-height: 100vh;
+            background-color: var(--deep-navy);
+            color: var(--text-color);
+            overflow-x: hidden;
+            font-size: 15px;
+            position: relative;
+        }
+
+        /* --- LIVE ANIMATED BACKGROUND (Starry Night / Spiritual Glow) --- */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at top, #1f4068 0%, #0D1B2A 80%);
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
         }
 
         /* --- HEADER --- */
         header {
-            background: linear-gradient(135deg, var(--emerald-dark), var(--emerald-primary));
-            color: white;
-            text-align: center;
-            padding: 4rem 1.5rem 6rem; /* Extra padding bottom for overlap */
-            position: relative;
-            overflow: hidden;
-            border-bottom: 4px solid var(--gold);
+            background: rgba(13, 27, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--luxury-gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.6);
         }
 
-        /* Pattern Overlay on Header */
-        header::before {
-            content: "";
+        .back-btn {
+            background: transparent;
+            color: var(--luxury-gold);
+            padding: 8px 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: 0.4s;
+            border: 1px solid var(--luxury-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn:hover {
+            background: var(--luxury-gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--luxury-gold);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            color: var(--luxury-gold);
+            text-shadow: 0 0 15px rgba(197, 160, 89, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- POST UPDATER (TICKER) --- */
+        .ticker-wrap {
+            width: 100%;
+            background: linear-gradient(90deg, #0a1520, #14283a);
+            overflow: hidden;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            color: var(--soft-gold);
+            font-size: 1rem;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(100%, 0, 0); }
+        }
+
+        /* --- MAIN SLIDER --- */
+        .main-slider {
+            width: 95%;
+            max-width: 950px;
+            height: 380px;
+            margin: 20px auto;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid var(--luxury-gold);
+            box-shadow: 0 0 40px rgba(197, 160, 89, 0.15);
+        }
+
+        .slides {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex; /* Changed from none to handle opacity */
         }
 
-        .header-content {
-            position: relative;
-            z-index: 2;
+        .slide.active {
+            opacity: 1;
         }
 
-        .header-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            color: var(--gold);
-            animation: float 4s ease-in-out infinite;
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.65);
         }
 
-        h1 {
-            font-family: 'Gulzar', serif;
-            font-size: 3.5rem;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 0.5rem;
-        }
-
-        p.subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* --- SEARCH BAR --- */
-        .search-container {
-            max-width: 600px;
-            margin: -3rem auto 3rem; /* Negative margin to pull up */
-            padding: 0 1.5rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .search-box {
-            background: white;
+        .slide-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(13, 27, 42, 0.85);
+            padding: 10px 40px;
             border-radius: 50px;
-            padding: 0.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            display: flex;
-            align-items: center;
-            border: 2px solid var(--gold);
+            border: 1px solid var(--luxury-gold);
+            color: var(--luxury-gold);
+            font-size: 1.6rem;
+            white-space: nowrap;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
 
-        .search-input {
-            border: none;
-            flex-grow: 1;
-            padding: 1rem 1.5rem;
-            font-family: 'Noto Nastaliq Urdu', serif;
-            font-size: 1rem;
-            border-radius: 50px;
-        }
-
-        .search-btn {
-            background: var(--emerald-primary);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
+        /* --- SPINNING ICONS STRIP --- */
+        .icon-strip {
             display: flex;
-            align-items: center;
             justify-content: center;
-            transition: 0.3s;
+            gap: 40px;
+            margin: 40px 0;
+            perspective: 1000px;
         }
 
-        .search-btn:hover {
-            background: var(--emerald-dark);
-            transform: rotate(15deg);
+        .icon-box {
+            font-size: 2.2rem;
+            color: rgba(255,255,255,0.3);
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
         }
 
-        /* --- GRID CONTAINER --- */
+        .icon-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -10px;
+            left: 0;
+            background: var(--luxury-gold);
+            transform: scaleX(0);
+            transition: 0.4s;
+        }
+
+        .icon-box:hover {
+            color: var(--luxury-gold);
+            transform: translateY(-15px);
+            text-shadow: 0 0 25px var(--luxury-gold);
+        }
+
+        .icon-box:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* --- POSTS GRID --- */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem 5rem;
+            padding: 20px;
         }
 
         .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        /* --- CARD DESIGN --- */
-        .card {
-            background: white;
+        /* --- POST CARD DESIGN --- */
+        .post-card {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
-            text-decoration: none;
+            transition: all 0.5s ease;
             position: relative;
-            border: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .card::before {
+        .post-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border-color: var(--luxury-gold);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.8s;
+        }
+
+        .post-card:hover .img-container img {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        .card-content {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .post-title {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-weight: bold;
+        }
+
+        .read-btn {
+            display: inline-block;
+            padding: 10px 0;
+            width: 80%;
+            margin: 0 auto;
+            background: transparent;
+            border: 1px solid var(--luxury-gold);
+            color: var(--luxury-gold);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: 0.4s;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .read-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 6px;
+            width: 0%;
             height: 100%;
-            background: var(--gold);
-            transition: 0.3s;
+            background: var(--luxury-gold);
+            transition: 0.4s;
+            z-index: -1;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        .read-btn:hover::before {
+            width: 100%;
         }
 
-        .card:hover::before {
-            width: 12px;
-            background: var(--emerald-primary);
+        .read-btn:hover {
+            color: #000;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.6);
         }
 
-        .card-content {
-            padding: 2rem;
+        /* --- MINI SLIDER (Topics) --- */
+        .mini-slider {
+            margin: 60px 0;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px 0;
+            overflow: hidden;
+            border-top: 1px solid var(--luxury-gold);
+            border-bottom: 1px solid var(--luxury-gold);
+            transform: rotate(-1deg);
+        }
+
+        .mini-track {
             display: flex;
-            flex-direction: column;
-            height: 100%;
+            width: calc(220px * 10);
+            animation: scroll 25s linear infinite;
         }
 
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            background: var(--emerald-light);
-            border-radius: 12px;
+        .mini-item {
+            width: 220px;
+            text-align: center;
+            color: #bbb;
+            font-size: 1.3rem;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            color: var(--emerald-dark);
-            transition: 0.3s;
+            gap: 15px;
+            border-left: 1px solid rgba(255,255,255,0.1);
         }
 
-        .card:hover .icon-box {
-            background: var(--emerald-primary);
-            color: white;
-            transform: rotate(10deg);
-        }
-
-        .icon-box svg {
-            width: 30px;
-            height: 30px;
-            fill: currentColor;
-        }
-
-        h2 {
+        .mini-item i { 
+            color: var(--luxury-gold); 
             font-size: 1.5rem;
-            color: var(--emerald-dark);
-            margin-bottom: 1rem;
-            font-weight: 700;
         }
 
-        p {
-            color: var(--text-light);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-220px * 5)); }
         }
 
-        .btn-text {
-            color: var(--gold); /* Gold color for button text */
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: auto;
-            transition: 0.3s;
-        }
-
-        .card:hover .btn-text {
-            gap: 12px;
-            color: var(--emerald-primary);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: var(--emerald-dark);
-            color: white;
+        /* --- SHARE & FOOTER --- */
+        .share-section {
             text-align: center;
-            padding: 2rem;
-            border-top: 4px solid var(--gold);
-            margin-top: auto;
+            margin: 60px auto;
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .share-btn {
+            background: linear-gradient(45deg, var(--luxury-gold), #e6c885);
+            color: #0d1b2a;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 0 25px rgba(197, 160, 89, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .share-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(197, 160, 89, 0.6);
         }
 
-        .card {
-            animation: fadeIn 0.6s ease-out forwards;
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #050a10;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
         }
-
-        .card:nth-child(2) { animation-delay: 0.2s; }
 
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .search-container { margin-top: -2rem; }
+            .posts-grid { grid-template-columns: 1fr; }
+            .main-slider { height: 260px; }
+            .slide-caption { font-size: 1.2rem; padding: 8px 25px; bottom: 20px; }
+            .logo-text { font-size: 1.5rem; }
         }
+
     </style>
 </head>
 <body>
 
+    <!-- Animated Starry Background -->
+    <div class="background-animation" id="bg-anim"></div>
+
+    <!-- Header -->
     <header>
-        <div class="header-content">
-            <div class="header-icon">
-                <!-- Question Mark with Islamic Star SVG -->
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                    <path d="M12 17h.01"></path>
-                    <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 1 0-3"></path>
-                </svg>
-            </div>
-            <h1>اسلامی سوالات</h1>
-            <p class="subtitle">دین کو سمجھنے کے لیے سوال کرنا علم کی کنجی ہے۔ منتخب سوالات اور ان کے جوابات۔</p>
+        <a href="/" class="back-btn"><i class="fas fa-home"></i> ہوم پیج</a>
+        <div class="logo-text">
+            <i class="fas fa-kaaba"></i> اسلامی سوالات
         </div>
+        <div style="width: 80px;"></div>
     </header>
 
-    <div class="search-container">
-        <div class="search-box">
-            <button class="search-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </button>
-            <input type="text" class="search-input" id="searchInput" placeholder="یہاں سوال تلاش کریں..." onkeyup="filterPosts()">
+    <!-- Post Updater Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item">✨ قرآن مجید اور نماز کے بارے میں اہم سوالات اور جوابات یہاں پڑھیں</div>
+            <div class="ticker-item">✨ اپنی دینی معلومات میں اضافہ کریں</div>
+            <div class="ticker-item">✨ روزانہ کی بنیاد پر نئے اسلامی سوالات</div>
         </div>
     </div>
 
-    <main class="container">
-        <div class="posts-grid" id="postsGrid">
+    <!-- Main Featured Slider -->
+    <div class="main-slider">
+        <div class="slides">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <!-- NOTE: .html replaced with .png for display purposes -->
+                <img src="https://www.bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.png" alt="Quran Questions">
+                <div class="slide-caption">قرآن مجید: ہدایت کا نور</div>
+            </div>
+             <!-- Slide 2 -->
+             <div class="slide">
+                <!-- NOTE: .html replaced with .png for display purposes -->
+                <img src="https://www.bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.png" alt="Namaz Questions">
+                <div class="slide-caption">نماز: مومن کی معراج</div>
+            </div>
+        </div>
+    </div>
 
-            <!-- Post 1: Quran -->
-            <a href="https://www.bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat" class="card post-item" target="_blank">
-                <div class="card-content">
-                    <div class="icon-box">
-                        <!-- Quran/Book Icon -->
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                        </svg>
-                    </div>
-                    <h2>قرآن مجید پر 50 دلچسپ سوالات</h2>
-                    <p>قرآن پاک کی معلومات، سورتوں کی تفصیلات اور نزول قرآن سے متعلق 50 اہم سوالات کا مجموعہ۔</p>
-                    <span class="btn-text">
-                        جوابات پڑھیں
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                    </span>
-                </div>
-            </a>
+    <!-- Floating Icons -->
+    <div class="icon-strip">
+        <div class="icon-box" title="Quran"><i class="fas fa-quran"></i></div>
+        <div class="icon-box" title="Dua"><i class="fas fa-hands-praying"></i></div>
+        <div class="icon-box" title="Mosque"><i class="fas fa-mosque"></i></div>
+        <div class="icon-box" title="Tasbih"><i class="fas fa-stopwatch"></i></div>
+        <div class="icon-box" title="Direction"><i class="fas fa-compass"></i></div>
+    </div>
 
-            <!-- Post 2: Namaz -->
-            <a href="https://www.bloglovers.pk/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat" class="card post-item" target="_blank">
-                <div class="card-content">
-                    <div class="icon-box">
-                        <!-- Prayer Rug/Mosque Icon -->
-                        <svg viewBox="0 0 24 24">
-                            <path d="M3 21h18v-2H3v2zm6-4h6v-2H9v2zm3-4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7.5-6h-15C3.7 7 3 7.7 3 8.5V15h2v-5h14v5h2V8.5c0-.8-.7-1.5-1.5-1.5z"/>
-                        </svg>
-                    </div>
-                    <h2>نماز کی اہمیت پر مبنی 50 سوالات</h2>
-                    <p>نماز کی فرضیت، طریقہ، احکامات اور روحانی اثرات کے بارے میں 50 معلوماتی سوالات اور ان کے جوابات۔</p>
-                    <span class="btn-text">
-                        جوابات پڑھیں
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                    </span>
+    <!-- Main Posts Grid -->
+    <div class="container">
+        <div class="posts-grid">
+
+            <!-- Post 1: Quran Questions -->
+            <div class="post-card">
+                <div class="img-container">
+                    <!-- Image link updated to .png so it renders -->
+                    <img src="https://www.bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.html" alt="Quran Questions">
                 </div>
-            </a>
+                <div class="card-content">
+                    <h3 class="post-title">قرآن مجید پر 50 دلچسپ سوالات</h3>
+                    <a href="https://www.bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat" class="read-btn">مطالعہ کریں</a>
+                </div>
+            </div>
+
+            <!-- Post 2: Namaz Questions -->
+            <div class="post-card">
+                <div class="img-container">
+                    <!-- Image link updated to .png so it renders -->
+                    <img src="https://www.bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.html" alt="Namaz Questions">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">نماز کی اہمیت پر مبنی 50 سوالات</h3>
+                    <a href="https://www.bloglovers.pk/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat" class="read-btn">مطالعہ کریں</a>
+                </div>
+            </div>
 
         </div>
-        
-        <!-- Empty State Message (Hidden by default) -->
-        <div id="noResults" style="display:none; text-align:center; padding:3rem; color:var(--text-light);">
-            <svg style="width:50px; height:50px; margin-bottom:1rem; opacity:0.5;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-            <p>افسوس! کوئی سوال نہیں ملا۔</p>
-        </div>
+    </div>
 
-    </main>
+    <!-- Mini Topics Slider -->
+    <div class="mini-slider">
+        <div class="mini-track">
+            <div class="mini-item"><i class="fas fa-book-quran"></i> تفسیر قرآن</div>
+            <div class="mini-item"><i class="fas fa-users"></i> سیرت النبیﷺ</div>
+            <div class="mini-item"><i class="fas fa-question-circle"></i> فقہی مسائل</div>
+            <div class="mini-item"><i class="fas fa-moon"></i> اسلامی تاریخ</div>
+            <div class="mini-item"><i class="fas fa-heart"></i> اصلاحی مضامین</div>
+            <!-- Repeats for infinite scroll -->
+            <div class="mini-item"><i class="fas fa-book-quran"></i> تفسیر قرآن</div>
+            <div class="mini-item"><i class="fas fa-users"></i> سیرت النبیﷺ</div>
+            <div class="mini-item"><i class="fas fa-question-circle"></i> فقہی مسائل</div>
+            <div class="mini-item"><i class="fas fa-moon"></i> اسلامی تاریخ</div>
+            <div class="mini-item"><i class="fas fa-heart"></i> اصلاحی مضامین</div>
+        </div>
+    </div>
+
+    <!-- Share Button -->
+    <div class="share-section">
+        <button class="share-btn" onclick="sharePage()">
+            <i class="fas fa-share-alt"></i> پیج شیئر کریں
+        </button>
+    </div>
 
     <footer>
-        <p>&copy; 2025 بلاگ لوورز.pk | تمام حقوق محفوظ ہیں</p>
-        <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">العلم نور (علم روشنی ہے)</p>
+        <p>© 2025 بلاگ لوورز | جملہ حقوق محفوظ ہیں</p>
     </footer>
 
     <script>
-        // Simple Search Filter Function
-        function filterPosts() {
-            let input = document.getElementById('searchInput');
-            let filter = input.value.toUpperCase();
-            let grid = document.getElementById('postsGrid');
-            let posts = grid.getElementsByClassName('post-item');
-            let noResults = document.getElementById('noResults');
-            let visibleCount = 0;
-
-            for (let i = 0; i < posts.length; i++) {
-                let h2 = posts[i].getElementsByTagName('h2')[0];
-                let p = posts[i].getElementsByTagName('p')[0];
-                let txtValue = h2.textContent || h2.innerText;
-                let descValue = p.textContent || p.innerText;
-                
-                if (txtValue.toUpperCase().indexOf(filter) > -1 || descValue.toUpperCase().indexOf(filter) > -1) {
-                    posts[i].style.display = "";
-                    visibleCount++;
-                } else {
-                    posts[i].style.display = "none";
-                }
+        // Starry Background Animation
+        function createStars() {
+            const container = document.getElementById('bg-anim');
+            for(let i=0; i<60; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(star);
             }
+        }
+        createStars();
 
-            // Show/Hide "No Results" message
-            if (visibleCount === 0) {
-                noResults.style.display = "block";
+        // Cross-fade Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(nextSlide, 5000); // Change every 5 seconds
+
+        // Share Function
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'اسلامی سوالات | بلاگ لوورز',
+                    text: 'دینی معلومات میں اضافے کے لیے یہ صفحہ ملاحظہ کریں۔',
+                    url: window.location.href,
+                })
+                .catch((error) => console.log('Error sharing', error));
             } else {
-                noResults.style.display = "none";
+                alert('لنک کاپی ہو گیا!');
+                navigator.clipboard.writeText(window.location.href);
             }
         }
     </script>
