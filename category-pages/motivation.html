@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حوصلہ اور امید | BlogLovers.pk</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome (Reliable CDN) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <title>حوصلہ افزائی | Motivation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Font Setup */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('https://fonts.gstatic.com/s/jameelnoorinastaleeq/v1/JameelNooriNastaleeq.ttf') format('truetype');
+        }
+
         :root {
-            --bg-dark: #09090b;
-            --bg-card: rgba(24, 24, 27, 0.6);
-            --fire-1: #f59e0b; /* Amber */
-            --fire-2: #ef4444; /* Red */
-            --fire-3: #fbbf24; /* Gold */
-            --text-main: #fafafa;
-            --text-muted: #a1a1aa;
-            --glow: 0 0 25px rgba(245, 158, 11, 0.3);
-            --font-urdu: 'Noto Nastaliq Urdu', serif;
+            --bg-dark: #050505;
+            --card-dark: #121212;
+            --neon-green: #39ff14;
+            --neon-blue: #00ffff;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
         }
 
         * {
@@ -32,400 +29,280 @@
 
         body {
             background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: var(--font-urdu);
-            min-height: 100vh;
+            color: var(--text-white);
+            font-family: 'Jameel Noori Nastaleeq', serif;
             overflow-x: hidden;
-            position: relative;
+            min-height: 100vh;
         }
 
-        /* Animated Embers Background */
-        canvas#embers {
+        /* Vivid Dark Live Animation Background */
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at bottom, #1c1917 0%, #09090b 100%);
+            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            overflow: hidden;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: floatGlow 10s infinite alternate;
+        }
+
+        .orb1 { width: 300px; height: 300px; background: var(--neon-green); top: -100px; left: -100px; animation-duration: 12s; }
+        .orb2 { width: 400px; height: 400px; background: var(--neon-blue); bottom: -100px; right: -100px; animation-duration: 15s; }
+        .orb3 { width: 200px; height: 200px; background: #ff00ff; top: 40%; left: 40%; animation-duration: 20s; opacity: 0.3; }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
         }
 
         /* Header */
         header {
-            text-align: center;
-            padding: 5rem 1rem 3rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .header-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to top, var(--fire-2), var(--fire-3));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 40px rgba(245, 158, 11, 0.4);
-            animation: burnText 2s infinite alternate;
-        }
-
-        .header-content p {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-            border-bottom: 2px solid rgba(245, 158, 11, 0.2);
-            padding-bottom: 25px;
-        }
-
-        /* Quote Section */
-        .quote-box {
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            position: relative;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-        }
-
-        .quote-box i {
-            font-size: 2rem;
-            color: var(--fire-3);
-            margin-bottom: 1rem;
-        }
-
-        .quote-text {
-            font-size: 1.5rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .refresh-btn {
-            background: linear-gradient(45deg, var(--fire-2), var(--fire-1));
-            border: none;
-            padding: 10px 25px;
-            color: white;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: var(--font-urdu);
-            font-size: 1rem;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
-        }
-
-        .refresh-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.6);
-        }
-
-        /* Container & Grid */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .grid-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2rem;
-            color: var(--fire-3);
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
+            border-bottom: 2px solid var(--neon-green);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(57, 255, 20, 0.2);
         }
 
-        .grid-title::before, .grid-title::after {
-            content: '';
-            height: 2px;
-            width: 50px;
-            background: var(--fire-3);
-            display: block;
-        }
-
-        .posts-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        /* Hero Card Design (Special for Single Post) */
-        .hero-card {
-            width: 100%;
-            max-width: 600px;
-            background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            border-radius: 30px;
-            overflow: hidden;
+        .back-btn {
+            background: transparent;
+            color: var(--neon-green);
+            padding: 5px 15px;
+            border: 2px solid var(--neon-green);
+            border-radius: 50px;
             text-decoration: none;
-            color: var(--text-main);
-            transition: all 0.5s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
+            font-size: 0.9rem;
+            transition: 0.4s;
+            font-family: sans-serif;
         }
 
-        .hero-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--fire-3);
-            box-shadow: 0 0 50px rgba(245, 158, 11, 0.2);
+        .back-btn:hover {
+            background: var(--neon-green);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .share-btn {
+            color: var(--neon-blue);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .share-btn:hover { text-shadow: 0 0 15px var(--neon-blue); transform: scale(1.2); }
+
+        /* Small Moving Slider (Ticker) */
+        .ticker-wrap {
+            background: #000;
+            border-bottom: 1px solid var(--neon-blue);
+            padding: 8px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker { display: inline-block; animation: ticker 25s infinite linear; }
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 0.9rem;
+            color: var(--text-white);
+        }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* Main Slider (Single Featured Post) */
+        .slider-container {
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            position: relative;
+        }
+        .slide { position: relative; height: 250px; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8); }
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, black, transparent);
+            padding: 20px;
+            text-align: center;
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px black;
+        }
+
+        /* Grid */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
+
+        .card {
+            background: var(--card-dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 320px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.3);
         }
 
         .card-img {
-            height: 250px;
-            background: linear-gradient(45deg, #27272a, #18181b);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 180px;
             position: relative;
             overflow: hidden;
+            border-bottom: 2px solid var(--neon-green);
         }
 
-        .card-img i {
-            font-size: 6rem;
-            background: linear-gradient(to bottom, var(--fire-3), var(--fire-2));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            z-index: 2;
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
         }
 
-        .card-img::after {
-            content: '';
+        .card:hover img { transform: scale(1.1); filter: brightness(1.1); }
+
+        .spinning-icon {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(251, 191, 36, 0.1), transparent 60%);
-            animation: rotateGlow 10s infinite linear;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            background: rgba(0,0,0,0.7);
+            padding: 8px;
+            border-radius: 50%;
+            border: 1px solid var(--neon-green);
+            animation: spin 4s infinite linear;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .card-content { padding: 15px; text-align: center; }
+        .card h3 {
+            font-size: 1rem; /* Small font size */
+            color: var(--text-white);
+            margin: 0;
+            line-height: 1.6;
         }
 
-        .card-content {
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .card-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--fire-3);
-        }
-
-        .card-content p {
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .read-btn {
-            display: inline-block;
-            border: 2px solid var(--fire-3);
-            padding: 10px 30px;
-            border-radius: 50px;
-            color: var(--fire-3);
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .hero-card:hover .read-btn {
-            background: var(--fire-3);
-            color: #000;
+        .full-link {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: 10;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem;
-            margin-top: 5rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            margin-top: 50px;
+            background: #000;
+            border-top: 1px solid var(--neon-blue);
+            color: var(--text-gray);
+            font-size: 0.8rem;
         }
 
-        /* Animations */
-        @keyframes burnText {
-            from { text-shadow: 0 0 20px rgba(245, 158, 11, 0.2); opacity: 0.9; }
-            to { text-shadow: 0 0 50px rgba(239, 68, 68, 0.6); opacity: 1; }
-        }
-
-        @keyframes rotateGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .header-content h1 { font-size: 2.5rem; }
-            .quote-text { font-size: 1.2rem; }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .slider-container { height: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Animated Embers Background -->
-    <canvas id="embers"></canvas>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="glow-orb orb1"></div>
+        <div class="glow-orb orb2"></div>
+        <div class="glow-orb orb3"></div>
+    </div>
 
+    <!-- Header -->
     <header>
-        <div class="header-content">
-            <h1><i class="fas fa-fire-alt"></i> عزم و ہمت</h1>
-            <p>جب ارادے مضبوط ہوں تو منزلیں خود بخود قدم چومتی ہیں۔ مایوسی کفر ہے، اور امید مومن کی ڈھال۔</p>
-        </div>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> واپس</a>
+        <h1>حوصلہ افزائی</h1>
+        <i class="fas fa-share-nodes share-btn" onclick="sharePage()"></i>
     </header>
 
-    <div class="container">
-        
-        <!-- Daily Motivation Generator -->
-        <div class="quote-box">
-            <i class="fas fa-quote-right"></i>
-            <div class="quote-text" id="daily-quote">
-                "ہزاروں میل کا سفر ایک قدم سے شروع ہوتا ہے۔ اٹھو! اور اپنا پہلا قدم بڑھاؤ۔"
-            </div>
-            <button class="refresh-btn" onclick="newQuote()">
-                <i class="fas fa-sync-alt"></i> نیا پیغام
-            </button>
+    <!-- Moving Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker-item"><i class="fas fa-bolt"></i> کامیابی کا راستہ مشکل ضرور ہے، مگر ناممکن نہیں</span>
+            <span class="ticker-item"><i class="fas fa-star"></i> ہار ماننا آسان ہے، لڑنا مشکل ہے</span>
+            <span class="ticker-item"><i class="fas fa-fire"></i> حوصلہ افزائی کے بہترین پیغامات</span>
         </div>
+    </div>
 
-        <!-- Content Grid -->
-        <h2 class="grid-title">منتخب مضامین</h2>
-        
-        <div class="posts-grid">
+    <!-- Main Slider (Featured Post) -->
+    <div class="slider-container">
+        <div class="slide">
+            <img src="https://www.bloglovers.pk/images/motivation/hausla-afzai-ke-50-paighamaat.webp" alt="Slider Image">
+            <div class="slide-caption">حوصلہ افزائی کے 50 پیغامات</div>
+        </div>
+    </div>
 
-            <!-- Featured Post (Single Link Available) -->
-            <a href="https://www.bloglovers.pk/motivation/hausla-afzai-ke-50-paighamaat" class="hero-card" target="_blank">
+    <!-- Posts Grid -->
+    <div class="container">
+        <div class="grid">
+            
+            <!-- Post 1 -->
+            <div class="card">
                 <div class="card-img">
-                    <i class="fas fa-mountain"></i>
+                    <img src="https://www.bloglovers.pk/images/motivation/hausla-afzai-ke-50-paighamaat.webp" loading="lazy" alt="Motivation">
+                    <div class="spinning-icon"><i class="fas fa-fire"></i></div>
                 </div>
                 <div class="card-content">
                     <h3>حوصلہ افزائی کے 50 پیغامات</h3>
-                    <p>زندگی کی مشکلات میں امید کی کرن۔ وہ اقوال اور باتیں جو آپ کے اندر سوئی ہوئی طاقت کو جگا دیں اور آپ کو کامیابی کی راہ پر گامزن کریں۔</p>
-                    <span class="read-btn">پڑھیں اور عمل کریں <i class="fas fa-arrow-left"></i></span>
                 </div>
-            </a>
-
-            <!-- Placeholder Card 1 (To show layout capability) -->
-            <div class="hero-card" style="opacity: 0.7; pointer-events: none; filter: grayscale(1);">
-                <div class="card-img">
-                    <i class="fas fa-hourglass-half"></i>
-                </div>
-                <div class="card-content">
-                    <h3>جلد آرہا ہے...</h3>
-                    <p>مزید موٹیویشنل تحریریں جلد شامل کی جائیں گی۔ ہمارے ساتھ جڑے رہیں۔</p>
-                    <span class="read-btn" style="border-color: #555; color: #555;">انتظار فرمائیں</span>
-                </div>
+                <a href="https://www.bloglovers.pk/2024/10/50_56.html" class="full-link"></a>
             </div>
 
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <p>© 2025 بلاگ لوورز.pk | عزمِ سفر</p>
-        <div style="margin-top: 15px; font-size: 1.5rem;">
-            <i class="fas fa-fist-raised" style="margin: 0 10px; color: var(--fire-1);"></i>
-            <i class="fas fa-lightbulb" style="margin: 0 10px; color: var(--fire-3);"></i>
-            <i class="fas fa-heart" style="margin: 0 10px; color: var(--fire-2);"></i>
-        </div>
+        <p>© 2025 بلاگ لوورز - حوصلہ افزائی سیکشن</p>
     </footer>
 
     <script>
-        // Embers Animation
-        const canvas = document.getElementById('embers');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-
-        class Ember {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 100;
-                this.size = Math.random() * 3 + 1;
-                this.speedY = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.opacity = 1;
-                this.color = `255, ${Math.floor(Math.random() * 100 + 100)}, 0`; // Orange/Yellow shades
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Motivation - BlogLovers',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                alert('لنک کاپی کر لیا گیا!');
             }
-
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-                this.opacity -= 0.005;
-                
-                if (this.opacity <= 0) {
-                    this.y = canvas.height + Math.random() * 100;
-                    this.opacity = 1;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = `rgba(${this.color}, 1)`;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            }
-        }
-
-        function initEmbers() {
-            const count = (canvas.width * canvas.height) / 15000;
-            for (let i = 0; i < count; i++) {
-                particles.push(new Ember());
-            }
-        }
-
-        function animateEmbers() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateEmbers);
-        }
-
-        // Handle Resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles.length = 0;
-            initEmbers();
-        });
-
-        initEmbers();
-        animateEmbers();
-
-        // Quote Logic
-        const quotes = [
-            "گرنا اہم نہیں، گر کر دوبارہ اٹھ کھڑا ہونا اہم ہے۔",
-            "آپ کی سوچ ہی آپ کی دنیا کی تعمیر کرتی ہے۔ مثبت سوچیں، مثبت رہیں۔",
-            "کامیابی کا راز: شروعات کرنے میں ہے۔",
-            "مشکلات صرف بہترین لوگوں کے حصے میں آتی ہیں، کیونکہ وہ ہی اسے بہترین طریقے سے انجام دینے کی صلاحیت رکھتے ہیں۔",
-            "وقت آپ کا ہے، چاہو تو سونا بنا لو، چاہو تو سونے میں گزار دو۔",
-            "جس کے پاس صبر ہے، اس کے پاس سب کچھ ہے۔"
-        ];
-
-        function newQuote() {
-            const display = document.getElementById('daily-quote');
-            const random = Math.floor(Math.random() * quotes.length);
-            
-            // Fade out effect
-            display.style.opacity = 0;
-            setTimeout(() => {
-                display.innerText = `"${quotes[random]}"`;
-                display.style.opacity = 1;
-            }, 300);
         }
     </script>
+
 </body>
 </html>
