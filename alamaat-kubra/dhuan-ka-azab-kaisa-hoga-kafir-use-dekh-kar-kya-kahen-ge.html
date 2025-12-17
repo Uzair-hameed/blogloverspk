@@ -6,70 +6,920 @@
     <title>دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), 
+                 url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        :root {
+            --primary-red: #8B0000;
+            --dark-red: #5A0000;
+            --light-red: #B22222;
+            --gold: #FFD700;
+            --dark-gold: #D4AF37;
+            --green: #32CD32;
+            --dark-green: #228B22;
+            --bg-dark: #0A0A0A;
+            --bg-darker: #050505;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --text-light: #F0F0F0;
+            --text-lighter: #FFFFFF;
+            --text-gray: #AAAAAA;
+            --shadow-heavy: rgba(0, 0, 0, 0.7);
+            --shadow-glow: rgba(139, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.3;
+            direction: rtl;
+            text-align: right;
+            background: var(--bg-darker);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Dark Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(50, 205, 50, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, var(--bg-darker) 0%, #111111 100%);
+            animation: bgPulse 20s ease-in-out infinite alternate;
+        }
+        
+        @keyframes bgPulse {
+            0% { 
+                opacity: 0.6;
+                background-size: 150% 150%, 120% 120%, 130% 130%, auto;
+            }
+            50% { 
+                opacity: 0.8;
+                background-size: 160% 160%, 130% 130%, 140% 140%, auto;
+            }
+            100% { 
+                opacity: 0.7;
+                background-size: 140% 140%, 110% 110%, 120% 120%, auto;
+            }
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(100px); }
+            50% { transform: translateY(0) translateX(200px); }
+            75% { transform: translateY(100px) translateX(100px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, 
+                rgba(139, 0, 0, 0.2), 
+                rgba(20, 20, 20, 0.8));
+            border-radius: 25px;
+            border-left: 5px solid var(--primary-red);
+            border-right: 5px solid var(--gold);
+            box-shadow: 0 15px 50px var(--shadow-heavy),
+                        inset 0 0 50px rgba(139, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 215, 0, 0.05) 50%, 
+                transparent 70%);
+            animation: shine 8s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Trigger Button */
+        .trigger-btn {
+            display: block;
+            width: 100%;
+            max-width: 450px;
+            margin: 40px auto 60px;
+            padding: 22px 50px;
+            background: linear-gradient(135deg, 
+                var(--primary-red) 0%, 
+                var(--light-red) 50%, 
+                var(--primary-red) 100%);
+            color: var(--text-lighter);
+            border: none;
+            border-radius: 70px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 40px var(--shadow-heavy),
+                        0 0 30px rgba(139, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        .trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                var(--dark-red) 0%, 
+                var(--primary-red) 50%, 
+                var(--dark-red) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .trigger-btn::after {
+            content: '🕌';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .trigger-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(139, 0, 0, 0.6),
+                        0 0 50px rgba(255, 215, 0, 0.3);
+        }
+        
+        .trigger-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .trigger-btn:hover::after {
+            right: 20px;
+            transform: translateY(-50%) rotate(360deg);
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 70px var(--shadow-heavy),
+                        inset 0 0 100px rgba(0, 0, 0, 0.5);
+            margin-bottom: 60px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-red), transparent);
+            border-radius: 0 30px 0 100px;
+            opacity: 0.1;
+        }
+        
+        /* Headings */
+        h1 {
+            color: var(--gold);
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 4px solid var(--primary-red);
+            text-shadow: 0 5px 20px rgba(255, 215, 0, 0.4),
+                         0 2px 5px rgba(0, 0, 0, 0.8);
+            line-height: 1.3;
+            position: relative;
+            letter-spacing: 1px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--gold), 
+                transparent);
+        }
+        
+        h2 {
+            color: var(--green);
+            font-size: 2.8rem;
+            margin: 50px 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(50, 205, 50, 0.4);
+            position: relative;
+            text-shadow: 0 3px 10px rgba(50, 205, 50, 0.3);
+        }
+        
+        h2::before {
+            content: '📖';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+        }
+        
+        h3 {
+            color: var(--text-lighter);
+            font-size: 2.3rem;
+            margin: 40px 0 25px;
+            padding-right: 20px;
+            position: relative;
+        }
+        
+        h3::before {
+            content: '•';
+            position: absolute;
+            right: 0;
+            color: var(--primary-red);
+            font-size: 3rem;
+        }
+        
+        /* Paragraphs */
+        p {
+            font-size: 1.7rem;
+            margin-bottom: 35px;
+            text-align: justify;
+            text-justify: inter-word;
+            color: var(--text-light);
+            line-height: 2.5;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.3);
+            border-radius: 15px;
+            border-right: 3px solid rgba(139, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        p:hover {
+            background: rgba(40, 40, 40, 0.4);
+            border-right-color: var(--primary-red);
+            transform: translateX(-5px);
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 25px;
+            margin: 40px auto;
+            display: block;
+            box-shadow: 0 20px 60px var(--shadow-heavy),
+                        0 0 40px rgba(139, 0, 0, 0.4);
+            border: 4px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(139, 0, 0, 0.1), 
+                rgba(255, 215, 0, 0.05));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.02) rotate(1deg);
+            box-shadow: 0 30px 80px rgba(139, 0, 0, 0.6),
+                        0 0 60px rgba(255, 215, 0, 0.5);
+            border-color: var(--gold);
+        }
+        
+        .featured-image:hover::before {
+            opacity: 1;
+        }
+        
+        /* Color Fill Mode */
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            pointer-events: none;
+        }
+        
+        .color-fill-container.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                #8B0000, #B22222, #FF4500, 
+                #FF8C00, #FFD700, #32CD32, 
+                #228B22, #8B0000);
+            background-size: 400% 400%;
+            animation: gradientFlow 25s ease infinite;
+            filter: brightness(0.8) contrast(1.2);
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            width: 92%;
+            max-width: 1100px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: linear-gradient(135deg, 
+                rgba(20, 20, 20, 0.98), 
+                rgba(10, 10, 10, 0.99));
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9),
+                        0 0 80px rgba(255, 215, 0, 0.3),
+                        inset 0 0 50px rgba(139, 0, 0, 0.2);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 3px solid var(--gold);
+        }
+        
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        /* Buttons */
+        .close-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.5);
+        }
+        
+        .close-btn:hover {
+            transform: rotate(180deg) scale(1.2);
+            background: linear-gradient(135deg, #FF0000, var(--primary-red));
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.6);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--green), var(--dark-green));
+            color: var(--text-lighter);
+            border: none;
+            padding: 18px 35px;
+            border-radius: 40px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(50, 205, 50, 0.4);
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, #00FF00, var(--green));
+            transform: translateX(-10px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 255, 0, 0.5);
+        }
+        
+        .back-btn::before {
+            content: '←';
+            font-size: 1.8rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.4rem; }
+            h3 { font-size: 2rem; }
+            p { font-size: 1.6rem; }
+            .post-content { padding: 40px; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container { padding: 20px 15px; }
+            .page-header { padding: 25px 20px; margin-bottom: 40px; }
+            .post-content { padding: 30px 25px; }
+            
+            h1 { 
+                font-size: 2.4rem; 
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+            }
+            
+            h2 { 
+                font-size: 2rem; 
+                margin: 40px 0 25px;
+                padding-bottom: 12px;
+            }
+            
+            h3 { 
+                font-size: 1.7rem; 
+                margin: 30px 0 20px;
+            }
+            
+            p { 
+                font-size: 1.4rem; 
+                line-height: 2.2;
+                padding: 12px;
+                margin-bottom: 25px;
+            }
+            
+            .trigger-btn {
+                font-size: 1.3rem;
+                padding: 18px 35px;
+                margin: 30px auto 50px;
+            }
+            
+            .post-content-overlay {
+                padding: 35px 25px;
+                width: 96%;
+                max-height: 90vh;
+            }
+            
+            .close-btn, .back-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 28px;
+            }
+            
+            .back-btn {
+                padding: 15px 25px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.9rem; }
+            h2 { font-size: 1.6rem; }
+            h3 { font-size: 1.4rem; }
+            p { font-size: 1.2rem; }
+            
+            .trigger-btn {
+                font-size: 1.1rem;
+                padding: 15px 30px;
+                margin: 25px auto 40px;
+            }
+            
+            .post-content {
+                padding: 25px 20px;
+            }
+            
+            .close-btn, .back-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .back-btn {
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .page-header {
+                padding: 20px 15px;
+                margin-bottom: 30px;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 10px;
+            margin: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, 
+                var(--primary-red), 
+                var(--gold), 
+                var(--green));
+            border-radius: 10px;
+            border: 2px solid rgba(20, 20, 20, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, 
+                var(--light-red), 
+                var(--gold), 
+                var(--dark-green));
+        }
+        
+        /* Selection Color */
+        ::selection {
+            background: rgba(139, 0, 0, 0.5);
+            color: var(--gold);
+            text-shadow: none;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10001;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(139, 0, 0, 0.3);
+            border-top: 5px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 20px;
+            border-top: 2px solid rgba(139, 0, 0, 0.3);
+            color: var(--text-gray);
+            font-size: 1.3rem;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particlesContainer"></div>
+    
+    <!-- Loading Spinner -->
+    <div class="loading" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+    
+    <div class="main-container">
+        <div class="page-header">
+            <button class="trigger-btn" onclick="openColorFillPost()">
+                اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            </button>
+        </div>
+
+        <div class="post-content">
+            <h1>دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟</h1>
+            
+            <img src="https://bloglovers.pk/images/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge.png" 
+                 alt="دھواں کا عذاب - قیامت کی نشانی" 
+                 class="featured-image"
+                 loading="lazy">
+            
+            <p>دوستو! اللہ رب العزت نے ہر قوم کو اس کے اعمال کے مطابق جزا وسزا دی ہے۔ عذاب کی نوعیت مختلف ہو سکتی ہے، اللہ نے بعض قوموں کو زمین سے تعلق رکھنے والے عذاب میں مبتلا کیا جیسے زمین کا دھنس جانا، خشک سالی وغیرہ، بعض کا تعلق لوگوں کی ذات سے ہے جیسے عورتوں کی کثرت اور مردوں کی قلت کا ہونا، جھوٹ کا پھیلنا، مختلف بیماریوں کا پھیلنا وغیرہ، کچھ کا تعلق انسانی اخلاقیات اور دائرہ اسلام سے ہے جیسے کہ زنا، سود، جوا، شراب اور قتل وغیرہ، جبکہ بعض کا تعلق آسمانی عذاب سے ہے آسمان سے بجلی کا کثرت سے گرنا، بارشوں کی کمی یا زیادتی ہونا، سردی اور گرمی کا بڑھنا، زلزلہ اور سرخ آندھیوں کا چلنا، انہی بہت ساری نشانیوں میں سے ایک آسمانی نشانی دھواں (دخان) کا اٹھنا بھی ہے جس کا ذکر اللہ رب العزت نے قرآن میں بیان فرمایا "تو آپ اس دن کا انتظار کیجئے جب آسمان صاف دھواں لائے گا، جو لوگوں کو ڈھانپ لے گا (کہا جائے گا) یہ دردناک عذاب ہے۔ (کافر کہیں گے) اے ہمارے رب! ہم سے یہ عذاب ہٹا دے، بلاشبہ ہم ایمان لانے والے ہیں۔ ان کے لئے نصیحت کیونکر ہوگی جبکہ ان کے پاس ایک کھول کھول کر بیان کرنے والا رسول آگیا"۔</p>
+            
+            <h2>دھواں (دخان) کی تشریح</h2>
+            <p>دھواں (دخان) سے متعلق اہل علم کے مختلف مؤقف ہیں بعض کے نزدیک اس دھواں سے مراد وہ دھواں ہے جو قریش کو شدت بھوک کی شکل میں اس وقت پہنچا جب اللہ کے نبی حضرت محمد ﷺ نے ان کے لئے دعوت کو قبول نہ کرنے کی وجہ سے بددعا فرمائی تھی۔ وہ اپنی آنکھوں کو آسمان کی طرف اٹھا کر دیکھتے تو انھیں بھوک اور قحط کی وجہ سے دھوئیں کے سوا کچھ نظر نہ آتا تھا۔ (رسول اللہ نے جب بددعا فرمائی کہ اللہ تعالیٰ انھیں اسی طرح مصیبت میں ڈالے جس طرح اہل مصر کو مصیبت میں ڈالا گیا تھا، ان کے سات برس خشک سالی اور قحط میں گزرے حتی کہ بھوک اور افلاس کی شدت کے باعث وہ چمڑے اور مردار کھانے پر مجبور ہو گئے۔ ان میں سے جب کوئی شخص آسمان کی طرف دیکھتا تو بھوک کے باعث اسے دھواں ہی دھواں نظر آتا)۔ جبکہ بعض کے نزدیک دھواں کی علامت گزر چکی ہے لیکن اکثریت کی رائے یہ ہے کہ دخان (دھواں) دو قسم کا ہے ایک آپ ﷺ کے زمانے میں ظاہر ہو چکا ہے اور دوسرا قرب قیامت ظاہر ہو گا۔ اور یقیناً شدید ہوگا۔</p>
+            
+            <h2>احادیث کی روشنی میں</h2>
+            <p>ایک حدیث کے مطابق "جب دھوئیں کی علامت ظاہر ہوگی تو کفار کی سانسیں بند ہو جائیں گی جبکہ مومنوں پر اس سے صرف زکام جیسی کیفیت طاری ہوگی۔ یہ سن کر حضرت ابن مسعود غصے کی حالت میں سیدھے ہو کر بیٹھ گئے اور فرمایا لوگو! اللہ سے ڈرو، تم میں سے جسے کسی چیز کا علم ہو تو صرف اسے اپنے علم کے مطابق بیان کرے اور جسے کسی چیز کا علم نہ ہو وہ "اللہ اعلم" کہے۔</p>
+            
+            <p>ایک روایت کے مطابق پانچ چیزیں گزر چکی ہیں "اللزام" وہ عذاب ہے جو تکذیب کی صورت میں دیاگیا ہو۔ "الروم" رومی مغلوب ہوگئے، قریب ترین سرزمین (شام و فلسطین) میں اور وہ اپنے مغلوب ہونے کے بعد جلد غالب ہوں گے۔ "البطشۃ الکبری" سے مراد غزوہ بدر ہے جبکہ "القمر" چاند کے دو ٹکڑے ہونے کی بات علامات صغریٰ جو پہلے میں اپنے آرٹیکل میں تفصیل سے بیان کر چکا ہوں اور "الدخان" وہ دھواں جو قریش نے دیکھا تھا۔</p>
+            
+            <h2>قیامت کی نشانیاں</h2>
+            <p>ارشاد ربانی ہے "آپ اس دن کے منتظر رہیں جب آسمان ظاہر دھواں لائے گا" یعنی اتنا نمایاں ہوگا کہ ہر کوئی اپنی آنکھوں سے دیکھے گا۔ اہل قریش کو بھوک اور افلاس کی شدت کے باعث مخصوص خیال ہوتا تھا کہ آسمان میں دھواں ہے لیکن وہ ان کا وہم تھا جبکہ یہ دھواں حقیقی ہوگا۔ یعنی وہ دھواں حقیقت میں لوگوں کو اپنی لپیٹ میں لے لے گا۔ جب یہ دھواں انھیں پریشان کرے گا تو لوگوں سے کہا جائے گا کہ یہ درد ناک عذاب ہے۔</p>
+            
+            <p>ایک دوسری روایت کے مطابق "آپ ﷺ نے فرمایا "بلاشبہ وہ (قیامت) ہرگز قائم نہ ہوگی حتی کہ تم اس سے پہلے دس نشانیاں دیکھ لو...... اور آپ نے دھوئیں اور دجال کا ذکر کیا۔</p>
+            
+            <p>ایک اور مقام پر کچھ یوں بیان فرمایا "چھ چیزوں کے واقع ہونے سے پہلے پہلے نیک اعمال میں جلدی کر لو: سورج کا مغرب سے طلوع ہونا، یا دھوئیں کا ظاہر ہونا، یا دجال کا ظاہر ہونا، یا خروج دابہ یا تم میں کسی کا خاص وقت (موت) آجانا، یا سب کے لئے واقع ہونے والا معاملہ (قیامت) کا قائم ہو جانا"۔</p>
+            
+            <h2>صحابہ کرام کا خوف</h2>
+            <p>ایک اور حدیث کے الفاظ حضرت عبداللہ بن ابی سے ہیں وہ کہتے ہیں کہ میں ایک دن حضرت ابن عباس کے پاس گیا تو انھوں نے کہا: میں رات بھر سو نہیں سکا حتی کہ صبح ہوگئی میں نے پوچھا کس لئے؟ کہنے لگے: لوگوں نے بتلایا ہے کہ دم دار ستارہ طلوع ہو چکا ہے، مجھے خدشہ ہوا کہ کہیں دھواں نہ آپہنچا ہو، اسی خیال سے میں پوری رات نہ سو سکا"۔</p>
+            
+            <p>اس حدیث سے واضح ہے کہ صحابہ کرام کو کس قدر خوف تھا قیامت کا، کہ وہ ساری ساری رات موت کے خوف سے ڈر کے زندگی گزارتے تھے اور ایک ہم ہیں کہ جسے موت تو دور کی بات ہے قیامت کی یہ نشانیاں محض قصے اور کہانیاں معلوم ہوتی ہیں۔ تبھی تو سوشل میڈیا پر دین کا مذاق اڑاتے ہوئے لوگ دکھائی دیتے ہیں، چند دن پہلے 12 ربیع الاول کے دن لوگوں نے بدعت کے نام سے اتنی تبدیلیاں شروع کردی۔ کہ خدا خوفی تو درکنار شریعت محمدیہ سے ہی انکار کرتے دکھائی دیتے ہیں۔ گویا نعوذ باللہ اللہ نے دین مکمل ہی نہیں بھیجا یہ لوگ دین کو پورا کرنے میں لگے۔ اللہ رب العزت سے استدعا ہے کہ وہ ہمارے گناہوں اور خطاؤں کو معاف فرما دے۔ اور ہمیں ہدایت نصیب فرما دے۔ ہمارے جو کام ہیں وہ معافی کے لائق تو نہیں لیکن پھر بھی اللہ سے معافی مانگتے ہیں کہ وہ دین پر چلنے اور درست طریقے سے عمل کرنے کی توفیق عطا فرمائے۔ آمین</p>
+            
+            <div class="footer">
+                <p>© 2024 دینی معلومات - تمام حقوق محفوظ ہیں</p>
+            </div>
+        </div>
     </div>
 
-    <div class="post-content">
-        
-        <h1>دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟</h1>
-<p>دوستو! اللہ رب العزت نے ہر قوم کو اس کے اعمال کے مطابق جزا وسزا دی ہے۔ عذاب کی نوعیت مختلف ہو سکتی ہے، اللہ نے بعض قوموں کو زمین سے تعلق رکھنے والے عذاب میں مبتلا کیا جیسے <a href="https://www.bloglovers.pk/2021/10/blog-post_22.html">زمین کا دھنس جانا</a>، <a href="https://www.bloglovers.pk/2021/05/5.html">خشک سالی</a> وغیرہ، بعض کا تعلق لوگوں کی ذات سے ہے جیسے <a href="https://www.bloglovers.pk/2023/11/blog-post_50.html">عورتوں کی کثرت اور مردوں کی قلت کا ہونا</a>، <a href="https://www.bloglovers.pk/2023/11/blog-post_85.html">جھوٹ کا پھیلنا</a>، مختلف بیماریوں کا پھیلنا وغیرہ، کچھ کا تعلق انسانی اخلاقیات اور دائرہ اسلام سے ہے جیسے کہ زنا، سود، جوا، شراب اور قتل وغیرہ، جبکہ بعض کا تعلق آسمانی عذاب سے ہے <a href="https://www.bloglovers.pk/2021/04/blog-post_15.html">آسمان سے بجلی کا کثرت سے گرنا</a>، <a href="https://www.bloglovers.pk/2023/12/blog-post_14.html">بارشوں کی کمی یا زیادتی ہونا</a>، سردی اور گرمی کا بڑھنا، <a href="https://www.bloglovers.pk/2023/06/blog-post_61.html">زلزلہ اور سرخ آندھیوں کا چلنا</a>، انہی بہت ساری نشانیوں میں سے ایک آسمانی نشانی دھواں (دخان) کا اٹھنا بھی ہے جس کا ذکر اللہ رب العزت نے قرآن میں بیان فرمایا &quot;تو آپ اس دن کا انتظار کیجئے جب آسمان صاف دھواں لائے گا، جو لوگوں کو ڈھانپ لے گا (کہا جائے گا) یہ دردناک عذاب ہے۔ (کافر کہیں گے) اے ہمارے رب! ہم سے یہ عذاب ہٹا دے، بلاشبہ ہم ایمان لانے والے ہیں۔ ان کے لئے نصیحت کیونکر ہوگی جبکہ ان کے پاس ایک کھول کھول کر بیان کرنے والا رسول آگیا &quot;۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEbDhbqOvlSmaexB_rtx3xJV3UlOvsoJ_9asNyrOnLZPo6e4GkUQz3AXxicw0GQswHODuA7Ui7CND25P3nSgSv-a1FOTrrjw3Q1tj4XR20igQLgey_tWelWDXOhiw6bDRH2YXL4qEgYj7lzc661K56uZQrU8j04rww8JIA-hTebG-vkpKctDysliZTNw/s2240/Beige%20Grey%20Blogger%20YouTube%20Channel%20Art.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEbDhbqOvlSmaexB_rtx3xJV3UlOvsoJ_9asNyrOnLZPo6e4GkUQz3AXxicw0GQswHODuA7Ui7CND25P3nSgSv-a1FOTrrjw3Q1tj4XR20igQLgey_tWelWDXOhiw6bDRH2YXL4qEgYj7lzc661K56uZQrU8j04rww8JIA-hTebG-vkpKctDysliZTNw/s16000/Beige%20Grey%20Blogger%20YouTube%20Channel%20Art.jpg" alt=""></a></p>
-<p>دھواں (دخان) سے متعلق اہل علم کے مختلف مؤقف ہیں بعض کے نزدیک اس دھواں سے مراد وہ دھواں ہے جو قریش کو شدت بھوک کی شکل میں اس وقت پہنچا جب اللہ کے نبی حضرت محمد ﷺ نے ان کے لئے دعوت کو قبول نہ کرنے کی وجہ سے بددعا فرمائی تھی۔ وہ اپنی آنکھوں کو آسمان کی طرف اٹھا کر دیکھتے تو انھیں بھوک اور قحط کی وجہ سے دھوئیں کے سوا کچھ نظر نہ آتا تھا۔ (رسول اللہ نے جب بددعا فرمائی کہ اللہ تعالیٰ انھیں اسی طرح مصیبت میں ڈالے جس طرح اہل مصر کو مصیبت میں ڈالا گیا تھا، ان کے سات برس خشک سالی اور قحط میں گزرے حتی کہ بھوک اور افلاس کی شدت کے باعث وہ چمڑے اور مردار کھانے پر مجبور ہو گئے۔ ان میں سے جب کوئی شخص آسمان کی طرف دیکھتا تو بھوک کے باعث اسے دھواں ہی دھواں نظر آتا)۔ جبکہ بعض کے نزدیک دھواں کی علامت گزر چکی ہے لیکن اکثریت کی رائے یہ ہے کہ دخان (دھواں) دو قسم کا ہے ایک آپ ﷺ کے زمانے میں ظاہر ہو چکا ہے اور دوسرا قرب قیامت ظاہر ہو گا۔ اور یقیناً شدید ہوگا۔</p>
-<p>ایک حدیث کے مطابق &quot;جب دھوئیں کی علامت ظاہر ہوگی تو کفار کی سانسیں بند ہو جائیں گی جبکہ مومنوں پر اس سے صرف زکام جیسی کیفیت طاری ہوگی۔ یہ سن کر حضرت ابن مسعود غصے کی حالت میں سیدھے ہو کر بیٹھ گئے اور فرمایا لوگو! اللہ سے ڈرو، تم میں سے جسے کسی چیز کا علم ہو تو صرف اسے اپنے علم کے مطابق بیان کرے اور جسے کسی چیز کا علم نہ ہو وہ &quot;اللہ اعلم&quot; کہے۔</p>
-<p>ایک روایت کے مطابق پانچ چیزیں گزر چکی ہیں &quot;اللزام&quot; وہ عذاب ہے جو تکذیب کی صورت میں دیاگیا ہو۔ &quot;الروم&quot; رومی مغلوب ہوگئے، قریب <a href="https://www.bloglovers.pk/2024/02/10.html">ترین سرزمین (شام و فلسطین)</a> میں اور وہ اپنے مغلوب ہونے کے بعد جلد غالب ہوں گے۔ &quot;البطشۃ الکبری&quot; سے مراد غزوہ بدر ہے جبکہ &quot;القمر&quot; <a href="https://www.bloglovers.pk/2020/06/3.html">چاند کے دو ٹکڑے ہونے</a> کی بات علامات صغریٰ جو پہلے میں اپنے آرٹیکل میں تفصیل سے بیان کر چکا ہوں اور &quot;الدخان&quot; وہ دھواں جو قریش نے دیکھا تھا۔</p>
-<p>ارشاد ربانی ہے &quot;آپ اس دن کے منتظر رہیں جب آسمان ظاہر دھواں لائے گا&quot; یعنی اتنا نمایاں ہوگا کہ ہر کوئی اپنی آنکھوں سے دیکھے گا۔ &quot;اہل قریش کو بھوک اور افلاس کی شدت کے باعث مخصوص خیال ہوتا تھا کہ آسمان میں دھواں ہے لیکن وہ ان کا وہم تھا جبکہ یہ دھواں حقیقی ہوگا۔ یعنی وہ دھواں حقیقت میں لوگوں کو اپنی لپیٹ میں لے لے گا۔ جب یہ دھواں انھیں پریشان کرے گا تو لوگوں سے کہا جائے گا کہ یہ درد ناک عذاب ہے۔</p>
-<p>ایک دوسری روایت کے مطابق &quot;آپ ﷺ نے فرمایا &quot;بلاشبہ وہ (قیامت) ہرگز قائم نہ ہوگی حتی کہ تم اس سے پہلے دس نشانیاں دیکھ لو...... اور آپ نے دھوئیں اور <a href="https://www.bloglovers.pk/2021/05/blog-post.html">دجال کا ذکر کیا</a>۔</p>
-<p>ایک اور مقام پر کچھ یوں بیان فرمایا &quot;چھ چیزوں کے واقع ہونے سے پہلے پہلے نیک اعمال میں جلدی کر لو: <a href="https://www.bloglovers.pk/2023/05/blog-post_25.html">سورج کا مغرب سے طلوع ہونا</a>، یا دھوئیں کا ظاہر ہونا، یا دجال کا ظاہر ہونا، یا <a href="https://www.bloglovers.pk/2023/05/blog-post.html">خروج دابہ</a> یا تم میں کسی کا خاص <a href="https://www.bloglovers.pk/2021/05/blog-post_29.html">وقت (موت) آجانا</a>، یا سب کے لئے واقع ہونے والا معاملہ (قیامت) کا قائم ہو جانا&quot;۔</p>
-<p>ایک اور حدیث کے الفاظ حضرت عبداللہ بن ابی سے ہیں وہ کہتے ہیں کہ میں ایک دن حضرت ابن عباس کے پاس گیا تو انھوں نے کہا: میں رات بھر سو نہیں سکا حتی کہ صبح ہوگئی میں نے پوچھا کس لئے؟ کہنے لگے: لوگوں نے بتلایا ہے کہ دم دار ستارہ طلوع ہو چکا ہے، مجھے خدشہ ہوا کہ کہیں دھواں نہ آپہنچا ہو، اسی خیال سے میں پوری رات نہ سو سکا&quot;۔</p>
-<p>اس حدیث سے واضح ہے کہ صحابہ کرام کو کس قدر خوف تھا قیامت کا، کہ وہ ساری ساری رات موت کے خوف سے ڈر کے زندگی گزارتے تھے اور ایک ہم ہیں کہ جسے موت تو دور کی بات ہے قیامت کی یہ نشانیاں محض قصے اور کہانیاں معلوم ہوتی ہیں۔ تبھی تو سوشل میڈیا پر دین کا مذاق اڑاتے ہوئے لوگ دکھائی دیتے ہیں، چند دن پہلے 12 ربیع الاول کے دن لوگوں نے بدعت کے نام سے اتنی تبدیلیاں شروع کردی۔ کہ خدا خوفی تو درکنار شریعت محمدیہ سے ہی انکار کرتے دکھائی دیتے ہیں۔ گویا نعوذ باللہ اللہ نے دین مکمل ہی نہیں بھیجا یہ لوگ دین کو پورا کرنے میں لگے۔ اللہ رب العزت سے استدعا ہے کہ وہ ہمارے گناہوں اور خطاؤں کو معاف فرما دے۔ اور ہمیں ہدایت نصیب فرما دے۔ ہمارے جو کام ہیں وہ معافی کے لائق تو نہیں لیکن پھر بھی اللہ سے معافی مانگتے ہیں کہ وہ دین پر چلنے اور درست طریقے سے عمل کرنے کی توفیق عطا فرمائے۔ آمین</p>
-
+    <!-- Color Fill Mode -->
+    <div class="color-fill-container" id="colorFillBg">
+        <div class="color-fill-background"></div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
+        <button class="back-btn" onclick="closeColorFillPost()">
+            واپس جائیں
+        </button>
         <div id="postContent"></div>
     </div>
 
     <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 8 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.right = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                
+                // Random color
+                const colors = ['#FFD700', '#8B0000', '#32CD32'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Open color fill post
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            loadingSpinner.classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('postContent').innerHTML = originalContent;
+                document.getElementById('colorFillBg').classList.add('active');
+                document.getElementById('postOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                loadingSpinner.classList.remove('active');
+                
+                // Add scroll event listener to overlay
+                const overlay = document.getElementById('postOverlay');
+                overlay.scrollTop = 0;
+            }, 500);
         }
+        
+        // Close color fill post
         function closeColorFillPost() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            loadingSpinner.classList.add('active');
+            
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+            
+            setTimeout(() => {
+                document.getElementById('postContent').innerHTML = '';
+                loadingSpinner.classList.remove('active');
+            }, 300);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Keyboard controls
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeColorFillPost();
+            }
+            if (e.key === ' ' || e.key === 'Enter') {
+                if (!document.getElementById('postOverlay').classList.contains('active')) {
+                    openColorFillPost();
+                }
+            }
+        });
+        
+        // Close when clicking on background
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Prevent overlay from closing when clicking inside
+        document.getElementById('postOverlay').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Touch gestures for mobile
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.changedTouches[0].screenY;
+            touchStartTime = Date.now();
+        }, { passive: true });
+        
+        document.addEventListener('touchend', function(e) {
+            const touchEndY = e.changedTouches[0].screenY;
+            const touchEndTime = Date.now();
+            const timeDiff = touchEndTime - touchStartTime;
+            const distance = Math.abs(touchEndY - touchStartY);
+            
+            // If quick swipe down on overlay, close it
+            if (document.getElementById('postOverlay').classList.contains('active') && 
+                touchEndY > touchStartY + 80 && 
+                timeDiff < 300 && 
+                distance > 100) {
+                closeColorFillPost();
+            }
+        }, { passive: true });
+        
+        // Lazy load and animate image
+        function loadImage() {
+            const img = document.querySelector('.featured-image');
+            if (img) {
+                const tempImg = new Image();
+                tempImg.src = img.src;
+                
+                tempImg.onload = function() {
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 1s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        img.style.opacity = '1';
+                    }, 300);
+                };
+            }
+        }
+        
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            createParticles();
+            loadImage();
+            
+            // Add click animation to paragraphs
+            const paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                p.addEventListener('click', function() {
+                    this.style.transform = 'translateX(-10px)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateX(-5px)';
+                    }, 300);
+                });
+            });
+            
+            // Smooth scroll for internal links (if any)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Performance optimization for scroll
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    // Add parallax effect to background
+                    const scrolled = window.pageYOffset;
+                    const animatedBg = document.querySelector('.animated-bg');
+                    if (animatedBg) {
+                        animatedBg.style.transform = `translateY(${scrolled * 0.05}px)`;
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
     </script>
 </body>
 </html>
