@@ -5,630 +5,269 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        
+        /* --- Font Settings --- */
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+
+        /* --- Color Variables (Theming) --- */
         :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #2ecc71;
+            --bg-color: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --container-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #34495e;
+            --heading-color: #1a252f;
+            --border-color: #4a90e2;
             --accent-color: #e74c3c;
-            --light-color: #f9f9f9;
-            --dark-color: #2c3e50;
-            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --nav-bg: rgba(255, 255, 255, 0.95);
         }
-        
-        .color-fill-container { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            z-index: -1; 
-            opacity: 0; 
-            transition: opacity 1.5s ease; 
-            pointer-events: none; 
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --container-bg: #1e1e1e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --heading-color: #81d4fa;
+            --border-color: #81d4fa;
+            --accent-color: #ff8a80;
+            --shadow: 0 10px 30px rgba(0,0,0,0.5);
+            --nav-bg: rgba(30, 30, 30, 0.95);
         }
-        .color-fill-container.active { 
-            opacity: 1; 
-            z-index: 9998; 
-        }
-        .color-fill-background { 
-            position: absolute; 
-            width: 100%; 
-            height: 100%; 
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
-            background-size: 400% 400%; 
-            animation: gradientFlow 15s ease infinite; 
-        }
-        @keyframes gradientFlow { 
-            0% { background-position: 0% 50%; } 
-            50% { background-position: 100% 50%; } 
-            100% { background-position: 0% 50%; } 
-        }
-        
-        .post-content-overlay { 
-            position: fixed; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%) scale(0.8); 
-            width: 95%; 
-            max-width: 1000px; 
-            max-height: 95vh; 
-            overflow-y: auto; 
-            background: white; 
-            padding: 30px; 
-            border-radius: 25px; 
-            box-shadow: 0 25px 70px rgba(0,0,0,0.4); 
-            z-index: 9999; 
-            opacity: 0; 
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        .post-content-overlay.active { 
-            opacity: 1; 
-            transform: translate(-50%, -50%) scale(1); 
-        }
-        
-        .close-btn { 
-            position: absolute; 
-            top: 15px; 
-            left: 15px; 
-            background: var(--accent-color); 
-            color: white; 
-            border: none; 
-            width: 45px; 
-            height: 45px; 
-            border-radius: 50%; 
-            font-size: 24px; 
-            cursor: pointer; 
-            z-index: 10000; 
-            transition: all 0.3s; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .close-btn:hover { 
-            transform: rotate(90deg) scale(1.1); 
-            background: #c0392b;
-        }
-        
-        .back-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 10000;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .back-btn:hover {
-            transform: translateX(-5px) scale(1.1);
-            background: #357ae8;
-        }
-        
+
+        /* --- Base Styles --- */
         body { 
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
-            line-height: 2.2; 
+            line-height: 2.5; /* Line height increased for readability */
             direction: rtl; 
             text-align: right; 
             margin: 0; 
-            padding: 20px; 
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            background-attachment: fixed;
+            padding: 0; 
+            background: var(--bg-color); 
+            color: var(--text-primary);
             min-height: 100vh; 
-            transition: background 0.5s ease;
+            transition: all 0.3s ease;
         }
-        
-        .main-header {
-            text-align: center;
-            margin: 40px 0 60px;
-            padding: 20px;
-            background: linear-gradient(to right, #4a90e2, #2ecc71);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
-            color: white;
-        }
-        
-        .trigger-btn { 
-            display: inline-block; 
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); 
-            color: white; 
-            padding: 15px 35px; 
-            border-radius: 50px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            margin: 20px 0; 
-            box-shadow: 0 7px 20px rgba(74, 144, 226, 0.4); 
-            transition: all 0.3s; 
-            border: none; 
-            cursor: pointer; 
-            font-size: 18px; 
-            font-family: inherit; 
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        .trigger-btn:before {
-            content: '';
-            position: absolute;
+
+        /* --- Navigation Bar (Sticky) --- */
+        .top-nav {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s;
+            z-index: 1000;
+            background: var(--nav-bg);
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(5px);
         }
-        .trigger-btn:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 12px 25px rgba(74, 144, 226, 0.6); 
+
+        .nav-btn {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
         }
-        .trigger-btn:hover:before {
-            opacity: 1;
+
+        .nav-btn:hover {
+            background: var(--border-color);
+            color: #fff;
         }
-        
+
+        /* --- Main Content Container --- */
         .post-content { 
-            max-width: 900px; 
-            margin: 0 auto 60px; 
-            background: white; 
+            max-width: 850px; 
+            margin: 30px auto; 
+            background: var(--container-bg); 
             padding: 40px; 
             border-radius: 20px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12); 
-            transition: transform 0.3s;
+            box-shadow: var(--shadow); 
+            transition: background 0.3s ease;
         }
-        .post-content:hover {
-            transform: translateY(-5px);
-        }
-        
-        h1, h2, h3 { 
-            color: var(--dark-color); 
-            border-bottom: 2px solid #eee; 
-            padding-bottom: 15px; 
-            margin-top: 40px;
-            position: relative;
-        }
-        
+
+        /* --- Typography & Alignment --- */
         h1 { 
             text-align: center; 
-            border-bottom: 4px solid var(--primary-color); 
-            font-size: 42px;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            color: #2c3e50;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        h2 {
-            font-size: 34px;
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 12px;
-        }
-        
-        h3 {
-            font-size: 28px;
-            border-bottom: 2px solid #f1f1f1;
-        }
-        
-        p {
-            font-size: 22px;
-            line-height: 2.4;
-            text-align: justify;
-            margin-bottom: 30px;
-            color: #444;
-        }
-        
-        .highlight {
-            background-color: rgba(46, 204, 113, 0.15);
-            padding: 5px 10px;
-            border-radius: 5px;
-            border-right: 4px solid var(--secondary-color);
-        }
-        
-        .featured-image-container {
-            width: 100%;
-            margin: 30px 0 50px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .featured-image {
-            max-width: 100%;
-            height: auto;
-            max-height: 500px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border: 5px solid white;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-        
-        .featured-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        
-        .image-placeholder {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(45deg, #4a90e2, #2ecc71);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            margin: 30px 0 50px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .image-placeholder:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            z-index: 1;
-        }
-        
-        .image-placeholder i {
-            font-size: 80px;
+            border-bottom: 3px solid var(--border-color); 
+            padding-bottom: 15px; 
+            color: var(--heading-color);
+            font-size: 2.4rem; /* Increased Heading Size */
             margin-bottom: 20px;
-            z-index: 2;
         }
-        
-        .image-placeholder span {
-            z-index: 2;
-            text-align: center;
-            padding: 0 20px;
+
+        h2 { 
+            color: var(--heading-color); 
+            border-bottom: 1px solid var(--text-secondary); 
+            padding-bottom: 10px; 
+            margin-top: 40px;
+            font-size: 1.8rem; /* Sub-heading size increased */
         }
-        
-        a { 
-            color: var(--accent-color); 
-            text-decoration: none; 
-            font-weight: bold;
-            transition: all 0.2s;
-            border-bottom: 2px dotted transparent;
+
+        p {
+            font-size: 1.4rem; /* Text Size Increased */
+            text-align: justify; /* Proper Alignment */
+            color: var(--text-secondary);
+            margin-bottom: 25px;
         }
-        
-        a:hover {
-            color: #c0392b;
-            border-bottom: 2px dotted var(--accent-color);
-        }
-        
-        .content-box {
-            background: #f8f9fa;
+
+        /* --- Featured Image --- */
+        .featured-img {
+            width: 100%;
+            height: auto;
             border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            border-right: 5px solid var(--primary-color);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            margin: 20px 0 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: block;
         }
+
+        a { color: var(--accent-color); text-decoration: none; font-weight: bold; }
         
-        .content-box:hover {
-            transform: translateX(-5px);
-        }
+        /* --- Color Fill Overlay Styles (Preserved) --- */
+        .trigger-btn { display: inline-block; width: 100%; text-align: center; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 15px 30px; border-radius: 15px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 1.2rem; font-family: inherit; }
+        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
         
-        .content-box h2, .content-box h3 {
-            border-bottom: none;
-            margin-top: 0;
-        }
+        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
+        .color-fill-container.active { opacity: 1; z-index: 9998; }
+        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            h2 {
-                font-size: 28px;
-            }
-            
-            h3 {
-                font-size: 24px;
-            }
-            
-            p {
-                font-size: 20px;
-                line-height: 2.2;
-            }
-            
-            .post-content {
-                padding: 25px;
-            }
-            
-            .post-content-overlay {
-                padding: 20px;
-                width: 98%;
-                border-radius: 20px;
-            }
-            
-            .main-header {
-                margin: 20px 0 40px;
-                padding: 15px;
-            }
-            
-            .trigger-btn {
-                padding: 12px 25px;
-                font-size: 16px;
-            }
-            
-            .image-placeholder {
-                height: 300px;
-                font-size: 20px;
-            }
-            
-            .image-placeholder i {
-                font-size: 60px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 28px;
-            }
-            
-            h2 {
-                font-size: 24px;
-            }
-            
-            p {
-                font-size: 19px;
-                line-height: 2.0;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            .close-btn, .back-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-            
-            .image-placeholder {
-                height: 250px;
-                font-size: 18px;
-            }
-            
-            .image-placeholder i {
-                font-size: 50px;
-            }
-        }
-        
-        /* Animation for content boxes */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .post-content > * {
-            animation: fadeInUp 0.5s ease forwards;
-        }
-        
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--primary-color), var(--secondary-color));
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(var(--secondary-color), var(--primary-color));
-        }
-        
-        /* Loading animation for image */
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-        
-        .loading {
-            animation: pulse 1.5s infinite;
+        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #2c3e50; }
+        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
+        .close-btn:hover { transform: rotate(90deg); }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 600px) {
+            .post-content { padding: 20px; margin: 10px; width: auto; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            p { font-size: 1.2rem; text-align: justify; }
+            .nav-btn span { display: none; } /* Hide text on very small screens, keep icon if added */
         }
     </style>
 </head>
 <body>
-    <div class="main-header">
-        <h1 style="color: white; border-bottom-color: rgba(255,255,255,0.3);">8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</h1>
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            <i class="fas fa-book-open"></i> اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+
+    <!-- Top Navigation with Back Button and Dark Mode -->
+    <div class="top-nav">
+        <button class="nav-btn" onclick="history.back()">
+            ⟵ واپس
+        </button>
+        <button class="nav-btn" id="themeToggle" onclick="toggleTheme()">
+            🌙 ڈارک موڈ
         </button>
     </div>
 
     <div class="post-content">
-        <!-- Featured Image - با اختیار امیج جو ہر حال میں نظر آئے -->
-        <div class="featured-image-container">
-            <!-- پہلے اصل امیج لگائیں -->
-            <img 
-                src="https://bloglovers.pk/images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai.jpg" 
-                alt="8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے" 
-                class="featured-image"
-                onerror="this.style.display='none'; document.getElementById('imagePlaceholder').style.display='flex';"
-                onload="this.classList.remove('loading'); document.getElementById('imagePlaceholder').style.display='none';"
-                class="loading"
-            >
-            
-            <!-- اگر امیج نہیں لوڈ ہوتی تو یہ پیلیس ہولڈر دکھائیں -->
-            <div id="imagePlaceholder" class="image-placeholder" style="display: none;">
-                <i class="fas fa-book-quran"></i>
-                <span>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</span>
-            </div>
-            
-            <div style="text-align: center; margin-top: 15px; font-size: 18px; color: #666; font-style: italic;">
-                دعا اور ذکر کی برکت سے ہر مراد پوری ہوتی ہے
-            </div>
-        </div>
         
-        <div class="content-box">
-            <p>دوستو! آپ ﷺ نے اُمت کی بھلائی کے لیے ایسے نایاب اذکار بتائے کہ جن کو ہر نماز کے بعد خشوع اور خضوع کے ساتھ اللہ رب العالمین کے سامنے اپنے ہاتھ پھیلائیں اور ان کلمات کا ادائیگی کے ساتھ دعا مانگیں تو نہ صرف فریادیں سنی جاتی ہیں بلکہ اللہ رب العزت ہر جائز حاجت پوری فرما دیتے ہیں اور انسان کی پریشانیاں اور آزمائشیں دور فرما دیتے ہیں۔ اپنے سابقہ آرٹیکل میں میں نے ذکر کیا تھا کہ &quot;<a href="https://www.bloglovers.pk/2022/06/7.html">7 ایسی رکاوٹیں جن سے دعائیں قبول نہیں ہوتی</a>&quot; اور احادیث کی روشنی میں ان رکاوٹوں کا ذکر تفصیل سے بیان کیا تھا۔ آج کے اس آرٹیکل میں 8 ایسے اذکار شئیر کرنے جا رہا ہوں جن کو ہر دعا کے آغاز میں پڑھ کر مرادیں مانگیں تو اللہ اپنے بندوں کو مایوس نہیں لوٹائے گا۔</p>
-        </div>
+        <!-- Title -->
+        <h1>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</h1>
+        
+        <!-- Featured Image (Added as requested) -->
+        <img src="https://bloglovers.pk/images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai.jpg" alt="8 Azkar" class="featured-img">
+
+        <!-- Color Fill Trigger Button -->
+        <button class="trigger-btn" onclick="openColorFillPost()">
+            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+        </button>
+
+        <!-- Main Content -->
+        <p>دوستو! آپ ﷺ نے اُمت کی بھلائی کے لیے ایسے نایاب اذکار بتائے کہ جن کو ہر نماز کے بعد خشوع اور خضوع کے ساتھ اللہ رب العالمین کے سامنے اپنے ہاتھ پھیلائیں اور ان کلمات کا ادائیگی کے ساتھ دعا مانگیں تو نہ صرف فریادیں سنی جاتی ہیں بلکہ اللہ رب العزت ہر جائز حاجت پوری فرما دیتے ہیں اور انسان کی پریشانیاں اور آزمائشیں دور فرما دیتے ہیں۔ اپنے سابقہ آرٹیکل میں میں نے ذکر کیا تھا کہ "<a href="https://www.bloglovers.pk/2022/06/7.html">7 ایسی رکاوٹیں جن سے دعائیں قبول نہیں ہوتی</a>" اور احادیث کی روشنی میں ان رکاوٹوں کا ذکر تفصیل سے بیان کیا تھا۔ آج کے اس آرٹیکل میں 8 ایسے اذکار شئیر کرنے جا رہا ہوں جن کو ہر دعا کے آغاز میں پڑھ کر مرادیں مانگیں تو اللہ اپنے بندوں کو مایوس نہیں لوٹائے گا۔</p>
         
         <h2>﴿1﴾ اَللّٰھُمَّ اِنّیْ اَسْاَلُکَ بِاَنِّی اَشْھَدُاَنَّکَ اَنْتَ اللّٰہُ،لَا اِلٰہَ اَلاَّ اَنْتَ الْاَحَدُالصَّمَدُالَّذِیْ لَمْ یَلِدْ وَلَمْ یُوْلَدْ، وَلَمْ یَکُنْ لَہُ کُفُوَااَحَدُ</h2>
-        <div class="content-box">
-            <p><strong>ترجمہ:</strong> <span class="highlight">&quot;اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ بلاشبہ میں گواہی دیتا ہوں، کہ درحقیقت آپ ہی اللہ ہیں، آپ کے سوا کوئی معبود نہیں، آپ یکتا، بے نیاز ہیں، جنہوں نے کسی کو جنم نہیں دیا اور نہ انہیں کسی نے جنم دیا، اور ان کا کوئی ہمسر نہیں۔&quot;</span></p>
-            <p>ایک روایت کے مطابق آپ ﷺ نے ایک شخص کو دعا کرتے ہوئے سنا وہ ان الفاظ کو ادا کر رہا تھا۔ آپ ﷺ نے فرمایا: &quot;کہ جس کے ہاتھ میں میری جان ہے! بلاشبہ اس نے اللہ رب العزت سے ان کے اسم اعظم کے ساتھ سوال کیا ہے کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول فرماتے ہیں اور جب اس کے ساتھ ان سے مانگا جائے تو وہ عطا فرماتے ہیں۔&quot;</p>
-        </div>
+        <p><strong>ترجمہ:</strong> "اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ بلاشبہ میں گواہی دیتا ہوں، کہ درحقیقت آپ ہی اللہ ہیں، آپ کے سوا کوئی معبود نہیں، آپ یکتا، بے نیاز ہیں، جنہوں نے کسی کو جنم نہیں دیا اور نہ انہیں کسی نے جنم دیا، اور ان کا کوئی ہمسر نہیں۔"</p>
+        <p>ایک روایت کے مطابق آپ ﷺ نے ایک شخص کو دعا کرتے ہوئے سنا وہ ان الفاظ کو ادا کر رہا تھا۔ آپ ﷺ نے فرمایا: "کہ جس کے ہاتھ میں میری جان ہے! بلاشبہ اس نے اللہ رب العزت سے ان کے اسم اعظم کے ساتھ سوال کیا ہے کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول فرماتے ہیں اور جب اس کے ساتھ ان سے مانگا جائے تو وہ عطا فرماتے ہیں۔"</p>
         
         <h2>﴿2﴾ اَللّٰھُمَّ اِنّیْ اَسْاَلُکَ بِاَنَّ لَکَ الْحَمْدَ، لَا اِلٰہَ اِلَّا اَنْتَ الْمَنَّانُ،بَدِیْعُ السَّمَاوَاتِ وَ الْاَرْضِ، یاَ ذَالْجَلاَلِ وَالْاِکْرَامِ، یَاحَیُّ، یَاقَیُّومُ</h2>
-        <div class="content-box">
-            <p><strong>ترجمہ:</strong> <span class="highlight">&quot;اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ یقینا تمام تعریف آپ ہی کے لیے ہے، کوئی معبود نہیں مگر آپ، بہت عطا فرمانے والے، آسمانوں اور زمین کو بغیر سابقہ نمونہ کے بنانے والے، اے جلال و اکرام والے&quot;</span></p>
-            <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ آپ ﷺ کے ساتھ بیٹھے ہوئے تھے اور ایک شخص نماز پڑھ رہا تھا، اس شخص نے دعا کی۔ تو نبی کریم ﷺ نے فرمایا: &quot;بے شک اس نے اللہ تعالیٰ کے اسم عظیم کے ساتھ ان سے فریاد کی ہے، کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول کرتے ہیں اور جب اس کے ساتھ ان سے سوال کیا جائے، تو وہ عطا فرماتے ہیں۔&quot;</p>
-        </div>
+        <p><strong>ترجمہ:</strong> "اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ یقینا تمام تعریف آپ ہی کے لیے ہے، کوئی معبود نہیں مگر آپ، بہت عطا فرمانے والے، آسمانوں اور زمین کو بغیر سابقہ نمونہ کے بنانے والے، اے جلال و اکرام والے"</p>
+        <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ آپ ﷺ کے ساتھ بیٹھے ہوئے تھے اور ایک شخص نماز پڑھ رہا تھا، اس شخص نے دعا کی۔ تو نبی کریم ﷺ نے فرمایا: "بے شک اس نے اللہ تعالیٰ کے اسم عظیم کے ساتھ ان سے فریاد کی ہے، کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول کرتے ہیں اور جب اس کے ساتھ ان سے سوال کیا جائے، تو وہ عطا فرماتے ہیں۔"</p>
         
-        <!-- باقی اذکار اسی طرح رہیں گے -->
         <h2>﴿3﴾ اَللّٰھُمَّ اَنْتَ خَلَقْتَنِی، وَ اَنْتَ تَھْدِیْنِی، وَاَنْتَ تُطْعِمُنِیْ، وَاَنْتَ تَسْقِیْنِی، وَاَنْتَ تُمِیْتُنِیْ، وَاَنْتَ تُحْیِیْنِیْ</h2>
-        <div class="content-box">
-            <p><strong>ترجمہ:</strong> <span class="highlight">&quot;اے اللہ! آپ نے مجھے پیدا فرمایا اور آپ مجھے ہدایت دیتے ہیں اور آپ مجھے کھلاتے ہیں اور آپ مجھے پلاتے ہیں اور آپ مجھے موت دیتے ہیں اور آپ مجھے زندگی عطا فرماتے ہیں۔&quot;</span></p>
-            <p>حضرت سمرہ بن جندب رضی اللہ عنہ نے فرمایا: &quot;کیا میں تمہیں وہ حدیث نہ بتلاؤں، جو میں نے رسول اللہ ﷺ سے کئی مرتبہ، ابوبکر صدیق رضی اللہ عنہ سے کئی دفعہ، عمر رضی اللہ عنہ سے کئی بار سنی؟&quot; میں نے عرض کیا: &quot;کیوں نہیں&quot; انہوں نے بیان کیا: &quot;جو شخص صبح اور شام کے وقت ان کلمات کو پڑھے اور پھر اللہ تعالیٰ سے جو چیز بھی مانگے گا وہ اسے عطا فرمائیں گے۔ انہوں نے بیان کیا: &quot;میری عبداللہ بن سلام رضی اللہ عنہ سے ملاقات ہوئی تو میں نے ان سے کہا: &#39;کیا میں آپ کو وہ حدیث نہ بتلاؤں جو میں نے رسول اللہ ﷺ سے کئی مرتبہ، ابوبکر صدیق رضی اللہ عنہ سے کئی دفعہ، اور عمر رضی اللہ عنہ سے کئی بار سنی؟&#39; انہوں نے فرمایا: &#39;کیوں نہیں؟&#39; تو میں نے ان کے سامنے یہ حدیث بیان کی، تو وہ فرمانے لگے یہی کلمات اللہ رب العزت نے موسیٰ علیہ السلام کو عطا فرمائے تھے، وہ انہیں سات دفعہ پڑھ کر دعا کرتے، تو وہ جو چیز بھی اللہ رب العزت سے طلب کرتے وہ انہیں عطا فرما دیتے&quot;۔</p>
-        </div>
+        <p><strong>ترجمہ:</strong> "اے اللہ! آپ نے مجھے پیدا فرمایا اور آپ مجھے ہدایت دیتے ہیں اور آپ مجھے کھلاتے ہیں اور آپ مجھے پلاتے ہیں اور آپ مجھے موت دیتے ہیں اور آپ مجھے زندگی عطا فرماتے ہیں۔"</p>
+        <p>حضرت سمرہ بن جندب رضی اللہ عنہ نے فرمایا: "کیا میں تمہیں وہ حدیث نہ بتلاؤں، جو میں نے رسول اللہ ﷺ سے کئی مرتبہ، ابوبکر صدیق رضی اللہ عنہ سے کئی دفعہ، عمر رضی اللہ عنہ سے کئی بار سنی؟" میں نے عرض کیا: "کیوں نہیں" انہوں نے بیان کیا: "جو شخص صبح اور شام کے وقت ان کلمات کو پڑھے اور پھر اللہ تعالیٰ سے جو چیز بھی مانگے گا وہ اسے عطا فرمائیں گے۔ انہوں نے بیان کیا: "میری عبداللہ بن سلام رضی اللہ عنہ سے ملاقات ہوئی تو میں نے ان سے کہا: 'کیا میں آپ کو وہ حدیث نہ بتلاؤں جو میں نے رسول اللہ ﷺ سے کئی مرتبہ، ابوبکر صدیق رضی اللہ عنہ سے کئی دفعہ، اور عمر رضی اللہ عنہ سے کئی بار سنی؟' انہوں نے فرمایا: 'کیوں نہیں؟' تو میں نے ان کے سامنے یہ حدیث بیان کی، تو وہ فرمانے لگے یہی کلمات اللہ رب العزت نے موسیٰ علیہ السلام کو عطا فرمائے تھے، وہ انہیں سات دفعہ پڑھ کر دعا کرتے، تو وہ جو چیز بھی اللہ رب العزت سے طلب کرتے وہ انہیں عطا فرما دیتے"۔</p>
         
         <h2>﴿4﴾ یَا بَدِیْعَ السَّمٰوٰتِ، یَا حَیُّ، یَا قُیُّوْمٗ، اِنِّی اَسْاَ لُکَ</h2>
-        <div class="content-box">
-            <p><strong>ترجمہ:</strong> <span class="highlight">&quot;اے آسمانوں کو بغیر سابقہ نمونہ کے بنانے والے! اے ہمیشہ زندہ رہنے والے! اے ساری کائنات قائم کرنے رکھنے والے! بے شک میں آپ سے سوال کرتا ہوں&quot;۔</span></p>
-            <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ نبی کریم ﷺ کے ساتھ تھے تو ایک شخص نے دعا کرتے ہوئے ان کلمات سے آغاز کیا تو آپ ﷺ نے فرمایا: &quot;کیا تمہیں علم ہے، کہ اس نے کس (یعنی کن کلمات) کے ساتھ دعا کی ہے؟ اس ذات کی قسم! کہ جس کے ہاتھ میں میری جان ہے! اس نے اللہ رب العزت کے اس نام کے ساتھ ان سے دعا کی ہے کہ جس کے ساتھ ان سے دعا کی جائے تو وہ قبول فرماتے ہیں&quot;۔</p>
-        </div>
+        <p><strong>ترجمہ:</strong> "اے آسمانوں کو بغیر سابقہ نمونہ کے بنانے والے! اے ہمیشہ زندہ رہنے والے! اے ساری کائنات قائم کرنے رکھنے والے! بے شک میں آپ سے سوال کرتا ہوں"۔</p>
+        <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ نبی کریم ﷺ کے ساتھ تھے تو ایک شخص نے دعا کرتے ہوئے ان کلمات سے آغاز کیا تو آپ ﷺ نے فرمایا: "کیا تمہیں علم ہے، کہ اس نے کس (یعنی کن کلمات) کے ساتھ دعا کی ہے؟ اس ذات کی قسم! کہ جس کے ہاتھ میں میری جان ہے! اس نے اللہ رب العزت کے اس نام کے ساتھ ان سے دعا کی ہے کہ جس کے ساتھ ان سے دعا کی جائے تو وہ قبول فرماتے ہیں"۔</p>
         
         <h2>﴿5﴾ لَا اِلٰہَ اِلاَّ اَنْتَ سُبْحَانَکَ اِ نِّیْ کُنْتُ مِنَ الظَّالِمِیْنَ</h2>
-        <div class="content-box">
-            <p><strong>ترجمہ:</strong> <span class="highlight">&quot;آپ کے سوا کوئی معبود نہیں، آپ پاک ہے اور بے شک میں ہی ظالموں میں سے ہوں&quot;۔</span></p>
-            <p>آپ ﷺ نے فرمایا: &quot;مچھلی والے کی دعا&quot; جب انہوں نے (حضرت یونس علیہ السلام) مچھلی کے پیٹ سے اللہ کو ان کلمات کے ساتھ پکارا، یقینا ان (کلمات) کے ساتھ کوئی بھی مسلمان کبھی بھی کسی چیز کے بارے میں دعا نہیں کرتا، مگر اللہ تعالیٰ اس کی فریاد پوری فرما دیتے ہیں&quot;۔</p>
-        </div>
+        <p><strong>ترجمہ:</strong> "آپ کے سوا کوئی معبود نہیں، آپ پاک ہے اور بے شک میں ہی ظالموں میں سے ہوں"۔</p>
+        <p>آپ ﷺ نے فرمایا: "مچھلی والے کی دعا" جب انہوں نے (حضرت یونس علیہ السلام) مچھلی کے پیٹ سے اللہ کو ان کلمات کے ساتھ پکارا، یقینا ان (کلمات) کے ساتھ کوئی بھی مسلمان کبھی بھی کسی چیز کے بارے میں دعا نہیں کرتا، مگر اللہ تعالیٰ اس کی فریاد پوری فرما دیتے ہیں"۔</p>
         
         <h2>﴿6﴾ لَا اِلٰہَ اِلاَّ اللّٰہُ وَحْدَہُ، لَا شَرِیْکَ لَہُ، لَہُ الْمُلْکُ، وَلَہُ الْحَمْدُ، وَ ھُوَ عَلیٰ کُلِّ شَیْ ءِ قَدِیْرُ۔ اَلْحَمْدُ لِلّٰہِ، وَ سُبْحَانَ اللہِ، وَلَااِلٰہَ اِلاَّ اللہُ، وَاللہُ اَکْبَرُ، وَلَا قُوَّۃَ اِلاَّ بِاللہِ</h2>
-        <div class="content-box">
-            <p><strong>ترجمہ:</strong> <span class="highlight">&quot;اللہ رب العزت کے سوا کوئی معبود نہیں، وہ یکتا ہے، ان کا کوئی ساجھی نہیں، ساری بادشاہت ان ہی کی ہے، ساری تعریف ان ہی کے لیے ہے اور وہ ہر چیز پر کمال قدرت رکھتے ہیں۔ سب تعریف اللہ تعالیٰ کے لیے ہے اور اللہ تعالیٰ ہر عیب سے پاک ہیں۔ اللہ تعالیٰ کے سوا کوئی اور معبود نہیں، اللہ تعالیٰ بہت بڑے ہیں، اور اللہ تعالیٰ کی (توفیق کے بغیر) نہ گناہ چھوڑنے کی طاقت ہے اور نہ نیکی کرنے کی قوت&quot;۔</span></p>
-            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;جو شخص رات کو بیدار ہو اور یہ کلمات ادا کرے اور پھر کہے اے اللہ پاک! مجھے معاف فرما دیجیے۔ یا پھر کوئی اور دعا کرے تو اس کی دعا قبول کی جاتی ہے اور اسی دوران اگر وہ وضو کرے تو اس کی نماز قبول کی جاتی ہے۔&quot;</p>
-        </div>
+        <p><strong>ترجمہ:</strong> "اللہ رب العزت کے سوا کوئی معبود نہیں، وہ یکتا ہے، ان کا کوئی ساجھی نہیں، ساری بادشاہت ان ہی کی ہے، ساری تعریف ان ہی کے لیے ہے اور وہ ہر چیز پر کمال قدرت رکھتے ہیں۔ سب تعریف اللہ تعالیٰ کے لیے ہے اور اللہ تعالیٰ ہر عیب سے پاک ہیں۔ اللہ تعالیٰ کے سوا کوئی اور معبود نہیں، اللہ تعالیٰ بہت بڑے ہیں، اور اللہ تعالیٰ کی (توفیق کے بغیر) نہ گناہ چھوڑنے کی طاقت ہے اور نہ نیکی کرنے کی قوت"۔</p>
+        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "جو شخص رات کو بیدار ہو اور یہ کلمات ادا کرے اور پھر کہے اے اللہ پاک! مجھے معاف فرما دیجیے۔ یا پھر کوئی اور دعا کرے تو اس کی دعا قبول کی جاتی ہے اور اسی دوران اگر وہ وضو کرے تو اس کی نماز قبول کی جاتی ہے۔"</p>
         
-        <h2>﴿7﴾ حضرت اُم سلیم رضی اللہ عنہا نبی کریم ﷺ کی خدمت میں حاضر ہوئیں اور عرض کیا: مجھے ایسے کلمات سکھلائیے، کہ میں انہیں نماز میں پڑھوں آپ ﷺ نے فرمایا: &quot;دس دفعہ اَللہُ اَکْبر کہو، دس مرتبہ سُبْحاَنَ اللہ کہو، دس مرتبہ اَلْحَمْدُلِلّٰہِ کہو، پھر جو چاہو مانگو اللہ جواب میں فرماتے ہیں: &#39;ہاں ہاں&#39;&quot;</h2>
+        <h2>﴿7﴾ حضرت اُم سلیم رضی اللہ عنہا نبی کریم ﷺ کی خدمت میں حاضر ہوئیں اور عرض کیا: مجھے ایسے کلمات سکھلائیے، کہ میں انہیں نماز میں پڑھوں</h2>
+        <p>آپ ﷺ نے فرمایا: "دس دفعہ اَللہُ اَکْبر کہو، دس مرتبہ سُبْحاَنَ اللہ کہو، دس مرتبہ اَلْحَمْدُلِلّٰہِ کہو، پھر جو چاہو مانگو اللہ جواب میں فرماتے ہیں: 'ہاں ہاں'"</p>
         
-        <h2>﴿8﴾ ایک بدو نبی کریم ﷺ کی خدمت میں حاضر ہوا اور عرض کیا: &quot;یا رسول اللہ مجھے خیر کی کوئی بات سکھائیے۔&quot; آپ ﷺ نے اس کا ہاتھ تھام لیا اور فرمایا: &quot;تم کہو! &#39;سُبْحَانَ اللہِ، وَالْحَمْدُ لِلہِ،وَلَا اِلَہَ اِلَّااللہُ، وَاللہُ اَکْبَرُ&#39;&quot;</h2>
-        <div class="content-box">
-            <p>بدو نے اپنے ہاتھ پر انہیں شمار کیا اور پھر چلا گیا، تھوڑی دیر غور کیا پھر واپس آیا۔ نبی کریم ﷺ مسکرائے اور ارشاد فرمایا: &quot;بیچارے نے کچھ سوچا ہے&quot; وہ حاضر ہوا اور عرض کی: &quot;یا رسول اللہ سُبْحَانَ اللہِ، وَالْحَمْدُ لِلہِ،وَلَا اِلَہَ اِلَّااللہُ، وَاللہُ اَکْبَرُ یہ سب کلمات تو اللہ رب العزت کے لیے ہیں میرے لیے کیا ہے۔&quot;</p>
-            <p>آپ ﷺ نے فرمایا: &quot;اے بدو! جب تو سُبْحَانَ اللہِ کہتا ہے تو اللہ تعالیٰ فرماتے ہیں: &#39;تو نے سچ کہا&#39;۔ اور جب تو وَالْحَمْدُ لِلہِ کہتا ہے تو اللہ پاک فرماتے ہیں: &#39;تو نے سچ کہا&#39;۔ اور جب تو وَلَا اِلَہَ اِلَّااللہُ کہتا ہے تو اللہ پاک فرماتے ہیں: &#39;تو نے سچ کہا&#39;۔ اور جب تو وَاللہُ اَکْبَرُ کہتا ہے تو اللہ تعالیٰ فرماتے ہیں: &#39;تو نے سچ کہا&#39;۔ اور جب تو اَللَھُمَّ اغْفِرْلیِ کہتا ہے، تو اللہ پاک فرماتے ہیں: &#39;میں نے تجھے معاف کر دیا&#39;۔ اور جب تو اَللَھُمَّ ارْحَمْنِیْ کہتا ہے تو اللہ پاک فرماتے ہیں: &#39;میں نے کر دیا&#39;۔ اور جب تو اَللَھُمَّ ارْزُقْنِیْ کہتا ہے تو اللہ فرماتے ہیں: &#39;میں نے کر دیا&#39;۔ اسی طرح بدو نے اپنے ہاتھ پر سات باتیں لگائیں اور پھر چلا گیا۔</p>
-        </div>
+        <h2>﴿8﴾ ایک بدو نبی کریم ﷺ کی خدمت میں حاضر ہوا اور عرض کیا: "یا رسول اللہ مجھے خیر کی کوئی بات سکھائیے۔"</h2>
+        <p>آپ ﷺ نے اس کا ہاتھ تھام لیا اور فرمایا: "تم کہو! 'سُبْحَانَ اللہِ، وَالْحَمْدُ لِلہِ،وَلَا اِلَہَ اِلَّااللہُ، وَاللہُ اَکْبَرُ'"</p>
+        <p>بدو نے اپنے ہاتھ پر انہیں شمار کیا اور پھر چلا گیا، تھوڑی دیر غور کیا پھر واپس آیا۔ نبی کریم ﷺ مسکرائے اور ارشاد فرمایا: "بیچارے نے کچھ سوچا ہے" وہ حاضر ہوا اور عرض کی: "یا رسول اللہ سُبْحَانَ اللہِ، وَالْحَمْدُ لِلہِ،وَلَا اِلَہَ اِلَّااللہُ، وَاللہُ اَکْبَرُ یہ سب کلمات تو اللہ رب العزت کے لیے ہیں میرے لیے کیا ہے۔"</p>
+        <p>آپ ﷺ نے فرمایا: "اے بدو! جب تو سُبْحَانَ اللہِ کہتا ہے تو اللہ تعالیٰ فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو وَالْحَمْدُ لِلہِ کہتا ہے تو اللہ پاک فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو وَلَا اِلَہَ اِلَّااللہُ کہتا ہے تو اللہ پاک فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو وَاللہُ اَکْبَرُ کہتا ہے تو اللہ تعالیٰ فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو اَللَھُمَّ اغْفِرْلیِ کہتا ہے، تو اللہ پاک فرماتے ہیں: 'میں نے تجھے معاف کر دیا'۔ اور جب تو اَللَھُمَّ ارْحَمْنِیْ کہتا ہے تو اللہ پاک فرماتے ہیں: 'میں نے کر دیا'۔ اور جب تو اَللَھُمَّ ارْزُقْنِیْ کہتا ہے تو اللہ فرماتے ہیں: 'میں نے کر دیا'۔ اسی طرح بدو نے اپنے ہاتھ پر سات باتیں لگائیں اور پھر چلا گیا۔</p>
+
     </div>
 
+    <!-- Color Fill Overlay HTML (Hidden by default) -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <button class="back-btn" onclick="closeColorFillPost()"><i class="fas fa-arrow-left"></i></button>
         <div id="postContent"></div>
     </div>
 
     <script>
+        // Theme Toggle Logic
+        function toggleTheme() {
+            const body = document.documentElement;
+            const btn = document.getElementById('themeToggle');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                btn.innerHTML = '🌙 ڈارک موڈ';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                btn.innerHTML = '☀️ لائٹ موڈ';
+            }
+        }
+
+        // Color Fill Logic
         function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
+            // Get content but remove the image and trigger button from overlay to keep it clean text
+            const contentClone = document.querySelector('.post-content').cloneNode(true);
+            const img = contentClone.querySelector('.featured-img');
+            const btn = contentClone.querySelector('.trigger-btn');
+            if(img) img.remove();
+            if(btn) btn.remove();
+
+            document.getElementById('postContent').innerHTML = contentClone.innerHTML;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Add animation to content boxes in overlay
-            setTimeout(() => {
-                const contentBoxes = document.querySelectorAll('#postContent .content-box');
-                contentBoxes.forEach((box, index) => {
-                    box.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
-                    box.style.opacity = '0';
-                });
-            }, 100);
         }
-        
+
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        
-        document.addEventListener('keydown', function(e) { 
-            if (e.key === 'Escape') closeColorFillPost(); 
-        });
-        
+
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-        
-        // Add some interactivity to the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effect to headings
-            const headings = document.querySelectorAll('h1, h2, h3');
-            headings.forEach(heading => {
-                heading.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateX(-5px)';
-                    this.style.transition = 'transform 0.3s';
-                });
-                
-                heading.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateX(0)';
-                });
-            });
-            
-            // Add animation to content boxes on page load
-            const contentBoxes = document.querySelectorAll('.content-box');
-            contentBoxes.forEach((box, index) => {
-                box.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s forwards`;
-                box.style.opacity = '0';
-            });
-            
-            // امیج کے لیے بیک اپ حل
-            setTimeout(() => {
-                const img = document.querySelector('.featured-image');
-                if (img && img.naturalHeight === 0) {
-                    // اگر امیج لوڈ نہیں ہوئی
-                    img.style.display = 'none';
-                    document.getElementById('imagePlaceholder').style.display = 'flex';
-                }
-            }, 3000);
-        });
-        
-        // متبادل امیج لنک کے ساتھ امیج لوڈ کرنے کی کوشش
-        function loadAlternateImage() {
-            const img = document.querySelector('.featured-image');
-            const alternateSrc = 'https://bloglovers.pk/images/azkar/dua-azkar.jpg';
-            
-            if (img && img.naturalHeight === 0) {
-                console.log('اصل امیج نہیں لوڈ ہوئی، متبادل امیج لوڈ کرنے کی کوشش کر رہا ہوں...');
-                img.src = alternateSrc;
-            }
-        }
-        
-        // 5 سیکنڈ بعد متبادل امیج لوڈ کرنے کی کوشش کریں
-        setTimeout(loadAlternateImage, 5000);
     </script>
 </body>
 </html>
