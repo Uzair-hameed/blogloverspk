@@ -7,47 +7,336 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary-color: #feca57;
+            --dark-bg: #0a0a0a;
+            --text-light: #f5f5f5;
+            --card-bg: rgba(30, 30, 30, 0.9);
+            --transition: all 0.3s ease;
+        }
+
+        /* Dark Space Theme with Animated Lights */
+        .dark-space-theme {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #000428 0%, #004e92 100%);
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .moving-light {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 15px 5px var(--primary-color);
+            opacity: 0;
+        }
+
+        /* Color Fill Container */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+        }
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+
+        /* Post Content Overlay */
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 800px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            backdrop-filter: blur(10px);
+        }
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+
+        /* Close Button */
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: var(--primary-color); 
+            color: var(--dark-bg); 
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 20px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: var(--transition); 
+            font-weight: bold;
+        }
+        .close-btn:hover { 
+            transform: rotate(90deg); 
+            background: #ff6b6b;
+        }
+
+        /* Main Body */
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.2; 
+            direction: rtl; 
+            text-align: justify; 
+            margin: 0; 
+            padding: 20px; 
+            background: var(--dark-bg); 
+            color: var(--text-light);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header Image */
+        .header-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(254, 202, 87, 0.3);
+        }
+
+        /* Trigger Button */
+        .trigger-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, var(--primary-color), #ff9f43); 
+            color: var(--dark-bg); 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 20px 0; 
+            box-shadow: 0 5px 20px rgba(254, 202, 87, 0.5); 
+            transition: var(--transition); 
+            border: none; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-family: inherit; 
+        }
+        .trigger-btn:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(254, 202, 87, 0.8); 
+        }
+
+        /* Post Content */
+        .post-content { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            background: var(--card-bg); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(254, 202, 87, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Headings */
+        h1, h2, h3 { 
+            color: var(--primary-color); 
+            border-bottom: 2px solid rgba(254, 202, 87, 0.3); 
+            padding-bottom: 15px; 
+            text-align: center;
+        }
+        h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 30px; 
+            border-bottom: 3px solid var(--primary-color); 
+            text-shadow: 0 5px 15px rgba(254, 202, 87, 0.3);
+        }
+        h2 { font-size: 2.2rem; }
+        h3 { font-size: 1.8rem; }
+
+        /* Paragraphs */
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            line-height: 2.3;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(254, 202, 87, 0.5);
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(254, 202, 87, 0.8);
+        }
+
+        /* Remove link styling */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        a:hover {
+            color: #ff9f43;
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .post-content {
+                padding: 20px;
+                margin: 15px auto;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.7rem;
+            }
+            h3 {
+                font-size: 1.4rem;
+            }
+            p {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            .trigger-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            .post-content-overlay {
+                width: 95%;
+                padding: 20px;
+            }
+            .back-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+            p {
+                font-size: 1rem;
+                text-align: right;
+            }
+            .post-content {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
+    <!-- Dark Space Theme Background -->
+    <div class="dark-space-theme" id="darkSpaceTheme"></div>
+
+    <!-- Header Buttons -->
+    <div style="text-align: center; margin: 30px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
             🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
         </button>
     </div>
 
+    <!-- Main Content -->
     <div class="post-content">
-        
         <h1>سورج کے مغرب سے طلوع ہوتے ہی کیا کیا ہوگا؟</h1>
-<p>دوستو! یہ بات تو طے ہے کہ قیامت آنی ہے لیکن کب آنی اس کا اندازہ اللہ رب العزت کے علاوہ کوئی نہیں جانتا۔ سورج روز مشرق سے طلوع ہوتا ہے کیونکہ یہ اللہ پاک کا حکم ہے پھر یہ قرب قیامت اللہ ہی کے حکم سے مغرب سے طلوع ہوگا۔ اللہ پاک قرآن پاک میں فرماتے ہیں: &quot;کیا وہ صرف اس بات کا انتظار کر رہے ہیں کہ ان کے پاس فرشتے آئیں، یا آپ کا رب آئے، یا آپ کے رب کی بعض نشانیاں آئیں؟ جس دن آپ کے رب کی بعض نشانیاں آجائیں گی تو کسی ایسے شخص کا ایمان لانا اسے فائدہ نہیں دے گا جو اس سے پہلے ایمان نہیں لایا تھا، یا اس نے اپنے ایمان میں کوئی نیک عمل نہیں کیا تھا۔ کہہ دیجیے: تم انتظار کرو بے شک ہم بھی انتظار کرنے والے ہیں۔&quot;</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRut2UYBxZxc6T9WnZ--52tXppZKu8c0hwgdda_mhOKA0A9Ue_Ye-SVYMElfqthZKb4lzUapq74nYVUgY_gLC5yNiCSI-t23Ff_E10XLU4ThFtBYw86iAVY5eY5CJ5UDCb30SBbQ_g6rbJkXpif0KrtLdfCBLyzYUetmC4beTyuGBdZfD_-cz3tyAxaw/s2240/Blue,%20White,%20Minimalist%20Explore%20The%20World%20Blog%20Banner%20Business.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRut2UYBxZxc6T9WnZ--52tXppZKu8c0hwgdda_mhOKA0A9Ue_Ye-SVYMElfqthZKb4lzUapq74nYVUgY_gLC5yNiCSI-t23Ff_E10XLU4ThFtBYw86iAVY5eY5CJ5UDCb30SBbQ_g6rbJkXpif0KrtLdfCBLyzYUetmC4beTyuGBdZfD_-cz3tyAxaw/s16000/Blue,%20White,%20Minimalist%20Explore%20The%20World%20Blog%20Banner%20Business.jpg" alt="سورج کے مغرب سے طلوع ہوتے ہی کیا کیا ہوگا؟"></a></p>
-<p>اللہ رب العزت نے جب سے سورج کو پیدا فرمایا وہ ہمیشہ مشرق سے طلوع ہوتا آیا ہے۔ پھر وہ دن دور نہیں جب لوگ ایک دن سورج کے مشرق سے طلوع ہونے کا انتظار کر رہے ہوں گے اور وہ مغرب سے طلوع ہوگا اسے کے طلوع ہوتے ہی توبہ کا دروازہ بند ہو جائے گا۔</p>
-<p>اس وقت توبہ کا دروازہ بند کرنے کی حکمت یہ ہو سکتی ہے جیسے قرآن میں فرعون کے بارے میں بتایا گیا کہ ساری زندگی اس نے سرکشی اور رب ہونے کا دعویٰ کیا لیکن جب عذاب الہی نے آ دبوچا تو کہنے لگا کہ میں ایمان لاتا ہوں۔ اس وقت ایمان لانا اس کی جان نہ بچا سکا اور وہ قیامت تک عبرت کا نشان بنا دیا گیا۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;جب تین نشانیاں ظاہر ہو جائیں گی تو کسی ایسے شخص کو اس کا ایمان فائدہ نہ دے گا جو پہلے سے ایمان نہ لاچکا ہو یا اپنے ایمان میں کچھ بھلائی کے کام نہ کر چکا ہو۔ سورج کا مغرب سے طلوع ہونا، دجال کا ظاہر ہونا اور زمین سے جانور کا نکلنا&quot;۔</p>
-<p>ایک طویل حدیث میں آپ ﷺ نے کچھ بیان فرمایا: &quot;اس وقت تک قیامت قائم نہ ہوگی جب تک سورج مغرب سے طلوع نہ ہو جائے، پس جب وہ طلوع ہو جائے گا اور سارے لوگ اسے دیکھ لیں گے تو سب کے سب ایمان لے آئیں گے مگر اس وقت کسی بھی ایسے شخص کا ایمان اسے فائدہ نہ دے گا جو پہلے سے ایمان نہ لاچکا ہوگا یا اس نے اپنے ایمان میں کوئی بھلائی کا کام نہ کیا ہوگا۔ قیامت اس حال میں قائم ہوگی کہ دو آدمیوں نے اپنا کپڑا پھیلایا ہوگا، وہ خرید وفروخت نہ کر سکیں گے اور نہ اس کپڑے کو لپیٹ سکیں گے کہ قیامت برپا ہو جائے گی۔ ایک شخص اپنے جانور کا دودھ دوہ کر لے جا رہا ہو گا اور وہ اسے استعمال نہ کر سکے گا کہ قیامت آجائے گی۔ ایک شخص اپنے حوض کی لپائی کر رہا ہوگا اور وہ اس میں اپنے جانوروں کو پانی نہیں پلاسکے گا کہ قیامت قائم ہو جائے گی اور ایک شخص نے لقمہ منہ کی طرف اٹھایا ہوگا وہ اسے کھا نہیں سکے گا کہ قیامت رونما ہو جائے گی۔&quot;</p>
-<p>ایک اور روایت میں کچھ یوں رہنمائی فرمائی: &quot;کیا تم جانتے ہو کہ یہ سورج کہاں جاتا ہے؟ انھوں نے کہا: اللہ اور اس کے رسول کو زیادہ علم ہے۔ فرمایا: یہ سورج چلتا ہے حتیٰ کہ عرش کے نیچے اپنے مستقر میں پہنچ جاتا ہے، پھر یہ سجدے میں گرپڑتا ہے اور اسی حال میں رہتا ہے حتی کہ اس سے کہا جاتا ہے: اٹھو اور جہاں سے تم آئے ہو وہیں لوٹ جاؤ۔ وہ لوٹتا ہے اور اپنے معمول کے مطلع سے طلوع ہو جاتا ہے، پھر دن بھر چلتے چلتے عرش کے نیچے اپنے مستقر میں جا پہنچتا ہے اور سجدے میں گر پڑتا ہے۔ وہ اسی حال میں رہتا ہے حتی کہ اس سے کہا جاتا ہے: اٹھو اور جہاں سے تم آئے ہو وہیں لوٹ جاؤ۔ وہ لوٹتا ہے اور اپنے معمول کے مطلع سے طلوع ہو جاتا ہے۔ ایک روز وہ چلے گا، لوگ اس میں کوئی نئی چیز نہیں دیکھیں گے حتی کہ وہ عرش الہیٰ کے نیچے اپنے ٹھہرنے کی جگہ پہنچے گا اور اس سے کہا جائے گا، اٹھو اور آج مغرب سے جا کر طلوع ہو جاؤ، چنانچہ وہ صبح کے وقت مغرب سے طلوع ہو گا۔ آپ ﷺ نے فرمایا: تم جانتے ہو یہ کب ہو گا؟ یہ اس وقت ہوگا جب کسی ایسے شخص کو ایمان فائدہ نہ دے گا جو پہلے ایمان نہیں لایا ہوگا یا جس نے اپنے ایمان کی حالت میں نیک عمل نہیں کئے ہوں گے۔&quot;</p>
-<p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا: &quot;سب سے پہلے جو نشانی ظاہر ہو گی وہ سورج کا مغرب سے طلوع ہونا اور چاشت کے وقت دابہ کا لوگوں کے لئے نکلنا ہے۔ ان میں سے جو بھی پہلے ظاہر ہوگی، دوسری اس کے فوراً بعد ظاہر ہو جائے گی۔&quot;</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے لوگوں حکم فرمایا: &quot;چھ چیزوں کے واقع ہونے سے پہلے پہلے نیک اعمال میں جلدی کرلو، سورج کا مغرب سے طلوع ہونا، یا <a href="https://www.bloglovers.pk/2021/11/blog-post.html">دھوئیں کا ظاہر ہونا</a>، یا <a href="https://www.bloglovers.pk/2021/05/blog-post.html">دجال کا ظاہر ہونا</a>، یا <a href="https://www.bloglovers.pk/2023/05/blog-post.html">خروج دابہ</a>، یا تم میں سے کسی کا خاص <a href="https://www.bloglovers.pk/2021/05/blog-post_29.html">وقت (موت) آجانا</a>، یا سب کے لئے واقع ہونے والا معاملہ (قیامت) کا قائم ہو جانا۔&quot;</p>
-<p>دوستو! فتنوں کے اس تیز دور میں نیک اعمال کے لئے وقت نکالیں۔ وقت گزر گیا تو پھر صرف خواہش ہی رہ جائے گی کہ کاش کچھ کر لیا ہوتا۔ اللہ رب العزت سے اپنے گناہوں کی معافی طلب کرتے رہا کریں کہیں ایسا نہ ہو کہ بہت دیر ہو جائے۔ اللہ پاک ہم سب کو نیک اعمال کرنے کی توفیق عطا فرمائے اور ہم سب پر رحم فرمائے۔ آمین۔</p>
+        
+        <!-- Main Image -->
+        <img src="https://bloglovers.pk/images/alamaat-kubra/suraj-ke-maghrib-se-tulu-hote-hi-kya-kya-hoga.png" 
+             alt="سورج کے مغرب سے طلوع ہونے کی نشانی" 
+             class="header-image">
+        
+        <p>دوستو! یہ بات تو طے ہے کہ قیامت آنی ہے لیکن کب آنی اس کا اندازہ اللہ رب العزت کے علاوہ کوئی نہیں جانتا۔ سورج روز مشرق سے طلوع ہوتا ہے کیونکہ یہ اللہ پاک کا حکم ہے پھر یہ قرب قیامت اللہ ہی کے حکم سے مغرب سے طلوع ہوگا۔ اللہ پاک قرآن پاک میں فرماتے ہیں: "کیا وہ صرف اس بات کا انتظار کر رہے ہیں کہ ان کے پاس فرشتے آئیں، یا آپ کا رب آئے، یا آپ کے رب کی بعض نشانیاں آئیں؟ جس دن آپ کے رب کی بعض نشانیاں آجائیں گی تو کسی ایسے شخص کا ایمان لانا اسے فائدہ نہیں دے گا جو اس سے پہلے ایمان نہیں لایا تھا، یا اس نے اپنے ایمان میں کوئی نیک عمل نہیں کیا تھا۔ کہہ دیجیے: تم انتظار کرو بے شک ہم بھی انتظار کرنے والے ہیں۔"</p>
 
+        <p>اللہ رب العزت نے جب سے سورج کو پیدا فرمایا وہ ہمیشہ مشرق سے طلوع ہوتا آیا ہے۔ پھر وہ دن دور نہیں جب لوگ ایک دن سورج کے مشرق سے طلوع ہونے کا انتظار کر رہے ہوں گے اور وہ مغرب سے طلوع ہوگا اسے کے طلوع ہوتے ہی توبہ کا دروازہ بند ہو جائے گا۔</p>
+
+        <p>اس وقت توبہ کا دروازہ بند کرنے کی حکمت یہ ہو سکتی ہے جیسے قرآن میں فرعون کے بارے میں بتایا گیا کہ ساری زندگی اس نے سرکشی اور رب ہونے کا دعویٰ کیا لیکن جب عذاب الہی نے آ دبوچا تو کہنے لگا کہ میں ایمان لاتا ہوں۔ اس وقت ایمان لانا اس کی جان نہ بچا سکا اور وہ قیامت تک عبرت کا نشان بنا دیا گیا۔</p>
+
+        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "جب تین نشانیاں ظاہر ہو جائیں گی تو کسی ایسے شخص کو اس کا ایمان فائدہ نہ دے گا جو پہلے سے ایمان نہ لاچکا ہو یا اپنے ایمان میں کچھ بھلائی کے کام نہ کر چکا ہو۔ سورج کا مغرب سے طلوع ہونا، دجال کا ظاہر ہونا اور زمین سے جانور کا نکلنا"۔</p>
+
+        <p>ایک طویل حدیث میں آپ ﷺ نے کچھ بیان فرمایا: "اس وقت تک قیامت قائم نہ ہوگی جب تک سورج مغرب سے طلوع نہ ہو جائے، پس جب وہ طلوع ہو جائے گا اور سارے لوگ اسے دیکھ لیں گے تو سب کے سب ایمان لے آئیں گے مگر اس وقت کسی بھی ایسے شخص کا ایمان اسے فائدہ نہ دے گا جو پہلے سے ایمان نہ لاچکا ہوگا یا اس نے اپنے ایمان میں کوئی بھلائی کا کام نہ کیا ہوگا۔ قیامت اس حال میں قائم ہوگی کہ دو آدمیوں نے اپنا کپڑا پھیلایا ہوگا، وہ خرید وفروخت نہ کر سکیں گے اور نہ اس کپڑے کو لپیٹ سکیں گے کہ قیامت برپا ہو جائے گی۔ ایک شخص اپنے جانور کا دودھ دوہ کر لے جا رہا ہو گا اور وہ اسے استعمال نہ کر سکے گا کہ قیامت آجائے گی۔ ایک شخص اپنے حوض کی لپائی کر رہا ہوگا اور وہ اس میں اپنے جانوروں کو پانی نہیں پلاسکے گا کہ قیامت قائم ہو جائے گی اور ایک شخص نے لقمہ منہ کی طرف اٹھایا ہوگا وہ اسے کھا نہیں سکے گا کہ قیامت رونما ہو جائے گی۔"</p>
+
+        <p>ایک اور روایت میں کچھ یوں رہنمائی فرمائی: "کیا تم جانتے ہو کہ یہ سورج کہاں جاتا ہے؟ انھوں نے کہا: اللہ اور اس کے رسول کو زیادہ علم ہے۔ فرمایا: یہ سورج چلتا ہے حتیٰ کہ عرش کے نیچے اپنے مستقر میں پہنچ جاتا ہے، پھر یہ سجدے میں گرپڑتا ہے اور اسی حال میں رہتا ہے حتی کہ اس سے کہا جاتا ہے: اٹھو اور جہاں سے تم آئے ہو وہیں لوٹ جاؤ۔ وہ لوٹتا ہے اور اپنے معمول کے مطلع سے طلوع ہو جاتا ہے، پھر دن بھر چلتے چلتے عرش کے نیچے اپنے مستقر میں جا پہنچتا ہے اور سجدے میں گر پڑتا ہے۔ وہ اسی حال میں رہتا ہے حتی کہ اس سے کہا جاتا ہے: اٹھو اور جہاں سے تم آئے ہو وہیں لوٹ جاؤ۔ وہ لوٹتا ہے اور اپنے معمول کے مطلع سے طلوع ہو جاتا ہے۔ ایک روز وہ چلے گا، لوگ اس میں کوئی نئی چیز نہیں دیکھیں گے حتی کہ وہ عرش الہیٰ کے نیچے اپنے ٹھہرنے کی جگہ پہنچے گا اور اس سے کہا جائے گا، اٹھو اور آج مغرب سے جا کر طلوع ہو جاؤ، چنانچہ وہ صبح کے وقت مغرب سے طلوع ہو گا۔ آپ ﷺ نے فرمایا: تم جانتے ہو یہ کب ہو گا؟ یہ اس وقت ہوگا جب کسی ایسے شخص کو ایمان فائدہ نہ دے گا جو پہلے ایمان نہیں لایا ہوگا یا جس نے اپنے ایمان کی حالت میں نیک عمل نہیں کئے ہوں گے۔"</p>
+
+        <p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا: "سب سے پہلے جو نشانی ظاہر ہو گی وہ سورج کا مغرب سے طلوع ہونا اور چاشت کے وقت دابہ کا لوگوں کے لئے نکلنا ہے۔ ان میں سے جو بھی پہلے ظاہر ہوگی، دوسری اس کے فوراً بعد ظاہر ہو جائے گی۔"</p>
+
+        <p>ایک روایت کے مطابق آپ ﷺ نے لوگوں حکم فرمایا: "چھ چیزوں کے واقع ہونے سے پہلے پہلے نیک اعمال میں جلدی کرلو، سورج کا مغرب سے طلوع ہونا، یا دھوئیں کا ظاہر ہونا، یا دجال کا ظاہر ہونا، یا خروج دابہ، یا تم میں سے کسی کا خاص وقت (موت) آجانا، یا سب کے لئے واقع ہونے والا معاملہ (قیامت) کا قائم ہو جانا۔"</p>
+
+        <p>دوستو! فتنوں کے اس تیز دور میں نیک اعمال کے لئے وقت نکالیں۔ وقت گزر گیا تو پھر صرف خواہش ہی رہ جائے گی کہ کاش کچھ کر لیا ہوتا۔ اللہ رب العزت سے اپنے گناہوں کی معافی طلب کرتے رہا کریں کہیں ایسا نہ ہو کہ بہت دیر ہو جائے۔ اللہ پاک ہم سب کو نیک اعمال کرنے کی توفیق عطا فرمائے اور ہم سب پر رحم فرمائے۔ آمین۔</p>
     </div>
 
+    <!-- Back Button -->
+    <button class="back-btn" onclick="scrollToTop()" title="اوپر جائیں">↑</button>
+
+    <!-- Color Fill Overlay Components -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -55,6 +344,54 @@
     </div>
 
     <script>
+        // Create animated stars and moving lights
+        function createStars() {
+            const theme = document.getElementById('darkSpaceTheme');
+            
+            // Create stars
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite alternate`;
+                theme.appendChild(star);
+            }
+
+            // Create moving yellow lights
+            for (let i = 0; i < 20; i++) {
+                const light = document.createElement('div');
+                light.className = 'moving-light';
+                light.style.left = Math.random() * 100 + '%';
+                light.style.top = Math.random() * 100 + '%';
+                
+                // Animate each light
+                setTimeout(() => {
+                    light.style.opacity = '0.8';
+                    light.style.transition = 'all 4s linear';
+                    light.style.left = Math.random() * 100 + '%';
+                    light.style.top = Math.random() * 100 + '%';
+                    
+                    setInterval(() => {
+                        light.style.opacity = '0';
+                        light.style.transition = 'opacity 1s';
+                        setTimeout(() => {
+                            light.style.left = Math.random() * 100 + '%';
+                            light.style.top = Math.random() * 100 + '%';
+                            light.style.opacity = '0.8';
+                            light.style.transition = 'all 4s linear';
+                        }, 1000);
+                    }, 5000);
+                }, i * 300);
+                
+                theme.appendChild(light);
+            }
+        }
+
+        // Open color fill overlay
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -62,14 +399,51 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+
+        // Close color fill overlay
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Event Listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+
+        // Initialize stars and lights when page loads
+        window.addEventListener('load', createStars);
+
+        // Add twinkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes twinkle {
+                0% { opacity: 0.3; }
+                100% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Show/hide back button based on scroll
+        window.addEventListener('scroll', function() {
+            const backBtn = document.querySelector('.back-btn');
+            if (window.scrollY > 300) {
+                backBtn.style.display = 'flex';
+            } else {
+                backBtn.style.display = 'flex'; // Always show
+            }
+        });
     </script>
 </body>
 </html>
