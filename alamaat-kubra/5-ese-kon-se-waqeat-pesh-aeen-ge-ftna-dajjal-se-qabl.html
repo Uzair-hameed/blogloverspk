@@ -5,79 +5,620 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        /* Dynamic Theme Variables - DARK THEME */
+        :root {
+            --theme-primary: #0d1b2a;
+            --theme-secondary: #1b3a4b;
+            --theme-accent: #ff6b6b;
+            --theme-bg: linear-gradient(135deg, #0d1b2a 0%, #1b3a4b 100%);
+            --theme-card-bg: rgba(25, 35, 50, 0.95);
+            --theme-text: #e0e1dd;
+            --theme-heading: #f8f9fa;
+            --theme-border: #4361ee;
+            --theme-shadow: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Different Theme Contexts for DARK THEME */
+        .section-warning {
+            --theme-primary: #6a040f;
+            --theme-secondary: #9d0208;
+            --theme-bg: linear-gradient(135deg, #370617 0%, #6a040f 100%);
+            --theme-card-bg: rgba(106, 4, 15, 0.9);
+            --theme-text: #ffccd5;
+        }
+        
+        .section-blessing {
+            --theme-primary: #004b23;
+            --theme-secondary: #006400;
+            --theme-bg: linear-gradient(135deg, #004b23 0%, #006400 100%);
+            --theme-card-bg: rgba(0, 100, 0, 0.9);
+            --theme-text: #ccffcc;
+        }
+        
+        .section-prophetic {
+            --theme-primary: #3c096c;
+            --theme-secondary: #5a189a;
+            --theme-bg: linear-gradient(135deg, #3c096c 0%, #5a189a 100%);
+            --theme-card-bg: rgba(90, 24, 154, 0.9);
+            --theme-text: #e0c3ff;
+        }
+        
+        .section-important {
+            --theme-primary: #b45309;
+            --theme-secondary: #f59e0b;
+            --theme-bg: linear-gradient(135deg, #78350f 0%, #b45309 100%);
+            --theme-card-bg: rgba(180, 83, 9, 0.9);
+            --theme-text: #ffedd5;
+        }
+        
+        /* Color Fill Animation Container */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, var(--theme-secondary), var(--theme-primary), var(--theme-accent)); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+        }
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        /* Post Content Overlay */
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 900px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: var(--theme-card-bg); 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px var(--theme-shadow); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        /* Close Button */
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: var(--theme-accent); 
+            color: white; 
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 24px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: transform 0.3s, background 0.3s; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .close-btn:hover { 
+            transform: rotate(90deg); 
+            background: var(--theme-primary);
+        }
+        
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px var(--theme-shadow);
+            transition: all 0.3s;
+            border: 2px solid var(--theme-border);
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-family: inherit;
+        }
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px var(--theme-shadow);
+            background: linear-gradient(45deg, var(--theme-secondary), var(--theme-primary));
+        }
+        .back-btn i {
+            font-size: 20px;
+        }
+        
+        /* Body Styles */
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.2; 
+            direction: rtl; 
+            text-align: right; 
+            margin: 0; 
+            padding: 20px; 
+            background: var(--theme-bg); 
+            min-height: 100vh; 
+            transition: background 0.5s ease;
+            color: var(--theme-text);
+        }
+        
+        /* Header */
+        .post-header {
+            text-align: center;
+            margin: 30px 0 50px 0;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(25, 35, 50, 0.7);
+            box-shadow: 0 10px 30px var(--theme-shadow);
+            border: 2px solid var(--theme-border);
+        }
+        
+        /* Trigger Button */
+        .trigger-btn { 
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, var(--theme-secondary), var(--theme-primary)); 
+            color: white; 
+            padding: 18px 40px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 20px 0; 
+            box-shadow: 0 5px 20px var(--theme-shadow); 
+            transition: all 0.3s; 
+            border: 2px solid var(--theme-border); 
+            cursor: pointer; 
+            font-size: 1.4rem; 
+            font-family: inherit; 
+        }
+        .trigger-btn:hover { 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: 0 8px 25px var(--theme-shadow); 
+            background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary));
+        }
+        
+        /* Post Content */
+        .post-content { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: var(--theme-card-bg); 
+            padding: 50px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 50px var(--theme-shadow); 
+            transition: all 0.5s ease;
+            border: 2px solid var(--theme-border);
+        }
+        
+        /* Headings - INCREASED SIZE */
+        h1, h2, h3 { 
+            color: var(--theme-heading); 
+            border-bottom: 4px solid var(--theme-border); 
+            padding-bottom: 20px; 
+            margin-top: 50px;
+            transition: all 0.5s ease;
+            text-align: justify;
+        }
+        h1 { 
+            text-align: center; 
+            border-bottom: 6px solid var(--theme-accent); 
+            font-size: 3.5rem; /* Increased */
+            margin-bottom: 50px;
+            padding: 25px 0;
+            background: linear-gradient(45deg, var(--theme-accent), #ffd166);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            line-height: 1.4;
+        }
+        h2 {
+            font-size: 2.8rem; /* Increased */
+            padding-right: 20px;
+            border-right: 8px solid var(--theme-accent);
+            border-bottom: none;
+            margin-top: 60px;
+            line-height: 1.5;
+        }
+        h3 {
+            font-size: 2.2rem; /* Increased */
+            padding-right: 15px;
+            border-right: 6px solid var(--theme-accent);
+            border-bottom: none;
+            line-height: 1.5;
+        }
+        
+        /* Paragraphs - INCREASED SIZE AND JUSTIFIED */
+        p {
+            font-size: 1.8rem; /* Increased */
+            text-align: justify; /* Justified */
+            margin-bottom: 35px;
+            padding: 0 15px;
+            transition: all 0.5s ease;
+            line-height: 2.5;
+            text-align-last: right;
+        }
+        
+        /* Lists */
+        ul {
+            font-size: 1.7rem; /* Increased */
+            text-align: justify; /* Justified */
+            padding-right: 40px;
+            margin-bottom: 40px;
+            text-align-last: right;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 12px 15px;
+            border-right: 5px solid var(--theme-accent);
+            background: rgba(67, 97, 238, 0.15);
+            border-radius: 0 15px 15px 0;
+            transition: all 0.3s ease;
+            list-style-position: inside;
+            text-align: justify;
+        }
+        li:hover {
+            background: rgba(67, 97, 238, 0.25);
+            transform: translateX(-10px);
+            box-shadow: 5px 0 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        /* Main Image */
+        .main-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            display: block;
+            margin: 40px auto;
+            box-shadow: 0 15px 40px var(--theme-shadow);
+            border: 5px solid var(--theme-border);
+            transition: all 0.5s ease;
+        }
+        .main-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px var(--theme-shadow);
+        }
+        
+        /* Section Images */
+        .section-image {
+            width: 80%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            display: block;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px var(--theme-shadow);
+            border: 3px solid var(--theme-border);
+            transition: all 0.5s ease;
+        }
+        .section-image:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Links */
+        a { 
+            color: var(--theme-accent); 
+            text-decoration: none; 
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 1.8rem;
+        }
+        a:hover { 
+            color: #ffd166;
+            border-bottom: 2px solid var(--theme-accent);
+        }
+        
+        /* Highlights */
+        .highlight {
+            background: linear-gradient(45deg, var(--theme-secondary), var(--theme-primary));
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 15px 30px var(--theme-shadow);
+            border-right: 8px solid var(--theme-accent);
+            font-size: 1.8rem; /* Increased */
+            text-align: center;
+            line-height: 2.5;
+        }
+        
+        /* Footer */
+        .post-footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(25, 35, 50, 0.7);
+            box-shadow: 0 10px 30px var(--theme-shadow);
+            border-top: 3px solid var(--theme-border);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .post-content {
+                padding: 30px;
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+            h2 {
+                font-size: 2.2rem;
+            }
+            h3 {
+                font-size: 1.8rem;
+            }
+            p {
+                font-size: 1.5rem;
+            }
+            ul {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .post-content {
+                padding: 25px;
+            }
+            .post-header {
+                margin: 20px 0 30px 0;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 2.2rem;
+                padding: 20px 0;
+            }
+            h2 {
+                font-size: 1.8rem;
+                padding-right: 15px;
+                border-right: 6px solid var(--theme-accent);
+            }
+            h3 {
+                font-size: 1.5rem;
+                padding-right: 10px;
+                border-right: 4px solid var(--theme-accent);
+            }
+            p {
+                font-size: 1.3rem;
+                padding: 0 10px;
+            }
+            ul {
+                font-size: 1.2rem;
+                padding-right: 20px;
+            }
+            li {
+                padding: 10px;
+            }
+            .trigger-btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+            .back-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            .post-content-overlay {
+                padding: 20px;
+                width: 95%;
+            }
+            .highlight {
+                padding: 20px;
+                font-size: 1.3rem;
+            }
+            .main-image {
+                margin: 30px auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 1.2rem;
+            }
+            .highlight {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+            .trigger-btn, .back-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--theme-secondary), var(--theme-accent));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--theme-accent), var(--theme-secondary));
+        }
+        
+        /* Theme Transition */
+        * {
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
+    <div class="post-header">
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="fas fa-arrow-right"></i> واپس جائیں
+        </button>
+        <br>
         <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            <i class="fas fa-palette"></i> اس پوسٹ کو ڈائنامک تھیم کے ساتھ پڑھیں
         </button>
     </div>
 
     <div class="post-content">
         
         <h1>5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل</h1>
-<p>محترم قارئین کرام! یہ بات ہم سب اچھی طرح سے جانتے ہیں کہ اس دنیا کا وجود عارضی ہے، اصل زندگی موت کے بعد شروع ہونی ہے۔ اسی طرح قیامت کا ایک دن مقرر ہے اور وہ آکر رہے گی۔</p>
-<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfv2CKobRiqk2WLPmTtXTdJ7QiLrIjFYCyvef3TuuDQsSIC_BCqJYnpeUx8G9VVRGQRtLPenlPCTZMG-MgT67rl_v3gibPF3nT8gEO7tAH0Yw1g1cVD97B4jenljd9IkwZ2TNnmp8GrvEFA0ANMy-X9pD0NOzIS7JnRxxUIPSHa6MAY-OLG_OaQMvvEKgk/s16000/dajjad.png" alt="دجال"></p>
-<p>آپ ﷺ نے اپنی امت کو دونوں جہانوں کے بارے میں رہنمائی فرمائی ہے، چھوٹی سے چھوٹی بات کو پہلے خود عمل کرکے امت کو دکھلایا اور پھر امت کو اس پر عمل پیرا ہونے کی ترغیب دی۔</p>
-<p>کافی دنوں سے میں قیامت کی چھوٹی نشانیوں پر کام کر رہا تھا سوچا آج قیامت کی بڑی نشانیوں کا ذکر بھی آپ سے کروں۔ قیامت کی دس بڑی نشانیاں:</p>
-<ul>
-<li>جزیرۃ العرب میں لوگوں کا زمین میں دھنسنا</li>
-<li>مشرق میں لوگوں کا زمین میں دھنسنا</li>
-<li>مغرب میں لوگوں کا زمین میں دھنسنا</li>
-<li>دجال کا ظہور</li>
-<li>حضرت عیسیٰ کا نزول</li>
-<li>یاجوج ماجوج کا خروج</li>
-<li>سورج کا مغرب سے طلوع ہونا</li>
-<li>دابۃ الارض کا نکلنا</li>
-<li>دھویں کا نکلنا</li>
-<li>یمن کے شہر عدن کے آخری علاقہ سے آگ کا نکلنا</li>
-</ul>
-<p>جن میں &quot;دجال کا ظاہر ہونا&quot; پر آج ہم بات کریں گے۔ حضرت نوح ﷺ کے بعد جتنے بھی انبیاء کرام اس دنیا میں آئے ان سب نے اپنی اپنی قوم کو فتنہ دجال سے ڈرایا اور آگاہ کیا لیکن آپ ﷺ نے اپنی امت کو واضح اور کھول کھول کر بتایا۔</p>
-<p>کیونکہ یہ فتنہ آپ ﷺ کی امت پر ہی ظاہر ہونا ہے۔ اس لیے آپ ﷺ نے اس فتنہ سے بہت زیادہ ڈرایا ہے کہ یہ فتنہ بہت بڑا دجل اور فریب کا فتنہ ہے۔</p>
-<p>قیامت کی یہ نشانیاں کسی ٹوٹنے والے ہار کے موتیوں کی طرح ایک کے بعد ایک تسلسل سے واقع ہوں گی۔ جب پہلی علامت &quot;ظہور امام مہدی&quot; واقع ہو گی تو ایک تیزی کے ساتھ دیگر علامات بھی واقع ہونا شروع ہو جائیں گی۔</p>
-<p>آپ ﷺ نے فرمایا: &quot;علامات قیامت تار میں پروئے ہوئے موتیوں کی مانند ہیں، پس اگر تار ٹوٹ جائے تو موتی یکے بعد دیگرے تیزی سے گرنا شروع ہو جاتے ہیں&quot;۔</p>
-<p>اسی طرح ایک اور جگہ ارشاد فرمایا: &quot;علامات قیامت کا ظہور یکے بعد دیگرے اسی طرح ہوگا جس طرح ہار کے ٹوٹ جانے پر اس کے منکے ایک دوسرے پر گرتے ہیں&quot;۔</p>
-<p>قبل اس کے کہ میں دجال کے بارے میں تفصیل سے لکھنا شروع کروں، ہم یہ جان لیتے ہیں کہ دیگر اور کون کون سے واقعات رونما ہوں گے دجال کی آمد سے قبل۔</p>
-<h2>ہولناک قحط سالی کے سال</h2>
-<p>آپ ﷺ نے فرمایا: &quot;دجال کی آمد سے قبل تین برس بہت سختی اور شدت کے ہوں گے، لوگ ان سالوں میں خوراک کی شدید قلت کا شکار ہوں گے۔ پہلے برس اللہ تعالیٰ آسمان کو حکم دے گا کہ وہ اپنی ایک تہائی بارش روک لے اور زمین کو حکم دے گا کہ وہ اپنی ایک تہائی پیداوار روک لے۔</p>
-<p>پھر اگلے برس آسمان کو حکم ہو گا کہ وہ اپنی دو تہائی بارش روک لے اور زمین کو حکم ہو گا کہ وہ اپنی دو تہائی پیداوار روک لے۔ تیسرے سال اللہ تعالیٰ آسمان کو حکم دے گا کہ وہ اپنی تمام بارش روک لے اور زمین کو حکم دے گا کہ وہ اپنی ساری پیداوار روک لے۔ نتیجہ یہ ہو گا کہ آسمان سے پانی کا ایک قطرہ تک نہ گرے گا اور زمین سے کوئی نبات پیدا نہ ہوگی۔ روئے زمین پر جتنے بھی سایہ دار درخت ہوں گے تباہ و برباد ہو جائیں گے مگر جس کو اللہ چاہے گا وہ بچ جائے گا&quot;۔</p>
-<p>لوگوں نے سوال کیا، اے اللہ کے رسول ﷺ! اس صورت میں لوگوں کا ذریعہ معاش کیا ہوگا؟ آپ ﷺ نے فرمایا: &quot;وہ لاالہ الا اللہ، اللہ اکبر اور الحمد للہ کثرت سے پڑھیں گے اور یہی ذکر ان کے لیے خوراک کا کام دے گا&quot;۔</p>
-<h2>جنگی فتوحات</h2>
-<p>آپ ﷺ نے فرمایا: &quot;تم جزیرہ عرب میں جنگ کرو گے تو اللہ تعالیٰ اسے فتح کردے گا، پھر تم ایران پر حملہ کرو گے تو اللہ تعالیٰ اسے فتح کردے گا، پھر تم روم پر حملہ کرو گے تو اللہ تعالیٰ اسے بھی فتح کر دے گا، پھر تم دجال سے جنگ کرو گے تو اللہ تعالیٰ اسے بھی فتح کردے گا&quot;۔</p>
-<p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: &quot;بیت المقدس کے آباد ہونے سے مدینہ کی بربادی شروع ہو جائے گی۔ مدینہ کی بربادی ہوئی تو ایک عظیم معرکہ شروع ہو جائے گا۔ وہ معرکہ شروع ہوا تو قسطنطنیہ فتح ہو جائے گا اور جب قسطنطنیہ فتح ہو گیا تو پھر جلد ہی دجال کا خروج ہو گا&quot;۔</p>
-<p>دجال کی آمد سے قبل مسلمانوں اور روم کے عیسائیوں کے درمیان بہت سی جنگیں ہوں گی جن میں اللہ کے حکم سے مسلمانوں کو فتح حاصل ہوگی۔ آپ ﷺ نے فرمایا: &quot;تم عیسائیوں کے ساتھ صلح کر لوگے، پھر تم ایک لڑائی کرو گے اور رومی عیسائی تمھارے ساتھ غداری کریں گے۔ تم اس جنگ میں فتح حاصل کرو گے، مال غنیمت حاصل کرو گے اور نقصان سے محفوظ رہو گے، پھر تم میدان جنگ سے واپس لوٹو گے حتی کہ تم اور عیسائی ایک ٹیلوں والی سرسبز جگہ پر پڑاؤ ڈالو گے۔ وہاں عیسائیوں میں سے ایک شخص صلیب کو ہوا میں بلند کرکے اعلان کرے گا کہ صلیب غالب آگئی، صلیب غالب آگئی۔</p>
-<p>اس پر ایک مسلمان کو غصہ آئے گا اور وہ آگے بڑھ کر صلیب کے ٹکڑے ٹکڑے کر دے گا۔ اس بات سے عیسائی بگڑ جائیں گے اور جنگ کے لیے جمع ہو جائیں گے۔ بعض احادیث میں یہ بھی الفاظ ملتے ہیں کہ &quot;اس وقت مسلمان بھی جوش میں آجائیں گے اور اپنے ہتھیار سنبھال لیں گے۔ ایک سخت لڑائی کریں گے اور اللہ تعالیٰ مسلمانوں کی اس جماعت کو شہادت سے سرخرو کریں گے&quot;۔</p>
-<h2>لوگ فتنہ دجال کو بالکل فراموش کر چکے ہوں گے</h2>
-<p>اللہ کے نبی حضرت محمد ﷺ نے فرمایا: &quot;دجال اس وقت تک نہیں نکلے گا جب تک کہ لوگ اس کے ذکر تک سے غافل نہ ہو جائیں اور یہاں تک کہ خطیب منبروں پر اس کا ذکر کرنا چھوڑ دیں گے&quot;۔</p>
-<p>(اس حدیث سے یہ بات بالکل واضح ہے کہ آج ہم اپنی موجودہ اور آنے والی نسلوں کو اس کے ذکر سے بالکل غافل کر چکے ہیں۔ ہماری نوجوان نسل کو ٹک ٹاک سے فرصت نہیں، اس نام نہاد نسل کو کیا پتہ کہ ہماری آنکھوں پر کون سی غفلت کی پٹی بندھی ہے۔ ہمارے نصاب تک سے یہ دور کر لی گئی ہیں تاکہ لوگ جان نہ سکیں)</p>
-<h2>خوفناک فتنوں کا ظہور</h2>
-<p>نبی کریم ﷺ نے ایک طویل حدیث میں ارشاد فرمایا: &quot;پھر خوشحالی کا فتنہ ظاہر ہوگا جو ایک ایسے شخص کے قدموں سے اٹھے گا جو میرے اہل بیت سے ہوگا۔ وہ خود کو میرے خاندان میں خیال کرے گا مگر درحقیقت اس کا مجھ سے کوئی تعلق نہ ہوگا۔</p>
-<p>کیونکہ میرے دوست تو فقط متقی ہیں۔ پھر لوگ ایک ایسے شخص پر متفق ہوجائیں گے جو ایسے ہوگا جیسے پسلی پر سرین (لوگ ایک ایسے شخص کو اپنا بادشاہ بنانے پر متفق ہو جائیں گے جو اپنی جہالت کے باعث بادشاہت کے لیے کسی صورت موزوں نہ ہوگا اور نہ وہ امور ومعاملات پر قابو پانے کی اہلیت رکھتا ہوگا، جس طرح کہ ایک پسلی بڑی بھاری سرین کا وزن برداشت نہیں کر سکتی)۔</p>
-<p>آپ ﷺ نے فرمایا: &quot;اس کے بعد ایک بہت ہولناک فتنہ شروع ہوگا، اس فتنے کا اثر اور تکلیف میری امت کے ہر شخص کو پہنچے گا، کوئی بھی اس سے محفوظ نہ رہے گا۔ جب بھی کہا جائے گا کہ یہ فتنہ ختم ہوگیا ہے تو وہ پہلے سے بھی زیادہ شدت اختیار کر جائے گا۔ آدمی صبح کو مومن ہو گا اور شام کو کافر ہو جائے گا حتی کہ لوگ دو گروہوں میں بٹ جائیں گے۔ ایک ایمان والے جو نفاق سے یکسر پاک ہوں گے اور دوسرے نفاق والے جو ایمان سے یکسر خالی ہوں گے۔</p>
-<p>جب یہ حالات ہوجائیں تو اس وقت دجال کا انتظار کرنا، اسی روز آجائے یا اگلے روز ظاہر ہو جائے&quot;۔</p>
-<h2>تیس مزید جھوٹے دجالوں کا ظاہر ہونا</h2>
-<p>ایک جگہ اللہ کے نبی ﷺ نے ارشاد فرمایا: &quot;اللہ کی قسم! قیامت اس دن تک ہرگز قائم نہیں ہوگی جب تک تیس جھوٹے ظاہر نہ ہوجائیں۔ ان میں سے آخری کانا دجال ہوگا جس کی بائیں آنکھ ممسوح (مٹی ہوئی) ہوگی&quot;۔</p>
-<p>یہ سب وہ واقعات ہیں جو دجال کے ظاہر ہونے سے پہلے روئے زمین پر واقع ہو چکی ہوں گی، اس میں کچھ شک نہیں کہ چھوٹی علامات کے ساتھ بڑی علامات بھی ظاہر ہوں گی۔ اس لیے موقع کو غنیمت جانیں اور ابھی بھی وقت ہے۔</p>
-<p>اللہ اور اس کے رسول ﷺ کے بتائے ہوئے راستے پر چلیں، یہ مت سوچیں کہ کون کیا کر رہا ہے، صرف یہ سوچیں کہ کیا آپ کا طریقہ اللہ کے نبی کے بتائے ہوئے طریقے کے مطابق ہے یا نہیں۔ ہر آنے والا دن گزرے ہوئے دن سے بدتر ہوتا جا رہا ہے اور ہم ابھی غفلت کی نیند میں سو رہے ہیں۔ اسی غفلت کی نیند میں ہی کسی دن موت اچک لے گی اور جس کی موت واقع ہوگئی سمجھ لو اس کے لیے قیامت شروع ہو گئی۔ اللہ سے دعا ہے کہ جب تک زندہ رکھے ایمان کی حالت میں زندہ رکھے اور موت دے تو ایمان کی حالت میں۔۔۔۔آمین</p>
+        
+        <!-- Main Image after title - USING YOUR PROVIDED IMAGE -->
+        <img src="https://bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.png" 
+             alt="دجال سے پہلے کے واقعات" 
+             class="main-image">
+        
+        <div class="section-warning">
+            <p>محترم قارئین کرام! یہ بات ہم سب اچھی طرح سے جانتے ہیں کہ اس دنیا کا وجود عارضی ہے، اصل زندگی موت کے بعد شروع ہونی ہے۔ اسی طرح قیامت کا ایک دن مقرر ہے اور وہ آکر رہے گی۔</p>
+        </div>
+        
+        <div class="section-prophetic">
+            <p>آپ ﷺ نے اپنی امت کو دونوں جہانوں کے بارے میں رہنمائی فرمائی ہے، چھوٹی سے چھوٹی بات کو پہلے خود عمل کرکے امت کو دکھلایا اور پھر امت کو اس پر عمل پیرا ہونے کی ترغیب دی۔</p>
+        </div>
+        
+        <p>کافی دنوں سے میں قیامت کی چھوٹی نشانیوں پر کام کر رہا تھا سوچا آج قیامت کی بڑی نشانیوں کا ذکر بھی آپ سے کروں۔ قیامت کی دس بڑی نشانیاں:</p>
+        
+        <ul>
+            <li>جزیرۃ العرب میں لوگوں کا زمین میں دھنسنا</li>
+            <li>مشرق میں لوگوں کا زمین میں دھنسنا</li>
+            <li>مغرب میں لوگوں کا زمین میں دھنسنا</li>
+            <li>دجال کا ظہور</li>
+            <li>حضرت عیسیٰ کا نزول</li>
+            <li>یاجوج ماجوج کا خروج</li>
+            <li>سورج کا مغرب سے طلوع ہونا</li>
+            <li>دابۃ الارض کا نکلنا</li>
+            <li>دھویں کا نکلنا</li>
+            <li>یمن کے شہر عدن کے آخری علاقہ سے آگ کا نکلنا</li>
+        </ul>
+        
+        <div class="section-important">
+            <p>جن میں "دجال کا ظاہر ہونا" پر آج ہم بات کریں گے۔ حضرت نوح ﷺ کے بعد جتنے بھی انبیاء کرام اس دنیا میں آئے ان سب نے اپنی اپنی قوم کو فتنہ دجال سے ڈرایا اور آگاہ کیا لیکن آپ ﷺ نے اپنی امت کو واضح اور کھول کھول کر بتایا۔</p>
+        </div>
+        
+        <div class="section-warning">
+            <p>کیونکہ یہ فتنہ آپ ﷺ کی امت پر ہی ظاہر ہونا ہے۔ اس لیے آپ ﷺ نے اس فتنہ سے بہت زیادہ ڈرایا ہے کہ یہ فتنہ بہت بڑا دجل اور فریب کا فتنہ ہے۔</p>
+        </div>
+        
+        <p>قیامت کی یہ نشانیاں کسی ٹوٹنے والے ہار کے موتیوں کی طرح ایک کے بعد ایک تسلسل سے واقع ہوں گی۔ جب پہلی علامت "ظہور امام مہدی" واقع ہو گی تو ایک تیزی کے ساتھ دیگر علامات بھی واقع ہونا شروع ہو جائیں گی۔</p>
+        
+        <div class="highlight">
+            آپ ﷺ نے فرمایا: "علامات قیامت تار میں پروئے ہوئے موتیوں کی مانند ہیں، پس اگر تار ٹوٹ جائے تو موتی یکے بعد دیگرے تیزی سے گرنا شروع ہو جاتے ہیں"۔
+        </div>
+        
+        <p>اسی طرح ایک اور جگہ ارشاد فرمایا: "علامات قیامت کا ظہور یکے بعد دیگرے اسی طرح ہوگا جس طرح ہار کے ٹوٹ جانے پر اس کے منکے ایک دوسرے پر گرتے ہیں"۔</p>
+        
+        <p>قبل اس کے کہ میں دجال کے بارے میں تفصیل سے لکھنا شروع کروں، ہم یہ جان لیتے ہیں کہ دیگر اور کون کون سے واقعات رونما ہوں گے دجال کی آمد سے قبل۔</p>
+        
+        <h2>ہولناک قحط سالی کے سال</h2>
+        
+        <div class="section-warning">
+            <p>آپ ﷺ نے فرمایا: "دجال کی آمد سے قبل تین برس بہت سختی اور شدت کے ہوں گے، لوگ ان سالوں میں خوراک کی شدید قلت کا شکار ہوں گے۔ پہلے برس اللہ تعالیٰ آسمان کو حکم دے گا کہ وہ اپنی ایک تہائی بارش روک لے اور زمین کو حکم دے گا کہ وہ اپنی ایک تہائی پیداوار روک لے۔</p>
+        </div>
+        
+        <p>پھر اگلے برس آسمان کو حکم ہو گا کہ وہ اپنی دو تہائی بارش روک لے اور زمین کو حکم ہو گا کہ وہ اپنی دو تہائی پیداوار روک لے۔ تیسرے سال اللہ تعالیٰ آسمان کو حکم دے گا کہ وہ اپنی تمام بارش روک لے اور زمین کو حکم دے گا کہ وہ اپنی ساری پیداوار روک لے۔ نتیجہ یہ ہو گا کہ آسمان سے پانی کا ایک قطرہ تک نہ گرے گا اور زمین سے کوئی نبات پیدا نہ ہوگی۔ روئے زمین پر جتنے بھی سایہ دار درخت ہوں گے تباہ و برباد ہو جائیں گے مگر جس کو اللہ چاہے گا وہ بچ جائے گا"۔</p>
+        
+        <div class="section-blessing">
+            <p>لوگوں نے سوال کیا، اے اللہ کے رسول ﷺ! اس صورت میں لوگوں کا ذریعہ معاش کیا ہوگا؟ آپ ﷺ نے فرمایا: "وہ لاالہ الا اللہ، اللہ اکبر اور الحمد للہ کثرت سے پڑھیں گے اور یہی ذکر ان کے لیے خوراک کا کام دے گا"۔</p>
+        </div>
+        
+        <h2>جنگی فتوحات</h2>
+        
+        <div class="section-prophetic">
+            <p>آپ ﷺ نے فرمایا: "تم جزیرہ عرب میں جنگ کرو گے تو اللہ تعالیٰ اسے فتح کردے گا، پھر تم ایران پر حملہ کرو گے تو اللہ تعالیٰ اسے فتح کردے گا، پھر تم روم پر حملہ کرو گے تو اللہ تعالیٰ اسے بھی فتح کر دے گا، پھر تم دجال سے جنگ کرو گے تو اللہ تعالیٰ اسے بھی فتح کردے گا"۔</p>
+        </div>
+        
+        <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: "بیت المقدس کے آباد ہونے سے مدینہ کی بربادی شروع ہو جائے گی۔ مدینہ کی بربادی ہوئی تو ایک عظیم معرکہ شروع ہو جائے گا۔ وہ معرکہ شروع ہوا تو قسطنطنیہ فتح ہو جائے گا اور جب قسطنطنیہ فتح ہو گیا تو پھر جلد ہی دجال کا خروج ہو گا"۔</p>
+        
+        <p>دجال کی آمد سے قبل مسلمانوں اور روم کے عیسائیوں کے درمیان بہت سی جنگیں ہوں گی جن میں اللہ کے حکم سے مسلمانوں کو فتح حاصل ہوگی۔ آپ ﷺ نے فرمایا: "تم عیسائیوں کے ساتھ صلح کر لوگے، پھر تم ایک لڑائی کرو گے اور رومی عیسائی تمھارے ساتھ غداری کریں گے۔ تم اس جنگ میں فتح حاصل کرو گے، مال غنیمت حاصل کرو گے اور نقصان سے محفوظ رہو گے، پھر تم میدان جنگ سے واپس لوٹو گے حتی کہ تم اور عیسائی ایک ٹیلوں والی سرسبز جگہ پر پڑاؤ ڈالو گے۔ وہاں عیسائیوں میں سے ایک شخص صلیب کو ہوا میں بلند کرکے اعلان کرے گا کہ صلیب غالب آگئی، صلیب غالب آگئی۔</p>
+        
+        <p>اس پر ایک مسلمان کو غصہ آئے گا اور وہ آگے بڑھ کر صلیب کے ٹکڑے ٹکڑے کر دے گا۔ اس بات سے عیسائی بگڑ جائیں گے اور جنگ کے لیے جمع ہو جائیں گے۔ بعض احادیث میں یہ بھی الفاظ ملتے ہیں کہ "اس وقت مسلمان بھی جوش میں آجائیں گے اور اپنے ہتھیار سنبھال لیں گے۔ ایک سخت لڑائی کریں گے اور اللہ تعالیٰ مسلمانوں کی اس جماعت کو شہادت سے سرخرو کریں گے"۔</p>
+        
+        <h2>لوگ فتنہ دجال کو بالکل فراموش کر چکے ہوں گے</h2>
+        
+        <div class="section-warning">
+            <p>اللہ کے نبی حضرت محمد ﷺ نے فرمایا: "دجال اس وقت تک نہیں نکلے گا جب تک کہ لوگ اس کے ذکر تک سے غافل نہ ہو جائیں اور یہاں تک کہ خطیب منبروں پر اس کا ذکر کرنا چھوڑ دیں گے"۔</p>
+        </div>
+        
+        <div class="section-important">
+            <p>(اس حدیث سے یہ بات بالکل واضح ہے کہ آج ہم اپنی موجودہ اور آنے والی نسلوں کو اس کے ذکر سے بالکل غافل کر چکے ہیں۔ ہماری نوجوان نسل کو ٹک ٹاک سے فرصت نہیں، اس نام نہاد نسل کو کیا پتہ کہ ہماری آنکھوں پر کون سی غفلت کی پٹی بندھی ہے۔ ہمارے نصاب تک سے یہ دور کر لی گئی ہیں تاکہ لوگ جان نہ سکیں)</p>
+        </div>
+        
+        <h2>خوفناک فتنوں کا ظہور</h2>
+        
+        <div class="section-prophetic">
+            <p>نبی کریم ﷺ نے ایک طویل حدیث میں ارشاد فرمایا: "پھر خوشحالی کا فتنہ ظاہر ہوگا جو ایک ایسے شخص کے قدموں سے اٹھے گا جو میرے اہل بیت سے ہوگا۔ وہ خود کو میرے خاندان میں خیال کرے گا مگر درحقیقت اس کا مجھ سے کوئی تعلق نہ ہوگا۔</p>
+        </div>
+        
+        <p>کیونکہ میرے دوست تو فقط متقی ہیں۔ پھر لوگ ایک ایسے شخص پر متفق ہوجائیں گے جو ایسے ہوگا جیسے پسلی پر سرین (لوگ ایک ایسے شخص کو اپنا بادشاہ بنانے پر متفق ہو جائیں گے جو اپنی جہالت کے باعث بادشاہت کے لیے کسی صورت موزوں نہ ہوگا اور نہ وہ امور ومعاملات پر قابو پانے کی اہلیت رکھتا ہوگا، جس طرح کہ ایک پسلی بڑی بھاری سرین کا وزن برداشت نہیں کر سکتی)۔</p>
+        
+        <div class="section-warning">
+            <p>آپ ﷺ نے فرمایا: "اس کے بعد ایک بہت ہولناک فتنہ شروع ہوگا، اس فتنے کا اثر اور تکلیف میری امت کے ہر شخص کو پہنچے گا، کوئی بھی اس سے محفوظ نہ رہے گا۔ جب بھی کہا جائے گا کہ یہ فتنہ ختم ہوگیا ہے تو وہ پہلے سے بھی زیادہ شدت اختیار کر جائے گا۔ آدمی صبح کو مومن ہو گا اور شام کو کافر ہو جائے گا حتی کہ لوگ دو گروہوں میں بٹ جائیں گے۔ ایک ایمان والے جو نفاق سے یکسر پاک ہوں گے اور دوسرے نفاق والے جو ایمان سے یکسر خالی ہوں گے۔</p>
+        </div>
+        
+        <p>جب یہ حالات ہوجائیں تو اس وقت دجال کا انتظار کرنا، اسی روز آجائے یا اگلے روز ظاہر ہو جائے"۔</p>
+        
+        <h2>تیس مزید جھوٹے دجالوں کا ظاہر ہونا</h2>
+        
+        <div class="section-prophetic">
+            <p>ایک جگہ اللہ کے نبی ﷺ نے ارشاد فرمایا: "اللہ کی قسم! قیامت اس دن تک ہرگز قائم نہیں ہوگی جب تک تیس جھوٹے ظاہر نہ ہوجائیں۔ ان میں سے آخری کانا دجال ہوگا جس کی بائیں آنکھ ممسوح (مٹی ہوئی) ہوگی"۔</p>
+        </div>
+        
+        <div class="section-blessing">
+            <p>یہ سب وہ واقعات ہیں جو دجال کے ظاہر ہونے سے پہلے روئے زمین پر واقع ہو چکی ہوں گی، اس میں کچھ شک نہیں کہ چھوٹی علامات کے ساتھ بڑی علامات بھی ظاہر ہوں گی۔ اس لیے موقع کو غنیمت جانیں اور ابھی بھی وقت ہے۔</p>
+        </div>
+        
+        <div class="highlight">
+            <p>اللہ اور اس کے رسول ﷺ کے بتائے ہوئے راستے پر چلیں، یہ مت سوچیں کہ کون کیا کر رہا ہے، صرف یہ سوچیں کہ کیا آپ کا طریقہ اللہ کے نبی کے بتائے ہوئے طریقے کے مطابق ہے یا نہیں۔ ہر آنے والا دن گزرے ہوئے دن سے بدتر ہوتا جا رہا ہے اور ہم ابھی غفلت کی نیند میں سو رہے ہیں۔ اسی غفلت کی نیند میں ہی کسی دن موت اچک لے گی اور جس کی موت واقع ہوگئی سمجھ لو اس کے لیے قیامت شروع ہو گئی۔ اللہ سے دعا ہے کہ جب تک زندہ رکھے ایمان کی حالت میں زندہ رکھے اور موت دے تو ایمان کی حالت میں۔۔۔۔آمین</p>
+        </div>
+        
+        <div class="post-footer">
+            <button class="back-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-right"></i> واپس جائیں
+            </button>
+        </div>
 
     </div>
 
@@ -94,15 +635,98 @@
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Apply theme to overlay content
+            setTimeout(() => {
+                const overlayContent = document.getElementById('postContent');
+                overlayContent.querySelectorAll('.section-warning, .section-blessing, .section-prophetic, .section-important').forEach(section => {
+                    section.style.transition = 'all 0.5s ease';
+                });
+            }, 100);
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+            setTimeout(() => { 
+                document.getElementById('postContent').innerHTML = ''; 
+            }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Close on ESC key
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
+        // Close on background click
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Auto-theme for sections based on content
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('p, div');
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                
+                // Apply theme classes based on content
+                if (text.includes('ڈرایا') || text.includes('فتنہ') || text.includes('خطرہ') || 
+                    text.includes('بربادی') || text.includes('قحط') || text.includes('غافل') ||
+                    text.includes('ہولناک') || text.includes('خوفناک')) {
+                    if(!section.classList.contains('section-warning') && 
+                       !section.classList.contains('section-blessing') && 
+                       !section.classList.contains('section-prophetic') && 
+                       !section.classList.contains('section-important')) {
+                        section.classList.add('section-warning');
+                    }
+                }
+                else if (text.includes('بشارت') || text.includes('رحمت') || text.includes('خوشخبری') || 
+                         text.includes('دعا') || text.includes('آمین') || text.includes('ذکر') ||
+                         text.includes('موقع') || text.includes('غنیمت')) {
+                    if(!section.classList.contains('section-warning') && 
+                       !section.classList.contains('section-blessing') && 
+                       !section.classList.contains('section-prophetic') && 
+                       !section.classList.contains('section-important')) {
+                        section.classList.add('section-blessing');
+                    }
+                }
+                else if (text.includes('حدیث') || text.includes('رسول') || text.includes('نبی') || 
+                         text.includes('ارشاد') || text.includes('فرمایا') || text.includes('صحیح') ||
+                         text.includes('آپ ﷺ') || text.includes('نبی کریم')) {
+                    if(!section.classList.contains('section-warning') && 
+                       !section.classList.contains('section-blessing') && 
+                       !section.classList.contains('section-prophetic') && 
+                       !section.classList.contains('section-important')) {
+                        section.classList.add('section-prophetic');
+                    }
+                }
+                else if (text.includes('اہم') || text.includes('ضروری') || text.includes('خبردار') || 
+                         text.includes('توجہ') || text.includes('محتاط') || text.includes('واضح')) {
+                    if(!section.classList.contains('section-warning') && 
+                       !section.classList.contains('section-blessing') && 
+                       !section.classList.contains('section-prophetic') && 
+                       !section.classList.contains('section-important')) {
+                        section.classList.add('section-important');
+                    }
+                }
+            });
+        });
+        
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>
