@@ -4,147 +4,327 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ہم دعا مانگنے میں سست کیوں ہو گئے ہیں؟</title>
+    
+    <!-- Urdu Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        /* Font Setup */
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+
+        /* Variables for the Theme */
+        :root {
+            --bg-dark: #0f2027;
+            --bg-gradient-1: #203a43;
+            --bg-gradient-2: #2c5364;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0bec5;
+            --accent-gold: #ffd700;
+            --accent-cyan: #4ecdc4;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.4; /* Increased line height */
+            direction: rtl; 
+            text-align: right; 
+            margin: 0; 
+            padding: 0; 
+            background: linear-gradient(to bottom, var(--bg-dark), var(--bg-gradient-1), var(--bg-gradient-2));
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Live Background Animation (Stars) --- */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+
+        /* Generating random stars via CSS for performance is complex, 
+           so we use a simple repeating shadow trick for a starry effect */
+        .stars-bg {
+            width: 1px; height: 1px;
+            background: transparent;
+            box-shadow: 1744px 122px #FFF , 134px 1321px #FFF , 92px 859px #FFF, 1244px 522px #FFF , 434px 121px #FFF , 942px 89px #FFF;
+            animation: animStar 50s linear infinite;
+        }
+        .stars-bg-2 {
+            width: 2px; height: 2px;
+            background: transparent;
+            box-shadow: 644px 422px #FFF , 234px 921px #FFF , 592px 359px #FFF;
+            animation: animStar 100s linear infinite;
+        }
+        
+        @keyframes animStar { from { transform: translateY(0px); } to { transform: translateY(-2000px); } }
+
+
+        /* --- Top Navigation --- */
+        .nav-bar {
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 32, 39, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, var(--accent-cyan), #2ecc71);
+            color: #0f2027;
+            padding: 8px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+        }
+        .back-btn i { margin-left: 10px; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(78, 205, 196, 0.5); }
+
+
+        /* --- Main Content Card --- */
+        .post-content { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: var(--card-bg); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+        }
+
+        /* Typography */
+        h1 { 
+            text-align: center; 
+            color: var(--accent-gold);
+            font-size: 2.8rem; /* Increased Size */
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3); 
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
+        }
+        
+        h2, h3, strong { 
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.4rem; /* Increased Size */
+            text-align: justify; /* Proper Alignment */
+            margin-bottom: 25px;
+            color: var(--text-primary);
+        }
+
+        ul {
+            list-style-type: none; /* Custom bullets */
+            padding-right: 20px;
+        }
+        
+        ul li {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-right: 25px;
+            color: var(--text-secondary);
+        }
+        
+        ul li::before {
+            content: '✦';
+            color: var(--accent-gold);
+            position: absolute;
+            right: 0;
+            top: 2px;
+        }
+
+        /* Image Styling */
+        .featured-img { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 15px; 
+            display: block; 
+            margin: 20px auto 40px auto; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+        .featured-img:hover { transform: scale(1.02); }
+
+        a { color: var(--accent-gold); text-decoration: none; border-bottom: 1px dashed; }
+        a:hover { color: #fff; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 20px;
+                margin: 20px 15px;
+            }
+            h1 { font-size: 2rem; }
+            p { font-size: 1.2rem; line-height: 2.1; }
+            ul li { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+
+    <!-- Space Background Animation -->
+    <div class="stars-container">
+        <div class="stars-bg"></div>
+        <div class="stars-bg-2" style="animation-duration: 150s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="javascript:history.back()" class="back-btn">
+            <i class="fas fa-arrow-right"></i> واپس جائیں
+        </a>
     </div>
 
     <div class="post-content">
         <h1>ہم دعا مانگنے میں سست کیوں ہو گئے ہیں؟</h1>
+
+        <!-- Featured Image -->
+        <img src="https://bloglovers.pk/images/azkar/hum-dua-mangne-mein-sust-kyun-ho-gaye-hain.png" alt="ہم دعا مانگنے میں سست کیوں ہو گئے ہیں؟" class="featured-img">
+
         <p>دعا بندے کا اپنے رب سے رشتہ ہے، وہ تعلق جو انسان کو زمین سے اٹھا کر عرش الہیٰ تک پہنچا دیتا ہے۔ قرآن مجید میں فرمایا گیا: <strong>&quot;ادْعُونِي أَسْتَجِبْ لَكُمْ&quot;</strong> (مجھے پکارو، میں تمہاری دعا قبول کروں گا)۔ احادیث میں نبی کریم ﷺ نے دعا کو عبادت کا مغز قرار دیا۔ مگر افسوس! آج کا مسلمان دعا جیسے طاقتور عمل سے غافل اور سستی کا شکار ہے۔</p>
-<p>ہم دن رات دنیاوی مصروفیات میں الجھے رہتے ہیں لیکن رب سے اپنا تعلق جو ہمیں تقویت دے سکتا ہے، اسی سے دور ہو چکے ہیں۔ دعا صرف ایک حاجت کی فہرست نہیں بلکہ اللہ کی بارگاہ میں اپنی بندگی، کمزوری اور محتاجی کا اظہار ہے۔ اس مضمون میں ہم دعا سے سستی کی وجوہات، نقصانات اور اس سے نجات کے عملی طریقے بیان کریں گے۔</p>
-<p>دعا لغوی طور پر <strong>&quot;پکارنے&quot;</strong> کو کہتے ہیں، جبکہ اصطلاحی طور پر یہ اللہ تعالیٰ سے اپنے دل کی بات کہنا، اس سے مانگنا، اس کی قربت چاہنا اور اپنی عاجزی کو ظاہر کرنا ہے۔</p>
-<p><strong>دعا کی اہمیت:</strong></p>
-<ul>
-<li>اللہ سے قربت کا ذریعہ ہے۔</li>
-<li>ایمان کی علامت ہے۔</li>
-<li>روحانیت کا دروازہ ہے۔</li>
-<li>عبادت کی اصل روح ہے۔</li>
-</ul>
-<p>نبی کریم ﷺ نے فرمایا: <strong>&quot;الدُّعَاءُ مُخُّ الْعِبَادَةِ&quot;</strong> یعنی &quot;دعا عبادت کا مغز ہے&quot;۔</p>
-<p><strong>دعا مانگنے میں سستی: ایک المیہ</strong></p>
-<p>سوچیں! جس رب کے خزانے لا محدود ہیں، جو اپنے بندے سے ستر ماؤں سے زیادہ محبت کرتا ہے، جو خود کہتا ہے کہ مانگو میں دوں گا، اُس کے سامنے ہاتھ نہ اٹھانا کتنی بڑی محرومی ہے!</p>
-<p>اکثر لوگ کہتے ہیں:</p>
-<ul>
-<li>&quot;وقت نہیں ملتا&quot;</li>
-<li>&quot;مصروف ہوں&quot;</li>
-<li>&quot;دعا بعد میں کر لوں گا&quot;</li>
-</ul>
-<p>لیکن یہ سستی دراصل ہمارے دلوں کی بیماری کی علامت ہے۔ ہم نے دعا کو صرف مشکل وقت کا سہارا بنا لیا ہے، حالانکہ یہ تو ہر لمحے کی ضرورت ہے۔</p>
-<p><strong>سستی کی وجوہات:</strong></p>
-<ul>
-<li><strong>کمزور ایمان:</strong> &quot;جب دل میں اللہ پر یقین کمزور ہو جاتا ہے تو بندہ دعا کو اہم نہیں سمجھتا&quot;۔</li>
-<li><strong>دنیا داری اور غفلت:</strong> &quot;دنیا کی رنگینیاں انسان کو اس قدر مشغول کر دیتی ہیں کہ اسے دعا یاد ہی نہیں رہتی&quot;۔</li>
-<li><strong>گناہوں کا بوجھ:</strong> &quot;مسلسل گناہ دل کو سیاہ کر دیتے ہیں، جس کی وجہ سے دعا کا ذوق ختم ہو جاتا ہے&quot;۔</li>
-<li><strong>دعا کی قبولیت میں جلدی:</strong> &quot;اکثر لوگ چاہتے ہیں کہ دعا فوری قبول ہو، اور جب ایسا نہ ہو تو مایوس ہو کر چھوڑ دیتے ہیں۔&quot;</li>
-<li><strong>دعا کو آخری حل سمجھنا:</strong> &quot;کچھ لوگ صرف تدابیر پر بھروسہ کرتے ہیں اور دعا کو آخری آپشن سمجھتے ہیں۔&quot;</li>
-<li><strong>شیطانی وسوسے:</strong> &quot;شیطان انسان کو دعا سے غافل کرنے کے لیے وسوسے ڈالتا ہے: &#39;کیا فائدہ؟ سنی تو نہیں جائے گی&#39;&quot;۔</li>
-</ul>
-<p><strong>قرآن و حدیث کی روشنی میں ترغیب</strong></p>
-<p>اللہ تعالیٰ نے قرآن میں فرمایا: <strong>&quot;ادْعُونِي أَسْتَجِبْ لَكُمْ&quot;</strong> مجھے پکارو، میں قبول کروں گا۔</p>
-<p>نبی کریم ﷺ نے فرمایا: <strong>&quot;جب بندہ ہاتھ اٹھاتا ہے تو اللہ کو شرم آتی ہے کہ خالی واپس لوٹا دے&quot;</strong>۔</p>
-<p>ایک اور مقام پر آپ ﷺ نے کچھ یوں ارشاد فرمایا <strong>&quot;دعا مومن کا ہتھیار ہے&quot;</strong>۔
-یعنی دعا ایک ایسا عمل ہے جو دشمن کے خلاف، مشکلات کے وقت اور روحانی ترقی کے لیے بنیادی ہتھیار ہے۔</p>
-<p><strong>صحابہ کرام اور بزرگانِ دین کا دعاؤں کا اہتمام</strong></p>
-<p>صحابہ کرام ؓ اور بزرگان دین ؒ دعا کو اپنی زندگی کا لازمی جزو سمجھتے تھے:</p>
-<ul>
-<li>حضرت عمر ؓ فرماتے: <strong>&quot;مجھے اس کی فکر نہیں کہ دعا قبول ہوتی ہے یا نہیں، مجھے تو اس بات کی فکر ہے کہ میں دعا مانگتا ہوں یا نہیں۔&quot;</strong></li>
-<li>حضرت علی ؓ رات کی تنہائی میں روتے، دعا کرتے، اللہ کے حضور گڑگڑاتے۔</li>
-<li>امام حسن بصری ؒ فرماتے: &quot;جب دعا مانگو تو ایسے مانگو جیسے ڈوبا ہوا انسان آخری سانس میں مدد مانگتا ہے۔&quot;</li>
-</ul>
-<p><strong>دعا میں سستی کے نقصانات:</strong></p>
-<ul>
-<li>اللہ سے تعلق میں کمزوری</li>
-<li>دل کا سخت ہو جانا</li>
-<li>روحانیت کا زوال</li>
-<li>زندگی میں بے برکتی</li>
-<li>ذہنی بے سکونی</li>
-<li>مایوسی اور نا امیدی کا شکار ہونا</li>
-</ul>
-<p><strong>دعا کی قبولیت کا انداز</strong></p>
-<p>نبی کریم ﷺ نے فرمایا: <strong>&quot;اللہ تعالیٰ بندے کی دعا کا جواب تین طریقوں سے دیتا ہے:&quot;</strong></p>
-<ul>
-<li><strong>جو مانگا، وہ فوراً دے دیا</strong></li>
-<li><strong>کسی مصیبت کو ٹال دیا</strong></li>
-<li><strong>آخرت کے لیے ذخیرہ کر دیا</strong></li>
-</ul>
-<p>لہٰذا اگر ہمیں بظاہر جواب نہ ملے، تب بھی مایوس نہ ہوں۔ اللہ حکمت والا ہے، وہ جانتا ہے کیا، کب اور کیسے دینا ہے۔</p>
-<p><strong>سستی سے نجات کیسے پائیں؟</strong></p>
-<ul>
-<li><strong>ایمان کو تازہ کریں:</strong> &quot;اللہ کی صفات، نعمتوں اور قدرت کو یاد کر کے دل میں یقین کو پختہ کریں۔&quot;</li>
-<li><strong>مسنون دعاؤں سے آغاز کریں:</strong> &quot;چھوٹی چھوٹی سنت دعاؤں کو زندگی میں شامل کریں۔&quot;</li>
-<li><strong>دعا کے لیے مستقل وقت مقرر کریں:</strong> &quot;صبح شام، نماز کے بعد یا رات کو سونے سے پہلے دعا کا وقت طے کریں۔&quot;</li>
-<li><strong>اللہ کی محبت پیدا کریں:</strong> &quot;اللہ سے تعلق محبت کی بنیاد پر قائم کریں۔&quot;</li>
-<li><strong>نیت درست کریں:</strong> &quot;دعا کو محض مانگنے نہیں، عبادت سمجھ کر کریں۔&quot;</li>
-<li><strong>دعا کو ترجیح بنائیں:</strong> &quot;ہر کام سے پہلے اور بعد میں دعا کو اپنی ترجیح بنائیں۔&quot;</li>
-</ul>
-<p><strong>عملی تجاویز:</strong></p>
-<ul>
-<li><strong>روزانہ دعا کی ڈائری بنائیں</strong></li>
-<li><strong>صبح اور سونے سے قبل دعا کا وقت مخصوص کریں</strong></li>
-<li><strong>گھر والوں، خاص طور پر بچوں کو دعا سکھائیں</strong></li>
-<li><strong>دعا میں دل، زبان اور آنکھوں کی شرکت ہو</strong></li>
-<li><strong>دعا کو روح کی غذا سمجھیں</strong></li>
-</ul>
-<p><strong>آج کا انسان اور ٹیکنالوجی کا فاصلہ</strong></p>
-<p>آج انسان موبائل، سوشل میڈیا، ویڈیوز اور گیمز میں اس قدر مشغول ہو چکا ہے کہ وہ اپنے خالق سے رابطہ بھول گیا ہے۔ ہم سکون کی تلاش میں سکرینوں کو گھورتے ہیں، جبکہ سکونت صرف رب کے ذکر اور دعا میں ہے۔</p>
-<p><strong>&quot;أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ&quot;</strong> یاد رکھو! دلوں کا سکون صرف اللہ کے ذکر میں ہے۔</p>
-<p>دعا صرف الفاظ کا مجموعہ نہیں بلکہ بندگی کا اظہار ہے۔ دعا ہماری روح کی غذا ہے، اللہ سے رابطہ ہے، بندے کی سب سے بڑی طاقت ہے۔ اگر ہم دعا میں سستی کریں گے تو دراصل ہم اپنی ہی زندگی سے برکت، سکون اور رہنمائی کو دور کر رہے ہیں۔</p>
-<p>آئیے! آج سے عزم کریں کہ:</p>
-<ul>
-<li>ہم دعا کو اپنی زندگی کا لازمی حصہ بنائیں گے</li>
-<li>اللہ سے تعلق کو مضبوط کریں گے</li>
-<li>ہر حال میں اپنے رب کو پکاریں گے</li>
-</ul>
-<p>یقین جانیے! اللہ بہت قریب ہے... بس دل سے پکارنے کی دیر ہے۔</p>
+        
+        <p>ہم دن رات دنیاوی مصروفیات میں الجھے رہتے ہیں لیکن رب سے اپنا تعلق جو ہمیں تقویت دے سکتا ہے، اسی سے دور ہو چکے ہیں۔ دعا صرف ایک حاجت کی فہرست نہیں بلکہ اللہ کی بارگاہ میں اپنی بندگی، کمزوری اور محتاجی کا اظہار ہے۔ اس مضمون میں ہم دعا سے سستی کی وجوہات، نقصانات اور اس سے نجات کے عملی طریقے بیان کریں گے۔</p>
+        
+        <p>دعا لغوی طور پر <strong>&quot;پکارنے&quot;</strong> کو کہتے ہیں، جبکہ اصطلاحی طور پر یہ اللہ تعالیٰ سے اپنے دل کی بات کہنا، اس سے مانگنا، اس کی قربت چاہنا اور اپنی عاجزی کو ظاہر کرنا ہے۔</p>
+        
+        <p><strong>دعا کی اہمیت:</strong></p>
+        <ul>
+            <li>اللہ سے قربت کا ذریعہ ہے۔</li>
+            <li>ایمان کی علامت ہے۔</li>
+            <li>روحانیت کا دروازہ ہے۔</li>
+            <li>عبادت کی اصل روح ہے۔</li>
+        </ul>
+        
+        <p>نبی کریم ﷺ نے فرمایا: <strong>&quot;الدُّعَاءُ مُخُّ الْعِبَادَةِ&quot;</strong> یعنی &quot;دعا عبادت کا مغز ہے&quot;۔</p>
+        
+        <h3>دعا مانگنے میں سستی: ایک المیہ</h3>
+        <p>سوچیں! جس رب کے خزانے لا محدود ہیں، جو اپنے بندے سے ستر ماؤں سے زیادہ محبت کرتا ہے، جو خود کہتا ہے کہ مانگو میں دوں گا، اُس کے سامنے ہاتھ نہ اٹھانا کتنی بڑی محرومی ہے!</p>
+        
+        <p>اکثر لوگ کہتے ہیں:</p>
+        <ul>
+            <li>&quot;وقت نہیں ملتا&quot;</li>
+            <li>&quot;مصروف ہوں&quot;</li>
+            <li>&quot;دعا بعد میں کر لوں گا&quot;</li>
+        </ul>
+        
+        <p>لیکن یہ سستی دراصل ہمارے دلوں کی بیماری کی علامت ہے۔ ہم نے دعا کو صرف مشکل وقت کا سہارا بنا لیا ہے، حالانکہ یہ تو ہر لمحے کی ضرورت ہے۔</p>
+        
+        <h3>سستی کی وجوہات:</h3>
+        <ul>
+            <li><strong>کمزور ایمان:</strong> &quot;جب دل میں اللہ پر یقین کمزور ہو جاتا ہے تو بندہ دعا کو اہم نہیں سمجھتا&quot;۔</li>
+            <li><strong>دنیا داری اور غفلت:</strong> &quot;دنیا کی رنگینیاں انسان کو اس قدر مشغول کر دیتی ہیں کہ اسے دعا یاد ہی نہیں رہتی&quot;۔</li>
+            <li><strong>گناہوں کا بوجھ:</strong> &quot;مسلسل گناہ دل کو سیاہ کر دیتے ہیں، جس کی وجہ سے دعا کا ذوق ختم ہو جاتا ہے&quot;۔</li>
+            <li><strong>دعا کی قبولیت میں جلدی:</strong> &quot;اکثر لوگ چاہتے ہیں کہ دعا فوری قبول ہو، اور جب ایسا نہ ہو تو مایوس ہو کر چھوڑ دیتے ہیں۔&quot;</li>
+            <li><strong>دعا کو آخری حل سمجھنا:</strong> &quot;کچھ لوگ صرف تدابیر پر بھروسہ کرتے ہیں اور دعا کو آخری آپشن سمجھتے ہیں۔&quot;</li>
+            <li><strong>شیطانی وسوسے:</strong> &quot;شیطان انسان کو دعا سے غافل کرنے کے لیے وسوسے ڈالتا ہے: &#39;کیا فائدہ؟ سنی تو نہیں جائے گی&#39;&quot;۔</li>
+        </ul>
+        
+        <h3>قرآن و حدیث کی روشنی میں ترغیب</h3>
+        <p>اللہ تعالیٰ نے قرآن میں فرمایا: <strong>&quot;ادْعُونِي أَسْتَجِبْ لَكُمْ&quot;</strong> مجھے پکارو، میں قبول کروں گا۔</p>
+        <p>نبی کریم ﷺ نے فرمایا: <strong>&quot;جب بندہ ہاتھ اٹھاتا ہے تو اللہ کو شرم آتی ہے کہ خالی واپس لوٹا دے&quot;</strong>۔</p>
+        <p>ایک اور مقام پر آپ ﷺ نے کچھ یوں ارشاد فرمایا <strong>&quot;دعا مومن کا ہتھیار ہے&quot;</strong>۔ یعنی دعا ایک ایسا عمل ہے جو دشمن کے خلاف، مشکلات کے وقت اور روحانی ترقی کے لیے بنیادی ہتھیار ہے۔</p>
+        
+        <h3>صحابہ کرام اور بزرگانِ دین کا دعاؤں کا اہتمام</h3>
+        <p>صحابہ کرام ؓ اور بزرگان دین ؒ دعا کو اپنی زندگی کا لازمی جزو سمجھتے تھے:</p>
+        <ul>
+            <li>حضرت عمر ؓ فرماتے: <strong>&quot;مجھے اس کی فکر نہیں کہ دعا قبول ہوتی ہے یا نہیں، مجھے تو اس بات کی فکر ہے کہ میں دعا مانگتا ہوں یا نہیں۔&quot;</strong></li>
+            <li>حضرت علی ؓ رات کی تنہائی میں روتے، دعا کرتے، اللہ کے حضور گڑگڑاتے۔</li>
+            <li>امام حسن بصری ؒ فرماتے: &quot;جب دعا مانگو تو ایسے مانگو جیسے ڈوبا ہوا انسان آخری سانس میں مدد مانگتا ہے۔&quot;</li>
+        </ul>
+        
+        <h3>دعا میں سستی کے نقصانات:</h3>
+        <ul>
+            <li>اللہ سے تعلق میں کمزوری</li>
+            <li>دل کا سخت ہو جانا</li>
+            <li>روحانیت کا زوال</li>
+            <li>زندگی میں بے برکتی</li>
+            <li>ذہنی بے سکونی</li>
+            <li>مایوسی اور نا امیدی کا شکار ہونا</li>
+        </ul>
+        
+        <h3>دعا کی قبولیت کا انداز</h3>
+        <p>نبی کریم ﷺ نے فرمایا: <strong>&quot;اللہ تعالیٰ بندے کی دعا کا جواب تین طریقوں سے دیتا ہے:&quot;</strong></p>
+        <ul>
+            <li><strong>جو مانگا، وہ فوراً دے دیا</strong></li>
+            <li><strong>کسی مصیبت کو ٹال دیا</strong></li>
+            <li><strong>آخرت کے لیے ذخیرہ کر دیا</strong></li>
+        </ul>
+        <p>لہٰذا اگر ہمیں بظاہر جواب نہ ملے، تب بھی مایوس نہ ہوں۔ اللہ حکمت والا ہے، وہ جانتا ہے کیا، کب اور کیسے دینا ہے۔</p>
+        
+        <h3>سستی سے نجات کیسے پائیں؟</h3>
+        <ul>
+            <li><strong>ایمان کو تازہ کریں:</strong> &quot;اللہ کی صفات، نعمتوں اور قدرت کو یاد کر کے دل میں یقین کو پختہ کریں۔&quot;</li>
+            <li><strong>مسنون دعاؤں سے آغاز کریں:</strong> &quot;چھوٹی چھوٹی سنت دعاؤں کو زندگی میں شامل کریں۔&quot;</li>
+            <li><strong>دعا کے لیے مستقل وقت مقرر کریں:</strong> &quot;صبح شام، نماز کے بعد یا رات کو سونے سے پہلے دعا کا وقت طے کریں۔&quot;</li>
+            <li><strong>اللہ کی محبت پیدا کریں:</strong> &quot;اللہ سے تعلق محبت کی بنیاد پر قائم کریں۔&quot;</li>
+            <li><strong>نیت درست کریں:</strong> &quot;دعا کو محض مانگنے نہیں، عبادت سمجھ کر کریں۔&quot;</li>
+            <li><strong>دعا کو ترجیح بنائیں:</strong> &quot;ہر کام سے پہلے اور بعد میں دعا کو اپنی ترجیح بنائیں۔&quot;</li>
+        </ul>
+        
+        <h3>عملی تجاویز:</h3>
+        <ul>
+            <li><strong>روزانہ دعا کی ڈائری بنائیں</strong></li>
+            <li><strong>صبح اور سونے سے قبل دعا کا وقت مخصوص کریں</strong></li>
+            <li><strong>گھر والوں، خاص طور پر بچوں کو دعا سکھائیں</strong></li>
+            <li><strong>دعا میں دل، زبان اور آنکھوں کی شرکت ہو</strong></li>
+            <li><strong>دعا کو روح کی غذا سمجھیں</strong></li>
+        </ul>
+        
+        <h3>آج کا انسان اور ٹیکنالوجی کا فاصلہ</h3>
+        <p>آج انسان موبائل، سوشل میڈیا، ویڈیوز اور گیمز میں اس قدر مشغول ہو چکا ہے کہ وہ اپنے خالق سے رابطہ بھول گیا ہے۔ ہم سکون کی تلاش میں سکرینوں کو گھورتے ہیں، جبکہ سکونت صرف رب کے ذکر اور دعا میں ہے۔</p>
+        <p><strong>&quot;أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ&quot;</strong> یاد رکھو! دلوں کا سکون صرف اللہ کے ذکر میں ہے۔</p>
+        <p>دعا صرف الفاظ کا مجموعہ نہیں بلکہ بندگی کا اظہار ہے۔ دعا ہماری روح کی غذا ہے، اللہ سے رابطہ ہے، بندے کی سب سے بڑی طاقت ہے۔ اگر ہم دعا میں سستی کریں گے تو دراصل ہم اپنی ہی زندگی سے برکت، سکون اور رہنمائی کو دور کر رہے ہیں۔</p>
+        
+        <p>آئیے! آج سے عزم کریں کہ:</p>
+        <ul>
+            <li>ہم دعا کو اپنی زندگی کا لازمی حصہ بنائیں گے</li>
+            <li>اللہ سے تعلق کو مضبوط کریں گے</li>
+            <li>ہر حال میں اپنے رب کو پکاریں گے</li>
+        </ul>
+        <p style="text-align: center; font-size: 1.6rem; color: var(--accent-gold); margin-top: 30px;">
+            یقین جانیے! اللہ بہت قریب ہے... بس دل سے پکارنے کی دیر ہے۔
+        </p>
 
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
-    <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-    </script>
 </body>
 </html>
