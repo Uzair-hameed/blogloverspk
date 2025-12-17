@@ -7,70 +7,451 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Live Animated Dark Theme */
+        .live-theme-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: #0c0c0c;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,107,107,0.2) 0%, rgba(255,107,107,0) 70%);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+        
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 900px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: rgba(20, 20, 30, 0.95); 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+        
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43); 
+            color: white; 
+            border: none; 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            font-size: 24px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            font-weight: bold;
+        }
+        
+        .close-btn:hover { 
+            transform: rotate(90deg) scale(1.1); 
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.2; 
+            direction: rtl; 
+            text-align: right; 
+            margin: 0; 
+            padding: 20px; 
+            background: #0c0c0c;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        
+        .trigger-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43); 
+            color: white; 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 20px 0; 
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.5); 
+            transition: all 0.3s; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-family: inherit; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trigger-btn:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.7); 
+        }
+        
+        .post-content { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: rgba(20, 20, 30, 0.9); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            text-align: justify;
+        }
+        
+        h1, h2, h3 { 
+            color: #ff9f43; 
+            border-bottom: 2px solid rgba(255, 107, 107, 0.3); 
+            padding-bottom: 15px; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        h1 { 
+            text-align: center; 
+            border-bottom: 3px solid #ff6b6b; 
+            font-size: 2.8rem; 
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(90deg, rgba(255,107,107,0.1), rgba(255,159,67,0.1));
+            border-radius: 10px;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+        }
+        
+        p { 
+            font-size: 1.4rem; 
+            margin-bottom: 25px; 
+            color: #d0d0d0;
+            text-align: justify;
+            line-height: 2.4;
+        }
+        
+        img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 15px; 
+            display: block; 
+            margin: 30px auto; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 3px solid rgba(255, 107, 107, 0.2);
+        }
+        
+        a { 
+            color: #ff9f43; 
+            text-decoration: none; 
+            transition: color 0.3s;
+            font-weight: bold;
+        }
+        
+        a:hover { 
+            color: #ff6b6b; 
+            text-decoration: underline;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #2ecc71, #4a90e2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.6);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .post-content { 
+                padding: 25px; 
+                margin: 10px;
+            }
+            
+            h1 { 
+                font-size: 2.2rem; 
+                padding: 15px;
+            }
+            
+            h2 { 
+                font-size: 1.8rem; 
+            }
+            
+            h3 { 
+                font-size: 1.5rem; 
+            }
+            
+            p { 
+                font-size: 1.2rem; 
+                line-height: 2.2;
+            }
+            
+            .trigger-btn, .back-btn { 
+                padding: 12px 25px; 
+                font-size: 16px; 
+            }
+            
+            .post-content-overlay { 
+                padding: 20px; 
+                width: 95%; 
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { 
+                font-size: 1.8rem; 
+            }
+            
+            p { 
+                font-size: 1.1rem; 
+                line-height: 2.0;
+            }
+            
+            .post-content { 
+                padding: 20px; 
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff6b6b, #ff9f43);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ff9f43, #ff6b6b);
+        }
     </style>
 </head>
 <body>
+    <!-- Live Animated Dark Theme -->
+    <div class="live-theme-container" id="liveTheme">
+        <!-- Stars and animated elements will be generated by JavaScript -->
+    </div>
+
     <div style="text-align: center; margin: 40px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            🕌 اس پوسٹ کو متحرک تاریک تھیم کے ساتھ پڑھیں
         </button>
     </div>
 
     <div class="post-content">
+        <!-- Back Button -->
+        <div style="text-align: left; margin-bottom: 20px;">
+            <button class="back-btn" onclick="window.history.back()">← واپس جائیں</button>
+        </div>
         
         <h1>لوگوں کو محشر کی طرف ہانک کر لے جانےوالی آگ کیسی ہوگی؟</h1>
-<p>دوستو! قیامت کی سب سے آخری نشانی یہ ہو گی کہ ایک ایسی آگ جو یمن کی جانب سے ظاہر ہو گی اس آگ کا مقصد لوگوں کو میدان ِ محشر (شام) کی ہانک کر لے جانا ہوگا۔ بہت سارے سوال انسانی ذہن میں اجاگر ہوتے ہیں کہ یہ آگ کیسی ہوگی؟ کہاں سے نکلے گی؟ کس طرح نکلے گی؟ اور اس کے بعد کون کون سے واقعات رونما ہونگے؟ وغیرہ۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNwcdOFd9OdC5_BqfpWjcej5YIDJgCcoA8hbDQtUTfZ6KKPACnC_O4lHVXkwYutBJTqZHe0ZhcDjje5yn5dkHbmshQlcdIrWJHeK7yIQVBiUoWie8mEjN_YdN5wwU8VOesIW7zWTO518uEZzW413xx9corYTPThccOi6-zIFd3HL5SDSRCEjf56SOPuwdx/s640/%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%D9%88%20%D9%85%D8%AD%D8%B4%D8%B1%20%DA%A9%DB%8C%20%D8%B7%D8%B1%D9%81%20%DB%81%D8%A7%D9%86%DA%A9%20%DA%A9%D8%B1%20%D9%84%DB%92%20%D8%AC%D8%A7%D9%86%DB%92%D9%88%D8%A7%D9%84%DB%8C%20%D8%A2%DA%AF%20%DA%A9%DB%8C%D8%B3%DB%8C%20%DB%81%D9%88%DA%AF%DB%8C%D8%9F.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNwcdOFd9OdC5_BqfpWjcej5YIDJgCcoA8hbDQtUTfZ6KKPACnC_O4lHVXkwYutBJTqZHe0ZhcDjje5yn5dkHbmshQlcdIrWJHeK7yIQVBiUoWie8mEjN_YdN5wwU8VOesIW7zWTO518uEZzW413xx9corYTPThccOi6-zIFd3HL5SDSRCEjf56SOPuwdx/s16000/%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%D9%88%20%D9%85%D8%AD%D8%B4%D8%B1%20%DA%A9%DB%8C%20%D8%B7%D8%B1%D9%81%20%DB%81%D8%A7%D9%86%DA%A9%20%DA%A9%D8%B1%20%D9%84%DB%92%20%D8%AC%D8%A7%D9%86%DB%92%D9%88%D8%A7%D9%84%DB%8C%20%D8%A2%DA%AF%20%DA%A9%DB%8C%D8%B3%DB%8C%20%DB%81%D9%88%DA%AF%DB%8C%D8%9F.jpg" alt="لوگوں کو محشر کی طرف ہانک کر لے جانےوالی آگ کیسی ہوگی؟"></a></p>
-<p>ایک مرتبہ آپ ﷺ صحابہ کے پاس تشریف لے گئے جبکہ صحابہ وہاں قیامت کے بارے میں محو گفتگو تھے آپ ﷺ نے فرمایا تم کس چیز کا ذکر کر رہے ہو؟ صحابہ نے عرض کی: ہم قیامت کا ذکر کر رہے ہیں۔ آپ ﷺ نے فرمایا: &quot;بلاشبہ وہ قائم نہیں ہوگی یہاں تک کہ تم اس سے پہلے دس نشانیاں دیکھ لو: فرمایا: <a href="https://www.bloglovers.pk/2021/11/blog-post.html">دھواں</a>، <a href="https://www.bloglovers.pk/2021/05/blog-post.html">دجال</a>، <a href="https://www.bloglovers.pk/2023/05/blog-post.html">خروج دابہ</a>، <a href="https://www.bloglovers.pk/2023/05/blog-post_25.html">سورج کا مغرب سے طلوع ہونا</a>، <a href="https://www.bloglovers.pk/2021/10/blog-post.html">حضرت عیسیٰ کا نزول</a>، <a href="https://www.bloglovers.pk/2021/10/blog-post_14.html">خروج یاجوج و ماجوج</a>، <a href="https://www.bloglovers.pk/2021/10/blog-post_22.html">تین جگہ زمین کے دھنسنے</a> کے واقعات، یعنی مشرق میں زمین کا دھنس جانا، مغرب میں زمین کا دھنس جانا اور جزیرۃ العرب میں زمین کا دھنس جانا، سب سے آخر میں جو علامت ظاہر ہوگی۔ وہ یمن کی طرف سے نکلنے والی ایک آگ ہوگی <a href="https://www.bloglovers.pk/2023/05/blog-post_89.html">جو لوگوں کو میدان حشر کی طرف لے جائے گی۔</a>&quot;</p>
-<p>ایک روایت کے مطابق &quot;یہ آگ عدن کے دوردراز علاقے سے نکلے گی جو لوگوں کو ہانکے گی&quot;۔ اسی دوسرے مقام پر کچھ یوں ارشاد فرمایا: &quot;روز قیامت سے قبل بحیرہ حضر موت سے یا حضر موت سے ایک آگ نکلے گی جو لوگوں کو اکٹھا کرے گی۔&quot; صحابہ کرام نے عرض کی: &quot;(ان حالات میں) آپ ہمیں کس بات کا حکم دیتے ہیں؟ آپ ﷺ نے فرمایا: تم <a href="https://www.bloglovers.pk/2024/02/10.html">ملک شام میں رہائش اختیار کر لینا</a>&quot;۔</p>
-<p>ایک روایت کے مطابق عبداللہ بن سلام   کو جب آپ ﷺ کی مدینہ میں تشریف آوری کا علم ہوا تو وہ آپ ﷺ کی خدمت میں حاضر ہوئے اور عرض کی: میں آپ سے تین چیزوں کے بارے میں پوچھنا چاہتا ہوں جنھیں ایک نبی کے سوا کوئی جان ہی نہیں سکتا: قیامت کی پہلی علامت کیا ہوگی؟ اہل جنت کا سب سے پہلا کھانا کیا ہو گا؟ وہ کیا سبب ہوتا ہے جس کے باعث بچہ اپنے والد یا اپنے ماموؤں (ماں) کے مشابہ ہوتا ہے؟ آپ ﷺ نے فرمایا: ابھی جبریل نے مجھے ان چیزوں کے بتلایا ہے۔ عبداللہ بن سلام کہنے لگے: یہ فرشتہ تو یہودیوں کا دشمن ہے۔ آپ ﷺ نے فرمایا: &quot;قیامت کی پہلی نشانی ایک آگ ہوگی جو لوگوں کو مشرق سے مغرب کی طرف اکٹھا کرے گی۔ اہل جنت کا پہلا کھانا وہیل مچھلی کے جگر کا کنارہ ہوگا۔ جہاں تک بچے کی مشابہت کا معاملہ ہے تو مرد جب عورت سے جماع کرتا ہے اور اس کا پانی عورت کے پانی پر سبقت لے جاتا ہے تو بچہ باپ کے مشابہ ہوتا ہے اور اگر عورت کا پانی سبقت لے جائے تو بچہ ماں کے مشابہ ہوتا ہے۔&quot; عبداللہ بن سلام نے کہا: &quot;میں شہادت دیتا ہوں کہ آپ اللہ کے رسول ہیں&quot;۔</p>
-<p>یہاں یہ بات عرض کرتا چلوں کہ یہ آگ جو لوگوں کو میدان حشر کی طرف لے جائے گی، اس آگ کے علاوہ ہوگی جس کے بارے میں بتایا گیا ہے کہ وہ ارض حجاز میں ظاہر ہوگی اور جس سے بصری کے اونٹوں کی گردنیں روشن ہو جائیں گی۔ وہ آگ ساتویں صدی ہجری میں ظاہر ہوچکی ہے اور یہ قیامت کی چھوٹی نشانیوں میں سے ہے۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;لوگوں کو میدان حشر میں تین طریقوں سے لایا جائےگا۔ کچھ رغبت اور خوف سے آئیں گے۔ کچھ ایک اونٹ پر دو دو، تین تین، چار چار یا دس دس افراد ہوں گے۔ باقی لوگوں کو آگ اکٹھا کرے گی۔ جہاں وہ قیلولہ کریں گے، آگ بھی ان کے ساتھ ٹھہرا کرے گی اور جہاں وہ رات گزاریں گے، آگ بھی وہاں رات گزارے گی۔ جہاں وہ صبح کریں گے، آگ بھی وہاں صبح کرے گی اور جہاں شام کریں گے، آگ بھی وہاں شام کرے گی۔&quot;</p>
-<p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: &quot;لوگ روز قیامت تین گروہوں کی شکل میں اٹھائے جائیں گے۔ ایک گروہ تو پرامید، کپڑے پہنے ہوئے سواریوں پر سوار ہوگا۔ دوسرا گروہ ایسا ہوگا جو کبھی چلے گا۔ کبھی دوڑے گا اور تیسرا گروہ ایسا ہوگا جسے فرشتے ان کے چہروں کے بل گھسیٹ کر لائیں گے۔ ان میں سے ایک کہنے والے نے کہا۔ ان دو گروہوں کو تو ہم نے معلوم کر لیا مگر یہ کون ہوں گے جو کبھی چلیں گے اور کبھی دوڑیں گے؟ تو آپ ﷺ نے فرمایا: اللہ تعالیٰ سواریوں پر ایسی آفت بھیجے گا کہ کوئی سواری باقی نہیں بچے گی یہاں تک کہ ایک شخص جس کا ایک خوش نما باغ ہوگا۔ اسے ایک چھوٹے کجاوے والی عمر رسیدہ کمزور اونٹنی دی جائے گی مگر وہ اس پر سوار نہ ہو سکے گا۔&quot;</p>
-<p>دوستو! دنیا کے حالات بہت تیزی سے تبدیل ہو رہے ہیں۔ بڑے بڑے واقعات اور خطرناک حادثات کا ایک سیل رواں ہے جس نے انسانیت کو اپنی زد میں لے رکھا ہے۔ برائی کی قوتیں روز بروز طاقتور ہوتی جا رہی ہیں۔ ہر زبان پر ایک ہی سوال ہے، کیا دنیا کا انجام قریب ہے؟</p>
-<p>ہر سوچنے والا انسان اس سوال کا جواب ڈھونڈنے کے لئے سرگرداں ہے۔ روز نئی پیشن گوئیاں شائع ہوتی ہیں، قیامت آنے کی تاریخیں تک دی جاتی ہیں اور گزر جاتی ہیں سوال تشنہ جواب ہی رہتا ہے۔</p>
-<p>اللہ رب العزت سے دعا ہے کہ وہ ہم گنہگاروں کو گناہوں سے پاک کرے اور ہمیں ہدایت کے راستے پر چلنے کی توفیق عطا فرمائے۔ آمین۔</p>
+        
+        <!-- Main Image -->
+        <img src="https://bloglovers.pk/images/alamaat-kubra/logon-ke-mehshar-ki-taraf-haank-kar-le-jane-wali-aag-kaisi-hogi.png" 
+             alt="لوگوں کو محشر کی طرف ہانک کر لے جانےوالی آگ کیسی ہوگی؟"
+             style="max-width: 800px; margin: 30px auto;">
+        
+        <p>دوستو! قیامت کی سب سے آخری نشانی یہ ہو گی کہ ایک ایسی آگ جو یمن کی جانب سے ظاہر ہو گی اس آگ کا مقصد لوگوں کو میدان ِ محشر (شام) کی ہانک کر لے جانا ہوگا۔ بہت سارے سوال انسانی ذہن میں اجاگر ہوتے ہیں کہ یہ آگ کیسی ہوگی؟ کہاں سے نکلے گی؟ کس طرح نکلے گی؟ اور اس کے بعد کون کون سے واقعات رونما ہونگے؟ وغیرہ۔</p>
 
+        <p>ایک مرتبہ آپ ﷺ صحابہ کے پاس تشریف لے گئے جبکہ صحابہ وہاں قیامت کے بارے میں محو گفتگو تھے آپ ﷺ نے فرمایا تم کس چیز کا ذکر کر رہے ہو؟ صحابہ نے عرض کی: ہم قیامت کا ذکر کر رہے ہیں۔ آپ ﷺ نے فرمایا: "بلاشبہ وہ قائم نہیں ہوگی یہاں تک کہ تم اس سے پہلے دس نشانیاں دیکھ لو: فرمایا: دھواں، دجال، خروج دابہ، سورج کا مغرب سے طلوع ہونا، حضرت عیسیٰ کا نزول، خروج یاجوج و ماجوج، تین جگہ زمین کے دھنسنے کے واقعات، یعنی مشرق میں زمین کا دھنس جانا، مغرب میں زمین کا دھنس جانا اور جزیرۃ العرب میں زمین کا دھنس جانا، سب سے آخر میں جو علامت ظاہر ہوگی۔ وہ یمن کی طرف سے نکلنے والی ایک آگ ہوگی جو لوگوں کو میدان حشر کی طرف لے جائے گی۔"</p>
+
+        <p>ایک روایت کے مطابق "یہ آگ عدن کے دوردراز علاقے سے نکلے گی جو لوگوں کو ہانکے گی"۔ اسی دوسرے مقام پر کچھ یوں ارشاد فرمایا: "روز قیامت سے قبل بحیرہ حضر موت سے یا حضر موت سے ایک آگ نکلے گی جو لوگوں کو اکٹھا کرے گی۔" صحابہ کرام نے عرض کی: "(ان حالات میں) آپ ہمیں کس بات کا حکم دیتے ہیں؟ آپ ﷺ نے فرمایا: تم ملک شام میں رہائش اختیار کر لینا"۔</p>
+
+        <p>ایک روایت کے مطابق عبداللہ بن سلام کو جب آپ ﷺ کی مدینہ میں تشریف آوری کا علم ہوا تو وہ آپ ﷺ کی خدمت میں حاضر ہوئے اور عرض کی: میں آپ سے تین چیزوں کے بارے میں پوچھنا چاہتا ہوں جنھیں ایک نبی کے سوا کوئی جان ہی نہیں سکتا: قیامت کی پہلی علامت کیا ہوگی؟ اہل جنت کا سب سے پہلا کھانا کیا ہو گا؟ وہ کیا سبب ہوتا ہے جس کے باعث بچہ اپنے والد یا اپنے ماموؤں (ماں) کے مشابہ ہوتا ہے؟ آپ ﷺ نے فرمایا: ابھی جبریل نے مجھے ان چیزوں کے بتلایا ہے۔ عبداللہ بن سلام کہنے لگے: یہ فرشتہ تو یہودیوں کا دشمن ہے۔ آپ ﷺ نے فرمایا: "قیامت کی پہلی نشانی ایک آگ ہوگی جو لوگوں کو مشرق سے مغرب کی طرف اکٹھا کرے گی۔ اہل جنت کا پہلا کھانا وہیل مچھلی کے جگر کا کنارہ ہوگا۔ جہاں تک بچے کی مشابہت کا معاملہ ہے تو مرد جب عورت سے جماع کرتا ہے اور اس کا پانی عورت کے پانی پر سبقت لے جاتا ہے تو بچہ باپ کے مشابہ ہوتا ہے اور اگر عورت کا پانی سبقت لے جائے تو بچہ ماں کے مشابہ ہوتا ہے۔" عبداللہ بن سلام نے کہا: "میں شہادت دیتا ہوں کہ آپ اللہ کے رسول ہیں"۔</p>
+
+        <p>یہاں یہ بات عرض کرتا چلوں کہ یہ آگ جو لوگوں کو میدان حشر کی طرف لے جائے گی، اس آگ کے علاوہ ہوگی جس کے بارے میں بتایا گیا ہے کہ وہ ارض حجاز میں ظاہر ہوگی اور جس سے بصری کے اونٹوں کی گردنیں روشن ہو جائیں گی۔ وہ آگ ساتویں صدی ہجری میں ظاہر ہوچکی ہے اور یہ قیامت کی چھوٹی نشانیوں میں سے ہے۔</p>
+
+        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "لوگوں کو میدان حشر میں تین طریقوں سے لایا جائےگا۔ کچھ رغبت اور خوف سے آئیں گے۔ کچھ ایک اونٹ پر دو دو، تین تین، چار چار یا دس دس افراد ہوں گے۔ باقی لوگوں کو آگ اکٹھا کرے گی۔ جہاں وہ قیلولہ کریں گے، آگ بھی ان کے ساتھ ٹھہرا کرے گی اور جہاں وہ رات گزاریں گے، آگ بھی وہاں رات گزارے گی۔ جہاں وہ صبح کریں گے، آگ بھی وہاں صبح کرے گی اور جہاں شام کریں گے، آگ بھی وہاں شام کرے گی۔"</p>
+
+        <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: "لوگ روز قیامت تین گروہوں کی شکل میں اٹھائے جائیں گے۔ ایک گروہ تو پرامید، کپڑے پہنے ہوئے سواریوں پر سوار ہوگا۔ دوسرا گروہ ایسا ہوگا جو کبھی چلے گا۔ کبھی دوڑے گا اور تیسرا گروہ ایسا ہوگا جسے فرشتے ان کے چہروں کے بل گھسیٹ کر لائیں گے۔ ان میں سے ایک کہنے والے نے کہا۔ ان دو گروہوں کو تو ہم نے معلوم کر لیا مگر یہ کون ہوں گے جو کبھی چلیں گے اور کبھی دوڑیں گے؟ تو آپ ﷺ نے فرمایا: اللہ تعالیٰ سواریوں پر ایسی آفت بھیجے گا کہ کوئی سواری باقی نہیں بچے گی یہاں تک کہ ایک شخص جس کا ایک خوش نما باغ ہوگا۔ اسے ایک چھوٹے کجاوے والی عمر رسیدہ کمزور اونٹنی دی جائے گی مگر وہ اس پر سوار نہ ہو سکے گا۔"</p>
+
+        <p>دوستو! دنیا کے حالات بہت تیزی سے تبدیل ہو رہے ہیں۔ بڑے بڑے واقعات اور خطرناک حادثات کا ایک سیل رواں ہے جس نے انسانیت کو اپنی زد میں لے رکھا ہے۔ برائی کی قوتیں روز بروز طاقتور ہوتی جا رہی ہیں۔ ہر زبان پر ایک ہی سوال ہے، کیا دنیا کا انجام قریب ہے؟</p>
+
+        <p>ہر سوچنے والا انسان اس سوال کا جواب ڈھونڈنے کے لئے سرگرداں ہے۔ روز نئی پیشن گوئیاں شائع ہوتی ہیں، قیامت آنے کی تاریخیں تک دی جاتی ہیں اور گزر جاتی ہیں سوال تشنہ جواب ہی رہتا ہے۔</p>
+
+        <p>اللہ رب العزت سے دعا ہے کہ وہ ہم گنہگاروں کو گناہوں سے پاک کرے اور ہمیں ہدایت کے راستے پر چلنے کی توفیق عطا فرمائے۔ آمین۔</p>
+
+        <!-- Back Button at bottom -->
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="back-btn" onclick="window.history.back()">← واپس جائیں</button>
+        </div>
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    <div class="color-fill-container" id="colorFillBg"></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
         <div id="postContent"></div>
     </div>
 
     <script>
+        // Create animated stars and floating elements for live theme
+        function createLiveTheme() {
+            const container = document.getElementById('liveTheme');
+            
+            // Create stars
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                container.appendChild(star);
+            }
+            
+            // Create floating elements
+            for (let i = 0; i < 8; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.width = Math.random() * 300 + 100 + 'px';
+                element.style.height = element.style.width;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 10 + 's';
+                element.style.background = `radial-gradient(circle, 
+                    rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, 0.1) 0%, 
+                    rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, 0) 70%)`;
+                container.appendChild(element);
+            }
+        }
+        
+        // Initialize live theme
+        document.addEventListener('DOMContentLoaded', createLiveTheme);
+        
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Re-initialize live theme in overlay
+            setTimeout(() => {
+                const overlayTheme = document.createElement('div');
+                overlayTheme.className = 'live-theme-container';
+                overlayTheme.id = 'overlayLiveTheme';
+                overlayTheme.style.zIndex = '9997';
+                document.getElementById('colorFillBg').appendChild(overlayTheme);
+                
+                // Add stars to overlay
+                for (let i = 0; i < 100; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = Math.random() * 3 + 1 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 3 + 's';
+                    star.style.opacity = Math.random() * 0.8 + 0.2;
+                    overlayTheme.appendChild(star);
+                }
+            }, 100);
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+            setTimeout(() => { 
+                document.getElementById('postContent').innerHTML = ''; 
+                // Remove overlay live theme
+                const overlayTheme = document.getElementById('overlayLiveTheme');
+                if (overlayTheme) {
+                    overlayTheme.remove();
+                }
+            }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
+        document.getElementById('colorFillBg').addEventListener('click', function(e) {
+            if (e.target === this) closeColorFillPost();
+        });
     </script>
 </body>
 </html>
