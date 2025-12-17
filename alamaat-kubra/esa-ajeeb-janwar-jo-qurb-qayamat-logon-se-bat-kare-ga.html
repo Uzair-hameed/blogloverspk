@@ -3,83 +3,935 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا۔</title>
+    <title>ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), 
+                 url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --text-light: #F5DEB3;
+            --text-dark: #0A0A0A;
+            --bg-dark: #1A0F0A;
+            --bg-darker: #0F0804;
+            --card-bg: rgba(40, 30, 20, 0.95);
+            --shadow-color: rgba(139, 69, 19, 0.4);
+            --gold: #FFD700;
+            --bronze: #CD7F32;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.3;
+            direction: rtl;
+            text-align: right;
+            background: var(--bg-darker);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Dark Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(205, 133, 63, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 40% 50%, rgba(210, 105, 30, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--bg-darker) 0%, #2C1B0F 100%);
+            animation: bgPulse 20s ease-in-out infinite alternate;
+        }
+        
+        @keyframes bgPulse {
+            0% { 
+                opacity: 0.6;
+                background-size: 150% 150%, 120% 120%, 130% 130%, auto;
+            }
+            50% { 
+                opacity: 0.8;
+                background-size: 160% 160%, 130% 130%, 140% 140%, auto;
+            }
+            100% { 
+                opacity: 0.7;
+                background-size: 140% 140%, 110% 110%, 120% 120%, auto;
+            }
+        }
+        
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.2;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-100px) translateX(100px) rotate(90deg); }
+            50% { transform: translateY(0) translateX(200px) rotate(180deg); }
+            75% { transform: translateY(100px) translateX(100px) rotate(270deg); }
+            100% { transform: translateY(0) translateX(0) rotate(360deg); }
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, 
+                rgba(139, 69, 19, 0.25), 
+                rgba(40, 30, 20, 0.85));
+            border-radius: 25px;
+            border-left: 5px solid var(--primary-color);
+            border-right: 5px solid var(--bronze);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7),
+                        inset 0 0 50px rgba(139, 69, 19, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(205, 133, 63, 0.1) 50%, 
+                transparent 70%);
+            animation: shine 10s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Trigger Button */
+        .trigger-btn {
+            display: block;
+            width: 100%;
+            max-width: 450px;
+            margin: 40px auto 60px;
+            padding: 22px 50px;
+            background: linear-gradient(135deg, 
+                var(--primary-color) 0%, 
+                var(--secondary-color) 50%, 
+                var(--primary-color) 100%);
+            color: var(--text-light);
+            border: none;
+            border-radius: 70px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8),
+                        0 0 30px rgba(139, 69, 19, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        .trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                #5D2900 0%, 
+                var(--primary-color) 50%, 
+                #5D2900 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .trigger-btn::after {
+            content: '🐾';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .trigger-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(139, 69, 19, 0.6),
+                        0 0 50px rgba(205, 133, 63, 0.3);
+        }
+        
+        .trigger-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .trigger-btn:hover::after {
+            right: 20px;
+            transform: translateY(-50%) scale(1.2);
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8),
+                        inset 0 0 100px rgba(0, 0, 0, 0.5);
+            margin-bottom: 60px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(205, 133, 63, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            border-radius: 0 30px 0 150px;
+            opacity: 0.1;
+        }
+        
+        /* Headings */
+        h1 {
+            color: var(--gold);
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 4px solid var(--primary-color);
+            text-shadow: 0 5px 20px rgba(255, 215, 0, 0.4),
+                         0 2px 10px rgba(0, 0, 0, 0.8);
+            line-height: 1.3;
+            position: relative;
+            letter-spacing: 1px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--bronze), 
+                transparent);
+        }
+        
+        h2 {
+            color: var(--accent-color);
+            font-size: 2.8rem;
+            margin: 50px 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(205, 133, 63, 0.4);
+            position: relative;
+            text-shadow: 0 3px 15px rgba(205, 133, 63, 0.3);
+        }
+        
+        h2::before {
+            content: '🔍';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.2rem;
+        }
+        
+        h3 {
+            color: var(--text-light);
+            font-size: 2.3rem;
+            margin: 40px 0 25px;
+            padding-right: 20px;
+            position: relative;
+        }
+        
+        h3::before {
+            content: '◈';
+            position: absolute;
+            right: 0;
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+        }
+        
+        /* Paragraphs */
+        p {
+            font-size: 1.7rem;
+            margin-bottom: 35px;
+            text-align: justify;
+            text-justify: inter-word;
+            color: #E8D4B7;
+            line-height: 2.5;
+            padding: 20px;
+            background: rgba(60, 45, 30, 0.4);
+            border-radius: 15px;
+            border-right: 3px solid rgba(139, 69, 19, 0.4);
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        p:hover {
+            background: rgba(70, 55, 40, 0.5);
+            border-right-color: var(--secondary-color);
+            transform: translateX(-5px);
+            box-shadow: 0 5px 20px rgba(139, 69, 19, 0.2);
+        }
+        
+        /* Lists */
+        ul {
+            list-style-type: none;
+            margin: 25px 0;
+            padding-right: 40px;
+        }
+        
+        li {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(70, 55, 40, 0.4);
+            border-radius: 12px;
+            border-right: 3px solid var(--bronze);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        li:hover {
+            background: rgba(80, 65, 50, 0.5);
+            transform: translateX(-10px);
+        }
+        
+        li::before {
+            content: '✓';
+            position: absolute;
+            left: 15px;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 25px;
+            margin: 40px auto;
+            display: block;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
+                        0 0 40px rgba(139, 69, 19, 0.4);
+            border: 4px solid rgba(205, 133, 63, 0.3);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(139, 69, 19, 0.1), 
+                rgba(205, 133, 63, 0.05));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.02) rotate(-0.5deg);
+            box-shadow: 0 30px 80px rgba(139, 69, 19, 0.6),
+                        0 0 60px rgba(205, 133, 63, 0.5);
+            border-color: var(--bronze);
+        }
+        
+        .featured-image:hover::before {
+            opacity: 1;
+        }
+        
+        /* Color Fill Mode */
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            pointer-events: none;
+        }
+        
+        .color-fill-container.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                #8B4513, #A0522D, #D2691E, 
+                #CD853F, #DAA520, #F4A460, 
+                #DEB887, #8B4513);
+            background-size: 400% 400%;
+            animation: gradientFlow 25s ease infinite;
+            filter: brightness(0.8) contrast(1.2);
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            width: 92%;
+            max-width: 1100px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: linear-gradient(135deg, 
+                rgba(40, 30, 20, 0.98), 
+                rgba(30, 20, 10, 0.99));
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9),
+                        0 0 80px rgba(205, 133, 63, 0.3),
+                        inset 0 0 50px rgba(139, 69, 19, 0.2);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 3px solid var(--bronze);
+        }
+        
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        /* Buttons */
+        .close-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.5);
+        }
+        
+        .close-btn:hover {
+            transform: rotate(180deg) scale(1.2);
+            background: linear-gradient(135deg, #A0522D, var(--primary-color));
+            box-shadow: 0 15px 40px rgba(160, 82, 45, 0.6);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--accent-color), #B8860B);
+            color: var(--text-light);
+            border: none;
+            padding: 18px 35px;
+            border-radius: 40px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(205, 133, 63, 0.4);
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, #DEB887, var(--accent-color));
+            transform: translateX(-10px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(222, 184, 135, 0.5);
+        }
+        
+        .back-btn::before {
+            content: '←';
+            font-size: 1.8rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.4rem; }
+            h3 { font-size: 2rem; }
+            p { font-size: 1.6rem; }
+            li { font-size: 1.5rem; }
+            .post-content { padding: 40px; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container { padding: 20px 15px; }
+            .page-header { padding: 25px 20px; margin-bottom: 40px; }
+            .post-content { padding: 30px 25px; }
+            
+            h1 { 
+                font-size: 2.4rem; 
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+            }
+            
+            h2 { 
+                font-size: 2rem; 
+                margin: 40px 0 25px;
+                padding-bottom: 12px;
+            }
+            
+            h3 { 
+                font-size: 1.7rem; 
+                margin: 30px 0 20px;
+            }
+            
+            p { 
+                font-size: 1.4rem; 
+                line-height: 2.2;
+                padding: 15px;
+                margin-bottom: 25px;
+            }
+            
+            li {
+                font-size: 1.3rem;
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+            
+            .trigger-btn {
+                font-size: 1.3rem;
+                padding: 18px 35px;
+                margin: 30px auto 50px;
+            }
+            
+            .post-content-overlay {
+                padding: 35px 25px;
+                width: 96%;
+                max-height: 90vh;
+            }
+            
+            .close-btn, .back-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 28px;
+            }
+            
+            .back-btn {
+                padding: 15px 25px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.9rem; }
+            h2 { font-size: 1.6rem; }
+            h3 { font-size: 1.4rem; }
+            p { font-size: 1.2rem; }
+            li { font-size: 1.1rem; }
+            
+            .trigger-btn {
+                font-size: 1.1rem;
+                padding: 15px 30px;
+                margin: 25px auto 40px;
+            }
+            
+            .post-content {
+                padding: 25px 20px;
+            }
+            
+            .close-btn, .back-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .back-btn {
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .page-header {
+                padding: 20px 15px;
+                margin-bottom: 30px;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(40, 30, 20, 0.8);
+            border-radius: 10px;
+            margin: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, 
+                var(--primary-color), 
+                var(--bronze), 
+                var(--accent-color));
+            border-radius: 10px;
+            border: 2px solid rgba(40, 30, 20, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, 
+                var(--secondary-color), 
+                var(--bronze), 
+                #DEB887);
+        }
+        
+        /* Selection Color */
+        ::selection {
+            background: rgba(139, 69, 19, 0.5);
+            color: var(--gold);
+            text-shadow: none;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background: rgba(40, 30, 20, 0.7);
+            border-radius: 20px;
+            border-top: 2px solid rgba(139, 69, 19, 0.3);
+            color: #D2B48C;
+            font-size: 1.3rem;
+        }
+        
+        /* Quote Styling */
+        .quranic-verse {
+            font-size: 1.8rem;
+            text-align: center;
+            padding: 30px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, 
+                rgba(139, 69, 19, 0.2), 
+                rgba(40, 30, 20, 0.8));
+            border-radius: 20px;
+            border-right: 5px solid var(--primary-color);
+            border-left: 5px solid var(--bronze);
+            font-style: italic;
+            color: #FFE4C4;
+            position: relative;
+            max-width: 800px;
+        }
+        
+        .quranic-verse::before,
+        .quranic-verse::after {
+            content: '﷽';
+            position: absolute;
+            top: 10px;
+            font-size: 2rem;
+            color: var(--gold);
+            opacity: 0.5;
+        }
+        
+        .quranic-verse::before {
+            right: 20px;
+        }
+        
+        .quranic-verse::after {
+            left: 20px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements" id="floatingContainer"></div>
+    
+    <div class="main-container">
+        <div class="page-header">
+            <button class="trigger-btn" onclick="openColorFillPost()">
+                اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            </button>
+        </div>
+
+        <div class="post-content">
+            <h1>ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا</h1>
+            
+            <img src="https://bloglovers.pk/images/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga.jpg" 
+                 alt="دابۃ الارض - قیامت کی نشانی" 
+                 class="featured-image"
+                 loading="lazy">
+            
+            <p>محترم قارئین کرام! قیامت کی بڑی نشانیوں میں سے ایک نشانی دابۃ الارض کا ظاہر ہونا ہے۔ گزرتے وقت کے ساتھ ساتھ اچھے اور نیک لوگ اس دنیا سے رخصت ہوتے چلے جائیں گے۔ اور زمانہ آخر میں صرف فسادی، برُی عادات کے لوگ اس قدر مکس ہو جائیں گے کہ مسلم و کافر، منافق اور مومن کی پہچان کرنا مشکل ہو جائے گا۔ زمین میں ہر طرف فساد ہی فساد برپا ہو چکا ہوگا۔</p>
+            
+            <p>ایسے حالات میں اللہ رب العزت لوگوں کے درمیان ایک جانور ظاہر فرمائیں گے۔ یوں تو کئی سوالات انسانی ذہن میں جنم لیتے ہیں مثلاً: دابہ کیا چیز ہے؟ اس کے ذمے کیا کیا کام ہوں گے؟ وہ کہاں ہے اور کب ظاہر ہوگا وغیرہ وغیرہ۔</p>
+            
+            <div class="quranic-verse">
+                "اور جب ان پر (قرب ِ قیامت کے وعدے کی) بات پوری ہو جائے گی، تو ہم ان کے لئے زمین سے ایک جانور نکالیں گے، وہ ان سے کلام کرے گا، بے شک یہ لوگ ہماری آیات پر یقین نہیں رکھتے تھے"
+            </div>
+            
+            <p>کلام سے مراد "ان سے مخاطب ہوگا" اور دوسرے معنی یہ ہیں کہ "وہ انھیں زخمی کرےگا"۔ ایک روایت کے مطابق "کہ وہ انھیں زخمی کرےگا"۔ یوں تو دابۃ الارض کے اوصاف کے بارے میں کوئی واضح اور صحیح حدیث ثابت نہیں ہے۔ بعض علماء کرام نے اس کے اوصاف کچھ یوں بیان فرمائے ہیں کہ اس کا سر بیل کے سر کی طرح ہوگا اور اس کے کان ہاتھی کے کانوں جیسے ہوں گے وغیرہ جن کی کوئی دلیل موجود نہیں ہے۔</p>
+            
+            <p>لیکن جو صفات حدیث سے ثابت ہیں وہ یہ ہیں کہ:</p>
+            
+            <ul>
+                <li>وہ حقیقت میں ایک جانور ہی ہوگا۔</li>
+                <li>اور وہ لوگوں سے باتیں کرے گا۔</li>
+                <li>وہ زمین سے نکلے گا۔</li>
+            </ul>
+            
+            <h2>دابہ کہاں سے نکلے گا؟</h2>
+            <p>تاہم اس کے نکلنے کی جگہ کے بارے میں کوئی درست حدیث ثابت نہیں ہے۔ بس ہماری اور آپ کی یہی ذمہ داری ہے کہ ہم اس بات پر ایمان رکھتے ہیں کہ وہ اسی طرح نکلے گا جس طرح اللہ رب العزت نے ہمیں خبر دی ہے۔ تاہم یہ ہرگز نہیں جانتے کہ اس کے نکلنے کا کون سا مقام ہوگا۔</p>
+            
+            <h2>دابہ کیا کرے گا؟</h2>
+            <p>یہ عجیب الخلقت جانور لوگوں سے کہے گا کہ "لوگ اللہ رب العزت کی آیات پر ایمان نہیں لاتے" جیسے کہ اوپر بیان کی گئی آیت مبارکہ میں بتایا گیا ہے۔</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "وہ جانور نکلے گا اور لوگوں کی ناکوں کو داغے گا، پھر وہ سب تم میں گھل مل جائیں گے حتی کہ ایک شخص اونٹ خریدے گا اور کوئی اس سے پوچھے گا کہ یہ اونٹ تم نے کس سے خریدا ہے؟ وہ کہے گا ایک ایسے شخص سے جس کی ناک کو آگ سے داغ لگا ہوا تھا"۔</p>
+            
+            <p>جب دابہ لوگوں کا داغےگا تو حق باطل کے مقابلے میں واضح ہو جائے گا اور مومن کافر سے ممتاز ہو جائےگا، اس کے بعد شاید لوگ ایک دوسرے کو کچھ اس طرح پکارنے لگیں گے اے مومن یا اے کافر۔ واللہ اعلم۔</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "دجال میری امت میں ظاہر ہو گا اور چالیس کی مدت پوری کرے گا (دجال کے بارےمیں میں تفصیلاً ذکر کر چکا ہوں) میں نہیں جانتا کہ یہ چالیس دن ہوں گے، چالیس ماہ ہوں گے یا چالیس برس ہوں گے پھر اللہ رب العزت حضرت عیسیٰ کو بھیجے گا، ان کی شکل و شباہت عروہ بن مسعود ثقفی سے ملتی جلتی ہوگی۔ حضرت عیسیٰ دجال کو ہلاک کر ڈالیں گے پھر لوگ سات برس اس طرح گزاریں گے کہ کہیں بھی دو شخصوں کے درمیان کوئی دشمنی نہیں ہوگی، پھر اللہ رب العزت شام کی جانب سے ایک ٹھنڈی ہوا بھیجے گا جو ہر اس شخص کی روح قبض کر لے گی جس کے دل میں ذرہ برابر ایمان یا بھلائی موجود ہوگی۔ اگر تم میں سے کوئی کسی پہاڑ کی کھوہ میں بھی داخل ہو جائے گا تو یہ ہوا وہاں بھی اس کی روح قبض کر لے گی۔ اس کے بعد زمین پر صرف وہ لوگ رہ جائیں گے جن کی شر انگیزی میں پرندوں کی سی تیزی ہوگی، انھیں نہ نیکی کا پتا ہوگا اور نہ ہی برائی کا۔ ان کے پاس شیطان انسانی شکل میں آئے گا اور کہے گا کیا تم میری بات مانو گے؟ وہ کہیں گے تم کیا کہتے ہو؟ شیطان انھیں بتوں کی پوجا کی دعوت دے گا، وہ اس کی بات مان لیں گے۔ ان کے پاس رزق کی خوب فراوانی ہوگی۔ زندگی خوب مزے سے گزررہی ہوگی کہ اچانک صور پھونک دیا جائےگا۔ جسے بھی یہ آواز پہنچے گی وہ گردن ایک جانب جھکا کر آواز سننے کی کوشش کرے گا تو دوسری طرف کو اوپر اٹھا لے گا سب سے پہلے یہ آواز وہ شخص سنے گا جو اپنے اونٹوں کے حوض کی لپائی کررہا ہوگا۔ وہ سنتے ہی بے ہوش ہو کر گر جائے گا اور دوسرے لوگ بھی بے ہوش ہو جائیں گے۔</p>
+            
+            <p>ایک دوسری روایت کے مطابق آپ نے کچھ یوں رہنمائی فرمائی: اللہ پاک یمن کی جانب سے ایک ہوا چلائے گا جو ریشم سے زیادہ نرم ہوگی۔ جس کے دل میں ایک دانے کے برابر بھی ایمان ہوگا یہ اس کی روح قبض کر لے گی۔ اس ہوا کے چلنے کے بعد نیک لوگ اس دنیا سے اٹھا لئے جائیں گے زمین پر صرف شیریر رہ جائیں گے اور انھی پر قیامت قائم ہو گی۔</p>
+            
+            <p>اللہ رب العزت سے استدعا ہے کہ جب تک زندہ ہیں ایمان کی حالت میں زندہ رکھے اور خاتمہ بالایمان ہو۔ اللہ پاک ہمارے صغیرہ کبیرہ گناہ معاف فرمائے۔ آمین۔</p>
+            
+            <div class="footer">
+                <p>© 2024 دینی معلومات - دابۃ الارض کے بارے میں | تمام حقوق محفوظ ہیں</p>
+            </div>
+        </div>
     </div>
 
-    <div class="post-content">
-        
-        <h1>ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا</h1>
-<p>محترم قارئین کرام! قیامت کی بڑی نشانیوں میں سے ایک نشانی دابۃ الارض کا ظاہر ہونا ہے۔ گزرتے وقت کے ساتھ ساتھ اچھے اور <a href="https://www.bloglovers.pk/2021/01/blog-post.html">نیک لوگ اس دنیا سے رخصت ہوتے</a> چلے جائیں گے۔ اور زمانہ آخر میں صرف فسادی، برُی عادات کے لوگ اس قدر مکس ہو جائیں گے کہ مسلم و کافر، منافق اور مومن کی پہچان کرنا مشکل ہو جائے گا۔ زمین میں ہر طرف <a href="https://www.bloglovers.pk/2022/02/blog-post.html">فساد ہی فساد</a> برپا ہو چکا ہوگا۔</p>
-<p>ایسے حالات میں اللہ رب العزت لوگوں کے درمیان ایک جانور ظاہر فرمائیں گے۔ یوں تو کئی سوالات انسانی ذہن میں جنم لیتے ہیں مثلاً: دابہ کیا چیز ہے؟ اس کے ذمے کیا کیا کام ہوں گے؟ وہ کہاں ہے اور کب ظاہر ہوگا وغیرہ وغیرہ۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWIvhry4nDyqLPUrFPQbCFl6cWj4ihPeshguGSHhU_xQYzEcZFukYJQXUgQWqC5EtmZ1hS1ryv6xN2KveuweemhIHIAkcNL1KR6ryTUtTgSOdHO3zhXjQ4eIXv7OTuIU1ljSrecirGlhftYKBknN28K-oOP3wDCrxFd4fDZi0vHET6fn6Tx2iSxu9iMQ/s6912/Blue%20Modern%20School%20Admission%20Banner%20Landscape.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWIvhry4nDyqLPUrFPQbCFl6cWj4ihPeshguGSHhU_xQYzEcZFukYJQXUgQWqC5EtmZ1hS1ryv6xN2KveuweemhIHIAkcNL1KR6ryTUtTgSOdHO3zhXjQ4eIXv7OTuIU1ljSrecirGlhftYKBknN28K-oOP3wDCrxFd4fDZi0vHET6fn6Tx2iSxu9iMQ/s16000/Blue%20Modern%20School%20Admission%20Banner%20Landscape.jpg" alt="ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا"></a></p>
-<p>ارشاد ربانی ہے: &quot;اور جب ان پر (قرب ِ قیامت کے وعدے کی) بات پوری ہو جائے گی، تو ہم ان کے لئے زمین سے ایک جانور نکالیں گے، وہ ان سے کلام کرے گا، بے شک یہ لوگ ہماری آیات پر یقین نہیں رکھتے تھے&quot;۔</p>
-<p>کلام سے مراد &quot;ان سے مخاطب ہوگا&quot; اور دوسرے معنی یہ ہیں کہ &quot;وہ انھیں زخمی کرےگا&quot;۔ ایک روایت کے مطابق &quot;کہ وہ انھیں زخمی کرےگا&quot;۔ یوں تو دابۃ الارض کے اوصاف کے بارے میں کوئی واضح اور صحیح حدیث ثابت نہیں ہے۔ بعض علماء کرام نے اس کے اوصاف کچھ یوں بیان فرمائے ہیں کہ اس کا سر بیل کے سر کی طرح ہوگا اور اس کے کان ہاتھی کے کانوں جیسے ہوں گے وغیرہ جن کی کوئی دلیل موجود نہیں ہے۔</p>
-<p>لیکن جو صفات حدیث سے ثابت ہیں وہ یہ ہیں کہ:</p>
-<ul>
-<li>وہ حقیقت میں ایک جانور ہی ہوگا۔</li>
-<li>اور وہ لوگوں سے باتیں کرے گا۔</li>
-<li>وہ زمین سے نکلے گا۔</li>
-</ul>
-<h2>دابہ کہاں سے نکلے گا؟</h2>
-<p>تاہم اس کے نکلنے کی جگہ کے بارے میں کوئی درست حدیث ثابت نہیں ہے۔ بس ہماری اور آپ کی یہی ذمہ داری ہے کہ ہم اس بات پر ایمان رکھتے ہیں کہ وہ اسی طرح نکلے گا جس طرح اللہ رب العزت نے ہمیں خبر دی ہے۔ تاہم یہ ہرگز نہیں جانتے کہ اس کے نکلنے کا کون سا مقام ہوگا۔</p>
-<h2>دابہ کیا کرے گا؟</h2>
-<p>یہ عجیب الخلقت جانور لوگوں سے کہے گا کہ &quot;لوگ اللہ رب العزت کی آیات پر ایمان نہیں لاتے&quot; جیسے کہ اوپر بیان کی گئی آیت مبارکہ میں بتایا گیا ہے۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;وہ جانور نکلے گا اور لوگوں کی ناکوں کو داغے گا، پھر وہ سب تم میں گھل مل جائیں گے حتی کہ ایک شخص اونٹ خریدے گا اور کوئی اس سے پوچھے گا کہ یہ اونٹ تم نے کس سے خریدا ہے؟ وہ کہے گا ایک ایسے شخص سے جس کی ناک کو آگ سے داغ لگا ہوا تھا&quot;۔</p>
-<p>جب دابہ لوگوں کا داغےگا تو حق باطل کے مقابلے میں واضح ہو جائے گا اور مومن کافر سے ممتاز ہو جائےگا، اس کے بعد شاید لوگ ایک دوسرے کو کچھ اس طرح پکارنے لگیں گے اے مومن یا اے کافر۔ واللہ اعلم۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;<a href="https://www.bloglovers.pk/2021/05/blog-post.html">دجال میری</a> امت میں ظاہر ہو گا اور چالیس کی مدت پوری کرے گا (دجال کے بارےمیں میں تفصیلاً ذکر کر چکا ہوں) میں نہیں جانتا کہ یہ چالیس دن ہوں گے، چالیس ماہ ہوں گے یا چالیس برس ہوں گے پھر اللہ رب العزت حضرت عیسیٰ کو بھیجے گا، ان کی شکل و شباہت عروہ بن مسعود ثقفی سے ملتی جلتی ہوگی۔ <a href="https://www.bloglovers.pk/2021/10/blog-post.html">حضرت عیسیٰ</a> دجال کو ہلاک کر ڈالیں گے پھر لوگ سات برس اس طرح گزاریں گے کہ کہیں بھی دو شخصوں کے درمیان کوئی دشمنی نہیں ہوگی، پھر اللہ رب العزت <a href="https://www.bloglovers.pk/2023/05/blog-post_89.html">شام</a> کی جانب سے ایک ٹھنڈی ہوا بھیجے گا جو ہر اس شخص کی روح قبض کر لے گی جس کے دل میں ذرہ برابر ایمان یا بھلائی موجود ہوگی۔ اگر تم میں سے کوئی کسی پہاڑ کی کھوہ میں بھی داخل ہو جائے گا تو یہ ہوا وہاں بھی اس کی روح قبض کر لے گی۔ اس کے بعد زمین پر صرف وہ لوگ رہ جائیں گے جن کی شر انگیزی میں پرندوں کی سی تیزی ہوگی، انھیں نہ نیکی کا پتا ہوگا اور نہ ہی برائی کا۔ ان کے پاس شیطان انسانی شکل میں آئے گا اور کہے گا کیا تم میری بات مانو گے؟ وہ کہیں گے تم کیا کہتے ہو؟ شیطان انھیں بتوں کی پوجا کی دعوت دے گا، وہ اس کی بات مان لیں گے۔ ان کے پاس رزق کی خوب فراوانی ہوگی۔ زندگی خوب مزے سے گزررہی ہوگی کہ اچانک صور پھونک دیا جائےگا۔ جسے بھی یہ آواز پہنچے گی وہ گردن ایک جانب جھکا کر آواز سننے کی کوشش کرے گا تو دوسری طرف کو اوپر اٹھا لے گا سب سے پہلے یہ آواز وہ شخص سنے گا جو اپنے اونٹوں کے حوض کی لپائی کررہا ہوگا۔ وہ سنتے ہی بے ہوش ہو کر گر جائے گا اور دوسرے لوگ بھی بے ہوش ہو جائیں گے۔</p>
-<p>ایک دوسری روایت کے مطابق آپ نے کچھ یوں رہنمائی فرمائی: اللہ پاک یمن کی جانب سے ایک ہوا چلائے گا جو ریشم سے زیادہ نرم ہوگی۔ جس کے دل میں ایک دانے کے برابر بھی ایمان ہوگا یہ اس کی روح قبض کر لے گی۔ اس ہوا کے چلنے کے بعد نیک لوگ اس دنیا سے اٹھا لئے جائیں گے زمین پر صرف شیریر رہ جائیں گے اور انھی پر قیامت قائم ہو گی۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ جب تک زندہ ہیں ایمان کی حالت میں زندہ رکھے اور خاتمہ بالایمان ہو۔ اللہ پاک ہمارے صغیرہ کبیرہ گناہ معاف فرمائے۔ آمین۔</p>
-
+    <!-- Color Fill Mode -->
+    <div class="color-fill-container" id="colorFillBg">
+        <div class="color-fill-background"></div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
+        <button class="back-btn" onclick="closeColorFillPost()">
+            واپس جائیں
+        </button>
         <div id="postContent"></div>
     </div>
 
     <script>
+        // Create floating elements
+        function createFloatingElements() {
+            const container = document.getElementById('floatingContainer');
+            const elementCount = 15;
+            
+            const symbols = ['◈', '◆', '●', '■', '▲', '★', '✦', '❖', '▸', '◂'];
+            
+            for (let i = 0; i < elementCount; i++) {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                
+                // Random properties
+                const size = Math.random() * 20 + 10;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 15 + 15;
+                const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                
+                element.textContent = symbol;
+                element.style.fontSize = `${size}px`;
+                element.style.right = `${posX}%`;
+                element.style.top = `${posY}%`;
+                element.style.animationDelay = `${delay}s`;
+                element.style.animationDuration = `${duration}s`;
+                element.style.opacity = Math.random() * 0.2 + 0.05;
+                element.style.color = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 105}, ${Math.random() * 100 + 63}, 0.3)`;
+                
+                container.appendChild(element);
+            }
+        }
+        
+        // Open color fill post
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Scroll to top of overlay
+            setTimeout(() => {
+                document.getElementById('postOverlay').scrollTop = 0;
+            }, 100);
         }
+        
+        // Close color fill post
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+            
+            setTimeout(() => {
+                document.getElementById('postContent').innerHTML = '';
+            }, 300);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Keyboard controls
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeColorFillPost();
+            }
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (!document.getElementById('postOverlay').classList.contains('active')) {
+                    openColorFillPost();
+                }
+            }
+        });
+        
+        // Close when clicking on background
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Prevent overlay from closing when clicking inside
+        document.getElementById('postOverlay').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Lazy load and animate image
+        function loadImage() {
+            const img = document.querySelector('.featured-image');
+            if (img) {
+                const tempImg = new Image();
+                tempImg.src = img.src;
+                
+                tempImg.onload = function() {
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 1s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        img.style.opacity = '1';
+                    }, 300);
+                };
+            }
+        }
+        
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            createFloatingElements();
+            loadImage();
+            
+            // Add interactive effects to paragraphs and lists
+            const paragraphs = document.querySelectorAll('p, li');
+            paragraphs.forEach(element => {
+                element.addEventListener('click', function() {
+                    this.style.transform = 'translateX(-10px)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateX(-5px)';
+                    }, 300);
+                });
+            });
+            
+            // Add animation to Quranic verse
+            const verse = document.querySelector('.quranic-verse');
+            if (verse) {
+                setTimeout(() => {
+                    verse.style.transition = 'all 0.5s ease';
+                    verse.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        verse.style.transform = 'scale(1)';
+                    }, 500);
+                }, 1000);
+            }
+        });
+        
+        // Performance optimization for scroll
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    // Add parallax effect to background
+                    const scrolled = window.pageYOffset;
+                    const animatedBg = document.querySelector('.animated-bg');
+                    if (animatedBg) {
+                        animatedBg.style.transform = `translateY(${scrolled * 0.03}px)`;
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
     </script>
 </body>
 </html>
