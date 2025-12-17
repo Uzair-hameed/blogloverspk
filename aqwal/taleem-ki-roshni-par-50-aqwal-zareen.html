@@ -6,141 +6,575 @@
     <title>تعلیم کی روشنی پر 50 اقوال زریں</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        /* ------------------- CSS Variables ------------------- */
+        :root {
+            --light-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --light-container: rgba(255, 255, 255, 0.98);
+            --light-text: #2c3e50;
+            --light-heading: #1a252f;
+            --light-border: #e0e0e0;
+            --dark-bg: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --dark-container: rgba(25, 25, 35, 0.95);
+            --dark-text: #f0f0f0;
+            --dark-heading: #4facfe;
+            --dark-border: #333;
+            --primary-color: #4a90e2;
+            --secondary-color: #2ecc71;
+            --accent-color: #ff6b6b;
+            --gold-color: #FFD700;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* ------------------- فونٹس ------------------- */
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+
+        /* ------------------- باڈی ------------------- */
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.6;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: var(--light-bg);
+            color: var(--light-text);
+            min-height: 100vh;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ------------------- خلائی پس منظر (ڈارک موڈ) ------------------- */
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?q=80&w=1471&auto=format&fit=crop') repeat top center;
+            background-size: cover;
+            animation: move-twink-back 200s linear infinite;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        @keyframes move-twink-back {
+            from { background-position: 0 0; }
+            to { background-position: -10000px 5000px; }
+        }
+
+        body.dark-mode .space-background {
+            opacity: 1;
+        }
+
+        body.dark-mode .stars {
+            opacity: 0.3;
+        }
+
+        /* ------------------- نیویگیشن بار ------------------- */
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border-radius: 0 0 20px 20px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .nav-bar {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95) 0%, rgba(30, 30, 60, 0.9) 100%);
+            border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+            box-shadow: 0 5px 25px rgba(79, 172, 254, 0.1);
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 200px;
+        }
+
+        .nav-btn.theme-toggle {
+            background: linear-gradient(45deg, #2193b0, #6dd5ed);
+            box-shadow: 0 8px 25px rgba(33, 147, 176, 0.4);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        /* ------------------- پوسٹ کا مواد ------------------- */
+        .post-content {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: var(--light-container);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--light-border);
+        }
+
+        body.dark-mode .post-content {
+            background: var(--dark-container);
+            box-shadow: 0 25px 70px rgba(79, 172, 254, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .post-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-color), var(--gold-color), var(--primary-color));
+            z-index: 1;
+        }
+
+        body.dark-mode .post-content::before {
+            background: linear-gradient(90deg, #4facfe, #00d2ff, #4facfe);
+        }
+
+        /* ------------------- سرخیاں ------------------- */
+        h1 {
+            text-align: center;
+            font-size: 3.8rem;
+            color: var(--light-heading);
+            border-bottom: 5px solid var(--primary-color);
+            padding-bottom: 35px;
+            margin-bottom: 60px;
+            line-height: 1.3;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        body.dark-mode h1 {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+            border-bottom: 5px solid var(--dark-heading);
+        }
+
+        h1::after {
+            content: "📚";
+            position: absolute;
+            left: 50%;
+            bottom: -30px;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--gold-color), #ff9800);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ------------------- امیج ------------------- */
+        .featured-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border: 8px solid white;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .featured-image {
+            border: 8px solid rgba(79, 172, 254, 0.2);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.2);
+        }
+
+        .featured-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        /* ------------------- متن ------------------- */
+        p {
+            font-size: 1.9rem;
+            text-align: justify;
+            margin-bottom: 30px;
+            line-height: 2.4;
+            color: var(--light-text);
+        }
+
+        body.dark-mode p {
+            color: var(--dark-text);
+        }
+
+        ol {
+            padding-right: 50px;
+            list-style-type: none;
+            counter-reset: quote-counter;
+        }
+
+        li {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            font-size: 1.8rem;
+            text-align: justify;
+            line-height: 2.3;
+            border-right: 5px solid transparent;
+        }
+
+        li:hover {
+            transform: translateX(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            border-right: 5px solid var(--gold-color);
+        }
+
+        li::before {
+            counter-increment: quote-counter;
+            content: counter(quote-counter);
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--gold-color), #ff9800);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        body.dark-mode li::before {
+            background: linear-gradient(45deg, #4facfe, #00d2ff);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        li p {
+            margin: 0;
+            padding-right: 40px;
+        }
+
+        li p::before {
+            content: "❝";
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        li p::after {
+            content: "❞";
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+        }
+
+        /* ------------------- لنکس ------------------- */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+            padding-bottom: 3px;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        body.dark-mode a {
+            color: #4facfe;
+        }
+
+        body.dark-mode a:hover {
+            color: #00d2ff;
+            border-bottom: 2px solid #00d2ff;
+        }
+
+        /* ------------------- ٹرگر بٹن ------------------- */
+        .trigger-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .trigger-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .trigger-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 35px rgba(74, 144, 226, 0.6);
+            animation: none;
+        }
+
+        /* ------------------- موبائل ریسپانسو ------------------- */
+        @media (max-width: 1200px) {
+            .post-content {
+                max-width: 95%;
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .post-content {
+                padding: 25px;
+                margin: 15px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 2.4rem;
+                padding-bottom: 25px;
+                margin-bottom: 40px;
+            }
+            
+            p, li {
+                font-size: 1.4rem;
+                line-height: 2.2;
+            }
+            
+            .nav-bar {
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-btn {
+                padding: 12px 24px;
+                font-size: 1.1rem;
+                min-width: 160px;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .featured-image {
+                margin: 25px 0;
+                border-width: 5px;
+            }
+            
+            ol {
+                padding-right: 30px;
+            }
+            
+            li {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            
+            li::before {
+                right: -20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .trigger-btn {
+                padding: 14px 30px;
+                font-size: 1.2rem;
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { 
+                font-size: 1.9rem; 
+                margin-bottom: 30px;
+            }
+            
+            h1::after {
+                font-size: 2rem;
+                bottom: -25px;
+            }
+            
+            p, li { 
+                font-size: 1.2rem; 
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 20px 15px;
+            }
+            
+            li {
+                padding: 15px;
+                padding-right: 25px;
+            }
+            
+            li::before {
+                right: -15px;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+
+    <!-- خلائی پس منظر -->
+    <div class="space-background">
+        <div class="stars"></div>
+    </div>
+
+    <!-- نیویگیشن بار -->
+    <div class="nav-bar">
+        <button class="nav-btn" onclick="window.history.back()">
+            🔙 واپس جائیں
+        </button>
+        <button class="nav-btn theme-toggle" id="themeToggle" onclick="toggleTheme()">
+            🌙 تاریک موڈ
         </button>
     </div>
 
+    <!-- ٹرگر بٹن -->
+    <div class="trigger-container">
+        <button class="trigger-btn" onclick="openColorFillPost()">
+            📖 خاص موڈ میں پڑھیں
+        </button>
+    </div>
+
+    <!-- پوسٹ کا مواد -->
     <div class="post-content">
+        
         <h1>تعلیم کی روشنی پر 50 اقوال زریں</h1>
+
+        <!-- امیج -->
+        <img src="https://bloglovers.pk/images/aqwal/taleem-ki-roshni-par-50-aqwal-zareen.webp" 
+             alt="تعلیم کی روشنی پر 50 اقوال زریں" 
+             class="featured-image">
+
         <p>&quot;تعلیم کی روشنی پر 50 اقوال زریں&quot; ایک منفرد مجموعہ ہے جو تعلیم کی اہمیت، قدر اور اثرات کو اجاگر کرتا ہے۔ اس مجموعے میں شامل اقوال مختلف عظیم ہستیوں کی بصیرت کی عکاسی کرتے ہیں، جو نہ صرف علم کی اہمیت کو بیان کرتے ہیں بلکہ یہ بھی بتاتے ہیں کہ تعلیم فرد کی زندگی میں کس طرح تبدیلی لا سکتی ہے۔ ان اقوال میں سے کچھ انسان کو خوداعتمادی، محنت اور مستقل مزاجی کی ترغیب دیتے ہیں، جبکہ دیگر سچائی اور اخلاقیات کی تعلیم دیتے ہیں۔ یہ اقوال قارئین کو یہ احساس دلاتے ہیں کہ علم کا حصول محض ایک فریضہ نہیں بلکہ زندگی کا ایک سفر ہے، جو انسان کو نہ صرف خود کے لیے بلکہ معاشرے کے لیے بھی بہتر بناتا ہے۔ یہ کتاب طلبہ، اساتذہ، والدین اور ہر اُس فرد کے لیے ایک قیمتی ذریعہ ہے جو اپنی زندگی میں تعلیم کی روشنی کو اپنانا چاہتا ہے۔ اس مجموعے میں موجود اقوال زریں امید کی کرن ہیں، جو ہر شخص کو اپنی صلاحیتوں کو پہچاننے اور علم کی جستجو میں آگے بڑھنے کی تحریک دیتے ہیں۔</p>
-<ol>
-<li><p>&quot;تعلیم سب سے طاقتور ہتھیار ہے، جسے آپ دنیا کو بدلنے کے لیے استعمال کر سکتے ہیں۔&quot; — نلسن منڈیلا</p>
-</li>
-<li><p>&quot;علم کا حصول فرض ہے، چاہے آپ کو چین جانا پڑے۔&quot; — حضرت علیؓ</p>
-</li>
-<li><p>&quot;تعلیم کی روشنی سے ہی ہر اندھیرا دور ہوتا ہے۔&quot; — فاطمہ جناح</p>
-</li>
-<li><p>&quot;تعلیم کی سب سے بڑی طاقت یہ ہے کہ یہ انسان کو آزاد کرتی ہے۔&quot; — مارٹن لوتھر کنگ جونیئر</p>
-</li>
-<li><p>&quot;جس قوم کی تعلیم بہتر ہوتی ہے، اس کی تقدیر بھی بہتر ہوتی ہے۔&quot; — علامہ اقبال</p>
-</li>
-<li><p>&quot;سچی تعلیم وہ ہے جو انسان کو فکر کرنے کی طاقت دے۔&quot; — سقراط</p>
-</li>
-<li><p>&quot;تعلیم انسان کی سب سے بڑی طاقت ہے۔&quot; — جارج واشنگٹن</p>
-</li>
-<li><p>&quot;تعلیم کا مقصد محض علم حاصل کرنا نہیں، بلکہ انسان بننا ہے۔&quot; — مہاتما گاندھی</p>
-</li>
-<li><p>&quot;تعلیم کا سفر کبھی ختم نہیں ہوتا۔&quot; — ابو حامد الغزالی</p>
-</li>
-<li><p>&quot;تعلیم کے بغیر کوئی قوم ترقی نہیں کر سکتی۔&quot; — نیلسن منڈیلا</p>
-</li>
-<li><p>&quot;تعلیم ہر انسان کا بنیادی حق ہے۔&quot; — ملالہ نصرالدین</p>
-</li>
-<li><p>&quot;علم انسان کو خودمختار بناتا ہے۔&quot; — ارسطو</p>
-</li>
-<li><p>&quot;تعلیم کی طاقت سے ہی قوموں کی تقدیر بدلتی ہے۔&quot; — قاضی حسین احمد</p>
-</li>
-<li><p>&quot;تعلیم کے بغیر انسان کے پاس کچھ بھی نہیں ہوتا۔&quot; — وکٹر ہیوگو</p>
-</li>
-<li><p>&quot;علم کی روشنی سے ہی انسانیت کی خدمت کی جا سکتی ہے۔&quot; — مصطفیٰ کمال پاشا</p>
-</li>
-<li><p>&quot;تعلیم وہ سلاح ہے جو آپ کو کامیاب بناتی ہے۔&quot; — نیکولا ٹیسلا</p>
-</li>
-<li><p>&quot;وقت کی اہمیت کو سمجھنا ضروری ہے، کیونکہ علم وقت کی جستجو ہے۔&quot; — اقبال</p>
-</li>
-<li><p>&quot;علم کی جستجو کا راستہ کبھی آسان نہیں ہوتا۔&quot; — نیل آرمسٹرانگ</p>
-</li>
-<li><p>&quot;تعلیم سے ہی انسان کی شخصیت کی تعمیر ہوتی ہے۔&quot; — جین جاپ</p>
-</li>
-<li><p>&quot;تعلیم انسان کی روح کو جلا بخشتا ہے۔&quot; — طاہر القادری</p>
-</li>
-<li><p>&quot;علم حاصل کرنا عبادت کے برابر ہے۔&quot; — حضرت علیؓ</p>
-</li>
-<li><p>&quot;ہر بچہ ایک عالم بننے کی قابلیت رکھتا ہے۔&quot; — مائیکل ڈل</p>
-</li>
-<li><p>&quot;تعلیم کے بغیر خوابوں کی تعبیر ممکن نہیں۔&quot; — ایڈیسن</p>
-</li>
-<li><p>&quot;تعلیم کی روشنی سے منزلیں قریب آتی ہیں۔&quot; — ہنری فورڈ</p>
-</li>
-<li><p>&quot;تعلیم کا آغاز گھر سے ہوتا ہے۔&quot; — بینجمن فرینکلن</p>
-</li>
-<li><p>&quot;تعلیم کی بنیاد علم اور سمجھ بوجھ پر ہے۔&quot; — جارج برنارڈ شا</p>
-</li>
-<li><p>&quot;تعلیم وہ طاقت ہے جو کسی بھی قوم کی شناخت بناتی ہے۔&quot; — جان ڈیوئی</p>
-</li>
-<li><p>&quot;تعلیم کا اصل مقصد فرد کی شخصیت کی تعمیر کرنا ہے۔&quot; — رافیل نادال</p>
-</li>
-<li><p>&quot;علم کی روشنی سے ہی ہر اندھیرا دور ہوتا ہے۔&quot; — حضرت علیؓ</p>
-</li>
-<li><p>&quot;تعلیم انسان کے خوابوں کو حقیقت میں بدل دیتی ہے۔&quot; — ونسٹن چرچل</p>
-</li>
-<li><p>&quot;تعلیم کی طاقت سے ہی ہم اپنی تقدیر بدل سکتے ہیں۔&quot; — عبدالسلام</p>
-</li>
-<li><p>&quot;تعلیم کو پھیلانا ایک عظیم ذمہ داری ہے۔&quot; — ملالہ یوسفزئی</p>
-</li>
-<li><p>&quot;سچی تعلیم وہ ہے جو انسان کی اخلاقی تربیت کرے۔&quot; — فریڈرک ڈگلس</p>
-</li>
-<li><p>&quot;تعلیم کی روشنی سے ہی معاشرہ ترقی کرتا ہے۔&quot; — جیمز کلرک میکسل</p>
-</li>
-<li><p>&quot;علم کا خزانہ کبھی ختم نہیں ہوتا۔&quot; — اقبال</p>
-</li>
-<li><p>&quot;علم کے بغیر ہر کام ادھورا رہتا ہے۔&quot; — ڈیل کارنیگی</p>
-</li>
-<li><p>&quot;تعلیم کے بغیر کامیابی کا تصور محال ہے۔&quot; — نیلسن منڈیلا</p>
-</li>
-<li><p>&quot;تعلیم کی جستجو میں ہمیشہ آگے بڑھتے رہیں۔&quot; — وکٹر ہیوگو</p>
-</li>
-<li><p>&quot;علم کی روشنی ہمیشہ سب کو فائدہ پہنچاتی ہے۔&quot; — افلاطون</p>
-</li>
-<li><p>&quot;تعلیم کی قدر کرنا ہر انسان کی ذمہ داری ہے۔&quot; — ملالہ یوسفزئی</p>
-</li>
-<li><p>&quot;تعلیم انسان کو ایک بہتر فرد بناتی ہے۔&quot; — ابوالکلام آزاد</p>
-</li>
-<li><p>&quot;تعلیم کی طاقت ہر انسان کے اندر موجود ہوتی ہے۔&quot; — عائشہ صدیقہؓ</p>
-</li>
-<li><p>&quot;علم کے بغیر قوموں کی تقدیر نہیں بدلتی۔&quot; — علامہ اقبال</p>
-</li>
-<li><p>&quot;سچائی کی تعلیم ہمیشہ سب سے بہترین ہوتی ہے۔&quot; — مہاتما گاندھی</p>
-</li>
-<li><p>&quot;تعلیم کی روشنی سے ہی انسان کا حقیقی مقام معلوم ہوتا ہے۔&quot; — علامہ اقبال</p>
-</li>
-<li><p>&quot;تعلیم کی طاقت سے ہی انسان اپنے خوابوں کو حقیقت میں بدل سکتا ہے۔&quot; — نیلسن منڈیلا</p>
-</li>
-<li><p>&quot;تعلیم کے بغیر انسان کا سفر ادھورا رہتا ہے۔&quot; — جارج برنارڈ شا</p>
-</li>
-<li><p>&quot;تعلیم انسان کے لیے ایک نئی دنیا کے دروازے کھولتی ہے۔&quot; — ہنری فورڈ</p>
-</li>
-<li><p>&quot;تعلیم کا سفر کبھی ختم نہیں ہوتا، ہمیشہ سیکھتے رہو۔&quot; — نیل آرمسٹرانگ</p>
-</li>
-<li><p>&quot;تعلیم کی روشنی ہمیشہ انسان کی رہنمائی کرتی ہے۔&quot; — فریڈرک ڈگلس</p>
-</li>
-</ol>
-<p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ وزٹ</a> کریں۔</p>
+        
+        <ol>
+            <li><p>&quot;تعلیم سب سے طاقتور ہتھیار ہے، جسے آپ دنیا کو بدلنے کے لیے استعمال کر سکتے ہیں۔&quot; — نلسن منڈیلا</p></li>
+            <li><p>&quot;علم کا حصول فرض ہے، چاہے آپ کو چین جانا پڑے۔&quot; — حضرت علیؓ</p></li>
+            <li><p>&quot;تعلیم کی روشنی سے ہی ہر اندھیرا دور ہوتا ہے۔&quot; — فاطمہ جناح</p></li>
+            <li><p>&quot;تعلیم کی سب سے بڑی طاقت یہ ہے کہ یہ انسان کو آزاد کرتی ہے۔&quot; — مارٹن لوتھر کنگ جونیئر</p></li>
+            <li><p>&quot;جس قوم کی تعلیم بہتر ہوتی ہے، اس کی تقدیر بھی بہتر ہوتی ہے۔&quot; — علامہ اقبال</p></li>
+            <li><p>&quot;سچی تعلیم وہ ہے جو انسان کو فکر کرنے کی طاقت دے۔&quot; — سقراط</p></li>
+            <li><p>&quot;تعلیم انسان کی سب سے بڑی طاقت ہے۔&quot; — جارج واشنگٹن</p></li>
+            <li><p>&quot;تعلیم کا مقصد محض علم حاصل کرنا نہیں، بلکہ انسان بننا ہے۔&quot; — مہاتما گاندھی</p></li>
+            <li><p>&quot;تعلیم کا سفر کبھی ختم نہیں ہوتا۔&quot; — ابو حامد الغزالی</p></li>
+            <li><p>&quot;تعلیم کے بغیر کوئی قوم ترقی نہیں کر سکتی۔&quot; — نیلسن منڈیلا</p></li>
+            <li><p>&quot;تعلیم ہر انسان کا بنیادی حق ہے۔&quot; — ملالہ نصرالدین</p></li>
+            <li><p>&quot;علم انسان کو خودمختار بناتا ہے۔&quot; — ارسطو</p></li>
+            <li><p>&quot;تعلیم کی طاقت سے ہی قوموں کی تقدیر بدلتی ہے۔&quot; — قاضی حسین احمد</p></li>
+            <li><p>&quot;تعلیم کے بغیر انسان کے پاس کچھ بھی نہیں ہوتا۔&quot; — وکٹر ہیوگو</p></li>
+            <li><p>&quot;علم کی روشنی سے ہی انسانیت کی خدمت کی جا سکتی ہے۔&quot; — مصطفیٰ کمال پاشا</p></li>
+            <li><p>&quot;تعلیم وہ سلاح ہے جو آپ کو کامیاب بناتی ہے۔&quot; — نیکولا ٹیسلا</p></li>
+            <li><p>&quot;وقت کی اہمیت کو سمجھنا ضروری ہے، کیونکہ علم وقت کی جستجو ہے۔&quot; — اقبال</p></li>
+            <li><p>&quot;علم کی جستجو کا راستہ کبھی آسان نہیں ہوتا۔&quot; — نیل آرمسٹرانگ</p></li>
+            <li><p>&quot;تعلیم سے ہی انسان کی شخصیت کی تعمیر ہوتی ہے۔&quot; — جین جاپ</p></li>
+            <li><p>&quot;تعلیم انسان کی روح کو جلا بخشتا ہے۔&quot; — طاہر القادری</p></li>
+            <li><p>&quot;علم حاصل کرنا عبادت کے برابر ہے۔&quot; — حضرت علیؓ</p></li>
+            <li><p>&quot;ہر بچہ ایک عالم بننے کی قابلیت رکھتا ہے۔&quot; — مائیکل ڈل</p></li>
+            <li><p>&quot;تعلیم کے بغیر خوابوں کی تعبیر ممکن نہیں۔&quot; — ایڈیسن</p></li>
+            <li><p>&quot;تعلیم کی روشنی سے منزلیں قریب آتی ہیں۔&quot; — ہنری فورڈ</p></li>
+            <li><p>&quot;تعلیم کا آغاز گھر سے ہوتا ہے۔&quot; — بینجمن فرینکلن</p></li>
+            <li><p>&quot;تعلیم کی بنیاد علم اور سمجھ بوجھ پر ہے۔&quot; — جارج برنارڈ شا</p></li>
+            <li><p>&quot;تعلیم وہ طاقت ہے جو کسی بھی قوم کی شناخت بناتی ہے۔&quot; — جان ڈیوئی</p></li>
+            <li><p>&quot;تعلیم کا اصل مقصد فرد کی شخصیت کی تعمیر کرنا ہے۔&quot; — رافیل نادال</p></li>
+            <li><p>&quot;علم کی روشنی سے ہی ہر اندھیرا دور ہوتا ہے۔&quot; — حضرت علیؓ</p></li>
+            <li><p>&quot;تعلیم انسان کے خوابوں کو حقیقت میں بدل دیتی ہے۔&quot; — ونسٹن چرچل</p></li>
+            <li><p>&quot;تعلیم کی طاقت سے ہی ہم اپنی تقدیر بدل سکتے ہیں۔&quot; — عبدالسلام</p></li>
+            <li><p>&quot;تعلیم کو پھیلانا ایک عظیم ذمہ داری ہے۔&quot; — ملالہ یوسفزئی</p></li>
+            <li><p>&quot;سچی تعلیم وہ ہے جو انسان کی اخلاقی تربیت کرے۔&quot; — فریڈرک ڈگلس</p></li>
+            <li><p>&quot;تعلیم کی روشنی سے ہی معاشرہ ترقی کرتا ہے۔&quot; — جیمز کلرک میکسل</p></li>
+            <li><p>&quot;علم کا خزانہ کبھی ختم نہیں ہوتا۔&quot; — اقبال</p></li>
+            <li><p>&quot;علم کے بغیر ہر کام ادھورا رہتا ہے۔&quot; — ڈیل کارنیگی</p></li>
+            <li><p>&quot;تعلیم کے بغیر کامیابی کا تصور محال ہے۔&quot; — نیلسن منڈیلا</p></li>
+            <li><p>&quot;تعلیم کی جستجو میں ہمیشہ آگے بڑھتے رہیں۔&quot; — وکٹر ہیوگو</p></li>
+            <li><p>&quot;علم کی روشنی ہمیشہ سب کو فائدہ پہنچاتی ہے۔&quot; — افلاطون</p></li>
+            <li><p>&quot;تعلیم کی قدر کرنا ہر انسان کی ذمہ داری ہے۔&quot; — ملالہ یوسفزئی</p></li>
+            <li><p>&quot;تعلیم انسان کو ایک بہتر فرد بناتی ہے۔&quot; — ابوالکلام آزاد</p></li>
+            <li><p>&quot;تعلیم کی طاقت ہر انسان کے اندر موجود ہوتی ہے۔&quot; — عائشہ صدیقہؓ</p></li>
+            <li><p>&quot;علم کے بغیر قوموں کی تقدیر نہیں بدلتی۔&quot; — علامہ اقبال</p></li>
+            <li><p>&quot;سچائی کی تعلیم ہمیشہ سب سے بہترین ہوتی ہے۔&quot; — مہاتما گاندھی</p></li>
+            <li><p>&quot;تعلیم کی روشنی سے ہی انسان کا حقیقی مقام معلوم ہوتا ہے۔&quot; — علامہ اقبال</p></li>
+            <li><p>&quot;تعلیم کی طاقت سے ہی انسان اپنے خوابوں کو حقیقت میں بدل سکتا ہے۔&quot; — نیلسن منڈیلا</p></li>
+            <li><p>&quot;تعلیم کے بغیر انسان کا سفر ادھورا رہتا ہے۔&quot; — جارج برنارڈ شا</p></li>
+            <li><p>&quot;تعلیم انسان کے لیے ایک نئی دنیا کے دروازے کھولتی ہے۔&quot; — ہنری فورڈ</p></li>
+            <li><p>&quot;تعلیم کا سفر کبھی ختم نہیں ہوتا، ہمیشہ سیکھتے رہو۔&quot; — نیل آرمسٹرانگ</p></li>
+            <li><p>&quot;تعلیم کی روشنی ہمیشہ انسان کی رہنمائی کرتی ہے۔&quot; — فریڈرک ڈگلس</p></li>
+        </ol>
+
+        <p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ وزٹ</a> کریں۔</p>
 
     </div>
 
+    <!-- کلر فل پوسٹ اوورلے -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -148,6 +582,27 @@
     </div>
 
     <script>
+        // تھیم ٹوگل فنکشن
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeToggle');
+            
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                btn.innerHTML = '☀️ روشن موڈ';
+                btn.style.background = 'linear-gradient(45deg, #FFD700, #FF8C00)';
+                document.body.style.background = 'var(--dark-bg)';
+            } else {
+                btn.innerHTML = '🌙 تاریک موڈ';
+                btn.style.background = 'linear-gradient(45deg, #2193b0, #6dd5ed)';
+                document.body.style.background = 'var(--light-bg)';
+            }
+            
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+        
+        // کلر فل پوسٹ فنکشنز
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -155,14 +610,41 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // پیج لوڈ ایونٹ
+        document.addEventListener('DOMContentLoaded', function() {
+            // تھیم بحال کریں
+            const savedTheme = localStorage.getItem('theme');
+            const btn = document.getElementById('themeToggle');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                btn.innerHTML = '☀️ روشن موڈ';
+                btn.style.background = 'linear-gradient(45deg, #FFD700, #FF8C00)';
+                document.body.style.background = 'var(--dark-bg)';
+            }
+            
+            // ESC سے کلوز
+            document.addEventListener('keydown', function(e) { 
+                if (e.key === 'Escape') closeColorFillPost(); 
+            });
+            
+            // باہر کلک کرنے سے کلوز
+            document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+            
+            // نمبر انیمیشن
+            const listItems = document.querySelectorAll('li');
+            listItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
     </script>
 </body>
 </html>
