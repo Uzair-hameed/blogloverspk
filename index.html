@@ -3,155 +3,556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بلاگ لوورزpk. | اردو نیوز</title>
-    <link rel="stylesheet" href="style.css">
+    <title>بلاگ لوورزpk.</title>
+    
+    <!-- Icons & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Font Fallbacks -->
-    <link href="https://fonts.googleapis.com/css2?family=Gulzar&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES & SETUP --- */
+        :root {
+            --primary: #00f2ff; /* Neon Cyan */
+            --secondary: #bc13fe; /* Neon Purple */
+            --bg-dark: #050505;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --font-urdu: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            --font-eng: 'Times New Roman', Times, serif;
+            
+            /* Logo Specific Blue (Matching your image) */
+            --logo-blue: #007cc3; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-urdu);
+            overflow-x: hidden;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* --- 2. PARTICLE BACKGROUND CANVAS --- */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #111122 0%, #000000 100%);
+        }
+
+        /* --- 3. CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--secondary)); border-radius: 5px; }
+
+        /* --- 4. NAVIGATION --- */
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link:hover {
+            border-color: var(--primary);
+            background: rgba(0, 242, 255, 0.1);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* --- 5. LOGO SECTION (FIXED CENTERED DOT) --- */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container {
+            display: flex;
+            /* row-reverse forces Visual LTR order in RTL document: pk -> dot -> Urdu */
+            flex-direction: row-reverse; 
+            align-items: center; /* This vertically centers all items */
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+
+        /* 1. English Part "pk" */
+        .logo-eng {
+            font-family: var(--font-eng);
+            font-size: 3.5em; 
+            color: #ffffff; /* Pure White */
+            font-weight: bold;
+            line-height: 1;
+            margin-top: 10px; /* Slight optical adjustment */
+        }
+
+        /* 2. The Dot "." */
+        .logo-dot {
+            font-family: var(--font-eng);
+            font-size: 4em;
+            color: var(--logo-blue); /* Blue Dot */
+            line-height: 0;
+            position: relative;
+            top: -15px; /* Pulls the dot UP to be geometrically centered */
+        }
+
+        /* 3. Urdu Part */
+        .logo-urdu {
+            font-family: var(--font-urdu);
+            font-size: 4em;
+            color: var(--logo-blue); /* Blue Urdu Text */
+            line-height: 1;
+            text-shadow: 0 0 15px rgba(0, 124, 195, 0.4);
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .typewriter {
+            font-size: 1.3em;
+            color: #ddd;
+            min-height: 30px;
+            opacity: 0.8;
+            margin-top: 5px;
+            font-family: var(--font-urdu);
+        }
+
+        /* --- 6. AD SPACE --- */
+        .ad-space {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 40px;
+            border: 1px dashed var(--glass-border);
+            border-radius: 15px;
+            background: var(--glass-bg);
+            text-align: center;
+            color: #666;
+            position: relative;
+        }
+
+        /* --- 7. CATEGORY GRID --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .cat-card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 242, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .cat-icon-box {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary);
+            transition: 0.5s;
+        }
+
+        .cat-card:hover .cat-icon-box {
+            background: var(--primary);
+            color: #000;
+            transform: rotateY(360deg);
+        }
+
+        .cat-title {
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        /* --- 8. FOOTER & SHARE --- */
+        .share-strip {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .social-btn {
+            width: 45px; height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            transition: 0.3s;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-btn:hover { transform: scale(1.1); background: var(--primary); color:#000; }
+
+        footer {
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 2px solid var(--logo-blue);
+            padding: 40px 0 20px;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #151515, #101010);
+            padding: 20px 30px;
+            border-radius: 12px;
+            border-bottom: 3px solid var(--logo-blue);
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .stat-card h3 {
+            font-size: 2em;
+            color: #fff;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .stat-card span {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .logo-eng, .logo-dot, .logo-urdu { font-size: 2.2em; }
+            .logo-dot { top: -8px; } /* Adjust dot pos for mobile */
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container flex-between">
-            <div class="top-links">
-                <a href="https://bloglovers.pk/about-us.html">ہمارے بارے میں</a>
-                <a href="https://bloglovers.pk/privacy-policy.html">پرائیویسی پالیسی</a>
-                <a href="https://bloglovers.pk/contact-us.html">رابطہ کریں</a>
-                 <a href="https://bloglovers.pk/dmca.html">ڈسکیمر</a>
-            </div>
-            <div class="date-area" id="dateDisplay"></div>
-        </div>
-    </div>
+    <!-- Particle Background -->
+    <canvas id="particles-canvas"></canvas>
 
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <h1>بلاگ لوورزpk.</h1>
-                <p>ہر خبر، ہر وقت، آپ کے لیے</p>
-            </div>
-            <div class="ad-banner">
-                <span>اشتہار کی جگہ (728x90)</span>
-            </div>
-        </div>
-    </header>
-
-    <!-- News Ticker -->
-    <div class="ticker-container">
-        <div class="container">
-            <div class="ticker-wrapper">
-                <div class="ticker-title">تازہ ترین</div>
-                <div class="ticker-content">
-                    <div class="ticker-move" id="tickerContent">
-                        <!-- JS Injected -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Navigation (Updated with your Links) -->
+    <!-- Navigation -->
     <nav class="navbar">
-        <div class="container">
-            <div class="mobile-toggle"><i class="fas fa-bars"></i> مینیو</div>
-            <ul id="mainMenu" class="nav-list">
-                <li><a href="#"><i class="fas fa-home"></i> ہوم</a></li>
-                <!-- Added Code Starts Here -->
-                <li><a href="category-pages/alamaat-sughra.html">علامات صغریٰ</a></li>
-                <li><a href="category-pages/alamaat-kubra.html">علامات کبریٰ</a></li>
-                <li><a href="category-pages/islami-taleemat.html">اسلامی تعلیمات</a></li>
-                <li><a href="category-pages/azkar.html">اذکار</a></li>
-                <li><a href="category-pages/taleem.html">تعلیم</a></li>
-                <li><a href="category-pages/english-adab.html">انگریزی ادب</a></li>
-                <li><a href="category-pages/technology.html">ٹیکنالوجی</a></li>
-                <li><a href="category-pages/tareekh.html">تاریخ</a></li>
-                <li><a href="category-pages/shakhsiyat.html">شخصیات</a></li>
-                <li><a href="category-pages/mazameen.html">مضامین</a></li>
-                <li><a href="category-pages/aqwal.html">اقوال زریں</a></li>
-                <li><a href="category-pages/kids.html">بچوں کے لیے</a></li>
-                <li><a href="category-pages/islami-sawalat.html">اسلامی سوالات</a></li>
-                <li><a href="category-pages/motivation.html">حوصلہ افزائی</a></li>
-                <!-- Added Code Ends Here -->
-            </ul>
+        <div class="nav-inner">
+            <a href="https://bloglovers.pk/about-us.html" class="nav-link">ہمارے بارے میں</a>
+            <a href="https://bloglovers.pk/privacy-policy.html" class="nav-link">پرائیویسی پالیسی</a>
+            <a href="https://bloglovers.pk/contact-us.html" class="nav-link">ہم سے رابطہ</a>
+            <a href="https://bloglovers.pk/dmca.html" class="nav-link">ڈسکلیمر</a>
         </div>
     </nav>
 
-    <!-- Hero Slider -->
-    <section class="slider-section">
-        <div class="container">
-            <div id="slider" class="slider-box">
-                <!-- JS Injected Slides -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Body -->
-    <div class="container main-body">
+    <!-- Header Section -->
+    <header class="hero" data-aos="fade-down">
         
-        <!-- Right Content -->
-        <main id="mainContentArea">
-            <!-- 14 Sections Injected Here -->
-        </main>
+        <!-- LOGO STRUCTURE -->
+        <!-- Visual Order (LTR): [pk] [dot] [Urdu] -->
+        <div class="logo-container">
+            <!-- 1. pk (White) -->
+            <span class="logo-eng">pk</span>
+            <!-- 2. Dot (Blue, Centered) -->
+            <span class="logo-dot">.</span>
+            <!-- 3. Urdu (Blue) -->
+            <span class="logo-urdu">بلاگ لوورز</span>
+        </div>
+        
+        <div class="typewriter" id="typewriter-text"></div>
+    </header>
 
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-            
-            <!-- Social -->
-            <div class="widget">
-                <h3 class="widget-head">فالو کریں</h3>
-                <div class="social-box">
-                    <a href="#" class="fb"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="tw"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="yt"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="ig"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+    <!-- Top Ad Banner -->
+    <div class="container" data-aos="zoom-in">
+        <div class="ad-space">
+            <span>Responsive Ad Banner (728x90)</span>
+        </div>
+    </div>
 
-            <!-- Popular -->
-            <div class="widget">
-                <h3 class="widget-head">مقبول ترین</h3>
-                <div id="popularPosts" class="pop-posts"></div>
-            </div>
+    <!-- Categories Grid (14 Items) -->
+    <div class="container">
+        <div class="cat-grid">
+            <a href="https://bloglovers.pk/category-pages/alamaat-kubra.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-skull-crossbones"></i></div>
+                <span class="cat-title">علامات کبریٰ</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-hourglass-half"></i></div>
+                <span class="cat-title">علامات صغریٰ</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/aqwal.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-quote-right"></i></div>
+                <span class="cat-title">اقوال</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/azkar.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-praying-hands"></i></div>
+                <span class="cat-title">اذکار نافعۃ</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/english-adab.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-book-reader"></i></div>
+                <span class="cat-title">انگریزی ادب</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/islami-sawalat.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-question"></i></div>
+                <span class="cat-title">اسلامی سوالات</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-mosque"></i></div>
+                <span class="cat-title">تعلیمات اسلامی</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/kids.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-child"></i></div>
+                <span class="cat-title">کڈزسیکشن</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/mazameen.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-pen-fancy"></i></div>
+                <span class="cat-title">مضامین</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/motivation.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-lightbulb"></i></div>
+                <span class="cat-title">موٹیویشنل تحریریں</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/shakhsiyat.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-user-tie"></i></div>
+                <span class="cat-title">شخصیات</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/taleem.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-graduation-cap"></i></div>
+                <span class="cat-title">تعلیم</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/tareekh.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-history"></i></div>
+                <span class="cat-title">تاریخ</span>
+            </a>
+            <a href="https://bloglovers.pk/category-pages/technology.html" class="cat-card" data-aos="fade-up">
+                <div class="cat-icon-box"><i class="fas fa-microchip"></i></div>
+                <span class="cat-title">ٹیکنالوجی</span>
+            </a>
+        </div>
+    </div>
 
-            <!-- Labels -->
-            <div class="widget">
-                <h3 class="widget-head">کیٹیگریز</h3>
-                <div id="labelsCloud" class="tags-cloud"></div>
-            </div>
+    <!-- Share Section -->
+    <div class="container">
+        <div class="share-strip" data-aos="flip-up">
+            <a href="#" onclick="share('facebook')" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" onclick="share('twitter')" class="social-btn tw"><i class="fab fa-twitter"></i></a>
+            <a href="#" onclick="share('whatsapp')" class="social-btn wa"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
 
-        </aside>
+    <!-- Bottom Ad -->
+    <div class="container">
+        <div class="ad-space">
+            <span>Bottom Ad Space</span>
+        </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <div class="container footer-content">
-            <div class="col">
-                <h3>بلاگ لوورزpk.</h3>
-                <p>یہ ایک اردو نیوز ویب سائٹ ہے جو آپ کو تازہ ترین حالات سے باخبر رکھتی ہے۔</p>
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-card" data-aos="fade-up">
+                    <h3 class="counter" data-target="103">0</h3>
+                    <span>Followers <i class="fas fa-users" style="color:var(--logo-blue)"></i></span>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3 id="visitor-count">1,670,656</h3>
+                    <span>All Time Views <i class="fas fa-eye" style="color:var(--logo-blue)"></i></span>
+                </div>
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3 id="live-traffic">12</h3>
+                    <div style="width: 10px; height: 10px; background: #0f0; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #0f0; margin-right:5px;"></div>
+                    <span> Live</span>
+                </div>
             </div>
-            <div class="col">
-                <h3>لنکس</h3>
-                <ul>
-                    <li><a href="#">ہوم</a></li>
-                    <li><a href="#">رابطہ</a></li>
-                    <li><a href="#">ٹیم</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Blog Lovers PK. All Rights Reserved.</p>
             </div>
-            <div class="col">
-                <h3>آل ٹائم بیسٹ</h3>
-                <div id="footerBestPosts"></div>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 بلاگ لوورزpk. | جملہ حقوق محفوظ ہیں</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- JavaScript logic -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Typewriter Effect
+        const text = "خوش آمدید .. علم اور ادب کی دنیا میں";
+        const typeContainer = document.getElementById('typewriter-text');
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                typeContainer.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        setTimeout(typeWriter, 500);
+
+        // Stats Simulation
+        function updateStats() {
+            const traffic = document.getElementById('live-traffic');
+            let currentT = parseInt(traffic.innerText);
+            traffic.innerText = Math.max(5, currentT + (Math.floor(Math.random() * 3) - 1));
+
+            const views = document.getElementById('visitor-count');
+            let currentV = parseInt(views.innerText.replace(/,/g, ''));
+            if(Math.random() > 0.7) { currentV++; views.innerText = currentV.toLocaleString(); }
+        }
+        setInterval(updateStats, 2000);
+
+        // Follower Counter
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            const inc = target / 50;
+            const updateCount = () => {
+                const count = +counter.innerText;
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 40);
+                } else { counter.innerText = target; }
+            };
+            updateCount();
+        });
+
+        // Share
+        function share(platform) {
+            const url = encodeURIComponent(window.location.href);
+            if(platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            if(platform === 'twitter') window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank');
+            if(platform === 'whatsapp') window.open(`https://api.whatsapp.com/send?text=${url}`, '_blank');
+        }
+
+        // Particle System
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() * 0.5) - 0.25;
+                this.speedY = (Math.random() * 0.5) - 0.25;
+                this.color = Math.random() > 0.5 ? '#007cc3' : '#bc13fe'; // Logo Blue & Theme Purple
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < 80; i++) particlesArray.push(new Particle());
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+    </script>
 </body>
 </html>
-
-
-
-
