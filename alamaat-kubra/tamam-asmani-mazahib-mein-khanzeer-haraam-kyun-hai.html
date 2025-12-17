@@ -7,54 +7,433 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(40, 40, 40, 0.9);
+            --text-light: #f5f5f5;
+            --accent-color: #9b59b6;
+            --transition: all 0.3s ease;
+        }
+
+        /* Animated Dark Theme */
+        .animated-dark-theme {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #000000 0%, #1a1a2e 50%, #16213e 100%);
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(20px);
+        }
+
+        .glowing-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 20px 8px var(--primary-color);
+            opacity: 0;
+        }
+
+        /* Color Fill Container */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, #c0392b, #8e44ad, #3498db, #1abc9c, #f1c40f, #e74c3c); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 20s ease infinite; 
+        }
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+
+        /* Post Content Overlay */
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 850px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: var(--card-bg); 
+            padding: 35px; 
+            border-radius: 20px; 
+            box-shadow: 0 25px 70px rgba(231, 76, 60, 0.2); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(231, 76, 60, 0.1);
+        }
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+
+        /* Close Button */
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            font-size: 22px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: var(--transition); 
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        .close-btn:hover { 
+            transform: rotate(180deg); 
+            background: #c0392b;
+        }
+
+        /* Main Body */
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.3; 
+            direction: rtl; 
+            text-align: justify; 
+            margin: 0; 
+            padding: 25px; 
+            background: var(--dark-bg); 
+            color: var(--text-light);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header Image */
+        .header-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 25px 0 40px 0;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.3);
+            transition: var(--transition);
+        }
+        .header-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Trigger Button */
+        .trigger-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); 
+            color: white; 
+            padding: 16px 40px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 25px 0; 
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4); 
+            transition: var(--transition); 
+            border: none; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-family: inherit; 
+            letter-spacing: 1px;
+        }
+        .trigger-btn:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.6); 
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+        }
+
+        /* Post Content */
+        .post-content { 
+            max-width: 920px; 
+            margin: 35px auto; 
+            background: var(--card-bg); 
+            padding: 45px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(231, 76, 60, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Headings */
+        h1, h2, h3 { 
+            color: var(--primary-color); 
+            border-bottom: 2px solid rgba(231, 76, 60, 0.3); 
+            padding-bottom: 18px; 
+            text-align: center;
+            text-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+        }
+        h1 { 
+            font-size: 3rem; 
+            margin-bottom: 35px; 
+            border-bottom: 3px solid var(--primary-color); 
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 { font-size: 2.4rem; margin-top: 40px; }
+        h3 { font-size: 2rem; margin-top: 35px; }
+
+        /* Paragraphs */
+        p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 2.4;
+            color: #e0e0e0;
+        }
+
+        /* Highlight Important Text */
+        .important-note {
+            background: rgba(231, 76, 60, 0.1);
+            border-right: 4px solid var(--primary-color);
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            font-size: 1.35rem;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            background: var(--primary-color);
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.5);
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-btn:hover {
+            transform: translateY(-7px) scale(1.1);
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.7);
+            background: var(--accent-color);
+        }
+
+        /* Verse Styling */
+        .verse {
+            font-style: italic;
+            background: rgba(52, 152, 219, 0.1);
+            border-right: 4px solid var(--secondary-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-size: 1.35rem;
+        }
+
+        /* Remove link styling */
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .post-content {
+                padding: 35px;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            h3 {
+                font-size: 1.7rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .post-content {
+                padding: 25px;
+                margin: 20px auto;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            h3 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 1.2rem;
+                line-height: 2.2;
+            }
+            .trigger-btn {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+            .post-content-overlay {
+                width: 95%;
+                padding: 25px;
+            }
+            .back-btn {
+                bottom: 25px;
+                right: 25px;
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+            }
+            .header-image {
+                margin: 20px 0 30px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.9rem;
+            }
+            p {
+                font-size: 1.1rem;
+                text-align: right;
+            }
+            .post-content {
+                padding: 20px;
+            }
+            .trigger-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
+    <!-- Animated Dark Theme Background -->
+    <div class="animated-dark-theme" id="darkTheme"></div>
+
+    <!-- Header Buttons -->
+    <div style="text-align: center; margin: 35px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            🕌 اس پوسٹ کو رنگین بیک گراؤنڈ کے ساتھ پڑھیں
         </button>
     </div>
 
+    <!-- Main Content -->
     <div class="post-content">
-        
         <h1>تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟</h1>
-<p>محترم قارئین کرام! آج کے اس آرٹیکل میں ہم بات کریں گے کہ خنزیر حرام کیوں ہے؟ اور دیگر آسمانی مذاہب میں بھی اسے حرام کیا گیا ہے۔ پہلی بات تو یہ ہے کہ اللہ رب العزت نے دنیا جہان میں بے شمار جانور پیدا کیے ہیں جن کا کوئی نہ کوئی مقصد اور حکمت ہے۔ خالقِ کائنات نے کوئی بھی چیز بے مقصد نہیں بنائی۔ اب اس کا مقصد یہ بھی نہیں کہ تمام پیدا کردہ چیزوں کو کھایا جائے، مثلاً گدھا، کتا، گھوڑا وغیرہ حلال کردہ چیزوں کو چھوڑ کر حرام ہی کو کیوں اپنایا جائے۔ اور یہ بات صرف خنزیر کے کھانے یا نہ کھانے سے نہیں بلکہ اس سے مراد ہر وہ ناجائز کام بھی ہے جس سے اللہ اور اس کا رسول ﷺ ہمیں روکتا ہے، خواہ وہ چوری، ڈاکہ، کسی کا حق کا کھانا، وغیرہ ہی کیوں نہ ہو۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrRf6T_cwGyN6yvFduPpT-5_vlZE14Sec9YqcJLwp-EvHdjFMPPcCM04IM_7dvnLnxbYtZshLYlEUkxO9EGkWRmMIJEsNKpCPd293hTQCUtADw3wiVWi-h9ZBWZ91Dp08utmvHytyF1bmpcapsElJD-TsoTD2KsA7MCKc5nrmLMWmbetqjucSIDaLLDEbc/s640/%D8%AA%D9%85%D8%A7%D9%85%20%D8%A2%D8%B3%D9%85%D8%A7%D9%86%DB%8C%20%D9%85%D8%B0%D8%A7%DB%81%D8%A8%20%D9%85%DB%8C%DA%BA%20%D8%AE%D9%86%D8%B2%DB%8C%D8%B1%20%D8%AD%D8%B1%D8%A7%D9%85%20%DA%A9%DB%8C%D9%88%DA%BA%20%DB%81%DB%92%D8%9F.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrRf6T_cwGyN6yvFduPpT-5_vlZE14Sec9YqcJLwp-EvHdjFMPPcCM04IM_7dvnLnxbYtZshLYlEUkxO9EGkWRmMIJEsNKpCPd293hTQCUtADw3wiVWi-h9ZBWZ91Dp08utmvHytyF1bmpcapsElJD-TsoTD2KsA7MCKc5nrmLMWmbetqjucSIDaLLDEbc/s16000/%D8%AA%D9%85%D8%A7%D9%85%20%D8%A2%D8%B3%D9%85%D8%A7%D9%86%DB%8C%20%D9%85%D8%B0%D8%A7%DB%81%D8%A8%20%D9%85%DB%8C%DA%BA%20%D8%AE%D9%86%D8%B2%DB%8C%D8%B1%20%D8%AD%D8%B1%D8%A7%D9%85%20%DA%A9%DB%8C%D9%88%DA%BA%20%DB%81%DB%92%D8%9F.jpg" alt=""></a></p>
-<p>دوستو! خنزیر انتہائی خبیث اور سست جانور ہے۔ یہ نباتاتی چیزیں، جانور، مردار اور گندگی کھاتا ہے، نیز اپنے بول وبراز کے ساتھ ساتھ دیگر حیوانات کی گندگی بھی کھا جاتا ہے۔ جب بات کی جاتی ہے کہ حضرت عیسیٰ آئیں گے تو خنزیر کو قتل کریں گے سے مراد ہے کہ جب سب لوگ ایک ہی جھنڈے کے نیچے جمع ہو جائیں گے اور لوگوں کے شک وشبہات ختم ہو جائیں گے تو جو لوگ خنزیر کی نسل کو پال رہے ہیں یہی لوگ اپنے ہاتھوں سے ختم کر دیں گے۔ <a href="https://www.bloglovers.pk/2024/01/blog-post.html">اس طرح خنزیر کا وجود ختم ہو جائے گا۔</a></p>
-<p>ارشاد ربانی ہے &quot;اللہ نے تو تم پر صرف مردار، خون، خنزیر کا گوشت اور وہ چیز حرام کی ہے جس پر اللہ کے سوا کسی اور کا نام پکارا جائے، پھر جو شخص ناچار کردیا گیا جبکہ وہ سرکشی کرنے والا اور حد سے گزرنے والا نہ ہو تو اس پر کوئی گناہ نہیں، بے شک اللہ بہت بخشنے والا، بڑا رحم کرنے والا ہے&quot;۔</p>
-<p>دوسرے مقام پر کچھ یوں ارشاد فرمایا گیا: &quot;اللہ نے تو بس تم پر مردار، خون، خنزیر کا گوشت اور جس پر غیر اللہ کا نام لیا گیا ہو حرام کیا ہے، پھر جو شخص لاچار کر دیا جائے جبکہ نہ وہ باغی ہو اور نہ حد سے بڑھنے والا تو بے شک اللہ بہت بخشنے والا، نہایت مہربان ہے&quot;۔</p>
-<p>خنزیر کے بارے میں تورات میں کچھ یوں ارشاد ہوا: &quot;اور خنزیر بھی کیونکہ اس کا کھر دو حصوں میں منقسم تو ہوتا ہے لیکن وہ جگالی نہیں کرتا، چنانچہ وہ تمھارے لئے نجس (ناپاک) ہے، تم نہ تو اس کا گوشت کھاؤ اور نہ اس کے جسم کو ہاتھ لگاؤ&quot;۔</p>
-<p>خنزیر کے بارے میں انجیل مقدس میں کچھ یوں ارشاد فرمایا گیا: &quot;پطرس نے کہا: ہرگز نہیں، اے رب! میں نے کبھی کوئی گندی یا ناپاک چیز نہیں کھائی:&quot;۔</p>
-<p>عیسائی بھی خنزیر کا گوشت نہیں کھاتے جن کا یہ عقیدہ ہے کہ عیسیٰ آسمان پر اٹھائے جانے کے بعد ساتویں دین دوبارہ تشریف لے آئے تھے۔</p>
-<p>اسی طرح ہندومت میں بھی خنزیر کا گوشت کھانے کی ممانعت ہے۔ اونچی ذات کے ہندو خنزیر کا گوشت کھانے کو باعث عار سمجھتے ہیں۔ صرف گھٹیا اور نچلی ذات کے ہندو یعنی اچھوت وغیرہ ہی خنزیر کا گوشت کھاتے ہیں۔</p>
-<p>اسی طرح خنزیر کا گوشت کھانے سے زرتشت مذہب کے لوگ بھی پرہیز کرتے ہیں۔ بدھ مت کے پیروکار بھی خنزیر کو ہاتھ لگانے سے مکمل اجتناب کرتے ہیں۔</p>
-<p>خیال رہے کہ خنزیر انسانوں میں بہت سی بیماریاں منتقل کرنے کا سبب بھی بنتا ہے۔ یہ ایک ایسا غلیظ جانور ہے جو نہ صرف اپنی گندگی کھاتا دکھائی دیتا ہے بلکہ اسے اس امر کی بھی پروا نہیں ہوتی کہ اس کی موجودگی میں دوسرے نر اس کی مادہ کے ساتھ کیا سلوک کر رہے ہیں۔ جبکہ اس کے برعکس دیگر جانور اپنی مادہ کا دفاع کرتے نظر آتے ہیں۔ چنانچہ یہ دیکھا گیا ہے کہ خنزیر کا گوشت استعمال کرنے والوں کی غیرت عام طور پر کمزور پڑ جاتی ہے اور انھیں اس بات کا کوئی ملال نہیں ہوتا کہ ان کی خواتین کے معمولات اور حرکات وسکنات کیا ہیں۔</p>
-<p>اللہ رب العزت نے خنزیر کو حرام قرار دیا کیونکہ خنزیروں میں بہت سے وبائی امراض پائے جاتے ہیں جن کی تعداد کم و بیش 450 سے زائد ہیں۔ ان بیماریوں میں تثیف جگر (اس بیماری سے خلیوں کے گل جانے سے آس پاس کی نسیں سخت ہو جاتی ہیں۔ جیسے عموماً یہ علامات شراب نوشی کی کثرت سے بھی واقع ہوتی ہیں)، بدہضمی، شریانوں کی سختی، بال گرنا، بانجھ پن اور یاداشت کی کمزوری شامل ہیں۔ ذہنی دباؤ اور اپنی خواتین بیوی، بہن، بیٹی وغیرہ کے بارے میں بے غیرتی کا مظاہرہ ان کے علاوہ ہے۔</p>
-<p>اسی طرح خنزیر کے گوشت سے بننے والی دیگر اشیاء کے استعمال سے کئی بیماریاں انسانوں میں منتقل ہوجاتی ہیں جیسے کہ مالٹا فیور، جگر کا کیڑا، ٹی بی وغیرہ شامل ہیں۔ خبیث پھوڑا Anthrax، منہ اور پاؤں کا گلنا، خون کا زہریلا پن، جاپانی بخار، اور تیز خارش جیسے امراض شامل ہیں۔</p>
-<p>خنزیر کا گوشت کھانے سے محض نقصان اور بیماریاں ہی ملتی ہیں فائدہ ایک بھی نہیں ہے لیکن جو لوگ بھی اس کا گوشت کھاتے ہیں وہ اللہ اور اس کے رسول کے احکامات ماننے والے نہیں ہیں۔ واضح ہدایت کے باوجود اپنے لئے گمراہی خریدنے والے ہیں۔</p>
-<p>جو لوگ بھی کسی جانور کا گوشت استعمال میں لاتے ہیں ان کا رہن سہن، عادات واطوار اور خصلیتں اور جانور جیسی ہی ہوتی چلی جاتی ہیں۔ قرب قیامت حضرت عیسیٰ ﷺ لوگوں کو خنزیر کے وجود کو روئے زمین سے مکمل طور پر ختم کردینے کا حکم صادر فرمائیں گے۔ اور یہی لوگ جو آج ان کی نسل کی افزائش کرتے دکھائی دیتے ہیں اپنے ہی ہاتھوں سے قتل کریں گے۔</p>
-<p>اور یہی حکم قرآن میں غیر اللہ کی نذرونیاز کے بارے میں فرمایا گیا ہے۔ جو لوگ حقیقی رب کو چھوڑ کر اپنے جیسے کمزور انسانوں کو اپنا خدا بنالیتے ہیں اور ان ہی کے نام کی نذرونیاز، چڑھاوے چڑھاتے ہیں، منتیں مرادیں مانگتے ہیں تو اس شخص سے بڑا کوئی گنہگار ہوگا اس دنیا میں اور ایسے شخص کے لئے اللہ فرماتے ہیں کہ وہ گناہ کبیرہ کا مرتکب ہے اور شرک ایسا گناہ ہے جس کی کوئی معافی نہیں ہے سب گناہ معاف کردئیے جائیں گے مگر شرک کی معافی ہرگز نہیں ہے۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ ہم سب کو گناہ سے بچنے اور حرام اور حلال کے درمیان فرق کرنے کی توفیق عطا فرمائے۔ آمین</p>
+        
+        <!-- Main Image -->
+        <img src="https://bloglovers.pk/images/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai.png" 
+             alt="تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟" 
+             class="header-image">
+        
+        <p>محترم قارئین کرام! آج کے اس آرٹیکل میں ہم بات کریں گے کہ خنزیر حرام کیوں ہے؟ اور دیگر آسمانی مذاہب میں بھی اسے حرام کیا گیا ہے۔ پہلی بات تو یہ ہے کہ اللہ رب العزت نے دنیا جہان میں بے شمار جانور پیدا کیے ہیں جن کا کوئی نہ کوئی مقصد اور حکمت ہے۔ خالقِ کائنات نے کوئی بھی چیز بے مقصد نہیں بنائی۔ اب اس کا مقصد یہ بھی نہیں کہ تمام پیدا کردہ چیزوں کو کھایا جائے، مثلاً گدھا، کتا، گھوڑا وغیرہ حلال کردہ چیزوں کو چھوڑ کر حرام ہی کو کیوں اپنایا جائے۔ اور یہ بات صرف خنزیر کے کھانے یا نہ کھانے سے نہیں بلکہ اس سے مراد ہر وہ ناجائز کام بھی ہے جس سے اللہ اور اس کا رسول ﷺ ہمیں روکتا ہے، خواہ وہ چوری، ڈاکہ، کسی کا حق کا کھانا، وغیرہ ہی کیوں نہ ہو۔</p>
 
+        <div class="important-note">
+            <strong>دوستو!</strong> خنزیر انتہائی خبیث اور سست جانور ہے۔ یہ نباتاتی چیزیں، جانور، مردار اور گندگی کھاتا ہے، نیز اپنے بول وبراز کے ساتھ ساتھ دیگر حیوانات کی گندگی بھی کھا جاتا ہے۔ جب بات کی جاتی ہے کہ حضرت عیسیٰ آئیں گے تو خنزیر کو قتل کریں گے سے مراد ہے کہ جب سب لوگ ایک ہی جھنڈے کے نیچے جمع ہو جائیں گے اور لوگوں کے شک وشبہات ختم ہو جائیں گے تو جو لوگ خنزیر کی نسل کو پال رہے ہیں یہی لوگ اپنے ہاتھوں سے ختم کر دیں گے۔ اس طرح خنزیر کا وجود ختم ہو جائے گا۔
+        </div>
+
+        <h2>قرآن پاک میں ارشادات</h2>
+        <div class="verse">
+            ارشاد ربانی ہے "اللہ نے تو تم پر صرف مردار، خون، خنزیر کا گوشت اور وہ چیز حرام کی ہے جس پر اللہ کے سوا کسی اور کا نام پکارا جائے، پھر جو شخص ناچار کردیا گیا جبکہ وہ سرکشی کرنے والا اور حد سے گزرنے والا نہ ہو تو اس پر کوئی گناہ نہیں، بے شک اللہ بہت بخشنے والا، بڑا رحم کرنے والا ہے"۔
+        </div>
+
+        <div class="verse">
+            دوسرے مقام پر کچھ یوں ارشاد فرمایا گیا: "اللہ نے تو بس تم پر مردار، خون، خنزیر کا گوشت اور جس پر غیر اللہ کا نام لیا گیا ہو حرام کیا ہے، پھر جو شخص لاچار کر دیا جائے جبکہ نہ وہ باغی ہو اور نہ حد سے بڑھنے والا تو بے شک اللہ بہت بخشنے والا، نہایت مہربان ہے"۔
+        </div>
+
+        <h2>تورات میں حکم</h2>
+        <div class="verse">
+            خنزیر کے بارے میں تورات میں کچھ یوں ارشاد ہوا: "اور خنزیر بھی کیونکہ اس کا کھر دو حصوں میں منقسم تو ہوتا ہے لیکن وہ جگالی نہیں کرتا، چنانچہ وہ تمھارے لئے نجس (ناپاک) ہے، تم نہ تو اس کا گوشت کھاؤ اور نہ اس کے جسم کو ہاتھ لگاؤ"۔
+        </div>
+
+        <h2>انجیل مقدس میں ذکر</h2>
+        <div class="verse">
+            خنزیر کے بارے میں انجیل مقدس میں کچھ یوں ارشاد فرمایا گیا: "پطرس نے کہا: ہرگز نہیں، اے رب! میں نے کبھی کوئی گندی یا ناپاک چیز نہیں کھائی:"۔
+        </div>
+
+        <p>عیسائی بھی خنزیر کا گوشت نہیں کھاتے جن کا یہ عقیدہ ہے کہ عیسیٰ آسمان پر اٹھائے جانے کے بعد ساتویں دین دوبارہ تشریف لے آئے تھے۔</p>
+
+        <h2>دیگر مذاہب میں خنزیر کا حکم</h2>
+        <p>اسی طرح ہندومت میں بھی خنزیر کا گوشت کھانے کی ممانعت ہے۔ اونچی ذات کے ہندو خنزیر کا گوشت کھانے کو باعث عار سمجھتے ہیں۔ صرف گھٹیا اور نچلی ذات کے ہندو یعنی اچھوت وغیرہ ہی خنزیر کا گوشت کھاتے ہیں۔</p>
+        <p>اسی طرح خنزیر کا گوشت کھانے سے زرتشت مذہب کے لوگ بھی پرہیز کرتے ہیں۔ بدھ مت کے پیروکار بھی خنزیر کو ہاتھ لگانے سے مکمل اجتناب کرتے ہیں۔</p>
+
+        <div class="important-note">
+            خیال رہے کہ خنزیر انسانوں میں بہت سی بیماریاں منتقل کرنے کا سبب بھی بنتا ہے۔ یہ ایک ایسا غلیظ جانور ہے جو نہ صرف اپنی گندگی کھاتا دکھائی دیتا ہے بلکہ اسے اس امر کی بھی پروا نہیں ہوتی کہ اس کی موجودگی میں دوسرے نر اس کی مادہ کے ساتھ کیا سلوک کر رہے ہیں۔ جبکہ اس کے برعکس دیگر جانور اپنی مادہ کا دفاع کرتے نظر آتے ہیں۔ چنانچہ یہ دیکھا گیا ہے کہ خنزیر کا گوشت استعمال کرنے والوں کی غیرت عام طور پر کمزور پڑ جاتی ہے اور انھیں اس بات کا کوئی ملال نہیں ہوتا کہ ان کی خواتین کے معمولات اور حرکات وسکنات کیا ہیں۔
+        </div>
+
+        <h2>خنزیر سے پھیلنے والی بیماریاں</h2>
+        <p>اللہ رب العزت نے خنزیر کو حرام قرار دیا کیونکہ خنزیروں میں بہت سے وبائی امراض پائے جاتے ہیں جن کی تعداد کم و بیش 450 سے زائد ہیں۔ ان بیماریوں میں تثیف جگر (اس بیماری سے خلیوں کے گل جانے سے آس پاس کی نسیں سخت ہو جاتی ہیں۔ جیسے عموماً یہ علامات شراب نوشی کی کثرت سے بھی واقع ہوتی ہیں)، بدہضمی، شریانوں کی سختی، بال گرنا، بانجھ پن اور یاداشت کی کمزوری شامل ہیں۔ ذہنی دباؤ اور اپنی خواتین بیوی، بہن، بیٹی وغیرہ کے بارے میں بے غیرتی کا مظاہرہ ان کے علاوہ ہے۔</p>
+
+        <p>اسی طرح خنزیر کے گوشت سے بننے والی دیگر اشیاء کے استعمال سے کئی بیماریاں انسانوں میں منتقل ہوجاتی ہیں جیسے کہ مالٹا فیور، جگر کا کیڑا، ٹی بی وغیرہ شامل ہیں۔ خبیث پھوڑا Anthrax، منہ اور پاؤں کا گلنا، خون کا زہریلا پن، جاپانی بخار، اور تیز خارش جیسے امراض شامل ہیں۔</p>
+
+        <div class="important-note">
+            خنزیر کا گوشت کھانے سے محض نقصان اور بیماریاں ہی ملتی ہیں فائدہ ایک بھی نہیں ہے لیکن جو لوگ بھی اس کا گوشت کھاتے ہیں وہ اللہ اور اس کے رسول کے احکامات ماننے والے نہیں ہیں۔ واضح ہدایت کے باوجود اپنے لئے گمراہی خریدنے والے ہیں۔
+        </div>
+
+        <h2>انسان کی عادات پر اثر</h2>
+        <p>جو لوگ بھی کسی جانور کا گوشت استعمال میں لاتے ہیں ان کا رہن سہن، عادات واطوار اور خصلیتں اور جانور جیسی ہی ہوتی چلی جاتی ہیں۔ قرب قیامت حضرت عیسیٰ ﷺ لوگوں کو خنزیر کے وجود کو روئے زمین سے مکمل طور پر ختم کردینے کا حکم صادر فرمائیں گے۔ اور یہی لوگ جو آج ان کی نسل کی افزائش کرتے دکھائی دیتے ہیں اپنے ہی ہاتھوں سے قتل کریں گے۔</p>
+
+        <div class="verse">
+            اور یہی حکم قرآن میں غیر اللہ کی نذرونیاز کے بارے میں فرمایا گیا ہے۔ جو لوگ حقیقی رب کو چھوڑ کر اپنے جیسے کمزور انسانوں کو اپنا خدا بنالیتے ہیں اور ان ہی کے نام کی نذرونیاز، چڑھاوے چڑھاتے ہیں، منتیں مرادیں مانگتے ہیں تو اس شخص سے بڑا کوئی گنہگار ہوگا اس دنیا میں اور ایسے شخص کے لئے اللہ فرماتے ہیں کہ وہ گناہ کبیرہ کا مرتکب ہے اور شرک ایسا گناہ ہے جس کی کوئی معافی نہیں ہے سب گناہ معاف کردئیے جائیں گے مگر شرک کی معافی ہرگز نہیں ہے۔
+        </div>
+
+        <p style="text-align: center; font-size: 1.5rem; margin-top: 40px; padding: 20px; background: rgba(52, 152, 219, 0.1); border-radius: 10px;">
+            اللہ رب العزت سے استدعا ہے کہ ہم سب کو گناہ سے بچنے اور حرام اور حلال کے درمیان فرق کرنے کی توفیق عطا فرمائے۔ آمین
+        </p>
     </div>
 
+    <!-- Back Button -->
+    <button class="back-btn" onclick="scrollToTop()" title="اوپر جائیں">↑</button>
+
+    <!-- Color Fill Overlay Components -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -62,6 +441,66 @@
     </div>
 
     <script>
+        // Create animated floating elements
+        function createFloatingElements() {
+            const theme = document.getElementById('darkTheme');
+            
+            // Create floating elements
+            for (let i = 0; i < 80; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                
+                const size = Math.random() * 100 + 50;
+                const colors = [
+                    'rgba(231, 76, 60, 0.1)',
+                    'rgba(52, 152, 219, 0.1)',
+                    'rgba(155, 89, 182, 0.1)',
+                    'rgba(26, 188, 156, 0.1)'
+                ];
+                
+                element.style.width = size + 'px';
+                element.style.height = size + 'px';
+                element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.opacity = '0.1';
+                
+                // Add floating animation
+                element.style.animation = `float ${Math.random() * 20 + 10}s infinite ease-in-out`;
+                
+                theme.appendChild(element);
+            }
+
+            // Create glowing dots
+            for (let i = 0; i < 30; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'glowing-dot';
+                dot.style.left = Math.random() * 100 + '%';
+                dot.style.top = Math.random() * 100 + '%';
+                
+                setTimeout(() => {
+                    dot.style.opacity = '0.7';
+                    dot.style.transition = 'all 6s linear';
+                    dot.style.left = Math.random() * 100 + '%';
+                    dot.style.top = Math.random() * 100 + '%';
+                    
+                    setInterval(() => {
+                        dot.style.opacity = '0.2';
+                        dot.style.transition = 'opacity 2s';
+                        setTimeout(() => {
+                            dot.style.left = Math.random() * 100 + '%';
+                            dot.style.top = Math.random() * 100 + '%';
+                            dot.style.opacity = '0.7';
+                            dot.style.transition = 'all 6s linear';
+                        }, 2000);
+                    }, 8000);
+                }, i * 400);
+                
+                theme.appendChild(dot);
+            }
+        }
+
+        // Open color fill overlay
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -69,14 +508,49 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+
+        // Close color fill overlay
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Event Listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+
+        // Initialize floating elements when page loads
+        window.addEventListener('load', createFloatingElements);
+
+        // Add float animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translate(0, 0) rotate(0deg); }
+                25% { transform: translate(20px, 20px) rotate(90deg); }
+                50% { transform: translate(0, 40px) rotate(180deg); }
+                75% { transform: translate(-20px, 20px) rotate(270deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Show/hide back button based on scroll
+        window.addEventListener('scroll', function() {
+            const backBtn = document.querySelector('.back-btn');
+            backBtn.style.display = 'flex';
+        });
     </script>
 </body>
 </html>
