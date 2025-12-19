@@ -5,66 +5,631 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حج و عمرہ: عبادت یا نمائش؟ روحانیت کہاں کھو گئی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --dark-bg: #0a0a1a;
+            --darker-bg: #050510;
+            --text-color: #e6f2ff;
+            --heading-color: #ffd166;
+            --accent-color: #ef476f;
+            --secondary-color: #06d6a0;
+            --spiritual-color: #118ab2;
+            --card-bg: rgba(25, 25, 45, 0.92);
+            --shadow-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.4;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Space Animation Background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #0a0a1a 0%, #0a1a2a 50%, #1a0a2e 100%);
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+        
+        .moon {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #f8f9fa 0%, #e9ecef 30%, #6c757d 100%);
+            top: 15%;
+            left: 10%;
+            box-shadow: 0 0 40px rgba(248, 249, 250, 0.3);
+            opacity: 0.7;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--spiritual-color);
+            color: var(--spiritual-color);
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.12);
+            background: var(--spiritual-color);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px rgba(17, 138, 178, 0.7);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            border: none;
+            cursor: pointer;
+            font-size: 19px;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(239, 71, 111, 0.6);
+        }
+        
+        /* Main Content */
+        .main-container {
+            max-width: 1050px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin: 50px 0 70px;
+            position: relative;
+        }
+        
+        h1 {
+            color: var(--heading-color);
+            font-size: 3.5rem;
+            margin-bottom: 35px;
+            text-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+            border-bottom: 4px solid var(--spiritual-color);
+            padding-bottom: 25px;
+            line-height: 1.3;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .post-image {
+            max-width: 80%;
+            height: auto;
+            border-radius: 25px;
+            margin: 40px auto;
+            display: block;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 4px solid var(--spiritual-color);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 25px 60px rgba(6, 214, 160, 0.4);
+        }
+        
+        .post-content {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            margin-bottom: 60px;
+            border: 2px solid rgba(17, 138, 178, 0.3);
+            text-align: justify;
+            backdrop-filter: blur(10px);
+        }
+        
+        .post-content p {
+            font-size: 1.7rem;
+            margin-bottom: 35px;
+            color: var(--text-color);
+            text-align: justify;
+            line-height: 2.6;
+            text-align-last: right;
+        }
+        
+        .post-content strong {
+            color: var(--heading-color);
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+        
+        .post-content ul, .post-content ol {
+            margin-right: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .post-content li {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            padding-right: 15px;
+            position: relative;
+        }
+        
+        .post-content ul li:before {
+            content: "•";
+            color: var(--secondary-color);
+            font-size: 2rem;
+            position: absolute;
+            right: -25px;
+            top: 0;
+        }
+        
+        .post-content ol {
+            counter-reset: item;
+        }
+        
+        .post-content ol li {
+            counter-increment: item;
+        }
+        
+        .post-content ol li:before {
+            content: counter(item) ".";
+            color: var(--spiritual-color);
+            font-weight: bold;
+            font-size: 1.8rem;
+            position: absolute;
+            right: -35px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(17, 138, 178, 0.2), rgba(6, 214, 160, 0.1));
+            border-right: 5px solid var(--spiritual-color);
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 20px;
+            font-style: italic;
+            font-size: 1.6rem;
+            color: #a8e6cf;
+        }
+        
+        /* Color Fill Feature */
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+        
+        .color-fill-container.active {
+            opacity: 1;
+            z-index: 9998;
+        }
+        
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 850px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--spiritual-color);
+        }
+        
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: transform 0.3s;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: var(--secondary-color);
+        }
+        
+        .trigger-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #118ab2, #06d6a0);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 35px 0;
+            box-shadow: 0 10px 25px rgba(17, 138, 178, 0.5);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 22px;
+            font-family: inherit;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .trigger-btn:hover {
+            transform: translateY(-6px) scale(1.06);
+            box-shadow: 0 15px 35px rgba(6, 214, 160, 0.7);
+            background: linear-gradient(45deg, #06d6a0, #118ab2);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.9rem;
+            }
+            
+            .post-content p {
+                font-size: 1.6rem;
+            }
+            
+            .moon {
+                width: 120px;
+                height: 120px;
+                top: 10%;
+                left: 5%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            .post-content p {
+                font-size: 1.5rem;
+                line-height: 2.4;
+            }
+            
+            .post-content {
+                padding: 35px;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .back-btn {
+                padding: 12px 24px;
+                font-size: 17px;
+            }
+            
+            .trigger-btn {
+                padding: 16px 35px;
+                font-size: 20px;
+            }
+            
+            .post-image {
+                max-width: 95%;
+            }
+            
+            .moon {
+                width: 100px;
+                height: 100px;
+                opacity: 0.5;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .post-content p {
+                font-size: 1.4rem;
+                line-height: 2.2;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .nav-buttons {
+                left: 8px;
+                gap: 12px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .post-content {
+                padding: 28px;
+            }
+            
+            .trigger-btn {
+                padding: 14px 30px;
+                font-size: 18px;
+            }
+            
+            .post-image {
+                max-width: 100%;
+                border-radius: 20px;
+            }
+            
+            .moon {
+                display: none;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--spiritual-color), var(--secondary-color));
+            border-radius: 7px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+        }
+        
+        /* Spiritual Elements */
+        .spiritual-border {
+            position: relative;
+            padding: 10px;
+        }
+        
+        .spiritual-border:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--spiritual-color), transparent);
+        }
+        
+        .spiritual-border:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--spiritual-color), transparent);
+        }
+        
+        /* Prayer Section */
+        .prayer-section {
+            text-align: center;
+            margin: 50px 0;
+            padding: 40px;
+            background: rgba(17, 138, 178, 0.15);
+            border-radius: 25px;
+            border: 2px solid rgba(17, 138, 178, 0.4);
+        }
+        
+        .prayer-text {
+            font-size: 1.9rem;
+            color: #ffd166;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .arabic-text {
+            font-size: 2.5rem;
+            color: #06d6a0;
+            margin: 25px 0;
+            font-family: 'Traditional Arabic', 'Noto Naskh Arabic', serif;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Space Background with Moon -->
+    <div class="space-bg" id="spaceBg">
+        <div class="moon"></div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
+    </div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-right"></i> واپس جائیں
+    </button>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="header-section">
+            <h1 class="spiritual-border">حج و عمرہ: عبادت یا نمائش؟ روحانیت کہاں کھو گئی؟</h1>
+            
+            <div style="text-align: center; margin: 40px 0;">
+                <button class="trigger-btn" onclick="openColorFillPost()">
+                    🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+                </button>
+            </div>
+            
+            <!-- Post Image -->
+            <img src="https://bloglovers.pk/images/mazameen/hj-w-amrh-abadt-ya-nmash-rohanyt-khan-kho-gi.png" 
+                 alt="حج و عمرہ: عبادت یا نمائش؟ روحانیت کہاں کھو گئی؟" 
+                 class="post-image">
+        </div>
+        
+        <div class="post-content">
+            <p>سعودی عرب کی حج و عمرہ وزارت کی جاری کردہ 2023 کی اسٹیٹسٹکس نے امت مسلمہ کے سامنے ایک تلخ حقیقت رکھ دی ہے۔ کعبۃ اللہ کے سامنے جو ہاتھ عجز و انکساری سے دعا کے لیے اٹھنے چاہئیں تھے، وہ اب اسمارٹ فونز تھامے ہوئے نظر آتے ہیں۔ جو چہرے خشیت الٰہی سے گریہ کرتے تھے، وہ اب سیلفی کے لیے مسکراہٹیں بکھیر رہے ہیں۔ یہ منظر ہمارے زمانے کے سب سے بڑے روحانی بحران کی نشاندہی کرتا ہے۔</p>
+            
+            <p>ہمارے بزرگ حج کو "سفر آخرت" کہا کرتے تھے۔ احرام کو کفن سمجھ کر پہنا جاتا تھا، کیونکہ یہ خدا سے ملاقات کا موقع تھا۔ آج یہ مقدس سفر کسی تفریحی ٹور میں بدل گیا ہے۔ مسجد الحرام میں نماز کے دوران بھی کیمرے کھلے رہتے ہیں، طواف کے دوران ویڈیو کالز ہوتی ہیں، اور صفا مروہ پر سیلفی سیشن چلتے ہیں۔</p>
+            
+            <div class="highlight-box">
+                <p>ہم نے اپنی عبادتوں کو بھی نمائش کا ذریعہ بنا لیا ہے:</p>
+                <ul>
+                <li>نماز کی تصاویر لینا</li>
+                <li>قرآن پڑھتے ہوئے اسٹوریز بنانا</li>
+                <li>منیٰ اور عرفات میں لگژری کیمپس کی ویڈیوز شیئر کرنا</li>
+                <li>احرام میں فیشن شوز کرنا</li>
+                </ul>
+            </div>
+            
+            <p>کیا یہ سب ریاکاری کی نئی شکلیں نہیں؟ رسول اللہ ﷺ نے تو چھپ کر صدقہ کرنے کی ترغیب دی تھی، آج ہم اپنی ہر عبادت کو آن لائن نشر کر دیتے ہیں۔</p>
+            
+            <p>ہمیں اپنے دل سے پوچھنا چاہیے:</p>
+            <ol>
+            <li>کیا ہم مواقعتاً اللہ کی رضا کے لیے حج کر رہے ہیں؟</li>
+            <li>کیا ہمارا مقصد صرف "حاجی" کا خطاب حاصل کرنا اور سوشل میڈیا پر شیئر کرنا تو نہیں؟</li>
+            <li>کیا ہم نے اپنی عبادتوں کو بھی دنیاوی نمائش کا ذریعہ بنا لیا ہے؟</li>
+            </ol>
+            
+            <p>حج و عمرہ کی برکت اس میں ہے کہ انسان اپنے رب سے سچے دل سے توبہ کرے، نہ کہ لوگوں کو دکھانے کے لیے عبادت کرے۔ اللہ تعالیٰ ہمیں خلوص نیت عطا فرمائے اور ہمارے ایمان کی حفاظت فرمائے۔ آمین۔</p>
+            
+            <p>حقیقت یہ ہے کہ ہم نے اپنی عبادتوں کو بھی ایک "سوشل میڈیا شو" بنا دیا ہے۔ ہم نماز پڑھتے ہیں تو کیمرہ آن کر دیتے ہیں، قرآن پڑھتے ہیں تو اسٹوری لگا دیتے ہیں، اور اب حج و عمرہ جیسی عظیم عبادت کو بھی اپنی "پرسنلٹی ڈسپلے" کا ذریعہ بنا لیا ہے۔ کیا ہم بھول گئے ہیں کہ عبادت کا اصل مقصد اللہ کی رضا حاصل کرنا ہے، نہ کہ لوگوں کی توجہ؟</p>
+            
+            <p><strong>کیوں ہماری دعائیں قبول نہیں ہو رہیں؟</strong></p>
+            
+            <p>کیا وجہ ہے کہ غزہ میں ہونے والے مظالم ہمیں دکھائی نہیں دے رہے؟ یہ سوال ہمارے ضمیر کو جھنجوڑنے والا ہے۔ ہر روز بچے، بوڑھے اور عورتیں بے گناہ مارے جا رہے ہیں، مگر ہماری آنکھیں ان کے درد کو محسوس کرنے سے قاصر کیوں ہیں؟ کیا ہم نے اپنے دلوں کو پتھر کی طرح سخت بنا لیا ہے؟</p>
+            
+            <p>قرآن پاک میں اللہ تعالیٰ فرماتا ہے کہ وہ اپنے بندوں کی دعا ضرور سنتا ہے، لیکن شاید ہماری دعاؤں میں خلوص کی کمی ہے، یا پھر ہم خود ہی اپنے اعمال کی وجہ سے رحمتِ الٰہی سے محروم ہو چکے ہیں۔ ہم صرف زبانی دعائیں کرتے ہیں، عملی طور پر کوئی اقدام نہیں اٹھاتے، اور پھر یہ شکوہ کرتے ہیں کہ ہماری دعائیں کیوں قبول نہیں ہو رہیں۔</p>
+            
+            <p>کیا وجہ ہے کہ غزہ کے مظلوموں کی چیخیں اور پکار ہم تک نہیں پہنچ رہی؟ کیا ہم نے اپنے کانوں کو حقائق سے بند کر لیا ہے، یا پھر ہماری روحیں اتنی مردہ ہو چکی ہیں کہ ہم درد محسوس ہی نہیں کرتے؟</p>
+            
+            <p>دنیا بھر میں میڈیا طاقتور حکومتوں کے اشاروں پر ناچ رہا ہے، اور غزہ کے مظالم کو جان بوجھ کر نظر انداز کیا جا رہا ہے۔ لیکن کیا ہم بھی اسی نظام کا حصہ بن چکے ہیں؟ کیا ہم بھی ان خاموش تماشائیوں میں شامل ہو گئے ہیں جو ظلم ہوتا دیکھ کر بھی آنکھیں بند کر لیتے ہیں؟</p>
+            
+            <div class="highlight-box">
+                <p>حضرت علیؓ کا قول ہے کہ "ظالم کی مدد نہ کرنا بھی مظلوم پر ظلم ہے"، لیکن ہم تو ظالم کی مدد تو درکنار، مظلوم کی آواز تک اٹھانے سے گریز کر رہے ہیں۔</p>
+            </div>
+            
+            <p>ہمارے خون سفید کیوں ہو رہے ہیں؟ ہم نے بے حسی کا لبادہ کیوں اوڑھ رکھا ہے؟ شاید ہم موت سے ڈر گئے ہیں، شاید ہماری زندگیوں میں مادیت اور آسائشات نے ہمیں اس قدر گھیر لیا ہے کہ ہم دوسروں کے درد کو محسوس ہی نہیں کر پاتے۔ لیکن تاریخ گواہ ہے کہ جو قومیں مظلوموں کے ساتھ کھڑی ہوتی ہیں، اللہ تعالیٰ ان کی مدد کرتا ہے۔</p>
+            
+            <p>ہمیں اپنے دل کی مردہ دھڑکنوں کو زندہ کرنا ہوگا، اپنی بے حسی کو توڑنا ہوگا، اور غزہ کے مظلوموں کے لیے نہ صرف دعا کرنی ہوگی بلکہ عملی طور پر ان کی آواز بننا ہوگا۔ ورنہ یہی بے حسی ہمارے اپنے ایمان کو بھی کمزور کر دے گی، اور ہماری دعائیں محض الفاظ تک محدود ہو کر رہ جائیں گی۔</p>
+            
+            <div class="prayer-section">
+                <p class="prayer-text">اللہ تعالیٰ سے دعا ہے کہ:</p>
+                <p class="arabic-text">رَبَّنَا تَقَبَّلْ مِنَّا ۖ إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ</p>
+                <p>"اے ہمارے رب! ہم سے قبول فرما، بے شک تو ہی سننے والا، جاننے والا ہے"</p>
+            </div>
+            
+            <p>اس آرٹیکل کا مقصد قارئین کو یہ احساس دلانا چاہتا ہے کہ حج و عمرہ جیسی عظیم عبادات کو سوشل میڈیا کی نمائش کا ذریعہ نہ بنایا جائے۔ ہمیں اپنی نیتوں کو خالص کرنے اور عبادت کی اصل روح کو سمجھنے کی ضرورت ہے۔</p>
+            
+            <p style="text-align: center; font-size: 2rem; color: var(--heading-color); margin-top: 40px;">
+                اللہ ہمارے ایمان کی حفاظت فرمائے! آمین۔
+            </p>
+        </div>
     </div>
 
-    <div class="post-content">
-        <h1>حج و عمرہ: عبادت یا نمائش؟ روحانیت کہاں کھو گئی؟</h1>
-        <p>سعودی عرب کی حج و عمرہ وزارت کی جاری کردہ 2023 کی اسٹیٹسٹکس نے امت مسلمہ کے سامنے ایک تلخ حقیقت رکھ دی ہے۔ کعبۃ اللہ کے سامنے جو ہاتھ عجز و انکساری سے دعا کے لیے اٹھنے چاہئیں تھے، وہ اب اسمارٹ فونز تھامے ہوئے نظر آتے ہیں۔ جو چہرے خشیت الٰہی سے گریہ کرتے تھے، وہ اب سیلفی کے لیے مسکراہٹیں بکھیر رہے ہیں۔ یہ منظر ہمارے زمانے کے سب سے بڑے روحانی بحران کی نشاندہی کرتا ہے۔</p>
-<p>ہمارے بزرگ حج کو &quot;سفر آخرت&quot; کہا کرتے تھے۔ احرام کو کفن سمجھ کر پہنا جاتا تھا، کیونکہ یہ خدا سے ملاقات کا موقع تھا۔ آج یہ مقدس سفر کسی تفریحی ٹور میں بدل گیا ہے۔ مسجد الحرام میں نماز کے دوران بھی کیمرے کھلے رہتے ہیں، طواف کے دوران ویڈیو کالز ہوتی ہیں، اور صفا مروہ پر سیلفی سیشن چلتے ہیں۔</p>
-<ul>
-<li>ہم نے اپنی عبادتوں کو بھی نمائش کا ذریعہ بنا لیا ہے:</li>
-<li>نماز کی تصاویر لینا</li>
-<li>قرآن پڑھتے ہوئے اسٹوریز بنانا</li>
-<li>منیٰ اور عرفات میں لگژری کیمپس کی ویڈیوز شیئر کرنا</li>
-<li>احرام میں فیشن شوز کرنا</li>
-</ul>
-<p>کیا یہ سب ریاکاری کی نئی شکلیں نہیں؟ رسول اللہ ﷺ نے تو چھپ کر صدقہ کرنے کی ترغیب دی تھی، آج ہم اپنی ہر عبادت کو آن لائن نشر کر دیتے ہیں۔</p>
-<p>ہمیں اپنے دل سے پوچھنا چاہیے:</p>
-<ol>
-<li>کیا ہم مواقعتاً اللہ کی رضا کے لیے حج کر رہے ہیں؟</li>
-<li>کیا ہمارا مقصد صرف &quot;حاجی&quot; کا خطاب حاصل کرنا اور سوشل میڈیا پر شیئر کرنا تو نہیں؟</li>
-<li>کیا ہم نے اپنی عبادتوں کو بھی دنیاوی نمائش کا ذریعہ بنا لیا ہے؟</li>
-</ol>
-<p>حج و عمرہ کی برکت اس میں ہے کہ انسان اپنے رب سے سچے دل سے توبہ کرے، نہ کہ لوگوں کو دکھانے کے لیے عبادت کرے۔ اللہ تعالیٰ ہمیں خلوص نیت عطا فرمائے اور ہمارے ایمان کی حفاظت فرمائے۔ آمین۔</p>
-<p>حقیقت یہ ہے کہ ہم نے اپنی عبادتوں کو بھی ایک &quot;سوشل میڈیا شو&quot; بنا دیا ہے۔ ہم نماز پڑھتے ہیں تو کیمرہ آن کر دیتے ہیں، قرآن پڑھتے ہیں تو اسٹوری لگا دیتے ہیں، اور اب حج و عمرہ جیسی عظیم عبادت کو بھی اپنی &quot;پرسنلٹی ڈسپلے&quot; کا ذریعہ بنا لیا ہے۔ کیا ہم بھول گئے ہیں کہ عبادت کا اصل مقصد اللہ کی رضا حاصل کرنا ہے، نہ کہ لوگوں کی توجہ؟</p>
-<p><strong>کیوں ہماری دعائیں قبول نہیں ہو رہیں؟</strong></p>
-<p>کیا وجہ ہے کہ غزہ میں ہونے والے مظالم ہمیں دکھائی نہیں دے رہے؟ یہ سوال ہمارے ضمیر کو جھنجوڑنے والا ہے۔ ہر روز بچے، بوڑھے اور عورتیں بے گناہ مارے جا رہے ہیں، مگر ہماری آنکھیں ان کے درد کو محسوس کرنے سے قاصر کیوں ہیں؟ کیا ہم نے اپنے دلوں کو پتھر کی طرح سخت بنا لیا ہے؟</p>
-<p>قرآن پاک میں اللہ تعالیٰ فرماتا ہے کہ وہ اپنے بندوں کی دعا ضرور سنتا ہے، لیکن شاید ہماری دعاؤں میں خلوص کی کمی ہے، یا پھر ہم خود ہی اپنے اعمال کی وجہ سے رحمتِ الٰہی سے محروم ہو چکے ہیں۔ ہم صرف زبانی دعائیں کرتے ہیں، عملی طور پر کوئی اقدام نہیں اٹھاتے، اور پھر یہ شکوہ کرتے ہیں کہ ہماری دعائیں کیوں قبول نہیں ہو رہیں۔</p>
-<p>کیا وجہ ہے کہ غزہ کے مظلوموں کی چیخیں اور پکار ہم تک نہیں پہنچ رہی؟ کیا ہم نے اپنے کانوں کو حقائق سے بند کر لیا ہے، یا پھر ہماری روحیں اتنی مردہ ہو چکی ہیں کہ ہم درد محسوس ہی نہیں کرتے؟</p>
-<p>دنیا بھر میں میڈیا طاقتور حکومتوں کے اشاروں پر ناچ رہا ہے، اور غزہ کے مظالم کو جان بوجھ کر نظر انداز کیا جا رہا ہے۔ لیکن کیا ہم بھی اسی نظام کا حصہ بن چکے ہیں؟ کیا ہم بھی ان خاموش تماشائیوں میں شامل ہو گئے ہیں جو ظلم ہوتا دیکھ کر بھی آنکھیں بند کر لیتے ہیں؟</p>
-<p>حضرت علیؓ کا قول ہے کہ &quot;ظالم کی مدد نہ کرنا بھی مظلوم پر ظلم ہے&quot;، لیکن ہم تو ظالم کی مدد تو درکنار، مظلوم کی آواز تک اٹھانے سے گریز کر رہے ہیں۔</p>
-<p>ہمارے خون سفید کیوں ہو رہے ہیں؟ ہم نے بے حسی کا لبادہ کیوں اوڑھ رکھا ہے؟ شاید ہم موت سے ڈر گئے ہیں، شاید ہماری زندگیوں میں مادیت اور آسائشات نے ہمیں اس قدر گھیر لیا ہے کہ ہم دوسروں کے درد کو محسوس ہی نہیں کر پاتے۔ لیکن تاریخ گواہ ہے کہ جو قومیں مظلوموں کے ساتھ کھڑی ہوتی ہیں، اللہ تعالیٰ ان کی مدد کرتا ہے۔</p>
-<p>ہمیں اپنے دل کی مردہ دھڑکنوں کو زندہ کرنا ہوگا، اپنی بے حسی کو توڑنا ہوگا، اور غزہ کے مظلوموں کے لیے نہ صرف دعا کرنی ہوگی بلکہ عملی طور پر ان کی آواز بننا ہوگا۔ ورنہ یہی بے حسی ہمارے اپنے ایمان کو بھی کمزور کر دے گی، اور ہماری دعائیں محض الفاظ تک محدود ہو کر رہ جائیں گی۔</p>
-<p>اس آرٹیکل کا مقصد قارئین کو یہ احساس دلانا چاہتا ہے کہ حج و عمرہ جیسی عظیم عبادات کو سوشل میڈیا کی نمائش کا ذریعہ نہ بنایا جائے۔ ہمیں اپنی نیتوں کو خالص کرنے اور عبادت کی اصل روح کو سمجھنے کی ضرورت ہے۔</p>
-<p>اللہ ہمارے ایمان کی حفاظت فرمائے! آمین۔</p>
-
-    </div>
-
+    <!-- Color Fill Overlay -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -72,6 +637,48 @@
     </div>
 
     <script>
+        // Create stars for space background
+        function createStars() {
+            const spaceBg = document.getElementById('spaceBg');
+            const starCount = 250;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1px and 5px
+                const size = Math.random() * 4 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                
+                // Random animation duration
+                star.style.animationDuration = `${Math.random() * 3 + 3}s`;
+                
+                spaceBg.appendChild(star);
+            }
+        }
+        
+        // Navigation functions
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Color fill post functions
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -79,14 +686,52 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Event listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Add spiritual effect to prayer section
+        function addSpiritualEffect() {
+            const prayerSection = document.querySelector('.prayer-section');
+            if (prayerSection) {
+                prayerSection.addEventListener('mouseenter', () => {
+                    prayerSection.style.transform = 'scale(1.02)';
+                    prayerSection.style.boxShadow = '0 0 40px rgba(17, 138, 178, 0.5)';
+                });
+                prayerSection.addEventListener('mouseleave', () => {
+                    prayerSection.style.transform = 'scale(1)';
+                    prayerSection.style.boxShadow = 'none';
+                });
+            }
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            createStars();
+            addSpiritualEffect();
+            
+            // Add hover effect to images
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('mouseenter', () => {
+                    img.style.transform = 'scale(1.04)';
+                });
+                img.addEventListener('mouseleave', () => {
+                    img.style.transform = 'scale(1)';
+                });
+            });
+        };
     </script>
 </body>
 </html>
