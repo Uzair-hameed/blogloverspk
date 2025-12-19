@@ -5,101 +5,622 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025-08-18-جب-حیا-رخصت-ہوئی-ایک-معاشرے-کے-زوال-کی-داستان</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Urdu Font */
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Variables */
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --text-color: #f8f9fa;
+            --bg-color: #0a0e17;
+            --card-bg: rgba(16, 22, 36, 0.9);
+            --accent-color: #00dbde;
+            --heading-size: 2.5rem;
+            --text-size: 1.2rem;
+        }
+        
+        .light-mode {
+            --text-color: #333;
+            --bg-color: #f0f2f5;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --accent-color: #2575fc;
+        }
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2;
+            direction: rtl;
+            text-align: justify;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.5s ease;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(100, 43, 115, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(37, 117, 252, 0.1) 0%, transparent 20%);
+            overflow-x: hidden;
+        }
+        
+        /* Animated Space Background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                linear-gradient(45deg, #0a0e17 0%, #1a1f3a 100%);
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Header */
+        .main-header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .main-header.scrolled {
+            padding: 20px;
+            background: rgba(10, 14, 23, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: var(--heading-size);
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 219, 222, 0.3);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 15px;
+            position: relative;
+            animation: fadeInUp 1s ease;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        h2, h3 {
+            color: var(--accent-color);
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 219, 222, 0.3);
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        h2 {
+            font-size: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.7rem;
+        }
+        
+        /* Post Content */
+        .post-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .post-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease;
+            margin-bottom: 40px;
+        }
+        
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease;
+            border: 3px solid var(--accent-color);
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+        }
+        
+        p {
+            font-size: var(--text-size);
+            margin-bottom: 25px;
+            animation: fadeIn 1.2s ease;
+        }
+        
+        strong {
+            color: var(--accent-color);
+        }
+        
+        ul, ol {
+            margin-right: 30px;
+            margin-bottom: 25px;
+            animation: fadeIn 1.4s ease;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            padding-right: 10px;
+        }
+        
+        /* Control Buttons */
+        .controls {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            transform: translateX(5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+        
+        /* Font Size Controls */
+        .font-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .font-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .font-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        @keyframes shimmer {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .controls {
+                left: 10px;
+                gap: 10px;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            h3 {
+                font-size: 1.4rem;
+            }
+            
+            :root {
+                --heading-size: 2rem;
+                --text-size: 1.1rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .back-btn {
+                top: 10px;
+                right: 10px;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .theme-toggle, .font-controls {
+                bottom: 10px;
+            }
+            
+            .theme-toggle {
+                left: 10px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .font-controls {
+                right: 10px;
+            }
+            
+            .font-btn {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            :root {
+                --heading-size: 1.7rem;
+                --text-size: 1rem;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(16, 22, 36, 0.5);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Space Background -->
+    <div class="space-bg" id="spaceBg"></div>
+    
+    <!-- Controls -->
+    <div class="controls">
+        <button class="control-btn" id="scrollUpBtn" title="اوپر جائیں">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="control-btn" id="scrollDownBtn" title="نیچے جائیں">
+            <i class="fas fa-arrow-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
-        
+    
+    <!-- Back Button -->
+    <a href="#" class="back-btn" id="backBtn">
+        <i class="fas fa-arrow-right"></i>
+        واپس جائیں
+    </a>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle" title="موڈ تبدیل کریں">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <!-- Font Controls -->
+    <div class="font-controls">
+        <button class="font-btn" id="increaseFontBtn" title="فونٹ سائز بڑھائیں">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button class="font-btn" id="decreaseFontBtn" title="فونٹ سائز کم کریں">
+            <i class="fas fa-minus"></i>
+        </button>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-header" id="mainHeader">
         <h1>جب حیا رخصت ہوئی: ایک معاشرے کے زوال کی داستان</h1>
-<p><strong>عنوان: اندھیروں کا سفر: جب تہذیب نے خودکشی کر لی</strong></p>
-<h2>ایک بزرگ کی آہ</h2>
-<p>شہرِ لاہور کی ایک پرسکون گلی میں، بابا غلام محمد اپنی پرانی آرام کرسی پر بیٹھے گہری سوچ میں گم تھے۔ ان کے چہرے پر وقت کی جھریاں نہیں، بلکہ دورِ حاضر کے فتنوں کی پریشانی عیاں تھی۔ ان کا نوجوان پوتا، احمد، جو ابھی یونیورسٹی سے لوٹا تھا، دادا کی حالت دیکھ کر قریب آ بیٹھا۔</p>
-<p>&quot;ددا جان، آپ کیوں اتنا فکرمند ہیں؟&quot;</p>
-<p>بابا غلام محمد نے ایک ٹھنڈی آہ بھری اور کہا، &quot;بیٹا، آج میں نے ٹی وی اور انٹرنیٹ پر وہ مناظر دیکھے ہیں جنہوں نے میری روح تک کو لرزا دیا ہے۔ میں نے اپنے لاہور کی گلیوں میں حیا کا جنازہ اٹھتے دیکھا ہے۔&quot;</p>
-<h2>حصہ اول: LGBT کے غلیظ عزائم اور لاہور کی بے حرمتی</h2>
-<p>بابا جان نے بات جاری رکھی، &quot;بیٹا! یہ جو چند لوگ &#39;انسانی حقوق&#39; اور &#39;آزادی&#39; کے نام پر دھنک والے جھنڈے اٹھائے پھر رہے تھے، یہ کوئی عام احتجاج نہیں تھا۔ یہ فطرت کے خلاف بغاوت کا اعلان تھا۔ یہ اس تہذیب کے منہ پر طمانچہ تھا جس کی بنیاد حیا، خاندان اور پاکیزگی پر رکھی گئی ہے۔&quot;</p>
-<p>انہوں نے احمد کو سمجھایا کہ <strong>LGBTQ</strong> کا ایجنڈا صرف چند لوگوں کے حقوق کا نام نہیں، بلکہ یہ ایک منظم تحریک ہے جس کے <strong>غلیظ عزائم</strong> ہیں۔</p>
-<ul>
-<li><strong>خاندانی نظام کی تباہی:</strong> ان کا پہلا ہدف خاندان کا ادارہ ہے، جہاں مرد اور عورت کے مقدس رشتے کو بے معنی بنا کر مرد کو مرد اور عورت کو عورت کے ساتھ غیر فطری تعلق پر اکسایا جاتا ہے۔</li>
-<li><strong>فحاشی کا فروغ:</strong> یہ تحریک بے حیائی اور عریانی کو &quot;آزادی اظہار&quot; کا نام دیتی ہے۔ ان کی تقریبات میں ہونے والی غیر اخلاقی اور غیر تہذیبی حرکات اس بات کا ثبوت ہیں کہ ان کا مقصد معاشرے سے شرم و حیا کو ختم کرنا ہے۔</li>
-<li><strong>شیاطین کی پیروی:</strong> قرآن نے ہمیں قومِ لوط کا واقعہ عبرت کے لیے سنایا ہے۔ یہ لوگ دراصل اسی شیطانی راستے کے پیروکار ہیں، جس کا انجام دنیا اور آخرت کی رسوائی اور اللہ کا عذاب ہے۔ یہ آزادی نہیں، یہ ابلیس کی غلامی ہے۔</li>
-</ul>
-<h2>حصہ دوم: مسلم معاشرے کا زوال اور یہود و نصاریٰ کی نقل</h2>
-<p>احمد نے سوال کیا، &quot;ددا جان، لیکن یہ سب ہمارے معاشرے میں کیسے آ گیا؟ ہم تو مسلمان ہیں!&quot;</p>
-<p>بابا جان نے تلخی سے مسکراتے ہوئے کہا، &quot;یہ تو اصل المیہ ہے۔ ہم نام کے مسلمان رہ گئے ہیں۔ ہم نے اپنی شناخت کھودی ہے۔&quot;</p>
-<ul>
-<li><strong>نوجوان نسل کی بربادی:</strong> آج کا نوجوان انٹرنیٹ اور میڈیا کے ذریعے مغربی تہذیب سے براہِ راست متاثر ہے۔ اسے یہ بتایا جاتا ہے کہ ترقی کا راستہ یہی ہے کہ اپنی اقدار کو بھول جاؤ۔ وہ نہیں جانتے کہ یہ چمک دمک دراصل ایک دلدل ہے جو ان کی روحانی اور اخلاقی موت کا سبب بن رہی ہے۔</li>
-<li><strong>یہود و نصاریٰ کی پیروی:</strong> ہمارے نبی ﷺ نے چودہ سو سال پہلے پیشین گوئی فرمادی تھی کہ میری امت پچھلی قوموں (یہود و نصاریٰ) کی اسی طرح پیروی کرے گی جیسے ایک جوتا دوسرے جوتے کے برابر ہوتا ہے۔ آج ہم دیکھ رہے ہیں کہ ہم نے ان کی ہر بری بات کو بغیر سوچے سمجھے اپنا لیا ہے۔ ان کے معاشرے خاندانی نظام کی تباہی، ڈپریشن اور اخلاقی گراوٹ کا شکار ہیں، اور ہم بھی اسی راستے پر چل نکلے ہیں۔</li>
-</ul>
-<h2>حصہ سوم: اسلامی تعلیمات سے دوری اور مقتدر حلقوں کی خاموشی</h2>
-<p>&quot;اور سب سے بڑا دکھ تو یہ ہے،&quot; بابا جان کی آواز بھرا گئی، &quot;کہ جن لوگوں پر اس فتنے کو روکنے کی ذمہ داری تھی، وہ خاموش تماشائی بنے ہوئے ہیں۔&quot;</p>
-<ul>
-<li><strong>اسلامی تعلیمات کو فراموش کرنا:</strong> ہم نے قرآن و سنت کے واضح احکامات کو پسِ پشت ڈال دیا ہے۔ اسلام نے حیا کو ایمان کا حصہ قرار دیا ہے اور بے حیائی پھیلانے والوں کے لیے سخت وعید سنائی ہے۔ لیکن آج ہم ان احکامات پر بات کرتے ہوئے بھی شرماتے ہیں۔</li>
-<li><strong>احبابِ اختیار کا مجرمانہ سکوت:</strong> ہمارے حکمران، سیاستدان، اور ادارے، جو اس ملک کے نظریاتی محافظ ہیں، وہ مغربی دباؤ یا اپنی دنیاوی مصلحتوں کی وجہ سے خاموش ہیں۔ ان کی یہ خاموشی اس آگ پر تیل کا کام کر رہی ہے۔ علماء کرام، اساتذہ اور والدین کی ایک بڑی تعداد بھی اپنی ذمہ داری پوری نہیں کر رہی۔ جب محافظ ہی سو جائیں تو لٹیرے تو آئیں گے۔</li>
-</ul>
-<h2>آخری حصہ: ہم اپنی آنے والی نسلوں کو کیسے بچا سکتے ہیں؟ (حل)</h2>
-<p>احمد کی آنکھوں میں اب تشویش کی جگہ عزم کی چمک تھی۔ &quot;ددا جان، تو اب ہمیں کیا کرنا چاہیے؟ ہم اپنی آنے والی نسلوں کو استبائیش سے کیسے بچا سکتے ہیں؟&quot;</p>
-<p>بابا غلام محمد سیدھے ہو کر بیٹھ گئے اور پرامید لہجے میں بولے، &quot;بیٹا، مایوسی کفر ہے۔ ابھی بھی وقت ہے۔ اگر ہم آج سے تہیہ کر لیں تو اس سیلاب کے آگے بند باندھ سکتے ہیں۔ اس کے لیے ہمیں کچھ ٹھوس اقدامات کرنے ہوں گے:&quot;</p>
-<ol>
-<li><strong>گھر کی تربیت (پہلا مورچہ):</strong> سب سے پہلے والدین کو اپنی ذمہ داری سمجھنی ہو گی۔ اپنے بچوں کو وقت دیں، ان کے دوست بنیں۔ انہیں اچھے اور برے کی تمیز سکھائیں۔ ان کے انٹرنیٹ کے استعمال پر نظر رکھیں اور انہیں اسلامی ہیروز کی کہانیاں سنائیں تاکہ ان کے رول ماڈل کوئی بے حیا اداکار نہیں، بلکہ صحابہ کرامؓ ہوں۔</li>
-<li><strong>دین سے حقیقی رشتہ:</strong> اپنی نسلوں کو قرآن سے جوڑیں۔ انہیں صرف ناظرہ نہیں، بلکہ ترجمہ اور تفسیر کے ساتھ قرآن پڑھائیں تاکہ انہیں اللہ کے احکامات کا براہِ راست علم ہو۔ سیرتِ نبوی ﷺ کا مطالعہ لازمی کروائیں۔</li>
-<li><strong>تعلیمی اداروں کا کردار:</strong> اسکولوں، کالجوں اور یونیورسٹیوں میں اسلامی اخلاقیات اور تہذیب کو نصاب کا لازمی حصہ بنایا جائے۔ اساتذہ کو خود بھی ایک عملی نمونہ بننا ہو گا۔</li>
-<li><strong>علماء اور اہلِ دانش کا فرض:</strong> علماء کرام کو چاہیے کہ وہ جمعہ کے خطبوں اور اپنے بیانات میں اس فتنے کے خلاف کھل کر بات کریں اور نوجوانوں کو حکمت کے ساتھ اس کی حقیقت سمجھائیں۔</li>
-<li><strong>مثبت متبادل فراہم کرنا:</strong> نوجوانوں کو صحت مند تفریح اور سرگرمیاں فراہم کی جائیں تاکہ وہ اپنی توانائیاں مثبت کاموں میں صرف کریں۔</li>
-<li><strong>سوشل میڈیا کا صحیح استعمال:</strong> سوشل میڈیا پر اس بے حیائی کے خلاف بھرپور آواز اٹھائیں اور اسلامی اقدار کو فخر کے ساتھ فروغ دیں۔</li>
-<li><strong>اجتماعی بائیکاٹ:</strong> ایسے اداروں، برانڈز اور شخصیات کا سماجی بائیکاٹ کریں جو اس غیر فطری ایجنڈے کو فروغ دیتے ہیں۔</li>
-</ol>
-<p>بابا غلام محمد نے احمد کے کندھے پر ہاتھ رکھتے ہوئے کہا، &quot;بیٹا، یاد رکھنا! تہذیبیں ہتھیاروں سے نہیں، حیا اور کردار سے فتح ہوتی ہیں۔ اگر ہم نے اپنی حیا اور اپنے خاندانی نظام کی حفاظت کر لی، تو دنیا کی کوئی طاقت ہمیں شکست نہیں دے سکتی۔ اٹھو اور اپنا کردار ادا کرو، کیونکہ تم ہی اس قوم کا مستقبل ہو۔&quot;</p>
-<p>احمد نے عزم سے سر ہلایا۔ آج اسے صرف چند نعروں کا شور نہیں، بلکہ اپنی تہذیب پر ایک خوفناک حملے کی حقیقت سمجھ آئی تھی اور اس نے عہد کر لیا تھا کہ وہ اس اندھیرے کے خلاف روشنی کی دیا ضرور بنے گا۔</p>
-
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <div class="post-container">
+        <div class="post-content">
+            <!-- Image after title -->
+            <img src="https://bloglovers.pk/images/mazameen/jab-haya-rukhasat-hui-ek-mashare-ke-zawal-ki-dastaan.png" alt="جب حیا رخصت ہوئی" class="post-image">
+            
+            <p><strong>عنوان: اندھیروں کا سفر: جب تہذیب نے خودکشی کر لی</strong></p>
+            
+            <h2>ایک بزرگ کی آہ</h2>
+            <p>شہرِ لاہور کی ایک پرسکون گلی میں، بابا غلام محمد اپنی پرانی آرام کرسی پر بیٹھے گہری سوچ میں گم تھے۔ ان کے چہرے پر وقت کی جھریاں نہیں، بلکہ دورِ حاضر کے فتنوں کی پریشانی عیاں تھی۔ ان کا نوجوان پوتا، احمد، جو ابھی یونیورسٹی سے لوٹا تھا، دادا کی حالت دیکھ کر قریب آ بیٹھا۔</p>
+            <p>&quot;ددا جان، آپ کیوں اتنا فکرمند ہیں؟&quot;</p>
+            <p>بابا غلام محمد نے ایک ٹھنڈی آہ بھری اور کہا، &quot;بیٹا، آج میں نے ٹی وی اور انٹرنیٹ پر وہ مناظر دیکھے ہیں جنہوں نے میری روح تک کو لرزا دیا ہے۔ میں نے اپنے لاہور کی گلیوں میں حیا کا جنازہ اٹھتے دیکھا ہے۔&quot;</p>
+            
+            <h2>حصہ اول: LGBT کے غلیظ عزائم اور لاہور کی بے حرمتی</h2>
+            <p>بابا جان نے بات جاری رکھی، &quot;بیٹا! یہ جو چند لوگ &#39;انسانی حقوق&#39; اور &#39;آزادی&#39; کے نام پر دھنک والے جھنڈے اٹھائے پھر رہے تھے، یہ کوئی عام احتجاج نہیں تھا۔ یہ فطرت کے خلاف بغاوت کا اعلان تھا۔ یہ اس تہذیب کے منہ پر طمانچہ تھا جس کی بنیاد حیا، خاندان اور پاکیزگی پر رکھی گئی ہے۔&quot;</p>
+            <p>انہوں نے احمد کو سمجھایا کہ <strong>LGBTQ</strong> کا ایجنڈا صرف چند لوگوں کے حقوق کا نام نہیں، بلکہ یہ ایک منظم تحریک ہے جس کے <strong>غلیظ عزائم</strong> ہیں۔</p>
+            <ul>
+                <li><strong>خاندانی نظام کی تباہی:</strong> ان کا پہلا ہدف خاندان کا ادارہ ہے، جہاں مرد اور عورت کے مقدس رشتے کو بے معنی بنا کر مرد کو مرد اور عورت کو عورت کے ساتھ غیر فطری تعلق پر اکسایا جاتا ہے۔</li>
+                <li><strong>فحاشی کا فروغ:</strong> یہ تحریک بے حیائی اور عریانی کو &quot;آزادی اظہار&quot; کا نام دیتی ہے۔ ان کی تقریبات میں ہونے والی غیر اخلاقی اور غیر تہذیبی حرکات اس بات کا ثبوت ہیں کہ ان کا مقصد معاشرے سے شرم و حیا کو ختم کرنا ہے۔</li>
+                <li><strong>شیاطین کی پیروی:</strong> قرآن نے ہمیں قومِ لوط کا واقعہ عبرت کے لیے سنایا ہے۔ یہ لوگ دراصل اسی شیطانی راستے کے پیروکار ہیں، جس کا انجام دنیا اور آخرت کی رسوائی اور اللہ کا عذاب ہے۔ یہ آزادی نہیں، یہ ابلیس کی غلامی ہے۔</li>
+            </ul>
+            
+            <h2>حصہ دوم: مسلم معاشرے کا زوال اور یہود و نصاریٰ کی نقل</h2>
+            <p>احمد نے سوال کیا، &quot;ددا جان، لیکن یہ سب ہمارے معاشرے میں کیسے آ گیا؟ ہم تو مسلمان ہیں!&quot;</p>
+            <p>بابا جان نے تلخی سے مسکراتے ہوئے کہا، &quot;یہ تو اصل المیہ ہے۔ ہم نام کے مسلمان رہ گئے ہیں۔ ہم نے اپنی شناخت کھودی ہے۔&quot;</p>
+            <ul>
+                <li><strong>نوجوان نسل کی بربادی:</strong> آج کا نوجوان انٹرنیٹ اور میڈیا کے ذریعے مغربی تہذیب سے براہِ راست متاثر ہے۔ اسے یہ بتایا جاتا ہے کہ ترقی کا راستہ یہی ہے کہ اپنی اقدار کو بھول جاؤ۔ وہ نہیں جانتے کہ یہ چمک دمک دراصل ایک دلدل ہے جو ان کی روحانی اور اخلاقی موت کا سبب بن رہی ہے۔</li>
+                <li><strong>یہود و نصاریٰ کی پیروی:</strong> ہمارے نبی ﷺ نے چودہ سو سال پہلے پیشین گوئی فرمادی تھی کہ میری امت پچھلی قوموں (یہود و نصاریٰ) کی اسی طرح پیروی کرے گی جیسے ایک جوتا دوسرے جوتے کے برابر ہوتا ہے۔ آج ہم دیکھ رہے ہیں کہ ہم نے ان کی ہر بری بات کو بغیر سوچے سمجھے اپنا لیا ہے۔ ان کے معاشرے خاندانی نظام کی تباہی، ڈپریشن اور اخلاقی گراوٹ کا شکار ہیں، اور ہم بھی اسی راستے پر چل نکلے ہیں۔</li>
+            </ul>
+            
+            <h2>حصہ سوم: اسلامی تعلیمات سے دوری اور مقتدر حلقوں کی خاموشی</h2>
+            <p>&quot;اور سب سے بڑا دکھ تو یہ ہے،&quot; بابا جان کی آواز بھرا گئی، &quot;کہ جن لوگوں پر اس فتنے کو روکنے کی ذمہ داری تھی، وہ خاموش تماشائی بنے ہوئے ہیں۔&quot;</p>
+            <ul>
+                <li><strong>اسلامی تعلیمات کو فراموش کرنا:</strong> ہم نے قرآن و سنت کے واضح احکامات کو پسِ پشت ڈال دیا ہے۔ اسلام نے حیا کو ایمان کا حصہ قرار دیا ہے اور بے حیائی پھیلانے والوں کے لیے سخت وعید سنائی ہے۔ لیکن آج ہم ان احکامات پر بات کرتے ہوئے بھی شرماتے ہیں۔</li>
+                <li><strong>احبابِ اختیار کا مجرمانہ سکوت:</strong> ہمارے حکمران، سیاستدان، اور ادارے، جو اس ملک کے نظریاتی محافظ ہیں، وہ مغربی دباؤ یا اپنی دنیاوی مصلحتوں کی وجہ سے خاموش ہیں۔ ان کی یہ خاموشی اس آگ پر تیل کا کام کر رہی ہے۔ علماء کرام، اساتذہ اور والدین کی ایک بڑی تعداد بھی اپنی ذمہ داری پوری نہیں کر رہی۔ جب محافظ ہی سو جائیں تو لٹیرے تو آئیں گے۔</li>
+            </ul>
+            
+            <h2>آخری حصہ: ہم اپنی آنے والی نسلوں کو کیسے بچا سکتے ہیں؟ (حل)</h2>
+            <p>احمد کی آنکھوں میں اب تشویش کی جگہ عزم کی چمک تھی۔ &quot;ددا جان، تو اب ہمیں کیا کرنا چاہیے؟ ہم اپنی آنے والی نسلوں کو استبائیش سے کیسے بچا سکتے ہیں؟&quot;</p>
+            <p>بابا غلام محمد سیدھے ہو کر بیٹھ گئے اور پرامید لہجے میں بولے، &quot;بیٹا، مایوسی کفر ہے۔ ابھی بھی وقت ہے۔ اگر ہم آج سے تہیہ کر لیں تو اس سیلاب کے آگے بند باندھ سکتے ہیں۔ اس کے لیے ہمیں کچھ ٹھوس اقدامات کرنے ہوں گے:&quot;</p>
+            <ol>
+                <li><strong>گھر کی تربیت (پہلا مورچہ):</strong> سب سے پہلے والدین کو اپنی ذمہ داری سمجھنی ہو گی۔ اپنے بچوں کو وقت دیں، ان کے دوست بنیں۔ انہیں اچھے اور برے کی تمیز سکھائیں۔ ان کے انٹرنیٹ کے استعمال پر نظر رکھیں اور انہیں اسلامی ہیروز کی کہانیاں سنائیں تاکہ ان کے رول ماڈل کوئی بے حیا اداکار نہیں، بلکہ صحابہ کرامؓ ہوں۔</li>
+                <li><strong>دین سے حقیقی رشتہ:</strong> اپنی نسلوں کو قرآن سے جوڑیں۔ انہیں صرف ناظرہ نہیں، بلکہ ترجمہ اور تفسیر کے ساتھ قرآن پڑھائیں تاکہ انہیں اللہ کے احکامات کا براہِ راست علم ہو۔ سیرتِ نبوی ﷺ کا مطالعہ لازمی کروائیں۔</li>
+                <li><strong>تعلیمی اداروں کا کردار:</strong> اسکولوں، کالجوں اور یونیورسٹیوں میں اسلامی اخلاقیات اور تہذیب کو نصاب کا لازمی حصہ بنایا جائے۔ اساتذہ کو خود بھی ایک عملی نمونہ بننا ہو گا۔</li>
+                <li><strong>علماء اور اہلِ دانش کا فرض:</strong> علماء کرام کو چاہیے کہ وہ جمعہ کے خطبوں اور اپنے بیانات میں اس فتنے کے خلاف کھل کر بات کریں اور نوجوانوں کو حکمت کے ساتھ اس کی حقیقت سمجھائیں۔</li>
+                <li><strong>مثبت متبادل فراہم کرنا:</strong> نوجوانوں کو صحت مند تفریح اور سرگرمیاں فراہم کی جائیں تاکہ وہ اپنی توانائیاں مثبت کاموں میں صرف کریں۔</li>
+                <li><strong>سوشل میڈیا کا صحیح استعمال:</strong> سوشل میڈیا پر اس بے حیائی کے خلاف بھرپور آواز اٹھائیں اور اسلامی اقدار کو فخر کے ساتھ فروغ دیں۔</li>
+                <li><strong>اجتماعی بائیکاٹ:</strong> ایسے اداروں، برانڈز اور شخصیات کا سماجی بائیکاٹ کریں جو اس غیر فطری ایجنڈے کو فروغ دیتے ہیں۔</li>
+            </ol>
+            <p>بابا غلام محمد نے احمد کے کندھے پر ہاتھ رکھتے ہوئے کہا، &quot;بیٹا، یاد رکھنا! تہذیبیں ہتھیاروں سے نہیں، حیا اور کردار سے فتح ہوتی ہیں۔ اگر ہم نے اپنی حیا اور اپنے خاندانی نظام کی حفاظت کر لی، تو دنیا کی کوئی طاقت ہمیں شکست نہیں دے سکتی۔ اٹھو اور اپنا کردار ادا کرو، کیونکہ تم ہی اس قوم کا مستقبل ہو۔&quot;</p>
+            <p>احمد نے عزم سے سر ہلایا۔ آج اسے صرف چند نعروں کا شور نہیں، بلکہ اپنی تہذیب پر ایک خوفناک حملے کی حقیقت سمجھ آئی تھی اور اس نے عہد کر لیا تھا کہ وہ اس اندھیرے کے خلاف روشنی کی دیا ضرور بنے گا۔</p>
+        </div>
     </div>
-
+    
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create stars for space background
+        function createStars() {
+            const spaceBg = document.getElementById('spaceBg');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                spaceBg.appendChild(star);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeToggle.title = 'ڈارک موڈ میں جائیں';
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeToggle.title = 'لائٹ موڈ میں جائیں';
+            }
+        });
+        
+        // Font size controls
+        const increaseFontBtn = document.getElementById('increaseFontBtn');
+        const decreaseFontBtn = document.getElementById('decreaseFontBtn');
+        
+        let currentHeadingSize = 2.5;
+        let currentTextSize = 1.2;
+        
+        increaseFontBtn.addEventListener('click', () => {
+            currentHeadingSize = Math.min(currentHeadingSize + 0.1, 3.5);
+            currentTextSize = Math.min(currentTextSize + 0.05, 1.5);
+            
+            document.documentElement.style.setProperty('--heading-size', `${currentHeadingSize}rem`);
+            document.documentElement.style.setProperty('--text-size', `${currentTextSize}rem`);
+        });
+        
+        decreaseFontBtn.addEventListener('click', () => {
+            currentHeadingSize = Math.max(currentHeadingSize - 0.1, 1.5);
+            currentTextSize = Math.max(currentTextSize - 0.05, 0.9);
+            
+            document.documentElement.style.setProperty('--heading-size', `${currentHeadingSize}rem`);
+            document.documentElement.style.setProperty('--text-size', `${currentTextSize}rem`);
+        });
+        
+        // Scroll buttons
+        const scrollUpBtn = document.getElementById('scrollUpBtn');
+        const scrollDownBtn = document.getElementById('scrollDownBtn');
+        
+        scrollUpBtn.addEventListener('click', () => {
+            window.scrollBy({
+                top: -window.innerHeight * 0.8,
+                behavior: 'smooth'
+            });
+        });
+        
+        scrollDownBtn.addEventListener('click', () => {
+            window.scrollBy({
+                top: window.innerHeight * 0.8,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Back button
+        const backBtn = document.getElementById('backBtn');
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.history.back();
+        });
+        
+        // Header scroll effect
+        const mainHeader = document.getElementById('mainHeader');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                mainHeader.classList.add('scrolled');
+            } else {
+                mainHeader.classList.remove('scrolled');
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            
+            // Set initial header state
+            if (window.scrollY > 50) {
+                mainHeader.classList.add('scrolled');
+            }
+        });
     </script>
 </body>
 </html>
