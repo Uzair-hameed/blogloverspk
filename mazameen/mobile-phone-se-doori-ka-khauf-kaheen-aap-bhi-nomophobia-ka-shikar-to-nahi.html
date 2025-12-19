@@ -5,87 +5,880 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025-08-20-موبائل-فون-سے-دوری-کا-خوف-کہیں-آپ-بھی-نوموفوبیاکا-شکار-تو-نہیں؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --bg-primary: #0a0b1e;
+            --bg-secondary: #12142e;
+            --bg-card: #1a1c3a;
+            --text-primary: #e0e7ff;
+            --text-secondary: #a5b4fc;
+            --accent-1: #6366f1;
+            --accent-2: #8b5cf6;
+            --accent-3: #ec4899;
+            --accent-4: #3b82f6;
+            --shadow: rgba(0, 0, 0, 0.6);
+            --glow: rgba(99, 102, 241, 0.4);
+            --gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3));
+            --gradient-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2;
+            direction: rtl;
+            text-align: right;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 30%);
+        }
+        
+        /* Animated Background Elements */
+        .floating-icons {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            color: rgba(99, 102, 241, 0.1);
+            font-size: 24px;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-1000px) rotate(360deg); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px var(--shadow), 0 0 15px var(--glow);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+        }
+        
+        .nav-btn:hover::before {
+            animation: shine 0.8s;
+        }
+        
+        @keyframes shine {
+            100% { transform: translateX(100%); }
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.15) translateX(-5px);
+            box-shadow: 0 12px 35px var(--shadow), 0 0 25px var(--glow);
+        }
+        
+        /* Back Button */
+        .back-btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--gradient);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 8px 25px var(--shadow), 0 0 15px var(--glow);
+            transition: all 0.4s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-btn::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            bottom: -2px;
+            left: -2px;
+            background: var(--gradient);
+            border-radius: 52px;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.7;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--shadow), 0 0 25px var(--glow);
+            gap: 20px;
+            letter-spacing: 1px;
+        }
+        
+        /* Post Card */
+        .post-card {
+            background: var(--bg-card);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 
+                0 20px 50px var(--shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .post-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            filter: blur(30px);
+            z-index: 0;
+        }
+        
+        .post-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 30px 60px var(--shadow),
+                0 0 0 1px rgba(99, 102, 241, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Headings */
+        h1 {
+            color: white;
+            border-bottom: 3px solid;
+            border-image: var(--gradient) 1;
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+            text-align: center;
+            font-size: 3rem;
+            line-height: 1.3;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        h1::after {
+            content: '📱';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+        
+        h1::before {
+            content: '📱';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+        
+        h2, h3 {
+            color: var(--text-primary);
+            padding-bottom: 15px;
+            margin: 40px 0 25px;
+            font-size: 2.2rem;
+            position: relative;
+            padding-right: 20px;
+        }
+        
+        h2::before, h3::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+        }
+        
+        h3::before {
+            width: 60px;
+            height: 3px;
+        }
+        
+        /* Text Content */
+        p {
+            margin-bottom: 30px;
+            text-align: justify;
+            font-size: 1.5rem;
+            line-height: 2.3;
+            color: var(--text-secondary);
+            padding: 0 5px;
+        }
+        
+        p strong {
+            color: var(--text-primary);
+            background: var(--gradient-subtle);
+            padding: 3px 10px;
+            border-radius: 6px;
+            border-right: 3px solid var(--accent-1);
+            position: relative;
+        }
+        
+        /* Lists */
+        ol, ul {
+            margin: 30px 0;
+            padding-right: 30px;
+        }
+        
+        li {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            text-align: justify;
+            padding-right: 15px;
+            position: relative;
+            padding: 15px 20px 15px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border-right: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        li:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-right-color: var(--accent-1);
+            transform: translateX(-5px);
+        }
+        
+        li::before {
+            content: '📱';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+        
+        /* Image */
+        .post-image-container {
+            position: relative;
+            margin: 40px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+            transition: all 0.8s;
+        }
+        
+        .post-image-container:hover .post-image {
+            transform: scale(1.05);
+            filter: brightness(1.1) contrast(1.1);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: linear-gradient(to top, rgba(10, 11, 30, 0.9), transparent);
+            padding: 30px;
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s;
+        }
+        
+        .post-image-container:hover .image-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Special Effects */
+        .pulse {
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px var(--accent-1), 0 0 20px var(--accent-1);
+        }
+        
+        /* Color Fill Mode */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+        }
+        
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 800px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: #ff6b6b; 
+            color: white; 
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 20px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: transform 0.3s; 
+        }
+        
+        .close-btn:hover { 
+            transform: rotate(90deg); 
+        }
+        
+        .trigger-btn { 
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--gradient);
+            color: white; 
+            padding: 20px 45px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 30px 0; 
+            box-shadow: 0 8px 25px var(--shadow), 0 0 15px var(--glow); 
+            transition: all 0.4s; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 1.4rem; 
+            font-family: inherit; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trigger-btn::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            bottom: -2px;
+            left: -2px;
+            background: var(--gradient);
+            border-radius: 52px;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.7;
+        }
+        
+        .trigger-btn:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 35px var(--shadow), 0 0 25px var(--glow); 
+            letter-spacing: 2px;
+            gap: 20px;
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .nav-buttons {
+                left: 15px;
+            }
+            
+            .nav-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .post-card {
+                padding: 40px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h1::after, h1::before {
+                display: none;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            p, li {
+                font-size: 1.4rem;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .post-image {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-buttons {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                gap: 25px;
+            }
+            
+            .nav-btn:hover {
+                transform: scale(1.1) translateY(-5px);
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .post-card {
+                padding: 30px;
+            }
+            
+            p, li {
+                font-size: 1.3rem;
+                line-height: 2.1;
+            }
+            
+            .post-image {
+                height: 300px;
+            }
+            
+            .trigger-btn, .back-btn {
+                padding: 16px 35px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .post-card {
+                padding: 25px;
+                border-radius: 25px;
+            }
+            
+            h1 {
+                font-size: 1.9rem;
+                padding-bottom: 20px;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.4rem;
+            }
+            
+            p, li {
+                font-size: 1.2rem;
+                line-height: 2;
+            }
+            
+            .post-image {
+                height: 250px;
+            }
+            
+            .trigger-btn, .back-btn {
+                padding: 14px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .nav-buttons {
+                gap: 20px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .post-card, .btn-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 6px;
+            border: 2px solid var(--bg-secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+        }
+        
+        /* Link Styling */
+        a {
+            color: var(--accent-1);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 3px;
+            transition: all 0.3s;
+        }
+        
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-1);
+            transition: width 0.4s;
+            box-shadow: 0 0 5px var(--accent-1);
+        }
+        
+        a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        a:hover {
+            color: var(--accent-2);
+            text-shadow: 0 0 5px rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Mobile Notification Effect */
+        .notification-effect {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+        
+        .notification-effect.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <div class="floating-icons" id="floatingIcons"></div>
+    
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
     </div>
-
-    <div class="post-content">
+    
+    <div class="notification-effect" id="notification">
+        <i class="fas fa-mobile-alt"></i>
+        نئی معلومات دستیاب ہیں!
+    </div>
+    
+    <div class="container">
+        <div class="btn-container">
+            <button class="trigger-btn" onclick="openColorFillPost()">
+                <i class="fas fa-palette"></i> اس پوسٹ کو رنگین موڈ میں پڑھیں
+            </button>
+        </div>
         
-        <h1>موبائل فون سے دوری کا خوف: کہیں آپ بھی &#39;نوموفوبیا&#39; کا شکار تو نہیں؟</h1>
-<p>کبھی آپ کے ساتھ ایسا ہوا ہے کہ آپ گھر سے نکلے اور آدھے راستے میں یاد آیا کہ آپ اپنا موبائل فون تو گھر ہی بھول آئے ہیں؟ اس ایک خیال سے ہی دل ڈوبنے لگتا ہے، ہاتھ پاؤں ٹھنڈے پڑ جاتے ہیں اور ایک عجیب سی بے چینی محسوس ہوتی ہے، جیسے آپ دنیا سے کٹ گئے ہوں۔ اگر آپ کو یہ احساسات جانے پہچانے لگ رہے ہیں تو مبارک ہو، آپ اکیلے نہیں ہیں۔ آج کی ڈیجیٹل دنیا میں یہ ایک عام مسئلہ بن چکا ہے جسے ماہرین &quot;نوموفوبیا&quot; (Nomophobia) کا نام دیتے ہیں۔</p>
-<p>یہ لفظ <strong>&quot;No-Mobile-Phobia&quot;</strong> کا مخفف ہے، یعنی موبائل فون کے بغیر رہنے کا غیر معمولی خوف۔ یہ صرف ایک عادت نہیں، بلکہ ایک ایسی نفسیاتی حالت ہے جو ہماری ذہنی صحت، رشتوں اور روزمرہ کی زندگی پر گہرے اثرات مرتب کر رہی ہے۔ آئیے اس جدید دور کی وبا کو تفصیل سے سمجھتے ہیں۔</p>
-<h2>اس مسئلے کی وجوہات اور اثرات (Cause and Effect)</h2>
-<p>آخر ہم اس مقام تک پہنچے کیسے؟ اس کی کئی وجوہات ہیں:</p>
-<h3><strong>وجوہات (Causes):</strong></h3>
-<ol>
-<li><strong>ہر وقت جڑے رہنے کی خواہش</strong>: ہمیں لگتا ہے کہ اگر ہم آن لائن نہیں ہوں گے تو دوستوں، خاندان اور دنیا میں ہونے والے واقعات سے پیچھے رہ جائیں گے۔ اسی خوف کو &quot;فومو&quot; (FOMO - Fear of Missing Out) بھی کہتے ہیں۔</li>
-<li><strong>معلومات پر انحصار</strong>: راستہ ڈھونڈنے سے لے کر، خبریں پڑھنے، بینکنگ کرنے اور یہاں تک کہ کھانا آرڈر کرنے تک، ہم ہر چھوٹے بڑے کام کے لیے اپنے فون پر انحصار کرنے لگے ہیں۔</li>
-<li><strong>بوریت کا فوری حل</strong>: جیسے ہی ہم تھوڑا سا فارغ ہوتے ہیں، ہمارا ہاتھ خودبخود فون کی طرف جاتا ہے۔ یہ بوریت اور تنہائی کو دور کرنے کا سب سے آسان ذریعہ بن گیا ہے۔</li>
-<li><strong>سوشل میڈیا کا دباؤ</strong>: لائکس، کمنٹس اور نوٹیفکیشنز کی شکل میں ملنے والی فوری تسکین ہمیں بار بار فون چیک کرنے پر مجبور کرتی ہے۔</li>
-</ol>
-<h3><strong>اثرات (Effects):</strong></h3>
-<ol>
-<li><strong>ذہنی صحت پر منفی اثرات</strong>: مسلسل فون سے چپکے رہنا بے چینی (Anxiety)، ڈپریشن اور چڑچڑے پن کو جنم دیتا ہے۔</li>
-<li><strong>نیند کے مسائل</strong>: رات کو سونے سے پہلے فون استعمال کرنے سے اس کی نیلی روشنی ہماری نیند کے ہارمونز کو متاثر کرتی ہے، جس سے نیند کا معیار خراب ہوتا ہے۔</li>
-<li><strong>حقیقی رشتوں میں دوری</strong>: ہم اکثر اپنے سامنے بیٹھے ہوئے عزیزوں کو نظر انداز کر کے فون کی اسکرین پر نظریں جمائے رکھتے ہیں، جس سے ہمارے حقیقی رشتے کمزور پڑ رہے ہیں۔</li>
-<li><strong>کام اور پڑھائی میں کمی</strong>: بار بار آنے والی نوٹیفکیشنز ہماری توجہ بھٹکاتی ہیں، جس سے ہماری کارکردگی متاثر ہوتی ہے۔</li>
-</ol>
-<h2>نوموفوبیا کی عام علامات (Symptoms)</h2>
-<p>کیسے پہچانیں کہ آپ بھی اس مسئلے کا شکار ہیں؟ ان علامات پر غور کریں:</p>
-<ol>
-<li>فون گھر بھول جانے یا بیٹری ختم ہونے کے خیال سے شدید گھبراہٹ اور پریشانی ہونا۔</li>
-<li>باتھ روم میں بھی فون اپنے ساتھ لے کر جانا۔</li>
-<li>بار بار بغیر کسی وجہ کے فون کو ان لاک کرکے نوٹیفکیشنز چیک کرنا۔</li>
-<li>ان جگہوں پر جانے سے کترانا جہاں انٹرنیٹ سگنل یا وائی فائی کی سہولت نہ ہو۔</li>
-<li>رات کو سوتے ہوئے بھی فون کو اپنے سرہانے یا قریب رکھنا اور نیند سے اٹھ کر بھی فون چیک کرنا۔</li>
-<li>دوستوں اور گھر والوں کے ساتھ ہوتے ہوئے بھی گفتگو کے بجائے فون میں مصروف رہنا۔</li>
-</ol>
-<h2>اس لت سے پیدا ہونے والی مشکلات (Difficulties)</h2>
-<p>یہ صرف ایک چھوٹی سی عادت نہیں، بلکہ اس سے ہماری زندگی میں کئی عملی مشکلات پیدا ہوتی ہیں:</p>
-<ol>
-<li><strong>سماجی تنہائی</strong>: آپ بھلے ہی لوگوں کے بیچ ہوں، لیکن ذہنی طور پر آپ اکیلے اور اپنی ڈیجیٹل دنیا میں گم ہوتے ہیں۔</li>
-<li><strong>توجہ مرکوز کرنے میں ناکامی</strong>: ہمارا دماغ چھوٹی اور فوری معلومات کا عادی ہو جاتا ہے، جس کی وجہ سے کسی ایک کام پر طویل عرصے تک توجہ دینا مشکل ہو جاتا ہے۔</li>
-<li><strong>جسمانی مسائل</strong>: مسلسل گردن جھکا کر فون استعمال کرنے سے &quot;ٹیکسٹ نیک&quot; (Text Neck) یعنی گردن میں درد، آنکھوں پر دباؤ اور کلائی کے مسائل عام ہو رہے ہیں۔</li>
-<li><strong>مالی مسائل</strong>: نئے سے نیا فون خریدنے کی دوڑ اور مہنگے ڈیٹا پیکجز پر فضول خرچی بھی اسی لت کا نتیجہ ہے۔</li>
-</ol>
-<h2>اس عادت سے چھٹکارا کیسے پائیں؟ (Remedies)</h2>
-<p>اگر آپ کو لگتا ہے کہ آپ اس مسئلے کا شکار ہیں تو گھبرائیں نہیں! چند آسان اقدامات سے آپ اپنی زندگی کا کنٹرول واپس اپنے ہاتھ میں لے سکتے ہیں:</p>
-<ol>
-<li><strong>ڈیجیٹل ڈیٹاکس (Digital Detox)</strong>: دن میں کچھ وقت &quot;فون فری&quot; گزاریں۔ جیسے کھانا کھاتے وقت، سونے سے ایک گھنٹہ پہلے اور صبح اٹھنے کے فوراً بعد فون کو خود سے دور رکھیں۔</li>
-<li><strong>نوٹیفکیشنز بند کریں</strong>: فیس بک، انسٹاگرام اور دیگر غیر ضروری ایپس کی نوٹیفکیشنز کو بند کر دیں تاکہ آپ کا دھیان بار بار نہ بھٹکے۔</li>
-<li><strong>نئے مشاغل اپنائیں</strong>: کوئی کتاب پڑھیں، ورزش کریں، باغبانی کریں یا دوستوں اور خاندان کے ساتھ بیٹھ کر گپ شپ لگائیں۔ ایسے مشاغل تلاش کریں جن میں اسکرین شامل نہ ہو۔</li>
-<li><strong>کچھ اصول بنائیں</strong>: گھر میں اصول بنائیں کہ رات کے کھانے کی میز پر یا سونے کے کمرے میں کوئی بھی فون استعمال نہیں کرے گا۔</li>
-<li><strong>پرانی ٹیکنالوجی کو واپس لائیں</strong>: صبح اٹھنے کے لیے فون کے الارم کے بجائے ایک پرانی الارم گھڑی کا استعمال کریں۔</li>
-<li><strong>مدد حاصل کریں</strong>: اگر آپ کو لگے کہ یہ مسئلہ آپ کے قابو سے باہر ہو رہا ہے تو کسی دوست، عزیز یا کسی ماہر نفسیات سے بات کرنے میں بالکل نہ ہچکچائیں۔</li>
-</ol>
-<h2>سب کے لیے ایک پیغام (Message for all)</h2>
-<p>یاد رکھیں، ٹیکنالوجی اور اسمارٹ فون ہماری سہولت کے لیے بنائے گئے ہیں، نہ کہ ہمیں اپنا غلام بنانے کے لیے۔ یہ ایک بہترین آلہ ہے، لیکن اسے اپنی زندگی کا مرکز مت بننے دیں۔</p>
-<p>تھوڑا رکیں، اپنے فون کو نیچے رکھیں اور اپنے اردگرد کی خوبصورت دنیا کو دیکھیں۔ اپنے پیاروں کی آنکھوں میں دیکھیں، ان کی باتیں سنیں اور ان لمحات سے لطف اندوز ہوں جو زندگی آپ کو دے رہی ہے۔ حقیقی زندگی آپ کی اسکرین سے کہیں زیادہ دلچسپ اور حسین ہے۔ توازن ہی کامیابی کی کنجی ہے۔</p>
-<p>ایسی دلچسپ تحریریں پڑھنے کے لئے ویب سائٹ وزٹ کریں: <a href="https://www.bloglovers.pk">https://www.bloglovers.pk</a></p>
-
+        <div class="post-card">
+            <h1>موبائل فون سے دوری کا خوف: کہیں آپ بھی 'نوموفوبیا' کا شکار تو نہیں؟</h1>
+            
+            <div class="post-image-container">
+                <img src="https://bloglovers.pk/images/mazameen/mobile-phone-se-doori-ka-khauf-kaheen-aap-bhi-nomophobia-ka-shikar-to-nahi.png" 
+                     alt="نوموفوبیا - موبائل فون سے دوری کا خوف" 
+                     class="post-image"
+                     onerror="this.style.display='none'; this.parentElement.style.display='none'">
+                <div class="image-overlay">
+                    <i class="fas fa-info-circle"></i> نوموفوبیا - جدید دور کا نفسیاتی چیلنج
+                </div>
+            </div>
+            
+            <p>کبھی آپ کے ساتھ ایسا ہوا ہے کہ آپ گھر سے نکلے اور آدھے راستے میں یاد آیا کہ آپ اپنا موبائل فون تو گھر ہی بھول آئے ہیں؟ اس ایک خیال سے ہی دل ڈوبنے لگتا ہے، ہاتھ پاؤں ٹھنڈے پڑ جاتے ہیں اور ایک عجیب سی بے چینی محسوس ہوتی ہے، جیسے آپ دنیا سے کٹ گئے ہوں۔ اگر آپ کو یہ احساسات جانے پہچانے لگ رہے ہیں تو مبارک ہو، آپ اکیلے نہیں ہیں۔ آج کی ڈیجیٹل دنیا میں یہ ایک عام مسئلہ بن چکا ہے جسے ماہرین "نوموفوبیا" (Nomophobia) کا نام دیتے ہیں۔</p>
+            
+            <p class="pulse">یہ لفظ <strong>"No-Mobile-Phobia"</strong> کا مخفف ہے، یعنی موبائل فون کے بغیر رہنے کا غیر معمولی خوف۔ یہ صرف ایک عادت نہیں، بلکہ ایک ایسی نفسیاتی حالت ہے جو ہماری ذہنی صحت، رشتوں اور روزمرہ کی زندگی پر گہرے اثرات مرتب کر رہی ہے۔ آئیے اس جدید دور کی وبا کو تفصیل سے سمجھتے ہیں۔</p>
+            
+            <h2>اس مسئلے کی وجوہات اور اثرات (Cause and Effect)</h2>
+            
+            <p>آخر ہم اس مقام تک پہنچے کیسے؟ اس کی کئی وجوہات ہیں:</p>
+            
+            <h3><strong>وجوہات (Causes):</strong></h3>
+            
+            <ol>
+                <li><strong>ہر وقت جڑے رہنے کی خواہش</strong>: ہمیں لگتا ہے کہ اگر ہم آن لائن نہیں ہوں گے تو دوستوں، خاندان اور دنیا میں ہونے والے واقعات سے پیچھے رہ جائیں گے۔ اسی خوف کو "فومو" (FOMO - Fear of Missing Out) بھی کہتے ہیں۔</li>
+                <li><strong>معلومات پر انحصار</strong>: راستہ ڈھونڈنے سے لے کر، خبریں پڑھنے، بینکنگ کرنے اور یہاں تک کہ کھانا آرڈر کرنے تک، ہم ہر چھوٹے بڑے کام کے لیے اپنے فون پر انحصار کرنے لگے ہیں۔</li>
+                <li><strong>بوریت کا فوری حل</strong>: جیسے ہی ہم تھوڑا سا فارغ ہوتے ہیں، ہمارا ہاتھ خودبخود فون کی طرف جاتا ہے۔ یہ بوریت اور تنہائی کو دور کرنے کا سب سے آسان ذریعہ بن گیا ہے۔</li>
+                <li><strong>سوشل میڈیا کا دباؤ</strong>: لائکس، کمنٹس اور نوٹیفکیشنز کی شکل میں ملنے والی فوری تسکین ہمیں بار بار فون چیک کرنے پر مجبور کرتی ہے۔</li>
+            </ol>
+            
+            <h3><strong>اثرات (Effects):</strong></h3>
+            
+            <ol>
+                <li><strong>ذہنی صحت پر منفی اثرات</strong>: مسلسل فون سے چپکے رہنا بے چینی (Anxiety)، ڈپریشن اور چڑچڑے پن کو جنم دیتا ہے۔</li>
+                <li><strong>نیند کے مسائل</strong>: رات کو سونے سے پہلے فون استعمال کرنے سے اس کی نیلی روشنی ہماری نیند کے ہارمونز کو متاثر کرتی ہے، جس سے نیند کا معیار خراب ہوتا ہے۔</li>
+                <li><strong>حقیقی رشتوں میں دوری</strong>: ہم اکثر اپنے سامنے بیٹھے ہوئے عزیزوں کو نظر انداز کر کے فون کی اسکرین پر نظریں جمائے رکھتے ہیں، جس سے ہمارے حقیقی رشتے کمزور پڑ رہے ہیں۔</li>
+                <li><strong>کام اور پڑھائی میں کمی</strong>: بار بار آنے والی نوٹیفکیشنز ہماری توجہ بھٹکاتی ہیں، جس سے ہماری کارکردگی متاثر ہوتی ہے۔</li>
+            </ol>
+            
+            <h2>نوموفوبیا کی عام علامات (Symptoms)</h2>
+            
+            <p>کیسے پہچانیں کہ آپ بھی اس مسئلے کا شکار ہیں؟ ان علامات پر غور کریں:</p>
+            
+            <ol>
+                <li>فون گھر بھول جانے یا بیٹری ختم ہونے کے خیال سے شدید گھبراہٹ اور پریشانی ہونا۔</li>
+                <li>باتھ روم میں بھی فون اپنے ساتھ لے کر جانا۔</li>
+                <li>بار بار بغیر کسی وجہ کے فون کو ان لاک کرکے نوٹیفکیشنز چیک کرنا۔</li>
+                <li>ان جگہوں پر جانے سے کترانا جہاں انٹرنیٹ سگنل یا وائی فائی کی سہولت نہ ہو۔</li>
+                <li>رات کو سوتے ہوئے بھی فون کو اپنے سرہانے یا قریب رکھنا اور نیند سے اٹھ کر بھی فون چیک کرنا۔</li>
+                <li>دوستوں اور گھر والوں کے ساتھ ہوتے ہوئے بھی گفتگو کے بجائے فون میں مصروف رہنا۔</li>
+            </ol>
+            
+            <h2>اس لت سے پیدا ہونے والی مشکلات (Difficulties)</h2>
+            
+            <p>یہ صرف ایک چھوٹی سی عادت نہیں، بلکہ اس سے ہماری زندگی میں کئی عملی مشکلات پیدا ہوتی ہیں:</p>
+            
+            <ol>
+                <li><strong>سماجی تنہائی</strong>: آپ بھلے ہی لوگوں کے بیچ ہوں، لیکن ذہنی طور پر آپ اکیلے اور اپنی ڈیجیٹل دنیا میں گم ہوتے ہیں۔</li>
+                <li><strong>توجہ مرکوز کرنے میں ناکامی</strong>: ہمارا دماغ چھوٹی اور فوری معلومات کا عادی ہو جاتا ہے، جس کی وجہ سے کسی ایک کام پر طویل عرصے تک توجہ دینا مشکل ہو جاتا ہے۔</li>
+                <li><strong>جسمانی مسائل</strong>: مسلسل گردن جھکا کر فون استعمال کرنے سے "ٹیکسٹ نیک" (Text Neck) یعنی گردن میں درد، آنکھوں پر دباؤ اور کلائی کے مسائل عام ہو رہے ہیں۔</li>
+                <li><strong>مالی مسائل</strong>: نئے سے نیا فون خریدنے کی دوڑ اور مہنگے ڈیٹا پیکجز پر فضول خرچی بھی اسی لت کا نتیجہ ہے۔</li>
+            </ol>
+            
+            <h2>اس عادت سے چھٹکارا کیسے پائیں؟ (Remedies)</h2>
+            
+            <p>اگر آپ کو لگتا ہے کہ آپ اس مسئلے کا شکار ہیں تو گھبرائیں نہیں! چند آسان اقدامات سے آپ اپنی زندگی کا کنٹرول واپس اپنے ہاتھ میں لے سکتے ہیں:</p>
+            
+            <ol>
+                <li><strong>ڈیجیٹل ڈیٹاکس (Digital Detox)</strong>: دن میں کچھ وقت "فون فری" گزاریں۔ جیسے کھانا کھاتے وقت، سونے سے ایک گھنٹہ پہلے اور صبح اٹھنے کے فوراً بعد فون کو خود سے دور رکھیں۔</li>
+                <li><strong>نوٹیفکیشنز بند کریں</strong>: فیس بک، انسٹاگرام اور دیگر غیر ضروری ایپس کی نوٹیفکیشنز کو بند کر دیں تاکہ آپ کا دھیان بار بار نہ بھٹکے۔</li>
+                <li><strong>نئے مشاغل اپنائیں</strong>: کوئی کتاب پڑھیں، ورزش کریں، باغبانی کریں یا دوستوں اور خاندان کے ساتھ بیٹھ کر گپ شپ لگائیں۔ ایسے مشاغل تلاش کریں جن میں اسکرین شامل نہ ہو۔</li>
+                <li><strong>کچھ اصول بنائیں</strong>: گھر میں اصول بنائیں کہ رات کے کھانے کی میز پر یا سونے کے کمرے میں کوئی بھی فون استعمال نہیں کرے گا۔</li>
+                <li><strong>پرانی ٹیکنالوجی کو واپس لائیں</strong>: صبح اٹھنے کے لیے فون کے الارم کے بجائے ایک پرانی الارم گھڑی کا استعمال کریں۔</li>
+                <li><strong>مدد حاصل کریں</strong>: اگر آپ کو لگے کہ یہ مسئلہ آپ کے قابو سے باہر ہو رہا ہے تو کسی دوست، عزیز یا کسی ماہر نفسیات سے بات کرنے میں بالکل نہ ہچکچائیں۔</li>
+            </ol>
+            
+            <h2>سب کے لیے ایک پیغام (Message for all)</h2>
+            
+            <p>یاد رکھیں، ٹیکنالوجی اور اسمارٹ فون ہماری سہولت کے لیے بنائے گئے ہیں، نہ کہ ہمیں اپنا غلام بنانے کے لیے۔ یہ ایک بہترین آلہ ہے، لیکن اسے اپنی زندگی کا مرکز مت بننے دیں۔</p>
+            
+            <p class="glow-text">تھوڑا رکیں، اپنے فون کو نیچے رکھیں اور اپنے اردگرد کی خوبصورت دنیا کو دیکھیں۔ اپنے پیاروں کی آنکھوں میں دیکھیں، ان کی باتیں سنیں اور ان لمحات سے لطف اندوز ہوں جو زندگی آپ کو دے رہی ہے۔ حقیقی زندگی آپ کی اسکرین سے کہیں زیادہ دلچسپ اور حسین ہے۔ توازن ہی کامیابی کی کنجی ہے۔</p>
+            
+            <p>ایسی دلچسپ تحریریں پڑھنے کے لئے ویب سائٹ وزٹ کریں: <a href="https://www.bloglovers.pk">https://www.bloglovers.pk</a></p>
+        </div>
+        
+        <div class="back-btn-container">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-right"></i> واپس جائیں
+            </button>
+        </div>
     </div>
 
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
@@ -95,21 +888,129 @@
     </div>
 
     <script>
+        // Create floating icons
+        function createFloatingIcons() {
+            const container = document.getElementById('floatingIcons');
+            const icons = ['📱', '📲', '📞', '📶', '🔋', '📵', '📴', '🔔', '📧', '🌐'];
+            
+            for (let i = 0; i < 25; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'floating-icon';
+                icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+                icon.style.left = `${Math.random() * 100}%`;
+                icon.style.top = `${Math.random() * 100}%`;
+                icon.style.animationDelay = `${Math.random() * 20}s`;
+                icon.style.fontSize = `${Math.random() * 20 + 15}px`;
+                icon.style.opacity = Math.random() * 0.3 + 0.1;
+                container.appendChild(icon);
+            }
+        }
+        
+        // Show notification effect
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Color fill post functions
         function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
+            const originalContent = document.querySelector('.post-card').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Add hover effects to all interactive elements
+        function addHoverEffects() {
+            document.querySelectorAll('.post-card, .trigger-btn, .back-btn, .nav-btn').forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    if (this.classList.contains('nav-btn')) {
+                        this.style.transform = 'scale(1.15) translateX(-5px)';
+                    } else if (this.classList.contains('trigger-btn') || this.classList.contains('back-btn')) {
+                        this.style.transform = 'translateY(-8px)';
+                    } else {
+                        this.style.transform = 'translateY(-10px)';
+                    }
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    if (this.classList.contains('nav-btn')) {
+                        this.style.transform = 'scale(1) translateX(0)';
+                    } else {
+                        this.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            // List item hover effects
+            document.querySelectorAll('li').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-5px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingIcons();
+            addHoverEffects();
+            
+            // Show notification after 2 seconds
+            setTimeout(showNotification, 2000);
+            
+            // Add escape key listener
+            document.addEventListener('keydown', function(e) { 
+                if (e.key === 'Escape') closeColorFillPost(); 
+            });
+            
+            document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        });
+        
+        // Add scroll animation effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const postCard = document.querySelector('.post-card');
+            const scrolled = window.pageYOffset;
+            
+            if (scrolled > lastScrollTop) {
+                // Scrolling down
+                postCard.style.transform = 'translateY(-5px)';
+            } else {
+                // Scrolling up
+                postCard.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrolled;
+        });
     </script>
 </body>
 </html>
