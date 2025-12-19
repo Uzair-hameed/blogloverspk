@@ -7,74 +7,660 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --space-dark: #0a0e17;
+            --space-blue: #1a1f35;
+            --golden: #ffd700;
+            --holy-light: #f0f8ff;
+            --prophet-gold: #daa520;
+            --divine-blue: #4169e1;
+            --earth-brown: #8b4513;
+            --text-light: #f5f5f5;
+            --card-bg: rgba(255, 255, 255, 0.07);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--space-dark);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(218, 165, 32, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(65, 105, 225, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 40% 90%, rgba(255, 215, 0, 0.1) 0%, transparent 25%),
+                linear-gradient(180deg, rgba(10, 14, 23, 0.9) 0%, rgba(26, 31, 53, 0.9) 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 4a4 4 0 1 0 0 8 4 4 0 1 0 0-8zM32 16a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm0 16a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm16 32a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm16-16a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm48 0a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm-16 32a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm-32 0a4 4 0 1 0 0-8 4 4 0 1 0 0 8zM0 56a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm0 16a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm0 16a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm32-48a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm48 0a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm16 32a4 4 0 1 0 0-8 4 4 0 1 0 0 8zm16-32a4 4 0 1 0 0-8 4 4 0 1 0 0 8zM96 8a4 4 0 1 0 0 8 4 4 0 1 0 0-8z' fill='%23ffd700' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.6;
+            z-index: -1;
+            pointer-events: none;
+            animation: starMove 100s linear infinite;
+        }
+        
+        @keyframes starMove {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-1000px) translateX(500px); }
+        }
+        
+        .controls {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--space-blue);
+            border: 2px solid var(--prophet-gold);
+            color: var(--prophet-gold);
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: var(--prophet-gold);
+            color: var(--space-dark);
+            box-shadow: 0 0 30px rgba(218, 165, 32, 0.8);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--prophet-gold), var(--divine-blue));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(218, 165, 32, 0.5);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 100;
+            font-family: inherit;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.8);
+        }
+        
+        .post-content {
+            max-width: 1000px;
+            margin: 80px auto 40px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(218, 165, 32, 0.1),
+                inset 0 0 30px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .post-content:hover {
+            border: 1px solid rgba(218, 165, 32, 0.4);
+            box-shadow: 
+                0 25px 70px rgba(0, 0, 0, 0.7),
+                0 0 70px rgba(218, 165, 32, 0.2),
+                inset 0 0 40px rgba(255, 255, 255, 0.08);
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--prophet-gold), var(--divine-blue), var(--golden));
+            background-size: 200% 100%;
+            animation: holyGradient 5s ease infinite alternate;
+        }
+        
+        @keyframes holyGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        h1, h2, h3 {
+            color: var(--golden);
+            border-bottom: 2px solid rgba(218, 165, 32, 0.4);
+            padding-bottom: 15px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            border-bottom: 3px solid var(--prophet-gold);
+            font-size: 2.8rem;
+            padding-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(45deg, var(--golden), var(--holy-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            color: var(--holy-light);
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            color: var(--prophet-gold);
+        }
+        
+        h1:hover, h2:hover, h3:hover {
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            transform: translateX(-5px);
+            padding-right: 10px;
+        }
+        
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            color: rgba(245, 245, 245, 0.95);
+            transition: all 0.4s ease;
+            padding: 0 10px;
+            line-height: 2.4;
+            border-right: 3px solid transparent;
+        }
+        
+        p:hover {
+            background: rgba(218, 165, 32, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            transform: translateX(-5px);
+            border-right: 3px solid var(--prophet-gold);
+        }
+        
+        .post-image {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            border-radius: 20px;
+            display: block;
+            margin: 30px auto;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--space-dark), var(--space-dark)) padding-box,
+                        linear-gradient(45deg, var(--prophet-gold), var(--divine-blue), var(--earth-brown)) border-box;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.7),
+                0 0 40px rgba(218, 165, 32, 0.3);
+            transition: all 0.6s ease;
+            animation: gentlePulse 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gentlePulse {
+            0% { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(218, 165, 32, 0.3); }
+            100% { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 60px rgba(218, 165, 32, 0.5); }
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02) rotate(-1deg);
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.8),
+                0 0 70px rgba(218, 165, 32, 0.6);
+        }
+        
+        .wisdom-highlight {
+            background: linear-gradient(90deg, rgba(218, 165, 32, 0.1), transparent);
+            border-right: 4px solid var(--prophet-gold);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 15px 15px 0;
+            animation: wisdomGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes wisdomGlow {
+            0% { box-shadow: inset 0 0 20px rgba(218, 165, 32, 0.1); }
+            100% { box-shadow: inset 0 0 30px rgba(218, 165, 32, 0.2); }
+        }
+        
+        .prophet-miracles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+        
+        .miracle-item {
+            background: rgba(65, 105, 225, 0.15);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(65, 105, 225, 0.3);
+            text-align: center;
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+        
+        .miracle-item:hover {
+            transform: translateY(-5px);
+            background: rgba(65, 105, 225, 0.25);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .controls {
+                display: none;
+            }
+            
+            .back-btn {
+                top: 10px;
+                right: 10px;
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+            
+            .post-content {
+                margin: 60px auto 20px;
+                padding: 25px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                line-height: 2.2;
+            }
+            
+            .prophet-miracles {
+                flex-direction: column;
+            }
+            
+            .miracle-item {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .post-content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Divine Light Animation */
+        @keyframes divineLight {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 0.8; transform: translateY(-20px); }
+        }
+        
+        .divine-light {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: divineLight 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Ant Trail Animation */
+        .ant-trail {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .ant {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--earth-brown);
+            border-radius: 50%;
+            animation: antWalk 20s linear infinite;
+        }
+        
+        @keyframes antWalk {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100vw, 100vh); }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--space-blue);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--prophet-gold), var(--divine-blue));
+            border-radius: 10px;
+            border: 2px solid var(--space-blue);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--golden), var(--holy-light));
+        }
+        
+        /* Divine Quote Styling */
+        .divine-quote {
+            font-style: italic;
+            padding: 25px;
+            margin: 30px 0;
+            background: linear-gradient(90deg, rgba(218, 165, 32, 0.05), rgba(65, 105, 225, 0.05));
+            border-right: 5px solid var(--prophet-gold);
+            border-left: 5px solid var(--divine-blue);
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--holy-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .divine-quote::before {
+            content: '"';
+            position: absolute;
+            font-size: 8rem;
+            color: rgba(218, 165, 32, 0.1);
+            top: -30px;
+            right: 20px;
+            font-family: serif;
+        }
+        
+        .divine-quote::after {
+            content: '"';
+            position: absolute;
+            font-size: 8rem;
+            color: rgba(65, 105, 225, 0.1);
+            bottom: -50px;
+            left: 20px;
+            font-family: serif;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <a href="javascript:history.back()" class="back-btn">⬅ واپس جائیں</a>
+    
+    <div class="controls">
+        <button class="control-btn" onclick="scrollToTop()">↑</button>
+        <button class="control-btn" onclick="scrollToBottom()">↓</button>
     </div>
-
+    
     <div class="post-content">
-        
         <h1>ایک ننھی چیونٹی اور ایک عظیم پیغمبر: حکمت بھری انوکھی ملاقات</h1>
-<p>ایک دفعہ کا ذکر ہے، حضرت سلیمان علیہ السلام، جو اللہ کے برگزیدہ پیغمبر اور ایک عظیم بادشاہ تھے، اپنے لشکر کے ساتھ ایک وادی سے گزر رہے تھے۔ آپ کو اللہ تعالیٰ نے بے شمار معجزات عطا فرمائے تھے، جن میں سے ایک یہ بھی تھا کہ آپ جانوروں اور پرندوں کی بولی سمجھتے تھے اور وہ آپ کے تابع تھے۔</p>
-<p>اس وادی میں چیونٹیوں کی ایک بڑی آبادی تھی جو اپنے بلوں میں رہتی تھی۔ جب حضرت سلیمان علیہ السلام کا لشکر قریب پہنچا تو ایک چیونٹی نے، جو چیونٹیوں کی سردار تھی، اپنی قوم کو پکار کر کہا: &quot;اے چیونٹیو! جلدی کرو اور اپنے بلوں میں گھس جاؤ! کہیں ایسا نہ ہو کہ سلیمان اور اس کا لشکر بے خبری میں تمہیں کچل ڈالے۔&quot;</p>
-<p>حضرت سلیمان علیہ السلام نے، جو اس چیونٹی کی بات سن رہے تھے، مسکرائے۔ آپ کو اس چیونٹی کی عقل مندی اور اپنی قوم کی حفاظت کے جذبے پر خوشی ہوئی۔ آپ نے اللہ تعالیٰ کا شکر ادا کیا کہ اس نے آپ کو ایسی نعمت عطا فرمائی جس سے آپ اس حقیر مخلوق کی بات بھی سمجھ سکے۔</p>
-<p>اس واقعہ کے بعد، حضرت سلیمان علیہ السلام نے اللہ تعالیٰ سے دعا کی کہ وہ انہیں اپنی نعمتوں کا شکر ادا کرنے اور ایسے اعمال کرنے کی توفیق دے جن سے وہ راضی ہو۔</p>
-<h2>اس کہانی سے ہمیں کیا سبق ملتا ہے؟</h2>
-<p>یہ کہانی ہمیں کئی اہم سبق سکھاتی ہے:</p>
-<h3>1. عاجزی و انکساری</h3>
-<p>حضرت سلیمان علیہ السلام جیسا عظیم بادشاہ بھی ایک چھوٹی سی چیونٹی کی بات کو غور سے سنتا ہے اور اس کی عقل مندی کو سراہتا ہے۔ یہ ہمیں سکھاتا ہے کہ ہمیں کبھی بھی اپنی بڑائی یا مرتبے پر غرور نہیں کرنا چاہیے، بلکہ ہر مخلوق کا احترام کرنا چاہیے۔</p>
-<h3>2. اللہ کی قدرت</h3>
-<p>یہ کہانی اللہ تعالیٰ کی بے پناہ قدرت کو بھی ظاہر کرتی ہے کہ اس نے اپنے ایک نبی کو ایسی خاص صلاحیت عطا فرمائی کہ وہ جانوروں کی بولی سمجھ سکے۔</p>
-<h3>3. احساس ذمہ داری</h3>
-<p>چیونٹی کا اپنی قوم کو خطرے سے بچانے کا جذبہ ہمیں احساس ذمہ داری کی اہمیت سکھاتا ہے۔ ہمیں بھی اپنے ارد گرد کے لوگوں اور مخلوق کے حقوق کا خیال رکھنا چاہیے اور ان کی بھلائی کے لیے کام کرنا چاہیے۔</p>
-<h3>4. شکرگزاری</h3>
-<p>حضرت سلیمان علیہ السلام نے اللہ کی نعمتوں پر شکر ادا کیا۔ یہ ہمیں سکھاتا ہے کہ ہمیں ہر حال میں اللہ کا شکر ادا کرنا چاہیے اور اس کی عطا کردہ نعمتوں کی قدر کرنی چاہیے۔</p>
-<p>یہ خوبصورت کہانی ہمیں یاد دلاتی ہے کہ اس دنیا میں ہر چھوٹی بڑی چیز میں کوئی نہ کوئی حکمت اور سبق پوشیدہ ہے۔</p>
-
+        
+        <img src="https://bloglovers.pk/images/kids/ayk-nnhi-chyonti-aur-ayk-azym-pyghmbrhkmt-bhri-anokhi-mlaqat.png" alt="حضرت سلیمان اور چیونٹی کی کہانی" class="post-image">
+        
+        <p>ایک دفعہ کا ذکر ہے، حضرت سلیمان علیہ السلام، جو اللہ کے برگزیدہ پیغمبر اور ایک عظیم بادشاہ تھے، اپنے لشکر کے ساتھ ایک وادی سے گزر رہے تھے۔ آپ کو اللہ تعالیٰ نے بے شمار معجزات عطا فرمائے تھے، جن میں سے ایک یہ بھی تھا کہ آپ جانوروں اور پرندوں کی بولی سمجھتے تھے اور وہ آپ کے تابع تھے۔</p>
+        
+        <div class="divine-quote">
+            اللہ نے حضرت سلیمان علیہ السلام کو علم و حکمت میں خاص مقام عطا فرمایا تھا
+        </div>
+        
+        <p>اس وادی میں چیونٹیوں کی ایک بڑی آبادی تھی جو اپنے بلوں میں رہتی تھی۔ جب حضرت سلیمان علیہ السلام کا لشکر قریب پہنچا تو ایک چیونٹی نے، جو چیونٹیوں کی سردار تھی، اپنی قوم کو پکار کر کہا: "اے چیونٹیو! جلدی کرو اور اپنے بلوں میں گھس جاؤ! کہیں ایسا نہ ہو کہ سلیمان اور اس کا لشکر بے خبری میں تمہیں کچل ڈالے۔"</p>
+        
+        <div class="wisdom-highlight">
+            <p>حضرت سلیمان علیہ السلام نے، جو اس چیونٹی کی بات سن رہے تھے، مسکرائے۔ آپ کو اس چیونٹی کی عقل مندی اور اپنی قوم کی حفاظت کے جذبے پر خوشی ہوئی۔ آپ نے اللہ تعالیٰ کا شکر ادا کیا کہ اس نے آپ کو ایسی نعمت عطا فرمائی جس سے آپ اس حقیر مخلوق کی بات بھی سمجھ سکے۔</p>
+        </div>
+        
+        <p>اس واقعہ کے بعد، حضرت سلیمان علیہ السلام نے اللہ تعالیٰ سے دعا کی کہ وہ انہیں اپنی نعمتوں کا شکر ادا کرنے اور ایسے اعمال کرنے کی توفیق دے جن سے وہ راضی ہو۔</p>
+        
+        <h2>اس کہانی سے ہمیں کیا سبق ملتا ہے؟</h2>
+        <p>یہ کہانی ہمیں کئی اہم سبق سکھاتی ہے:</p>
+        
+        <div class="prophet-miracles">
+            <div class="miracle-item">
+                <h3>عاجزی</h3>
+                <p>ہر مخلوق کا احترام</p>
+            </div>
+            <div class="miracle-item">
+                <h3>حکمت</h3>
+                <p>اللہ کی عطا کردہ علم</p>
+            </div>
+            <div class="miracle-item">
+                <h3>ذمہ داری</h3>
+                <p>دوسروں کی حفاظت</p>
+            </div>
+            <div class="miracle-item">
+                <h3>شکرگزاری</h3>
+                <p>نعمتوں کا شکر</p>
+            </div>
+        </div>
+        
+        <h3>1. عاجزی و انکساری</h3>
+        <p>حضرت سلیمان علیہ السلام جیسا عظیم بادشاہ بھی ایک چھوٹی سی چیونٹی کی بات کو غور سے سنتا ہے اور اس کی عقل مندی کو سراہتا ہے۔ یہ ہمیں سکھاتا ہے کہ ہمیں کبھی بھی اپنی بڑائی یا مرتبے پر غرور نہیں کرنا چاہیے، بلکہ ہر مخلوق کا احترام کرنا چاہیے۔</p>
+        
+        <h3>2. اللہ کی قدرت</h3>
+        <p>یہ کہانی اللہ تعالیٰ کی بے پناہ قدرت کو بھی ظاہر کرتی ہے کہ اس نے اپنے ایک نبی کو ایسی خاص صلاحیت عطا فرمائی کہ وہ جانوروں کی بولی سمجھ سکے۔</p>
+        
+        <h3>3. احساس ذمہ داری</h3>
+        <p>چیونٹی کا اپنی قوم کو خطرے سے بچانے کا جذبہ ہمیں احساس ذمہ داری کی اہمیت سکھاتا ہے۔ ہمیں بھی اپنے ارد گرد کے لوگوں اور مخلوق کے حقوق کا خیال رکھنا چاہیے اور ان کی بھلائی کے لیے کام کرنا چاہیے۔</p>
+        
+        <h3>4. شکرگزاری</h3>
+        <p>حضرت سلیمان علیہ السلام نے اللہ کی نعمتوں پر شکر ادا کیا۔ یہ ہمیں سکھاتا ہے کہ ہمیں ہر حال میں اللہ کا شکر ادا کرنا چاہیے اور اس کی عطا کردہ نعمتوں کی قدر کرنی چاہیے۔</p>
+        
+        <div class="wisdom-highlight">
+            <p>یہ خوبصورت کہانی ہمیں یاد دلاتی ہے کہ اس دنیا میں ہر چھوٹی بڑی چیز میں کوئی نہ کوئی حکمت اور سبق پوشیدہ ہے۔ اللہ تعالیٰ نے اس کائنات کی ہر چیز میں اپنی قدرت اور حکمت کے نشانات رکھے ہیں۔</p>
+        </div>
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
+    <div class="divine-light" style="top: 20%; right: 10%;"></div>
+    <div class="divine-light" style="bottom: 20%; left: 10%; animation-delay: -4s;"></div>
+    
+    <div class="ant-trail" id="antTrail"></div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create divine lights
+        function createDivineLights() {
+            const lightsContainer = document.createElement('div');
+            lightsContainer.className = 'divine-lights-container';
+            document.body.appendChild(lightsContainer);
+            
+            for (let i = 0; i < 3; i++) {
+                const light = document.createElement('div');
+                light.className = 'divine-light';
+                light.style.left = `${20 + i * 30}%`;
+                light.style.top = `${10 + i * 20}%`;
+                light.style.animationDelay = `${i * 2}s`;
+                lightsContainer.appendChild(light);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Create ant trail
+        function createAntTrail() {
+            const antTrail = document.getElementById('antTrail');
+            const antCount = 50;
+            
+            for (let i = 0; i < antCount; i++) {
+                const ant = document.createElement('div');
+                ant.className = 'ant';
+                
+                // Random position and animation
+                const size = Math.random() * 3 + 2;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 20 + 15;
+                const delay = Math.random() * 20;
+                
+                ant.style.width = `${size}px`;
+                ant.style.height = `${size}px`;
+                ant.style.left = `${x}%`;
+                ant.style.top = `${y}%`;
+                ant.style.animationDuration = `${duration}s`;
+                ant.style.animationDelay = `${delay}s`;
+                ant.style.opacity = Math.random() * 0.5 + 0.2;
+                
+                antTrail.appendChild(ant);
+            }
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Add click effects to wisdom highlights
+        function addWisdomEffects() {
+            const wisdomElements = document.querySelectorAll('.wisdom-highlight, .divine-quote, .miracle-item');
+            wisdomElements.forEach(element => {
+                element.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 0 40px rgba(218, 165, 32, 0.4)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.boxShadow = '';
+                    }, 300);
+                });
+            });
+        }
+        
+        // Add hover sound effects (visual only)
+        function addVisualEffects() {
+            const headings = document.querySelectorAll('h1, h2, h3');
+            headings.forEach(heading => {
+                heading.addEventListener('mouseenter', function() {
+                    this.style.textShadow = '0 0 25px rgba(255, 215, 0, 0.9)';
+                });
+                heading.addEventListener('mouseleave', function() {
+                    this.style.textShadow = '0 0 10px rgba(255, 215, 0, 0.3)';
+                });
+            });
+            
+            // Add glow effect to image on hover
+            const image = document.querySelector('.post-image');
+            image.addEventListener('mouseenter', function() {
+                this.style.filter = 'brightness(1.1) drop-shadow(0 0 20px rgba(218, 165, 32, 0.7))';
+            });
+            image.addEventListener('mouseleave', function() {
+                this.style.filter = 'brightness(1) drop-shadow(0 0 10px rgba(218, 165, 32, 0.3))';
+            });
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createDivineLights();
+            createAntTrail();
+            addWisdomEffects();
+            addVisualEffects();
+            
+            // Add floating effect to paragraphs
+            const paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach((p, index) => {
+                if (index % 2 === 0) {
+                    p.style.animation = `paragraphFloat ${index % 5 + 3}s ease-in-out infinite alternate`;
+                    p.style.animationDelay = `${index * 0.1}s`;
+                }
+            });
+            
+            // Create CSS for paragraph float animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes paragraphFloat {
+                    0% { transform: translateY(0) translateX(0); }
+                    100% { transform: translateY(-5px) translateX(-2px); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                scrollToTop();
+            } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                scrollToBottom();
+            } else if (e.key === 'Escape') {
+                window.history.back();
+            }
+        });
     </script>
 </body>
 </html>
