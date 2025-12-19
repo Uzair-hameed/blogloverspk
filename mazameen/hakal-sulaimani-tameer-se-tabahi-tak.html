@@ -5,73 +5,504 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ہیکل سلیمانی: تعمیر سے تباہی تک</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --dark-bg: #0a0a1a;
+            --darker-bg: #050510;
+            --text-color: #e0e0ff;
+            --heading-color: #ffcc70;
+            --accent-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --card-bg: rgba(20, 20, 40, 0.9);
+            --shadow-color: rgba(0, 0, 0, 0.6);
+            --gold-color: #ffd700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.3;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Space Animation Background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2a 100%);
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--gold-color);
+            color: var(--gold-color);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: var(--gold-color);
+            color: var(--dark-bg);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: inherit;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* Main Content */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin: 40px 0 60px;
+            position: relative;
+        }
+        
+        h1 {
+            color: var(--heading-color);
+            font-size: 3.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(255, 204, 112, 0.4);
+            border-bottom: 3px solid var(--gold-color);
+            padding-bottom: 20px;
+            line-height: 1.4;
+            text-align: center;
+        }
+        
+        .post-image {
+            max-width: 85%;
+            height: auto;
+            border-radius: 20px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border: 3px solid var(--gold-color);
+            transition: transform 0.5s;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .post-content {
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            text-align: justify;
+        }
+        
+        .post-content p {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            text-align: justify;
+            line-height: 2.5;
+        }
+        
+        .post-content strong {
+            color: var(--gold-color);
+            font-weight: bold;
+        }
+        
+        .post-content ol {
+            margin-right: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .post-content li {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .post-content blockquote {
+            border-right: 5px solid var(--secondary-color);
+            padding-right: 25px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: #aaddff;
+            background: rgba(78, 205, 196, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        /* Color Fill Feature */
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+        
+        .color-fill-container.active {
+            opacity: 1;
+            z-index: 9998;
+        }
+        
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--gold-color);
+        }
+        
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: transform 0.3s;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: var(--secondary-color);
+        }
+        
+        .trigger-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff8a00, #ffcc70);
+            color: #1a0a2e;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(255, 138, 0, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            font-family: inherit;
+            border: 2px solid var(--gold-color);
+        }
+        
+        .trigger-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 204, 112, 0.7);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .post-content p {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .post-content p {
+                font-size: 1.4rem;
+                line-height: 2.3;
+            }
+            
+            .post-content {
+                padding: 30px;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+            
+            .trigger-btn {
+                padding: 14px 30px;
+                font-size: 18px;
+            }
+            
+            .post-image {
+                max-width: 95%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .post-content p {
+                font-size: 1.3rem;
+                line-height: 2.1;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .nav-buttons {
+                left: 5px;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .trigger-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--gold-color), var(--secondary-color));
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--accent-color), var(--gold-color));
+        }
+        
+        /* Section Headers */
+        .section-header {
+            color: var(--heading-color);
+            font-size: 2.2rem;
+            margin: 40px 0 20px;
+            border-right: 4px solid var(--secondary-color);
+            padding-right: 15px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Space Background -->
+    <div class="space-bg" id="spaceBg"></div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
+    </div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i> واپس جائیں</button>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="header-section">
+            <h1>ہیکل سلیمانی: تعمیر سے تباہی تک</h1>
+            
+            <div style="text-align: center; margin: 40px 0;">
+                <button class="trigger-btn" onclick="openColorFillPost()">
+                    🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+                </button>
+            </div>
+            
+            <!-- Post Image -->
+            <img src="https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" 
+                 alt="ہیکل سلیمانی: تعمیر سے تباہی تک" 
+                 class="post-image">
+        </div>
+        
+        <div class="post-content">
+            <h2 class="section-header">ہیکل سلیمانی کی تعمیر</h2>
+            <p>ہیکل سلیمانی یا بیت ہمقدش (Temple of Solomon یا Solomon's Temple) کا ذکر یہودیت، مسیحیت اور اسلام تینوں مذاہب میں بڑی اہمیت سے کیا گیا ہے۔ یہ وہ مقدس عبادت گاہ تھی جسے حضرت سلیمان علیہ السلام نے یروشلم میں تعمیر کروایا تھا۔ اسے دنیا کی تاریخ میں ایک انتہائی شاندار مذہبی اور تعمیراتی عمارت سمجھا جاتا ہے۔</p>
+            
+            <p><strong>ہیکل سلیمانی کی تعمیر</strong></p>
+            <p>حضرت سلیمان علیہ السلام نے تقریباً 3000 سال پہلے اس عظیم الشان عبادت گاہ کی تعمیر کا حکم دیا۔ قرآن مجید میں اللہ تعالیٰ نے حضرت سلیمان علیہ السلام کی عظمت اور ان کے اس عظیم کارنامے کا ذکر فرمایا ہے۔</p>
+            <p>ہیکل سلیمانی کی تعمیر 966 قبل مسیح میں شروع ہوئی اور تقریباً سات سال کے عرصے میں مکمل ہوئی۔ اس کی تعمیر کے لیے لبنان کے عالیشان درختوں، قیمتی پتھروں اور سونے کا بے تحاشا استعمال کیا گیا۔</p>
+            
+            <h2 class="section-header">ہیکل سلیمانی کا ڈیزائن اور عظمت</h2>
+            <p>اس عبادت گاہ کی لمبائی تقریباً 60 ہاتھ (تقریباً 27 میٹر)، چوڑائی 20 ہاتھ (تقریباً 9 میٹر) اور اونچائی 30 ہاتھ (تقریباً 13.5 میٹر) تھی۔ ہیکل کے اندرونی حصے کو سونے کی پتریوں سے مڑھا گیا تھا اور اس میں قیمتی جواہرات لگے ہوئے تھے۔</p>
+            <p>ہیکل سلیمانی کے تین اہم حصے تھے:</p>
+            <ol>
+            <li><strong>قدس الاقداس:</strong> ہیکل کا سب سے مقدس حصہ جہاں تابوت سکینہ رکھا گیا تھا۔</li>
+            <li><strong>مقدس:</strong> جوہریوں اور کاہنوں کے لیے مخصوص تھا۔</li>
+            <li><strong>آنگن:</strong> عام عبادت گزاروں کے لیے مخصوص تھا۔</li>
+            </ol>
+            <p>ہیکل سلیمانی نہ صرف ایک عبادت گاہ تھی بلکہ یہ بنی اسرائیل کے مرکزی مذہبی، سماجی اور ثقافتی ادارے کا درجہ رکھتی تھی۔</p>
+            
+            <h2 class="section-header">ہیکل سلیمانی کی تباہی</h2>
+            <p>حضرت سلیمان علیہ السلام کی وفات کے بعد بنی اسرائیل میں اختلافات پیدا ہوئے اور ان کی طاقت کمزور ہوتی گئی۔ 586 قبل مسیح میں بابلی بادشاہ بخت نصر (نبوکد نضر) نے یروشلم پر حملہ کر کے ہیکل سلیمانی کو تباہ و برباد کر دیا۔ ہیکل میں موجود تمام قیمتی سامان لوٹ لیا گیا اور بنی اسرائیل کو قید کر کے بابلیا لے جایا گیا۔</p>
+            
+            <h2 class="section-header">ہیکل سلیمانی کی دوبارہ تعمیر</h2>
+            <p>بابلی اسیری کے تقریباً 70 سال بعد، جب فارسی بادشاہ سائرس اعظم نے بابل فتح کیا، تو اس نے یہودیوں کو وطن واپس جانے اور ہیکل کی دوبارہ تعمیر کی اجازت دے دی۔</p>
+            <p>دوسرے ہیکل کی تعمیر 516 قبل مسیح میں مکمل ہوئی۔ یہ پہلے ہیکل کے مقابلے میں انتہائی سادہ تھا۔</p>
+            
+            <h2 class="section-header">دوسرے ہیکل کی حتمی تباہی</h2>
+            <p>دوسرا ہیکل تقریباً 600 سال تک قائم رہا۔ 70 عیسوی میں رومی جنرل ٹائٹس نے یہودیوں کی بغاوت کو کچلتے ہوئے یروشلم پر قبضہ کر لیا اور دوسرے ہیکل کو مکمل طور پر تباہ کر دیا۔ آج کل کی "دیوار گریہ" دراصل اسی دوسرے ہیکل کا آخری حصہ ہے۔</p>
+            
+            <h2 class="section-header">ہیکل سلیمانی کی تینوں آسمانی مذاہب میں اہمیت</h2>
+            <p>ہیکل سلیمانی یہودیوں، مسیحیوں اور مسلمانوں تینوں کے لیے انتہائی اہمیت کا حامل ہے۔</p>
+            <p><strong>یہودیت میں:</strong> یہودی ہیکل سلیمانی کو اپنی تاریخ کا سب سے مقدس مقام سمجھتے ہیں۔ وہ آج بھی تیسرے ہیکل کی تعمیر کے منتظر ہیں۔</p>
+            <p><strong>مسیحیت میں:</strong> بائبل میں ہیکل سلیمانی کا ذکر حضرت عیسیٰ علیہ السلام کی زندگی اور تعلیمات سے وابستہ ہے۔</p>
+            <p><strong>اسلام میں:</strong> قرآن مجید نے حضرت سلیمان علیہ السلام کی عظمت اور ان کے عظیم الشان کارناموں کو سراہا ہے۔</p>
+            
+            <h2 class="section-header">حضرت سلیمان علیہ السلام کی دعا</h2>
+            <p>حضرت سلیمان علیہ السلام نے ہیکل کی تعمیر مکمل ہونے پر اللہ کے حضور جو دعا کی، وہ تاریخ کا ایک یادگار واقعہ ہے۔ انہوں نے کہا:</p>
+            <blockquote>
+            <p>"اے میرے رب! مجھے توفیق دے کہ میں تیری شکرگزاری بجا لاؤں تیرے اس احسان پر جو تو نے مجھ پر اور میرے والدین پر کیا ہے، اور ایسے نیک عمل کرنے کی توفیق دے جو تو پسند فرمائے، اور اپنی رحمت سے مجھے اپنے صالح بندوں میں شامل فرما لے۔"</p>
+            </blockquote>
+            
+            <h2 class="section-header">آخرت میں ہیکل سلیمانی</h2>
+            <p>بعض روایات میں آیا ہے کہ قیامت کے قریب ایک دجال (Antichrist) ظاہر ہوگا جو یروشلم میں بیٹھ کر خود کو معبود ہونے کا دعویٰ کرے گا۔ مسیحی عقیدے کے مطابق، دجال ہیکل سلیمانی کی جگہ پر اپنی حکومت قائم کرے گا۔</p>
+            <p>مسلم عقیدے کے مطابق، حضرت عیسیٰ علیہ السلام دوبارہ نزول فرمائیں گے اور دجال کو قتل کر کے عدل و انصاف کی حکومت قائم کریں گے۔</p>
+            
+            <h2 class="section-header">خلاصہ</h2>
+            <p>ہیکل سلیمانی انسانی تاریخ کا ایک عظیم مذہبی اور تعمیراتی شاہکار تھا۔ اس کی تعمیر سے لے کر تباہی تک کا سفر بنی اسرائیل کی تاریخ کے اہم موڑ ہیں۔ آج بھی یہ مقام تینوں ابراہیمی مذاہب کے ماننے والوں کے درمیان اختلاف اور تنازعے کا مرکز بنا ہوا ہے۔ حقیقی کامیابی اللہ تعالیٰ کی رضا میں ہے، جو اس نے اپنے نبی حضرت سلیمان علیہ السلام کو عطا فرمائی۔</p>
+        </div>
     </div>
 
-    <div class="post-content">
-        <h1>ہیکل سلیمانی: تعمیر سے تباہی تک</h1>
-        <p>ہیکل سلیمانی یا بیت ہمقدش (Temple of Solomon یا Solomon&#39;s Temple) کا ذکر یہودیت، مسیحیت اور اسلام تینوں مذاہب میں بڑی اہمیت سے کیا گیا ہے۔ یہ وہ مقدس عبادت گاہ تھی جسے حضرت سلیمان علیہ السلام نے یروشلم میں تعمیر کروایا تھا۔ اسے دنیا کی تاریخ میں ایک انتہائی شاندار مذہبی اور تعمیراتی عمارت سمجھا جاتا ہے۔</p>
-<p><strong>ہیکل سلیمانی کی تعمیر</strong></p>
-<p>حضرت سلیمان علیہ السلام نے تقریباً 3000 سال پہلے اس عظیم الشان عبادت گاہ کی تعمیر کا حکم دیا۔ قرآن مجید میں اللہ تعالیٰ نے حضرت سلیمان علیہ السلام کی عظمت اور ان کے اس عظیم کارنامے کا ذکر فرمایا ہے۔</p>
-<p>ہیکل سلیمانی کی تعمیر 966 قبل مسیح میں شروع ہوئی اور تقریباً سات سال کے عرصے میں مکمل ہوئی۔ اس کی تعمیر کے لیے لبنان کے عالیشان درختوں، قیمتی پتھروں اور سونے کا بے تحاشا استعمال کیا گیا۔</p>
-<p><strong>ہیکل سلیمانی کا ڈیزائن اور عظمت</strong></p>
-<p>اس عبادت گاہ کی لمبائی تقریباً 60 ہاتھ (تقریباً 27 میٹر)، چوڑائی 20 ہاتھ (تقریباً 9 میٹر) اور اونچائی 30 ہاتھ (تقریباً 13.5 میٹر) تھی۔ ہیکل کے اندرونی حصے کو سونے کی پتریوں سے مڑھا گیا تھا اور اس میں قیمتی جواہرات لگے ہوئے تھے۔</p>
-<p>ہیکل سلیمانی کے تین اہم حصے تھے:</p>
-<ol>
-<li><strong>قدس الاقداس:</strong> ہیکل کا سب سے مقدس حصہ جہاں تابوت سکینہ رکھا گیا تھا۔</li>
-<li><strong>مقدس:</strong> جوہریوں اور کاہنوں کے لیے مخصوص تھا۔</li>
-<li><strong>آنگن:</strong> عام عبادت گزاروں کے لیے مخصوص تھا۔</li>
-</ol>
-<p>ہیکل سلیمانی نہ صرف ایک عبادت گاہ تھی بلکہ یہ بنی اسرائیل کے مرکزی مذہبی، سماجی اور ثقافتی ادارے کا درجہ رکھتی تھی۔</p>
-<p><strong>ہیکل سلیمانی کی تباہی</strong></p>
-<p>حضرت سلیمان علیہ السلام کی وفات کے بعد بنی اسرائیل میں اختلافات پیدا ہوئے اور ان کی طاقت کمزور ہوتی گئی۔ 586 قبل مسیح میں بابلی بادشاہ بخت نصر (نبوکد نضر) نے یروشلم پر حملہ کر کے ہیکل سلیمانی کو تباہ و برباد کر دیا۔ ہیکل میں موجود تمام قیمتی سامان لوٹ لیا گیا اور بنی اسرائیل کو قید کر کے بابلیا لے جایا گیا۔</p>
-<p><strong>ہیکل سلیمانی کی دوبارہ تعمیر</strong></p>
-<p>بابلی اسیری کے تقریباً 70 سال بعد، جب فارسی بادشاہ سائرس اعظم نے بابل فتح کیا، تو اس نے یہودیوں کو وطن واپس جانے اور ہیکل کی دوبارہ تعمیر کی اجازت دے دی۔</p>
-<p>دوسرے ہیکل کی تعمیر 516 قبل مسیح میں مکمل ہوئی۔ یہ پہلے ہیکل کے مقابلے میں انتہائی سادہ تھا۔</p>
-<p><strong>دوسرے ہیکل کی حتمی تباہی</strong></p>
-<p>دوسرا ہیکل تقریباً 600 سال تک قائم رہا۔ 70 عیسوی میں رومی جنرل ٹائٹس نے یہودیوں کی بغاوت کو کچلتے ہوئے یروشلم پر قبضہ کر لیا اور دوسرے ہیکل کو مکمل طور پر تباہ کر دیا۔ آج کل کی &quot;دیوار گریہ&quot; دراصل اسی دوسرے ہیکل کا آخری حصہ ہے۔</p>
-<p><strong>ہیکل سلیمانی کی تینوں آسمانی مذاہب میں اہمیت</strong></p>
-<p>ہیکل سلیمانی یہودیوں، مسیحیوں اور مسلمانوں تینوں کے لیے انتہائی اہمیت کا حامل ہے۔</p>
-<p><strong>یہودیت میں:</strong> یہودی ہیکل سلیمانی کو اپنی تاریخ کا سب سے مقدس مقام سمجھتے ہیں۔ وہ آج بھی تیسرے ہیکل کی تعمیر کے منتظر ہیں۔
-<strong>مسیحیت میں:</strong> بائبل میں ہیکل سلیمانی کا ذکر حضرت عیسیٰ علیہ السلام کی زندگی اور تعلیمات سے وابستہ ہے۔
-<strong>اسلام میں:</strong> قرآن مجید نے حضرت سلیمان علیہ السلام کی عظمت اور ان کے عظیم الشان کارناموں کو سراہا ہے۔</p>
-<p><strong>حضرت سلیمان علیہ السلام کی دعا</strong></p>
-<p>حضرت سلیمان علیہ السلام نے ہیکل کی تعمیر مکمل ہونے پر اللہ کے حضور جو دعا کی، وہ تاریخ کا ایک یادگار واقعہ ہے۔ انہوں نے کہا:</p>
-<blockquote>
-<p>&quot;اے میرے رب! مجھے توفیق دے کہ میں تیری شکرگزاری بجا لاؤں تیرے اس احسان پر جو تو نے مجھ پر اور میرے والدین پر کیا ہے، اور ایسے نیک عمل کرنے کی توفیق دے جو تو پسند فرمائے، اور اپنی رحمت سے مجھے اپنے صالح بندوں میں شامل فرما لے۔&quot;</p>
-</blockquote>
-<p><strong>آخرت میں ہیکل سلیمانی</strong></p>
-<p>بعض روایات میں آیا ہے کہ قیامت کے قریب ایک دجال (Antichrist) ظاہر ہوگا جو یروشلم میں بیٹھ کر خود کو معبود ہونے کا دعویٰ کرے گا۔ مسیحی عقیدے کے مطابق، دجال ہیکل سلیمانی کی جگہ پر اپنی حکومت قائم کرے گا۔
-مسلم عقیدے کے مطابق، حضرت عیسیٰ علیہ السلام دوبارہ نزول فرمائیں گے اور دجال کو قتل کر کے عدل و انصاف کی حکومت قائم کریں گے۔</p>
-<p><strong>خلاصہ</strong></p>
-<p>ہیکل سلیمانی انسانی تاریخ کا ایک عظیم مذہبی اور تعمیراتی شاہکار تھا۔ اس کی تعمیر سے لے کر تباہی تک کا سفر بنی اسرائیل کی تاریخ کے اہم موڑ ہیں۔ آج بھی یہ مقام تینوں ابراہیمی مذاہب کے ماننے والوں کے درمیان اختلاف اور تنازعے کا مرکز بنا ہوا ہے۔ حقیقی کامیابی اللہ تعالیٰ کی رضا میں ہے، جو اس نے اپنے نبی حضرت سلیمان علیہ السلام کو عطا فرمائی۔</p>
-
-    </div>
-
+    <!-- Color Fill Overlay -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -79,6 +510,45 @@
     </div>
 
     <script>
+        // Create stars for space background
+        function createStars() {
+            const spaceBg = document.getElementById('spaceBg');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1px and 4px
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                spaceBg.appendChild(star);
+            }
+        }
+        
+        // Navigation functions
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Color fill post functions
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -86,14 +556,36 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Event listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Initialize on load
+        window.onload = function() {
+            createStars();
+            
+            // Add hover effect to images
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('mouseenter', () => {
+                    img.style.transform = 'scale(1.03)';
+                });
+                img.addEventListener('mouseleave', () => {
+                    img.style.transform = 'scale(1)';
+                });
+            });
+        };
     </script>
 </body>
 </html>
