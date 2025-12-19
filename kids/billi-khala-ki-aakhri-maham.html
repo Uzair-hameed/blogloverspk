@@ -5,66 +5,826 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بلی خالہ کی آخری مہم</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+
+        :root {
+            --primary: #2e7d32;
+            --secondary: #558b2f;
+            --accent: #f9a825;
+            --text-light: #f5f5f5;
+            --text-dark: #e8f5e9;
+            --bg-dark: #1b5e20;
+            --card-dark: #2e3d29;
+            --border-dark: #4a5c45;
+            --highlight: #ffd54f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e3d29 50%, #1a1f1c 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* فورسٹ پس منظر */
+        .forest-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 80% 20%, rgba(85, 139, 47, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 40% 60%, rgba(249, 168, 37, 0.1) 0%, transparent 25%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* درختوں کی اینیمیشن */
+        .tree {
+            position: fixed;
+            bottom: 0;
+            width: 100px;
+            height: 150px;
+            background: linear-gradient(to right, #5d4037, #3e2723);
+            clip-path: polygon(30% 0%, 70% 0%, 85% 100%, 15% 100%);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .tree:nth-child(1) {
+            left: 10%;
+            height: 120px;
+            animation: swayTree 8s infinite ease-in-out;
+        }
+
+        .tree:nth-child(2) {
+            right: 20%;
+            height: 140px;
+            animation: swayTree 10s infinite ease-in-out;
+            animation-delay: 1s;
+        }
+
+        .tree:nth-child(3) {
+            left: 30%;
+            height: 100px;
+            animation: swayTree 9s infinite ease-in-out;
+            animation-delay: 2s;
+        }
+
+        @keyframes swayTree {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-3px) rotate(-1deg); }
+            75% { transform: translateX(3px) rotate(1deg); }
+        }
+
+        /* پتے */
+        .leaf {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #2e7d32, #4caf50);
+            border-radius: 50% 0;
+            opacity: 0.4;
+            z-index: -1;
+            animation: fallingLeaf 15s linear infinite;
+        }
+
+        @keyframes fallingLeaf {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* کلر فل فیچر */
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+
+        .color-fill-container.active {
+            opacity: 1;
+            z-index: 9998;
+        }
+
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 850px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--card-dark);
+            color: var(--text-light);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--border-dark);
+        }
+
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: #333;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* ٹرگر بٹن */
+        .trigger-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .trigger-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.5);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .trigger-btn:hover::before {
+            left: 100%;
+        }
+
+        .trigger-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.7);
+        }
+
+        /* پوسٹ کا مواد */
+        .post-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(46, 61, 41, 0.9);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--border-dark);
+        }
+
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--primary), transparent);
+            border-radius: 0 0 0 100%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .post-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, transparent, var(--accent));
+            border-radius: 100% 0 0 0;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        h1, h2, h3 {
+            color: var(--highlight);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3.2rem;
+            line-height: 1.3;
+            margin-top: 10px;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(46, 125, 50, 0.3);
+            background: linear-gradient(45deg, var(--highlight), #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h1::before {
+            content: '🐱';
+            margin-left: 15px;
+        }
+
+        h1::after {
+            content: '🐱';
+            margin-right: 15px;
+        }
+
+        /* بلی آئیکن کے ساتھ پیراگراف */
+        .story-paragraph {
+            position: relative;
+            padding-right: 50px;
+            margin-bottom: 30px;
+        }
+
+        .story-paragraph::before {
+            content: '🐾';
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        p {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            text-justify: inter-word;
+            color: #e8f5e9;
+            position: relative;
+            z-index: 1;
+            padding-right: 40px;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.5s;
+            border: 3px solid var(--border-dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.4);
+            border-color: var(--accent);
+        }
+
+        /* مہم کے مراحل */
+        .mission-step {
+            background: rgba(74, 92, 69, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-right: 4px solid var(--accent);
+            transition: all 0.4s;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .mission-step:hover {
+            background: rgba(74, 92, 69, 0.9);
+            transform: translateX(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .mission-step::before {
+            content: '🗺️';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+        }
+
+        .mission-step:nth-child(2n)::before {
+            content: '⛰️';
+        }
+
+        .mission-step:nth-child(3n)::before {
+            content: '🌊';
+        }
+
+        .mission-step:nth-child(4n)::before {
+            content: '🤝';
+        }
+
+        /* نیویگیشن بٹنز */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-btn, .action-btn {
+            background: linear-gradient(45deg, #5d4037, #8d6e63);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-width: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .back-btn:hover, .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+        }
+
+        /* اسکرول بٹنز */
+        .scroll-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .scroll-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .scroll-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .scroll-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.6);
+            border-color: var(--accent);
+        }
+
+        /* اقتباس باکس */
+        .quote-box {
+            background: rgba(249, 168, 37, 0.1);
+            border-right: 4px solid var(--accent);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 15px 15px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 60px;
+            color: var(--accent);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .quote-text {
+            font-size: 1.7rem;
+            font-style: italic;
+            color: var(--highlight);
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* موبائل ریسپانسیو */
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2.6rem;
+            }
+            
+            p {
+                font-size: 1.4rem;
+            }
+            
+            .post-content {
+                padding: 30px;
+            }
+            
+            .mission-step {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            p {
+                font-size: 1.3rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .trigger-btn {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+            
+            .scroll-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .scroll-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+            }
+            
+            .back-btn, .action-btn {
+                padding: 13px 30px;
+                font-size: 16px;
+                min-width: 170px;
+            }
+            
+            .story-paragraph {
+                padding-right: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .back-btn, .action-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .scroll-buttons {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .scroll-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .story-paragraph {
+                padding-right: 35px;
+            }
+            
+            .story-paragraph::before {
+                font-size: 20px;
+            }
+            
+            .tree {
+                display: none;
+            }
+        }
+
+        /* خصوصی کلاسز */
+        .highlight {
+            color: var(--highlight);
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .animal-icon {
+            display: inline-block;
+            margin: 0 5px;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
+    <!-- فورسٹ بیک گراؤنڈ -->
+    <div class="forest-bg"></div>
+    
+    <!-- درخت -->
+    <div class="tree"></div>
+    <div class="tree"></div>
+    <div class="tree"></div>
+
+    <!-- کلر فل ٹرگر -->
+    <div class="trigger-container">
         <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            <i class="fas fa-rainbow"></i> کلر فل موڈ میں پڑھیں
         </button>
     </div>
 
-    <div class="post-content">
-        
-        <h1>بلی خالہ کی آخری مہم</h1>
-<p>یہ کہانی ہے بلی خالہ کی، جو ایک بوڑھی اور تجربہ کار بلی تھیں۔ انہوں نے اپنی زندگی میں بہت سے کارنامے انجام دیے تھے، لیکن اب ان کی آخری مہم درپیش تھی۔</p>
-<p>بلی خالہ گاؤں کی سب سے عقلمند بلی سمجھی جاتی تھیں۔ انہوں نے چوہوں سے لے کر بڑے بڑے چیلنجز کا مقابلہ کیا تھا۔ لیکن اب وقت آ گیا تھا کہ وہ اپنی آخری اور سب سے بڑی مہم پر روانہ ہوں۔</p>
-<p>گاؤں کے تمام جانور بلی خالہ کا بہت احترام کرتے تھے۔ وہ نہ صرف تجربہ کار تھیں بلکہ ان کے پاس حل نکالنے کی غیر معمولی صلاحیت تھی۔ جب بھی گاؤں میں کوئی مسئلہ پیش آتا، سب سے پہلے بلی خالہ ہی سے مشورہ لیا جاتا۔</p>
-<p>ایک دن گاؤں میں ایک عجیب قسم کا مسئلہ پیش آیا۔ دریا کا پانی کم ہونے لگا، درختوں کے پتے مرجھانے لگے، اور جانوروں کے لیے خوراک کی قلت ہو گئی۔ سب جانور پریشان تھے کہ اس مسئلے کا حل کیسے نکالا جائے۔</p>
-<p>بلی خالہ نے تمام جانوروں کو جمع کیا اور کہا: &quot;یہ میری آخری مہم ہوگی۔ میں دریا کے منبع تک جاؤں گی اور اس مسئلے کی وجہ جان کر واپس آؤں گی۔&quot;</p>
-<p>سب جانوروں نے بلی خالہ کو منع کیا۔ کتے بھونکنے لگے، پرندے چہچہانے لگے، اور بکرے منہ موڑنے لگے۔ سب کا کہنا تھا کہ یہ سفر بہت خطرناک ہے اور بلی خالہ کی عمر اس سفر کے لیے موزوں نہیں۔</p>
-<p>لیکن بلی خالہ نے کہا: &quot;جب تک میں زندہ ہوں، گاؤں کی خدمت میرا فرض ہے۔ میں یہ سفر ضرور کروں گی۔&quot;</p>
-<p>صبح سویرے بلی خالہ نے اپنا تھیلا باندھا اور دریا کے کنارے کنارے چل پڑیں۔ راستے میں انہیں بہت سی رکاوٹوں کا سامنا کرنا پڑا۔ پہاڑی چوٹیاں، گہرے جنگل، اور خطرناک دریا - سب کو پار کرنا تھا۔</p>
-<p>چلتے چلتے شام ہو گئی۔ بلی خالہ نے ایک درخت کے نیچے آرام کیا۔ انہوں نے سوچا: &quot;کیا میں واقعی یہ سفر مکمل کر سکوں گی؟ کیا میری عمر اس قابل ہے؟&quot;</p>
-<p>لیکن پھر انہیں گاؤں کے جانوروں کی پریشان صورتیں یاد آئیں اور انہوں نے عزم کر لیا کہ وہ یہ مہم ضرور پوری کریں گی۔</p>
-<p>اگلے دن بلی خالہ نے اپنا سفر جاری رکھا۔ وہ دریا کے کنارے کنارے چلتی رہیں۔ دو دن بعد وہ ایک ایسی جگہ پہنچیں جہاں دریا کا پانی بالکل خشک ہو چکا تھا۔</p>
-<p>بلی خالہ نے دیکھا کہ دریا کے راستے میں ایک بڑا پتھر آ گیا ہے جو پانی کے بہاؤ کو روک رہا ہے۔ یہی وجہ تھی کہ گاؤں تک پانی نہیں پہنچ پا رہا تھا۔</p>
-<p>اب مسئلہ یہ تھا کہ اس بڑے پتھر کو کیسے ہٹایا جائے۔ بلی خالہ نے اردگرد دیکھا تو انہیں کچھ دوسرے جانور نظر آئے - ایک ہاتھی، کچھ بندر، اور کچھ دوسرے جانور۔</p>
-<p>بلی خالہ نے تمام جانوروں کو جمع کیا اور کہا: &quot;اگر ہم سب مل کر کوشش کریں تو یہ پتھر ہٹ سکتا ہے۔&quot;</p>
-<p>سب جانوروں نے مل کر پتھر کو ہٹانے کی کوشش کی۔ ہاتھی نے اپنی سونڈ سے دھکا دیا، بندروں نے رسیوں سے کھینچا، اور دوسرے جانوروں نے بھی اپنی طاقت لگائی۔</p>
-<p>آخرکار وہ پتھر ہٹ ہی گیا اور دریا کا پانی دوبارہ بہنے لگا۔ تمام جانور خوشی سے چلانے لگے۔</p>
-<p>بلی خالہ واپس گاؤں لوٹیں۔ جب وہ گاؤں پہنچیں تو تمام جانوروں نے ان کا استقبال کیا۔ دریا کا پانی واپس آ چکا تھا، درخت ہرے بھرے ہو گئے تھے، اور خوراک کی قلت ختم ہو گئی تھی۔</p>
-<p>بلی خالہ نے کہا: &quot;یہ میری آخری مہم تھی۔ میں نے ثابت کر دیا کہ عمر صرف ایک عدد ہے، اصل چیز عزم اور ہمت ہے۔&quot;</p>
-<p>اس واقعے کے بعد بلی خالہ گاؤں کی سب سے محترم شخصیت بن گئیں۔ ان کی یہ آخری مہم گاؤں کی تاریخ کا ایک اہم باب بن گئی۔</p>
-<p><a href="https://www.bloglovers.pk/2022/12/10.html">مزید کہانیاں پڑھنے کے لیے کلک کریں</a></p>
+    <!-- مرکزی پوسٹ -->
+    <div class="container">
+        <div class="post-content">
+            <h1>بلی خالہ کی آخری مہم</h1>
+            
+            <!-- تصویر عنوان کے بعد -->
+            <img src="https://bloglovers.pk/images/kids/billi-khala-ki-aakhri-maham.png" alt="بلی خالہ کی مہم" class="post-image" onerror="this.src='https://via.placeholder.com/800x400/2e7d32/ffffff?text=بلی+خالہ+کی+مہم'">
+            
+            <div class="mission-step">
+                <p>یہ کہانی ہے بلی خالہ کی، جو ایک بوڑھی اور تجربہ کار بلی تھیں۔ انہوں نے اپنی زندگی میں بہت سے کارنامے انجام دیے تھے، لیکن اب ان کی آخری مہم درپیش تھی۔</p>
+            </div>
 
+            <div class="mission-step">
+                <p>بلی خالہ گاؤں کی سب سے عقلمند بلی سمجھی جاتی تھیں۔ انہوں نے چوہوں سے لے کر بڑے بڑے چیلنجز کا مقابلہ کیا تھا۔ لیکن اب وقت آ گیا تھا کہ وہ اپنی آخری اور سب سے بڑی مہم پر روانہ ہوں۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>گاؤں کے تمام جانور بلی خالہ کا بہت احترام کرتے تھے۔ وہ نہ صرف تجربہ کار تھیں بلکہ ان کے پاس حل نکالنے کی غیر معمولی صلاحیت تھی۔ جب بھی گاؤں میں کوئی مسئلہ پیش آتا، سب سے پہلے بلی خالہ ہی سے مشورہ لیا جاتا۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>ایک دن گاؤں میں ایک عجیب قسم کا مسئلہ پیش آیا۔ دریا کا پانی کم ہونے لگا، درختوں کے پتے مرجھانے لگے، اور جانوروں کے لیے خوراک کی قلت ہو گئی۔ سب جانور پریشان تھے کہ اس مسئلے کا حل کیسے نکالا جائے۔</p>
+            </div>
+
+            <div class="quote-box">
+                <div class="quote-text">"یہ میری آخری مہم ہوگی۔ میں دریا کے منبع تک جاؤں گی اور اس مسئلے کی وجہ جان کر واپس آؤں گی۔"</div>
+            </div>
+
+            <div class="mission-step">
+                <p>سب جانوروں نے بلی خالہ کو منع کیا۔ <span class="animal-icon">🐕</span> کتے بھونکنے لگے، <span class="animal-icon">🐦</span> پرندے چہچہانے لگے، اور <span class="animal-icon">🐐</span> بکرے منہ موڑنے لگے۔ سب کا کہنا تھا کہ یہ سفر بہت خطرناک ہے اور بلی خالہ کی عمر اس سفر کے لیے موزوں نہیں۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>لیکن بلی خالہ نے کہا: <span class="highlight">"جب تک میں زندہ ہوں، گاؤں کی خدمت میرا فرض ہے۔ میں یہ سفر ضرور کروں گی۔"</span></p>
+            </div>
+
+            <div class="mission-step">
+                <p>صبح سویرے بلی خالہ نے اپنا تھیلا باندھا اور دریا کے کنارے کنارے چل پڑیں۔ راستے میں انہیں بہت سی رکاوٹوں کا سامنا کرنا پڑا۔ <span class="highlight">⛰️ پہاڑی چوٹیاں</span>، <span class="highlight">🌳 گہرے جنگل</span>، اور <span class="highlight">🌊 خطرناک دریا</span> - سب کو پار کرنا تھا۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>چلتے چلتے شام ہو گئی۔ بلی خالہ نے ایک درخت کے نیچے آرام کیا۔ انہوں نے سوچا: <span class="highlight">"کیا میں واقعی یہ سفر مکمل کر سکوں گی؟ کیا میری عمر اس قابل ہے؟"</span></p>
+            </div>
+
+            <div class="mission-step">
+                <p>لیکن پھر انہیں گاؤں کے جانوروں کی پریشان صورتیں یاد آئیں اور انہوں نے عزم کر لیا کہ وہ یہ مہم ضرور پوری کریں گی۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>اگلے دن بلی خالہ نے اپنا سفر جاری رکھا۔ وہ دریا کے کنارے کنارے چلتی رہیں۔ دو دن بعد وہ ایک ایسی جگہ پہنچیں جہاں دریا کا پانی بالکل خشک ہو چکا تھا۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>بلی خالہ نے دیکھا کہ دریا کے راستے میں ایک بڑا پتھر آ گیا ہے جو پانی کے بہاؤ کو روک رہا ہے۔ یہی وجہ تھی کہ گاؤں تک پانی نہیں پہنچ پا رہا تھا۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>اب مسئلہ یہ تھا کہ اس بڑے پتھر کو کیسے ہٹایا جائے۔ بلی خالہ نے اردگرد دیکھا تو انہیں کچھ دوسرے جانور نظر آئے - <span class="animal-icon">🐘</span> ایک ہاتھی، <span class="animal-icon">🐵</span> کچھ بندر، اور کچھ دوسرے جانور۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>بلی خالہ نے تمام جانوروں کو جمع کیا اور کہا: <span class="highlight">"اگر ہم سب مل کر کوشش کریں تو یہ پتھر ہٹ سکتا ہے۔"</span></p>
+            </div>
+
+            <div class="mission-step">
+                <p>سب جانوروں نے مل کر پتھر کو ہٹانے کی کوشش کی۔ <span class="animal-icon">🐘</span> ہاتھی نے اپنی سونڈ سے دھکا دیا، <span class="animal-icon">🐵</span> بندروں نے رسیوں سے کھینچا، اور دوسرے جانوروں نے بھی اپنی طاقت لگائی۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>آخرکار وہ پتھر ہٹ ہی گیا اور دریا کا پانی دوبارہ بہنے لگا۔ تمام جانور خوشی سے چلانے لگے۔</p>
+            </div>
+
+            <div class="mission-step">
+                <p>بلی خالہ واپس گاؤں لوٹیں۔ جب وہ گاؤں پہنچیں تو تمام جانوروں نے ان کا استقبال کیا۔ دریا کا پانی واپس آ چکا تھا، درخت ہرے بھرے ہو گئے تھے، اور خوراک کی قلت ختم ہو گئی تھی۔</p>
+            </div>
+
+            <div class="quote-box">
+                <div class="quote-text">"یہ میری آخری مہم تھی۔ میں نے ثابت کر دیا کہ عمر صرف ایک عدد ہے، اصل چیز عزم اور ہمت ہے۔"</div>
+            </div>
+
+            <div class="mission-step">
+                <p>اس واقعے کے بعد بلی خالہ گاؤں کی سب سے محترم شخصیت بن گئیں۔ ان کی یہ آخری مہم گاؤں کی تاریخ کا ایک اہم باب بن گئی۔</p>
+            </div>
+            
+            <!-- نیویگیشن بٹنز -->
+            <div class="nav-buttons">
+                <button class="back-btn" onclick="history.back()">
+                    <i class="fas fa-arrow-right"></i> واپس جائیں
+                </button>
+                <button class="action-btn" onclick="openColorFillPost()">
+                    <i class="fas fa-palette"></i> کلر فل موڈ
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    <!-- اسکرول بٹنز -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="scroll-btn" onclick="scrollToBottom()">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <!-- کلر فل اور اوورلے -->
+    <div class="color-fill-container" id="colorFillBg">
+        <div class="color-fill-background"></div>
+    </div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
         <div id="postContent"></div>
     </div>
 
     <script>
+        // پتوں کی اینیمیشن
+        function createLeaves() {
+            const leafCount = 20;
+            
+            for (let i = 0; i < leafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+                
+                // رینڈم پوزیشن اور سائز
+                const size = Math.random() * 25 + 15;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 10 + 10;
+                
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size}px`;
+                leaf.style.left = `${left}%`;
+                leaf.style.animationDelay = `${delay}s`;
+                leaf.style.animationDuration = `${duration}s`;
+                
+                // مختلف رنگ
+                const hue = Math.floor(Math.random() * 30) + 100;
+                leaf.style.background = `linear-gradient(45deg, hsl(${hue}, 70%, 40%), hsl(${hue + 20}, 70%, 50%))`;
+                
+                document.body.appendChild(leaf);
+            }
+        }
+        
+        // پتے بنانا
+        window.addEventListener('load', createLeaves);
+
+        // کلر فل پوسٹ
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -72,14 +832,59 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // ایسکیپ کلوز
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+
+        // اسکرول فنکشنز
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        // تصویر لوڈ ہونے میں مسئلہ ہونے پر متبادل تصویر
+        document.querySelector('.post-image').addEventListener('error', function() {
+            this.src = 'https://via.placeholder.com/800x400/2e7d32/ffffff?text=بلی+خالہ+کی+مہم';
+            this.alt = 'متبادل تصویر: بلی خالہ کی آخری مہم';
+        });
+
+        // مہم کے مراحل پر ہوور ایفیکٹ
+        document.querySelectorAll('.mission-step').forEach(step => {
+            step.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(-15px)';
+                this.style.boxShadow = '0 15px 35px rgba(0,0,0,0.4)';
+            });
+            
+            step.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // درختوں کی ہلکی حرکت
+        function animateTrees() {
+            const trees = document.querySelectorAll('.tree');
+            trees.forEach(tree => {
+                const randomDelay = Math.random() * 5;
+                tree.style.animationDelay = `${randomDelay}s`;
+            });
+        }
+        
+        animateTrees();
     </script>
 </body>
 </html>
