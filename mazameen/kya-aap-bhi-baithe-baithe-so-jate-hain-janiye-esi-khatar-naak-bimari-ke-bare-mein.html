@@ -6,133 +6,998 @@
     <title>کیا آپ بھی بیٹھے بیٹھے سو جاتے ہیں، جانیے ایسی خطرناک بیماری کے بارے میں</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        /* Urdu Font */
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        /* Deep Space Dark Theme */
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 1.9;
+            direction: rtl;
+            text-align: justify;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #0a0a1a;
+            color: #e0f7ff;
+            position: relative;
+            overflow-x: hidden;
+            cursor: default;
+        }
+        
+        /* Animated Nebula Background */
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: nebulaFloat 30s infinite alternate ease-in-out;
+        }
+        
+        .nebula-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(106,13,173,0.8), transparent);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .nebula-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0,150,255,0.6), transparent);
+            bottom: 15%;
+            right: 15%;
+            animation-delay: 10s;
+        }
+        
+        .nebula-3 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,20,147,0.4), transparent);
+            top: 50%;
+            left: 70%;
+            animation-delay: 20s;
+        }
+        
+        @keyframes nebulaFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -30px) scale(1.1); }
+            50% { transform: translate(-30px, 40px) scale(0.9); }
+            75% { transform: translate(-50px, -20px) scale(1.05); }
+        }
+        
+        /* Shooting Stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
+            animation: shoot 3s linear infinite;
+            opacity: 0;
+        }
+        
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-500px) translateY(500px);
+                opacity: 0;
+            }
+        }
+        
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Galaxy Navigation Buttons */
+        .galaxy-nav {
+            position: fixed;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        .galaxy-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74,144,226,0.3), rgba(32,58,96,0.8));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(100, 200, 255, 0.3);
+            color: #a3e4ff;
+            font-size: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 0 20px rgba(74, 144, 226, 0.3),
+                inset 0 0 20px rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .galaxy-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(100,200,255,0.4), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .galaxy-btn:hover {
+            transform: translateX(5px) scale(1.15);
+            background: radial-gradient(circle, rgba(74,144,226,0.5), rgba(32,58,96,0.9));
+            border-color: rgba(100, 200, 255, 0.6);
+            box-shadow: 
+                0 0 35px rgba(74, 144, 226, 0.6),
+                0 0 60px rgba(100, 200, 255, 0.3),
+                inset 0 0 30px rgba(255,255,255,0.2);
+        }
+        
+        .galaxy-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .galaxy-btn span {
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.8);
+        }
+        
+        /* Cosmic Back Button */
+        .cosmic-back-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(231,76,60,0.3), rgba(140,20,20,0.8));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 100, 100, 0.3);
+            color: #ffb3b3;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 0 20px rgba(231, 76, 60, 0.3),
+                inset 0 0 20px rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .cosmic-back-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,100,100,0.4), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .cosmic-back-btn:hover {
+            transform: rotate(-180deg) scale(1.15);
+            background: radial-gradient(circle, rgba(231,76,60,0.5), rgba(140,20,20,0.9));
+            border-color: rgba(255, 100, 100, 0.6);
+            box-shadow: 
+                0 0 35px rgba(231, 76, 60, 0.6),
+                0 0 60px rgba(255, 100, 100, 0.3),
+                inset 0 0 30px rgba(255,255,255,0.2);
+        }
+        
+        .cosmic-back-btn:hover::before {
+            opacity: 1;
+        }
+        
+        /* Stellar Trigger Button */
+        .stellar-trigger-btn {
+            display: block;
+            width: 100%;
+            max-width: 450px;
+            margin: 40px auto 60px;
+            padding: 22px 50px;
+            background: linear-gradient(45deg, 
+                rgba(106,13,173,0.8), 
+                rgba(0,150,255,0.8), 
+                rgba(255,20,147,0.8));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(0,150,255,0.3),
+                inset 0 0 20px rgba(255,255,255,0.1);
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .stellar-trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                #ff0080, #00ffcc, #0066ff, #ff00ff);
+            z-index: -1;
+            border-radius: 52px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            filter: blur(10px);
+        }
+        
+        .stellar-trigger-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                0 0 50px rgba(0,150,255,0.5),
+                inset 0 0 30px rgba(255,255,255,0.2);
+            letter-spacing: 2px;
+        }
+        
+        .stellar-trigger-btn:hover::before {
+            opacity: 1;
+        }
+        
+        /* Cosmic Post Content */
+        .cosmic-post-content {
+            background: rgba(20, 25, 45, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px 0;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(0,150,255,0.1),
+                inset 0 0 30px rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cosmic-post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0,150,255,0.8),
+                rgba(255,20,147,0.8),
+                transparent);
+            animation: shimmer 3s infinite linear;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .cosmic-post-content:hover {
+            box-shadow: 
+                0 25px 70px rgba(0, 0, 0, 0.9),
+                0 0 60px rgba(0,150,255,0.2),
+                inset 0 0 40px rgba(255,255,255,0.1);
+            border-color: rgba(100, 200, 255, 0.4);
+            transform: translateY(-5px);
+        }
+        
+        /* Headings with Glow Effect */
+        h1, h2, h3 {
+            color: #6ad4ff;
+            border-bottom: 2px solid rgba(106, 212, 255, 0.3);
+            padding-bottom: 20px;
+            margin-top: 40px;
+            text-shadow: 0 2px 15px rgba(106, 212, 255, 0.3);
+            position: relative;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            border-bottom: 3px solid rgba(106, 212, 255, 0.5);
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #6ad4ff, #ff6ad5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 25px rgba(106, 212, 255, 0.5);
+        }
+        
+        h2 {
+            font-size: 36px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h3 {
+            font-size: 32px;
+            background: linear-gradient(45deg, #96ceb4, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Paragraphs */
+        p {
+            font-size: 26px;
+            margin-bottom: 30px;
+            line-height: 2;
+            color: #c7e9ff;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+        }
+        
+        /* Lists with Animation */
+        ol, ul {
+            font-size: 24px;
+            color: #c7e9ff;
+            padding-right: 25px;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-right: 3px solid transparent;
+        }
+        
+        li:hover {
+            background: rgba(100, 200, 255, 0.1);
+            border-right-color: #6ad4ff;
+            transform: translateX(-10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* Cosmic Image */
+        .cosmic-image {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 25px;
+            margin: 40px auto;
+            display: block;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(0,150,255,0.2);
+            border: 2px solid rgba(106, 212, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cosmic-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(106,13,173,0.2), 
+                rgba(0,150,255,0.2));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .cosmic-image:hover {
+            transform: scale(1.03) rotate(1deg);
+            border-color: rgba(106, 212, 255, 0.6);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.9),
+                0 0 60px rgba(106, 212, 255, 0.4);
+        }
+        
+        .cosmic-image:hover::before {
+            opacity: 1;
+        }
+        
+        /* Enhanced Color Fill Feature */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, 
+                #ff0080, #00ffcc, #0066ff, #ff00ff,
+                #ff6b00, #ffd700); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+            filter: blur(5px);
+        }
+        
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 900px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: rgba(10, 15, 35, 0.95); 
+            backdrop-filter: blur(30px); 
+            padding: 50px; 
+            border-radius: 30px; 
+            border: 2px solid rgba(106, 212, 255, 0.3);
+            box-shadow: 
+                0 30px 80px rgba(0,0,0,0.8),
+                0 0 60px rgba(106, 212, 255, 0.2),
+                inset 0 0 40px rgba(255,255,255,0.1); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        .close-btn { 
+            position: absolute; 
+            top: 25px; 
+            left: 25px; 
+            background: radial-gradient(circle, rgba(255,107,107,0.8), rgba(140,20,20,0.9)); 
+            color: white; 
+            border: none; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            font-size: 32px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 
+                0 10px 25px rgba(255,107,107,0.4),
+                inset 0 0 20px rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover { 
+            transform: rotate(180deg) scale(1.1); 
+            background: radial-gradient(circle, rgba(255,82,82,0.9), rgba(180,20,20,0.9)); 
+            box-shadow: 
+                0 15px 35px rgba(255,107,107,0.6),
+                0 0 40px rgba(255,107,107,0.3),
+                inset 0 0 30px rgba(255,255,255,0.3);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .cosmic-post-content {
+                padding: 35px;
+            }
+            
+            .galaxy-nav {
+                left: 15px;
+            }
+            
+            .cosmic-back-btn {
+                right: 15px;
+                top: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+            
+            h2 {
+                font-size: 30px;
+            }
+            
+            h3 {
+                font-size: 26px;
+            }
+            
+            p {
+                font-size: 22px;
+            }
+            
+            .stellar-trigger-btn {
+                font-size: 20px;
+                padding: 18px 35px;
+            }
+            
+            .galaxy-nav {
+                left: 10px;
+                gap: 15px;
+            }
+            
+            .galaxy-btn, .cosmic-back-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            ol, ul {
+                font-size: 20px;
+            }
+            
+            .cosmic-image {
+                margin: 25px auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            h3 {
+                font-size: 22px;
+            }
+            
+            p {
+                font-size: 20px;
+            }
+            
+            .stellar-trigger-btn {
+                font-size: 18px;
+                padding: 15px 25px;
+            }
+            
+            .galaxy-nav {
+                display: none;
+            }
+            
+            .cosmic-back-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .cosmic-post-content {
+                padding: 25px;
+            }
+            
+            ol, ul {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Space Background Elements -->
+    <div class="space-background">
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        <div class="nebula nebula-3"></div>
+        <div id="shootingStars"></div>
+        <div id="particles"></div>
+    </div>
+    
+    <!-- Galaxy Navigation Buttons -->
+    <div class="galaxy-nav">
+        <button class="galaxy-btn" onclick="scrollToTop()">
+            <span>☄️</span>
+        </button>
+        <button class="galaxy-btn" onclick="scrollToBottom()">
+            <span>🌠</span>
         </button>
     </div>
-
-    <div class="post-content">
-        <h1>کیا آپ بھی بیٹھے بیٹھے سو جاتے ہیں، جانیے ایسی خطرناک بیماری کے بارے میں</h1>
-        <p>نارکولیپسی (Narcolepsy) ایک اعصابی اور نیند سے متعلقہ بیماری ہے جس میں مریض کو دن کے اوقات میں شدید اور غیر متوقع نیند کے دورے پڑتے ہیں۔ یہ بیماری مریض کی روزمرہ زندگی کو شدید متاثر کرتی ہے، جس کی وجہ سے وہ معمول کے کام بھی صحیح طریقے سے سرانجام نہیں دے پاتا۔ اس بیماری کا تعلق براہ راست دماغ کے اس حصے سے ہے جو نیند اور جاگنے کے چکر کو کنٹرول کرتا ہے۔</p>
-<h2><strong>نارکولیپسی کی اقسام</strong></h2>
-<p>نارکولیپسی کی دو بڑی اقسام ہیں:</p>
-<ol>
-<li><p><strong>نارکولیپسی ٹائپ 1 (Narcolepsy Type 1):</strong><br>اس میں مریض کو &quot;کیٹاپلیکسی&quot; (Cataplexy) کا سامنا ہوتا ہے، یعنی جذباتی صورتحال (جیسے ہنسنا، غصہ ہونا یا خوشی) کے دوران پٹھوں کا کنٹرول ختم ہو جاتا ہے۔ یہ قسم ہائپوکریٹن (Hypocretin) نامی کیمیکل کی کمی کی وجہ سے ہوتی ہے، جو دماغ میں نیند اور بیداری کو ریگولیٹ کرتا ہے۔</p>
-</li>
-<li><p><strong>نارکولیپسی ٹائپ 2 (Narcolepsy Type 2):</strong><br>اس قسم میں کیٹاپلیکسی نہیں ہوتی، لیکن مریض کو دن میں شدید نیند آتی ہے۔ ہائپوکریٹن کی سطح عام طور پر نارمل ہوتی ہے۔</p>
-</li>
-</ol>
-<h2><strong>نارکولیپسی کی وجوہات</strong></h2>
-<p>اس بیماری کی بنیادی وجوہات میں جینیاتی، نیورولوجیکل اور ماحولیاتی عوامل شامل ہیں:</p>
-<ol>
-<li><p><strong>جینیاتی عوامل:</strong><br>کچھ جینز (جیسے HLA-DQB1) کی موجودگی نارکولیپسی کا خطرہ بڑھا دیتی ہے۔ اگر خاندان میں یہ بیماری موجود ہو تو دیگر افراد میں اس کے ہونے کا امکان بڑھ جاتا ہے۔</p>
-</li>
-<li><p><strong>ہائپوکریٹن کی کمی:</strong><br>دماغ میں ہائپوکریٹن (یا اوریکسن) نامی نیوروٹرانسمیٹر کی کمی نیند کے چکر کو متاثر کرتی ہے، جس کی وجہ سے مریض بے قابو نیند کا شکار ہو جاتا ہے۔</p>
-</li>
-<li><p><strong>خودکار حملہ آور بیماری (Autoimmune Disorder):</strong><br>کچھ معاملات میں جسم کا مدافعتی نظام غلطی سے ہائپوکریٹن بنانے والے خلیات کو تباہ کر دیتا ہے، جس کی وجہ سے یہ بیماری جنم لیتی ہے۔</p>
-</li>
-<li><p><strong>انفیکشنز یا دماغی چوٹ:</strong><br>کچھ وائرل انفیکشنز یا سر پر لگنے والی چوٹ بھی نارکولیپسی کو متحرک کر سکتی ہے۔</p>
-</li>
-</ol>
-<h2><strong>نارکولیپسی کی علامات</strong></h2>
-<p>اس بیماری کی چند اہم علامات درج ذیل ہیں:</p>
-<ol>
-<li><p><strong>دن میں شدید نیند (Excessive Daytime Sleepiness):</strong><br>مریض کو کسی بھی وقت، کسی بھی جگہ اچانک نیند آ جاتی ہے۔</p>
-</li>
-<li><p><strong>کیٹاپلیکسی (Cataplexy):</strong><br>جذباتی صورتحال میں پٹھوں کا کمزور ہو جانا یا حرکت کرنے کی صلاحیت ختم ہو جانا۔</p>
-</li>
-<li><p><strong>نیند کا فالج (Sleep Paralysis):</strong><br>سونے یا جاگتے وقت جسم کو حرکت دینے میں عارضی ناکامی۔</p>
-</li>
-<li><p><strong>ہیپناگوگک ہیلوسینیشنز (Hypnagogic Hallucinations):</strong><br>سونے سے پہلے یا جاگتے وقت غیر حقیقی تصاویر یا آوازیں سنائی دینا۔</p>
-</li>
-<li><p><strong>بے خوابی یا ٹوٹی ہوئی نیند (Insomnia/Fragmented Sleep):</strong><br>رات کو بار بار نیند کا ٹوٹنا۔</p>
-</li>
-</ol>
-<h2><strong>نارکولیپسی کے اثرات اور مشکلات</strong></h2>
-<p>یہ بیماری مریض کی زندگی کے ہر پہلو کو متاثر کرتی ہے:</p>
-<ol>
-<li><p><strong>تعلیمی اور پیشہ ورانہ مشکلات:</strong><br>دن میں نیند آنے کی وجہ سے پڑھائی یا کام پر توجہ مرکوز کرنا مشکل ہو جاتا ہے۔</p>
-</li>
-<li><p><strong>ذہنی دباؤ اور ڈپریشن:</strong><br>مسلسل تھکاوٹ اور معاشرتی مسائل کی وجہ سے مریض ذہنی تناؤ کا شکار ہو سکتا ہے۔</p>
-</li>
-<li><p><strong>حادثات کا خطرہ:</strong><br>گاڑی چلاتے وقت یا مشینری استعمال کرتے وقت اچانک نیند آنے سے حادثات ہو سکتے ہیں۔</p>
-</li>
-<li><p><strong>معاشرتی مسائل:</strong><br>لوگوں کو بیماری کی سمجھ نہ ہونے کی وجہ سے مریض تنہائی کا شکار ہو سکتا ہے۔</p>
-</li>
-</ol>
-<h2><strong>نارکولیپسی کی تشخیص</strong></h2>
-<p>اس بیماری کی تشخیص کے لیے مندرجہ ذیل ٹیسٹ کیے جاتے ہیں:</p>
-<ol>
-<li><p><strong>پولیسومنوگرافی (Polysomnogram):</strong><br>رات بھر نیند کا معائنہ کرنے والا ٹیسٹ۔</p>
-</li>
-<li><p><strong>ملٹیپل سلیپ لیٹنسی ٹیسٹ (MSLT):</strong><br>دن کے وقت نیند آنے کی پیمائش کرتا ہے۔</p>
-</li>
-<li><p><strong>ہائپوکریٹن لیول ٹیسٹ:</strong><br>ریڑھ کی ہڈی کے فلوئڈ سے ہائپوکریٹن کی مقدار چیک کی جاتی ہے۔</p>
-</li>
-</ol>
-<h2><strong>علاج اور گھریلو تدابیر</strong></h2>
-<p>اگرچہ نارکولیپسی کا مکمل علاج ممکن نہیں، لیکن کچھ ادویات اور طرز زندگی میں تبدیلی سے اس پر قابو پایا جا سکتا ہے۔</p>
-<h3><strong>1.  ادویات:</strong></h3>
-<ul>
-<li><strong>سٹیمولنٹس (Stimulants):</strong><br>موڈافینیل (Modafinil) یا امفیٹامائنز (Amphetamines) دن میں نیند کو کم کرتے ہیں۔</li>
-<li><strong>اینٹی ڈپریسنٹس (Antidepressants):</strong><br>کیٹاپلیکسی کو کنٹرول کرنے کے لیے۔</li>
-<li><strong>سوڈیم آکسی بیٹ (Sodium Oxybate):</strong><br>رات کی نیند کو بہتر بناتا ہے۔</li>
-</ul>
-<h3><strong>2.  طرز زندگی میں تبدیلیاں:</strong></h3>
-<ol>
-<li><strong>نیند کا باقاعدہ شیڈول:</strong><br>ہر روز ایک ہی وقت پر سونا اور جاگنا۔</li>
-<li><strong>قیلولہ (Power Naps):</strong><br>دن میں 15-20 منٹ کی مختصر نیند سے تازگی حاصل کی جا سکتی ہے۔</li>
-<li><strong>ورزش اور متوازن غذا:</strong><br>صحت مند طرز زندگی نیند کے معیار کو بہتر بناتی ہے۔</li>
-<li><strong>کیفین اور الکحل سے پرہیز:</strong><br>یہ نیند کے معیار کو خراب کر سکتے ہیں۔</li>
-</ol>
-<h2><strong>خلاصہ</strong></h2>
-<p>نارکولیپسی ایک پیچیدہ نیورولوجیکل بیماری ہے جو مریض کی زندگی کو گہرے طور پر متاثر کرتی ہے۔ اگرچہ اس کا مکمل علاج ممکن نہیں، لیکن مناسب ادویات اور طرز زندگی میں تبدیلیوں کے ذریعے اس کے اثرات کو کم کیا جا سکتا ہے۔ اگر آپ یا آپ کے کسی جاننے والے کو اس بیماری کی علامات محسوس ہوں تو فوراً کسی نیند کے ماہر (Sleep Specialist) سے رجوع کریں۔ اس بیماری کے بارے میں آگاہی بڑھانے سے معاشرے میں مریضوں کے ساتھ ہمدردی اور تعاون کا رویہ فروغ پائے گا۔</p>
-
+    
+    <!-- Cosmic Back Button -->
+    <button class="cosmic-back-btn" onclick="goBack()">
+        <span>⇦</span>
+    </button>
+    
+    <div class="container">
+        <!-- Stellar Trigger Button -->
+        <button class="stellar-trigger-btn" onclick="openColorFillPost()">
+            🌌 اس پوسٹ کو کاسمک کلر فل موڈ میں پڑھیں
+        </button>
+        
+        <!-- Cosmic Post Content -->
+        <div class="cosmic-post-content">
+            <h1>کیا آپ بھی بیٹھے بیٹھے سو جاتے ہیں، جانیے ایسی خطرناک بیماری کے بارے میں</h1>
+            
+            <!-- Cosmic Image -->
+            <img src="https://bloglovers.pk/images/mazameen/kya-aap-bhi-baithe-baithe-so-jate-hain-janiye-esi-khatar-naak-bimari-ke-bare-mein.png" 
+                 alt="نارکولیپسی بیماری" 
+                 class="cosmic-image">
+            
+            <p>نارکولیپسی (Narcolepsy) ایک اعصابی اور نیند سے متعلقہ بیماری ہے جس میں مریض کو دن کے اوقات میں شدید اور غیر متوقع نیند کے دورے پڑتے ہیں۔ یہ بیماری مریض کی روزمرہ زندگی کو شدید متاثر کرتی ہے، جس کی وجہ سے وہ معمول کے کام بھی صحیح طریقے سے سرانجام نہیں دے پاتا۔ اس بیماری کا تعلق براہ راست دماغ کے اس حصے سے ہے جو نیند اور جاگنے کے چکر کو کنٹرول کرتا ہے۔</p>
+            
+            <h2>نارکولیپسی کی اقسام</h2>
+            <p>نارکولیپسی کی دو بڑی اقسام ہیں:</p>
+            <ol>
+                <li><strong>نارکولیپسی ٹائپ 1 (Narcolepsy Type 1):</strong><br>اس میں مریض کو "کیٹاپلیکسی" (Cataplexy) کا سامنا ہوتا ہے، یعنی جذباتی صورتحال (جیسے ہنسنا، غصہ ہونا یا خوشی) کے دوران پٹھوں کا کنٹرول ختم ہو جاتا ہے۔ یہ قسم ہائپوکریٹن (Hypocretin) نامی کیمیکل کی کمی کی وجہ سے ہوتی ہے، جو دماغ میں نیند اور بیداری کو ریگولیٹ کرتا ہے۔</li>
+                <li><strong>نارکولیپسی ٹائپ 2 (Narcolepsy Type 2):</strong><br>اس قسم میں کیٹاپلیکسی نہیں ہوتی، لیکن مریض کو دن میں شدید نیند آتی ہے۔ ہائپوکریٹن کی سطح عام طور پر نارمل ہوتی ہے۔</li>
+            </ol>
+            
+            <h2>نارکولیپسی کی وجوہات</h2>
+            <p>اس بیماری کی بنیادی وجوہات میں جینیاتی، نیورولوجیکل اور ماحولیاتی عوامل شامل ہیں:</p>
+            <ol>
+                <li><strong>جینیاتی عوامل:</strong><br>کچھ جینز (جیسے HLA-DQB1) کی موجودگی نارکولیپسی کا خطرہ بڑھا دیتی ہے۔ اگر خاندان میں یہ بیماری موجود ہو تو دیگر افراد میں اس کے ہونے کا امکان بڑھ جاتا ہے۔</li>
+                <li><strong>ہائپوکریٹن کی کمی:</strong><br>دماغ میں ہائپوکریٹن (یا اوریکسن) نامی نیوروٹرانسمیٹر کی کمی نیند کے چکر کو متاثر کرتی ہے، جس کی وجہ سے مریض بے قابو نیند کا شکار ہو جاتا ہے۔</li>
+                <li><strong>خودکار حملہ آور بیماری (Autoimmune Disorder):</strong><br>کچھ معاملات میں جسم کا مدافعتی نظام غلطی سے ہائپوکریٹن بنانے والے خلیات کو تباہ کر دیتا ہے، جس کی وجہ سے یہ بیماری جنم لیتی ہے۔</li>
+                <li><strong>انفیکشنز یا دماغی چوٹ:</strong><br>کچھ وائرل انفیکشنز یا سر پر لگنے والی چوٹ بھی نارکولیپسی کو متحرک کر سکتی ہے۔</li>
+            </ol>
+            
+            <h2>نارکولیپسی کی علامات</h2>
+            <p>اس بیماری کی چند اہم علامات درج ذیل ہیں:</p>
+            <ol>
+                <li><strong>دن میں شدید نیند (Excessive Daytime Sleepiness):</strong><br>مریض کو کسی بھی وقت، کسی بھی جگہ اچانک نیند آ جاتی ہے۔</li>
+                <li><strong>کیٹاپلیکسی (Cataplexy):</strong><br>جذباتی صورتحال میں پٹھوں کا کمزور ہو جانا یا حرکت کرنے کی صلاحیت ختم ہو جانا۔</li>
+                <li><strong>نیند کا فالج (Sleep Paralysis):</strong><br>سونے یا جاگتے وقت جسم کو حرکت دینے میں عارضی ناکامی۔</li>
+                <li><strong>ہیپناگوگک ہیلوسینیشنز (Hypnagogic Hallucinations):</strong><br>سونے سے پہلے یا جاگتے وقت غیر حقیقی تصاویر یا آوازیں سنائی دینا۔</li>
+                <li><strong>بے خوابی یا ٹوٹی ہوئی نیند (Insomnia/Fragmented Sleep):</strong><br>رات کو بار بار نیند کا ٹوٹنا۔</li>
+            </ol>
+            
+            <h2>نارکولیپسی کے اثرات اور مشکلات</h2>
+            <p>یہ بیماری مریض کی زندگی کے ہر پہلو کو متاثر کرتی ہے:</p>
+            <ol>
+                <li><strong>تعلیمی اور پیشہ ورانہ مشکلات:</strong><br>دن میں نیند آنے کی وجہ سے پڑھائی یا کام پر توجہ مرکوز کرنا مشکل ہو جاتا ہے۔</li>
+                <li><strong>ذہنی دباؤ اور ڈپریشن:</strong><br>مسلسل تھکاوٹ اور معاشرتی مسائل کی وجہ سے مریض ذہنی تناؤ کا شکار ہو سکتا ہے۔</li>
+                <li><strong>حادثات کا خطرہ:</strong><br>گاڑی چلاتے وقت یا مشینری استعمال کرتے وقت اچانک نیند آنے سے حادثات ہو سکتے ہیں۔</li>
+                <li><strong>معاشرتی مسائل:</strong><br>لوگوں کو بیماری کی سمجھ نہ ہونے کی وجہ سے مریض تنہائی کا شکار ہو سکتا ہے۔</li>
+            </ol>
+            
+            <h2>نارکولیپسی کی تشخیص</h2>
+            <p>اس بیماری کی تشخیص کے لیے مندرجہ ذیل ٹیسٹ کیے جاتے ہیں:</p>
+            <ol>
+                <li><strong>پولیسومنوگرافی (Polysomnogram):</strong><br>رات بھر نیند کا معائنہ کرنے والا ٹیسٹ۔</li>
+                <li><strong>ملٹیپل سلیپ لیٹنسی ٹیسٹ (MSLT):</strong><br>دن کے وقت نیند آنے کی پیمائش کرتا ہے۔</li>
+                <li><strong>ہائپوکریٹن لیول ٹیسٹ:</strong><br>ریڑھ کی ہڈی کے فلوئڈ سے ہائپوکریٹن کی مقدار چیک کی جاتی ہے۔</li>
+            </ol>
+            
+            <h2>علاج اور گھریلو تدابیر</h2>
+            <p>اگرچہ نارکولیپسی کا مکمل علاج ممکن نہیں، لیکن کچھ ادویات اور طرز زندگی میں تبدیلی سے اس پر قابو پایا جا سکتا ہے۔</p>
+            
+            <h3>1.  ادویات:</h3>
+            <ul>
+                <li><strong>سٹیمولنٹس (Stimulants):</strong><br>موڈافینیل (Modafinil) یا امفیٹامائنز (Amphetamines) دن میں نیند کو کم کرتے ہیں۔</li>
+                <li><strong>اینٹی ڈپریسنٹس (Antidepressants):</strong><br>کیٹاپلیکسی کو کنٹرول کرنے کے لیے۔</li>
+                <li><strong>سوڈیم آکسی بیٹ (Sodium Oxybate):</strong><br>رات کی نیند کو بہتر بناتا ہے۔</li>
+            </ul>
+            
+            <h3>2.  طرز زندگی میں تبدیلیاں:</h3>
+            <ol>
+                <li><strong>نیند کا باقاعدہ شیڈول:</strong><br>ہر روز ایک ہی وقت پر سونا اور جاگنا۔</li>
+                <li><strong>قیلولہ (Power Naps):</strong><br>دن میں 15-20 منٹ کی مختصر نیند سے تازگی حاصل کی جا سکتی ہے۔</li>
+                <li><strong>ورزش اور متوازن غذا:</strong><br>صحت مند طرز زندگی نیند کے معیار کو بہتر بناتی ہے۔</li>
+                <li><strong>کیفین اور الکحل سے پرہیز:</strong><br>یہ نیند کے معیار کو خراب کر سکتے ہیں۔</li>
+            </ol>
+            
+            <h2>خلاصہ</h2>
+            <p>نارکولیپسی ایک پیچیدہ نیورولوجیکل بیماری ہے جو مریض کی زندگی کو گہرے طور پر متاثر کرتی ہے۔ اگرچہ اس کا مکمل علاج ممکن نہیں، لیکن مناسب ادویات اور طرز زندگی میں تبدیلیوں کے ذریعے اس کے اثرات کو کم کیا جا سکتا ہے۔ اگر آپ یا آپ کے کسی جاننے والے کو اس بیماری کی علامات محسوس ہوں تو فوراً کسی نیند کے ماہر (Sleep Specialist) سے رجوع کریں۔ اس بیماری کے بارے میں آگاہی بڑھانے سے معاشرے میں مریضوں کے ساتھ ہمدردی اور تعاون کا رویہ فروغ پائے گا۔</p>
+        </div>
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    <!-- Color Fill Feature Elements -->
+    <div class="color-fill-container" id="colorFillBg">
+        <div class="color-fill-background"></div>
+    </div>
+    
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
         <div id="postContent"></div>
     </div>
 
     <script>
+        // Create space effects
+        function createSpaceEffects() {
+            createShootingStars();
+            createParticles();
+        }
+        
+        function createShootingStars() {
+            const container = document.getElementById('shootingStars');
+            const starCount = 10;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('shooting-star');
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay and duration
+                const delay = Math.random() * 15;
+                const duration = 2 + Math.random() * 3;
+                star.style.animationDelay = `${delay}s`;
+                star.style.animationDuration = `${duration}s`;
+                
+                // Random size
+                const size = 1 + Math.random() * 2;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 100;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation
+                const duration = 15 + Math.random() * 25;
+                const delay = Math.random() * 30;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                // Random size and opacity
+                const size = 1 + Math.random() * 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.opacity = 0.1 + Math.random() * 0.3;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Navigation functions
+        function scrollToTop() {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+            
+            // Add cosmic effect
+            createCosmicEffect('top');
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ 
+                top: document.body.scrollHeight, 
+                behavior: 'smooth' 
+            });
+            
+            // Add cosmic effect
+            createCosmicEffect('bottom');
+        }
+        
+        function goBack() {
+            // Add cosmic effect before going back
+            createCosmicEffect('back');
+            setTimeout(() => {
+                window.history.back();
+            }, 500);
+        }
+        
+        function createCosmicEffect(type) {
+            const effect = document.createElement('div');
+            effect.style.position = 'fixed';
+            effect.style.top = '0';
+            effect.style.left = '0';
+            effect.style.width = '100%';
+            effect.style.height = '100%';
+            effect.style.background = type === 'back' 
+                ? 'radial-gradient(circle, rgba(231,76,60,0.4), transparent)' 
+                : 'radial-gradient(circle, rgba(74,144,226,0.4), transparent)';
+            effect.style.zIndex = '9999';
+            effect.style.pointerEvents = 'none';
+            effect.style.opacity = '0';
+            effect.style.transition = 'opacity 0.5s';
+            
+            document.body.appendChild(effect);
+            
+            // Animate
+            setTimeout(() => {
+                effect.style.opacity = '1';
+            }, 10);
+            
+            setTimeout(() => {
+                effect.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(effect);
+                }, 500);
+            }, 500);
+        }
+        
+        // Color Fill Post functions
         function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
+            const originalContent = document.querySelector('.cosmic-post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Add cosmic sound effect
+            createSoundEffect();
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+            setTimeout(() => { 
+                document.getElementById('postContent').innerHTML = ''; 
+            }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        function createSoundEffect() {
+            // Visual sound effect simulation
+            const soundEffect = document.createElement('div');
+            soundEffect.style.position = 'fixed';
+            soundEffect.style.top = '50%';
+            soundEffect.style.left = '50%';
+            soundEffect.style.transform = 'translate(-50%, -50%)';
+            soundEffect.style.width = '0';
+            soundEffect.style.height = '0';
+            soundEffect.style.borderRadius = '50%';
+            soundEffect.style.background = 'radial-gradient(circle, rgba(255,255,255,0.8), transparent)';
+            soundEffect.style.zIndex = '10000';
+            soundEffect.style.pointerEvents = 'none';
+            soundEffect.style.transition = 'all 0.5s';
+            
+            document.body.appendChild(soundEffect);
+            
+            setTimeout(() => {
+                soundEffect.style.width = '200px';
+                soundEffect.style.height = '200px';
+                soundEffect.style.opacity = '0';
+            }, 10);
+            
+            setTimeout(() => {
+                document.body.removeChild(soundEffect);
+            }, 600);
+        }
+        
+        // Close color fill with Escape key
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
+        // Close color fill when clicking outside
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Initialize space effects
+        window.addEventListener('DOMContentLoaded', createSpaceEffects);
+        
+        // Mobile navigation buttons visibility
+        function updateNavButtons() {
+            const galaxyNav = document.querySelector('.galaxy-nav');
+            if (window.innerWidth <= 480) {
+                galaxyNav.style.display = 'none';
+            } else {
+                galaxyNav.style.display = 'flex';
+            }
+        }
+        
+        window.addEventListener('resize', updateNavButtons);
+        window.addEventListener('DOMContentLoaded', updateNavButtons);
+        
+        // Add parallax effect to particles
+        window.addEventListener('scroll', function() {
+            const particles = document.querySelectorAll('.particle');
+            const scrolled = window.pageYOffset;
+            
+            particles.forEach(particle => {
+                const speed = 0.3;
+                const yPos = -(scrolled * speed);
+                particle.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+        
+        // Add hover effect to headings
+        document.addEventListener('DOMContentLoaded', function() {
+            const headings = document.querySelectorAll('h1, h2, h3');
+            
+            headings.forEach(heading => {
+                heading.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-10px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                heading.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        });
     </script>
 </body>
 </html>
