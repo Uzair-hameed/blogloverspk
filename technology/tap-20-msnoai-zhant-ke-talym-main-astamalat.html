@@ -7,137 +7,857 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary-color: #1e88e5;
+            --secondary-color: #00acc1;
+            --accent-color: #ff9800;
+            --success-color: #43a047;
+            --text-color: #f5f7fa;
+            --bg-color: #0a192f;
+            --card-color: rgba(16, 42, 67, 0.95);
+            --border-color: rgba(30, 136, 229, 0.3);
+            --shadow: 0 10px 40px rgba(0, 20, 40, 0.6);
+            --radius: 18px;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(30, 136, 229, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0, 172, 193, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 152, 0, 0.05) 0%, transparent 70%);
+            z-index: -3;
+            animation: bgPulse 8s ease-in-out infinite alternate;
+        }
+        
+        @keyframes bgPulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        .edu-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .knowledge-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-color);
+            animation: knowledgeFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes knowledgeFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.2); }
+        }
+        
+        .connection-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+            height: 1px;
+            width: 150px;
+            opacity: 0.7;
+            animation: connectFlow 4s linear infinite;
+        }
+        
+        @keyframes connectFlow {
+            0% { transform: translateX(-150px); opacity: 0; }
+            10%, 90% { opacity: 0.7; }
+            100% { transform: translateX(calc(100vw + 150px)); opacity: 0; }
+        }
+        
+        .edu-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, var(--primary-color) 30%, transparent 70%);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(30, 136, 229, 0.6);
+            animation: eduBounce 3s ease-in-out infinite;
+        }
+        
+        .edu-icon:hover {
+            transform: scale(1.3) rotate(360deg);
+            box-shadow: 0 0 60px rgba(30, 136, 229, 0.9);
+        }
+        
+        @keyframes eduBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .edu-icon::before {
+            content: '🎓';
+            font-size: 35px;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            position: relative;
+        }
+        
+        .post-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            position: relative;
+            background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+            border-radius: var(--radius);
+            padding: 40px;
+        }
+        
+        .post-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), var(--primary-color), transparent);
+            animation: headerShine 4s linear infinite;
+        }
+        
+        @keyframes headerShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            text-shadow: 0 0 30px rgba(30, 136, 229, 0.4);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            animation: titleLine 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleLine {
+            0%, 100% { width: 200px; opacity: 0.7; }
+            50% { width: 300px; opacity: 1; }
+        }
+        
+        .featured-image {
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin: 60px auto;
+            display: block;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 3px solid transparent;
+            background: linear-gradient(var(--card-color), var(--card-color)) padding-box,
+                        linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--secondary-color)) border-box;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 152, 0, 0.1) 50%, transparent 70%);
+            animation: imageGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes imageGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.03) rotate(1deg);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        }
+        
+        .post-content {
+            background: var(--card-color);
+            padding: 60px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: contentGlow 10s ease-in-out infinite alternate;
+        }
+        
+        @keyframes contentGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: 50px 0 25px;
+            padding: 20px 30px;
+            background: linear-gradient(90deg, rgba(30, 136, 229, 0.1), transparent);
+            border-right: 5px solid var(--accent-color);
+            border-radius: 10px 0 0 10px;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h2::before {
+            content: '🧠';
+            font-size: 2rem;
+        }
+        
+        h2:hover {
+            transform: translateX(-10px);
+            background: linear-gradient(90deg, rgba(30, 136, 229, 0.2), transparent);
+            box-shadow: 5px 5px 20px rgba(30, 136, 229, 0.3);
+        }
+        
+        ul {
+            padding-right: 40px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        li {
+            font-size: 1.7rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            line-height: 1.9;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border-right: 3px solid var(--success-color);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        li::before {
+            content: '✓';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--success-color);
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px var(--success-color);
+        }
+        
+        li:hover {
+            transform: translateX(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        p {
+            font-size: 1.7rem;
+            margin-bottom: 35px;
+            text-align: justify;
+            line-height: 2;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius);
+            border-right: 2px solid var(--border-color);
+            transition: var(--transition);
+        }
+        
+        p:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(-5px);
+        }
+        
+        .action-buttons {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 999;
+        }
+        
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.2) rotate(15deg);
+            box-shadow: 0 12px 35px rgba(30, 136, 229, 0.6);
+        }
+        
+        .nav-btn:hover::before {
+            transform: scale(1);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 120px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff5722, var(--accent-color));
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.4);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.2) rotate(-15deg);
+            box-shadow: 0 12px 35px rgba(255, 87, 34, 0.6);
+        }
+        
+        .trigger-btn {
+            display: block;
+            width: 400px;
+            margin: 60px auto;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 60px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.5);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 2px;
+        }
+        
+        .trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s;
+        }
+        
+        .trigger-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(30, 136, 229, 0.7);
+            letter-spacing: 3px;
+        }
+        
+        .trigger-btn:hover::before {
+            left: 100%;
+        }
+        
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+        
+        .color-fill-container.active {
+            opacity: 1;
+            z-index: 9998;
+        }
+        
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #fee140 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--card-color);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            backdrop-filter: blur(25px);
+        }
+        
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(180deg) scale(1.1);
+        }
+        
+        .counter-badge {
+            position: absolute;
+            left: 20px;
+            top: -15px;
+            background: var(--accent-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.5);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .edu-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color), var(--accent-color));
+            opacity: 0.7;
+            z-index: 1001;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s linear;
+        }
+        
+        @media (max-width: 1024px) {
+            .container {
+                margin: 30px auto;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+                padding: 15px 20px;
+            }
+            
+            p, li {
+                font-size: 1.5rem;
+            }
+            
+            .post-content {
+                padding: 40px;
+            }
+            
+            .featured-image {
+                height: 350px;
+                margin: 40px auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            h2 {
+                font-size: 1.9rem;
+            }
+            
+            p, li {
+                font-size: 1.4rem;
+                padding: 15px;
+            }
+            
+            .post-content {
+                padding: 30px;
+            }
+            
+            .featured-image {
+                height: 300px;
+                margin: 30px auto;
+            }
+            
+            .edu-icon {
+                width: 55px;
+                height: 55px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            .edu-icon::before {
+                font-size: 28px;
+            }
+            
+            .back-btn {
+                top: 90px;
+                left: 15px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .action-buttons {
+                right: 15px;
+                bottom: 15px;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .trigger-btn {
+                width: 90%;
+                font-size: 1.3rem;
+                padding: 18px 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            p, li {
+                font-size: 1.3rem;
+                line-height: 1.8;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            ul {
+                padding-right: 20px;
+            }
+            
+            li {
+                padding: 12px 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <div class="edu-background" id="eduBg"></div>
+    
+    <div class="edu-progress" id="progressBar"></div>
+    
+    <div class="edu-icon" id="eduIcon" title="تعلیم کا مستقبل"></div>
+    
+    <button class="back-btn" onclick="history.back()" title="واپس جائیں">←</button>
+    
+    <div class="action-buttons">
+        <button class="nav-btn" onclick="scrollToTop()" title="اوپر جائیں">↑</button>
+        <button class="nav-btn" onclick="scrollToBottom()" title="نیچے جائیں">↓</button>
     </div>
-
-    <div class="post-content">
+    
+    <div class="container">
+        <div class="post-header">
+            <h1>ٹاپ 20 مصنوعی ذہانت کے تعلیمی شعبے میں استعمالات</h1>
+        </div>
         
-        <h1>ٹاپ 20 مصنوعی ذہانت کے تعلیمی شعبے میں استعمالات</h1>
-<p>جدید دور میں مصنوعی ذہانت (Artificial Intelligence) زندگی کے ہر شعبے میں انقلاب برپا کر رہی ہے، اور تعلیم کا شعبہ بھی اس سے مستثنیٰ نہیں۔ AI طلباء، اساتذہ اور تعلیمی اداروں کے لیے سیکھنے اور سکھانے کے عمل کو زیادہ مؤثر، ذاتی نوعیت کا اور قابل رسائی بنا رہا ہے۔ آئیے تعلیم میں AI کے 20 اہم استعمالات پر ایک نظر ڈالتے ہیں۔</p>
-<h2>1. ذاتی نوعیت کی سیکھنے کی راہیں</h2>
-<ul>
-<li>AI سسٹم ہر طالب علم کی کارکردگی، مضبوط پہلوؤں اور کمزوریوں کا تجزیہ کر سکتے ہیں۔</li>
-<li>اس تجزیے کی بنیاد پر یہ ہر طالب علم کے لیے ایک مخصوص سیکھنے کا راستہ (Learning Path) تیار کرتا ہے۔</li>
-<li>مثال کے طور پر، ایک طالب علم کو ریاضی کے ایک مخصوص موضوع میں مشکل پیش آ رہی ہے تو AI اسے اضافی مشقیں اور متعلقہ تعلیمی مواد فراہم کر سکتا ہے۔</li>
-</ul>
-<h2>2. خودکار گریڈنگ سسٹم</h2>
-<ul>
-<li>AI ٹیکنالوجی متعدد انتخابی اور مختصر جوابات والے امتحانات کو خود بخود گریڈ کر سکتی ہے۔</li>
-<li>یہ اساتذہ کے وقت کی بچت کرتی ہے، جسے وہ طلباء کے ساتھ زیادہ مفید تعلیمی سرگرمیوں پر صرف کر سکتے ہیں۔</li>
-<li>یہ سسٹم یکساں اور بے تعصبانہ نمبر دینے کی ضمانت دیتے ہیں۔</li>
-</ul>
-<h2>3. اسمارٹ ٹیوٹرنگ سسٹم</h2>
-<ul>
-<li>یہ AI پر مبنی سسٹم ہر وقت دستیاب ذاتی نوعیت کے ٹیوٹر کی طرح کام کرتے ہیں۔</li>
-<li>طلباء اپنی مرضی کے وقت پر ان سے سوالات پوچھ سکتے ہیں اور فوری رہنمائی حاصل کر سکتے ہیں۔</li>
-<li>یہ سسٹم طلباء کی ترقی پر نظر رکھتے ہیں اور انہیں ان کی کارکردگی کے بارے میں بروقت فیڈ بیک دیتے ہیں۔</li>
-</ul>
-<h2>4. مواد کا تخلیق اور ترجمہ</h2>
-<ul>
-<li>AI اساتذہ کو سبق کے منصوبے، assignments اور امتحانی پرچے تیار کرنے میں مدد کر سکتا ہے۔</li>
-<li>یہ تعلیمی مواد کو دنیا کی مختلف زبانوں میں فوری اور درست طریقے سے ترجمہ کر سکتا ہے، جس سے بین الاقوامی طلباء کے لیے سیکھنا آسان ہو جاتا ہے۔</li>
-</ul>
-<h2>5. پریڈکٹو اینالیٹکس</h2>
-<ul>
-<li>AI طلباء کے ڈیٹا کا تجزیہ کر کے یہ پیش گوئی کر سکتا ہے کہ کون سا طالب علم کسی مضمون میں پیچھے رہ سکتا ہے یا اسکول چھوڑنے کا خطرہ ہو سکتا ہے۔</li>
-<li>اس انتباہ پر اساتذہ اور منتظمین اس طالب علم کی بروقت مدد کر سکتے ہیں اور اسے ناکامی سے بچا سکتے ہیں۔</li>
-</ul>
-<h2>6. ورچوئل اور آگمینٹڈ رئیلٹی</h2>
-<ul>
-<li>AI کے ساتھ مل کر VR اور AR ٹیکنالوجی طلباء کے لیے ورچوئل تجربات (Virtual Experiences) تخلیق کرتی ہے۔</li>
-<li>طلباء تاریخ کے دور میں سفر کر سکتے ہیں، انسانی جسم کے اندر کا دورہ کر سکتے ہیں یا کسی کیمیائی تجربے کو محفوظ طریقے سے دیکھ سکتے ہیں۔</li>
-</ul>
-<h2>7. آواز سے چلنے والے معاون</h2>
-<ul>
-<li>Alexa یا Google Assistant جیسی AI معاونین طلباء کے لیے ایک انٹرایکٹو طریقہ سے کام کر سکتے ہیں۔</li>
-<li>طلباء ان سے معلومات حاصل کر سکتے ہیں، اپنے شیڈول کو منظم کر سکتے ہیں یا ریاضی کے سوالوں کے جوابات جان سکتے ہیں۔</li>
-</ul>
-<h2>8. پلےجیرزم (ادبی چوری) کا پتہ لگانا</h2>
-<ul>
-<li>AI پر مبنی ٹولز طلباء کے assignments اور تحقیقی مقالہ جات (Research Papers) کا تجزیہ کر کے یہ پتہ لگا سکتے ہیں کہ آیا مواد کاپی کیا گیا ہے یا نہیں۔</li>
-<li>اس سے تعلیمی دیانت داری کو فروغ ملتا ہے۔</li>
-</ul>
-<h2>9. انتظامی کاموں میں آسانی</h2>
-<ul>
-<li>AI تعلیمی اداروں کے روزمرہ کے انتظامی کاموں جیسے داخلے، حاضری، اور ٹائم ٹیبل بنانے کو خودکار کر سکتا ہے۔</li>
-<li>اس سے عملے کا بوجھ کم ہوتا ہے اور کام زیادہ مؤثر طریقے سے ہوتا ہے۔</li>
-</ul>
-<h2>10. سیکھنے میں رکاوٹوں کو دور کرنا</h2>
-<ul>
-<li>AI ان طلباء کے لیے نئی راہیں کھولتی ہے جنہیں سیکھنے میں دشواری ہوتی ہے۔</li>
-<li>مثال کے طور پر، تقریر کو متن میں بدلنے والے ٹولز ڈسلیکسیا کے شکار طلباء کی مدد کر سکتے ہیں، یا AI متن کو تقریر میں بدل سکتا ہے۔</li>
-</ul>
-<h2>11. جذبات کا تجزیہ</h2>
-<ul>
-<li>AI سسٹم طلباء کے چہرے کے تاثرات اور آواز کے لہجے کا تجزیہ کر کے ان کی جذباتی کیفیت کو سمجھ سکتے ہیں۔</li>
-<li>اگر کوئی طالب علم مایوس یا پریشان نظر آئے تو یہ سسٹم استاد کو اس کی اطلاع دے سکتا ہے۔</li>
-</ul>
-<h2>12. لرننگ مینیجمنٹ سسٹمز (LMS) کو بہتر بنانا</h2>
-<ul>
-<li>جدید LMS جیسے کینوس (Canvas) یا بلیک بورڈ (Blackboard) طلباء کے رویے کا ڈیٹا اکٹھا کرنے اور اسے بہتر بنانے کے لیے AI کا استعمال کرتے ہیں۔</li>
-<li>یہ سسٹم تجویزات پیش کرتے ہیں کہ کون سا مواد طالب علم کے لیے سب سے زیادہ فائدہ مند ہوگا۔</li>
-</ul>
-<h2>13. ہر وقت دستیاب مدد</h2>
-<ul>
-<li>AI پر مبنی چیٹ بوٹس طلباء کے عام سوالات کے جوابات دے سکتے ہیں، چاہے رات کا وقت ہو یا دن کا۔</li>
-<li>اس سے طلباء کو ہر وقت مدد ملتی رہتی ہے اور اساتذہ کا بوجھ کم ہوتا ہے۔</li>
-</ul>
-<h2>14. کیرئیر کے مشورے</h2>
-<ul>
-<li>AI طلباء کی صلاحیتوں، دلچسپیوں اور مارکیٹ کے رجحانات کا تجزیہ کر کے انہیں کیرئیر کے حوالے سے بہتر مشورے دے سکتا ہے۔</li>
-<li>یہ انہیں بتا سکتا ہے کہ مستقبل میں کن شعبوں میں زیادہ مواقع ہیں۔</li>
-</ul>
-<h2>15. اساتذہ کی پیشہ ورانہ ترقی</h2>
-<ul>
-<li>AI اساتذہ کی تدریسی کارکردگی کا تجزیہ کر سکتا ہے اور انہیں بہتر بنانے کے لیے تجاویز پیش کر سکتا ہے۔</li>
-<li>یہ انہیں نئی تدریسی حکمت عملیوں اور وسائل سے بھی متعارف کروا سکتا ہے۔</li>
-</ul>
-<h2>16. گیمفیکیشن</h2>
-<ul>
-<li>AI سیکھنے کے عمل کو گیمز کی طرح مزیدار اور مقابلہ پر مبنی بنا سکتا ہے۔</li>
-<li>اس سے طلباء کی حوصلہ افزائی ہوتی ہے اور وہ زیادہ متحرک طریقے سے حصہ لیتے ہیں۔</li>
-</ul>
-<h2>17. عالمی تعاون کو فروغ</h2>
-<ul>
-<li>AI کے ترجمہ کے ٹولز دنیا بھر کے طلباء کے درمیان موثر تعاون کو ممکن بناتے ہیں۔</li>
-<li>وہ مختلف ممالک کے طلباء کے ساتھ منصوبوں پر کام کر سکتے ہیں اور ایک دوسرے سے سیکھ سکتے ہیں۔</li>
-</ul>
-<h2>18. تحقیق میں معاونت</h2>
-<ul>
-<li>محققین کے لیے، AI بہت بڑے ڈیٹا سیٹس کا تجزیہ کر سکتا ہے، پیٹرن کو پہچان سکتا ہے اور نئی دریافتیں کرنے میں مدد کر سکتا ہے۔</li>
-</ul>
-<h2>19. حفاظتی نگرانی</h2>
-<ul>
-<li>تعلیمی اداروں میں، AI کیمرے اور سینسرز کا ڈیٹا استعمال کر کے ممکنہ حفاظتی خطرات کا پتہ لگا سکتا ہے اور کیمپس کو محفوظ بنانے میں مدد کر سکتا ہے۔</li>
-</ul>
-<h2>20. مہارت کی جانچ</h2>
-<ul>
-<li>AI صرف معلومات پر ہی نہیں بلکہ طلباء کی تخلیقی سوچ، تنقیدی انداز فکر اور مسائل کو حل کرنے کی مہارت کا بھی تجزیہ کر سکتا ہے۔</li>
-</ul>
-<p>مصنوعی ذہانت تعلیم کے شعبے کو نئی راہیں دکھا رہی ہے۔ یہ نہ صرف سیکھنے اور سکھانے کے عمل کو زیادہ مؤثر بنا رہی ہے بلکہ ہر طالب علم کے لیے ذاتی نوعیت کا تجربہ بھی فراہم کر رہی ہے۔ وقت گزرنے کے ساتھ، جیسے جیسے یہ ٹیکنالوجی ترقی کرے گی، ہم تعلیم میں AI کے اور بھی جدید اور حیرت انگیز استعمالات دیکھیں گے۔</p>
-
+        <img src="https://bloglovers.pk/images/technology/tap-20-msnoai-zhant-ke-talym-main-astamalat.png" 
+             alt="ٹاپ 20 مصنوعی ذہانت کے تعلیمی شعبے میں استعمالات" 
+             class="featured-image">
+        
+        <div class="post-content">
+            <p>جدید دور میں مصنوعی ذہانت (Artificial Intelligence) زندگی کے ہر شعبے میں انقلاب برپا کر رہی ہے، اور تعلیم کا شعبہ بھی اس سے مستثنیٰ نہیں۔ AI طلباء، اساتذہ اور تعلیمی اداروں کے لیے سیکھنے اور سکھانے کے عمل کو زیادہ مؤثر، ذاتی نوعیت کا اور قابل رسائی بنا رہا ہے۔ آئیے تعلیم میں AI کے 20 اہم استعمالات پر ایک نظر ڈالتے ہیں۔</p>
+            
+            <h2><span class="counter-badge">1</span> ذاتی نوعیت کی سیکھنے کی راہیں</h2>
+            <ul>
+                <li>AI سسٹم ہر طالب علم کی کارکردگی، مضبوط پہلوؤں اور کمزوریوں کا تجزیہ کر سکتے ہیں۔</li>
+                <li>اس تجزیے کی بنیاد پر یہ ہر طالب علم کے لیے ایک مخصوص سیکھنے کا راستہ (Learning Path) تیار کرتا ہے۔</li>
+                <li>مثال کے طور پر، ایک طالب علم کو ریاضی کے ایک مخصوص موضوع میں مشکل پیش آ رہی ہے تو AI اسے اضافی مشقیں اور متعلقہ تعلیمی مواد فراہم کر سکتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">2</span> خودکار گریڈنگ سسٹم</h2>
+            <ul>
+                <li>AI ٹیکنالوجی متعدد انتخابی اور مختصر جوابات والے امتحانات کو خود بخود گریڈ کر سکتی ہے۔</li>
+                <li>یہ اساتذہ کے وقت کی بچت کرتی ہے، جسے وہ طلباء کے ساتھ زیادہ مفید تعلیمی سرگرمیوں پر صرف کر سکتے ہیں۔</li>
+                <li>یہ سسٹم یکساں اور بے تعصبانہ نمبر دینے کی ضمانت دیتے ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">3</span> اسمارٹ ٹیوٹرنگ سسٹم</h2>
+            <ul>
+                <li>یہ AI پر مبنی سسٹم ہر وقت دستیاب ذاتی نوعیت کے ٹیوٹر کی طرح کام کرتے ہیں۔</li>
+                <li>طلباء اپنی مرضی کے وقت پر ان سے سوالات پوچھ سکتے ہیں اور فوری رہنمائی حاصل کر سکتے ہیں۔</li>
+                <li>یہ سسٹم طلباء کی ترقی پر نظر رکھتے ہیں اور انہیں ان کی کارکردگی کے بارے میں بروقت فیڈ بیک دیتے ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">4</span> مواد کا تخلیق اور ترجمہ</h2>
+            <ul>
+                <li>AI اساتذہ کو سبق کے منصوبے، assignments اور امتحانی پرچے تیار کرنے میں مدد کر سکتا ہے۔</li>
+                <li>یہ تعلیمی مواد کو دنیا کی مختلف زبانوں میں فوری اور درست طریقے سے ترجمہ کر سکتا ہے، جس سے بین الاقوامی طلباء کے لیے سیکھنا آسان ہو جاتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">5</span> پریڈکٹو اینالیٹکس</h2>
+            <ul>
+                <li>AI طلباء کے ڈیٹا کا تجزیہ کر کے یہ پیش گوئی کر سکتا ہے کہ کون سا طالب علم کسی مضمون میں پیچھے رہ سکتا ہے یا اسکول چھوڑنے کا خطرہ ہو سکتا ہے۔</li>
+                <li>اس انتباہ پر اساتذہ اور منتظمین اس طالب علم کی بروقت مدد کر سکتے ہیں اور اسے ناکامی سے بچا سکتے ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">6</span> ورچوئل اور آگمینٹڈ رئیلٹی</h2>
+            <ul>
+                <li>AI کے ساتھ مل کر VR اور AR ٹیکنالوجی طلباء کے لیے ورچوئل تجربات (Virtual Experiences) تخلیق کرتی ہے۔</li>
+                <li>طلباء تاریخ کے دور میں سفر کر سکتے ہیں، انسانی جسم کے اندر کا دورہ کر سکتے ہیں یا کسی کیمیائی تجربے کو محفوظ طریقے سے دیکھ سکتے ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">7</span> آواز سے چلنے والے معاون</h2>
+            <ul>
+                <li>Alexa یا Google Assistant جیسی AI معاونین طلباء کے لیے ایک انٹرایکٹو طریقہ سے کام کر سکتے ہیں۔</li>
+                <li>طلباء ان سے معلومات حاصل کر سکتے ہیں، اپنے شیڈول کو منظم کر سکتے ہیں یا ریاضی کے سوالوں کے جوابات جان سکتے ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">8</span> پلےجیرزم (ادبی چوری) کا پتہ لگانا</h2>
+            <ul>
+                <li>AI پر مبنی ٹولز طلباء کے assignments اور تحقیقی مقالہ جات (Research Papers) کا تجزیہ کر کے یہ پتہ لگا سکتے ہیں کہ آیا مواد کاپی کیا گیا ہے یا نہیں۔</li>
+                <li>اس سے تعلیمی دیانت داری کو فروغ ملتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">9</span> انتظامی کاموں میں آسانی</h2>
+            <ul>
+                <li>AI تعلیمی اداروں کے روزمرہ کے انتظامی کاموں جیسے داخلے، حاضری، اور ٹائم ٹیبل بنانے کو خودکار کر سکتا ہے۔</li>
+                <li>اس سے عملے کا بوجھ کم ہوتا ہے اور کام زیادہ مؤثر طریقے سے ہوتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">10</span> سیکھنے میں رکاوٹوں کو دور کرنا</h2>
+            <ul>
+                <li>AI ان طلباء کے لیے نئی راہیں کھولتی ہے جنہیں سیکھنے میں دشواری ہوتی ہے۔</li>
+                <li>مثال کے طور پر، تقریر کو متن میں بدلنے والے ٹولز ڈسلیکسیا کے شکار طلباء کی مدد کر سکتے ہیں، یا AI متن کو تقریر میں بدل سکتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">11</span> جذبات کا تجزیہ</h2>
+            <ul>
+                <li>AI سسٹم طلباء کے چہرے کے تاثرات اور آواز کے لہجے کا تجزیہ کر کے ان کی جذباتی کیفیت کو سمجھ سکتے ہیں۔</li>
+                <li>اگر کوئی طالب علم مایوس یا پریشان نظر آئے تو یہ سسٹم استاد کو اس کی اطلاع دے سکتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">12</span> لرننگ مینیجمنٹ سسٹمز (LMS) کو بہتر بنانا</h2>
+            <ul>
+                <li>جدید LMS جیسے کینوس (Canvas) یا بلیک بورڈ (Blackboard) طلباء کے رویے کا ڈیٹا اکٹھا کرنے اور اسے بہتر بنانے کے لیے AI کا استعمال کرتے ہیں۔</li>
+                <li>یہ سسٹم تجویزات پیش کرتے ہیں کہ کون سا مواد طالب علم کے لیے سب سے زیادہ فائدہ مند ہوگا۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">13</span> ہر وقت دستیاب مدد</h2>
+            <ul>
+                <li>AI پر مبنی چیٹ بوٹس طلباء کے عام سوالات کے جوابات دے سکتے ہیں، چاہے رات کا وقت ہو یا دن کا۔</li>
+                <li>اس سے طلباء کو ہر وقت مدد ملتی رہتی ہے اور اساتذہ کا بوجھ کم ہوتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">14</span> کیرئیر کے مشورے</h2>
+            <ul>
+                <li>AI طلباء کی صلاحیتوں، دلچسپیوں اور مارکیٹ کے رجحانات کا تجزیہ کر کے انہیں کیرئیر کے حوالے سے بہتر مشورے دے سکتا ہے۔</li>
+                <li>یہ انہیں بتا سکتا ہے کہ مستقبل میں کن شعبوں میں زیادہ مواقع ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">15</span> اساتذہ کی پیشہ ورانہ ترقی</h2>
+            <ul>
+                <li>AI اساتذہ کی تدریسی کارکردگی کا تجزیہ کر سکتا ہے اور انہیں بہتر بنانے کے لیے تجاویز پیش کر سکتا ہے۔</li>
+                <li>یہ انہیں نئی تدریسی حکمت عملیوں اور وسائل سے بھی متعارف کروا سکتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">16</span> گیمفیکیشن</h2>
+            <ul>
+                <li>AI سیکھنے کے عمل کو گیمز کی طرح مزیدار اور مقابلہ پر مبنی بنا سکتا ہے۔</li>
+                <li>اس سے طلباء کی حوصلہ افزائی ہوتی ہے اور وہ زیادہ متحرک طریقے سے حصہ لیتے ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">17</span> عالمی تعاون کو فروغ</h2>
+            <ul>
+                <li>AI کے ترجمہ کے ٹولز دنیا بھر کے طلباء کے درمیان موثر تعاون کو ممکن بناتے ہیں۔</li>
+                <li>وہ مختلف ممالک کے طلباء کے ساتھ منصوبوں پر کام کر سکتے ہیں اور ایک دوسرے سے سیکھ سکتے ہیں۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">18</span> تحقیق میں معاونت</h2>
+            <ul>
+                <li>محققین کے لیے، AI بہت بڑے ڈیٹا سیٹس کا تجزیہ کر سکتا ہے، پیٹرن کو پہچان سکتا ہے اور نئی دریافتیں کرنے میں مدد کر سکتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">19</span> حفاظتی نگرانی</h2>
+            <ul>
+                <li>تعلیمی اداروں میں، AI کیمرے اور سینسرز کا ڈیٹا استعمال کر کے ممکنہ حفاظتی خطرات کا پتہ لگا سکتا ہے اور کیمپس کو محفوظ بنانے میں مدد کر سکتا ہے۔</li>
+            </ul>
+            
+            <h2><span class="counter-badge">20</span> مہارت کی جانچ</h2>
+            <ul>
+                <li>AI صرف معلومات پر ہی نہیں بلکہ طلباء کی تخلیقی سوچ، تنقیدی انداز فکر اور مسائل کو حل کرنے کی مہارت کا بھی تجزیہ کر سکتا ہے۔</li>
+            </ul>
+            
+            <p>مصنوعی ذہانت تعلیم کے شعبے کو نئی راہیں دکھا رہی ہے۔ یہ نہ صرف سیکھنے اور سکھانے کے عمل کو زیادہ مؤثر بنا رہی ہے بلکہ ہر طالب علم کے لیے ذاتی نوعیت کا تجربہ بھی فراہم کر رہی ہے۔ وقت گزرنے کے ساتھ، جیسے جیسے یہ ٹیکنالوجی ترقی کرے گی، ہم تعلیم میں AI کے اور بھی جدید اور حیرت انگیز استعمالات دیکھیں گے۔</p>
+        </div>
+        
+        <button class="trigger-btn" onclick="openColorFillPost()">
+            🌟 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+        </button>
     </div>
 
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
@@ -154,14 +874,116 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        const eduIcon = document.getElementById('eduIcon');
+        eduIcon.addEventListener('mouseenter', function() {
+            createEduEffect();
+        });
+        
+        function createEduEffect() {
+            const bg = document.getElementById('eduBg');
+            bg.innerHTML = '';
+            
+            for(let i = 0; i < 12; i++) {
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                line.style.top = Math.random() * 100 + '%';
+                line.style.animationDelay = Math.random() * 4 + 's';
+                bg.appendChild(line);
+            }
+            
+            for(let i = 0; i < 25; i++) {
+                const node = document.createElement('div');
+                node.className = 'knowledge-node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                node.style.animationDelay = Math.random() * 3 + 's';
+                node.style.animationDuration = (3 + Math.random() * 4) + 's';
+                bg.appendChild(node);
+            }
+        }
+        
+        createEduEffect();
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        window.addEventListener('scroll', function() {
+            const icon = document.getElementById('eduIcon');
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            
+            const newTop = 20 + (scrollPercent * 0.2);
+            const newLeft = 20 + (scrollPercent * 0.1);
+            
+            icon.style.top = newTop + 'px';
+            icon.style.left = newLeft + 'px';
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.transform = `scaleY(${scrollPercent / 100})`;
+            
+            const bg = document.getElementById('eduBg');
+            const nodes = bg.querySelectorAll('.knowledge-node');
+            nodes.forEach(node => {
+                node.style.transform = `translateY(${window.scrollY * 0.05}px)`;
+            });
+        });
+        
+        const headings = document.querySelectorAll('h2');
+        headings.forEach((heading, index) => {
+            heading.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(-15px)';
+                this.style.boxShadow = '10px 10px 30px rgba(30, 136, 229, 0.4)';
+            });
+            
+            heading.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+                this.style.boxShadow = 'none';
+            });
+            
+            const badge = document.createElement('span');
+            badge.className = 'counter-badge';
+            badge.textContent = index + 1;
+            heading.appendChild(badge);
+        });
+        
+        const listItems = document.querySelectorAll('li');
+        listItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.borderRightColor = 'var(--accent-color)';
+                this.style.transform = 'translateX(-15px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.borderRightColor = 'var(--success-color)';
+                this.style.transform = 'translateX(0)';
+            });
+        });
+        
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
     </script>
 </body>
 </html>
