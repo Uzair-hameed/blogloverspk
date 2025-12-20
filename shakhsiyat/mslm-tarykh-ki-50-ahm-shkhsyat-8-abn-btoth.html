@@ -13,7 +13,8 @@
         .explorer-theme {
             background: linear-gradient(135deg, #0a1929 0%, #1a365d 50%, #0c4a6e 100%);
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
         
         .explorer-theme::before {
@@ -103,6 +104,7 @@
             background: rgba(10, 25, 41, 0.7);
             backdrop-filter: blur(5px);
             box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+            cursor: pointer;
         }
         
         @keyframes rotateCompass {
@@ -361,6 +363,15 @@
                 linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
+            min-height: 200px;
+            background-color: rgba(30, 41, 59, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2dd4bf;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 40px;
         }
         
         .main-image:hover {
@@ -443,6 +454,26 @@
             margin: 10px 0;
         }
         
+        /* تصویر پلیس ہولڈر */
+        .image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .image-icon {
+            font-size: 4rem;
+            color: #0ea5e9;
+        }
+        
+        .image-text {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            text-align: center;
+        }
+        
         /* موبائل ریسپانسیو */
         @media (max-width: 768px) {
             body {
@@ -497,6 +528,11 @@
             .info-item {
                 min-width: 100%;
             }
+            
+            .main-image {
+                padding: 30px;
+                min-height: 150px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -518,6 +554,12 @@
             
             .traveler-box {
                 padding: 15px;
+            }
+            
+            .main-image {
+                padding: 20px;
+                min-height: 120px;
+                font-size: 1.2rem;
             }
         }
         
@@ -584,8 +626,17 @@
     <div class="post-content">
         <h1>مسلم تاریخ کی 50 اہم شخصیات 8 - ابن بطوطہ</h1>
         
-        <!-- مرکزی تصویر -->
-        <img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth.png" alt="ابن بطوطہ" class="main-image">
+        <!-- مرکزی تصویر - اگر تصویر لوڈ نہ ہو تو پلیس ہولڈر دکھائیں -->
+        <div class="main-image" id="mainImage">
+            <div class="image-placeholder">
+                <div class="image-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="image-text">
+                    ابن بطوطہ - عظیم مسلمان سیاح
+                </div>
+            </div>
+        </div>
         
         <!-- مسافر کا باکس -->
         <div class="traveler-box">
@@ -721,6 +772,33 @@
             });
         }
         
+        // تصویر لوڈ کرنے کی کوشش کریں
+        function loadImage() {
+            const imageUrl = 'https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth.png';
+            const mainImage = document.getElementById('mainImage');
+            
+            // نئی تصویر بنائیں
+            const img = new Image();
+            
+            img.onload = function() {
+                // تصویر لوڈ ہو گئی ہے
+                mainImage.innerHTML = '';
+                mainImage.style.backgroundImage = `url('${imageUrl}')`;
+                mainImage.style.backgroundSize = 'cover';
+                mainImage.style.backgroundPosition = 'center';
+                mainImage.style.backgroundRepeat = 'no-repeat';
+                mainImage.classList.add('image-loaded');
+            };
+            
+            img.onerror = function() {
+                // تصویر لوڈ نہیں ہو سکی، پلیس ہولڈر ہی رہنے دیں
+                console.log('تصویر لوڈ نہیں ہو سکی، پلیس ہولڈر دکھایا جا رہا ہے');
+            };
+            
+            // تصویر لوڈ کرنے کی کوشش کریں
+            img.src = imageUrl;
+        }
+        
         // سیاحانہ عناصر بنانے کا فنکشن
         function createExplorerElements() {
             const container = document.getElementById('explorerElements');
@@ -771,7 +849,7 @@
         
         // تصویر پر ہوور افیکٹ
         function setupImageEffects() {
-            const image = document.querySelector('.main-image');
+            const image = document.getElementById('mainImage');
             if (image) {
                 image.addEventListener('mouseenter', function() {
                     this.style.transform = 'perspective(1000px) rotateX(8deg) scale(1.05)';
@@ -879,10 +957,18 @@
                     }, 2000);
                 }
             }
+            
+            // 'I' تصویر ری لوڈ کے لیے
+            if (e.key === 'i' || e.key === 'I') {
+                loadImage();
+            }
         });
         
         // صفحہ لوڈ ہونے پر سب افیکٹس سیٹ اپ کریں
         window.addEventListener('load', function() {
+            // تصویر لوڈ کرنے کی کوشش کریں
+            loadImage();
+            
             createExplorerElements();
             setupImageEffects();
             setupHeadingEffects();
