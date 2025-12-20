@@ -7,130 +7,246 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
+        
+        /* Lightening Theme */
+        .lightning-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; overflow: hidden; background: #0a0a1a; }
+        .lightning { position: absolute; width: 100%; height: 100%; opacity: 0; }
+        .lightning.active { animation: flash 0.3s ease-out; }
+        @keyframes flash { 0%, 100% { opacity: 0; } 50% { opacity: 0.7; } }
+        .star { position: absolute; background-color: white; border-radius: 50%; animation: twinkle 3s infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        
         .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
         .color-fill-container.active { opacity: 1; z-index: 9998; }
         .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
         @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
         .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
         .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: justify; margin: 0; padding: 20px; background: #0a0a1a; min-height: 100vh; overflow-x: hidden; color: #333; }
+        
+        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #9b59b6, #3498db); color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 20px rgba(155, 89, 182, 0.5); transition: all 0.3s; border: none; cursor: pointer; font-size: 18px; font-family: inherit; position: relative; overflow: hidden; }
+        .trigger-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 25px rgba(155, 89, 182, 0.8); background: linear-gradient(45deg, #3498db, #9b59b6); }
+        .trigger-btn:before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.5s; }
+        .trigger-btn:hover:before { left: 100%; }
+        
+        .post-content { max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); transition: transform 0.3s; }
+        .post-content:hover { transform: translateY(-5px); }
+        
+        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        h1 { text-align: center; border-bottom: 4px solid #9b59b6; font-size: 3em; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        h2 { font-size: 2.2em; margin-top: 40px; color: #2980b9; }
+        h3 { font-size: 1.8em; margin-top: 30px; color: #16a085; }
+        
+        p, li { font-size: 1.3em; margin-bottom: 15px; color: #34495e; }
+        
+        img { max-width: 100%; height: auto; border-radius: 15px; display: block; margin: 30px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 5px solid white; transition: all 0.5s; }
+        img:hover { transform: scale(1.02) rotate(1deg); box-shadow: 0 15px 40px rgba(155, 89, 182, 0.4); }
+        
+        /* Navigation Buttons */
+        .nav-buttons { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .nav-btn { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(45deg, #9b59b6, #3498db); color: white; border: none; font-size: 28px; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.4); transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .nav-btn:hover { background: linear-gradient(45deg, #3498db, #9b59b6); transform: scale(1.1) rotate(10deg); box-shadow: 0 8px 25px rgba(155, 89, 182, 0.7); }
+        
+        .back-btn { position: fixed; top: 20px; left: 20px; padding: 12px 25px; background: linear-gradient(45deg, #e74c3c, #ff6b6b); color: white; border: none; border-radius: 50px; font-size: 18px; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.3); transition: all 0.3s; z-index: 1000; font-weight: bold; }
+        .back-btn:hover { background: linear-gradient(45deg, #ff6b6b, #e74c3c); transform: scale(1.1); box-shadow: 0 8px 25px rgba(231, 76, 60, 0.7); }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            p, li { font-size: 1.1em; }
+            .post-content { padding: 25px; margin: 10px; }
+            .trigger-btn { padding: 12px 25px; font-size: 16px; }
+            .nav-buttons { bottom: 10px; right: 10px; }
+            .nav-btn { width: 50px; height: 50px; font-size: 24px; }
+            .back-btn { top: 10px; left: 10px; padding: 10px 20px; font-size: 16px; }
+        }
+        
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            h3 { font-size: 1.3em; }
+            .post-content { padding: 20px; }
+        }
+        
+        /* Special Effects */
+        .section-highlight { transition: all 0.3s; padding: 10px; border-radius: 10px; }
+        .section-highlight:hover { background: rgba(155, 89, 182, 0.1); transform: translateX(-10px); }
     </style>
 </head>
 <body>
+    <div class="lightning-container" id="lightningContainer"></div>
+    
+    <button class="back-btn" onclick="history.back()">← واپس</button>
+    
     <div style="text-align: center; margin: 40px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            ⚡ اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
         </button>
     </div>
 
     <div class="post-content">
         <h1>مسلم تاریخ کی 50 اہم شخصیات 16 - ابو معشر البلخی</h1>
-        <p>مسلم تاریخ میں ابو معشر البلخی کا شمار ان عظیم فلکیات دانوں اور ماہرین ریاضی میں ہوتا ہے جنہوں نے فلکیات، ریاضی، اور نجوم کے میدان میں لازوال خدمات انجام دیں۔ ابو معشر البلخی کو نہ صرف &quot;عظیم فلکیات دان&quot; کہا جاتا ہے بلکہ وہ اسلامی سائنس کو یونانی اور ہندی روایت کے ساتھ ہم آہنگ کرنے والے اولین سائنسدانوں میں سے ایک ہیں۔</p>
-<h2>ابو معشر البلخی کا مختصر تعارف</h2>
-<p>ابو معشر البلخی کا مکمل نام ابومعشر جعفر بن محمد البلخی تھا۔ وہ 787ء کے لگ بھگ بلخ (موجودہ افغانستان) کے علاقے میں پیدا ہوئے۔ ان کی زندگی کا دور آٹھویں صدی کے آخر سے نویں صدی کے وسط تک پھیلا ہوا ہے۔</p>
-<h2>ابتدائی زندگی اور تعلیم</h2>
-<p>ابو معشر البلخی نے ابتدائی تعلیم اپنے وطن بلخ میں حاصل کی، جہاں انہوں نے قرآن اور اسلامی علوم کی بنیاد رکھی۔ اعلیٰ تعلیم کے لیے انہوں نے بغداد کے علمی مراکز کا رخ کیا، جہاں انہوں نے فلکیات، ریاضی، اور فلسفہ کے علوم میں مہارت حاصل کی۔</p>
-<h2>علمی خدمات اور دریافتیں</h2>
-<p>ابو معشر البلخی کی دریافتیں اور تصانیف نے فلکیاتی فکر کو ایک نئی جہت دی۔ ان کی چند مشہور دریافتیں درج ذیل ہیں:</p>
-<h3>1. <strong>سیاروں کی حرکت کا مطالعہ</strong></h3>
-<p>ابو معشر نے سیاروں کی حرکت کا گہرائی سے مطالعہ کیا اور ان کی گردش کے اصول وضع کیے۔</p>
-<h3>2. <strong>فلکیاتی جدول کی تیاری</strong></h3>
-<p>انہوں نے &quot;زیج&quot; نامی فلکیاتی جدول تیار کیا، جو طویل عرصے تک استعمال ہوتا رہا۔</p>
-<h3>3. <strong>نجومیات کے اصول</strong></h3>
-<p>انہوں نے نجوم کے سائنسی اصول وضع کیے اور اسے فلسفیانہ بنیاد فراہم کی۔</p>
-<h2>فلکیاتی دریافتیں</h2>
-<p>ابو معشر البلخی کی فلکیاتی دریافتیں درج ذیل ہیں:</p>
-<h3>1. <strong>چاند کی حرکت</strong></h3>
-<ul>
-<li>چاند کی حرکت کا مفصل مطالعہ</li>
-<li>چاند گرہن کے اوقات کا درست تعین</li>
-</ul>
-<h3>2. <strong>سیاروں کا تجزیہ</strong></h3>
-<ul>
-<li>مشتری، زحل، مریخ اور دیگر سیاروں کا تجزیہ</li>
-<li>ان کی گردش کے دورانیے کا تعین</li>
-</ul>
-<h3>3. <strong>ستاروں کا مطالعہ</strong></h3>
-<ul>
-<li>ستاروں کی پوزیشن کا ریکارڈ</li>
-<li>ان کی چمک اور رفتار کا تجزیہ</li>
-</ul>
-<h2>تصانیف</h2>
-<p>ابو معشر البلخی کی مشہور تصانیف میں شامل ہیں:</p>
-<h3>1. <strong>کتاب المدخل الکبیر</strong></h3>
-<ul>
-<li>فلکیات اور نجوم کا جامع تعارف</li>
-<li>سیاروں کی حرکت کے اصول</li>
-</ul>
-<h3>2. <strong>کتاب الالوف</strong></h3>
-<ul>
-<li>فلکیاتی واقعات کا ریکارڈ</li>
-<li>تاریخی واقعات اور فلکیاتی واقعات کا موازنہ</li>
-</ul>
-<h3>3. <strong>کتاب القرانات</strong></h3>
-<ul>
-<li>سیاروں کے ملاپ کا مطالعہ</li>
-<li>ان کے اثرات کا تجزیہ</li>
-</ul>
-<h3>4. <strong>کتاب التہائم</strong></h3>
-<ul>
-<li>نجومی پیشین گوئیوں کے اصول</li>
-<li>ان کی سائنسی بنیاد</li>
-</ul>
-<h2>ریاضی میں خدمات</h2>
-<p>ابو معشر البلخی نے ریاضی کے میدان میں بھی قابل قدر خدمات انجام دیں:</p>
-<ul>
-<li><strong>ہندسی حسابات</strong>: فلکیاتی حسابات کے لیے ہندسی طریقے</li>
-<li><strong>عددینظام</strong>: ہندسی اعداد کا استعمال</li>
-<li><strong>مثلثات</strong>: فلکیاتی مثلثات کے اصول</li>
-</ul>
-<h2>تاریخی نقطہ نظر</h2>
-<p>ابو معشر البلخی نے تاریخ اور فلکیات کے درمیان تعلق کو سمجھنے کی کوشش کی۔ ان کا ماننا تھا کہ تاریخی واقعات اور فلکیاتی واقعات کے درمیان گہرا تعلق ہے۔</p>
-<h2>فلسفیانہ خیالات</h2>
-<p>ابو معشر البلخی کے فلسفیانہ خیالات میں شامل ہیں:</p>
-<ol>
-<li><strong>کائنات کا تصور</strong>: کائنات کی وسعت اور نظام کا فلسفہ</li>
-<li><strong>انسانی تقدیر</strong>: فلکیاتی اثرات اور انسانی زندگی کا تعلق</li>
-<li><strong>علم کی تقسیم</strong>: مختلف علوم کے درمیان باہمی تعلق</li>
-</ol>
-<h2>یورپ پر اثرات</h2>
-<p>ابو معشر البلخی کے کام کا یورپ پر گہرا اثر رہا:</p>
-<ul>
-<li><strong>لاطینی تراجم</strong>: ان کی کتب کے لاطینی تراجم</li>
-<li><strong>یورپی فلکیات دان</strong>: یورپی فلکیات دانوں پر ان کے نظریات کا اثر</li>
-<li><strong>قرون وسطی کی سائنس</strong>: قرون وسطی کے یورپی سائنس پر اثرات</li>
-</ul>
-<h2>تعلیمی خدمات</h2>
-<p>ابو معشر البلخی نے تعلیم کے میدان میں بھی اہم خدمات انجام دیں:</p>
-<h3>1. <strong>تدریسی طریقے</strong></h3>
-<ul>
-<li>مشکل مفاہیم کو آسان بنانے کے طریقے</li>
-<li>عملی مشاہدے پر زور</li>
-</ul>
-<h3>2. <strong>تحقیقی طریقہ کار</strong></h3>
-<ul>
-<li>منظم تحقیق کے اصول</li>
-<li>ڈیٹا کا درست تجزیہ</li>
-</ul>
-<h3>3. <strong>علمی ورثہ</strong></h3>
-<ul>
-<li>آنے والی نسلوں کے لیے علمی مواد</li>
-</ul>
-<h2>آخری ایام</h2>
-<p>ابو معشر البلخی نے اپنی زندگی کے آخری ایام بغداد میں گزارے، جہاں 886ء کے لگ بھگ ان کا انتقال ہوا۔ ان کی علمی وراثت آج بھی زندہ ہے اور ان کے نظریات کا تسلسل مسلم اور مغربی دنیا میں جاری ہے۔</p>
-<h2>وراثت</h2>
-<p>ابو معشر البلخی کی علمی خدمات مسلم تاریخ کا ایک روشن باب ہیں۔ ان کی فلکیاتی دریافتیں، ریاضیاتی خدمات، اور فلسفیانہ خیالات نے اسلامی دنیا کو سائنسی ترقی کی راہ پر گامزن کیا۔ ان کا منفرد مقصد آج بھی آنے والی نسلوں کے لیے مشعل راہ ہے اور ان کے نظریات مسلم تہذیب کی علمی وراثت کا حصہ ہیں۔</p>
-<p>ابو معشر البلخی کا کردار مسلم تاریخ میں نہایت اہمیت کا حامل ہے۔ انہوں نے نہ صرف اپنے وقت میں فلکیات کے میدان میں انقلاب برپا کیا بلکہ آنے والی نسلوں کے لیے بھی ایک مثال قائم کی۔</p>
+        <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi.png" alt="ابو معشر البلخی">
+        
+        <div class="section-highlight">
+            <p>مسلم تاریخ میں ابو معشر البلخی کا شمار ان عظیم فلکیات دانوں اور ماہرین ریاضی میں ہوتا ہے جنہوں نے فلکیات، ریاضی، اور نجوم کے میدان میں لازوال خدمات انجام دیں۔ ابو معشر البلخی کو نہ صرف &quot;عظیم فلکیات دان&quot; کہا جاتا ہے بلکہ وہ اسلامی سائنس کو یونانی اور ہندی روایت کے ساتھ ہم آہنگ کرنے والے اولین سائنسدانوں میں سے ایک ہیں۔</p>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>ابو معشر البلخی کا مختصر تعارف</h2>
+            <p>ابو معشر البلخی کا مکمل نام ابومعشر جعفر بن محمد البلخی تھا۔ وہ 787ء کے لگ بھگ بلخ (موجودہ افغانستان) کے علاقے میں پیدا ہوئے۔ ان کی زندگی کا دور آٹھویں صدی کے آخر سے نویں صدی کے وسط تک پھیلا ہوا ہے۔</p>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>ابتدائی زندگی اور تعلیم</h2>
+            <p>ابو معشر البلخی نے ابتدائی تعلیم اپنے وطن بلخ میں حاصل کی، جہاں انہوں نے قرآن اور اسلامی علوم کی بنیاد رکھی۔ اعلیٰ تعلیم کے لیے انہوں نے بغداد کے علمی مراکز کا رخ کیا، جہاں انہوں نے فلکیات، ریاضی، اور فلسفہ کے علوم میں مہارت حاصل کی۔</p>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>علمی خدمات اور دریافتیں</h2>
+            <p>ابو معشر البلخی کی دریافتیں اور تصانیف نے فلکیاتی فکر کو ایک نئی جہت دی۔ ان کی چند مشہور دریافتیں درج ذیل ہیں:</p>
+            
+            <h3>1. <strong>سیاروں کی حرکت کا مطالعہ</strong></h3>
+            <p>ابو معشر نے سیاروں کی حرکت کا گہرائی سے مطالعہ کیا اور ان کی گردش کے اصول وضع کیے۔</p>
+            
+            <h3>2. <strong>فلکیاتی جدول کی تیاری</strong></h3>
+            <p>انہوں نے &quot;زیج&quot; نامی فلکیاتی جدول تیار کیا، جو طویل عرصے تک استعمال ہوتا رہا۔</p>
+            
+            <h3>3. <strong>نجومیات کے اصول</strong></h3>
+            <p>انہوں نے نجوم کے سائنسی اصول وضع کیے اور اسے فلسفیانہ بنیاد فراہم کی۔</p>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>فلکیاتی دریافتیں</h2>
+            <p>ابو معشر البلخی کی فلکیاتی دریافتیں درج ذیل ہیں:</p>
+            
+            <h3>1. <strong>چاند کی حرکت</strong></h3>
+            <ul>
+                <li>چاند کی حرکت کا مفصل مطالعہ</li>
+                <li>چاند گرہن کے اوقات کا درست تعین</li>
+            </ul>
+            
+            <h3>2. <strong>سیاروں کا تجزیہ</strong></h3>
+            <ul>
+                <li>مشتری، زحل، مریخ اور دیگر سیاروں کا تجزیہ</li>
+                <li>ان کی گردش کے دورانیے کا تعین</li>
+            </ul>
+            
+            <h3>3. <strong>ستاروں کا مطالعہ</strong></h3>
+            <ul>
+                <li>ستاروں کی پوزیشن کا ریکارڈ</li>
+                <li>ان کی چمک اور رفتار کا تجزیہ</li>
+            </ul>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>تصانیف</h2>
+            <p>ابو معشر البلخی کی مشہور تصانیف میں شامل ہیں:</p>
+            
+            <h3>1. <strong>کتاب المدخل الکبیر</strong></h3>
+            <ul>
+                <li>فلکیات اور نجوم کا جامع تعارف</li>
+                <li>سیاروں کی حرکت کے اصول</li>
+            </ul>
+            
+            <h3>2. <strong>کتاب الالوف</strong></h3>
+            <ul>
+                <li>فلکیاتی واقعات کا ریکارڈ</li>
+                <li>تاریخی واقعات اور فلکیاتی واقعات کا موازنہ</li>
+            </ul>
+            
+            <h3>3. <strong>کتاب القرانات</strong></h3>
+            <ul>
+                <li>سیاروں کے ملاپ کا مطالعہ</li>
+                <li>ان کے اثرات کا تجزیہ</li>
+            </ul>
+            
+            <h3>4. <strong>کتاب التہائم</strong></h3>
+            <ul>
+                <li>نجومی پیشین گوئیوں کے اصول</li>
+                <li>ان کی سائنسی بنیاد</li>
+            </ul>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>ریاضی میں خدمات</h2>
+            <p>ابو معشر البلخی نے ریاضی کے میدان میں بھی قابل قدر خدمات انجام دیں:</p>
+            <ul>
+                <li><strong>ہندسی حسابات</strong>: فلکیاتی حسابات کے لیے ہندسی طریقے</li>
+                <li><strong>عددینظام</strong>: ہندسی اعداد کا استعمال</li>
+                <li><strong>مثلثات</strong>: فلکیاتی مثلثات کے اصول</li>
+            </ul>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>تاریخی نقطہ نظر</h2>
+            <p>ابو معشر البلخی نے تاریخ اور فلکیات کے درمیان تعلق کو سمجھنے کی کوشش کی۔ ان کا ماننا تھا کہ تاریخی واقعات اور فلکیاتی واقعات کے درمیان گہرا تعلق ہے۔</p>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>فلسفیانہ خیالات</h2>
+            <p>ابو معشر البلخی کے فلسفیانہ خیالات میں شامل ہیں:</p>
+            <ol>
+                <li><strong>کائنات کا تصور</strong>: کائنات کی وسعت اور نظام کا فلسفہ</li>
+                <li><strong>انسانی تقدیر</strong>: فلکیاتی اثرات اور انسانی زندگی کا تعلق</li>
+                <li><strong>علم کی تقسیم</strong>: مختلف علوم کے درمیان باہمی تعلق</li>
+            </ol>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>یورپ پر اثرات</h2>
+            <p>ابو معشر البلخی کے کام کا یورپ پر گہرا اثر رہا:</p>
+            <ul>
+                <li><strong>لاطینی تراجم</strong>: ان کی کتب کے لاطینی تراجم</li>
+                <li><strong>یورپی فلکیات دان</strong>: یورپی فلکیات دانوں پر ان کے نظریات کا اثر</li>
+                <li><strong>قرون وسطی کی سائنس</strong>: قرون وسطی کے یورپی سائنس پر اثرات</li>
+            </ul>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>تعلیمی خدمات</h2>
+            <p>ابو معشر البلخی نے تعلیم کے میدان میں بھی اہم خدمات انجام دیں:</p>
+            
+            <h3>1. <strong>تدریسی طریقے</strong></h3>
+            <ul>
+                <li>مشکل مفاہیم کو آسان بنانے کے طریقے</li>
+                <li>عملی مشاہدے پر زور</li>
+            </ul>
+            
+            <h3>2. <strong>تحقیقی طریقہ کار</strong></h3>
+            <ul>
+                <li>منظم تحقیق کے اصول</li>
+                <li>ڈیٹا کا درست تجزیہ</li>
+            </ul>
+            
+            <h3>3. <strong>علمی ورثہ</strong></h3>
+            <ul>
+                <li>آنے والی نسلوں کے لیے علمی مواد</li>
+            </ul>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>آخری ایام</h2>
+            <p>ابو معشر البلخی نے اپنی زندگی کے آخری ایام بغداد میں گزارے، جہاں 886ء کے لگ بھگ ان کا انتقال ہوا۔ ان کی علمی وراثت آج بھی زندہ ہے اور ان کے نظریات کا تسلسل مسلم اور مغربی دنیا میں جاری ہے۔</p>
+        </div>
+        
+        <div class="section-highlight">
+            <h2>وراثت</h2>
+            <p>ابو معشر البلخی کی علمی خدمات مسلم تاریخ کا ایک روشن باب ہیں۔ ان کی فلکیاتی دریافتیں، ریاضیاتی خدمات، اور فلسفیانہ خیالات نے اسلامی دنیا کو سائنسی ترقی کی راہ پر گامزن کیا۔ ان کا منفرد مقصد آج بھی آنے والی نسلوں کے لیے مشعل راہ ہے اور ان کے نظریات مسلم تہذیب کی علمی وراثت کا حصہ ہیں۔</p>
+            <p>ابو معشر البلخی کا کردار مسلم تاریخ میں نہایت اہمیت کا حامل ہے۔ انہوں نے نہ صرف اپنے وقت میں فلکیات کے میدان میں انقلاب برپا کیا بلکہ آنے والی نسلوں کے لیے بھی ایک مثال قائم کی۔</p>
+        </div>
+    </div>
 
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()">↑</button>
+        <button class="nav-btn" onclick="scrollToBottom()">↓</button>
     </div>
 
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
@@ -140,6 +256,49 @@
     </div>
 
     <script>
+        // Create stars
+        function createStars() {
+            const container = document.getElementById('lightningContainer');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                container.appendChild(star);
+            }
+        }
+        
+        // Create lightning effect
+        function createLightning() {
+            const container = document.getElementById('lightningContainer');
+            const lightning = document.createElement('div');
+            lightning.classList.add('lightning');
+            lightning.style.background = 'linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent)';
+            lightning.style.height = '100%';
+            container.appendChild(lightning);
+            
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    lightning.classList.add('active');
+                    setTimeout(() => lightning.classList.remove('active'), 300);
+                }
+            }, 3000);
+        }
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        // Color fill post functions
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -147,14 +306,39 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Event listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Initialize effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            createLightning();
+            
+            // Add hover effects to sections
+            const sections = document.querySelectorAll('.section-highlight');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-10px)';
+                    this.style.boxShadow = '0 10px 25px rgba(155, 89, 182, 0.2)';
+                });
+                section.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
     </script>
 </body>
 </html>
