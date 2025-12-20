@@ -7,157 +7,941 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --dark-color: #2c3e50;
+            --text-color: #ecf0f1;
+            --bg-color: #1a1a1a;
+            --card-color: rgba(44, 62, 80, 0.95);
+            --border-color: rgba(231, 76, 60, 0.3);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+            --radius: 20px;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            transition: var(--transition);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(231, 76, 60, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(243, 156, 18, 0.1) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(44, 62, 80, 0.1) 2px, rgba(44, 62, 80, 0.1) 4px);
+            z-index: -3;
+            animation: dangerPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes dangerPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        
+        .danger-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .warning-triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 34.64px solid var(--warning-color);
+            opacity: 0.6;
+            animation: warningFloat 6s ease-in-out infinite;
+        }
+        
+        .warning-triangle::after {
+            content: '⚠';
+            position: absolute;
+            top: 8px;
+            right: -8px;
+            font-size: 12px;
+            color: black;
+        }
+        
+        @keyframes warningFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+        
+        .crack-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--danger-color), transparent);
+            height: 2px;
+            width: 100px;
+            opacity: 0.8;
+            animation: crackSpread 3s linear infinite;
+        }
+        
+        @keyframes crackSpread {
+            0% { transform: scaleX(0); opacity: 0; }
+            50% { transform: scaleX(1); opacity: 0.8; }
+            100% { transform: scaleX(0); opacity: 0; }
+        }
+        
+        .danger-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 75px;
+            height: 75px;
+            background: radial-gradient(circle, var(--danger-color) 30%, transparent 70%);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 50px rgba(231, 76, 60, 0.6);
+            animation: dangerGlow 2s ease-in-out infinite;
+        }
+        
+        .danger-icon:hover {
+            transform: scale(1.3) rotate(90deg);
+            box-shadow: 0 0 80px rgba(231, 76, 60, 0.9);
+        }
+        
+        @keyframes dangerGlow {
+            0%, 100% { box-shadow: 0 0 50px rgba(231, 76, 60, 0.6); }
+            50% { box-shadow: 0 0 70px rgba(231, 76, 60, 0.9); }
+        }
+        
+        .danger-icon::before {
+            content: '⚠';
+            font-size: 40px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+            animation: iconShake 1s ease-in-out infinite;
+        }
+        
+        @keyframes iconShake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            position: relative;
+        }
+        
+        .post-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px;
+            position: relative;
+            background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.1), transparent);
+            border-radius: var(--radius);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 0 30px rgba(231, 76, 60, 0.3);
+        }
+        
+        .post-header::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            bottom: -3px;
+            left: -3px;
+            background: linear-gradient(45deg, var(--danger-color), var(--warning-color), var(--danger-color));
+            border-radius: var(--radius);
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+        }
+        
+        @keyframes borderGlow {
+            0% { opacity: 0.5; filter: blur(5px); }
+            50% { opacity: 1; filter: blur(10px); }
+            100% { opacity: 0.5; filter: blur(5px); }
+        }
+        
+        h1 {
+            font-size: 3.3rem;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            text-shadow: 0 0 35px rgba(231, 76, 60, 0.5);
+            background: linear-gradient(45deg, #ff6b6b, #e74c3c, #ff9f43);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding-bottom: 25px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 250px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--danger-color), transparent);
+            animation: titleDanger 2s ease-in-out infinite;
+        }
+        
+        @keyframes titleDanger {
+            0%, 100% { width: 250px; opacity: 0.7; }
+            50% { width: 350px; opacity: 1; }
+        }
+        
+        .featured-image {
+            width: 100%;
+            max-width: 900px;
+            height: 450px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin: 60px auto;
+            display: block;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 3px solid transparent;
+            background: linear-gradient(var(--card-color), var(--card-color)) padding-box,
+                        linear-gradient(45deg, var(--danger-color), var(--warning-color)) border-box;
+            position: relative;
+            overflow: hidden;
+            filter: sepia(0.3) saturate(1.2);
+        }
+        
+        .featured-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(231, 76, 60, 0.2) 50%, transparent 60%);
+            animation: dangerScan 4s linear infinite;
+        }
+        
+        @keyframes dangerScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.02) rotate(-0.5deg);
+            box-shadow: 0 25px 60px rgba(231, 76, 60, 0.4);
+            filter: sepia(0.5) saturate(1.5);
+        }
+        
+        .post-content {
+            background: var(--card-color);
+            padding: 60px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--danger-color), var(--warning-color));
+            animation: contentWarning 5s linear infinite;
+        }
+        
+        @keyframes contentWarning {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        h2 {
+            font-size: 2.6rem;
+            color: var(--danger-color);
+            margin: 50px 0 25px;
+            padding: 25px 35px;
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.15), transparent);
+            border-right: 6px solid var(--warning-color);
+            border-radius: 15px 0 0 15px;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        h2::before {
+            content: '💥';
+            font-size: 2.2rem;
+            animation: explodePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes explodePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        h2:hover {
+            transform: translateX(-15px);
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.25), transparent);
+            box-shadow: 10px 10px 30px rgba(231, 76, 60, 0.3);
+        }
+        
+        ul {
+            padding-right: 45px;
+            margin-bottom: 45px;
+            position: relative;
+        }
+        
+        li {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: justify;
+            line-height: 2;
+            padding: 20px 25px;
+            background: rgba(231, 76, 60, 0.05);
+            border-radius: 12px;
+            border-right: 4px solid var(--danger-color);
+            transition: var(--transition);
+            position: relative;
+            counter-increment: list-counter;
+        }
+        
+        li::before {
+            content: counter(list-counter);
+            position: absolute;
+            right: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.4rem;
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
+            animation: numberPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes numberPulse {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+        }
+        
+        li:hover {
+            transform: translateX(-20px);
+            background: rgba(231, 76, 60, 0.1);
+            box-shadow: 8px 8px 25px rgba(231, 76, 60, 0.2);
+        }
+        
+        p {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            text-align: justify;
+            line-height: 2.1;
+            padding: 25px;
+            background: rgba(243, 156, 18, 0.05);
+            border-radius: var(--radius);
+            border-right: 3px solid var(--warning-color);
+            transition: var(--transition);
+        }
+        
+        p:hover {
+            background: rgba(243, 156, 18, 0.1);
+            transform: translateX(-10px);
+        }
+        
+        .action-buttons {
+            position: fixed;
+            left: 30px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 999;
+        }
+        
+        .nav-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--danger-color), var(--warning-color));
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.5);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.25) rotate(180deg);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.7);
+        }
+        
+        .nav-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(142, 68, 173, 0.5);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.25) rotate(-15deg);
+            box-shadow: 0 15px 40px rgba(142, 68, 173, 0.7);
+        }
+        
+        .trigger-btn {
+            display: block;
+            width: 420px;
+            margin: 70px auto;
+            background: linear-gradient(135deg, var(--danger-color), var(--warning-color));
+            color: white;
+            padding: 22px 65px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.6rem;
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.6);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 2px;
+            animation: btnWarning 2s ease-in-out infinite;
+        }
+        
+        @keyframes btnWarning {
+            0%, 100% { box-shadow: 0 15px 35px rgba(231, 76, 60, 0.6); }
+            50% { box-shadow: 0 20px 45px rgba(231, 76, 60, 0.8); }
+        }
+        
+        .trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.7s;
+        }
+        
+        .trigger-btn:hover {
+            transform: translateY(-10px);
+            letter-spacing: 3px;
+        }
+        
+        .trigger-btn:hover::before {
+            left: 100%;
+        }
+        
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+        
+        .color-fill-container.active {
+            opacity: 1;
+            z-index: 9998;
+        }
+        
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff0000 0%, #ff8800 25%, #ffff00 50%, #ff8800 75%, #ff0000 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--card-color);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 40px 90px rgba(231, 76, 60, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .post-content-overlay::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            bottom: -4px;
+            left: -4px;
+            background: linear-gradient(45deg, #ff0000, #ff8800, #ffff00);
+            border-radius: 25px;
+            z-index: -1;
+            animation: overlayWarning 3s linear infinite;
+        }
+        
+        @keyframes overlayWarning {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(270deg) scale(1.2);
+        }
+        
+        .danger-level {
+            position: absolute;
+            right: 20px;
+            top: -20px;
+            background: var(--danger-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.6);
+            animation: levelFlash 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes levelFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .danger-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--danger-color), var(--warning-color));
+            opacity: 0.8;
+            z-index: 1001;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s linear;
+        }
+        
+        @media (max-width: 1024px) {
+            .container {
+                margin: 40px auto;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+                padding: 20px 25px;
+            }
+            
+            p, li {
+                font-size: 1.6rem;
+            }
+            
+            .post-content {
+                padding: 45px;
+            }
+            
+            .featured-image {
+                height: 400px;
+                margin: 50px auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 1.9rem;
+                padding: 15px 20px;
+            }
+            
+            p, li {
+                font-size: 1.4rem;
+                padding: 15px;
+            }
+            
+            .post-content {
+                padding: 35px;
+            }
+            
+            .featured-image {
+                height: 320px;
+                margin: 40px auto;
+            }
+            
+            .danger-icon {
+                width: 60px;
+                height: 60px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .danger-icon::before {
+                font-size: 32px;
+            }
+            
+            .back-btn {
+                top: 100px;
+                right: 15px;
+                width: 55px;
+                height: 55px;
+            }
+            
+            .action-buttons {
+                left: 15px;
+                bottom: 15px;
+            }
+            
+            .nav-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
+            }
+            
+            .trigger-btn {
+                width: 90%;
+                font-size: 1.4rem;
+                padding: 20px 45px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            p, li {
+                font-size: 1.3rem;
+                line-height: 1.9;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            ul {
+                padding-right: 25px;
+            }
+            
+            li::before {
+                right: -30px;
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <div class="danger-background" id="dangerBg"></div>
+    
+    <div class="danger-progress" id="progressBar"></div>
+    
+    <div class="danger-icon" id="dangerIcon" title="خطرہ! نقصانات"></div>
+    
+    <button class="back-btn" onclick="history.back()" title="واپس جائیں">←</button>
+    
+    <div class="action-buttons">
+        <button class="nav-btn" onclick="scrollToTop()" title="اوپر جائیں">↑</button>
+        <button class="nav-btn" onclick="scrollToBottom()" title="نیچے جائیں">↓</button>
     </div>
-
-    <div class="post-content">
+    
+    <div class="container">
+        <div class="post-header">
+            <h1>ٹاپ 20 مصنوعی ذہانت کے تعلیم میں نقصانات</h1>
+            <div class="danger-level">خطرہ: اعلیٰ سطح</div>
+        </div>
         
-        <h1>ٹاپ 20 مصنوعی ذہانت کے تعلیم میں نقصانات</h1>
-<p>مصنوعی ذہانت (AI) نے تعلیم کے شعبے میں انقلابی تبدیلیاں لائی ہیں، لیکن اس کے ساتھ ساتھ اس کے کئی نقصانات بھی سامنے آئے ہیں۔ آئیے تعلیم میں AI کے 20 اہم نقصانات پر غور کرتے ہیں۔</p>
-<h2>1. انسانیت کا فقدان</h2>
-<ul>
-<li>طلباء اور اساتذہ کے درمیان جذباتی تعلق ختم ہونا</li>
-<li>مشینوں کے ساتھ تعامل انسانی تعلقات کی جگہ لے رہا ہے</li>
-<li>ہمدردی اور جذباتی سمجھ کی کمی</li>
-</ul>
-<h2>2. روزگار کے مواقع میں کمی</h2>
-<ul>
-<li>اساتذہ کی ملازمتوں پر خطرہ</li>
-<li>تعلیمی مشیروں اور معاون عملے کی ضرورت میں کمی</li>
-<li>روایتی تدریسی پیشوں کا خاتمہ</li>
-</ul>
-<h2>3. تخلیقی صلاحیتوں میں رکاوٹ</h2>
-<ul>
-<li>طلباء کی تخلیقی سوچ پر منفی اثرات</li>
-<li>خود سے سوچنے اور تخلیق کرنے کی صلاحیت میں کمی</li>
-<li>یکسانیت اور یکساں طرز فکر کا فروغ</li>
-</ul>
-<h2>4. ڈیٹا پرائیویسی کے مسائل</h2>
-<ul>
-<li>طلباء کے ذاتی ڈیٹا کا غلط استعمال</li>
-<li>نجی معلومات کے تحفظ کا خطرہ</li>
-<li>ڈیٹا ہیکنگ اور چوری کا خدشہ</li>
-</ul>
-<h2>5. تکنیکی انحصاری</h2>
-<ul>
-<li>طلباء کی مشینوں پر انحصار میں اضافہ</li>
-<li>خود سے مسئلہ حل کرنے کی صلاحیت میں کمی</li>
-<li>تکنیکی نظام کے ناکام ہونے پر تعلیمی عمل کا رک جانا</li>
-</ul>
-<h2>6. معیاری تعلیم کا فقدان</h2>
-<ul>
-<li>یکساں معیار کی تعلیم فراہم کرنے میں دشواری</li>
-<li>ثقافتی اور علاقائی ضروریات کے مطابق تعلیم کی ترتیب دینے میں مشکلات</li>
-<li>مقامی سیاق و سباق کے مطابق مواد کی تیاری میں دشواری</li>
-</ul>
-<h2>7. اقتصادی عدم مساوات</h2>
-<ul>
-<li>امیر اور غریب طلباء کے درمیان خلیج میں اضافہ</li>
-<li>مہنگے AI ٹولز تک رسائی کی عدم مساوات</li>
-<li>ترقی پذیر ممالک کے لیے چیلنجز</li>
-</ul>
-<h2>8. اخلاقی مسائل</h2>
-<ul>
-<li>AI کے فیصلوں میں تعصب اور جانب داری</li>
-<li>غیرمنصفانہ تشخیص اور جائزہ</li>
-<li>اخلاقی رہنمائی کی کمی</li>
-</ul>
-<h2>9. سماجی مہارتوں کا نقصان</h2>
-<ul>
-<li>باہمی بات چیت اور سماجی تعامل میں کمی</li>
-<li>گروپ ڈسکشن اور ٹیم ورک کے مواقع میں کمی</li>
-<li>سماجی رابطوں کی صلاحیتوں کا فقدان</li>
-</ul>
-<h2>10. صحت کے مسائل</h2>
-<ul>
-<li>آنکھوں پر دباؤ اور بینائی کے مسائل</li>
-<li>جسمانی سرگرمیوں میں کمی</li>
-<li>ذہنی دباؤ اور تنہائی کا احساس</li>
-</ul>
-<h2>11. تعلیمی دھوکہ دہی</h2>
-<ul>
-<li>AI کے ذریعے کام کرنے کا رجحان</li>
-<li>خود سے کام نہ کرنے کی عادت</li>
-<li>امتحانات میں دھوکہ دہی کے نئے طریقے</li>
-</ul>
-<h2>12. روایتی علم کا نقصان</h2>
-<ul>
-<li>روایتی تدریسی طریقوں کا خاتمہ</li>
-<li>کلاس روم کی روایتی ثقافت کا خاتمہ</li>
-<li>مقامی علم اور ثقافتی اقدار کا نقصان</li>
-</ul>
-<h2>13. تکنیکی رکاوٹیں</h2>
-<ul>
-<li>انٹرنیٹ کنیکشن کی ضرورت</li>
-<li>جدید آلات کی دستیابی کا مسئلہ</li>
-<li>تکنیکی مسائل کو حل کرنے میں دشواری</li>
-</ul>
-<h2>14. لاگت کے مسائل</h2>
-<ul>
-<li>AI سسٹمز کی اعلیٰ قیمتیں</li>
-<li>برقرار رکھنے اور اپ ڈیٹ کرنے کے اخراجات</li>
-<li>چھوٹے تعلیمی اداروں کے لیے مالی بوجھ</li>
-</ul>
-<h2>15. لچک کی کمی</h2>
-<ul>
-<li>انفرادی ضروریات کے مطابق ڈھلنے میں دشواری</li>
-<li>ہنگامی حالات میں تیزی سے ردعمل دینے میں ناکامی</li>
-<li>غیر متوقع حالات سے نمٹنے میں مشکلات</li>
-</ul>
-<h2>16. نفسیاتی اثرات</h2>
-<ul>
-<li>خود اعتمادی میں کمی</li>
-<li>مسلسل نگرانی کا دباؤ</li>
-<li>کامیابی اور ناکامی کے بارے میں غیر صحت مند سوچ</li>
-</ul>
-<h2>17. ثقافتی حساسیت کا فقدان</h2>
-<ul>
-<li>مقامی ثقافتوں اور اقدار کی سمجھ کی کمی</li>
-<li>زبان اور ثقافتی تفریق کے مسائل</li>
-<li>مقامی ضروریات کے مطابق مواد کی تیاری میں دشواری</li>
-</ul>
-<h2>18. تجرباتی تعلیم کا نقصان</h2>
-<ul>
-<li>عملی تجربات اور مشاہدے کے مواقع میں کمی</li>
-<li>حقیقی دنیا کے تجربات کا فقدان</li>
-<li>ہاتھ سے کام کرنے کی مہارتوں کا نقصان</li>
-</ul>
-<h2>19. نظام میں خرابیوں کا خطرہ</h2>
-<ul>
-<li>تکنیکی خرابیوں کے باعث تعلیمی عمل کا رک جانا</li>
-<li>ڈیٹا کا ضائع ہونا</li>
-<li>سسٹم کی بحالی میں وقت درکار ہونا</li>
-</ul>
-<h2>20. مستقبل پر غیر یقینی اثرات</h2>
-<ul>
-<li>طویل مدتی اثرات کا غیر یقینی ہونا</li>
-<li>انسانی ذہانت پر پڑنے والے اثرات کا اندیشہ</li>
-<li>معاشرے پر مرتب ہونے والے اثرات کی غیر یقینی صورت حال</li>
-</ul>
-<p>مصنوعی ذہانت تعلیم کے شعبے میں بے شمار فوائد لانے کے ساتھ ساتھ کئی اہم نقصانات بھی رکھتی ہے۔ ضرورت اس بات کی ہے کہ ہم AI کو ایک معاون ٹول کے طور پر استعمال کریں نہ کہ انسانی اساتذہ کی جگہ۔ متوازن نقطہ نظر اپنا کر ہی ہم تعلیم میں AI کے فوائد حاصل کر سکتے ہیں اور اس کے نقصانات سے بچ سکتے ہیں۔</p>
-
+        <img src="https://bloglovers.pk/images/technology/top-20-masnoi-zehnat-ke-taleem-mein-nuqsanaat.png" 
+             alt="ٹاپ 20 مصنوعی ذہانت کے تعلیم میں نقصانات" 
+             class="featured-image">
+        
+        <div class="post-content">
+            <p>مصنوعی ذہانت (AI) نے تعلیم کے شعبے میں انقلابی تبدیلیاں لائی ہیں، لیکن اس کے ساتھ ساتھ اس کے کئی نقصانات بھی سامنے آئے ہیں۔ آئیے تعلیم میں AI کے 20 اہم نقصانات پر غور کرتے ہیں۔</p>
+            
+            <h2>1. انسانیت کا فقدان</h2>
+            <ul>
+                <li>طلباء اور اساتذہ کے درمیان جذباتی تعلق ختم ہونا</li>
+                <li>مشینوں کے ساتھ تعامل انسانی تعلقات کی جگہ لے رہا ہے</li>
+                <li>ہمدردی اور جذباتی سمجھ کی کمی</li>
+            </ul>
+            
+            <h2>2. روزگار کے مواقع میں کمی</h2>
+            <ul>
+                <li>اساتذہ کی ملازمتوں پر خطرہ</li>
+                <li>تعلیمی مشیروں اور معاون عملے کی ضرورت میں کمی</li>
+                <li>روایتی تدریسی پیشوں کا خاتمہ</li>
+            </ul>
+            
+            <h2>3. تخلیقی صلاحیتوں میں رکاوٹ</h2>
+            <ul>
+                <li>طلباء کی تخلیقی سوچ پر منفی اثرات</li>
+                <li>خود سے سوچنے اور تخلیق کرنے کی صلاحیت میں کمی</li>
+                <li>یکسانیت اور یکساں طرز فکر کا فروغ</li>
+            </ul>
+            
+            <h2>4. ڈیٹا پرائیویسی کے مسائل</h2>
+            <ul>
+                <li>طلباء کے ذاتی ڈیٹا کا غلط استعمال</li>
+                <li>نجی معلومات کے تحفظ کا خطرہ</li>
+                <li>ڈیٹا ہیکنگ اور چوری کا خدشہ</li>
+            </ul>
+            
+            <h2>5. تکنیکی انحصاری</h2>
+            <ul>
+                <li>طلباء کی مشینوں پر انحصار میں اضافہ</li>
+                <li>خود سے مسئلہ حل کرنے کی صلاحیت میں کمی</li>
+                <li>تکنیکی نظام کے ناکام ہونے پر تعلیمی عمل کا رک جانا</li>
+            </ul>
+            
+            <h2>6. معیاری تعلیم کا فقدان</h2>
+            <ul>
+                <li>یکساں معیار کی تعلیم فراہم کرنے میں دشواری</li>
+                <li>ثقافتی اور علاقائی ضروریات کے مطابق تعلیم کی ترتیب دینے میں مشکلات</li>
+                <li>مقامی سیاق و سباق کے مطابق مواد کی تیاری میں دشواری</li>
+            </ul>
+            
+            <h2>7. اقتصادی عدم مساوات</h2>
+            <ul>
+                <li>امیر اور غریب طلباء کے درمیان خلیج میں اضافہ</li>
+                <li>مہنگے AI ٹولز تک رسائی کی عدم مساوات</li>
+                <li>ترقی پذیر ممالک کے لیے چیلنجز</li>
+            </ul>
+            
+            <h2>8. اخلاقی مسائل</h2>
+            <ul>
+                <li>AI کے فیصلوں میں تعصب اور جانب داری</li>
+                <li>غیرمنصفانہ تشخیص اور جائزہ</li>
+                <li>اخلاقی رہنمائی کی کمی</li>
+            </ul>
+            
+            <h2>9. سماجی مہارتوں کا نقصان</h2>
+            <ul>
+                <li>باہمی بات چیت اور سماجی تعامل میں کمی</li>
+                <li>گروپ ڈسکشن اور ٹیم ورک کے مواقع میں کمی</li>
+                <li>سماجی رابطوں کی صلاحیتوں کا فقدان</li>
+            </ul>
+            
+            <h2>10. صحت کے مسائل</h2>
+            <ul>
+                <li>آنکھوں پر دباؤ اور بینائی کے مسائل</li>
+                <li>جسمانی سرگرمیوں میں کمی</li>
+                <li>ذہنی دباؤ اور تنہائی کا احساس</li>
+            </ul>
+            
+            <h2>11. تعلیمی دھوکہ دہی</h2>
+            <ul>
+                <li>AI کے ذریعے کام کرنے کا رجحان</li>
+                <li>خود سے کام نہ کرنے کی عادت</li>
+                <li>امتحانات میں دھوکہ دہی کے نئے طریقے</li>
+            </ul>
+            
+            <h2>12. روایتی علم کا نقصان</h2>
+            <ul>
+                <li>روایتی تدریسی طریقوں کا خاتمہ</li>
+                <li>کلاس روم کی روایتی ثقافت کا خاتمہ</li>
+                <li>مقامی علم اور ثقافتی اقدار کا نقصان</li>
+            </ul>
+            
+            <h2>13. تکنیکی رکاوٹیں</h2>
+            <ul>
+                <li>انٹرنیٹ کنیکشن کی ضرورت</li>
+                <li>جدید آلات کی دستیابی کا مسئلہ</li>
+                <li>تکنیکی مسائل کو حل کرنے میں دشواری</li>
+            </ul>
+            
+            <h2>14. لاگت کے مسائل</h2>
+            <ul>
+                <li>AI سسٹمز کی اعلیٰ قیمتیں</li>
+                <li>برقرار رکھنے اور اپ ڈیٹ کرنے کے اخراجات</li>
+                <li>چھوٹے تعلیمی اداروں کے لیے مالی بوجھ</li>
+            </ul>
+            
+            <h2>15. لچک کی کمی</h2>
+            <ul>
+                <li>انفرادی ضروریات کے مطابق ڈھلنے میں دشواری</li>
+                <li>ہنگامی حالات میں تیزی سے ردعمل دینے میں ناکامی</li>
+                <li>غیر متوقع حالات سے نمٹنے میں مشکلات</li>
+            </ul>
+            
+            <h2>16. نفسیاتی اثرات</h2>
+            <ul>
+                <li>خود اعتمادی میں کمی</li>
+                <li>مسلسل نگرانی کا دباؤ</li>
+                <li>کامیابی اور ناکامی کے بارے میں غیر صحت مند سوچ</li>
+            </ul>
+            
+            <h2>17. ثقافتی حساسیت کا فقدان</h2>
+            <ul>
+                <li>مقامی ثقافتوں اور اقدار کی سمجھ کی کمی</li>
+                <li>زبان اور ثقافتی تفریق کے مسائل</li>
+                <li>مقامی ضروریات کے مطابق مواد کی تیاری میں دشواری</li>
+            </ul>
+            
+            <h2>18. تجرباتی تعلیم کا نقصان</h2>
+            <ul>
+                <li>عملی تجربات اور مشاہدے کے مواقع میں کمی</li>
+                <li>حقیقی دنیا کے تجربات کا فقدان</li>
+                <li>ہاتھ سے کام کرنے کی مہارتوں کا نقصان</li>
+            </ul>
+            
+            <h2>19. نظام میں خرابیوں کا خطرہ</h2>
+            <ul>
+                <li>تکنیکی خرابیوں کے باعث تعلیمی عمل کا رک جانا</li>
+                <li>ڈیٹا کا ضائع ہونا</li>
+                <li>سسٹم کی بحالی میں وقت درکار ہونا</li>
+            </ul>
+            
+            <h2>20. مستقبل پر غیر یقینی اثرات</h2>
+            <ul>
+                <li>طویل مدتی اثرات کا غیر یقینی ہونا</li>
+                <li>انسانی ذہانت پر پڑنے والے اثرات کا اندیشہ</li>
+                <li>معاشرے پر مرتب ہونے والے اثرات کی غیر یقینی صورت حال</li>
+            </ul>
+            
+            <p>مصنوعی ذہانت تعلیم کے شعبے میں بے شمار فوائد لانے کے ساتھ ساتھ کئی اہم نقصانات بھی رکھتی ہے۔ ضرورت اس بات کی ہے کہ ہم AI کو ایک معاون ٹول کے طور پر استعمال کریں نہ کہ انسانی اساتذہ کی جگہ۔ متوازن نقطہ نظر اپنا کر ہی ہم تعلیم میں AI کے فوائد حاصل کر سکتے ہیں اور اس کے نقصانات سے بچ سکتے ہیں۔</p>
+        </div>
+        
+        <button class="trigger-btn" onclick="openColorFillPost()">
+            ⚠ اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+        </button>
     </div>
 
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
@@ -174,14 +958,118 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        const dangerIcon = document.getElementById('dangerIcon');
+        dangerIcon.addEventListener('mouseenter', function() {
+            createDangerEffect();
+        });
+        
+        function createDangerEffect() {
+            const bg = document.getElementById('dangerBg');
+            bg.innerHTML = '';
+            
+            for(let i = 0; i < 8; i++) {
+                const triangle = document.createElement('div');
+                triangle.className = 'warning-triangle';
+                triangle.style.left = Math.random() * 90 + '%';
+                triangle.style.top = Math.random() * 90 + '%';
+                triangle.style.animationDelay = Math.random() * 3 + 's';
+                bg.appendChild(triangle);
+            }
+            
+            for(let i = 0; i < 5; i++) {
+                const crack = document.createElement('div');
+                crack.className = 'crack-line';
+                crack.style.left = Math.random() * 90 + '%';
+                crack.style.top = Math.random() * 90 + '%';
+                crack.style.animationDelay = Math.random() * 2 + 's';
+                bg.appendChild(crack);
+            }
+        }
+        
+        createDangerEffect();
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        window.addEventListener('scroll', function() {
+            const icon = document.getElementById('dangerIcon');
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            
+            const newTop = 20 + (scrollPercent * 0.15);
+            const newRight = 20 + (scrollPercent * 0.1);
+            
+            icon.style.top = newTop + 'px';
+            icon.style.right = newRight + 'px';
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.transform = `scaleY(${scrollPercent / 100})`;
+            
+            const bg = document.getElementById('dangerBg');
+            const triangles = bg.querySelectorAll('.warning-triangle');
+            triangles.forEach(triangle => {
+                triangle.style.transform = `translateY(${window.scrollY * 0.03}px)`;
+            });
+        });
+        
+        const headings = document.querySelectorAll('h2');
+        headings.forEach((heading, index) => {
+            heading.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(-20px)';
+                this.style.boxShadow = '15px 15px 35px rgba(231, 76, 60, 0.4)';
+            });
+            
+            heading.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        const listItems = document.querySelectorAll('li');
+        listItems.forEach((item, index) => {
+            item.addEventListener('mouseenter', function() {
+                this.style.borderRightColor = 'var(--warning-color)';
+                this.style.transform = 'translateX(-25px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.borderRightColor = 'var(--danger-color)';
+                this.style.transform = 'translateX(0)';
+            });
+            
+            item.style.animationDelay = (index * 0.1) + 's';
+        });
+        
+        window.addEventListener('load', function() {
+            document.body.style.animation = 'fadeIn 1s ease-in-out';
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        });
     </script>
 </body>
 </html>
