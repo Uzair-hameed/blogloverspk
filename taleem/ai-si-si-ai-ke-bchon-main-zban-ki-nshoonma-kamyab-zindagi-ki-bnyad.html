@@ -5,78 +5,722 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ای سی سی ای کے بچوں میں زبان کی نشوونما کامیاب زندگی کی بنیاد</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary: #0d1b2a;
+            --secondary: #1b263b;
+            --accent: #ff9e00;
+            --text: #f8f9fa;
+            --star: #ffffff;
+            --highlight: #415a77;
+            --gradient: linear-gradient(45deg, #ff9e00, #ff6b00, #ff3d00);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background-color: var(--primary);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .starry-sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff9e00);
+            transform: rotate(-45deg);
+            animation: shoot 15s infinite linear;
+        }
+        
+        .constellation {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 158, 0, 0.15) 0%, transparent 70%);
+            filter: blur(8px);
+            animation: pulse 10s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.2; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.1); 
+            }
+        }
+        
+        @keyframes shoot {
+            0% {
+                transform: translateX(-150px) translateY(-150px) rotate(-45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { 
+                opacity: 0.1; 
+                transform: scale(1); 
+            }
+            100% { 
+                opacity: 0.3; 
+                transform: scale(1.3); 
+            }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(27, 38, 59, 0.8);
+            backdrop-filter: blur(10px);
+            color: var(--accent);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 158, 0, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 158, 0, 0.1);
+        }
+        
+        .back-btn i {
+            margin-left: 8px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 158, 0, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 158, 0, 0.2);
+            color: white;
+        }
+        
+        .post-content {
+            background: rgba(27, 38, 59, 0.9);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 158, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 158, 0, 0.1);
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+            background-size: 200% 100%;
+            animation: gradientMove 4s linear infinite;
+        }
+        
+        h1, h2, h3 {
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 3.2rem;
+            border-bottom: none;
+            margin-top: 20px;
+            margin-bottom: 35px;
+            background: linear-gradient(45deg, #ff9e00, #ffcc80, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        h2 {
+            font-size: 2.4rem;
+            border-bottom: 2px solid rgba(255, 158, 0, 0.5);
+            padding-top: 20px;
+            margin-top: 40px;
+            color: #ffcc80;
+        }
+        
+        h2::before {
+            content: '★';
+            color: var(--accent);
+            margin-left: 10px;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            font-size: 2rem;
+            color: #ffd699;
+            margin-top: 25px;
+            padding-right: 20px;
+            border-right: 3px solid rgba(255, 158, 0, 0.3);
+        }
+        
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            color: rgba(248, 249, 250, 0.9);
+            line-height: 2.3;
+        }
+        
+        strong {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 30px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            position: relative;
+            border: 2px solid rgba(255, 158, 0, 0.3);
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .post-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .post-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+        
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(27, 38, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 158, 0, 0.3);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 158, 0, 0.1);
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 158, 0, 0.9);
+            transform: translateY(-5px) scale(1.1);
+            color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 158, 0, 0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 158, 0, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            background: rgba(27, 38, 59, 0.5);
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        
+        /* ہوور ایفیکٹس */
+        .benefit-section {
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .benefit-section:hover {
+            background: rgba(255, 158, 0, 0.08);
+            transform: translateX(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--accent);
+        }
+        
+        .benefit-section:hover h3 {
+            color: #ffffff;
+            transform: translateX(-5px);
+        }
+        
+        /* موبائل اسٹائلز */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+                padding-top: 15px;
+                margin-top: 30px;
+            }
+            
+            h3 {
+                font-size: 1.7rem;
+                padding-right: 15px;
+            }
+            
+            p {
+                font-size: 1.3rem;
+                line-height: 2.1;
+            }
+            
+            .post-image {
+                height: 250px;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .benefit-section {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+                line-height: 2;
+            }
+            
+            .post-image {
+                height: 200px;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            .benefit-section {
+                padding: 12px;
+            }
+        }
+        
+        /* اسکرول بار اسٹائل */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(27, 38, 59, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ff6b00, #ff3d00);
+        }
+        
+        /* فائدے نمبرنگ */
+        .benefit-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 158, 0, 0.2);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-left: 15px;
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1.2rem;
+            border: 1px solid rgba(255, 158, 0, 0.3);
+        }
+        
+        /* خصوصی ٹپ باکس */
+        .info-box {
+            background: rgba(255, 158, 0, 0.1);
+            border-right: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- سٹیری نائٹ بیک گراؤنڈ -->
+    <div class="starry-sky" id="starrySky"></div>
+    
+    <!-- نیویگیشن بٹنز -->
+    <div class="nav-buttons">
+        <div class="nav-btn" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+        <div class="nav-btn" onclick="scrollToBottom()">
+            <i class="fas fa-arrow-down"></i>
+        </div>
     </div>
-
-    <div class="post-content">
-        <h1>ای سی سی ای کے بچوں میں زبان کی نشوونما کامیاب زندگی کی بنیاد</h1>
-        <p>ای سی سی ای (ابتدائی بچپن کی دیکھ بھال اور تعلیم) کے بچوں میں زبان کی نشوونما ان کی کامیاب زندگی کی بنیاد رکھتی ہے۔ ابتدائی سالوں میں زبان کی مہارتوں کی تعمیر بچوں کی مجموعی ترقی کے لیے انتہائی اہم ہے۔</p>
-<p>زبان کی نشوونما نہ صرف بات چیت کی صلاحیتوں کو بہتر بناتی ہے بلکہ یہ بچوں کی علمی، جذباتی اور معاشرتی ترقی کے لیے بھی بنیادی حیثیت رکھتی ہے۔ جب بچے زبان کو مؤثر طریقے سے استعمال کرنا سیکھتے ہیں تو وہ اپنے خیالات اور جذبات کا بہتر اظہار کر سکتے ہیں، جو ان کی خود اعتمادی کو بڑھاتا ہے۔</p>
-<h2>زبان کی نشوونما کے فوائد</h2>
-<h3>1. علمی ترقی کی بنیاد</h3>
-<p>زبان کی مہارتیں بچوں کی علمی صلاحیتوں کی ترقی کے لیے بنیاد فراہم کرتی ہیں۔ جب بچے نئے الفاظ سیکھتے ہیں اور انہیں استعمال کرنا سیکھتے ہیں تو ان کی سوچنے اور سمجھنے کی صلاحیتیں بہتر ہوتی ہیں۔</p>
-<h3>2. مواصلاتی مہارتیں</h3>
-<p>زبان کی اچھی گرفت بچوں کو مؤثر مواصلاتی مہارتیں سکھاتی ہے، جو ان کی پوری زندگی میں کام آتی ہیں۔</p>
-<h3>3. خواندگی کی ترقی</h3>
-<p>ابتدائی زبان کی مہارتیں بعد میں پڑھنے اور لکھنے کی صلاحیتوں کی بنیاد بنتی ہیں۔</p>
-<h3>4. معاشرتی اور جذباتی ترقی</h3>
-<p>زبان کے ذریعے بچے دوسروں کے ساتھ تعلقات استوار کرنا سیکھتے ہیں اور اپنے جذبات کا اظہار کرنا سیکھتے ہیں۔</p>
-<h3>5. تعلیمی کامیابی</h3>
-<p>زبان کی مضبوط بنیاد رکھنے والے بچے تعلیمی میدان میں بہتر کارکردگی کا مظاہرہ کرتے ہیں۔</p>
-<h3>6. ثقافتی شناخت اور تعلق</h3>
-<p>زبان کے ذریعے بچے اپنی ثقافت اور روایات سے واقف ہوتے ہیں۔</p>
-<h3>7. تخیل اور تخلیقی صلاحیتیں</h3>
-<p>زبان بچوں کے تخیل کو پروان چڑھانے میں مدد دیتی ہے۔</p>
-<p>ای سی سی ای کے دورانیے میں زبان کی نشوونما پر توجہ دینا بچوں کی مکمل شخصیت کی تعمیر کے لیے انتہائی ضروری ہے۔ والدین اور اساتذہ مل کر بچوں کی زبان کی ترقی میں اہم کردار ادا کر سکتے ہیں۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <div class="container">
+        <!-- بیک بٹن -->
+        <a href="#" class="back-btn">
+            <i class="fas fa-arrow-right"></i>
+            پیچھے جائیں
+        </a>
+        
+        <!-- پوسٹ مواد -->
+        <div class="post-content">
+            <h1>ای سی سی ای کے بچوں میں زبان کی نشوونما کامیاب زندگی کی بنیاد</h1>
+            
+            <!-- پوسٹ تصویر -->
+            <div class="post-image">
+                <img src="https://bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad.webp" alt="ای سی سی ای کے بچوں میں زبان کی نشوونما کامیاب زندگی کی بنیاد">
+            </div>
+            
+            <p>ای سی سی ای (ابتدائی بچپن کی دیکھ بھال اور تعلیم) کے بچوں میں زبان کی نشوونما ان کی کامیاب زندگی کی بنیاد رکھتی ہے۔ ابتدائی سالوں میں زبان کی مہارتوں کی تعمیر بچوں کی مجموعی ترقی کے لیے انتہائی اہم ہے۔</p>
+            
+            <p>زبان کی نشوونما نہ صرف بات چیت کی صلاحیتوں کو بہتر بناتی ہے بلکہ یہ بچوں کی علمی، جذباتی اور معاشرتی ترقی کے لیے بھی بنیادی حیثیت رکھتی ہے۔ جب بچے زبان کو مؤثر طریقے سے استعمال کرنا سیکھتے ہیں تو وہ اپنے خیالات اور جذبات کا بہتر اظہار کر سکتے ہیں، جو ان کی خود اعتمادی کو بڑھاتا ہے۔</p>
+            
+            <div class="info-box">
+                <p><strong>نوٹ:</strong> ابتدائی بچپن میں زبان کی نشوونما بچے کی مستقبل کی تعلیمی، معاشرتی اور پیشہ ورانہ کامیابیوں کے لیے سنگ بنیاد ہے۔</p>
+            </div>
+            
+            <h2>زبان کی نشوونما کے فوائد</h2>
+            
+            <div class="benefit-section">
+                <h3><span class="benefit-number">1</span> علمی ترقی کی بنیاد</h3>
+                <p>زبان کی مہارتیں بچوں کی علمی صلاحیتوں کی ترقی کے لیے بنیاد فراہم کرتی ہیں۔ جب بچے نئے الفاظ سیکھتے ہیں اور انہیں استعمال کرنا سیکھتے ہیں تو ان کی سوچنے اور سمجھنے کی صلاحیتیں بہتر ہوتی ہیں۔</p>
+            </div>
+            
+            <div class="benefit-section">
+                <h3><span class="benefit-number">2</span> مواصلاتی مہارتیں</h3>
+                <p>زبان کی اچھی گرفت بچوں کو مؤثر مواصلاتی مہارتیں سکھاتی ہے، جو ان کی پوری زندگی میں کام آتی ہیں۔</p>
+            </div>
+            
+            <div class="benefit-section">
+                <h3><span class="benefit-number">3</span> خواندگی کی ترقی</h3>
+                <p>ابتدائی زبان کی مہارتیں بعد میں پڑھنے اور لکھنے کی صلاحیتوں کی بنیاد بنتی ہیں۔</p>
+            </div>
+            
+            <div class="benefit-section">
+                <h3><span class="benefit-number">4</span> معاشرتی اور جذباتی ترقی</h3>
+                <p>زبان کے ذریعے بچے دوسروں کے ساتھ تعلقات استوار کرنا سیکھتے ہیں اور اپنے جذبات کا اظہار کرنا سیکھتے ہیں۔</p>
+            </div>
+            
+            <div class="benefit-section">
+                <h3><span class="benefit-number">5</span> تعلیمی کامیابی</h3>
+                <p>زبان کی مضبوط بنیاد رکھنے والے بچے تعلیمی میدان میں بہتر کارکردگی کا مظاہرہ کرتے ہیں۔</p>
+            </div>
+            
+            <div class="benefit-section">
+                <h3><span class="benefit-number">6</span> ثقافتی شناخت اور تعلق</h3>
+                <p>زبان کے ذریعے بچے اپنی ثقافت اور روایات سے واقف ہوتے ہیں۔</p>
+            </div>
+            
+            <div class="benefit-section">
+                <h3><span class="benefit-number">7</span> تخیل اور تخلیقی صلاحیتیں</h3>
+                <p>زبان بچوں کے تخیل کو پروان چڑھانے میں مدد دیتی ہے۔</p>
+            </div>
+            
+            <div class="info-box">
+                <p>ای سی سی ای کے دورانیے میں زبان کی نشوونما پر توجہ دینا بچوں کی مکمل شخصیت کی تعمیر کے لیے انتہائی ضروری ہے۔ والدین اور اساتذہ مل کر بچوں کی زبان کی ترقی میں اہم کردار ادا کر سکتے ہیں۔</p>
+            </div>
+            
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 ستاروں بھری رات میں زبان کی روشنی</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // ستارے، شوٹنگ اسٹار اور کنسٹیلیشن بنانے کا فنکشن
+        function createStarrySky() {
+            const sky = document.getElementById('starrySky');
+            
+            // عام ستارے
+            const starCount = 180;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 4 + 1;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const delay = Math.random() * 4;
+                const duration = Math.random() * 2 + 2;
+                const brightness = Math.random() * 0.6 + 0.3;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.animationDelay = `${delay}s`;
+                star.style.animationDuration = `${duration}s`;
+                star.style.opacity = brightness;
+                
+                // مختلف رنگ کے ستارے
+                const colors = ['#ffffff', '#ffe0b2', '#ffcc80', '#ffb74d'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                star.style.backgroundColor = color;
+                
+                sky.appendChild(star);
+            }
+            
+            // شوٹنگ اسٹار
+            const shootingStarCount = 4;
+            for (let i = 0; i < shootingStarCount; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.classList.add('shooting-star');
+                
+                const startX = Math.random() * 30;
+                const startY = Math.random() * 30;
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 8 + 8;
+                
+                shootingStar.style.left = `${startX}%`;
+                shootingStar.style.top = `${startY}%`;
+                shootingStar.style.animationDelay = `${delay}s`;
+                shootingStar.style.animationDuration = `${duration}s`;
+                
+                sky.appendChild(shootingStar);
+            }
+            
+            // کنسٹیلیشنز
+            const constellationCount = 5;
+            for (let i = 0; i < constellationCount; i++) {
+                const constellation = document.createElement('div');
+                constellation.classList.add('constellation');
+                
+                const x = Math.random() * 70 + 15;
+                const y = Math.random() * 70 + 15;
+                const size = Math.random() * 180 + 100;
+                const delay = Math.random() * 12;
+                
+                constellation.style.width = `${size}px`;
+                constellation.style.height = `${size}px`;
+                constellation.style.left = `${x}%`;
+                constellation.style.top = `${y}%`;
+                constellation.style.animationDelay = `${delay}s`;
+                
+                sky.appendChild(constellation);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // پیج اپ/ڈاؤن کے فنکشنز
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // ہوور ایفیکٹس
+        document.addEventListener('DOMContentLoaded', function() {
+            createStarrySky();
+            
+            // سیکشن ہائی لائٹ ہوور
+            const benefits = document.querySelectorAll('.benefit-section');
+            benefits.forEach(benefit => {
+                benefit.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-15px)';
+                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.4)';
+                    
+                    // نمبر کا ہوور ایفیکٹ
+                    const number = this.querySelector('.benefit-number');
+                    if (number) {
+                        number.style.background = 'rgba(255, 158, 0, 0.4)';
+                        number.style.transform = 'scale(1.2)';
+                        number.style.color = '#ffffff';
+                    }
+                });
+                
+                benefit.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                    this.style.boxShadow = 'none';
+                    
+                    // نمبر کا اصل حالت
+                    const number = this.querySelector('.benefit-number');
+                    if (number) {
+                        number.style.background = 'rgba(255, 158, 0, 0.2)';
+                        number.style.transform = 'scale(1)';
+                        number.style.color = 'var(--accent)';
+                    }
+                });
+            });
+            
+            // تصویر ہوور ایفیکٹ
+            const postImage = document.querySelector('.post-image');
+            postImage.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 20px 40px rgba(255, 158, 0, 0.3)';
+                this.style.borderColor = 'rgba(255, 158, 0, 0.6)';
+            });
+            
+            postImage.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.6)';
+                this.style.borderColor = 'rgba(255, 158, 0, 0.3)';
+            });
+            
+            // انفو باکس ہوور
+            const infoBoxes = document.querySelectorAll('.info-box');
+            infoBoxes.forEach(box => {
+                box.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 25px rgba(255, 158, 0, 0.2)';
+                });
+                
+                box.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+                });
+            });
+            
+            // بیک بٹن ایکشن
+            document.querySelector('.back-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const confirmBack = confirm('کیا آپ بیک بٹن پر کلک کرنا چاہتے ہیں؟ آپ اسے اپنی ویب سائٹ کے ہوم پیج یا کسی دوسرے صفحے سے جوڑ سکتے ہیں۔');
+                if (confirmBack) {
+                    // یہاں آپ اپنا مطلوبہ URL شامل کر سکتے ہیں
+                    // window.location.href = "https://www.example.com";
+                }
+            });
+        });
     </script>
 </body>
 </html>
