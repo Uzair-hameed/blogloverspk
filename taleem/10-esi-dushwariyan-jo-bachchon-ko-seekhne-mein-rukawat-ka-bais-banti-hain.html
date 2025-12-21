@@ -5,86 +5,898 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>10 ایسی دشواریاں جو بچوں کو سیکھنے میں روکاوٹ کا باعث بنتی ہیں</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            margin: 0;
+            padding: 0;
+            background: #0a1f3a;
+            color: #e8f4ff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* روشن بارش کا پس منظر */
+        .rain-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(to bottom, #0a1f3a, #0d2b4d, #1a365a);
+            overflow: hidden;
+        }
+        
+        .raindrop {
+            position: absolute;
+            width: 3px;
+            height: 70px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
+            opacity: 0.6;
+            animation: rainFall 1.2s linear infinite;
+            border-radius: 10px;
+        }
+        
+        .raindrop:nth-child(odd) {
+            background: linear-gradient(to bottom, transparent, rgba(78, 205, 196, 0.7));
+            width: 2px;
+        }
+        
+        .raindrop:nth-child(3n) {
+            background: linear-gradient(to bottom, transparent, rgba(254, 202, 87, 0.7));
+            height: 50px;
+            animation-duration: 1.8s;
+        }
+        
+        .raindrop:nth-child(5n) {
+            background: linear-gradient(to bottom, transparent, rgba(255, 159, 243, 0.7));
+            width: 4px;
+            animation-duration: 1s;
+        }
+        
+        @keyframes rainFall {
+            0% {
+                transform: translateY(-100px) rotate(15deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(15deg);
+                opacity: 0;
+            }
+        }
+        
+        /* روشنی کے چمک */
+        .light-spark {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .sparkle {
+            animation: sparkleEffect 0.8s ease-out;
+        }
+        
+        @keyframes sparkleEffect {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 0.8; transform: scale(1); }
+        }
+        
+        /* روشن بادل */
+        .glow-cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 40px 20px rgba(78, 205, 196, 0.1),
+                0 0 80px 40px rgba(254, 202, 87, 0.05);
+            animation: cloudGlow 20s infinite ease-in-out;
+            filter: blur(20px);
+            z-index: -1;
+        }
+        
+        .glow-cloud:nth-child(2) {
+            top: 10%;
+            right: 15%;
+            width: 300px;
+            height: 150px;
+            animation-duration: 25s;
+            animation-delay: 3s;
+            box-shadow: 
+                0 0 60px 30px rgba(255, 107, 107, 0.1),
+                0 0 100px 50px rgba(255, 159, 243, 0.05);
+        }
+        
+        .glow-cloud:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            width: 400px;
+            height: 200px;
+            animation-duration: 30s;
+            animation-delay: 7s;
+            box-shadow: 
+                0 0 50px 25px rgba(69, 183, 209, 0.1),
+                0 0 90px 45px rgba(150, 206, 180, 0.05);
+        }
+        
+        @keyframes cloudGlow {
+            0%, 100% { 
+                opacity: 0.3;
+                transform: translateY(0) scale(1);
+            }
+            50% { 
+                opacity: 0.7;
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+        
+        /* مرکزی کنٹینر */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px 100px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ہیڈر */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 0 50px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to left, #ff6b6b, #4ecdc4, #45b7d1, #feca57, #ff9ff3);
+            animation: gradientFlow 6s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        h1 {
+            color: #feca57;
+            font-size: 3rem;
+            margin-bottom: 25px;
+            text-shadow: 
+                0 0 10px rgba(254, 202, 87, 0.5),
+                0 0 20px rgba(254, 202, 87, 0.3),
+                0 0 30px rgba(254, 202, 87, 0.1);
+            padding-bottom: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        h1:hover {
+            color: #4ecdc4;
+            text-shadow: 
+                0 0 15px rgba(78, 205, 196, 0.7),
+                0 0 25px rgba(78, 205, 196, 0.4),
+                0 0 35px rgba(78, 205, 196, 0.2);
+            transform: translateY(-5px) scale(1.02);
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #feca57, transparent);
+        }
+        
+        .title-image {
+            width: 100%;
+            max-width: 850px;
+            height: auto;
+            border-radius: 20px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(254, 202, 87, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .title-image:hover {
+            transform: scale(1.03) rotateY(5deg);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                0 0 70px rgba(78, 205, 196, 0.5);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+        
+        /* مرکزی مواد */
+        .content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 45px;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 60px rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            bottom: -2px;
+            left: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #feca57, #ff9ff3);
+            border-radius: 27px;
+            z-index: -1;
+            opacity: 0.1;
+            animation: borderGlow 10s linear infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #e8f4ff;
+            text-align: justify;
+            line-height: 2.5;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        h2 {
+            color: #4ecdc4;
+            font-size: 2.4rem;
+            margin: 45px 0 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(78, 205, 196, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            padding-right: 25px;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+        }
+        
+        h2:hover {
+            color: #ff9ff3;
+            transform: translateX(-15px);
+            text-shadow: 0 0 15px rgba(255, 159, 243, 0.5);
+        }
+        
+        h2::before {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            color: #feca57;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(254, 202, 87, 0.7);
+            animation: spin 4s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* نمبر والے کارڈ */
+        .difficulty-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #4ecdc4;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .difficulty-card:nth-child(odd) {
+            border-left-color: #feca57;
+        }
+        
+        .difficulty-card:nth-child(3n) {
+            border-left-color: #ff9ff3;
+        }
+        
+        .difficulty-card:nth-child(5n) {
+            border-left-color: #45b7d1;
+        }
+        
+        .difficulty-card:hover {
+            transform: translateX(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(78, 205, 196, 0.2);
+        }
+        
+        .difficulty-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .difficulty-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        /* کنٹرول بٹنز */
+        .control-buttons {
+            position: fixed;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #4ecdc4;
+            color: #4ecdc4;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(78, 205, 196, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .control-btn:hover {
+            background: #4ecdc4;
+            color: #0a1f3a;
+            transform: scale(1.15);
+            box-shadow: 
+                0 0 30px rgba(78, 205, 196, 0.8),
+                0 0 50px rgba(78, 205, 196, 0.4);
+            border-color: #0a1f3a;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #feca57;
+            color: #feca57;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 
+                0 5px 20px rgba(0, 0, 0, 0.3),
+                0 0 25px rgba(254, 202, 87, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .back-btn:hover {
+            background: #feca57;
+            color: #0a1f3a;
+            transform: translateY(-5px);
+            box-shadow: 
+                0 0 35px rgba(254, 202, 87, 0.8),
+                0 0 60px rgba(254, 202, 87, 0.4);
+            border-color: #0a1f3a;
+        }
+        
+        /* فوٹر */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+            color: #96ceb4;
+            font-size: 1.2rem;
+            border-top: 1px solid rgba(150, 206, 180, 0.3);
+            text-shadow: 0 0 10px rgba(150, 206, 180, 0.3);
+        }
+        
+        /* موبائل ریسپانسیو */
+        @media (max-width: 1100px) {
+            .control-buttons {
+                left: 15px;
+            }
+            
+            .control-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.5rem;
+            }
+            
+            .back-btn {
+                top: 20px;
+                right: 20px;
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 20px 15px 80px;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            h2 {
+                font-size: 1.9rem;
+            }
+            
+            p {
+                font-size: 1.4rem;
+                line-height: 2.3;
+            }
+            
+            .content {
+                padding: 30px;
+            }
+            
+            .control-buttons {
+                display: none;
+            }
+            
+            .back-btn {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+            
+            .title-image:hover {
+                transform: scale(1.02);
+            }
+            
+            .difficulty-card:hover {
+                transform: translateX(-10px) scale(1.01);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1.3rem;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .header, .content {
+                border-radius: 20px;
+            }
+            
+            .difficulty-card {
+                padding: 20px;
+            }
+        }
+        
+        /* اسکرول بار سٹائل */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(20, 40, 70, 0.3);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #4ecdc4, #45b7d1);
+            border-radius: 10px;
+            border: 2px solid rgba(10, 31, 58, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #feca57, #ff9ff3);
+            box-shadow: 0 0 20px rgba(254, 202, 87, 0.5);
+        }
+        
+        /* خصوصی ہائی لائٹ */
+        .highlight {
+            color: #feca57;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(254, 202, 87, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .highlight:hover {
+            color: #ff6b6b;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+        }
+        
+        /* فلکیاتی ستارے */
+        .star {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite;
+            z-index: -1;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+        
+        /* شہابیوں کا اثر */
+        .meteor {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: -1;
+        }
+        
+        @keyframes meteorFall {
+            0% { 
+                transform: translateX(-100px) translateY(-100px); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateX(100vw) translateY(100vh); 
+                opacity: 0; 
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- روشن بارش کا پس منظر -->
+    <div class="rain-background" id="rainBg"></div>
+    <div class="light-spark" id="lightSpark"></div>
+    <div class="glow-cloud"></div>
+    <div class="glow-cloud"></div>
+    <div class="glow-cloud"></div>
+    
+    <!-- بیک بٹن -->
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-right"></i> واپس جائیں
+    </button>
+    
+    <!-- کنٹرول بٹنز -->
+    <div class="control-buttons">
+        <button class="control-btn" onclick="scrollToTop()" title="اوپر جائیں">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="control-btn" onclick="scrollToBottom()" title="نیچے جائیں">
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- مرکزی کنٹینر -->
+    <div class="main-container">
+        <div class="header">
+            <h1>10 ایسی دشواریاں جو بچوں کو سیکھنے میں روکاوٹ کا باعث بنتی ہیں</h1>
+            
+            <!-- امیج لنک -->
+            <img src="https://bloglovers.pk/images/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain.jpg" 
+                 alt="بچوں میں سیکھنے کی دشواریاں" 
+                 class="title-image">
+        </div>
         
-        <h1>10 ایسی دشواریاں جو بچوں کو سیکھنے میں روکاوٹ کا باعث بنتی ہیں</h1>
-<p>محترم قارئین کرام! بچوں میں سیکھنے کی روزمرہ مشکلات/ معذوریاں درحقیقت اعصابی طور پر پراسیسنگ کے مسائل پر مبنی ہیں جو <a href="https://www.bloglovers.pk/2021/07/60.html">بنیادی مہارتوں</a> کو سیکھنے میں ہمیشہ روکاوٹ کا باعث بنتی ہیں۔ پروسیسنگ کے یہ مسائل کسی بھی عمر کے انسان پر اثر انداز ہوتی ہیں۔ زیادہ تر یہ مسائل زمانہ طالب علمی سے شروع ہوتے ہیں جہاں بچوں کو <a href="https://www.bloglovers.pk/2021/11/4-5-16.html">لکھنے</a> <a href="https://www.bloglovers.pk/2021/04/10.html">پڑھنے</a> اور <a href="https://www.bloglovers.pk/2021/06/10_20.html">سننے</a>، بولنے کی دشواریوں سے گزرنا پڑتا ہے۔ درحقیقت یہ سمجھنا انتہائی ضروری ہے کہ سیکھنے کی دشواری / معذوری بچوں کو صرف سکول سے زیادہ طریقوں سے متاثر کرتی ہے جس سے ناصرف خاندانی زندگی بلکہ کام کاج اور روزمرہ کی زندگی بھی شدید ترین متاثر ہو سکتی ہے۔ سیکھنے کی دشواری / معذوری کی علامات <a href="https://www.bloglovers.pk/2021/04/blog-post_14.html">اکثر سکول کے سالوں کے دوران</a> تشخیص کی جاتی ہیں جب کسی شخص کو ریاضی، یا دیگر مضامین پڑھنے یا لکھنے میں پریشانی ہوتی ہے۔ تاہم، کچھ بچوں کی تشخیص اس وقت تک نہیں ہوتی جب تک کہ وہ بالغ نہ ہو جائیں عام طور پر توجہ نہ دینے کی وجہ سے اس کی تشخیص نہیں ہوتی اور نہ ہی کبھی سمجھ آتی ہے کہ آخر بچے ایسا کیوں کرتے ہیں؟ یا انہیں یہ زیب نہیں دیتا، اتنی محنت کرنے کے باوجود بھی انہیں ایسی مشکلات کیوں درپیش آرہی ہیں۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpPK7CpB8yaSQ-Dd-mcvPxb5W5XxvXo94MxRX2GTyVNAH7q6e-B3upYNaWXxMjAFqxXzShTDxstJteH6ETLkmGYK3KPlu3OCrqgTgYeL9VRkX5Hwy9Jue491XIAe1c6PXn3VDVW5jhuTova_ypS6Ah4h2BAzAzzZ8trgZ7AYuTpPWGy6llUmrYshh3WQ/s2240/Yellow%20Greyscale%20Script%20Landscape%20Photography%20Blog%20Banner.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpPK7CpB8yaSQ-Dd-mcvPxb5W5XxvXo94MxRX2GTyVNAH7q6e-B3upYNaWXxMjAFqxXzShTDxstJteH6ETLkmGYK3KPlu3OCrqgTgYeL9VRkX5Hwy9Jue491XIAe1c6PXn3VDVW5jhuTova_ypS6Ah4h2BAzAzzZ8trgZ7AYuTpPWGy6llUmrYshh3WQ/s16000/Yellow%20Greyscale%20Script%20Landscape%20Photography%20Blog%20Banner.jpg" alt=""></a></p>
-<p>عمومی طور پر سیکھنے کی دشواریاں/ معذوریاں سیکھنے کے مسائل جیسی نہیں لگتی، جو عام طور پر موٹر سکلز، سماعت یا بصری معذوری کا نتیجہ ہوتی ہیں۔ جذباتی خلل؛ دانشورانہ معذوری؛ یا ثقافت، ماحول، یا معیشت کی وجہ سے نقصانات وغیرہ عام طور پر، سیکھنے کی دشواری / معذوری والے لوگ اوسط یا اس سے زیادہ ذہانت کے حامل ہوتے ہیں۔ اگرچہ وہ کسی بھی عام آدمی کی طرح نظر آ سکتے ہیں، لیکن ہو سکتا ہے وہ اس مہارت کی سطح پر کارکردگی کا مظاہرہ نہ کر سکیں جس کی ہم توقع کرتے ہیں یا کر سکتے ہیں۔</p>
-<p>سیکھنے کی اس دشواری/ معذوری کو بہت جلدی ٹھیک نہیں کیا جا سکتا، لیکن کسی حد تک اگر درست طور طریقے اور درست حکمت عملی کی مدد کے ساتھ ناصرف قابو پایا جا سکتا ہے بلکہ بہتری کے امکانات بھی واضح ہو جاتے ہیں، جس سے یہ افراد قریبی رشتہ داروں میں، کام کاج پر، سکول اور کمیونٹی / معاشرے میں کامیاب ہو سکتے ہیں بلکہ معاشرے کے مفید شہری بن سکتے ہیں۔ سیکھنے کی عام دشواریاں درج ذیل ہیں:</p>
-<h2>1. آڈیٹری پروسیسنگ ڈس آرڈر (APD)</h2>
-<p>اس کو عام طور پر سنٹرل آڈیٹری پروسیسنگ ڈس آرڈر کے نام سے بھی جانا جاتا ہے، آڈیٹری پروسیسنگ ڈس آرڈر اس بات پر اثر انداز ہوتی ہے کہ کان سے گزرنے والی آواز کس طرح کسی شخص کے دماغ کے ذریعے پروسیس یا تشریح کرتی ہے۔ APD والے لوگ/ بچے الفاظ میں آوازوں کے درمیان معمولی فرق کو پہچاننے سے بالکل قاصر ہوتے ہیں، اور ان کے لئے یہ بھی بتانا مشکل ہوتا ہے کہ یہ آوازیں کہاں سے آ رہی ہیں، ایسے میں ایک استاد کو یہ بات سمجھانے کے لئے کافی محنت کی ضرورت ہوتی ہے کہ وہ بچوں کو ان آوازوں کی درست سمت اور مختلف آوازوں کی پہچان کیسے کروائے؟</p>
-<h2>2. لینگویج پروسیسنگ ڈس آرڈر (LPD)</h2>
-<p>لینگویج پروسیسنگ ڈس آرڈر ایک مخصوص قسم کا آڈیٹری پروسیسنگ ڈس آرڈر ہے۔ LPD والے افراد / بچوں کو صوتی گروپوں کے معنی جوڑنے / توڑنے اور پڑھنے میں شدید دشواری کا سامنا ہوتا ہے۔ خاص کر کے ان حروف الفاظ، کہانیاں جو جملے بناتے ہیں۔ اے پی ڈی درحقیقت اس بات پر اثر انداز ہوتی ہے کہ دماغ میں آنے والی تمام آوازوں کی تشریح/وضاحت کیسے کرے، جبکہ ایل پی ڈی صرف زبان کی پروسیسنگ کو متاثر کرتی ہے۔ یہ اس بات پر اثر انداز ہو سکتی ہے کہ کوئی شخص/ بچہ کس طرح کی زبان کا اظہار یا اس کی ترجمانی کرتا ہے، ایسے بچے / افراد نا صرف سکول، گھر، کام، اور دوستوں اور ساتھیوں کے درمیان ناصرف مسائل پیدا کرتے ہیں بلکہ اکثر اوقات کلاس میں خاموش رہتے ہیں اور زیادہ تر بات کرنے سے گھبراتے ہیں اور مشکلات کا سامنا کرنے کی ان میں سکت نہیں ہوتی۔ کہیں آنا جانا اور دوستوں سے میل ملاپ بھی بہت کم ہوتا ہے۔</p>
-<h2>3. ڈسلیکسیا</h2>
-<p>ڈسلیکسیا بچوں میں سب سے زیادہ پائی جانے والی دشواری / معذوری ہے یہ عام طور پر سیکھنے کی ایک ایسی معذوری ہے جو صرف پڑھنے اور متعلقہ زبان پر مبنی پروسیسنگ کی مہارتوں کو شدید ترین متاثر کرتی ہے۔ شدت کی سطح مختلف افراد / بچوں میں مختلف ہو سکتی ہے۔ ان میں زیادہ تر ہجوں کی پہچان، ہجوں کی آواز، ہجوں کی بناوٹ، یاد کرنے، پڑھنے کی روانی، پڑھنے کی سمجھ، ضابطہ کشائی، اشتہاری تحریر وغیرہ شامل ہیں۔ یہ اکثر اوقات سیکھنے سمجھنے کی دیگر دشواریوں/ معذوریوں کے درمیان نمایاں ہوتی ہے۔ اسے کبھی کبھی زبان کی بنیاد پر سیکھنے کی دشواری / معذوری بھی کہا جاتا ہے۔</p>
-<h2>4. ڈس گرافیا</h2>
-<p>ڈس گرافیا عام طور پر ہاتھ سے لکھنے اور دیگر عمدہ موٹر مہارتوں کو انجام دینے کی کسی فرد/ بچے کی صلاحیت کو شدید ترین متاثر کرتی ہے۔ عام طور پر بہت سے اساتذہ کو مشکل درپیش ہوتی ہے کہ بچے پڑھ تو سکتے ہیں لیکن لکھ نہیں سکتے۔ بچوں کی دوسری دشواریوں / معذوریوں کے ساتھ ساتھ ڈس گرافیا کی علامات بھی ملتی جلتی ہوتی ہیں مثلاً جب اس سے کہا جائے کہ وہ واحد جمع، مذکر مؤنث، متضاد یا وقفہ کاری، تحریر لکھنے میں دشواری، خراب ہجے، نامناسب لکھاوٹ، کاغذ پر ناقص مقامی منصوبہ بندی، اور ایک ہی وقت میں سوچنے اور لکھنے کے سوالات حل کریں تو ان کی تکالیفوں میں اضافہ ہونے کے مترادف ہوتا ہے۔</p>
-<h2>5. ڈسکلکولیا</h2>
-<p>ڈسکلکولیا کا شکار زیادہ تر بچے/ افراد ریاضی کے حقائق کو درست طریقے سے سیکھنے اور اعداد کو سمجھنے سے بالکل قاصر ہوتے ہیں۔ سیکھنے کی اس دشواری/ معذوری کے شکار افراد کو وقت بتانے میں، گھڑیوں کی سوئیوں کی ترتیب، جمع کرنے، تفریق کرنے، تقسیم کرنے، یا ضرب دینے میں بھی شدید دشواری کا سامنا ہوتا ہے، نمبروں کو ترتیب دینے اور یاد رکھنے، یا گنتی میں دشواری ہوتی ہے، اسی طرح ریاضی کی مختلف علامتوں کی سمجھ نہ ہونے پر بچے شدید پریشانی، غصہ اور خوف کا ردعمل کرتے دکھائی دیتے ہیں۔</p>
-<h2>6. بصری ادراک</h2>
-<p>بصری ادراک کو عام طور پر بصری موٹر خسارہ سے بھی جانا جاتا ہے اور یہ دشواری / معذوری اس بات پر اثر انداز ہوتی ہے کہ ایک بچہ/ فرد کس طرح دیکھتا ہے؟ اور ساتھ ہی وہ کس طرح کسی دی گئی تصویر کو کاپی یا ڈرا کرنے کے کتنا قابل ہے؟ بصری ادراک یعنی Visual Perception کی علامات میں حروف یا شکلوں میں فرق واضح کرنا، قینچی، کٹر، بلیڈ کے استعمال میں بہت زیادہ کوشش کرنا، آنکھ/ ہاتھ کی خراب ہم آہنگی اور پنسل کو بہت مضبوطی سے پکڑنا۔ کاپی پر بہت زور سے یا دبا کر لکھنا کہ صفحہ ہی پھٹ جائے وغیرہ، ڈس گرافیا کے شکار بچے/ افراد جو نان وربل لرننگ کی معذوری کی صورت میں اکثر بصری ادراک/ بصری موٹر خسارے کے مشکلات / پیچیدگیاں درپیش ہوتی ہیں۔</p>
-<h2>7. نان وربل لرننگ کی مشکلات</h2>
-<p>نان وربل لرننگ کی معذوری کا شکار بچہ/ فرد زیادہ تر زور زبانی کلامی مہارت پر رکھتا ہے۔ ایسے افراد لکھنے سے بالکل گریز کرتے دکھائی دیتے ہیں یہ لوگ بولنے، سننے اور دیکھنے پر زیادہ یقین رکھتے ہیں۔ لیکن ایسے کمزور سماجی، بصری-مقامی، اور موٹر مہارتوں والے شخص کو باڈی لینگویج یا چہرے کے تاثرات کی ترجمانی کرنے میں شدید دشواری کا سامنا ہوتا ہے، جس میں ناقص ترین کارکردگی اور ہم آہنگی کا واضح امکان ہوتا ہے۔</p>
-<h2>8. ڈس پیریشیا</h2>
-<p>Dyspraxia عام طور پر کسی بھی فرد/ بچہ کے پٹھوں کے کنٹرول کو متاثر کرتا ہے، جس میں بچوں کو زبان وفہم، تقریر وتنقید اور زبان کے مختلف استعمالات، مثلاً الفاظ کے چناؤ، فقروں میں ہم آہنگی اور حرکت کرنے میں ناصرف مشکلات کا سامنا ہوتا ہے بلکہ سیکھنے سمجھنے پر بھی شدید اثر انداز ہوتا ہے۔ اگرچہ ڈس پیریشیا سیکھنے کی کوئی معذوری نہیں ہے، لیکن تاہم اس کا ذکر بھی اکثر ADHD، Dyslexia، یا Dyscalculia کے ساتھ ہمیشہ موجود ہوتا ہے۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg1njlOH2kvBPZ6Q73-kkBk7dnYgqwyBXHLfCS6CKcoZ2IrtOSdgglr4RORZYxMmqq2hR45WFekAjW8vi6ywIg-0eVGX1ZOnb4uHQnk9VZrte47adIgZPkBvXI_kBpLFQSDKl7q_rHrBRD68n6b5mFQcQxD9gVjCKKtp_c1L3kN5eki-I5Kpg6A5GLZaQ/s2240/Yellow%20Greyscale%20Script%20Landscape%20Photography%20Blog%20Banner%20(1).jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg1njlOH2kvBPZ6Q73-kkBk7dnYgqwyBXHLfCS6CKcoZ2IrtOSdgglr4RORZYxMmqq2hR45WFekAjW8vi6ywIg-0eVGX1ZOnb4uHQnk9VZrte47adIgZPkBvXI_kBpLFQSDKl7q_rHrBRD68n6b5mFQcQxD9gVjCKKtp_c1L3kN5eki-I5Kpg6A5GLZaQ/w640-h360/Yellow%20Greyscale%20Script%20Landscape%20Photography%20Blog%20Banner%20(1).jpg" alt=""></a></p>
-<h2>9. ہائپر ایکٹیویٹی ڈس آرڈر ADHD</h2>
-<p>توجہ کا خسارہ ہائپر ایکٹیویٹی ڈس آرڈر عام طور پر چھوٹے بچوں میں، خاص کر پری سکول یا ابتدائی سالوں میں ظاہر ہوتا ہے۔ ADHD والے بچوں کو اپنے رویے پر قابو پانا، رنگین اشیاء کی طرف راغب ہونا، آوازوں کی طرف توجہ دینا، توجہ مرکوز رکھنا، یا توجہ دینا بہت مشکل لگتا ہے ایسے میں یہ ایک جگہ بیٹھ کر کام نہیں کر سکتے۔ اگرچہ اسے بھی سیکھنے کی دشواری / معذوری نہیں سمجھا جاتا ہے تاہم ADHD کی تحقیق سے پتہ چلتا ہے کہ ADHD والے 30 سے 50 فیصد کے درمیان بچوں میں بھی سیکھنے کی ایک مخصوص معذوری ہوتی ہے۔ ADHD کے حامل افراد / بچوں کے ساتھ لرننگ پراسیس کو انتہائی پیچیدہ بنا دیتا ہے۔</p>
-<h2>10. ایگزیکٹو فنکشننگ</h2>
-<p>ایگزیکٹو کام کرنے کے مسائل درحقیقت سیکھنے کی کوئی دشواری/ معذوری نہیں ہیں لیکن یہ ایک فرد/ بچے کی روزمرہ کی زندگی کو بہت متاثر کرتے ہیں۔ ایسا اس وقت ہوتا ہے جب کسی فرد/ بچے کے اعصاب میں ناکامی اور خوف جنم لینا شروع ہو جائے۔ تاہم ایسے بچے حکمت عملی بنانے، منصوبہ بندی کرنے، تفصیلات پر توجہ دینے، تنظیم کرنے، تفصیلات کو یاد رکھنے، اور وقت اور جگہ کا نظم و نسق کرنے جیسے وسیع قسم کے عمل کو شدید متاثر کرتے ہیں۔ ایگزیکٹیو کام کرنے کے مسائل تقریباً ہمیشہ ان لوگوں کے درمیان ہوتے ہیں جن کو ADHD یا مخصوص سیکھنے کی دشواری / معذوری ہوتی ہے۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <!-- مرکزی مواد -->
+        <div class="content">
+            <p>محترم قارئین کرام! بچوں میں سیکھنے کی روزمرہ مشکلات/ معذوریاں درحقیقت اعصابی طور پر پراسیسنگ کے مسائل پر مبنی ہیں جو بنیادی مہارتوں کو سیکھنے میں ہمیشہ روکاوٹ کا باعث بنتی ہیں۔ پروسیسنگ کے یہ مسائل کسی بھی عمر کے انسان پر اثر انداز ہوتی ہیں۔ زیادہ تر یہ مسائل زمانہ طالب علمی سے شروع ہوتے ہیں جہاں بچوں کو لکھنے پڑھنے اور سننے، بولنے کی دشواریوں سے گزرنا پڑتا ہے۔ درحقیقت یہ سمجھنا انتہائی ضروری ہے کہ سیکھنے کی دشواری / معذوری بچوں کو صرف سکول سے زیادہ طریقوں سے متاثر کرتی ہے جس سے ناصرف خاندانی زندگی بلکہ کام کاج اور روزمرہ کی زندگی بھی شدید ترین متاثر ہو سکتی ہے۔ سیکھنے کی دشواری / معذوری کی علامات اکثر سکول کے سالوں کے دوران تشخیص کی جاتی ہیں جب کسی شخص کو ریاضی، یا دیگر مضامین پڑھنے یا لکھنے میں پریشانی ہوتی ہے۔ تاہم، کچھ بچوں کی تشخیص اس وقت تک نہیں ہوتی جب تک کہ وہ بالغ نہ ہو جائیں عام طور پر توجہ نہ دینے کی وجہ سے اس کی تشخیص نہیں ہوتی اور نہ ہی کبھی سمجھ آتی ہے کہ آخر بچے ایسا کیوں کرتے ہیں؟ یا انہیں یہ زیب نہیں دیتا، اتنی محنت کرنے کے باوجود بھی انہیں ایسی مشکلات کیوں درپیش آرہی ہیں۔</p>
+            
+            <p>عمومی طور پر سیکھنے کی دشواریاں/ معذوریاں سیکھنے کے مسائل جیسی نہیں لگتی، جو عام طور پر موٹر سکلز، سماعت یا بصری معذوری کا نتیجہ ہوتی ہیں۔ جذباتی خلل؛ دانشورانہ معذوری؛ یا ثقافت، ماحول، یا معیشت کی وجہ سے نقصانات وغیرہ عام طور پر، سیکھنے کی دشواری / معذوری والے لوگ اوسط یا اس سے زیادہ ذہانت کے حامل ہوتے ہیں۔ اگرچہ وہ کسی بھی عام آدمی کی طرح نظر آ سکتے ہیں، لیکن ہو سکتا ہے وہ اس مہارت کی سطح پر کارکردگی کا مظاہرہ نہ کر سکیں جس کی ہم توقع کرتے ہیں یا کر سکتے ہیں۔</p>
+            
+            <p>سیکھنے کی اس دشواری/ معذوری کو بہت جلدی ٹھیک نہیں کیا جا سکتا، لیکن کسی حد تک اگر درست طور طریقے اور درست حکمت عملی کی مدد کے ساتھ ناصرف قابو پایا جا سکتا ہے بلکہ بہتری کے امکانات بھی واضح ہو جاتے ہیں، جس سے یہ افراد قریبی رشتہ داروں میں، کام کاج پر، سکول اور کمیونٹی / معاشرے میں کامیاب ہو سکتے ہیں بلکہ معاشرے کے مفید شہری بن سکتے ہیں۔ سیکھنے کی عام دشواریاں درج ذیل ہیں:</p>
+            
+            <h2>1. آڈیٹری پروسیسنگ ڈس آرڈر (APD)</h2>
+            <div class="difficulty-card">
+                <p>اس کو عام طور پر سنٹرل آڈیٹری پروسیسنگ ڈس آرڈر کے نام سے بھی جانا جاتا ہے، آڈیٹری پروسیسنگ ڈس آرڈر اس بات پر اثر انداز ہوتی ہے کہ کان سے گزرنے والی آواز کس طرح کسی شخص کے دماغ کے ذریعے پروسیس یا تشریح کرتی ہے۔ APD والے لوگ/ بچے الفاظ میں آوازوں کے درمیان معمولی فرق کو پہچاننے سے بالکل قاصر ہوتے ہیں، اور ان کے لئے یہ بھی بتانا مشکل ہوتا ہے کہ یہ آوازیں کہاں سے آ رہی ہیں، ایسے میں ایک استاد کو یہ بات سمجھانے کے لئے کافی محنت کی ضرورت ہوتی ہے کہ وہ بچوں کو ان آوازوں کی درست سمت اور مختلف آوازوں کی پہچان کیسے کروائے؟</p>
+            </div>
+            
+            <h2>2. لینگویج پروسیسنگ ڈس آرڈر (LPD)</h2>
+            <div class="difficulty-card">
+                <p>لینگویج پروسیسنگ ڈس آرڈر ایک مخصوص قسم کا آڈیٹری پروسیسنگ ڈس آرڈر ہے۔ LPD والے افراد / بچوں کو صوتی گروپوں کے معنی جوڑنے / توڑنے اور پڑھنے میں شدید دشواری کا سامنا ہوتا ہے۔ خاص کر کے ان حروف الفاظ، کہانیاں جو جملے بناتے ہیں۔ اے پی ڈی درحقیقت اس بات پر اثر انداز ہوتی ہے کہ دماغ میں آنے والی تمام آوازوں کی تشریح/وضاحت کیسے کرے، جبکہ ایل پی ڈی صرف زبان کی پروسیسنگ کو متاثر کرتی ہے۔ یہ اس بات پر اثر انداز ہو سکتی ہے کہ کوئی شخص/ بچہ کس طرح کی زبان کا اظہار یا اس کی ترجمانی کرتا ہے، ایسے بچے / افراد نا صرف سکول، گھر، کام، اور دوستوں اور ساتھیوں کے درمیان ناصرف مسائل پیدا کرتے ہیں بلکہ اکثر اوقات کلاس میں خاموش رہتے ہیں اور زیادہ تر بات کرنے سے گھبراتے ہیں اور مشکلات کا سامنا کرنے کی ان میں سکت نہیں ہوتی۔ کہیں آنا جانا اور دوستوں سے میل ملاپ بھی بہت کم ہوتا ہے۔</p>
+            </div>
+            
+            <h2>3. ڈسلیکسیا</h2>
+            <div class="difficulty-card">
+                <p>ڈسلیکسیا بچوں میں سب سے زیادہ پائی جانے والی دشواری / معذوری ہے یہ عام طور پر سیکھنے کی ایک ایسی معذوری ہے جو صرف پڑھنے اور متعلقہ زبان پر مبنی پروسیسنگ کی مہارتوں کو شدید ترین متاثر کرتی ہے۔ شدت کی سطح مختلف افراد / بچوں میں مختلف ہو سکتی ہے۔ ان میں زیادہ تر ہجوں کی پہچان، ہجوں کی آواز، ہجوں کی بناوٹ، یاد کرنے، پڑھنے کی روانی، پڑھنے کی سمجھ، ضابطہ کشائی، اشتہاری تحریر وغیرہ شامل ہیں۔ یہ اکثر اوقات سیکھنے سمجھنے کی دیگر دشواریوں/ معذوریوں کے درمیان نمایاں ہوتی ہے۔ اسے کبھی کبھی زبان کی بنیاد پر سیکھنے کی دشواری / معذوری بھی کہا جاتا ہے۔</p>
+            </div>
+            
+            <h2>4. ڈس گرافیا</h2>
+            <div class="difficulty-card">
+                <p>ڈس گرافیا عام طور پر ہاتھ سے لکھنے اور دیگر عمدہ موٹر مہارتوں کو انجام دینے کی کسی فرد/ بچے کی صلاحیت کو شدید ترین متاثر کرتی ہے۔ عام طور پر بہت سے اساتذہ کو مشکل درپیش ہوتی ہے کہ بچے پڑھ تو سکتے ہیں لیکن لکھ نہیں سکتے۔ بچوں کی دوسری دشواریوں / معذوریوں کے ساتھ ساتھ ڈس گرافیا کی علامات بھی ملتی جلتی ہوتی ہیں مثلاً جب اس سے کہا جائے کہ وہ واحد جمع، مذکر مؤنث، متضاد یا وقفہ کاری، تحریر لکھنے میں دشواری، خراب ہجے، نامناسب لکھاوٹ، کاغذ پر ناقص مقامی منصوبہ بندی، اور ایک ہی وقت میں سوچنے اور لکھنے کے سوالات حل کریں تو ان کی تکالیفوں میں اضافہ ہونے کے مترادف ہوتا ہے۔</p>
+            </div>
+            
+            <h2>5. ڈسکلکولیا</h2>
+            <div class="difficulty-card">
+                <p>ڈسکلکولیا کا شکار زیادہ تر بچے/ افراد ریاضی کے حقائق کو درست طریقے سے سیکھنے اور اعداد کو سمجھنے سے بالکل قاصر ہوتے ہیں۔ سیکھنے کی اس دشواری/ معذوری کے شکار افراد کو وقت بتانے میں، گھڑیوں کی سوئیوں کی ترتیب، جمع کرنے، تفریق کرنے، تقسیم کرنے، یا ضرب دینے میں بھی شدید دشواری کا سامنا ہوتا ہے، نمبروں کو ترتیب دینے اور یاد رکھنے، یا گنتی میں دشواری ہوتی ہے، اسی طرح ریاضی کی مختلف علامتوں کی سمجھ نہ ہونے پر بچے شدید پریشانی، غصہ اور خوف کا ردعمل کرتے دکھائی دیتے ہیں۔</p>
+            </div>
+            
+            <h2>6. بصری ادراک</h2>
+            <div class="difficulty-card">
+                <p>بصری ادراک کو عام طور پر بصری موٹر خسارہ سے بھی جانا جاتا ہے اور یہ دشواری / معذوری اس بات پر اثر انداز ہوتی ہے کہ ایک بچہ/ فرد کس طرح دیکھتا ہے؟ اور ساتھ ہی وہ کس طرح کسی دی گئی تصویر کو کاپی یا ڈرا کرنے کے کتنا قابل ہے؟ بصری ادراک یعنی Visual Perception کی علامات میں حروف یا شکلوں میں فرق واضح کرنا، قینچی، کٹر، بلیڈ کے استعمال میں بہت زیادہ کوشش کرنا، آنکھ/ ہاتھ کی خراب ہم آہنگی اور پنسل کو بہت مضبوطی سے پکڑنا۔ کاپی پر بہت زور سے یا دبا کر لکھنا کہ صفحہ ہی پھٹ جائے وغیرہ، ڈس گرافیا کے شکار بچے/ افراد جو نان وربل لرننگ کی معذوری کی صورت میں اکثر بصری ادراک/ بصری موٹر خسارے کے مشکلات / پیچیدگیاں درپیش ہوتی ہیں۔</p>
+            </div>
+            
+            <h2>7. نان وربل لرننگ کی مشکلات</h2>
+            <div class="difficulty-card">
+                <p>نان وربل لرننگ کی معذوری کا شکار بچہ/ فرد زیادہ تر زور زبانی کلامی مہارت پر رکھتا ہے۔ ایسے افراد لکھنے سے بالکل گریز کرتے دکھائی دیتے ہیں یہ لوگ بولنے، سننے اور دیکھنے پر زیادہ یقین رکھتے ہیں۔ لیکن ایسے کمزور سماجی، بصری-مقامی، اور موٹر مہارتوں والے شخص کو باڈی لینگویج یا چہرے کے تاثرات کی ترجمانی کرنے میں شدید دشواری کا سامنا ہوتا ہے، جس میں ناقص ترین کارکردگی اور ہم آہنگی کا واضح امکان ہوتا ہے۔</p>
+            </div>
+            
+            <h2>8. ڈس پیریشیا</h2>
+            <div class="difficulty-card">
+                <p>Dyspraxia عام طور پر کسی بھی فرد/ بچہ کے پٹھوں کے کنٹرول کو متاثر کرتا ہے، جس میں بچوں کو زبان وفہم، تقریر وتنقید اور زبان کے مختلف استعمالات، مثلاً الفاظ کے چناؤ، فقروں میں ہم آہنگی اور حرکت کرنے میں ناصرف مشکلات کا سامنا ہوتا ہے بلکہ سیکھنے سمجھنے پر بھی شدید اثر انداز ہوتا ہے۔ اگرچہ ڈس پیریشیا سیکھنے کی کوئی معذوری نہیں ہے، لیکن تاہم اس کا ذکر بھی اکثر ADHD، Dyslexia، یا Dyscalculia کے ساتھ ہمیشہ موجود ہوتا ہے۔</p>
+            </div>
+            
+            <h2>9. ہائپر ایکٹیویٹی ڈس آرڈر ADHD</h2>
+            <div class="difficulty-card">
+                <p>توجہ کا خسارہ ہائپر ایکٹیویٹی ڈس آرڈر عام طور پر چھوٹے بچوں میں، خاص کر پری سکول یا ابتدائی سالوں میں ظاہر ہوتا ہے۔ ADHD والے بچوں کو اپنے رویے پر قابو پانا، رنگین اشیاء کی طرف راغب ہونا، آوازوں کی طرف توجہ دینا، توجہ مرکوز رکھنا، یا توجہ دینا بہت مشکل لگتا ہے ایسے میں یہ ایک جگہ بیٹھ کر کام نہیں کر سکتے۔ اگرچہ اسے بھی سیکھنے کی دشواری / معذوری نہیں سمجھا جاتا ہے تاہم ADHD کی تحقیق سے پتہ چلتا ہے کہ ADHD والے 30 سے 50 فیصد کے درمیان بچوں میں بھی سیکھنے کی ایک مخصوص معذوری ہوتی ہے۔ ADHD کے حامل افراد / بچوں کے ساتھ لرننگ پراسیس کو انتہائی پیچیدہ بنا دیتا ہے۔</p>
+            </div>
+            
+            <h2>10. ایگزیکٹو فنکشننگ</h2>
+            <div class="difficulty-card">
+                <p>ایگزیکٹو کام کرنے کے مسائل درحقیقت سیکھنے کی کوئی دشواری/ معذوری نہیں ہیں لیکن یہ ایک فرد/ بچے کی روزمرہ کی زندگی کو بہت متاثر کرتے ہیں۔ ایسا اس وقت ہوتا ہے جب کسی فرد/ بچے کے اعصاب میں ناکامی اور خوف جنم لینا شروع ہو جائے۔ تاہم ایسے بچے حکمت عملی بنانے، منصوبہ بندی کرنے، تفصیلات پر توجہ دینے، تنظیم کرنے، تفصیلات کو یاد رکھنے، اور وقت اور جگہ کا نظم و نسق کرنے جیسے وسیع قسم کے عمل کو شدید متاثر کرتے ہیں۔ ایگزیکٹیو کام کرنے کے مسائل تقریباً ہمیشہ ان لوگوں کے درمیان ہوتے ہیں جن کو ADHD یا مخصوص سیکھنے کی دشواری / معذوری ہوتی ہے۔</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>بچوں کی تعلیم و تربیت کے لیے مفید مشوروں پر مبنی مواد</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // روشن بارش کا پس منظر بنانے کا فنکشن
+        function createRain() {
+            const rainBg = document.getElementById('rainBg');
+            const rainCount = 100;
+            
+            for (let i = 0; i < rainCount; i++) {
+                const raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
+                
+                // رینڈم پوزیشن
+                const left = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                const animationDuration = 0.8 + Math.random() * 1.5;
+                
+                raindrop.style.left = `${left}%`;
+                raindrop.style.animationDelay = `${animationDelay}s`;
+                raindrop.style.animationDuration = `${animationDuration}s`;
+                
+                // رینڈم opacity
+                raindrop.style.opacity = 0.3 + Math.random() * 0.5;
+                
+                rainBg.appendChild(raindrop);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // روشنی کے چمک بنانے کا فنکشن
+        function createLightSpark() {
+            const lightSpark = document.getElementById('lightSpark');
+            lightSpark.classList.add('sparkle');
+            
+            setTimeout(() => {
+                lightSpark.classList.remove('sparkle');
+            }, 800);
+            
+            // اگلے چمک کے لیے رینڈم ٹائم
+            const nextSpark = 2000 + Math.random() * 4000; // 2 سے 6 سیکنڈ کے درمیان
+            setTimeout(createLightSpark, nextSpark);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // ستارے بنانے کا فنکشن
+        function createStars() {
+            const body = document.body;
+            const starCount = 20;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // رینڈم پوزیشن
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const size = 1 + Math.random() * 3;
+                const delay = Math.random() * 5;
+                const duration = 2 + Math.random() * 4;
+                
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                star.style.animationDuration = `${duration}s`;
+                
+                body.appendChild(star);
+            }
+        }
+        
+        // شہابیوں کا اثر بنانے کا فنکشن
+        function createMeteor() {
+            const meteor = document.createElement('div');
+            meteor.classList.add('meteor');
+            
+            // رینڈم پوزیشن
+            const left = Math.random() * 100;
+            const top = Math.random() * 50;
+            const duration = 1 + Math.random() * 2;
+            
+            meteor.style.left = `${left}%`;
+            meteor.style.top = `${top}%`;
+            meteor.style.animation = `meteorFall ${duration}s linear`;
+            
+            document.body.appendChild(meteor);
+            
+            // اینیمیشن ختم ہونے پر ڈیلیٹ
+            setTimeout(() => {
+                meteor.remove();
+            }, duration * 1000);
+            
+            // اگلے شہابیے کے لیے رینڈم ٹائم
+            const nextMeteor = 3000 + Math.random() * 7000; // 3 سے 10 سیکنڈ کے درمیان
+            setTimeout(createMeteor, nextMeteor);
+        }
+        
+        // اوپر اسکرول کرنے کا فنکشن
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // نیچے اسکرول کرنے کا فنکشن
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // پیچھے جانے کا فنکشن
+        function goBack() {
+            window.history.back();
+        }
+        
+        // صفحہ لوڈ ہونے پر اثرات شروع کریں
+        document.addEventListener('DOMContentLoaded', function() {
+            createRain();
+            createLightSpark();
+            createStars();
+            createMeteor();
+            
+            // کارڈز پر ہوور ایفیکٹ
+            const cards = document.querySelectorAll('.difficulty-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-15px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0) scale(1)';
+                });
+            });
+            
+            // ہیڈنگز پر ہوور ایفیکٹ
+            const headings = document.querySelectorAll('h1, h2');
+            headings.forEach(heading => {
+                heading.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-10px)';
+                });
+                
+                heading.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+            
+            // موبائل ڈیوائس کے لیے کنٹرول بٹنز کو ہائیڈ کریں/دکھائیں
+            function checkScreenSize() {
+                const controlButtons = document.querySelector('.control-buttons');
+                if (window.innerWidth <= 768) {
+                    controlButtons.style.display = 'none';
+                } else {
+                    controlButtons.style.display = 'flex';
+                }
+            }
+            
+            // اسکرین سائز چینج ہونے پر چیک کریں
+            window.addEventListener('resize', checkScreenSize);
+            checkScreenSize();
+        });
+        
+        // کی بورڈ شارٹ کٹس
+        document.addEventListener('keydown', function(e) {
+            // اوپر جا نے کے لیے ArrowUp
+            if (e.key === 'ArrowUp') {
+                scrollToTop();
+            }
+            // نیچے جا نے کے لیے ArrowDown
+            else if (e.key === 'ArrowDown') {
+                scrollToBottom();
+            }
+            // پیچھے جا نے کے لیے Escape
+            else if (e.key === 'Escape') {
+                goBack();
+            }
+        });
     </script>
 </body>
 </html>
