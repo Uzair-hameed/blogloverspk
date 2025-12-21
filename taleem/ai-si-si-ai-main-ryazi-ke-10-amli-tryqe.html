@@ -5,84 +5,578 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ای سی سی ای میں ریاضی کے 10 عملی طریقے</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Starry Night Meteor Theme */
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: #0a0e17;
+            color: #e6f1ff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .star-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .meteor {
+            position: absolute;
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to right, transparent, #fff, #64ffda);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: meteorShower linear infinite;
+        }
+        
+        @keyframes meteorShower {
+            0% { 
+                transform: translateX(100vw) translateY(-100px) rotate(45deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateX(-100px) translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Main Content */
+        .post-content {
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgba(16, 23, 41, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .post-content:hover {
+            box-shadow: 0 20px 40px rgba(100, 255, 218, 0.2);
+            border-color: rgba(100, 255, 218, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        /* Heading and Text */
+        h1 {
+            color: #64ffda;
+            border-bottom: 3px solid #915eff;
+            padding-bottom: 15px;
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+        }
+        
+        h2, h3 {
+            color: #52d6f3;
+            border-bottom: 2px solid rgba(145, 94, 255, 0.3);
+            padding-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        p {
+            font-size: 1.4rem;
+            text-align: justify;
+            margin-bottom: 25px;
+            color: #c3cfe2;
+        }
+        
+        strong {
+            color: #ffd166;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        /* Image Styling */
+        .post-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border: 3px solid rgba(145, 94, 255, 0.3);
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(145, 94, 255, 0.4);
+            border-color: rgba(100, 255, 218, 0.5);
+            transition: all 0.5s ease;
+        }
+        
+        /* Buttons */
+        .trigger-btn {
+            display: block;
+            background: linear-gradient(45deg, #0a0e17, #1a1f3d);
+            color: #64ffda;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 40px auto;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s;
+            border: 2px solid #915eff;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-family: inherit;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .trigger-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(145, 94, 255, 0.4);
+            background: linear-gradient(45deg, #1a1f3d, #0a0e17);
+            color: #ffd166;
+            border-color: #64ffda;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(16, 23, 41, 0.9);
+            border: 2px solid #915eff;
+            color: #64ffda;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #915eff;
+            color: #0a0e17;
+            transform: scale(1.1);
+        }
+        
+        /* Overlay Styles */
+        .color-fill-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+        
+        .color-fill-container.active {
+            opacity: 1;
+            z-index: 9998;
+        }
+        
+        .color-fill-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0a0e17, #1a1f3d, #101729, #1d1a39);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .post-content-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 90%;
+            max-width: 850px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: rgba(16, 23, 41, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(145, 94, 255, 0.4);
+            backdrop-filter: blur(15px);
+        }
+        
+        .post-content-overlay.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .overlay-content {
+            font-size: 1.4rem;
+            line-height: 2.2;
+            text-align: justify;
+            color: #e6f1ff;
+        }
+        
+        .overlay-content h1 {
+            font-size: 2.6rem;
+        }
+        
+        /* Close and Back Buttons */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ff5252);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #915eff, #64ffda);
+            color: #0a0e17;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-btn:hover {
+            transform: translateX(-5px);
+            background: linear-gradient(45deg, #64ffda, #915eff);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .post-content { padding: 25px; margin: 20px auto; }
+            h1 { font-size: 2.2rem; }
+            h2, h3 { font-size: 1.7rem; }
+            p { font-size: 1.2rem; }
+            strong { font-size: 1.3rem; }
+            .trigger-btn { padding: 12px 25px; font-size: 1.1rem; }
+            .nav-buttons { right: 10px; bottom: 80px; }
+            .nav-btn { width: 45px; height: 45px; font-size: 1.3rem; }
+            .post-content-overlay { padding: 25px; }
+            .overlay-content h1 { font-size: 2rem; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            h2, h3 { font-size: 1.5rem; }
+            p { font-size: 1.1rem; line-height: 2; }
+            strong { font-size: 1.2rem; }
+            .nav-buttons { right: 5px; bottom: 70px; }
+            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(16, 23, 41, 0.8);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #915eff, #64ffda);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #64ffda, #915eff);
+        }
+        
+        /* Hover Effects */
+        .math-point {
+            position: relative;
+            padding-right: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .math-point:hover {
+            background: rgba(145, 94, 255, 0.1);
+            padding-right: 25px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
+    <!-- Starry Night Animation -->
+    <div class="star-container" id="starContainer"></div>
+    
+    <div style="text-align: center; margin: 30px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            ✨ اس پوسٹ کو ستاروں بھری رات میں پڑھیں
         </button>
     </div>
 
     <div class="post-content">
         <h1>ای سی سی ای میں ریاضی کے 10 عملی طریقے</h1>
+        
+        <!-- Post Image -->
+        <img src="https://bloglovers.pk/images/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe.png" alt="ای سی سی ای میں ریاضی کے عملی طریقے" class="post-image">
+        
         <p>ای سی سی ای (Early Childhood Care and Education) میں ریاضی کی تعلیم بچوں کی بنیادی مہارتوں کو فروغ دینے کے لیے انتہائی اہم ہے۔ یہ مرحلہ بچوں کی ذہنی نشوونما کا اہم وقت ہوتا ہے، جب وہ نئی چیزیں سیکھنے اور سمجھنے کے لیے تیار ہوتے ہیں۔ ریاضی کی تعلیم کے ذریعے بچوں میں منطقی سوچ، مسئلہ حل کرنے کی صلاحیت، اور عددی مہارتیں پروان چڑھتی ہیں۔</p>
-<p>ای سی سی ای میں ریاضی کی تعلیم کے 10 عملی طریقے درج ذیل ہیں:</p>
-<p><strong>1. کھیل کے ذریعے سیکھنا (Play-Based Learning)</strong>
-کھیل کے ذریعے سیکھنا بچوں کے لیے ریاضی کی تعلیم کا سب سے مؤثر طریقہ ہے۔ اس طریقہ کار میں بچے کھیلتے کھیلتے گنتی، شکل و صورت، اور دیگر ریاضی کے concepts سیکھتے ہیں۔ مثال کے طور پر، بلاکس کے ذریعے بچوں کو اشکال اور جیومیٹری سکھائی جا سکتی ہے۔</p>
-<p><strong>2. مادی اشیاء کا استعمال (Concrete Manipulatives)</strong>
-مادی اشیاء جیسے بلاکس، موتیوں کی مالا، اور دیگر چھونے والی اشیاء کے ذریعے بچوں کو ریاضی کے concepts سمجھانا آسان ہو جاتا ہے۔ یہ اشیاء بچوں کو عددی operations جیسے جمع، تفریق، ضرب، اور تقسیم کو عملی طور پر سمجھنے میں مدد دیتی ہیں۔</p>
-<p><strong>3. کہانیاں اور نظمیں (Storytelling and Rhymes)</strong>
-کہانیاں اور نظمیں بچوں کے لیے ریاضی سیکھنے کا ایک دلچسپ طریقہ ہیں۔ ان کے ذریعے بچے گنتی، ترتیب، اور دیگر ریاضی کے concepts کو آسانی سے سیکھ سکتے ہیں۔ مثال کے طور پر، &quot;پانچ چھوٹے بندر&quot; جیسی نظمیں بچوں کو گنتی سکھانے میں مددگار ثابت ہوتی ہیں۔</p>
-<p><strong>4. بصری مدد (Visual Aids)</strong>
-بصری مدد جیسے چارٹ، تصاویر، اور ڈرائنگ کے ذریعے بچوں کو ریاضی کے concepts سمجھانا آسان ہو جاتا ہے۔ یہ مدد بچوں کی توجہ حاصل کرنے اور ان کی یادداشت کو مضبوط بنانے میں معاون ثابت ہوتی ہے۔</p>
-<p><strong>5. حقیقی زندگی کے حالات (Real-Life Context)</strong>
-حقیقی زندگی کے حالات میں ریاضی کے concepts کو شامل کرنا بچوں کے لیے سیکھنے کا ایک مؤثر طریقہ ہے۔ مثال کے طور پر، خریداری کے دوران بچوں کو پیسوں کا استعمال سکھانا، یا کھانے کی میز پر پلیٹوں کی گنتی کرنا، انہیں ریاضی کی عملی اہمیت سمجھانے میں مدد دیتا ہے۔</p>
-<p><strong>6. جسمانی حرکات کا استعمال (Total Physical Response - TPR)</strong>
-جسمانی حرکات کے ذریعے سیکھنا بچوں کے لیے ریاضی کی تعلیم کا ایک مؤثر طریقہ ہے۔ اس طریقہ کار میں بچے جسمانی حرکات کے ذریعے ریاضی کے concepts سیکھتے ہیں، جیسے کہ ہاتھوں سے گنتی کرنا یا جست لگا کر عددی ترتیب سیکھنا۔</p>
-<p><strong>7. ٹیکنالوجی کا استعمال (Technology Integration)</strong>
-ٹیکنالوجی کا استعمال ای سی سی ای میں ریاضی کی تعلیم کے لیے اہم کردار ادا کر سکتا ہے۔ ایپلی کیشنز، انٹرایکٹو گیمز، اور ویڈیوز کے ذریعے بچے ریاضی کے concepts کو دلچسپ طریقے سے سیکھ سکتے ہیں۔</p>
-<p><strong>8. گروپ سرگرمیاں (Group Activities)</strong>
-گروپ سرگرمیاں بچوں کے لیے ریاضی سیکھنے کا ایک مؤثر طریقہ ہیں۔ اس طریقہ کار میں بچے مل کر کام کرتے ہیں اور ایک دوسرے سے سیکھتے ہیں۔ گروپ سرگرمیوں کے ذریعے بچوں میں تعاون اور اشتراک کی صلاحیتیں بھی پروان چڑھتی ہیں۔</p>
-<p><strong>9. سوالات پر مبنی سیکھنا (Inquiry-Based Learning)</strong>
-سوالات پر مبنی سیکھنا بچوں کے لیے ریاضی کی تعلیم کا ایک مؤثر طریقہ ہے۔ اس طریقہ کار میں بچے سوالات پوچھتے ہیں اور ان کے جوابات تلاش کرتے ہیں، جس سے ان کی سوچنے اور مسئلہ حل کرنے کی صلاحیتیں مضبوط ہوتی ہیں۔</p>
-<p><strong>10. کثیر حسی طریقے (Multisensory Approaches)</strong>
-کثیر حسی طریقے بچوں کے لیے ریاضی کی تعلیم کا ایک مؤثر طریقہ ہیں۔ اس طریقہ کار میں بچے اپنی مختلف حسوں جیسے دیکھنے، سننے، چھونے، اور محسوس کرنے کے ذریعے ریاضی کے concepts سیکھتے ہیں۔</p>
-<p>ای سی سی ای میں ریاضی کی تعلیم کے یہ 10 عملی طریقے بچوں کے لیے سیکھنے کے عمل کو مؤثر اور دلچسپ بناتے ہیں۔ ان طریقوں کے ذریعے بچے نہ صرف ریاضی کے concepts سیکھتے ہیں بلکہ ان میں منطقی سوچ، تخلیقی صلاحیت، اور مسئلہ حل کرنے کی مہارتیں بھی پروان چڑھتی ہیں۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ وزٹ</a> کریں۔</p>
-
+        
+        <p>ای سی سی ای میں ریاضی کی تعلیم کے 10 عملی طریقے درج ذیل ہیں:</p>
+        
+        <div class="math-point">
+            <p><strong>1. کھیل کے ذریعے سیکھنا (Play-Based Learning)</strong>
+            کھیل کے ذریعے سیکھنا بچوں کے لیے ریاضی کی تعلیم کا سب سے مؤثر طریقہ ہے۔ اس طریقہ کار میں بچے کھیلتے کھیلتے گنتی، شکل و صورت، اور دیگر ریاضی کے concepts سیکھتے ہیں۔ مثال کے طور پر، بلاکس کے ذریعے بچوں کو اشکال اور جیومیٹری سکھائی جا سکتی ہے۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>2. مادی اشیاء کا استعمال (Concrete Manipulatives)</strong>
+            مادی اشیاء جیسے بلاکس، موتیوں کی مالا، اور دیگر چھونے والی اشیاء کے ذریعے بچوں کو ریاضی کے concepts سمجھانا آسان ہو جاتا ہے۔ یہ اشیاء بچوں کو عددی operations جیسے جمع، تفریق، ضرب، اور تقسیم کو عملی طور پر سمجھنے میں مدد دیتی ہیں۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>3. کہانیاں اور نظمیں (Storytelling and Rhymes)</strong>
+            کہانیاں اور نظمیں بچوں کے لیے ریاضی سیکھنے کا ایک دلچسپ طریقہ ہیں۔ ان کے ذریعے بچے گنتی، ترتیب، اور دیگر ریاضی کے concepts کو آسانی سے سیکھ سکتے ہیں۔ مثال کے طور پر، "پانچ چھوٹے بندر" جیسی نظمیں بچوں کو گنتی سکھانے میں مددگار ثابت ہوتی ہیں۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>4. بصری مدد (Visual Aids)</strong>
+            بصری مدد جیسے چارٹ، تصاویر، اور ڈرائنگ کے ذریعے بچوں کو ریاضی کے concepts سمجھانا آسان ہو جاتا ہے۔ یہ مدد بچوں کی توجہ حاصل کرنے اور ان کی یادداشت کو مضبوط بنانے میں معاون ثابت ہوتی ہے۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>5. حقیقی زندگی کے حالات (Real-Life Context)</strong>
+            حقیقی زندگی کے حالات میں ریاضی کے concepts کو شامل کرنا بچوں کے لیے سیکھنے کا ایک مؤثر طریقہ ہے۔ مثال کے طور پر، خریداری کے دوران بچوں کو پیسوں کا استعمال سکھانا، یا کھانے کی میز پر پلیٹوں کی گنتی کرنا، انہیں ریاضی کی عملی اہمیت سمجھانے میں مدد دیتا ہے۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>6. جسمانی حرکات کا استعمال (Total Physical Response - TPR)</strong>
+            جسمانی حرکات کے ذریعے سیکھنا بچوں کے لیے ریاضی کی تعلیم کا ایک مؤثر طریقہ ہے۔ اس طریقہ کار میں بچے جسمانی حرکات کے ذریعے ریاضی کے concepts سیکھتے ہیں، جیسے کہ ہاتھوں سے گنتی کرنا یا جست لگا کر عددی ترتیب سیکھنا۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>7. ٹیکنالوجی کا استعمال (Technology Integration)</strong>
+            ٹیکنالوجی کا استعمال ای سی سی ای میں ریاضی کی تعلیم کے لیے اہم کردار ادا کر سکتا ہے۔ ایپلی کیشنز، انٹرایکٹو گیمز، اور ویڈیوز کے ذریعے بچے ریاضی کے concepts کو دلچسپ طریقے سے سیکھ سکتے ہیں۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>8. گروپ سرگرمیاں (Group Activities)</strong>
+            گروپ سرگرمیاں بچوں کے لیے ریاضی سیکھنے کا ایک مؤثر طریقہ ہیں۔ اس طریقہ کار میں بچے مل کر کام کرتے ہیں اور ایک دوسرے سے سیکھتے ہیں۔ گروپ سرگرمیوں کے ذریعے بچوں میں تعاون اور اشتراک کی صلاحیتیں بھی پروان چڑھتی ہیں۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>9. سوالات پر مبنی سیکھنا (Inquiry-Based Learning)</strong>
+            سوالات پر مبنی سیکھنا بچوں کے لیے ریاضی کی تعلیم کا ایک مؤثر طریقہ ہے۔ اس طریقہ کار میں بچے سوالات پوچھتے ہیں اور ان کے جوابات تلاش کرتے ہیں، جس سے ان کی سوچنے اور مسئلہ حل کرنے کی صلاحیتیں مضبوط ہوتی ہیں۔</p>
+        </div>
+        
+        <div class="math-point">
+            <p><strong>10. کثیر حسی طریقے (Multisensory Approaches)</strong>
+            کثیر حسی طریقے بچوں کے لیے ریاضی کی تعلیم کا ایک مؤثر طریقہ ہیں۔ اس طریقہ کار میں بچے اپنی مختلف حسوں جیسے دیکھنے، سننے، چھونے، اور محسوس کرنے کے ذریعے ریاضی کے concepts سیکھتے ہیں۔</p>
+        </div>
+        
+        <p>ای سی سی ای میں ریاضی کی تعلیم کے یہ 10 عملی طریقے بچوں کے لیے سیکھنے کے عمل کو مؤثر اور دلچسپ بناتے ہیں۔ ان طریقوں کے ذریعے بچے نہ صرف ریاضی کے concepts سیکھتے ہیں بلکہ ان میں منطقی سوچ، تخلیقی صلاحیت، اور مسئلہ حل کرنے کی مہارتیں بھی پروان چڑھتی ہیں۔</p>
+        
     </div>
 
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
+    </div>
+
+    <!-- Overlay Elements -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <button class="back-btn" onclick="closeColorFillPost()"><i class="fas fa-arrow-right"></i></button>
+        <div class="overlay-content" id="postContent"></div>
     </div>
 
     <script>
+        // Starry Night Animation
+        function createStars() {
+            const starContainer = document.getElementById('starContainer');
+            const starCount = 150;
+            
+            // Create stars
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random properties
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const size = Math.random() * 3;
+                const duration = 3 + Math.random() * 5;
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDuration = `${duration}s`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starContainer.appendChild(star);
+            }
+            
+            // Create meteors
+            const meteorCount = 5;
+            for (let i = 0; i < meteorCount; i++) {
+                const meteor = document.createElement('div');
+                meteor.classList.add('meteor');
+                
+                const left = Math.random() * 100;
+                const top = Math.random() * 50;
+                const duration = 2 + Math.random() * 3;
+                const delay = Math.random() * 10;
+                const height = 50 + Math.random() * 100;
+                
+                meteor.style.left = `${left}%`;
+                meteor.style.top = `${top}%`;
+                meteor.style.height = `${height}px`;
+                meteor.style.animationDuration = `${duration}s`;
+                meteor.style.animationDelay = `${delay}s`;
+                
+                starContainer.appendChild(meteor);
+            }
+        }
+        
+        // Open Overlay
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Add hover effects to overlay elements
+            const overlayImages = document.querySelectorAll('#postContent img');
+            overlayImages.forEach(img => {
+                img.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.03)';
+                    this.style.boxShadow = '0 15px 35px rgba(145, 94, 255, 0.5)';
+                    this.style.transition = 'all 0.5s ease';
+                });
+                img.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.7)';
+                });
+            });
         }
+        
+        // Close Overlay
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Scroll Functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        // Event Listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Initialize starry night animation
+        window.onload = function() {
+            createStars();
+            
+            // Add hover effect to math points
+            const mathPoints = document.querySelectorAll('.math-point');
+            mathPoints.forEach(point => {
+                point.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-10px)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                point.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        };
     </script>
 </body>
 </html>
