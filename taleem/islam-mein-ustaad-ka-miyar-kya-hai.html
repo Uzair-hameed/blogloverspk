@@ -3,97 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2020-07-16-اسلام-میں-استاد-کا-معیار-کیا-ہے؟</title>
+    <title>اسلام میں استاد کا معیار کیا ہے؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), 
+                 url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #0a3d62;
+            --secondary-color: #3c6382;
+            --accent-color: #38ada9;
+            --text-color: #2d3436;
+            --light-bg: #f5f6fa;
+            --card-bg: #ffffff;
+            --rain-color: rgba(200, 220, 255, 0.3);
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 0;
+            background-color: #0a192f;
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Rain Animation */
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--rain-color));
+            animation: rainFall 2s linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes rainFall {
+            0% {
+                transform: translateY(-100px) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(10, 25, 47, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(56, 173, 169, 0.2);
+        }
+        
+        .page-title {
+            color: #fff;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 15px;
+            position: relative;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to left, var(--accent-color), transparent);
+        }
+        
+        /* Post Image */
+        .post-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 3px solid rgba(56, 173, 169, 0.3);
+        }
+        
+        .post-image:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(56, 173, 169, 0.3);
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to left, var(--accent-color), #0a3d62);
+        }
+        
+        .post-content p, .post-content li {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            color: #333;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        strong {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        
+        /* Buttons */
+        .action-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .action-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(56, 173, 169, 0.5);
+        }
+        
+        .back-btn-container {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-btn:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 8px 20px rgba(56, 173, 169, 0.4);
+        }
+        
+        /* Color Fill Feature */
+        .color-fill-trigger {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .fill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .fill-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #45b7d1, #4ecdc4, #ff6b6b);
+            z-index: -1;
+            transition: transform 0.5s ease;
+            transform: translateX(100%);
+        }
+        
+        .fill-btn:hover::before {
+            transform: translateX(0);
+        }
+        
+        .fill-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
+        }
+        
+        .fill-instruction {
+            color: #ddd;
+            font-size: 1rem;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        .color-fill-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+        
+        .color-fill-bg.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .color-fill-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        /* Footer Link */
+        .footer-link {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .website-link {
+            display: inline-block;
+            background: linear-gradient(to right, #ff6b6b, #feca57);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .website-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px;
+            }
+            
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .post-content p, .post-content li {
+                font-size: 1.2rem;
+            }
+            
+            .action-buttons {
+                left: 10px;
+                gap: 10px;
+            }
+            
+            .action-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .fill-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            .post-content p, .post-content li {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .action-buttons {
+                left: 5px;
+            }
+            
+            .action-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Rain Animation -->
+    <div class="rain-container" id="rainContainer"></div>
+    
+    <!-- Color Fill Background -->
+    <div class="color-fill-bg" id="colorFillBg">
+        <div class="color-fill-gradient"></div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="action-buttons">
+        <button class="action-btn" id="pageUpBtn" title="اوپر جائیں">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="action-btn" id="pageDownBtn" title="نیچے جائیں">
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Back Button -->
+        <div class="back-btn-container">
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fas fa-arrow-right"></i>
+                واپس جائیں
+            </a>
+        </div>
         
-        <h1>اسلام میں استاد کا معیار کیا ہے؟</h1>
-<p>اسلام میں استاد کا مقام بہت بلند اور محترم ہے، کیونکہ وہ علم کا ذریعہ ہیں اور علم کو انسانیت تک پہنچانے کا فریضہ انجام دیتے ہیں۔ قرآن و سنت میں استاد کے کردار، مقام، اور معیار کے بارے میں متعدد آیات اور احادیث موجود ہیں جو اس بات پر زور دیتی ہیں کہ استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ استاد ایک معمار ہے جو نئی نسل کی ذہنی، علمی اور روحانی تعمیر کرتا ہے۔</p>
-<p>اس مضمون میں ہم دیکھیں گے کہ اسلام میں استاد کا معیار کیا ہے اور اس کے فرائض کیا ہیں، اور اس پر قرآن و سنت میں کیا ہدایات دی گئی ہیں۔</p>
-<h2>علم کا حامل ہونا</h2>
-<p>اسلام میں استاد کے لیے اولین شرط یہ ہے کہ وہ علم کا حامل ہو۔ قرآن مجید میں اللہ تعالیٰ نے علم کی اہمیت اور قدر کو کئی مقامات پر بیان کیا ہے۔ استاد کو اس بات کا شعور ہونا چاہیے کہ وہ جو کچھ سکھاتا ہے، وہ علم کا بہترین حصہ ہونا چاہیے اور وہ خود بھی علم میں کمال رکھتا ہو۔</p>
-<p>اللہ تعالیٰ فرماتا ہے:<br><strong>&quot;اللہ اُن لوگوں کے درجات بلند فرماتا ہے جو ایمان لائے اور جنہیں علم عطا ہوا۔&quot;</strong><br>یہ آیت واضح کرتی ہے کہ علم اللہ کے نزدیک ایک اعلیٰ مرتبہ ہے، اور استاد کو علم کے اس مقام کو سمجھتے ہوئے اپنی ذمہ داریوں کو انجام دینا چاہیے۔</p>
-<h2>حکمت اور دانائی کا حامل ہونا</h2>
-<p>استاد کو علم کے ساتھ ساتھ حکمت اور دانائی کا بھی حامل ہونا چاہیے۔ حکمت کا مطلب ہے کہ استاد کو یہ سمجھ ہو کہ کس موقع پر کیا کہنا ہے اور کس طرح علم کو طلبہ تک پہنچانا ہے۔ اللہ تعالیٰ نے قرآن میں حضرت لقمان کو حکمت عطا کرنے کا ذکر کیا:<br><strong>&quot;اور ہم نے لقمان کو حکمت عطا کی تھی کہ اللہ کا شکر کرو۔&quot;</strong></p>
-<p>حکمت وہ خوبی ہے جو استاد کو ایک عام معلم سے ممتاز کرتی ہے۔ ایک استاد کو چاہیے کہ وہ اپنے طلبہ کے ذہنی و فکری سطح کو سمجھ کر انہیں علم دے اور ان کی تربیت کرے۔</p>
-<h2>تقویٰ اور دیانتداری</h2>
-<p>استاد کو نہ صرف علمی لحاظ سے ممتاز ہونا چاہیے بلکہ اخلاقی لحاظ سے بھی بلند ہونا چاہیے۔ وہ تقویٰ، دیانتداری، اور اخلاص کے اصولوں پر عمل پیرا ہو۔ نبی کریم ﷺ نے فرمایا:<br><strong>&quot;تم میں سے بہترین شخص وہ ہے جو دوسروں کو قرآن سکھاتا ہے اور خود بھی اسے سیکھتا ہے۔&quot;</strong></p>
-<p>یہ حدیث ہمیں یہ بتاتی ہے کہ ایک استاد کو صرف علم دینا ہی نہیں بلکہ خود بھی عمل میں بہترین ہونا چاہیے۔ استاد کی دیانتداری، سچائی اور اخلاقی اصول طلبہ پر گہرے اثرات ڈالتی ہے۔</p>
-<h2>نرمی اور شفقت کا مظاہرہ کرنا</h2>
-<p>اسلام میں استاد کو طلبہ کے ساتھ نرمی اور شفقت کا برتاؤ کرنے کی تاکید کی گئی ہے۔ سختی اور جبر سے تعلیم دینا اسلامی تعلیمات کے منافی ہے۔ نبی کریم ﷺ کو اللہ تعالیٰ نے بطور معلم بھیجا، اور آپ ﷺ نے ہمیشہ شفقت اور نرمی سے تعلیم دی۔</p>
-<p>اللہ تعالیٰ قرآن میں فرماتا ہے:<br><strong>&quot;پس، اللہ کی رحمت کے باعث آپ ان کے لیے نرم دل ہیں۔&quot;</strong><br>یہ آیت رسول اللہ ﷺ کے اخلاق و کردار کو بیان کرتی ہے، اور استاد کو بھی اپنے طلبہ کے ساتھ اسی نرمی اور محبت کا مظاہرہ کرنا چاہیے۔</p>
-<h2>انصاف اور عدل کا مظاہرہ کرنا</h2>
-<p>استاد کو طلبہ کے درمیان کسی قسم کا امتیاز نہیں کرنا چاہیے اور ان کے ساتھ انصاف سے پیش آنا چاہیے۔ عدل اور انصاف کا تقاضا یہ ہے کہ استاد ہر طالب علم کو اس کی صلاحیتوں کے مطابق سکھائے اور کسی کے ساتھ زیادتی نہ کرے۔</p>
-<p>قرآن میں اللہ تعالیٰ فرماتا ہے:<br><strong>&quot;اور جب تم لوگوں کے درمیان فیصلہ کرو تو انصاف سے کرو۔&quot;</strong><br>یہ اصول استاد کے لیے بھی اہم ہے کہ وہ اپنے طلبہ کے ساتھ انصاف کرے، ان کے حقوق کا خیال رکھے، اور ہر ایک کو علم کے لحاظ سے یکساں مواقع فراہم کرے۔</p>
-<h2>طلبہ کی تربیت اور اصلاح کا خیال رکھنا</h2>
-<p>اسلام میں استاد کا کام صرف تعلیم دینا نہیں بلکہ طلبہ کی تربیت اور اصلاح کرنا بھی ہے۔ استاد کو چاہیے کہ وہ طلبہ کو اخلاقی اصولوں کی تعلیم دے اور ان کی کردار سازی کرے۔ نبی کریم ﷺ نے فرمایا:<br><strong>&quot;بیشک میں اخلاق کی تکمیل کے لیے بھیجا گیا ہوں۔&quot;</strong></p>
-<p>یہ حدیث استاد کے کردار کی وضاحت کرتی ہے کہ وہ صرف علم نہیں دیتا بلکہ اپنے طلبہ کے اخلاق و کردار کو بھی سنوارتا ہے۔ استاد کو طلبہ کو اسلامی اصولوں کے مطابق زندگی گزارنے کی تربیت دینی چاہیے۔</p>
-<h2>صبر اور تحمل کا مظاہرہ کرنا</h2>
-<p>تعلیم کے عمل میں صبر اور تحمل بہت ضروری ہے۔ ایک استاد کو چاہیے کہ وہ طلبہ کی غلطیوں کو برداشت کرے اور انہیں درست طریقے سے اصلاح کرنے کا موقع دے۔ نبی کریم ﷺ نے ہمیشہ صبر اور بردباری کا مظاہرہ کیا اور اپنے صحابہ کو بھی اسی کا درس دیا۔</p>
-<p>آپ ﷺ نے فرمایا:<br><strong>&quot;نرمی جس چیز میں ہوتی ہے، اسے خوبصورت بنا دیتی ہے، اور جس چیز سے نرمی نکال لی جائے، وہ بدصورت ہو جاتی ہے۔&quot;</strong><br>یہ اصول استاد پر بھی لاگو ہوتا ہے کہ وہ نرمی اور صبر سے اپنے طلبہ کی تربیت کرے اور ان کی غلطیوں کو اصلاح کے ساتھ درست کرے۔</p>
-<h2>استاد کا خود سیکھنے کا شوق ہونا</h2>
-<p>ایک معیاری استاد وہ ہے جو خود بھی سیکھنے کا شوق رکھتا ہو۔ اسلام میں علم کا حصول ایک مسلسل عمل ہے، اور استاد کو اپنے علم کو بڑھانے اور اپ ڈیٹ کرنے کی کوشش کرتے رہنا چاہیے۔ نبی کریم ﷺ نے فرمایا:<br><strong>&quot;علم حاصل کرو ماں کی گود سے قبر تک۔&quot;</strong></p>
-<p>یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ استاد کو ہر وقت خود سیکھنے کی کوشش کرنی چاہیے تاکہ وہ اپنے طلبہ کو بہتر تعلیم دے سکے۔</p>
-<h2>طلبہ کی حوصلہ افزائی کرنا</h2>
-<p>اسلام میں استاد کا ایک اہم فریضہ یہ بھی ہے کہ وہ اپنے طلبہ کی حوصلہ افزائی کرے اور انہیں علم حاصل کرنے میں دلچسپی پیدا کرے۔ نبی کریم ﷺ نے ہمیشہ اپنے صحابہ کی حوصلہ افزائی کی اور انہیں علم حاصل کرنے کی ترغیب دی۔</p>
-<p>استاد کو چاہیے کہ وہ اپنے طلبہ کی کوششوں کو سراہائے اور ان کی علمی پیشرفت کی حوصلہ افزائی کرے تاکہ وہ بہتر انداز میں سیکھ سکیں۔</p>
-<h2>استاد کا اپنی نیت درست رکھنا</h2>
-<p>اسلام میں نیت کی اہمیت بہت زیادہ ہے، اور استاد کو چاہیے کہ وہ تعلیم دیتے وقت اپنی نیت کو درست رکھے۔ اسے صرف اللہ کی رضا کے لیے تعلیم دینا چاہیے اور دنیاوی فوائد یا شہرت کے لیے نہیں۔ نبی کریم ﷺ نے فرمایا:<br><strong>&quot;اعمال کا دارومدار نیتوں پر ہے۔&quot;</strong></p>
-<p>استاد کو ہر وقت اپنی نیت کو درست رکھنا چاہیے اور طلبہ کو علم دینا صرف اللہ کی رضا کے لیے ہونا چاہیے۔</p>
-<p>اسلام میں استاد کا معیار بہت بلند ہے۔ ایک استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ اسے نرمی، صبر، انصاف، اور محبت سے اپنے طلبہ کی تعلیم و تربیت کرنی چاہیے اور ان کی اخلاقی و روحانی رہنمائی کرنی چاہیے۔ قرآن و سنت کی روشنی میں استاد کا مقام واضح ہے اور اس کے فرائض کو بہترین انداز میں انجام دینے کے لیے اللہ اور اس کے رسول ﷺ کی تعلیمات کو مدنظر رکھنا ضروری ہے۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں</p>
-
+        <!-- Header -->
+        <div class="header">
+            <h1 class="page-title">اسلام میں استاد کا معیار کیا ہے؟</h1>
+            
+            <!-- Color Fill Feature -->
+            <div class="color-fill-trigger">
+                <button class="fill-btn" id="colorFillBtn">
+                    <i class="fas fa-palette"></i>
+                    اس پوسٹ کو رنگوں کے ساتھ پڑھیں
+                </button>
+                <p class="fill-instruction">براہ کرم بٹن کو دبا کر رکھیں تاکہ رنگوں والا پس منظر دیکھ سکیں۔ چھوڑنے پر واپس آجائیں گے۔</p>
+            </div>
+        </div>
+        
+        <!-- Post Image -->
+        <img src="https://bloglovers.pk/images/taleem/islam-mein-ustaad-ka-miyar-kya-hai.png" alt="اسلام میں استاد کا معیار" class="post-image">
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <p>اسلام میں استاد کا مقام بہت بلند اور محترم ہے، کیونکہ وہ علم کا ذریعہ ہیں اور علم کو انسانیت تک پہنچانے کا فریضہ انجام دیتے ہیں۔ قرآن و سنت میں استاد کے کردار، مقام، اور معیار کے بارے میں متعدد آیات اور احادیث موجود ہیں جو اس بات پر زور دیتی ہیں کہ استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ استاد ایک معمار ہے جو نئی نسل کی ذہنی، علمی اور روحانی تعمیر کرتا ہے۔</p>
+            <p>اس مضمون میں ہم دیکھیں گے کہ اسلام میں استاد کا معیار کیا ہے اور اس کے فرائض کیا ہیں، اور اس پر قرآن و سنت میں کیا ہدایات دی گئی ہیں۔</p>
+            
+            <h2>علم کا حامل ہونا</h2>
+            <p>اسلام میں استاد کے لیے اولین شرط یہ ہے کہ وہ علم کا حامل ہو۔ قرآن مجید میں اللہ تعالیٰ نے علم کی اہمیت اور قدر کو کئی مقامات پر بیان کیا ہے۔ استاد کو اس بات کا شعور ہونا چاہیے کہ وہ جو کچھ سکھاتا ہے، وہ علم کا بہترین حصہ ہونا چاہیے اور وہ خود بھی علم میں کمال رکھتا ہو۔</p>
+            <p>اللہ تعالیٰ فرماتا ہے:<br><strong>"اللہ اُن لوگوں کے درجات بلند فرماتا ہے جو ایمان لائے اور جنہیں علم عطا ہوا۔"</strong><br>یہ آیت واضح کرتی ہے کہ علم اللہ کے نزدیک ایک اعلیٰ مرتبہ ہے، اور استاد کو علم کے اس مقام کو سمجھتے ہوئے اپنی ذمہ داریوں کو انجام دینا چاہیے۔</p>
+            
+            <h2>حکمت اور دانائی کا حامل ہونا</h2>
+            <p>استاد کو علم کے ساتھ ساتھ حکمت اور دانائی کا بھی حامل ہونا چاہیے۔ حکمت کا مطلب ہے کہ استاد کو یہ سمجھ ہو کہ کس موقع پر کیا کہنا ہے اور کس طرح علم کو طلبہ تک پہنچانا ہے۔ اللہ تعالیٰ نے قرآن میں حضرت لقمان کو حکمت عطا کرنے کا ذکر کیا:<br><strong>"اور ہم نے لقمان کو حکمت عطا کی تھی کہ اللہ کا شکر کرو۔"</strong></p>
+            <p>حکمت وہ خوبی ہے جو استاد کو ایک عام معلم سے ممتاز کرتی ہے۔ ایک استاد کو چاہیے کہ وہ اپنے طلبہ کے ذہنی و فکری سطح کو سمجھ کر انہیں علم دے اور ان کی تربیت کرے۔</p>
+            
+            <h2>تقویٰ اور دیانتداری</h2>
+            <p>استاد کو نہ صرف علمی لحاظ سے ممتاز ہونا چاہیے بلکہ اخلاقی لحاظ سے بھی بلند ہونا چاہیے۔ وہ تقویٰ، دیانتداری، اور اخلاص کے اصولوں پر عمل پیرا ہو۔ نبی کریم ﷺ نے فرمایا:<br><strong>"تم میں سے بہترین شخص وہ ہے جو دوسروں کو قرآن سکھاتا ہے اور خود بھی اسے سیکھتا ہے۔"</strong></p>
+            <p>یہ حدیث ہمیں یہ بتاتی ہے کہ ایک استاد کو صرف علم دینا ہی نہیں بلکہ خود بھی عمل میں بہترین ہونا چاہیے۔ استاد کی دیانتداری، سچائی اور اخلاقی اصول طلبہ پر گہرے اثرات ڈالتی ہے۔</p>
+            
+            <h2>نرمی اور شفقت کا مظاہرہ کرنا</h2>
+            <p>اسلام میں استاد کو طلبہ کے ساتھ نرمی اور شفقت کا برتاؤ کرنے کی تاکید کی گئی ہے۔ سختی اور جبر سے تعلیم دینا اسلامی تعلیمات کے منافی ہے۔ نبی کریم ﷺ کو اللہ تعالیٰ نے بطور معلم بھیجا، اور آپ ﷺ نے ہمیشہ شفقت اور نرمی سے تعلیم دی۔</p>
+            <p>اللہ تعالیٰ قرآن میں فرماتا ہے:<br><strong>"پس، اللہ کی رحمت کے باعث آپ ان کے لیے نرم دل ہیں۔"</strong><br>یہ آیت رسول اللہ ﷺ کے اخلاق و کردار کو بیان کرتی ہے، اور استاد کو بھی اپنے طلبہ کے ساتھ اسی نرمی اور محبت کا مظاہرہ کرنا چاہیے۔</p>
+            
+            <h2>انصاف اور عدل کا مظاہرہ کرنا</h2>
+            <p>استاد کو طلبہ کے درمیان کسی قسم کا امتیاز نہیں کرنا چاہیے اور ان کے ساتھ انصاف سے پیش آنا چاہیے۔ عدل اور انصاف کا تقاضا یہ ہے کہ استاد ہر طالب علم کو اس کی صلاحیتوں کے مطابق سکھائے اور کسی کے ساتھ زیادتی نہ کرے۔</p>
+            <p>قرآن میں اللہ تعالیٰ فرماتا ہے:<br><strong>"اور جب تم لوگوں کے درمیان فیصلہ کرو تو انصاف سے کرو۔"</strong><br>یہ اصول استاد کے لیے بھی اہم ہے کہ وہ اپنے طلبہ کے ساتھ انصاف کرے، ان کے حقوق کا خیال رکھے، اور ہر ایک کو علم کے لحاظ سے یکساں مواقع فراہم کرے۔</p>
+            
+            <h2>طلبہ کی تربیت اور اصلاح کا خیال رکھنا</h2>
+            <p>اسلام میں استاد کا کام صرف تعلیم دینا نہیں بلکہ طلبہ کی تربیت اور اصلاح کرنا بھی ہے۔ استاد کو چاہیے کہ وہ طلبہ کو اخلاقی اصولوں کی تعلیم دے اور ان کی کردار سازی کرے۔ نبی کریم ﷺ نے فرمایا:<br><strong>"بیشک میں اخلاق کی تکمیل کے لیے بھیجا گیا ہوں۔"</strong></p>
+            <p>یہ حدیث استاد کے کردار کی وضاحت کرتی ہے کہ وہ صرف علم نہیں دیتا بلکہ اپنے طلبہ کے اخلاق و کردار کو بھی سنوارتا ہے۔ استاد کو طلبہ کو اسلامی اصولوں کے مطابق زندگی گزارنے کی تربیت دینی چاہیے۔</p>
+            
+            <h2>صبر اور تحمل کا مظاہرہ کرنا</h2>
+            <p>تعلیم کے عمل میں صبر اور تحمل بہت ضروری ہے۔ ایک استاد کو چاہیے کہ وہ طلبہ کی غلطیوں کو برداشت کرے اور انہیں درست طریقے سے اصلاح کرنے کا موقع دے۔ نبی کریم ﷺ نے ہمیشہ صبر اور بردباری کا مظاہرہ کیا اور اپنے صحابہ کو بھی اسی کا درس دیا۔</p>
+            <p>آپ ﷺ نے فرمایا:<br><strong>"نرمی جس چیز میں ہوتی ہے، اسے خوبصورت بنا دیتی ہے، اور جس چیز سے نرمی نکال لی جائے، وہ بدصورت ہو جاتی ہے۔"</strong><br>یہ اصول استاد پر بھی لاگو ہوتا ہے کہ وہ نرمی اور صبر سے اپنے طلبہ کی تربیت کرے اور ان کی غلطیوں کو اصلاح کے ساتھ درست کرے۔</p>
+            
+            <h2>استاد کا خود سیکھنے کا شوق ہونا</h2>
+            <p>ایک معیاری استاد وہ ہے جو خود بھی سیکھنے کا شوق رکھتا ہو۔ اسلام میں علم کا حصول ایک مسلسل عمل ہے، اور استاد کو اپنے علم کو بڑھانے اور اپ ڈیٹ کرنے کی کوشش کرتے رہنا چاہیے۔ نبی کریم ﷺ نے فرمایا:<br><strong>"علم حاصل کرو ماں کی گود سے قبر تک۔"</strong></p>
+            <p>یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ استاد کو ہر وقت خود سیکھنے کی کوشش کرنی چاہیے تاکہ وہ اپنے طلبہ کو بہتر تعلیم دے سکے۔</p>
+            
+            <h2>طلبہ کی حوصلہ افزائی کرنا</h2>
+            <p>اسلام میں استاد کا ایک اہم فریضہ یہ بھی ہے کہ وہ اپنے طلبہ کی حوصلہ افزائی کرے اور انہیں علم حاصل کرنے میں دلچسپی پیدا کرے۔ نبی کریم ﷺ نے ہمیشہ اپنے صحابہ کی حوصلہ افزائی کی اور انہیں علم حاصل کرنے کی ترغیب دی۔</p>
+            <p>استاد کو چاہیے کہ وہ اپنے طلبہ کی کوششوں کو سراہائے اور ان کی علمی پیشرفت کی حوصلہ افزائی کرے تاکہ وہ بہتر انداز میں سیکھ سکیں۔</p>
+            
+            <h2>استاد کا اپنی نیت درست رکھنا</h2>
+            <p>اسلام میں نیت کی اہمیت بہت زیادہ ہے، اور استاد کو چاہیے کہ وہ تعلیم دیتے وقت اپنی نیت کو درست رکھے۔ اسے صرف اللہ کی رضا کے لیے تعلیم دینا چاہیے اور دنیاوی فوائد یا شہرت کے لیے نہیں۔ نبی کریم ﷺ نے فرمایا:<br><strong>"اعمال کا دارومدار نیتوں پر ہے۔"</strong></p>
+            <p>استاد کو ہر وقت اپنی نیت کو درست رکھنا چاہیے اور طلبہ کو علم دینا صرف اللہ کی رضا کے لیے ہونا چاہیے۔</p>
+            
+            <p>اسلام میں استاد کا معیار بہت بلند ہے۔ ایک استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ اسے نرمی، صبر، انصاف، اور محبت سے اپنے طلبہ کی تعلیم و تربیت کرنی چاہیے اور ان کی اخلاقی و روحانی رہنمائی کرنی چاہیے۔ قرآن و سنت کی روشنی میں استاد کا مقام واضح ہے اور اس کے فرائض کو بہترین انداز میں انجام دینے کے لیے اللہ اور اس کے رسول ﷺ کی تعلیمات کو مدنظر رکھنا ضروری ہے۔</p>
+        </div>
+        
+        <!-- Footer Link -->
+        <div class="footer-link">
+            <a href="https://www.bloglovers.pk" class="website-link" target="_blank">
+                <i class="fas fa-globe"></i>
+                مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں
+            </a>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
+    
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create Rain Animation
+        function createRain() {
+            const rainContainer = document.getElementById('rainContainer');
+            const rainCount = 80;
+            
+            for (let i = 0; i < rainCount; i++) {
+                const raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
+                
+                // Random properties
+                const left = Math.random() * 100;
+                const animationDuration = 1 + Math.random() * 2;
+                const animationDelay = Math.random() * 2;
+                const height = 30 + Math.random() * 70;
+                
+                raindrop.style.left = `${left}%`;
+                raindrop.style.animationDuration = `${animationDuration}s`;
+                raindrop.style.animationDelay = `${animationDelay}s`;
+                raindrop.style.height = `${height}px`;
+                
+                rainContainer.appendChild(raindrop);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Color Fill Feature - Hold to activate
+        let colorFillTimer;
+        let isColorFillActive = false;
+        
+        const colorFillBtn = document.getElementById('colorFillBtn');
+        const colorFillBg = document.getElementById('colorFillBg');
+        
+        colorFillBtn.addEventListener('mousedown', function() {
+            colorFillTimer = setTimeout(() => {
+                colorFillBg.classList.add('active');
+                isColorFillActive = true;
+                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> رنگوں کا پس منظر چل رہا ہے';
+                colorFillBtn.style.background = 'linear-gradient(45deg, #4ecdc4, #ff6b6b)';
+            }, 800); // Hold for 800ms to activate
+        });
+        
+        colorFillBtn.addEventListener('mouseup', function() {
+            clearTimeout(colorFillTimer);
+            if (isColorFillActive) {
+                colorFillBg.classList.remove('active');
+                isColorFillActive = false;
+                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں';
+                colorFillBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1)';
+            }
+        });
+        
+        colorFillBtn.addEventListener('mouseleave', function() {
+            clearTimeout(colorFillTimer);
+            if (isColorFillActive) {
+                colorFillBg.classList.remove('active');
+                isColorFillActive = false;
+                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں';
+                colorFillBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1)';
+            }
+        });
+        
+        // Touch events for mobile
+        colorFillBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            colorFillTimer = setTimeout(() => {
+                colorFillBg.classList.add('active');
+                isColorFillActive = true;
+                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> رنگوں کا پس منظر چل رہا ہے';
+                colorFillBtn.style.background = 'linear-gradient(45deg, #4ecdc4, #ff6b6b)';
+            }, 800);
+        });
+        
+        colorFillBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            clearTimeout(colorFillTimer);
+            if (isColorFillActive) {
+                colorFillBg.classList.remove('active');
+                isColorFillActive = false;
+                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں';
+                colorFillBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1)';
+            }
+        });
+        
+        // Page Up and Down Buttons
+        const pageUpBtn = document.getElementById('pageUpBtn');
+        const pageDownBtn = document.getElementById('pageDownBtn');
+        
+        pageUpBtn.addEventListener('click', function() {
+            window.scrollBy({
+                top: -window.innerHeight * 0.8,
+                behavior: 'smooth'
+            });
+        });
+        
+        pageDownBtn.addEventListener('click', function() {
+            window.scrollBy({
+                top: window.innerHeight * 0.8,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createRain();
+            
+            // Add hover effects to headings
+            const headings = document.querySelectorAll('h2');
+            headings.forEach(heading => {
+                heading.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-10px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                heading.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        });
     </script>
 </body>
 </html>
