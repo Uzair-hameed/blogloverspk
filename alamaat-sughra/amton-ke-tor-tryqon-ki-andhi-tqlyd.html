@@ -5,75 +5,446 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>امتوں کے طور طریقوں کی اندھی تقلید</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2ecc71;
+            --accent-color: #ff6b6b;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: var(--dark-bg);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* AI Dark Animated Background */
+        .ai-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(74, 144, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(46, 204, 113, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+                linear-gradient(135deg, #121212 0%, #1a1a2e 50%, #16213e 100%);
+            overflow: hidden;
+        }
+        
+        .ai-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-100px) translateX(100px) rotate(90deg); }
+            50% { transform: translateY(0) translateX(200px) rotate(180deg); }
+            75% { transform: translateY(100px) translateX(100px) rotate(270deg); }
+            100% { transform: translateY(0) translateX(0) rotate(360deg); }
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Post Card */
+        .post-card {
+            background: var(--dark-card);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .post-card:hover {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: translateY(-5px);
+        }
+        
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #4a90e2, #2ecc71);
+            z-index: 1;
+        }
+        
+        /* Heading Styles */
+        h1 {
+            color: var(--text-light);
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary-color);
+            font-size: 2.8rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        h1::after {
+            content: '✦';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            background: var(--dark-card);
+            padding: 0 15px;
+        }
+        
+        h2, h3 {
+            color: #4ecdc4;
+            padding-bottom: 10px;
+            margin: 25px 0 15px 0;
+            border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+            font-size: 2.2rem;
+        }
+        
+        /* Paragraph Styles */
+        p {
+            margin-bottom: 25px;
+            text-align: justify;
+            font-size: 1.4rem;
+            color: #d0d0d0;
+            line-height: 2.4;
+        }
+        
+        /* Image Styles */
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+        
+        /* Control Buttons */
+        .control-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-family: inherit;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .decoration-1 {
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-color), transparent);
+        }
+        
+        .decoration-2 {
+            bottom: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-color), transparent);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .post-card {
+                padding: 25px;
+                margin-top: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+                line-height: 2.2;
+            }
+            
+            .control-buttons {
+                left: 10px;
+            }
+            
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .back-btn {
+                top: 10px;
+                right: 10px;
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .post-card {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+            
+            .control-buttons {
+                flex-direction: row;
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- AI Animated Background -->
+    <div class="ai-background" id="aiBackground"></div>
+    
+    <!-- Decorative Elements -->
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+    
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+        <button class="control-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+        <button class="control-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
     </div>
-
-    <div class="post-content">
-        
-        <h1>پچھلی امتوں کے طور طریقوں کی اندھی تقلید</h1>
-<p>قارئین کرام! یوں تو روز بروز امت مسلمہ <a href="https://www.bloglovers.pk/2020/06/7.html">فتنوں کے</a> مخملی اور دلفریب جال میں دھنستی اور پھنستی جا رہی ہے۔ ہر طرف گمراہی کا اندھیرا پھیلتا جا رہا ہے۔ علم کی شمع جو آپ ﷺ نے امت کے لئے جلائی تھی اس کی لو مدھم ہوتی جا رہی ہے کیونکہ جہالت اور گمراہی کا اندھیرا اس قدر <a href="https://www.bloglovers.pk/2020/06/26-27.html">سنگین اور بھیانک</a> ہے کہ لوگ اس کے عادی ہوتے جا رہے ہیں اور وہ کوشش بھی نہیں کر رہے ان اندھیروں سے دور ہونے کی۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfVbZQNzAF5HntasO8xviUUc2AlUs0dJbgykBGtDinPZJkgCTewNhocdyLhXOh7ejVXRFmCFUTTgx2zRjdnceJaqLlM9qX_sh-96sik9WZFfMNgdRFkD93HM0hyxQDDxfqhylZReFtDYVjJQ5cpchu6B01UXmjd1sI121g9dRkr7YuQBg-YwBD_YR8KlEQ/s2000/%D8%A7%D9%85%D8%AA%D9%88%DA%BA%20%DA%A9%DB%92%20%20%D8%B7%D9%88%D8%B1%20%D8%B7%D8%B1%DB%8C%D9%82%D9%88%DA%BA%20%20%DA%A9%DB%8C%20%D8%A7%D9%86%D8%AF%DA%BE%DB%8C%20%D8%AA%D9%82%D9%84%DB%8C%D8%AF.png"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfVbZQNzAF5HntasO8xviUUc2AlUs0dJbgykBGtDinPZJkgCTewNhocdyLhXOh7ejVXRFmCFUTTgx2zRjdnceJaqLlM9qX_sh-96sik9WZFfMNgdRFkD93HM0hyxQDDxfqhylZReFtDYVjJQ5cpchu6B01UXmjd1sI121g9dRkr7YuQBg-YwBD_YR8KlEQ/s16000/%D8%A7%D9%85%D8%AA%D9%88%DA%BA%20%DA%A9%DB%92%20%20%D8%B7%D9%88%D8%B1%20%D8%B7%D8%B1%DB%8C%D9%82%D9%88%DA%BA%20%20%DA%A9%DB%8C%20%D8%A7%D9%86%D8%AF%DA%BE%DB%8C%20%D8%AA%D9%82%D9%84%DB%8C%D8%AF.png" alt=""></a></p>
-<p>ان بہت سارے فتنوں میں سے سب سے بھیانک اور بڑا فتنہ اندھی تقلید اور <a href="https://www.bloglovers.pk/2023/06/blog-post_4.html">یہودو نصاریٰ</a> اور دیگر کفار کے اخلاق و عادات، طور طریقے، رسم ورواج، ثقافت، ہیروز، کیلنڈر اور قابل نفرت مشابہت اختیار کرنا ہے۔</p>
-<p>آپ ﷺ نے اپنی امت کی بھلائی کے لیے جو نشانیاں فرمائی تھیں وہ ایک ایک کر کے اپنے وقت مقررہ پر ظاہر ہوتی چلی جا رہی ہیں۔ آج کی نشانی بھی دور حاضر کی نمایاں اور واضح نشانی ہے، جو وقت گزرنے کے ساتھ ساتھ پوری شدت سے ظاہر ہوتی چلی جا رہی ہے اور لوگ جوق در جوق ان فتنوں کی نذر ہوتے ہوئے <a href="https://www.bloglovers.pk/2021/03/blog-post.html">سیدھے راستے سے بھٹک رہے ہیں</a>۔</p>
-<p>آپ ﷺ نے فرمایا &quot;ایک وقت آئے گا کہ لوگوں کا اللہ رب العزت کی ذات پر بھروسہ ختم ہو جائے گا&quot;۔ رفتہ رفتہ لوگ اللہ کی ذات سے دور ہو کر مزارات، کاہن، تعویذ، گنڈے، قبر پرستی، اکابر پرستی، منتیں مرادیں مانتے ہوئے اندھی تقلید کے باعث اندھیروں میں گم ہوتے جا رہے ہیں۔ سچ کہا گیا ہے کہ &quot;شیطان ہمیشہ <a href="https://www.bloglovers.pk/2022/06/10-1.html">انسان کی عقل پر پردے ڈالتا ہے</a>&quot; باقی کام تو خود بخود کرتے چلے جاتے ہیں۔</p>
-<p>ارشاد ربانی ہے &quot;کیا آپ نے ان لوگوں کو نہیں دیکھا جنہیں کتاب کا کچھ حصہ دیا گیا، وہ بتوں اور شیطان کو مانتے ہیں اور کافروں کے متعلق کہتے ہیں کہ یہ لوگ ایمان لانے والوں سے زیادہ صحیح راستہ پر ہیں&quot;۔</p>
-<p>ایک اور جگہ اللہ رب العزت نے فرمایا &quot;(اے محمدﷺ!)آپ ان لوگوں سے کہہ دیں، کیا تمھیں ان لوگوں کی نشان دہی کر دوں جن کا انجام اللہ کے ہاں، <a href="https://www.bloglovers.pk/2024/01/blog-post_85.html">فاسقوں کے انجام سے بھی بدتر</a> ہے؟ وہ لوگ جن پر اللہ نے لعنت کی اور ان پر اللہ کا غضب ہوا اور ان میں سے بعض کو بندر اور خنزیر بنا دیا اور جنہوں نے طاغوت کی بندگی کی&quot;۔</p>
-<p>پھر فرمایا &quot;اور ان کے سرکردہ لوگوں نے کہا ہم تو ان کی غار پر ضرور <a href="https://www.bloglovers.pk/2021/06/blog-post.html">مسجد (عبادت گاہ) بنائیں</a> گے۔&quot;</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا &quot;قیامت اس وقت تک قائم نہ ہو گی جب تک میری امت پہلے لوگوں کے راستے پر من وعن قدم بقدم نہ چلنے لگے۔&quot; عرض کیا گیا: یا رسول اللہ! کیا پہلے لوگوں سے آپ کی مراد فارس و روم ہیں؟ آپ ﷺ نے فرمایا &quot;تو اور کون!&quot;</p>
-<p>ایک اور جگہ آپ ﷺ نے یوں ارشاد فرمایا: &quot;اللہ تعالی نے میرے لیے زمین کو اس حد تک سمیٹ اور سکیڑ دیا کہ میں نے اس کے مشرق و مغرب دیکھ لیے۔ میری امت کی حکومت وہاں تک پہنچے گی جہاں تک زمین مجھے سمیٹ کر دکھائی گئی۔ اور مجھے سفید (چاندی) اور سرخ (سونا) دو خزانے عطا کیے گئے۔ اور میں نے اپنی امت کے لیے اپنے رب سے دعا کی کہ وہ عام قحط سالی سے اسے ہلاک نہ کرے۔ اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہ کرے جو انہیں تباہ کرکے رکھ دے۔ میرے رب نے فرمایا: اے محمد(ﷺ!) جب میں کوئی فیصلہ کر دیتا ہوں تو اسے ٹالا نہیں جاسکتا۔ میں آپ کی امت کے بارے میں آپ کی یہ دعا قبول کرتا ہوں کہ میں انہیں عام قحط سالی سے ہلاک نہیں کروں گا اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہیں کروں گا جو انھیں تباہ کرکے رکھ دے اگرچہ سارے دشمن ان کے خلاف متحد اور مجتمع کیوں نہ ہو جائیں۔ البتہ یہ خود آپس میں ایک دوسرے کو ہلاک کریں گے اور ایک دوسرے کو قیدی بھی بنائیں گے۔&quot;</p>
-<p>ایک اور جگہ آپ ﷺ نے فرمایا &quot;مجھے اپنی امت کے بارے میں صرف گمراہ پیشواؤں کا خدشہ ہے۔ اور جب ان میں ایک دفعہ تلوار چل پڑی تو قیامت تک بند نہ ہوگی اور قیامت اس وقت تک برپا نہیں ہو گی۔ جب تک میری امت کی ایک بڑی جماعت مشرکین سے نہ جا ملے اور میری امت کے بہت سے گروہ بت پرستی نہ کرنے لگیں۔ اور میری امت میں تیس (30) دجال پیدا ہوں گے۔ وہ سب نبوت کا دعوی کریں گے، حالانکہ میں آخری نبی ہوں۔ میرے بعد کوئی نبی نہیں آئے گا۔ اور میری امت میں ایک گروہ ہمیشہ (قیامت تک) حق پر رہے گا اور ان کی (اللہ تعالی کی طرف سے) مدد کی جائے گی۔ اور ان کا ساتھ چھوڑ جانے والے ان کا کچھ بھی نہیں بگاڑ سکیں گے یہاں تک کہ اللہ تعالی کا حکم (قیامت) آجائے۔&quot;</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;تم لوگ اپنے سے پہلے لوگوں کے طریقوں کی اس طرح پوری پوری پیروی کرو گے جس طرح بالشت بالشت کے اور ہاتھ ہاتھ کے برابر ہوتا ہے، حتی کہ اگر وہ سانڈے کی بل میں داخل ہوئے تو تم بھی ضرور ان کی پیروی کرو گے۔&quot; ہم نے عرض کی: یا رسول اللہ! کیا آپ کی مراد یہود و نصاریٰ سے ہے؟ آپ ﷺ نے فرمایا: &quot;تو اور کون؟&quot;</p>
-<p>ان سب احادیث کی روشنی میں قابل مذمت تقلید سے مراد یہ ہے کہ ان کے لباس و عادات اور معاشرتی رسم ورواج، مثلاً: اختلاط مردوزن اور بے پردگی وغیرہ کی تقلید کی جائے، یا ان کے اس اقتصادی نظام کی پیروی کی جائے جو ہمارے دین کی تعلیمات کے خلاف ہو، جیسے سودی لین دین اور دیگر مالی معاملات وغیرہ ہیں۔</p>
-<p>ہمیں اپنے اردگرد، اپنے گھروں کو دیکھنا چاہیے کہ کہیں ہم اس فتنہ سے دوچار تو نہیں ہیں جس کا ہمیں پتہ ہی نہ چلا ہو کہ بجائے اچھے کام کرنے کے ہم سے گناہ سرزد ہو رہا ہے۔ اللہ رب العزت سے دعا ہے کہ خاتمہ بالایمان ہو، اور جب تک زندہ رکھے ایمان کی حالت میں زندہ رکھے اور موت دے تو ایمان کی حالت میں موت دے۔۔۔۔ آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i> واپس جائیں</button>
+    
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <div class="post-card">
+            <h1>پچھلی امتوں کے طور طریقوں کی اندھی تقلید</h1>
+            
+            <img src="https://bloglovers.pk/images/alamaat-sughra/amton-ke-tor-tryqon-ki-andhi-tqlyd.png" 
+                 alt="امتوں کے طور طریقوں کی اندھی تقلید" 
+                 class="post-image">
+            
+            <p>قارئین کرام! یوں تو روز بروز امت مسلمہ فتنوں کے مخملی اور دلفریب جال میں دھنستی اور پھنستی جا رہی ہے۔ ہر طرف گمراہی کا اندھیرا پھیلتا جا رہا ہے۔ علم کی شمع جو آپ ﷺ نے امت کے لئے جلائی تھی اس کی لو مدھم ہوتی جا رہی ہے کیونکہ جہالت اور گمراہی کا اندھیرا اس قدر سنگین اور بھیانک ہے کہ لوگ اس کے عادی ہوتے جا رہے ہیں اور وہ کوشش بھی نہیں کر رہے ان اندھیروں سے دور ہونے کی۔</p>
+            
+            <p>ان بہت سارے فتنوں میں سے سب سے بھیانک اور بڑا فتنہ اندھی تقلید اور یہودو نصاریٰ اور دیگر کفار کے اخلاق و عادات، طور طریقے، رسم ورواج، ثقافت، ہیروز، کیلنڈر اور قابل نفرت مشابہت اختیار کرنا ہے۔</p>
+            
+            <p>آپ ﷺ نے اپنی امت کی بھلائی کے لیے جو نشانیاں فرمائی تھیں وہ ایک ایک کر کے اپنے وقت مقررہ پر ظاہر ہوتی چلی جا رہی ہیں۔ آج کی نشانی بھی دور حاضر کی نمایاں اور واضح نشانی ہے، جو وقت گزرنے کے ساتھ ساتھ پوری شدت سے ظاہر ہوتی چلی جا رہی ہے اور لوگ جوق در جوق ان فتنوں کی نذر ہوتے ہوئے سیدھے راستے سے بھٹک رہے ہیں۔</p>
+            
+            <p>آپ ﷺ نے فرمایا "ایک وقت آئے گا کہ لوگوں کا اللہ رب العزت کی ذات پر بھروسہ ختم ہو جائے گا"۔ رفتہ رفتہ لوگ اللہ کی ذات سے دور ہو کر مزارات، کاہن، تعویذ، گنڈے، قبر پرستی، اکابر پرستی، منتیں مرادیں مانتے ہوئے اندھی تقلید کے باعث اندھیروں میں گم ہوتے جا رہے ہیں۔ سچ کہا گیا ہے کہ "شیطان ہمیشہ انسان کی عقل پر پردے ڈالتا ہے" باقی کام تو خود بخود کرتے چلے جاتے ہیں۔</p>
+            
+            <p>ارشاد ربانی ہے "کیا آپ نے ان لوگوں کو نہیں دیکھا جنہیں کتاب کا کچھ حصہ دیا گیا، وہ بتوں اور شیطان کو مانتے ہیں اور کافروں کے متعلق کہتے ہیں کہ یہ لوگ ایمان لانے والوں سے زیادہ صحیح راستہ پر ہیں"۔</p>
+            
+            <p>ایک اور جگہ اللہ رب العزت نے فرمایا "(اے محمدﷺ!)آپ ان لوگوں سے کہہ دیں، کیا تمھیں ان لوگوں کی نشان دہی کر دوں جن کا انجام اللہ کے ہاں، فاسقوں کے انجام سے بھی بدتر ہے؟ وہ لوگ جن پر اللہ نے لعنت کی اور ان پر اللہ کا غضب ہوا اور ان میں سے بعض کو بندر اور خنزیر بنا دیا اور جنہوں نے طاغوت کی بندگی کی"۔</p>
+            
+            <p>پھر فرمایا "اور ان کے سرکردہ لوگوں نے کہا ہم تو ان کی غار پر ضرور مسجد (عبادت گاہ) بنائیں گے۔"</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "قیامت اس وقت تک قائم نہ ہو گی جب تک میری امت پہلے لوگوں کے راستے پر من وعن قدم بقدم نہ چلنے لگے۔" عرض کیا گیا: یا رسول اللہ! کیا پہلے لوگوں سے آپ کی مراد فارس و روم ہیں؟ آپ ﷺ نے فرمایا "تو اور کون!"</p>
+            
+            <p>ایک اور جگہ آپ ﷺ نے یوں ارشاد فرمایا: "اللہ تعالی نے میرے لیے زمین کو اس حد تک سمیٹ اور سکیڑ دیا کہ میں نے اس کے مشرق و مغرب دیکھ لیے۔ میری امت کی حکومت وہاں تک پہنچے گی جہاں تک زمین مجھے سمیٹ کر دکھائی گئی۔ اور مجھے سفید (چاندی) اور سرخ (سونا) دو خزانے عطا کیے گئے۔ اور میں نے اپنی امت کے لیے اپنے رب سے دعا کی کہ وہ عام قحط سالی سے اسے ہلاک نہ کرے۔ اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہ کرے جو انہیں تباہ کرکے رکھ دے۔ میرے رب نے فرمایا: اے محمد(ﷺ!) جب میں کوئی فیصلہ کر دیتا ہوں تو اسے ٹالا نہیں جاسکتا۔ میں آپ کی امت کے بارے میں آپ کی یہ دعا قبول کرتا ہوں کہ میں انہیں عام قحط سالی سے ہلاک نہیں کروں گا اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہیں کروں گا جو انھیں تباہ کرکے رکھ دے اگرچہ سارے دشمن ان کے خلاف متحد اور مجتمع کیوں نہ ہو جائیں۔ البتہ یہ خود آپس میں ایک دوسرے کو ہلاک کریں گے اور ایک دوسرے کو قیدی بھی بنائیں گے۔"</p>
+            
+            <p>ایک اور جگہ آپ ﷺ نے فرمایا "مجھے اپنی امت کے بارے میں صرف گمراہ پیشواؤں کا خدشہ ہے۔ اور جب ان میں ایک دفعہ تلوار چل پڑی تو قیامت تک بند نہ ہوگی اور قیامت اس وقت تک برپا نہیں ہو گی۔ جب تک میری امت کی ایک بڑی جماعت مشرکین سے نہ جا ملے اور میری امت کے بہت سے گروہ بت پرستی نہ کرنے لگیں۔ اور میری امت میں تیس (30) دجال پیدا ہوں گے۔ وہ سب نبوت کا دعوی کریں گے، حالانکہ میں آخری نبی ہوں۔ میرے بعد کوئی نبی نہیں آئے گا۔ اور میری امت میں ایک گروہ ہمیشہ (قیامت تک) حق پر رہے گا اور ان کی (اللہ تعالی کی طرف سے) مدد کی جائے گی۔ اور ان کا ساتھ چھوڑ جانے والے ان کا کچھ بھی نہیں بگاڑ سکیں گے یہاں تک کہ اللہ تعالی کا حکم (قیامت) آجائے۔"</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "تم لوگ اپنے سے پہلے لوگوں کے طریقوں کی اس طرح پوری پوری پیروی کرو گے جس طرح بالشت بالشت کے اور ہاتھ ہاتھ کے برابر ہوتا ہے، حتی کہ اگر وہ سانڈے کی بل میں داخل ہوئے تو تم بھی ضرور ان کی پیروی کرو گے۔" ہم نے عرض کی: یا رسول اللہ! کیا آپ کی مراد یہود و نصاریٰ سے ہے؟ آپ ﷺ نے فرمایا: "تو اور کون؟"</p>
+            
+            <p>ان سب احادیث کی روشنی میں قابل مذمت تقلید سے مراد یہ ہے کہ ان کے لباس و عادات اور معاشرتی رسم ورواج، مثلاً: اختلاط مردوزن اور بے پردگی وغیرہ کی تقلید کی جائے، یا ان کے اس اقتصادی نظام کی پیروی کی جائے جو ہمارے دین کی تعلیمات کے خلاف ہو، جیسے سودی لین دین اور دیگر مالی معاملات وغیرہ ہیں۔</p>
+            
+            <p>ہمیں اپنے اردگرد، اپنے گھروں کو دیکھنا چاہیے کہ کہیں ہم اس فتنہ سے دوچار تو نہیں ہیں جس کا ہمیں پتہ ہی نہ چلا ہو کہ بجائے اچھے کام کرنے کے ہم سے گناہ سرزد ہو رہا ہے۔ اللہ رب العزت سے دعا ہے کہ خاتمہ بالایمان ہو، اور جب تک زندہ رکھے ایمان کی حالت میں زندہ رکھے اور موت دے تو ایمان کی حالت میں موت دے۔۔۔۔ آمین</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create AI animated particles
+        function createAIParticles() {
+            const bg = document.getElementById('aiBackground');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('ai-particle');
+                
+                // Random size and position
+                const size = Math.random() * 100 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                
+                // Random animation duration
+                const duration = Math.random() * 30 + 20;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.1 + 0.05;
+                
+                bg.appendChild(particle);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Navigation functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Initialize particles on load
+        window.addEventListener('load', () => {
+            createAIParticles();
+            
+            // Add hover effect to post card
+            const postCard = document.querySelector('.post-card');
+            postCard.addEventListener('mouseenter', () => {
+                const particles = document.querySelectorAll('.ai-particle');
+                particles.forEach(p => {
+                    p.style.animationDuration = '5s';
+                });
+            });
+            
+            postCard.addEventListener('mouseleave', () => {
+                const particles = document.querySelectorAll('.ai-particle');
+                particles.forEach(p => {
+                    const duration = Math.random() * 30 + 20;
+                    p.style.animationDuration = `${duration}s`;
+                });
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                scrollBy({ top: -window.innerHeight * 0.9, behavior: 'smooth' });
+            } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' });
+            } else if (e.key === 'Escape') {
+                goBack();
+            }
+        });
     </script>
 </body>
 </html>
