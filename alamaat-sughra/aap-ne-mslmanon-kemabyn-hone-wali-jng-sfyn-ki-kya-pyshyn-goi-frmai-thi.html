@@ -5,66 +5,519 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2020-08-15-آپ-نے-مسلمانوں-کےمابین-ہونے-والی-جنگ-صفین-کی-کیا-پیشین-گوئی-فرمائی-تھی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Solar Planet Theme */
+        .solar-system {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+        
+        .sun {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, #ffdd00, #ff6600);
+            box-shadow: 0 0 60px #ff6600;
+            top: 10%;
+            right: 10%;
+            animation: sunGlow 4s infinite alternate;
+        }
+        
+        .mercury {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, #a9a9a9, #696969);
+            top: 15%;
+            left: 20%;
+            animation: orbit1 15s linear infinite;
+        }
+        
+        .venus {
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle at 30% 30%, #ffcc99, #cc9966);
+            top: 60%;
+            right: 15%;
+            animation: orbit2 20s linear infinite;
+        }
+        
+        .earth {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at 30% 30%, #4a90e2, #2e6da4);
+            bottom: 20%;
+            left: 25%;
+            animation: orbit3 25s linear infinite;
+        }
+        
+        .mars {
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #cc0000);
+            top: 30%;
+            left: 70%;
+            animation: orbit4 18s linear infinite;
+        }
+        
+        .planet:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            z-index: 1;
+        }
+        
+        @keyframes sunGlow {
+            0% { box-shadow: 0 0 60px #ff6600; }
+            100% { box-shadow: 0 0 100px #ff9900, 0 0 120px #ff6600; }
+        }
+        
+        @keyframes orbit1 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100px, 150px) rotate(360deg); }
+        }
+        
+        @keyframes orbit2 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-120px, -100px) rotate(360deg); }
+        }
+        
+        @keyframes orbit3 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(150px, -80px) rotate(360deg); }
+        }
+        
+        @keyframes orbit4 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-80px, 120px) rotate(360deg); }
+        }
+        
+        /* Color Fill Mode */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+        }
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        /* Post Content Overlay */
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 800px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: #ff6b6b; 
+            color: white; 
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 20px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: transform 0.3s; 
+        }
+        .close-btn:hover { 
+            transform: rotate(90deg); 
+        }
+        
+        /* Main Body Styles */
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.2; 
+            direction: rtl; 
+            text-align: right; 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%); 
+            min-height: 100vh;
+            color: #f0f0f0;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+        
+        .back-btn-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .back-btn {
+            background: linear-gradient(45deg, #ff6b6b, #e74c3c);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        .trigger-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, #ff9a3c, #ff6b6b); 
+            color: white; 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 20px 0; 
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4); 
+            transition: all 0.3s; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-family: inherit; 
+        }
+        .trigger-btn:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6); 
+        }
+        
+        /* Post Content */
+        .post-content { 
+            max-width: 900px; 
+            margin: 80px auto 40px; 
+            background: rgba(30, 30, 60, 0.9); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Headings - Larger Size */
+        h1, h2, h3 { 
+            color: #f8f8f8; 
+            border-bottom: 2px solid rgba(74, 144, 226, 0.5); 
+            padding-bottom: 15px; 
+            text-align: justify;
+        }
+        
+        h1 { 
+            text-align: center; 
+            border-bottom: 3px solid #4a90e2; 
+            font-size: 2.8rem;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+        }
+        
+        /* Paragraphs - Larger Size and Justified */
+        p, li { 
+            font-size: 1.4rem; 
+            text-align: justify;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        ul {
+            padding-right: 20px;
+        }
+        
+        li {
+            margin-bottom: 15px;
+        }
+        
+        /* Image */
+        .post-image {
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 15px; 
+            display: block; 
+            margin: 30px auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(74, 144, 226, 0.3);
+        }
+        
+        /* Links */
+        a { 
+            color: #4ecdc4; 
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        a:hover {
+            color: #ff9ff3;
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 25px;
+                margin: 70px auto 30px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            p, li {
+                font-size: 1.2rem;
+            }
+            
+            .nav-buttons {
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .back-btn-container {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .trigger-btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            
+            .post-content-overlay {
+                padding: 20px;
+                width: 95%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            .nav-buttons {
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(30, 30, 60, 0.8);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #2ecc71, #4a90e2);
+        }
     </style>
 </head>
 <body>
+    <!-- Solar Planet Background -->
+    <div class="solar-system">
+        <div class="planet sun"></div>
+        <div class="planet mercury"></div>
+        <div class="planet venus"></div>
+        <div class="planet earth"></div>
+        <div class="planet mars"></div>
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-btn-container">
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="fas fa-arrow-right"></i> واپس جائیں
+        </button>
+    </div>
+    
+    <!-- Page Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollToBottom()">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+    
+    <!-- Main Content Trigger -->
     <div style="text-align: center; margin: 40px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            🕌 اس پوسٹ کو رنگین موڈ میں پڑھیں
         </button>
     </div>
 
+    <!-- Main Post Content -->
     <div class="post-content">
-        
         <h1>آپ ﷺ نے مسلمانوں کے مابین ہونے والی جنگ صفین کی کیا پیشین گوئی فرمائی تھی؟</h1>
-<p>قیامت کی بے شمار نشانیوں میں سے ایک، جنگ صفین کا ہونا بھی ہے، جس کے بارے میں آپ ﷺ نے پیشین گوئی فرمائی تھی۔</p>
-<p>اسلامی تاریخ میں بے شمار غزوات کا ذکر ہے جو مسلمانوں اور کفار کے درمیان لڑی گئیں، مگر جنگ صفین وہ واحد جنگ ہے جو صرف مسلمانوں کے درمیان ہوئی۔ یہ جنگ حضرت عثمان غنی رضی اللہ عنہ کی شہادت کے بعد 36ھ میں حضرت علی ابن طالب رضی اللہ عنہ اور حضرت امیر معاویہ رضی اللہ عنہ کی فوجوں کے درمیان ہوئی۔ اس وقت حضرت معاویہ رضی اللہ عنہ شام کے گورنر تھے۔</p>
-<p>حضرت علی رضی اللہ عنہ کی فوج کی کمان حضرت مالک اشتر رضی اللہ عنہ کے ہاتھ میں تھی، جبکہ دوسری طرف حضرت عمرو بن عاص رضی اللہ عنہ حضرت معاویہ رضی اللہ عنہ کی فوج کی قیادت کر رہے تھے۔</p>
-<p>یہ لڑائی دریائے فرات کے قریب ایک مقام پر ہوئی۔ اندازے کے مطابق شامی فوج کے تقریباً 45,000 اور حضرت علی رضی اللہ عنہ کی فوج کے تقریباً 25,000 افراد شہید ہوئے، جن میں زیادہ تر صحابہ کرام رضی اللہ عنہم شامل تھے۔ جنگ صفین میں حضرت خزیمہ بن ثابت رضی اللہ عنہ اور حضرت اویس قرنی رضی اللہ عنہ شہید ہوئے۔</p>
-<h2>ارشاد نبوی ﷺ</h2>
-<p>نبی کریم ﷺ نے فرمایا:<br><strong>&quot;قیامت اس وقت تک ہرگز قائم نہ ہو گی جب تک دو عظیم جماعتیں آپس میں لڑائی نہ کر لیں۔ ان کے درمیان قتل و خونریزی کا ایک عظیم معرکہ بپا ہو گا، حالانکہ دونوں کا مقصد ایک ہی ہو گا۔&quot;</strong></p>
-<p>آپ ﷺ نے اسی جنگ کے پیش نظر، حضرت عمار بن یاسر رضی اللہ عنہ سے کہا تھا:<br><strong>&quot;اے عمار! تو ایک باغی گروہ کے ہاتھوں شہید ہو گا۔&quot;</strong></p>
-<h2>صلح کی کوششیں</h2>
-<p>تاریخ سے معلوم ہوتا ہے کہ حضرت علی رضی اللہ عنہ اور حضرت معاویہ رضی اللہ عنہ دونوں ہی اس جنگ کے خلاف تھے۔ حضرت عمرو بن عاص رضی اللہ عنہ، جب انہوں نے دونوں اطراف سے شہید ہونے والوں کو دیکھا، تو وہ زار و قطار رونے لگے۔ ہر طرف خون سے لت پت جانیں بکھری پڑی تھیں، گھوڑے شدید زخمی تھے۔</p>
-<p>اس شدید غم کی کیفیت میں، حضرت عمرو بن عاص رضی اللہ عنہ نے حضرت معاویہ رضی اللہ عنہ کی اجازت سے حضرت علی رضی اللہ عنہ کو صلح کی دعوت دی۔ حضرت علی رضی اللہ عنہ نے خلوص دل سے اس کا جواب دیا اور کہا:<br><strong>&quot;مقتولین بہت زیادہ ہو گئے ہیں۔ جنگ روک دیجیے تاکہ ہم ان تمام مقتولین کو دفن کر لیں۔&quot;</strong></p>
-<h2>قرآن کی طرف رجوع</h2>
-<p>حضرت ابو وائل بن حجر رضی اللہ عنہ فرماتے ہیں:<br>&quot;ہم صفین میں موجود تھے جب اہل شام کے ساتھ جنگ بہت زور پکڑ گئی۔ شامی ایک اونچے ٹیلے پر چڑھ گئے تھے۔ حضرت عمرو بن عاص رضی اللہ عنہ نے حضرت معاویہ رضی اللہ عنہ سے کہا:<br><strong>&#39;آپ حضرت علی رضی اللہ عنہ کی جانب قرآن بھیج کر انہیں کتاب اللہ کی طرف دعوت دیجیے۔ مجھے امید ہے کہ وہ اس سے انکار نہیں کریں گے۔&#39;</strong>&quot;</p>
-<p>حضرت معاویہ رضی اللہ عنہ نے ایسا ہی کیا۔ ایک شخص کو حضرت علی رضی اللہ عنہ کے پاس بھیجا اور کہا:<br><strong>&quot;ہمارے اور آپ کے درمیان اللہ کی کتاب ہے، جو فیصلہ کرے گی۔&quot;</strong></p>
-<p>حضرت علی رضی اللہ عنہ نے بڑے خلوص سے کہا:<br><strong>&quot;بے شک میں لوگوں کو اس کی دعوت دینے کا زیادہ حق دار ہوں۔ ٹھیک ہے! ہمارے اور آپ کے درمیان اللہ کی کتاب فیصلہ کرے گی۔&quot;</strong></p>
-<h2>صحابہ کرام کی معصومیت</h2>
-<p>یاد رکھیے کہ اللہ کے نبی ﷺ اور صحابہ کرام رضی اللہ عنہم تمام کے تمام انسان تھے۔ ان سے چھوٹی چھوٹی خطاوں کا ہونا ممکن تھا، مگر یہ خطا اجتہاد کی بنا پر تھی، نہ کہ عناد یا نافرمانی کی وجہ سے۔ وہ تمام نیک، صالح، پرہیزگار اور سنت پر چلنے والے تھے۔</p>
-<h2>ہماری ذمہ داری</h2>
-<p>اگر صحابہ کرام رضی اللہ عنہم کے درمیان کبھی باہمی اختلافات واقع ہوئے، تو ہماری ذمہ داری یہ ہے کہ:</p>
-<ul>
-<li>ان کے باہمی جھگڑوں کو زبانی تلخ کلامی یا موضوعِ بحث نہ بنائیں  </li>
-<li>ان کے بارے میں لب کشائی یا اف تک نہ کریں  </li>
-<li>ان کے اختلافات کی نشر و اشاعت نہ کریں  </li>
-<li>ان سے درگزر کریں اور ان کا احترام کریں</li>
-</ul>
-<p>کیونکہ یہ بحثیں امت کے درمیان شر و فساد کا سبب بنتی ہیں اور آنے والی نسلوں کے دلوں میں صحابہ کرام رضی اللہ عنہم کے بارے میں نفرت پیدا کرتی ہیں۔</p>
-<p>اللہ تعالیٰ ہم سب کے گناہ معاف فرمائے اور ہمیں صحابہ کے نقشِ قدم پر چلنے کی توفیق عطا فرمائے۔<br><strong>آمین۔</strong></p>
-<p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
-
+        
+        <!-- Post Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/aap-ne-mslmanon-kemabyn-hone-wali-jng-sfyn-ki-kya-pyshyn-goi-frmai-thi.png" alt="جنگ صفین کی پیشین گوئی" class="post-image">
+        
+        <p>قیامت کی بے شمار نشانیوں میں سے ایک، جنگ صفین کا ہونا بھی ہے، جس کے بارے میں آپ ﷺ نے پیشین گوئی فرمائی تھی۔</p>
+        <p>اسلامی تاریخ میں بے شمار غزوات کا ذکر ہے جو مسلمانوں اور کفار کے درمیان لڑی گئیں، مگر جنگ صفین وہ واحد جنگ ہے جو صرف مسلمانوں کے درمیان ہوئی۔ یہ جنگ حضرت عثمان غنی رضی اللہ عنہ کی شہادت کے بعد 36ھ میں حضرت علی ابن طالب رضی اللہ عنہ اور حضرت امیر معاویہ رضی اللہ عنہ کی فوجوں کے درمیان ہوئی۔ اس وقت حضرت معاویہ رضی اللہ عنہ شام کے گورنر تھے۔</p>
+        <p>حضرت علی رضی اللہ عنہ کی فوج کی کمان حضرت مالک اشتر رضی اللہ عنہ کے ہاتھ میں تھی، جبکہ دوسری طرف حضرت عمرو بن عاص رضی اللہ عنہ حضرت معاویہ رضی اللہ عنہ کی فوج کی قیادت کر رہے تھے۔</p>
+        <p>یہ لڑائی دریائے فرات کے قریب ایک مقام پر ہوئی۔ اندازے کے مطابق شامی فوج کے تقریباً 45,000 اور حضرت علی رضی اللہ عنہ کی فوج کے تقریباً 25,000 افراد شہید ہوئے، جن میں زیادہ تر صحابہ کرام رضی اللہ عنہم شامل تھے۔ جنگ صفین میں حضرت خزیمہ بن ثابت رضی اللہ عنہ اور حضرت اویس قرنی رضی اللہ عنہ شہید ہوئے۔</p>
+        
+        <h2>ارشاد نبوی ﷺ</h2>
+        <p>نبی کریم ﷺ نے فرمایا:<br><strong>&quot;قیامت اس وقت تک ہرگز قائم نہ ہو گی جب تک دو عظیم جماعتیں آپس میں لڑائی نہ کر لیں۔ ان کے درمیان قتل و خونریزی کا ایک عظیم معرکہ بپا ہو گا، حالانکہ دونوں کا مقصد ایک ہی ہو گا۔&quot;</strong></p>
+        <p>آپ ﷺ نے اسی جنگ کے پیش نظر، حضرت عمار بن یاسر رضی اللہ عنہ سے کہا تھا:<br><strong>&quot;اے عمار! تو ایک باغی گروہ کے ہاتھوں شہید ہو گا۔&quot;</strong></p>
+        
+        <h2>صلح کی کوششیں</h2>
+        <p>تاریخ سے معلوم ہوتا ہے کہ حضرت علی رضی اللہ عنہ اور حضرت معاویہ رضی اللہ عنہ دونوں ہی اس جنگ کے خلاف تھے۔ حضرت عمرو بن عاص رضی اللہ عنہ، جب انہوں نے دونوں اطراف سے شہید ہونے والوں کو دیکھا، تو وہ زار و قطار رونے لگے۔ ہر طرف خون سے لت پت جانیں بکھری پڑی تھیں، گھوڑے شدید زخمی تھے۔</p>
+        <p>اس شدید غم کی کیفیت میں، حضرت عمرو بن عاص رضی اللہ عنہ نے حضرت معاویہ رضی اللہ عنہ کی اجازت سے حضرت علی رضی اللہ عنہ کو صلح کی دعوت دی۔ حضرت علی رضی اللہ عنہ نے خلوص دل سے اس کا جواب دیا اور کہا:<br><strong>&quot;مقتولین بہت زیادہ ہو گئے ہیں۔ جنگ روک دیجیے تاکہ ہم ان تمام مقتولین کو دفن کر لیں۔&quot;</strong></p>
+        
+        <h2>قرآن کی طرف رجوع</h2>
+        <p>حضرت ابو وائل بن حجر رضی اللہ عنہ فرماتے ہیں:<br>&quot;ہم صفین میں موجود تھے جب اہل شام کے ساتھ جنگ بہت زور پکڑ گئی۔ شامی ایک اونچے ٹیلے پر چڑھ گئے تھے۔ حضرت عمرو بن عاص رضی اللہ عنہ نے حضرت معاویہ رضی اللہ عنہ سے کہا:<br><strong>&#39;آپ حضرت علی رضی اللہ عنہ کی جانب قرآن بھیج کر انہیں کتاب اللہ کی طرف دعوت دیجیے۔ مجھے امید ہے کہ وہ اس سے انکار نہیں کریں گے۔&#39;</strong>&quot;</p>
+        <p>حضرت معاویہ رضی اللہ عنہ نے ایسا ہی کیا۔ ایک شخص کو حضرت علی رضی اللہ عنہ کے پاس بھیجا اور کہا:<br><strong>&quot;ہمارے اور آپ کے درمیان اللہ کی کتاب ہے، جو فیصلہ کرے گی۔&quot;</strong></p>
+        <p>حضرت علی رضی اللہ عنہ نے بڑے خلوص سے کہا:<br><strong>&quot;بے شک میں لوگوں کو اس کی دعوت دینے کا زیادہ حق دار ہوں۔ ٹھیک ہے! ہمارے اور آپ کے درمیان اللہ کی کتاب فیصلہ کرے گی۔&quot;</strong></p>
+        
+        <h2>صحابہ کرام کی معصومیت</h2>
+        <p>یاد رکھیے کہ اللہ کے نبی ﷺ اور صحابہ کرام رضی اللہ عنہم تمام کے تمام انسان تھے۔ ان سے چھوٹی چھوٹی خطاوں کا ہونا ممکن تھا، مگر یہ خطا اجتہاد کی بنا پر تھی، نہ کہ عناد یا نافرمانی کی وجہ سے۔ وہ تمام نیک، صالح، پرہیزگار اور سنت پر چلنے والے تھے۔</p>
+        
+        <h2>ہماری ذمہ داری</h2>
+        <p>اگر صحابہ کرام رضی اللہ عنہم کے درمیان کبھی باہمی اختلافات واقع ہوئے، تو ہماری ذمہ داری یہ ہے کہ:</p>
+        <ul>
+            <li>ان کے باہمی جھگڑوں کو زبانی تلخ کلامی یا موضوعِ بحث نہ بنائیں</li>
+            <li>ان کے بارے میں لب کشائی یا اف تک نہ کریں</li>
+            <li>ان کے اختلافات کی نشر و اشاعت نہ کریں</li>
+            <li>ان سے درگزر کریں اور ان کا احترام کریں</li>
+        </ul>
+        <p>کیونکہ یہ بحثیں امت کے درمیان شر و فساد کا سبب بنتی ہیں اور آنے والی نسلوں کے دلوں میں صحابہ کرام رضی اللہ عنہم کے بارے میں نفرت پیدا کرتی ہیں۔</p>
+        <p>اللہ تعالیٰ ہم سب کے گناہ معاف فرمائے اور ہمیں صحابہ کے نقشِ قدم پر چلنے کی توفیق عطا فرمائے۔<br><strong>آمین۔</strong></p>
     </div>
 
+    <!-- Color Fill Overlay -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -72,6 +525,7 @@
     </div>
 
     <script>
+        // Color Fill Post Functions
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -79,14 +533,47 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Navigation Functions
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Event Listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Initialize planets with random positions
+        document.addEventListener('DOMContentLoaded', function() {
+            const planets = document.querySelectorAll('.planet:not(.sun)');
+            planets.forEach(planet => {
+                // Randomize initial position
+                const randomX = Math.floor(Math.random() * 80) + 10;
+                const randomY = Math.floor(Math.random() * 80) + 10;
+                planet.style.left = `${randomX}%`;
+                planet.style.top = `${randomY}%`;
+            });
+        });
     </script>
 </body>
 </html>
