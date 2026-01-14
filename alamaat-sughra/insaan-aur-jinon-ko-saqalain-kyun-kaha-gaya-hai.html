@@ -7,69 +7,405 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 0;
+            background: #0a0e17;
+            color: #e0e0e0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Space Orbit Background */
+        .space-orbit {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .small-star { width: 2px; height: 2px; }
+        .medium-star { width: 3px; height: 3px; }
+        .large-star { width: 4px; height: 4px; }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        .planet-1 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #4ecdc4, #1a5f5b);
+            top: 20%;
+            left: 15%;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+            animation: orbit-1 60s linear infinite;
+        }
+        
+        .planet-2 {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #ff9ff3, #a8328c);
+            top: 60%;
+            left: 80%;
+            box-shadow: 0 0 20px rgba(255, 159, 243, 0.5);
+            animation: orbit-2 80s linear infinite;
+        }
+        
+        .planet-3 {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at 30% 30%, #feca57, #b37400);
+            top: 80%;
+            left: 30%;
+            box-shadow: 0 0 15px rgba(254, 202, 87, 0.5);
+            animation: orbit-3 100s linear infinite;
+        }
+        
+        @keyframes orbit-1 {
+            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+        
+        @keyframes orbit-2 {
+            0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+        }
+        
+        @keyframes orbit-3 {
+            0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+        }
+        
+        /* Main Content Container */
+        .content-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Post Header */
+        .post-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: rgba(16, 24, 39, 0.8);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4a90e2, #2ecc71, #ff6b6b, #feca57);
+        }
+        
+        h1 {
+            color: #4ecdc4;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(78, 205, 196, 0.5);
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        /* Post Image */
+        .post-image {
+            width: 100%;
+            max-width: 700px;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 3px solid rgba(74, 144, 226, 0.3);
+        }
+        
+        .post-image:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(74, 144, 226, 0.4);
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        
+        .post-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: rgba(16, 24, 39, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            text-align: justify;
+            font-size: 1.3rem;
+            line-height: 2.3;
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+            color: #d0d0d0;
+        }
+        
+        .post-content a {
+            color: #4ecdc4;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 1px dotted #4ecdc4;
+            padding-bottom: 2px;
+        }
+        
+        .post-content a:hover {
+            color: #ff9ff3;
+            border-bottom: 1px solid #ff9ff3;
+        }
+        
+        /* Control Buttons */
+        .controls {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(16, 24, 39, 0.9);
+            border: 2px solid #4a90e2;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .control-btn:hover {
+            background: #4a90e2;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.7);
+        }
+        
+        .back-btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.7);
+            background: linear-gradient(45deg, #2ecc71, #4a90e2);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .content-container {
+                padding: 10px;
+            }
+            
+            .post-header {
+                padding: 20px 15px;
+            }
+            
+            .controls {
+                right: 10px;
+                bottom: 10px;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .planet-1, .planet-2, .planet-3 {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+                font-size: 1rem;
+            }
+            
+            .back-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
-    </div>
-
-    <div class="post-content">
+    <!-- Space Orbit Background -->
+    <div class="space-orbit" id="spaceOrbit"></div>
+    
+    <!-- Main Content Container -->
+    <div class="content-container">
+        <!-- Post Header -->
+        <div class="post-header">
+            <h1>انسان اور جنوں کو ثقلین کیوں کہا گیا ہے؟</h1>
+        </div>
         
-        <h1>انسان اور جنوں کو ثقلین کیوں کہا گیا ہے؟</h1>
-<p>دوستو! زندگی بہت تھوڑی ہے لیکن انسان کی خواہشات کی لسٹ بہت طویل ہے۔ نفسانفسی کے اس عالم میں ہر شخص اپنی ان خواہشات کی تکمیل کے لیے ہر جائز و ناجائز کام کر رہا ہے اور راہِ حق سے دور ہو کر کہیں بھٹک سا گیا ہے۔ دولت کمانے کے جنون نے اس قدر خودغرض، لالچی، لاپرواہ بنا دیا ہے کہ بھائی بھائی کا حق مارنے میں گریز نہیں کرتا۔</p>
-<p>یوں تو <a href="https://www.bloglovers.pk/2023/11/blog-post_63.html">ہوس پرستی</a> کے اس عالم میں انسان کا معیار اور مرتبہ تو بلند ہو گیا ہے لیکن درحقیقت انسانیت کے درجوں میں ناصرف گرتا چلا جا رہا ہے بلکہ درندگی اختیار کر چکا ہے۔ دولت کے حصول کے لیے قتل و غارت، فسادات، حیوانگی، بددیانتی جیسے مرض لاحق ہو چکے ہیں۔</p>
-<p>ہر طرف گمراہی اور لامتناہی اندھیرا چھا رہا ہے امید اور دین کی روشنی ان اندھیروں میں مدھم ہوتی چلی جا رہی ہے کیونکہ دین میں آئے روز نئے نت نئے تجربات اور فرقے وقوع پذیر ہو رہے ہیں۔ گراوٹ کی اس ہلچل میں ہم لوگ سیدھے راستے سے بھٹک گئے ہیں۔ دولت کی چکاچوند روشنی نے ہم سب کی آنکھوں کو اندھا کرنا شروع کر دیا ہے، اپنے اپنے نہیں لگتے اگر ان کے پاس دولت نہیں ہے تو، رشتے ناطے، دوست احباب، سب پھیکے پکوان کی طرح لگنے لگے ہیں۔</p>
-<p>ہمارے پاس اپنوں کے دکھ درد بانٹنے کے لیے وقت ہی کہاں ہے، کون جیا، کون مرا، عرصہ گزر جاتا ہے مگر رابطہ ہی نہیں ہو پاتا، جب وقت گزر جاتا ہے ہر کوئی ایک دوسرے کے بنا جینا سیکھ لیتا ہے تو ایسے لگتا ہے جیسے خواہشات کی استکمیل میں میں اکیلا ہی تو بھاگ رہا ہوں باقی سب تو وہیں تھے کہیں میں تو بہت آگے نہیں نکل آیا کہ پیچھے مڑ کر جا نہیں سکتے۔ ایسے ہی نہیں کہا گیا کہ ابن آدم کی ہوس صرف قبر کی مٹی بھر سکتی ہے۔</p>
-<p>آج کا موضوع گفتگو بھی کچھ ایسا ہی ہے کہ قرب قیامت جب زمین اپنے سارے خزانے اگل دے گی تو لوگوں کی حالت کیا ہو گی۔ آخری زمانے میں مال کی کثرت اس قدر زیادہ ہو جائے گی کہ زمین اپنے اندر دفن شدہ خزانے باہر نکال پھینکے گی یہاں تک کہ مال و دولت کی ریل پیل کی وجہ سے لوگ اس دولت سے بالکل بے نیاز ہو جائیں گے۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا &quot;زمین اپنے جگر کے ٹکڑے سونے اور چاندی کے بڑے بڑے ستونوں کی شکل میں اگل دے گی۔ قاتل آئے گا اور کہے گا: افسوس! میں نے مال کے لیے کسی انسان کو قتل کیا۔ قطع رحمی کرنے والا آئے گا اور کہے گا: افسوس! میں نے اس مال کی خاطر اپنے خون کے رشتہ داروں کو چھوڑا۔ چور آئے گا اور کہے گا: افسوس! میں نے اس مال کی خاطر چوری کی اور میرا ہاتھ کاٹا گیا۔ پھر وہ سب اسے چھوڑ دیں گے اور اس مال میں سے کچھ بھی نہیں لیں گے&quot;۔</p>
-<p>اہل علم کے نزدیک یہ قیامت کے آنے سے پہلے وقوع ہو گی جبکہ قرآن قدس کے مطابق &quot;اور زمین اپنے بوجھ کو باہر پھینک دے گی اور آدمی کہے گا اسے کیا ہوا؟ یہ صور پھونکنے کے بعد کا منظر ہو گا یعنی زمین اپنے اندر موجود خزانے اور مردے سب نکال کر باہر پھینک دے گی۔ کیونکہ انسان و جن دونوں بوجھ والے وجود ہیں اس لیے ان کو ثقلین کہا جاتا ہے زندہ ہوں یا مردہ دونوں حالتوں میں زمین ہی ان کا بوجھ اٹھاتی ہے۔&quot;</p>
-<p>اللہ رب العزت نے ایک اور مقام پر کچھ یوں ارشاد فرمایا &quot;اور جب زمین کو دراز کیا جائے گا اور جو کچھ اس میں ہے زمین اسے باہر نکال ڈالے گی اور خالی ہو جائے گی۔ اور وہ اپنے رب کا حکم سنے گی اور اسے یہی لائق ہے۔ اے انسان! بے شک تو اپنے رب کی طرف دوڑنے والا ہے پھر اس سے ملنے والا ہے۔</p>
-<p>دوسرے مقام پر کچھ یوں فرمایا &quot;یعنی اس زلزلے کے وقت جو لوگ موجود ہوں گے وہ حیرت سے کہیں گے زمین کو کیا ہوا کہ ایسی مضطرب ہوئی اور اتنا شدید زلزلہ آیا کہ جو کچھ اس کے اندر تھا اس نے سب باہر پھینک دیا۔</p>
-<p>اللہ سے استدعا ہے کہ رزق حلال نصیب فرمائے اور قیامت کی ہولناکیوں سے ہم سب کو بچائے۔ آمین</p>
-
+        <!-- Post Image -->
+        <div class="post-image">
+            <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-aur-jinon-ko-saqalain-kyun-kaha-gaya-hai.png" alt="انسان اور جنوں کو ثقلین کیوں کہا گیا ہے">
+        </div>
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <p>دوستو! زندگی بہت تھوڑی ہے لیکن انسان کی خواہشات کی لسٹ بہت طویل ہے۔ نفسانفسی کے اس عالم میں ہر شخص اپنی ان خواہشات کی تکمیل کے لیے ہر جائز و ناجائز کام کر رہا ہے اور راہِ حق سے دور ہو کر کہیں بھٹک سا گیا ہے۔ دولت کمانے کے جنون نے اس قدر خودغرض، لالچی، لاپرواہ بنا دیا ہے کہ بھائی بھائی کا حق مارنے میں گریز نہیں کرتا۔</p>
+            <p>یوں تو ہوس پرستی کے اس عالم میں انسان کا معیار اور مرتبہ تو بلند ہو گیا ہے لیکن درحقیقت انسانیت کے درجوں میں ناصرف گرتا چلا جا رہا ہے بلکہ درندگی اختیار کر چکا ہے۔ دولت کے حصول کے لیے قتل و غارت، فسادات، حیوانگی، بددیانتی جیسے مرض لاحق ہو چکے ہیں۔</p>
+            <p>ہر طرف گمراہی اور لامتناہی اندھیرا چھا رہا ہے امید اور دین کی روشنی ان اندھیروں میں مدھم ہوتی چلی جا رہی ہے کیونکہ دین میں آئے روز نئے نت نئے تجربات اور فرقے وقوع پذیر ہو رہے ہیں۔ گراوٹ کی اس ہلچل میں ہم لوگ سیدھے راستے سے بھٹک گئے ہیں۔ دولت کی چکاچوند روشنی نے ہم سب کی آنکھوں کو اندھا کرنا شروع کر دیا ہے، اپنے اپنے نہیں لگتے اگر ان کے پاس دولت نہیں ہے تو، رشتے ناطے، دوست احباب، سب پھیکے پکوان کی طرح لگنے لگے ہیں۔</p>
+            <p>ہمارے پاس اپنوں کے دکھ درد بانٹنے کے لیے وقت ہی کہاں ہے، کون جیا، کون مرا، عرصہ گزر جاتا ہے مگر رابطہ ہی نہیں ہو پاتا، جب وقت گزر جاتا ہے ہر کوئی ایک دوسرے کے بنا جینا سیکھ لیتا ہے تو ایسے لگتا ہے جیسے خواہشات کی استکمیل میں میں اکیلا ہی تو بھاگ رہا ہوں باقی سب تو وہیں تھے کہیں میں تو بہت آگے نہیں نکل آیا کہ پیچھے مڑ کر جا نہیں سکتے۔ ایسے ہی نہیں کہا گیا کہ ابن آدم کی ہوس صرف قبر کی مٹی بھر سکتی ہے۔</p>
+            <p>آج کا موضوع گفتگو بھی کچھ ایسا ہی ہے کہ قرب قیامت جب زمین اپنے سارے خزانے اگل دے گی تو لوگوں کی حالت کیا ہو گی۔ آخری زمانے میں مال کی کثرت اس قدر زیادہ ہو جائے گی کہ زمین اپنے اندر دفن شدہ خزانے باہر نکال پھینکے گی یہاں تک کہ مال و دولت کی ریل پیل کی وجہ سے لوگ اس دولت سے بالکل بے نیاز ہو جائیں گے۔</p>
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "زمین اپنے جگر کے ٹکڑے سونے اور چاندی کے بڑے بڑے ستونوں کی شکل میں اگل دے گی۔ قاتل آئے گا اور کہے گا: افسوس! میں نے مال کے لیے کسی انسان کو قتل کیا۔ قطع رحمی کرنے والا آئے گا اور کہے گا: افسوس! میں نے اس مال کی خاطر اپنے خون کے رشتہ داروں کو چھوڑا۔ چور آئے گا اور کہے گا: افسوس! میں نے اس مال کی خاطر چوری کی اور میرا ہاتھ کاٹا گیا۔ پھر وہ سب اسے چھوڑ دیں گے اور اس مال میں سے کچھ بھی نہیں لیں گے"۔</p>
+            <p>اہل علم کے نزدیک یہ قیامت کے آنے سے پہلے وقوع ہو گی جبکہ قرآن قدس کے مطابق "اور زمین اپنے بوجھ کو باہر پھینک دے گی اور آدمی کہے گا اسے کیا ہوا؟ یہ صور پھونکنے کے بعد کا منظر ہو گا یعنی زمین اپنے اندر موجود خزانے اور مردے سب نکال کر باہر پھینک دے گی۔ کیونکہ انسان و جن دونوں بوجھ والے وجود ہیں اس لیے ان کو ثقلین کہا جاتا ہے زندہ ہوں یا مردہ دونوں حالتوں میں زمین ہی ان کا بوجھ اٹھاتی ہے۔"</p>
+            <p>اللہ رب العزت نے ایک اور مقام پر کچھ یوں ارشاد فرمایا "اور جب زمین کو دراز کیا جائے گا اور جو کچھ اس میں ہے زمین اسے باہر نکال ڈالے گی اور خالی ہو جائے گی۔ اور وہ اپنے رب کا حکم سنے گی اور اسے یہی لائق ہے۔ اے انسان! بے شک تو اپنے رب کی طرف دوڑنے والا ہے پھر اس سے ملنے والا ہے۔</p>
+            <p>دوسرے مقام پر کچھ یوں فرمایا "یعنی اس زلزلے کے وقت جو لوگ موجود ہوں گے وہ حیرت سے کہیں گے زمین کو کیا ہوا کہ ایسی مضطرب ہوئی اور اتنا شدید زلزلہ آیا کہ جو کچھ اس کے اندر تھا اس نے سب باہر پھینک دیا۔</p>
+            <p>اللہ سے استدعا ہے کہ رزق حلال نصیب فرمائے اور قیامت کی ہولناکیوں سے ہم سب کو بچائے۔ آمین</p>
+        </div>
+        
+        <!-- Back Button -->
+        <div class="back-btn-container">
+            <button class="back-btn" onclick="goBack()">← واپس جائیں</button>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <!-- Control Buttons -->
+    <div class="controls">
+        <button class="control-btn" onclick="scrollToTop()">↑</button>
+        <button class="control-btn" onclick="scrollToBottom()">↓</button>
     </div>
-
+    
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create space orbit background
+        function createSpaceOrbit() {
+            const spaceOrbit = document.getElementById('spaceOrbit');
+            
+            // Create stars
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                const starSize = Math.random() * 3 + 1;
+                const starClass = starSize < 1.5 ? 'small-star' : starSize < 2.5 ? 'medium-star' : 'large-star';
+                
+                star.className = `star ${starClass}`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite alternate`;
+                
+                spaceOrbit.appendChild(star);
+            }
+            
+            // Create animation for twinkling stars
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes twinkle {
+                    0% { opacity: 0.3; }
+                    100% { opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Create planets (already in HTML)
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        // Back button function
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Initialize space orbit on page load
+        window.addEventListener('DOMContentLoaded', createSpaceOrbit);
     </script>
 </body>
 </html>
