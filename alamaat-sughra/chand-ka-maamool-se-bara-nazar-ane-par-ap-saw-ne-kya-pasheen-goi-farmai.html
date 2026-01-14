@@ -5,71 +5,495 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>چاند کا معمول سے بڑا نظر آنے پر آپ ﷺ نے کیا پیشین گوئی فرمائی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Space Orbit Dark Theme */
+        :root {
+            --space-bg: #0a0e17;
+            --space-orbit: #1a1f35;
+            --star-color: rgba(255, 255, 255, 0.8);
+            --text-color: #f0f0f0;
+            --heading-color: #4ecdc4;
+            --accent-color: #ff6b6b;
+            --button-bg: linear-gradient(45deg, #4a90e2, #2ecc71);
+            --card-bg: rgba(20, 25, 40, 0.85);
+            --moon-glow: rgba(255, 255, 240, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--space-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Space Background Animation */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, var(--star-color), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--star-color), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--star-color), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--star-color), transparent),
+                radial-gradient(2px 2px at 160px 120px, var(--star-color), transparent),
+                radial-gradient(1px 1px at 200px 90px, var(--star-color), transparent),
+                radial-gradient(2px 2px at 240px 30px, var(--star-color), transparent),
+                radial-gradient(1px 1px at 280px 150px, var(--star-color), transparent),
+                radial-gradient(2px 2px at 320px 70px, var(--star-color), transparent);
+            animation: twinkle 8s infinite alternate;
+        }
+        
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 40s linear infinite;
+        }
+        
+        .orbit::before, .orbit::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+        
+        .orbit::before {
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+        
+        .orbit::after {
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4a90e2;
+            box-shadow: 0 0 10px #4a90e2;
+        }
+        
+        .moon {
+            position: absolute;
+            top: 20%;
+            left: 15%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #f5f3ce, #d8d7c5);
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--moon-glow);
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .moon:hover {
+            box-shadow: 0 0 50px rgba(245, 243, 206, 0.4);
+            transform: scale(1.1);
+            transition: all 0.5s ease;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+        
+        .main-title {
+            color: var(--heading-color);
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(78, 205, 196, 0.3);
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+        }
+        
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+            margin: 30px auto;
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(78, 205, 196, 0.2);
+        }
+        
+        .post-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            text-align: justify;
+            font-size: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+            text-align: justify;
+            line-height: 2.3;
+        }
+        
+        .highlight {
+            color: var(--heading-color);
+            font-weight: bold;
+            background: rgba(78, 205, 196, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-back {
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+        }
+        
+        .btn-up, .btn-down {
+            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            padding: 0;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn i {
+            margin-left: 8px;
+        }
+        
+        .scroll-buttons {
+            position: fixed;
+            left: 25px;
+            bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+                font-size: 1.15rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .scroll-buttons {
+                left: 15px;
+                bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .main-title {
+                font-size: 1.9rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+                font-size: 1.1rem;
+                line-height: 2.1;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .scroll-buttons {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 30px;
+            }
+            
+            .orbit {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .moon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.7rem;
+            }
+            
+            .post-content {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Space Background -->
+    <div class="space-bg">
+        <div class="stars"></div>
+        <div class="orbit"></div>
+        <div class="moon"></div>
     </div>
-
-    <div class="post-content">
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">چاند کا معمول سے بڑا نظر آنے پر آپ ﷺ نے کیا پیشین گوئی فرمائی؟</h1>
+            
+            <!-- Post Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/chand-ka-maamool-se-bara-nazar-ane-par-ap-saw-ne-kya-pasheen-goi-farmai.png" 
+                 alt="چاند کا معمول سے بڑا نظر آنے پر آپ ﷺ نے کیا پیشین گوئی فرمائی؟" 
+                 class="post-image">
+        </div>
         
-        <h1>چاند کا معمول سے بڑا نظر آنے پر آپ ﷺ نے کیا پیشین گوئی فرمائی؟</h1>
-<p>دوستو! قمری کیلنڈر مسلمانوں کے نزدیک بہت ہی اہمیت کا حامل ہے۔ اسلام کے ارکان میں سے دو کا اس کیلنڈر سے بہت گہرا تعلق ہے، رمضان کے روزے رکھنا، عیدین، یا پھر حرمت والے دن، یا دیگر معاملات غرض یہ کہ چاند دیکھ کر فرائض کی ادائیگی کی جاتی ہے۔</p>
-<p>لیکن جب بھی چاند دیکھنے کی تیاری کی جاتی ہے ہمارے ہاں یہ روایات پائی جاتی ہیں کہ عام طور پر اختلاف رائے یا پھر تنقید برائے تنقید کا ماحول پیدا کر دیا جاتا ہے۔ جبکہ ہمیں نیا چاند دیکھنے اور سلامتی کی دعائیں مانگنے کا حکم فرمایا گیا۔</p>
-<p>آج کل ہم چاند کو اپنی آنکھوں سے دیکھنے کی بجائے دوسروں کی آنکھوں اور باتوں پر یقین کرتے ہیں۔ مختلف مقامات سے شہادتیں اکٹھی کی جاتی ہیں اور پھر ایک جماعت کی مشترکہ رائے سے فیصلہ صادر کیا جاتا ہے۔</p>
-<p>زیادہ تر لوگ علم نجوم سے رائے لینا شروع کر دیتے ہیں کہ بتائیں جی ہمارا سال، مہینہ، یا دن کیسے گزرے گا اور یہ لوگ اپنے ناقص علم اور رائے کو ملحوظ خاطر رکھتے ہوئے پیشین گوئیاں فرماتے دکھائی دیتے ہیں۔</p>
-<p>بعض اوقات یہ پیشین گوئیاں سچ ہو جاتی ہیں لیکن اکثر اوقات ان لوگوں کو منہ کی کھانی پڑتی ہے۔ کیونکہ عالم الغیب تو صرف اللہ رب العزت کی ذات اقدس ہے۔ اس کے علاوہ کوئی نہیں جانتا کہ کب کیا ہو گا؟</p>
-<p>زیادہ پڑھے لکھے لوگ ماہرین فلکیات کی رپورٹ کا انتظار کرتے ہیں اور پھر اگلا قدم اٹھانے کا سوچتے ہیں۔ کیونکہ ماہر فلکیات چاند کی عمر، اس کی چمک اور سورج اور چاند کے غروب ہونے کے درمیانی وقفے کے ساتھ ظاہر کرتے ہیں۔ ان کے مطابق جب چاند کی عمر اٹھارہ گھنٹے سے زائد ہو جاتی ہے تو ایسی صورت میں چاند زیادہ روشن ہوتا ہے اور نظر آنے کے امکانات بھی واضح ہو جاتے ہیں۔ اور اگر چاند کی عمر پندرہ گھنٹوں سے کم ہو تو چاند کے امکانات کم ہوتے ہیں یا نہ ہونے کے برابر ہوتے ہیں۔ اسی طرح اگر انتیسویں کی رات اگر چاند نہیں دکھائی دیتا تو ہم لوگ تیس دن پورے کرتے ہیں اور یہی حکم بھی دیا گیا ہے۔ جب چاند تیس دن پورے کرنے کے بعد ظاہر ہوتا ہے تو وہ پہلے سے زیادہ روشن دکھائی دیتا ہے کیونکہ انتیسویں اور تیسویں کی رات میں 24 گھنٹوں کا اضافہ ہو جاتا ہے جس کی وجہ سے چاند پوری آب و تاب کے ساتھ ظاہر ہوتا ہے۔</p>
-<p>چاند کے بارے میں اختلاف رائے صحابہ کرام کے دور میں بھی تھا جیسا کہ روایت میں ہے کہ چند صحابہ کرام عمرہ کے لیے نکلے تو جب وہ وادی نخلہ میں پہنچے تو انھوں نے چاند کو دیکھا، ان میں سے بعض نے کہا کہ یہ تیسری کا چاند ہے اور کسی نے کہا کہ یہ دوسری رات کا چاند ہے۔ جب ان کی ملاقات حضرت عباس رضی اللہ عنہ سے ہوئی تو انھوں نے عرض کیکہ ہم نے چاند دیکھا ہے کوئی کہتا ہے کہ تیسری کا ہے تو کوئی کہتا ہے دوسری کا ہے۔ تو آپ نے فرمایا کہ تم نے کس رات چاند دیکھا تھا؟ تو انھوں نے عرض کیا کہ فلاں فلاں رات کا تو آپ نے فرمایا کہ اللہ کے نبی ﷺ نے فرمایا کہ اللہ رب العزت نے دیکھنے کے لیے اسے بڑھا دیا ہے۔ درحقیقت اسی رات کا چاند ہے جس رات تم نے اسے دیکھا۔</p>
-<p>یوں تو ہلال مہینے کے آغاز میں پہلی رات کے چاند کو کہتے ہیں۔ یہ چاند قمری مہینے کی پہلی رات میں چھوٹا سا نظر آتا ہے، پھر مہینے کے نصف تک بتدریج بڑھتا رہتا ہے، پھر مہینے کے نصف سے آخر تک بتدریج چھوٹا ہونا شروع ہو جاتا ہے۔</p>
-<p>علامات قیامت میں سے پہلی رات کے چاند کا بڑا نظر آنا بھی ہے، یعنی چاند ابتدائی رات ہی میں معمول سے بڑا نظر آنے لگے گا۔ لوگ پہلی رات کے چاند کو دوسری رات کا چاند خیال کریں گے۔</p>
-<p>جیسا کہ آپ ﷺ نے فرمایا &quot;قرب قیامت چاند معمول سے بڑا نظر آئے گا۔ پہلی رات کا چاند دیکھ کر کہا جائے گا کہ یہ تو دوسری رات کا چاند ہے&quot;۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <div class="post-content">
+            <p>دوستو! قمری کیلنڈر مسلمانوں کے نزدیک بہت ہی اہمیت کا حامل ہے۔ اسلام کے ارکان میں سے دو کا اس کیلنڈر سے بہت گہرا تعلق ہے، رمضان کے روزے رکھنا، عیدین، یا پھر حرمت والے دن، یا دیگر معاملات غرض یہ کہ چاند دیکھ کر فرائض کی ادائیگی کی جاتی ہے۔</p>
+            
+            <p>لیکن جب بھی چاند دیکھنے کی تیاری کی جاتی ہے ہمارے ہاں یہ روایات پائی جاتی ہیں کہ عام طور پر اختلاف رائے یا پھر تنقید برائے تنقید کا ماحول پیدا کر دیا جاتا ہے۔ جبکہ ہمیں نیا چاند دیکھنے اور سلامتی کی دعائیں مانگنے کا حکم فرمایا گیا۔</p>
+            
+            <p>آج کل ہم چاند کو اپنی آنکھوں سے دیکھنے کی بجائے دوسروں کی آنکھوں اور باتوں پر یقین کرتے ہیں۔ مختلف مقامات سے شہادتیں اکٹھی کی جاتی ہیں اور پھر ایک جماعت کی مشترکہ رائے سے فیصلہ صادر کیا جاتا ہے۔</p>
+            
+            <p>زیادہ تر لوگ علم نجوم سے رائے لینا شروع کر دیتے ہیں کہ بتائیں جی ہمارا سال، مہینہ، یا دن کیسے گزرے گا اور یہ لوگ اپنے ناقص علم اور رائے کو ملحوظ خاطر رکھتے ہوئے پیشین گوئیاں فرماتے دکھائی دیتے ہیں۔</p>
+            
+            <p>بعض اوقات یہ پیشین گوئیاں سچ ہو جاتی ہیں لیکن اکثر اوقات ان لوگوں کو منہ کی کھانی پڑتی ہے۔ کیونکہ عالم الغیب تو صرف اللہ رب العزت کی ذات اقدس ہے۔ اس کے علاوہ کوئی نہیں جانتا کہ کب کیا ہو گا؟</p>
+            
+            <p>زیادہ پڑھے لکھے لوگ ماہرین فلکیات کی رپورٹ کا انتظار کرتے ہیں اور پھر اگلا قدم اٹھانے کا سوچتے ہیں۔ کیونکہ ماہر فلکیات چاند کی عمر، اس کی چمک اور سورج اور چاند کے غروب ہونے کے درمیانی وقفے کے ساتھ ظاہر کرتے ہیں۔ ان کے مطابق جب چاند کی عمر اٹھارہ گھنٹے سے زائد ہو جاتی ہے تو ایسی صورت میں چاند زیادہ روشن ہوتا ہے اور نظر آنے کے امکانات بھی واضح ہو جاتے ہیں۔ اور اگر چاند کی عمر پندرہ گھنٹوں سے کم ہو تو چاند کے امکانات کم ہوتے ہیں یا نہ ہونے کے برابر ہوتے ہیں۔ اسی طرح اگر انتیسویں کی رات اگر چاند نہیں دکھائی دیتا تو ہم لوگ تیس دن پورے کرتے ہیں اور یہی حکم بھی دیا گیا ہے۔ جب چاند تیس دن پورے کرنے کے بعد ظاہر ہوتا ہے تو وہ پہلے سے زیادہ روشن دکھائی دیتا ہے کیونکہ انتیسویں اور تیسویں کی رات میں 24 گھنٹوں کا اضافہ ہو جاتا ہے جس کی وجہ سے چاند پوری آب و تاب کے ساتھ ظاہر ہوتا ہے۔</p>
+            
+            <p>چاند کے بارے میں اختلاف رائے صحابہ کرام کے دور میں بھی تھا جیسا کہ روایت میں ہے کہ چند صحابہ کرام عمرہ کے لیے نکلے تو جب وہ وادی نخلہ میں پہنچے تو انھوں نے چاند کو دیکھا، ان میں سے بعض نے کہا کہ یہ تیسری کا چاند ہے اور کسی نے کہا کہ یہ دوسری رات کا چاند ہے۔ جب ان کی ملاقات حضرت عباس رضی اللہ عنہ سے ہوئی تو انھوں نے عرض کیکہ ہم نے چاند دیکھا ہے کوئی کہتا ہے کہ تیسری کا ہے تو کوئی کہتا ہے دوسری کا ہے۔ تو آپ نے فرمایا کہ تم نے کس رات چاند دیکھا تھا؟ تو انھوں نے عرض کیا کہ فلاں فلاں رات کا تو آپ نے فرمایا کہ اللہ کے نبی ﷺ نے فرمایا کہ اللہ رب العزت نے دیکھنے کے لیے اسے بڑھا دیا ہے۔ درحقیقت اسی رات کا چاند ہے جس رات تم نے اسے دیکھا۔</p>
+            
+            <p>یوں تو ہلال مہینے کے آغاز میں پہلی رات کے چاند کو کہتے ہیں۔ یہ چاند قمری مہینے کی پہلی رات میں چھوٹا سا نظر آتا ہے، پھر مہینے کے نصف تک بتدریج بڑھتا رہتا ہے، پھر مہینے کے نصف سے آخر تک بتدریج چھوٹا ہونا شروع ہو جاتا ہے۔</p>
+            
+            <p>علامات قیامت میں سے پہلی رات کے چاند کا بڑا نظر آنا بھی ہے، یعنی چاند ابتدائی رات ہی میں معمول سے بڑا نظر آنے لگے گا۔ لوگ پہلی رات کے چاند کو دوسری رات کا چاند خیال کریں گے۔</p>
+            
+            <p>جیسا کہ آپ ﷺ نے فرمایا <span class="highlight">"قرب قیامت چاند معمول سے بڑا نظر آئے گا۔ پہلی رات کا چاند دیکھ کر کہا جائے گا کہ یہ تو دوسری رات کا چاند ہے"</span>۔</p>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button class="btn btn-back" onclick="goBack()">
+                <i class="fas fa-arrow-right"></i> واپس جائیں
+            </button>
+        </div>
+        
+        <!-- Scroll Buttons -->
+        <div class="scroll-buttons">
+            <button class="btn btn-up" onclick="scrollToTop()">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <button class="btn btn-down" onclick="scrollToBottom()">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+        
+        <div class="footer">
+            <p>چاند کے معمول سے بڑا نظر آنے کی پیشین گوئی</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Navigation Functions
+        function goBack() {
+            window.history.back();
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+        }
+        
+        // Space theme hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const moon = document.querySelector('.moon');
+            const stars = document.querySelector('.stars');
+            const orbit = document.querySelector('.orbit');
+            
+            // Moon hover effect
+            moon.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.5s ease';
+            });
+            
+            // Stars animation on hover
+            document.body.addEventListener('mousemove', function(e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                stars.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+            });
+            
+            // Orbit animation on hover
+            orbit.addEventListener('mouseenter', function() {
+                this.style.animationDuration = '20s';
+            });
+            
+            orbit.addEventListener('mouseleave', function() {
+                this.style.animationDuration = '40s';
+            });
+            
+            // Add some interactive stars
+            for(let i = 0; i < 50; i++) {
+                createStar();
+            }
+            
+            function createStar() {
+                const star = document.createElement('div');
+                star.style.position = 'fixed';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.background = 'white';
+                star.style.borderRadius = '50%';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.zIndex = '-1';
+                star.style.boxShadow = '0 0 5px white';
+                document.querySelector('.space-bg').appendChild(star);
+                
+                // Animate star
+                animateStar(star);
+            }
+            
+            function animateStar(star) {
+                let x = parseFloat(star.style.left);
+                let y = parseFloat(star.style.top);
+                
+                function move() {
+                    x += (Math.random() - 0.5) * 0.5;
+                    y += (Math.random() - 0.5) * 0.5;
+                    
+                    star.style.left = x + 'vw';
+                    star.style.top = y + 'vh';
+                    
+                    requestAnimationFrame(move);
+                }
+                
+                move();
+            }
+        });
     </script>
 </body>
 </html>
