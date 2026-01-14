@@ -5,81 +5,546 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .solar-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ffde00, #ff8c00, #ff4500);
+            border-radius: 50%;
+            box-shadow: 0 0 60px #ff4500, 0 0 100px #ff8c00;
+            z-index: 1;
+        }
+        
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            transform-origin: center;
+        }
+        
+        .orbit-1 { width: 200px; height: 200px; }
+        .orbit-2 { width: 300px; height: 300px; }
+        .orbit-3 { width: 400px; height: 400px; }
+        .orbit-4 { width: 500px; height: 500px; }
+        .orbit-5 { width: 600px; height: 600px; }
+        
+        .planet-1 {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #888, #aaa);
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .planet-2 {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff7b25, #ff5500);
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .planet-3 {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(45deg, #1e90ff, #0059ff);
+            top: -17.5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .planet-4 {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, #ff3838, #c70039);
+            top: -12.5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .planet-5 {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ffb142, #ff9f1a);
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .solar-background.active {
+            z-index: 9997;
+        }
+        
+        .solar-background.active .orbit {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .solar-background.active .planet {
+            animation: orbit 20s linear infinite;
+        }
+        
+        @keyframes orbit {
+            0% { transform: translateX(-50%) rotate(0deg) translateY(-50%); }
+            100% { transform: translateX(-50%) rotate(360deg) translateY(-50%); }
+        }
+        
+        .planet-1 { animation-duration: 10s; }
+        .planet-2 { animation-duration: 15s; }
+        .planet-3 { animation-duration: 20s; }
+        .planet-4 { animation-duration: 25s; }
+        .planet-5 { animation-duration: 30s; }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            position: relative;
+            transition: background 1s ease;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .control-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0 30px 0;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        .solar-trigger-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        .solar-trigger-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(142, 68, 173, 0.6);
+        }
+        
+        .post-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2.5rem;
+            line-height: 1.3;
+        }
+        
+        h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            text-align: justify;
+        }
+        
+        ul {
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+            margin: 30px auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 5px solid white;
+        }
+        
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .buttons-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.5rem;
+            }
+            
+            p, li {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .control-buttons {
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .header-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .buttons-group {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .post-content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.3rem;
+            }
+            
+            p, li {
+                font-size: 1rem;
+            }
+            
+            .control-buttons {
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <div class="solar-background" id="solarBackground">
+        <!-- Stars -->
+        <div id="stars"></div>
+        
+        <!-- Sun -->
+        <div class="sun"></div>
+        
+        <!-- Orbits and Planets -->
+        <div class="orbit orbit-1"><div class="planet planet-1"></div></div>
+        <div class="orbit orbit-2"><div class="planet planet-2"></div></div>
+        <div class="orbit orbit-3"><div class="planet planet-3"></div></div>
+        <div class="orbit orbit-4"><div class="planet planet-4"></div></div>
+        <div class="orbit orbit-5"><div class="planet planet-5"></div></div>
+    </div>
+
+    <div class="container">
+        <div class="header-controls">
+            <button class="back-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-left"></i> واپس جائیں
+            </button>
+            
+            <div class="buttons-group">
+                <button class="solar-trigger-btn" onclick="toggleSolarBackground()">
+                    <i class="fas fa-globe-americas"></i> شمسی نظام دیکھیں
+                </button>
+            </div>
+        </div>
+
+        <div class="post-content">
+            <h1>بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی</h1>
+            
+            <img src="https://bloglovers.pk/images/alamaat-sughra/bad-kirdar-aur-fasadi-logon-ke-dar-se-unki-izzat-ki-jae-gi.jpg" alt="بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی" class="post-image">
+            
+            <p>قارئین کرام! انسان کا کردار، عادات اطوار، قول و فعل ہی کسی شخصیت کا آئینہ ہوتی ہے۔ حضرت عمر ﷺ کا فرمان ہے کہ اگر کسی انسان کے کردار کو پرکھنا ہو تو اس کے ساتھ کھانا کھا کر دیکھ لو، سفر کر کے دیکھو یا پھر کوئی لین دین کر کے دیکھ لو۔ ایک انسان فطری طور پر یا نفسیاتی طور پر اسی شخص کو اپنا دوست، رفیق بناتا ہے جس کے ساتھ اس کو سکون ملتا ہو، اس کی سوچ ملتی ہو، اس کی عادتیں اچھی لگتی ہوں، اس کے ساتھ ہم آہنگی ہو، غرض یہ کہ اس کی کمپنی اچھی لگتی ہو۔</p>
+            
+            <p>آپ ﷺ نے فرمایا "اچھے دوست کی مثال اس خوشبو بیچنے والے کی سی ہے کہ جس کے پاس جاؤ تو وہ خوشبو ہی دے گا اور بُرے دوست کی مثال ایک بھٹی پھونکنے والے کی سی ہے کہ جس کے پاس جاؤ تو بدبو ہی دے گا"۔ بالکل اس حدیث کو سامنے رکھ کر اپنی بات کو آگے بڑھاتا ہوں۔</p>
+            
+            <p>فطری طور پر انسان انتہائی خودغرض اور حریص ہے اگر اس کا دوست مال ودولت والا ہے اور وہ خود غریب ہے تو ایک عرصہ کے بعد دونوں کی دوستی اونچ نیچ کی دیوار میں چُنوا دی جاتی ہے کہ حیثیت نہیں ہے اور برابری کرنے چلے ہو وغیرہ۔</p>
+            
+            <p>ایسی ہی ہزاروں مثالیں آپ کو معاشرے میں بھیس بدلتی، چہروں پہ چہرے لگائے، زبان کے نشتر چلائے، آنکھوں میں غضب کا قہر لئے، گھمنڈ اور تکبر سے بھری زندہ لاشیں چلتی پھرتی نظر آئیں گی خواہ وہ حرام کماتے ہوں یا حلال، وہ بیورو کریٹ ہوں، یا کسی بھی کمیونٹی کا سربراہ، کوئی ہمسایہ ہو، نواب ہو یا جاگیردار، ریاست کے اعلیٰ عہدیدار ہوں یا پھر کسی محکمہ کے لوگ، پولیس کے نمائندے ہوں یا قانون کے رکھوالے وغیرہ ایسے لوگوں کا بس نہیں چلتا کہ یہ غریب، مفلس، ضرورت مند کو جان سے ہی ماردیں۔</p>
+            
+            <p>ارشاد ربانی ہے "لوگو زمین میں فتنہ اور فساد نہ کرو اس کے سنور جانے کے بعد" گویا حق بات پہنچ جانے کے بعد، یعنی انبیاء و رسل، صحابہ کے سمجھانے اور اصلاح کرنے کے بعد بھی زمین میں فتنہ اور فساد نہ پھیلاؤ۔</p>
+            
+            <p>نبی کریم ﷺ نے ارشاد فرمایا: ’’مومن محبت اور الفت کا حامل ہوتا ہے اور اُس شخص میں کوئی خوبی اور بھلائی نہیں جو نہ خود محبت کرے اور نہ لوگوں کو اس سے الفت ہو۔‘‘</p>
+            
+            <p>نبی کریم ﷺ کا فرمان ہے: ’’تم میں بدترین شخص وہ ہے جس سے دوسرے لوگوں کو نہ خیر کی امید ہو نہ اس کے شر سے لوگ محفوظ ہوں۔‘‘</p>
+            
+            <p>حضرت عائشہ ؓ سے نبی کریم ﷺ نے ارشاد فرمایا: ’’اے عائشہ! اللہ تعالیٰ کے نزدیک قدر و منزلت میں سب سے برا انسان وہ ہے جس کے شر اور فحش کی وجہ سے لوگ اسے چھوڑ دیں یا اس سے دوری بنالیں۔‘‘</p>
+            
+            <p>حضرت ابوہریرہ رضی اللہ عنہ نے بیان کیا ہے کہ رسول اللہ ﷺ نے فرمایا: "جب مال فے کی بندربانٹ ہونے لگے، امانت کو مال غنیمت سمجھا جائے، زکاۃ کو جرمانہ خیال کیا جائے، علم غیر دینی مقاصد کے لئے حاصل کیا جائے، آدمی اپنی بیوی کی اطاعت اور ماں کی نافرمانی کرے، دوست کو قریب کرے اور باپ کو دور کرے، مساجد میں آوازیں بلند ہونے لگیں، فاسق وفاجر شخص قبیلے کا سربراہ ہو، گھٹیا ترین انسان قوم کا سردار ہو، آدمی کی عزت اس کے شر کے خوف سے کی جائے، ناچنے گانے والیاں اور آلات موسیقی عام ہوجائیں، شرابیں پی جائیں اور امت کے آخری زمانے کے لوگ پہلے لوگوں پر لعنت کرنے لگیں تو اس وقت لوگ سرخ ہواؤں، زلزلوں، زمین میں دھنسنے، شکلیں مسخ ہونے، پتھروں کی بارش اور ایسی نشانیوں کا انتظار کریں گی جو اس طرح پے در پے آئیں گی جیسے کسی پرانے ہار کے ٹوٹنے پر اس کے منکے لگا تار گرتے ہیں۔"</p>
+            
+            <p>ہمیشہ کی طرح یہ آرٹیکل بھی قرب قیامت کی ایک نشانی "بد کردار اور فسادی لوگوں کے ڈر سے اس کی عزت کی جائے گی" پر لکھ رہا ہوں جس میں آج میں بات کرنے جا رہا ہوں کہ بدکردار لوگ کیسے زمین میں فساد پھیلاتے ہیں اور کس طرح تنگ کرتے ہیں۔ قرب قیامت کی یہ نشانی بھی دور حاضر میں اپنے پورے جوبن کے ساتھ ہماری آنکھوں کے سامنے گزر رہی ہے اور وقت کے ساتھ ساتھ اس میں مزید شدت آتی جا رہی ہے۔ نہ جانے مزید کون سی شکل اختیار کرے گی۔ (اللہ رب العزت ایسے فتنوں سے ہر مسلمان مرد و عورت کو بچائے۔۔۔۔۔ آمین)</p>
+            
+            <p>یہ فتنوں کا دور ہے اور مسلسل بڑھتے چلے جا رہے ہیں اگر کسی شخص کی بیوی ہے تو وہ بھی ایک فتنہ ہے، شادی نہیں ہوئی تو شہوتوں کا فتنہ، شادی ہوگئی ہے بیوی نماز نہیں پڑھتی، بیوی بداخلاق ہے پھر بھی فتنہ، اپنا آپ فتنہ، جوانی ہے پر دین پر نہیں تب بھی فتنہ، انسان کے پاس مال ہے تب بھی فتنہ، مال نہیں ہے تب فقیری کا فتنہ، مال ہے مگر حرام کا ہے اس بھی بڑا فتنہ اور شرمندگی، اولاد کا فتنہ، اولاد نہیں ہے تو محرومی کا فتنہ، اولاد ہے پر دین پر نہیں ہے تب بھی فتنہ، پڑوسی نہیں ہے تو خوف کا فتنہ، پڑوسی ہے مگر دیندار نہیں ہے اس سے بھی بڑا فتنہ ہر وقت بے چینی سی کیفیت میں مبتلا ہے۔</p>
+            
+            <p>ان سب سے کیسے بچا جا سکتا ہے صرف نماز کی پابندی سے، روزے رکھنے سے، صدقات دینے سے، نیکی کے کام کرنے اور برائی سے روکنے سے فتنے ختم کیے جا سکتے ہیں اور بدترین لوگوں کے کرداروں کو تبدیل کیا جا سکتا ہے۔</p>
+            
+            <p>قرب قیامت ایسا اس لئے ہو گا کیونکہ:</p>
+            
+            <ul>
+                <li>قیادت برے، جاہل، اور نااہل لوگوں کے ہاتھ میں آ جائے گی۔ علم و تربیت وقت کے ساتھ ساتھ ختم ہو چکی ہوگی جن سے معاشرے میں انہی لوگوں کا غلبہ ہوگا۔</li>
+                <li>مجبور، بے بس، کمزور لوگوں کے لئے لازم ہو جائے گا کہ وہ ایسے بدکردار، جھوٹے، بد اخلاق لوگوں کی عزت کریں، ان کے لئے احتراماً کھڑے ہو جائیں۔</li>
+                <li>یہ سب کچھ ان کے ظلم و زیادتی، ایذارسانی اور شر سے بچنے کی وجہ سے کیا جائے گا۔</li>
+                <li>آج اگر ہم اپنے معاشرے میں دیکھیں تو اسی طرح کے لوگ ہمارے سامنے آتے ہیں، ماڈل ٹاؤن کا واقعہ، واقعہ ساہیوال، واقعہ کوئٹہ، سانحہ پشاور، اور دیگر ایسے ان گنت واقعات جو ماضی کی نظر ہو چکے ہیں۔ حقدار لوگ حق کے لئے اپنی جان گنوا بیٹھتے ہیں، مگر نہ تو انصاف ملتا ہے اور نہ ہی سنوائی ہوتی ہے۔</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="control-buttons">
+        <button class="control-btn" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="control-btn" onclick="scrollToBottom()">
+            <i class="fas fa-arrow-down"></i>
         </button>
     </div>
 
-    <div class="post-content">
-        
-        <h1>بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی</h1>
-<p>قارئین کرام! انسان کا کردار، عادات اطوار، قول و فعل ہی کسی شخصیت کا آئینہ ہوتی ہے۔ حضرت عمر ﷺ کا فرمان ہے کہ اگر کسی انسان کے کردار کو پرکھنا ہو تو اس کے ساتھ کھانا کھا کر دیکھ لو، سفر کر کے دیکھو یا پھر کوئی لین دین کر کے دیکھ لو۔ ایک انسان فطری طور پر یا نفسیاتی طور پر اسی شخص کو اپنا دوست، رفیق بناتا ہے جس کے ساتھ اس کو سکون ملتا ہو، اس کی سوچ ملتی ہو، اس کی عادتیں اچھی لگتی ہوں، اس کے ساتھ ہم آہنگی ہو، غرض یہ کہ اس کی کمپنی اچھی لگتی ہو۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgWgZiRe1A8kritg3Xoa-e2U5TpXfpr53hGZbbkVHBSRUfwfvoy7MvlRp8FXfmy4YS4A_ecFe7WtLC3SPvXJSqI5n9d0UC3uotuREZT5zXi_gRYteSnMuLyWhbVZp_OLr438Uv0l-8zQws1DKUSTlutNrkleOSxq6dq938KhubrzBPVHZ5FD1HsEwI8vNae/s640/%D8%A8%D8%AF%20%DA%A9%D8%B1%D8%AF%D8%A7%D8%B1%D8%A7%D9%88%D8%B1%20%D9%81%D8%B3%D8%A7%D8%AF%DB%8C%20%20%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%DB%92%20%DA%88%D8%B1%20%D8%B3%DB%92%20%20%20%D8%A7%D9%86%20%DA%A9%DB%8C%20%D8%B9%D8%B2%D8%AA%20%DA%A9%DB%8C%20%D8%AC%D8%A7%D8%A6%DB%92%20%DA%AF%DB%8C.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgWgZiRe1A8kritg3Xoa-e2U5TpXfpr53hGZbbkVHBSRUfwfvoy7MvlRp8FXfmy4YS4A_ecFe7WtLC3SPvXJSqI5n9d0UC3uotuREZT5zXi_gRYteSnMuLyWhbVZp_OLr438Uv0l-8zQws1DKUSTlutNrkleOSxq6dq938KhubrzBPVHZ5FD1HsEwI8vNae/s16000/%D8%A8%D8%AF%20%DA%A9%D8%B1%D8%AF%D8%A7%D8%B1%D8%A7%D9%88%D8%B1%20%D9%81%D8%B3%D8%A7%D8%AF%DB%8C%20%20%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%DB%92%20%DA%88%D8%B1%20%D8%B3%DB%92%20%20%20%D8%A7%D9%86%20%DA%A9%DB%8C%20%D8%B9%D8%B2%D8%AA%20%DA%A9%DB%8C%20%D8%AC%D8%A7%D8%A6%DB%92%20%DA%AF%DB%8C.jpg" alt=""></a></p>
-<p>آپ ﷺ نے فرمایا &quot;اچھے دوست کی مثال اس خوشبو بیچنے والے کی سی ہے کہ جس کے پاس جاؤ تو وہ خوشبو ہی دے گا اور بُرے دوست کی مثال ایک بھٹی پھونکنے والے کی سی ہے کہ جس کے پاس جاؤ تو بدبو ہی دے گا&quot;۔ بالکل اس حدیث کو سامنے رکھ کر اپنی بات کو آگے بڑھاتا ہوں۔</p>
-<p>فطری طور پر انسان انتہائی <a href="https://www.bloglovers.pk/2023/08/blog-post.html">خودغرض</a> اور حریص ہے اگر اس کا دوست مال ودولت والا ہے اور وہ خود غریب ہے تو ایک عرصہ کے بعد دونوں کی دوستی اونچ نیچ کی دیوار میں چُنوا دی جاتی ہے کہ حیثیت نہیں ہے اور برابری کرنے چلے ہو وغیرہ۔</p>
-<p>ایسی ہی ہزاروں مثالیں آپ کو معاشرے میں بھیس بدلتی، چہروں پہ چہرے لگائے، زبان کے نشتر چلائے، آنکھوں میں غضب کا قہر لئے، گھمنڈ اور تکبر سے بھری زندہ لاشیں چلتی پھرتی نظر آئیں گی خواہ وہ حرام کماتے ہوں یا حلال، وہ بیورو کریٹ ہوں، یا کسی بھی کمیونٹی کا سربراہ، کوئی ہمسایہ ہو، نواب ہو یا جاگیردار، ریاست کے اعلیٰ عہدیدار ہوں یا پھر کسی محکمہ کے لوگ، پولیس کے نمائندے ہوں یا قانون کے رکھوالے وغیرہ ایسے لوگوں کا بس نہیں چلتا کہ یہ غریب، مفلس، ضرورت مند کو جان سے ہی ماردیں۔</p>
-<p>ارشاد ربانی ہے &quot;لوگو <a href="https://www.bloglovers.pk/2023/11/blog-post_85.html">زمین میں فتنہ اور فساد نہ کرو</a> اس کے سنور جانے کے بعد&quot; گویا حق بات پہنچ جانے کے بعد، یعنی انبیاء و رسل، صحابہ کے سمجھانے اور اصلاح کرنے کے بعد بھی زمین میں فتنہ اور فساد نہ پھیلاؤ۔</p>
-<p>نبی کریم ﷺ نے ارشاد فرمایا: ’’مومن محبت اور الفت کا حامل ہوتا ہے اور اُس شخص میں کوئی خوبی اور بھلائی نہیں جو نہ خود محبت کرے اور نہ لوگوں کو اس سے الفت ہو۔‘‘</p>
-<p>نبی کریم ﷺ کا فرمان ہے: ’’<a href="https://www.bloglovers.pk/2023/07/blog-post_24.html">تم میں بدترین شخص وہ ہے</a> جس سے دوسرے لوگوں کو نہ خیر کی امید ہو نہ اس کے شر سے لوگ محفوظ ہوں۔‘‘</p>
-<p>حضرت عائشہ ؓ سے نبی کریم ﷺ نے ارشاد فرمایا: ’’اے عائشہ! اللہ تعالیٰ کے نزدیک قدر و منزلت میں سب سے برا انسان وہ ہے جس <a href="https://www.bloglovers.pk/2022/02/blog-post.html">کے شر اور فحش</a> کی وجہ سے لوگ اسے چھوڑ دیں یا اس سے دوری بنالیں۔‘‘</p>
-<p>حضرت ابوہریرہ رضی اللہ عنہ نے بیان کیا ہے کہ رسول اللہ ﷺ نے فرمایا: &quot;جب مال فے کی بندربانٹ ہونے لگے، امانت کو مال غنیمت سمجھا جائے، زکاۃ کو جرمانہ خیال کیا جائے، علم غیر دینی مقاصد کے لئے حاصل کیا جائے، آدمی اپنی بیوی کی اطاعت اور ماں کی نافرمانی کرے، دوست کو قریب کرے اور باپ کو دور کرے، <a href="https://www.bloglovers.pk/2021/06/blog-post.html">مساجد میں آوازیں بلند ہونے لگیں</a>، <a href="https://www.bloglovers.pk/2024/01/blog-post_85.html">فاسق وفاجر شخص</a> قبیلے کا سربراہ ہو، <a href="https://www.bloglovers.pk/2021/01/blog-post.html">گھٹیا ترین انسان قوم کا سردار ہو</a>، آدمی کی عزت اس کے شر کے خوف سے کی جائے، ناچنے گانے والیاں اور <a href="https://www.bloglovers.pk/2020/12/blog-post_28.html">آلات موسیقی عام ہوجائیں</a>، شرابیں پی جائیں اور امت کے آخری زمانے کے لوگ پہلے لوگوں پر لعنت کرنے لگیں تو اس وقت لوگ سرخ ہواؤں، زلزلوں، <a href="https://www.bloglovers.pk/2023/12/blog-post.html">زمین میں دھنسنے</a>، شکلیں مسخ ہونے، پتھروں کی بارش اور ایسی نشانیوں کا انتظار کریں گی جو اس طرح پے در پے آئیں گی جیسے کسی پرانے ہار کے ٹوٹنے پر اس کے منکے لگا تار گرتے ہیں۔&quot;</p>
-<p>ہمیشہ کی طرح یہ آرٹیکل بھی قرب قیامت کی ایک نشانی &quot;بد کردار اور فسادی لوگوں کے ڈر سے اس کی عزت کی جائے گی&quot; پر لکھ رہا ہوں جس میں آج میں بات کرنے جا رہا ہوں کہ بدکردار لوگ کیسے زمین میں فساد پھیلاتے ہیں اور کس طرح تنگ کرتے ہیں۔ قرب قیامت کی یہ نشانی بھی دور حاضر میں اپنے پورے جوبن کے ساتھ ہماری آنکھوں کے سامنے گزر رہی ہے اور وقت کے ساتھ ساتھ اس میں مزید شدت آتی جا رہی ہے۔ نہ جانے مزید کون سی شکل اختیار کرے گی۔ (اللہ رب العزت ایسے فتنوں سے ہر مسلمان مرد و عورت کو بچائے۔۔۔۔۔ آمین)</p>
-<p>یہ فتنوں کا دور ہے اور مسلسل بڑھتے چلے جا رہے ہیں اگر کسی شخص کی بیوی ہے تو وہ بھی ایک فتنہ ہے، شادی نہیں ہوئی تو شہوتوں کا فتنہ، شادی ہوگئی ہے بیوی نماز نہیں پڑھتی، بیوی بداخلاق ہے پھر بھی فتنہ، اپنا آپ فتنہ، جوانی ہے پر دین پر نہیں تب بھی فتنہ، انسان کے پاس مال ہے تب بھی فتنہ، مال نہیں ہے تب فقیری کا فتنہ، مال ہے مگر حرام کا ہے اس بھی بڑا فتنہ اور شرمندگی، اولاد کا فتنہ، اولاد نہیں ہے تو محرومی کا فتنہ، اولاد ہے پر دین پر نہیں ہے تب بھی فتنہ، پڑوسی نہیں ہے تو خوف کا فتنہ، پڑوسی ہے مگر دیندار نہیں ہے اس سے بھی بڑا فتنہ ہر وقت بے چینی سی کیفیت میں مبتلا ہے۔</p>
-<p>ان سب سے کیسے بچا جا سکتا ہے صرف نماز کی پابندی سے، روزے رکھنے سے، صدقات دینے سے، نیکی کے کام کرنے اور برائی سے روکنے سے فتنے ختم کیے جا سکتے ہیں اور بدترین لوگوں کے کرداروں کو تبدیل کیا جا سکتا ہے۔</p>
-<p>قرب قیامت ایسا اس لئے ہو گا کیونکہ:</p>
-<ul>
-<li>قیادت برے، جاہل، اور نااہل لوگوں کے ہاتھ میں آ جائے گی۔ علم و تربیت وقت کے ساتھ ساتھ ختم ہو چکی ہوگی جن سے معاشرے میں انہی لوگوں کا غلبہ ہوگا۔</li>
-<li>مجبور، بے بس، کمزور لوگوں کے لئے لازم ہو جائے گا کہ وہ ایسے بدکردار، جھوٹے، بد اخلاق لوگوں کی عزت کریں، ان کے لئے احتراماً کھڑے ہو جائیں۔</li>
-<li>یہ سب کچھ ان کے ظلم و زیادتی، ایذارسانی اور شر سے بچنے کی وجہ سے کیا جائے گا۔</li>
-<li>آج اگر ہم اپنے معاشرے میں دیکھیں تو اسی طرح کے لوگ ہمارے سامنے آتے ہیں، ماڈل ٹاؤن کا واقعہ، واقعہ ساہیوال، واقعہ کوئٹہ، سانحہ پشاور، اور دیگر ایسے ان گنت واقعات جو ماضی کی نظر ہو چکے ہیں۔ حقدار لوگ حق کے لئے اپنی جان گنوا بیٹھتے ہیں، مگر نہ تو انصاف ملتا ہے اور نہ ہی سنوائی ہوتی ہے۔</li>
-</ul>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Generate random stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                // Random size (1-3px)
+                const size = Math.random() * 2 + 1;
+                
+                // Random twinkle delay
+                const delay = Math.random() * 3;
+                
+                star.style.left = left + '%';
+                star.style.top = top + '%';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = delay + 's';
+                
+                starsContainer.appendChild(star);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Toggle solar background
+        function toggleSolarBackground() {
+            const solarBg = document.getElementById('solarBackground');
+            solarBg.classList.toggle('active');
+            
+            // Toggle body background
+            if (solarBg.classList.contains('active')) {
+                document.body.style.background = 'transparent';
+                document.body.style.color = '#fff';
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                document.body.style.color = '#000';
+            }
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Scroll to bottom
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Initialize stars on load
+        window.addEventListener('load', function() {
+            createStars();
+        });
+        
+        // Mobile touch support for solar background
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.changedTouches[0].screenY;
+        }, false);
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            // If swipe up from bottom
+            if (touchStartY - touchEndY > 100) {
+                // Show solar background on swipe up
+                const solarBg = document.getElementById('solarBackground');
+                if (!solarBg.classList.contains('active')) {
+                    toggleSolarBackground();
+                }
+            }
+        }
     </script>
 </body>
 </html>
