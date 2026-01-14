@@ -7,74 +7,383 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Trout Fish Background Theme */
+        .fish-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        .fish {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(45deg, #1a5276, #2e86c1, #5dade2);
+            border-radius: 50% 15% 15% 50%;
+            animation: swim 20s linear infinite;
+            filter: brightness(0.9);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            transition: transform 0.3s, filter 0.3s;
+        }
+        
+        .fish:hover {
+            filter: brightness(1.5);
+            transform: scale(1.2);
+        }
+        
+        .fish::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            background: #f1c40f;
+            border-radius: 50%;
+        }
+        
+        .fish::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            width: 30px;
+            height: 8px;
+            background: #3498db;
+            border-radius: 50%;
+            transform: rotate(30deg);
+        }
+        
+        .fish-tail {
+            position: absolute;
+            top: 5px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: #1a5276;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+        
+        @keyframes swim {
+            0% { transform: translateX(100vw) translateY(0) rotateY(180deg); }
+            100% { transform: translateX(-100px) translateY(0) rotateY(180deg); }
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        .back-btn-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .back-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        /* Main Content */
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 50%, #4a69bd 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 15px;
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .post-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 5px solid #4a90e2;
+        }
+        
+        .post-content {
+            font-size: 1.4rem;
+            text-align: justify;
+            color: #2c3e50;
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffefba 0%, #ffffff 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-right: 5px solid #e74c3c;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .post-content {
+                font-size: 1.2rem;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .back-btn-container {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .fish {
+                width: 40px;
+                height: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .post-content {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Trout Fish Background -->
+    <div class="fish-background" id="fishBackground"></div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()">↑</button>
+        <button class="nav-btn" onclick="scrollToBottom()">↓</button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- Back Button -->
+    <div class="back-btn-container">
+        <button class="back-btn" onclick="goBack()">← واپس جائیں</button>
+    </div>
+    
+    <!-- Main Content Container -->
+    <div class="container">
         <h1>حکم الہیٰ کے مطابق فیصلہ نہ کرنے والوں کے لئے کیا وعید ہے؟</h1>
-        <p>حکم الہیٰ کے مطابق فیصلہ نہ کرنے والوں کے لئے کیا وعید ہے؟</p>
-<p>دوستو!
-کافی دنوں سے آرٹیکل لکھنے کی کوشش کر رہا تھا لیکن مصروفیت کے باعث اس عنوان کو پورا نہیں کر پا رہا تھا۔ سوچا آج اس کو پایہ تکمیل تک پہنچاؤں۔ یوں تو قرب قیامت کی بہت ساری نشانیاں آپ ﷺ نے امت کو بتلائی تاکہ لوگ بری عادات سے بچ سکیں اور اپنی دنیا و آخرت سنوار سکیں۔ ان میں سے کافی ساری نشانیوں پر آرٹیکل لکھ کر آپ کی نظر کر چکا ہوں۔ آج جس نشانی پر بات کرنے لگا ہوں وہ یہ ہے کہ &quot;قرب قیامت لوگ اللہ رب العزت کے بنائے ہوئے <a href="https://www.bloglovers.pk/2023/05/blog-post_25.html">قانون شریعت</a> کے مطابق فیصلہ نہیں کریں گے بلکہ <a href="https://www.bloglovers.pk/2023/05/blog-post.html">من پسند فیصلے</a> کئے جائیں گے۔&quot;</p>
-<p><a href="//dukingdraon.com/4/4569592"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuu2ibTrmEMzaif5zR5sYefRlCJRKGo6IawEER9e1VAcOIQHYfWElHMCgSfz94pC8gdoelq9X2svzLt2dJBblsfWObQBES4TvKK9fY9eszOKRBYXDyasJ9bhQW5S8mtw-Yj_d0w34KkWyFAflhOXoZJYltOCelThE0CCbSI-DjurjI8ep3f5hyFHLA4cMA/s16000/Red%20Simple%20Travel%20Blog%20Banner.jpg" alt=""></a></p>
-<p>یوں تو اللہ کے نازل کردہ دین کے مطابق فیصلے کرنا امت کے اہم ترین واجبات میں سے ہے۔ جیسے کہ اللہ رب العزت نے قرآن پاک میں ارشاد فرمایا &quot;اور جو اللہ کے نازل فرمائے ہوئے احکام کے مطابق فیصلہ نہ کرے تو ایسے ہی لوگ کافر ہیں&quot;۔</p>
-<p>بھلا ایسے فرد کو کوئی کیسے <a href="https://www.bloglovers.pk/2023/05/blog-post_89.html">مسلمان کہہ سکتا ہے</a> جو کہ حکم الہیٰ سے منہ موڑ لے اور دین سے بغاوت اور کنارہ کشی اختیار کرے اللہ کے در کو چھوڑ کر اہل یہود ونصاریٰ کی آراء کا پیروکار ہو۔ یہ سراسر دین میں بدعت کا باعث بنتی ہے جس کے محض معاشرے پر برے نتائج مرتب ہوتے ہیں۔ دینی احکامات کو پس پشت ڈال دینا اور من چاہے فیصلے مسلط کردینا چاہے اس سے دوسروں کو کتنا ہی نقصان کیوں نہ اٹھانا پڑے، سراسر کفر ہے۔</p>
-<p><a href="https://www.bloglovers.pk/2023/06/blog-post.html">اہل علم فرماتے ہیں</a> قرآن و سنت کے مطابق فیصلے نہ کرنا، حق بات چھپانا دراصل دین سے خارج ہونا ہے۔</p>
-<p>آخری زمانے میں اسلام کی کڑیاں ایک ایک کرکے ٹوٹتی چلی جائیں گی اور جو کڑی سب سے پہلے ٹوٹے گی وہ یہ ہو گی کہ لوگ اللہ رب العزت کی نازل کردہ شریعت کے مطابق فیصلے کرنا چھوڑ دیں گے۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا &quot;اسلام کی کڑیاں ایک ایک کرکے ٹوٹتی چلی جائیں گی۔ جب بھی کوئی کڑی ٹوٹے گی تو لوگ دوسری سے چمٹ جائیں گے۔ سب سے پہلے جو کڑی ٹوٹے گی وہ یہ ہوگی کہ حکم الہیٰ کو توڑا جائے گا اور سب سے آخر میں <a href="https://www.bloglovers.pk/2024/01/blog-post_28.html">نماز کو بھی چھوڑ دیا جائے گا</a>۔&quot;</p>
-<p>ارشاد ربانی ہے &quot;اور جو یقین رکھتے ہیں ان کے لئے اللہ سے اچھا حکم کس کا ہوسکتا ہے؟&quot;</p>
-<p>آج اگر ہم اپنے اردگرد نظر ڈالیں تو پتہ چلتا ہے کہ اکثر اسلامی ممالک میں یہ علامت پوری طرح سے ظاہر ہو چکی ہے۔ ان میں ممالک میں اسلام کے قوانین و احکام میں سے بس انھی امور پر عمل کیا جاتا ہے جو شادی بیاہ، طلاق، اور میراث سے تعلق رکھتے ہیں۔ اور وہ بھی کسی حد تک درست فیصلہ نہیں کر پاتے۔ جب عدالتیں اپنا فیصلہ سناتی ہیں تو پتہ چلتا ہے کہ انصاف لینے والے کو مرے ہوئے پانچ سال گزر چکے ہوتے ہیں۔</p>
-<p>جہاں تک تجارتی معاملات، جرائم سے متعلق سزاؤں اور حدود تعزیرات کا تعلق ہے تو ان معاملات میں اکثر لوگ فرانسیسی اور برطانوی قوانین کے مطابق ہی فیصلے کرتے دکھائی دیتے ہیں۔ اور یہی اللہ رب العزت کی نازل کردہ شریعت کے ساتھ فیصلے نہ کرنا ہے۔</p>
-<p>یعنی بحثییت مسلمان ہمارے لئے قرآن و سنت سے بڑھ کر کوئی اور کتاب مقدس ہو ہی نہیں سکتی۔ لیکن جب ہم اللہ کی اس نازل کردہ کتاب کے مطابق فیصلہ نہیں سنائیں گے تو خیروبرکت کیسے ہوسکتی ہے۔</p>
-<p>ہم انسانوں کے بنائے ہوئے قوانین کو زیادہ مقدس اور مقدم رکھتے ہیں جن کی کوئی حثییت نہیں ہوتی۔ ایسے میں معاشرے میں خیروبرکت کا نہ ہونا لازم وملزوم ہے۔</p>
-<p>اللہ رب العزت کی ناراضگی سے کوئی بچ نہیں سکتا۔ نہ تو ہم قرآن کو پڑھتے ہیں اور نہ ہی ہم اس سے کوئی رہنمائی حاصل کرپاتے ہیں کیونکہ ہم نے اس مقدس احکام کو پس پشت ڈال دیا ہے۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ اللہ ہم سب کو قرآن وسنت پر عمل کرنے کی توفیق عطا فرمائے۔۔۔۔آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        
+        <!-- Post Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/hukm-ilahi-ke-mutabiq-faisla-na-karne-walon-ke-liye-kya-waeed-hai.jpg" 
+             alt="حکم الہیٰ کے مطابق فیصلہ" 
+             class="post-image"
+             onerror="this.style.display='none'">
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <p>حکم الہیٰ کے مطابق فیصلہ نہ کرنے والوں کے لئے کیا وعید ہے؟</p>
+            
+            <div class="highlight">
+                <p>دوستو! کافی دنوں سے آرٹیکل لکھنے کی کوشش کر رہا تھا لیکن مصروفیت کے باعث اس عنوان کو پورا نہیں کر پا رہا تھا۔ سوچا آج اس کو پایہ تکمیل تک پہنچاؤں۔</p>
+            </div>
+            
+            <p>یوں تو قرب قیامت کی بہت ساری نشانیاں آپ ﷺ نے امت کو بتلائی تاکہ لوگ بری عادات سے بچ سکیں اور اپنی دنیا و آخرت سنوار سکیں۔ ان میں سے کافی ساری نشانیوں پر آرٹیکل لکھ کر آپ کی نظر کر چکا ہوں۔ آج جس نشانی پر بات کرنے لگا ہوں وہ یہ ہے کہ "قرب قیامت لوگ اللہ رب العزت کے بنائے ہوئے قانون شریعت کے مطابق فیصلہ نہیں کریں گے بلکہ من پسند فیصلے کئے جائیں گے۔"</p>
+            
+            <p>یوں تو اللہ کے نازل کردہ دین کے مطابق فیصلے کرنا امت کے اہم ترین واجبات میں سے ہے۔ جیسے کہ اللہ رب العزت نے قرآن پاک میں ارشاد فرمایا "اور جو اللہ کے نازل فرمائے ہوئے احکام کے مطابق فیصلہ نہ کرے تو ایسے ہی لوگ کافر ہیں"۔</p>
+            
+            <div class="highlight">
+                <p>بھلا ایسے فرد کو کوئی کیسے مسلمان کہہ سکتا ہے جو کہ حکم الہیٰ سے منہ موڑ لے اور دین سے بغاوت اور کنارہ کشی اختیار کرے اللہ کے در کو چھوڑ کر اہل یہود ونصاریٰ کی آراء کا پیروکار ہو۔</p>
+            </div>
+            
+            <p>یہ سراسر دین میں بدعت کا باعث بنتی ہے جس کے محض معاشرے پر برے نتائج مرتب ہوتے ہیں۔ دینی احکامات کو پس پشت ڈال دینا اور من چاہے فیصلے مسلط کردینا چاہے اس سے دوسروں کو کتنا ہی نقصان کیوں نہ اٹھانا پڑے، سراسر کفر ہے۔</p>
+            
+            <p>قرآن و سنت کے مطابق فیصلے نہ کرنا، حق بات چھپانا دراصل دین سے خارج ہونا ہے۔</p>
+            
+            <p>آخری زمانے میں اسلام کی کڑیاں ایک ایک کرکے ٹوٹتی چلی جائیں گی اور جو کڑی سب سے پہلے ٹوٹے گی وہ یہ ہو گی کہ لوگ اللہ رب العزت کی نازل کردہ شریعت کے مطابق فیصلے کرنا چھوڑ دیں گے۔</p>
+            
+            <div class="highlight">
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "اسلام کی کڑیاں ایک ایک کرکے ٹوٹتی چلی جائیں گی۔ جب بھی کوئی کڑی ٹوٹے گی تو لوگ دوسری سے چمٹ جائیں گے۔ سب سے پہلے جو کڑی ٹوٹے گی وہ یہ ہوگی کہ حکم الہیٰ کو توڑا جائے گا اور سب سے آخر میں نماز کو بھی چھوڑ دیا جائے گا۔"</p>
+            </div>
+            
+            <p>ارشاد ربانی ہے "اور جو یقین رکھتے ہیں ان کے لئے اللہ سے اچھا حکم کس کا ہوسکتا ہے؟"</p>
+            
+            <p>آج اگر ہم اپنے اردگرد نظر ڈالیں تو پتہ چلتا ہے کہ اکثر اسلامی ممالک میں یہ علامت پوری طرح سے ظاہر ہو چکی ہے۔ ان میں ممالک میں اسلام کے قوانین و احکام میں سے بس انھی امور پر عمل کیا جاتا ہے جو شادی بیاہ، طلاق، اور میراث سے تعلق رکھتے ہیں۔ اور وہ بھی کسی حد تک درست فیصلہ نہیں کر پاتے۔ جب عدالتیں اپنا فیصلہ سناتی ہیں تو پتہ چلتا ہے کہ انصاف لینے والے کو مرے ہوئے پانچ سال گزر چکے ہوتے ہیں۔</p>
+            
+            <p>جہاں تک تجارتی معاملات، جرائم سے متعلق سزاؤں اور حدود تعزیرات کا تعلق ہے تو ان معاملات میں اکثر لوگ فرانسیسی اور برطانوی قوانین کے مطابق ہی فیصلے کرتے دکھائی دیتے ہیں۔ اور یہی اللہ رب العزت کی نازل کردہ شریعت کے ساتھ فیصلے نہ کرنا ہے۔</p>
+            
+            <p>یعنی بحثییت مسلمان ہمارے لئے قرآن و سنت سے بڑھ کر کوئی اور کتاب مقدس ہو ہی نہیں سکتی۔ لیکن جب ہم اللہ کی اس نازل کردہ کتاب کے مطابق فیصلہ نہیں سنائیں گے تو خیروبرکت کیسے ہوسکتی ہے۔</p>
+            
+            <div class="highlight">
+                <p>ہم انسانوں کے بنائے ہوئے قوانین کو زیادہ مقدس اور مقدم رکھتے ہیں جن کی کوئی حثییت نہیں ہوتی۔ ایسے میں معاشرے میں خیروبرکت کا نہ ہونا لازم وملزوم ہے۔</p>
+            </div>
+            
+            <p>اللہ رب العزت کی ناراضگی سے کوئی بچ نہیں سکتا۔ نہ تو ہم قرآن کو پڑھتے ہیں اور نہ ہی ہم اس سے کوئی رہنمائی حاصل کرپاتے ہیں کیونکہ ہم نے اس مقدس احکام کو پس پشت ڈال دیا ہے۔</p>
+            
+            <p>اللہ رب العزت سے استدعا ہے کہ اللہ ہم سب کو قرآن وسنت پر عمل کرنے کی توفیق عطا فرمائے۔۔۔۔آمین</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create fish elements
+        function createFish() {
+            const fishBackground = document.getElementById('fishBackground');
+            const fishCount = 15;
+            
+            for (let i = 0; i < fishCount; i++) {
+                const fish = document.createElement('div');
+                fish.classList.add('fish');
+                
+                // Random position and animation delay
+                const top = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = 15 + Math.random() * 20;
+                const size = 0.5 + Math.random() * 1;
+                
+                fish.style.top = `${top}%`;
+                fish.style.animationDelay = `${delay}s`;
+                fish.style.animationDuration = `${duration}s`;
+                fish.style.transform = `scale(${size})`;
+                
+                // Create tail
+                const tail = document.createElement('div');
+                tail.classList.add('fish-tail');
+                fish.appendChild(tail);
+                
+                fishBackground.appendChild(fish);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        // Back button function
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Initialize on page load
+        window.onload = function() {
+            createFish();
+            
+            // Add hover effect to fish
+            const fishElements = document.querySelectorAll('.fish');
+            fishElements.forEach(fish => {
+                fish.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.8)';
+                    this.style.transform = this.style.transform.replace(/scale\([^)]*\)/, 'scale(1.5)');
+                });
+                
+                fish.addEventListener('mouseleave', function() {
+                    this.style.filter = 'brightness(0.9)';
+                    const size = this.style.transform.match(/scale\(([^)]*)\)/);
+                    if (size) {
+                        this.style.transform = this.style.transform.replace(/scale\([^)]*\)/, `scale(${size[1]})`);
+                    }
+                });
+            });
+        };
     </script>
 </body>
 </html>
