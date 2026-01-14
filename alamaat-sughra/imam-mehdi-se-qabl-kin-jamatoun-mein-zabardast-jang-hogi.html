@@ -5,81 +5,412 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>امام مہدی سے قبل کن جماعتوں میں زبردست جنگ ہوگی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a40 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Sea Background */
+        .sea-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(to bottom, #000428, #004e92);
+            overflow: hidden;
+        }
+        
+        .fish {
+            position: absolute;
+            width: 40px;
+            height: 20px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: swim 15s linear infinite;
+            filter: blur(1px);
+        }
+        
+        .fish:before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: -5px;
+            width: 10px;
+            height: 10px;
+            background: #00ffff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        
+        .fish:hover {
+            transform: scale(1.5);
+            opacity: 1;
+            box-shadow: 0 0 20px #00ffff;
+            transition: all 0.3s;
+        }
+        
+        @keyframes swim {
+            0% { transform: translateX(-100px) rotateY(0deg); }
+            50% { transform: translateX(calc(100vw + 100px)) rotateY(0deg); }
+            51% { transform: translateX(calc(100vw + 100px)) rotateY(180deg); }
+            100% { transform: translateX(-100px) rotateY(180deg); }
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(10, 15, 40, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Back Button */
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* Page Up/Down Buttons */
+        .page-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .page-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.5);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.8);
+        }
+        
+        /* Headings */
+        h1 {
+            color: #4ecdc4;
+            text-align: center;
+            border-bottom: 3px solid #ff6b6b;
+            padding-bottom: 15px;
+            font-size: 2.8rem;
+            margin-top: 0;
+            text-shadow: 0 2px 10px rgba(78, 205, 196, 0.5);
+        }
+        
+        h2 {
+            color: #ffca57;
+            border-bottom: 2px solid rgba(255, 202, 87, 0.5);
+            padding-bottom: 10px;
+            font-size: 2.2rem;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            color: #ff9ff3;
+            font-size: 1.8rem;
+        }
+        
+        /* Paragraphs */
+        p {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            text-justify: inter-word;
+            color: #d1d1f0;
+            line-height: 2.4;
+        }
+        
+        /* Image */
+        .post-image {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+            margin: 25px auto;
+            border: 3px solid #4ecdc4;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Links */
+        a {
+            color: #ff9ff3;
+            text-decoration: none;
+            border-bottom: 1px dotted #ff9ff3;
+            transition: all 0.3s;
+        }
+        
+        a:hover {
+            color: #ff6b6b;
+            border-bottom: 1px solid #ff6b6b;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+                line-height: 2.2;
+            }
+            
+            .page-nav {
+                right: 10px;
+            }
+            
+            .page-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Special Effect for Important Text */
+        .important {
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            padding: 15px;
+            border-radius: 10px;
+            border-right: 3px solid #ff6b6b;
+            margin: 20px 0;
+        }
+        
+        /* Colorful Borders */
+        .color-border {
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #ffca57, #ff9ff3);
+            border-radius: 5px;
+            margin: 30px 0;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Animated Sea Background -->
+    <div class="sea-background" id="seaBg"></div>
+    
+    <!-- Page Navigation Buttons -->
+    <div class="page-nav">
+        <button class="page-btn" id="pageUp"><i class="fas fa-chevron-up"></i></button>
+        <button class="page-btn" id="pageDown"><i class="fas fa-chevron-down"></i></button>
     </div>
-
-    <div class="post-content">
+    
+    <div class="container">
+        <!-- Back Button -->
+        <a href="javascript:history.back()" class="back-btn">
+            <i class="fas fa-arrow-right"></i> واپس جائیں
+        </a>
         
+        <!-- Colorful Border -->
+        <div class="color-border"></div>
+        
+        <!-- Post Title -->
         <h1>امام مہدی سے قبل کن جماعتوں میں زبردست جنگ ہوگی؟</h1>
-<p>دوستو! اپنے سابقہ آرٹیکل &quot;<a href="https://www.bloglovers.pk/2024/02/10.html">سرزمین شام کی طرف ہجرت کرنے کے دس اہم جوہات</a>&quot; میں تفصیل کا ذکر کیا اور یہ بھی ذکر کیا کہ اس سرزمین پر کیا کیا ہوگا؟ جن کا آپ ﷺ نے امت کو بہت واضح انداز میں بتایا۔ آج کا عنوان سابقہ عنوان کی دوسری اہم کڑی ہے۔ یعنی مسلمانوں اور عیسائیوں کے درمیان ایک بہت بڑی جنگ کا ہونا جس کا اشارہ آپ ﷺ نے ارشاد فرمایا۔ یوں اگر کتب تاریخ کا مطالعہ کریں تو کوئی دن بھی ایسا نہیں ہے جہاں کوئی واقعہ رونما نہ ہوا ہو۔ کبھی جنگ، کبھی صلح، کبھی امن، کبھی قتال، غرض یہ کہ مسلمان ایک مسئلہ کو حل کرتے ہیں تو دوسرا کھلنا شروع ہو جاتا ہے۔</p>
-<p><a href="https://www.bloglovers.pk/2023/06/blog-post_4.html">اہل کفر ہمیشہ اسلام</a> کے خلاف کوئی نہ کوئی خباثت کی منصوبہ بندی میں مصروف عمل رہا ہے۔ آج کل تعلقات خوشگوار دکھائی نہیں دے رہے۔ جیسے کہ ایک روایت میں موجود ہے کہ علامات قیامت میں سے مسلمانوں اور رومیوں کے درمیان ایک بہت بڑی جنگ بھی ہے۔ اور یہ جنگ ظہور مہدی سے قبل ہوگی۔ آپ ﷺ نے اس کا نام &quot;الملحمۃ الکبری&quot; رکھا ہے۔ مسلمان اس جنگ میں فتح حاصل کرنے کے بعد قسطنطنیہ کی طرف پیشقدمی کریں گے اور اسے بھی فتح کر لیں گے اور پھر اس کے بعد دجال ظاہر ہوگا۔</p>
-<p>اسی طرح یہ اشارہ ایک اور روایت کے مطابق کچھ یوں فرمایا گیا کہ &quot;بیت المقدس کی آبادی دراصل مدینہ کی بربادی ہوگی۔ مدینہ کی بربادی ہوئی تو ایک عظیم معرکہ شروع ہو جائے گا۔ وہ معرکہ شروع ہوا تو قسطنطنیہ فتح ہو جائے گا اور جب قسطنطنیہ فتح ہو جائے گا تو پھر جلد ہی <a href="https://www.bloglovers.pk/2021/05/blog-post.html">دجال کا خروج</a> ہوگا&quot;۔</p>
-<p>ایک روایت کے مطابق اس ہونے والی جنگ کی تفصیل کچھ یوں بیان فرمائی گئی ہے کہ آپ ﷺ نے فرمایا: &quot;قیامت اس وقت قائم ہوگی جب وراثت کی تقسیم روک دی جائے گی اور مال غنیمت لوگوں کے لیے کسی خوشی کا باعث نہ بنے گا۔ پھر آپ ﷺ نے شام کی طرف ہاتھ کا اشارہ کر کے فرمایا: دشمنان اسلام وہاں جنگ کے لیے جمع ہوں گے اور مسلمان بھی ان کا مقابلہ کرنے کے لیے وہاں اکٹھے ہوں گے۔&quot;</p>
-<h2>جنگ کا پہلا دن</h2>
-<p>اس وقت جنگ کی شدت کے باعث بہت سے لوگ میدانِ جنگ سے واپس آ جائیں گے اور ہر مسلمان اپنے میں سے بہترین اور باصلاحیت فوجیوں کی ایک جماعت کو موت تک لڑنے کے عزم کے ساتھ آگے بھیجیں گے۔ دونوں لشکر رات تک مسلسل لڑائی جاری رکھیں گے، حتیٰ کہ ان کے درمیان رات حائل ہو جائے گی اور دونوں اپنی اپنی جگہ لوٹ جائیں گے۔ اور ان میں سے کوئی بھی غالب نہیں ہوگا اور جو لوگ موت کا عزم لے کر آگے بڑھے تھے وہ سب کے سب شہید ہو جائیں گے۔</p>
-<h2>جنگ کا دوسرا دن</h2>
-<p>اگلے روز مسلمان پھر بہترین اور باصلاحیت فوجیوں کی ایک جماعت کو موت تک لڑنے کے عزم کے ساتھ بھیجیں گے۔ یہ جماعت اس بات کا عہد کرے گی کہ اگر وہ واپس لوٹیں گے تو فتحیاب ہو کر ہی لوٹیں گے یا پھر شہید ہو جائیں گے۔ دونوں لشکر پھر شام ہونے تک مسلسل لڑائی جاری رکھیں گے مگر کسی بھی فریق کو برتری حاصل نہ ہو سکے گی۔ اور دونوں اپنی اپنی جگہ لوٹ جائیں گے۔ جو لوگ موت کا عزم لے کر آگے بڑھیں گے، وہ سب کے سب شہید ہو جائیں گے۔</p>
-<h2>جنگ کا تیسرا اور چوتھا دن</h2>
-<p>جب جنگ کا چوتھا روز ہوگا تو اہل اسلام دشمن پر جلد حملہ کر دیں گے اس روز اللہ رب العزت کفار کا شکست فاش سے دوچار کر دے گا اور اہل اسلام ان کو اتنی بڑی تعداد میں قتل کریں گے کہ اس سے پہلے کبھی اتنی خونریزی نہ دیکھی گئی ہوگی۔</p>
-<h2>ایک پرندے کی مثال</h2>
-<p>حتی کہ ایک پرندہ ان کے پاس سے گزرے گا تو وہ تھوڑا سا آگے جانے سے قبل ہی مر کر گر جائے گا۔ یعنی اتنی لاشیں ہوں گی کہ ایک پرندہ ان لاشوں کے اوپر سے گزرے گا وہ مسلسل اڑکر بھی ان لاشوں کو پار نہیں کر سکے گا۔</p>
-<p>ایک باپ کی اولاد جن کی تعداد جنگ سے پہلے ایک سو ہوگی، جنگ کے بعد دیکھیں گے کہ ان میں سے صرف ایک بچا ہوگا تو ایسی صورت حال میں مال غنیمت کے حصول سے کون سی خوشی ہوگی اور کن لوگوں میں میراث تقسیم کی جا سکے گی؟</p>
-<h2>مسلمانوں کے لیے ایک اور مصیبت</h2>
-<p>مسلمان ابھی اس حالت ہی میں ہوں گے کہ اس سے بڑی مصیبت کی خبر سنیں گے۔ ایک شخص پکار کر کہے گا: لوگو! <a href="https://www.bloglovers.pk/2021/05/blog-post.html">دجال</a> تمھارے پیچھے بال بچوں میں گھس آیا ہے۔ یہ سنتے ہی وہ سب کچھ چھوڑ چھاڑ کر اپنے گھر بار کی طرف متوجہ ہوں گے اور فوری طور پر دس سواروں کو حالات کا جائزہ لینے کی غرض سے بھیجیں گے۔</p>
-<p>آپ ﷺ نے فرمایا کہ میں ان سواروں کے نام، ان کے باپوں کے نام اور ان کے گھوڑوں کے رنگ تک جانتا ہوں۔ وہ اس زمانے میں روئے زمین کے بہترین گھڑسوار ہوں گے۔</p>
-<p>اس عظیم معرکے کے لیے مسلمانوں کے جمع ہونے کی جگہ اس وقت &quot;غوطہ&quot; میں شہر دمشق ہوگا۔ یہ لشکر اس وقت روئے زمین پر بہترین لشکر ہوگا۔ اللہ تعالی انھیں عیسائیوں پر فتح نصیب فرمائے گا۔</p>
-<p>اہل اسلام قسطنطنیہ کو لڑائی کے بغیر ہی امام مہدی کی زیر قیادت فتح کر لیں گے۔ اس وقت مسلمانوں کا ہتھیار اللہ کی تکبیر اور تحمید ہوگی۔</p>
-<p>ان احادیث کی روشنی میں اگر ایک نظر ڈالیں تو لگتا ہے کہ حالات پیدا کیے جا رہے ہیں۔ اپنی سابقہ آرٹیکل میں تفصیل سے ذکر کیا کہ سرزمین شام پر کیا حالات و واقعات رونما ہو رہے ہیں، <a href="https://www.bloglovers.pk/2024/01/3.html">اہل عرب</a> کی زندگی، عراق، لبنان، ترکی، ملائشیا، انڈونیشیا، ایران کے حالات و واقعات مسلمانوں اور عیسائیوں کے تعلقات ان سب کو اگر ایک لمحے کے سوچیں تو یہ نشانی اپنی ابتدائی شکل میں موجود ہے۔ صرف ہم خاموش ہیں کیونکہ ہم اللہ سے نہیں ان سے مدد کی اپیل کر رہے ہیں جن سے ہم نے جنگ کرنی ہے۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ خاتمہ بالایمان ہو۔ آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        
+        <!-- Post Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/imam-mehdi-se-qabl-kin-jamatoun-mein-zabardast-jang-hogi.png" alt="امام مہدی سے قبل جنگ" class="post-image">
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <p>دوستو! اپنے سابقہ آرٹیکل "سرزمین شام کی طرف ہجرت کرنے کے دس اہم جوہات" میں تفصیل کا ذکر کیا اور یہ بھی ذکر کیا کہ اس سرزمین پر کیا کیا ہوگا؟ جن کا آپ ﷺ نے امت کو بہت واضح انداز میں بتایا۔ آج کا عنوان سابقہ عنوان کی دوسری اہم کڑی ہے۔ یعنی مسلمانوں اور عیسائیوں کے درمیان ایک بہت بڑی جنگ کا ہونا جس کا اشارہ آپ ﷺ نے ارشاد فرمایا۔ یوں اگر کتب تاریخ کا مطالعہ کریں تو کوئی دن بھی ایسا نہیں ہے جہاں کوئی واقعہ رونما نہ ہوا ہو۔ کبھی جنگ، کبھی صلح، کبھی امن، کبھی قتال، غرض یہ کہ مسلمان ایک مسئلہ کو حل کرتے ہیں تو دوسرا کھلنا شروع ہو جاتا ہے۔</p>
+            
+            <p>اہل کفر ہمیشہ اسلام کے خلاف کوئی نہ کوئی خباثت کی منصوبہ بندی میں مصروف عمل رہا ہے۔ آج کل تعلقات خوشگوار دکھائی نہیں دے رہے۔ جیسے کہ ایک روایت میں موجود ہے کہ علامات قیامت میں سے مسلمانوں اور رومیوں کے درمیان ایک بہت بڑی جنگ بھی ہے۔ اور یہ جنگ ظہور مہدی سے قبل ہوگی۔ آپ ﷺ نے اس کا نام "الملحمۃ الکبری" رکھا ہے۔ مسلمان اس جنگ میں فتح حاصل کرنے کے بعد قسطنطنیہ کی طرف پیشقدمی کریں گے اور اسے بھی فتح کر لیں گے اور پھر اس کے بعد دجال ظاہر ہوگا۔</p>
+            
+            <p>اسی طرح یہ اشارہ ایک اور روایت کے مطابق کچھ یوں فرمایا گیا کہ "بیت المقدس کی آبادی دراصل مدینہ کی بربادی ہوگی۔ مدینہ کی بربادی ہوئی تو ایک عظیم معرکہ شروع ہو جائے گا۔ وہ معرکہ شروع ہوا تو قسطنطنیہ فتح ہو جائے گا اور جب قسطنطنیہ فتح ہو جائے گا تو پھر جلد ہی دجال کا خروج ہوگا"۔</p>
+            
+            <div class="important">
+                <p>ایک روایت کے مطابق اس ہونے والی جنگ کی تفصیل کچھ یوں بیان فرمائی گئی ہے کہ آپ ﷺ نے فرمایا: "قیامت اس وقت قائم ہوگی جب وراثت کی تقسیم روک دی جائے گی اور مال غنیمت لوگوں کے لیے کسی خوشی کا باعث نہ بنے گا۔ پھر آپ ﷺ نے شام کی طرف ہاتھ کا اشارہ کر کے فرمایا: دشمنان اسلام وہاں جنگ کے لیے جمع ہوں گے اور مسلمان بھی ان کا مقابلہ کرنے کے لیے وہاں اکٹھے ہوں گے۔"</p>
+            </div>
+            
+            <h2>جنگ کا پہلا دن</h2>
+            <p>اس وقت جنگ کی شدت کے باعث بہت سے لوگ میدانِ جنگ سے واپس آ جائیں گے اور ہر مسلمان اپنے میں سے بہترین اور باصلاحیت فوجیوں کی ایک جماعت کو موت تک لڑنے کے عزم کے ساتھ آگے بھیجیں گے۔ دونوں لشکر رات تک مسلسل لڑائی جاری رکھیں گے، حتیٰ کہ ان کے درمیان رات حائل ہو جائے گی اور دونوں اپنی اپنی جگہ لوٹ جائیں گے۔ اور ان میں سے کوئی بھی غالب نہیں ہوگا اور جو لوگ موت کا عزم لے کر آگے بڑھے تھے وہ سب کے سب شہید ہو جائیں گے۔</p>
+            
+            <h2>جنگ کا دوسرا دن</h2>
+            <p>اگلے روز مسلمان پھر بہترین اور باصلاحیت فوجیوں کی ایک جماعت کو موت تک لڑنے کے عزم کے ساتھ بھیجیں گے۔ یہ جماعت اس بات کا عہد کرے گی کہ اگر وہ واپس لوٹیں گے تو فتحیاب ہو کر ہی لوٹیں گے یا پھر شہید ہو جائیں گے۔ دونوں لشکر پھر شام ہونے تک مسلسل لڑائی جاری رکھیں گے مگر کسی بھی فریق کو برتری حاصل نہ ہو سکے گی۔ اور دونوں اپنی اپنی جگہ لوٹ جائیں گے۔ جو لوگ موت کا عزم لے کر آگے بڑھیں گے، وہ سب کے سب شہید ہو جائیں گے۔</p>
+            
+            <h2>جنگ کا تیسرا اور چوتھا دن</h2>
+            <p>جب جنگ کا چوتھا روز ہوگا تو اہل اسلام دشمن پر جلد حملہ کر دیں گے اس روز اللہ رب العزت کفار کا شکست فاش سے دوچار کر دے گا اور اہل اسلام ان کو اتنی بڑی تعداد میں قتل کریں گے کہ اس سے پہلے کبھی اتنی خونریزی نہ دیکھی گئی ہوگی۔</p>
+            
+            <h2>ایک پرندے کی مثال</h2>
+            <p>حتی کہ ایک پرندہ ان کے پاس سے گزرے گا تو وہ تھوڑا سا آگے جانے سے قبل ہی مر کر گر جائے گا۔ یعنی اتنی لاشیں ہوں گی کہ ایک پرندہ ان لاشوں کے اوپر سے گزرے گا وہ مسلسل اڑکر بھی ان لاشوں کو پار نہیں کر سکے گا۔</p>
+            
+            <p>ایک باپ کی اولاد جن کی تعداد جنگ سے پہلے ایک سو ہوگی، جنگ کے بعد دیکھیں گے کہ ان میں سے صرف ایک بچا ہوگا تو ایسی صورت حال میں مال غنیمت کے حصول سے کون سی خوشی ہوگی اور کن لوگوں میں میراث تقسیم کی جا سکے گی؟</p>
+            
+            <h2>مسلمانوں کے لیے ایک اور مصیبت</h2>
+            <p>مسلمان ابھی اس حالت ہی میں ہوں گے کہ اس سے بڑی مصیبت کی خبر سنیں گے۔ ایک شخص پکار کر کہے گا: لوگو! دجال تمھارے پیچھے بال بچوں میں گھس آیا ہے۔ یہ سنتے ہی وہ سب کچھ چھوڑ چھاڑ کر اپنے گھر بار کی طرف متوجہ ہوں گے اور فوری طور پر دس سواروں کو حالات کا جائزہ لینے کی غرض سے بھیجیں گے۔</p>
+            
+            <p>آپ ﷺ نے فرمایا کہ میں ان سواروں کے نام، ان کے باپوں کے نام اور ان کے گھوڑوں کے رنگ تک جانتا ہوں۔ وہ اس زمانے میں روئے زمین کے بہترین گھڑسوار ہوں گے۔</p>
+            
+            <div class="important">
+                <p>اس عظیم معرکے کے لیے مسلمانوں کے جمع ہونے کی جگہ اس وقت "غوطہ" میں شہر دمشق ہوگا۔ یہ لشکر اس وقت روئے زمین پر بہترین لشکر ہوگا۔ اللہ تعالی انھیں عیسائیوں پر فتح نصیب فرمائے گا۔</p>
+            </div>
+            
+            <p>اہل اسلام قسطنطنیہ کو لڑائی کے بغیر ہی امام مہدی کی زیر قیادت فتح کر لیں گے۔ اس وقت مسلمانوں کا ہتھیار اللہ کی تکبیر اور تحمید ہوگی۔</p>
+            
+            <p>ان احادیث کی روشنی میں اگر ایک نظر ڈالیں تو لگتا ہے کہ حالات پیدا کیے جا رہے ہیں۔ اپنی سابقہ آرٹیکل میں تفصیل سے ذکر کیا کہ سرزمین شام پر کیا حالات و واقعات رونما ہو رہے ہیں، اہل عرب کی زندگی، عراق، لبنان، ترکی، ملائشیا، انڈونیشیا، ایران کے حالات و واقعات مسلمانوں اور عیسائیوں کے تعلقات ان سب کو اگر ایک لمحے کے سوچیں تو یہ نشانی اپنی ابتدائی شکل میں موجود ہے۔ صرف ہم خاموش ہیں کیونکہ ہم اللہ سے نہیں ان سے مدد کی اپیل کر رہے ہیں جن سے ہم نے جنگ کرنی ہے۔</p>
+            
+            <p>اللہ رب العزت سے استدعا ہے کہ خاتمہ بالایمان ہو۔ آمین</p>
+        </div>
+        
+        <!-- Colorful Border -->
+        <div class="color-border"></div>
+        
+        <!-- Back Button at Bottom -->
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fas fa-arrow-right"></i> واپس جائیں
+            </a>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create animated fishes
+        function createFishes() {
+            const seaBg = document.getElementById('seaBg');
+            const fishCount = 15;
+            
+            for (let i = 0; i < fishCount; i++) {
+                const fish = document.createElement('div');
+                fish.classList.add('fish');
+                
+                // Random properties
+                const size = Math.random() * 20 + 20;
+                const top = Math.random() * 90 + 5;
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 10 + 10;
+                
+                fish.style.width = `${size}px`;
+                fish.style.height = `${size/2}px`;
+                fish.style.top = `${top}%`;
+                fish.style.animationDelay = `${delay}s`;
+                fish.style.animationDuration = `${duration}s`;
+                
+                seaBg.appendChild(fish);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Page navigation
+        document.getElementById('pageUp').addEventListener('click', function() {
+            window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+        });
+        
+        document.getElementById('pageDown').addEventListener('click', function() {
+            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createFishes();
+            
+            // Add hover effect to headings
+            const headings = document.querySelectorAll('h1, h2, h3');
+            headings.forEach(heading => {
+                heading.addEventListener('mouseenter', function() {
+                    this.style.textShadow = '0 0 15px rgba(255, 202, 87, 0.8)';
+                });
+                heading.addEventListener('mouseleave', function() {
+                    this.style.textShadow = '0 2px 10px rgba(78, 205, 196, 0.5)';
+                });
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+            }
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+            }
+        });
     </script>
 </body>
 </html>
