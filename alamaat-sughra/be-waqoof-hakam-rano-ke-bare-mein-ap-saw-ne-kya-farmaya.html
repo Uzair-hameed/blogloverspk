@@ -5,74 +5,466 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بے وقوف حکمرانوں کے بارے میں آپ ﷺ نے کیا فرمایا؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2ecc71;
+            --accent-color: #ff6b6b;
+            --dark-color: #2c3e50;
+            --light-color: #f5f7fa;
+            --text-color: #333;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .dark-mode {
+            --primary-color: #6ab0ff;
+            --secondary-color: #4cd964;
+            --accent-color: #ff8e8e;
+            --dark-color: #ecf0f1;
+            --light-color: #1a1a2e;
+            --text-color: #f1f1f1;
+            --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            --card-bg: rgba(30, 30, 46, 0.95);
+            --shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.5s ease, color 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            padding: 20px;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .theme-toggle i {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+        
+        /* Remote Control */
+        .remote-control {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .remote-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .remote-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .remote-btn.back-btn {
+            background: linear-gradient(45deg, var(--accent-color), #ff9ff3);
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-top: 30px;
+            text-align: justify;
+        }
+        
+        h1, h2, h3 {
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            border-radius: 5px;
+        }
+        
+        p {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            line-height: 2.4;
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 5px solid var(--primary-color);
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Special Effects */
+        .ai-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(46, 204, 113, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+        
+        .animated-border {
+            position: relative;
+            padding: 3px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
+            background-size: 400% 400%;
+            animation: borderFlow 6s ease infinite;
+        }
+        
+        @keyframes borderFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+                line-height: 2.2;
+            }
+            
+            .theme-toggle {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                left: 10px;
+            }
+            
+            .remote-control {
+                bottom: 10px;
+                left: 10px;
+                padding: 8px;
+            }
+            
+            .remote-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .remote-control {
+                flex-direction: row;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 25px;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--light-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--accent-color), var(--primary-color));
+        }
+        
+        /* Decorative Elements */
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-color), transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 10%;
+            right: 5%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, var(--secondary-color), transparent 70%);
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            bottom: 20%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, var(--accent-color), transparent 70%);
+            animation-delay: -5s;
+        }
+        
+        .floating-element:nth-child(3) {
+            top: 50%;
+            right: 15%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, var(--primary-color), transparent 70%);
+            animation-delay: -10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- AI Glow Effect -->
+    <div class="ai-glow"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-magic"></i>
+    </div>
+    
+    <!-- Remote Control -->
+    <div class="remote-control">
+        <button class="remote-btn back-btn" onclick="window.history.back()" title="پیچھے جائیں">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="remote-btn" onclick="scrollToTop()" title="اوپر جائیں">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="remote-btn" onclick="scrollToBottom()" title="نیچے جائیں">
+            <i class="fas fa-arrow-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
-        
-        <h1>بے وقوف حکمرانوں کے بارے میں آپ ﷺ نے کیا فرمایا؟</h1>
-<p>دوستو! آج کل ملکی صورتحال ہم سب کے سامنے <a href="https://www.bloglovers.pk/2024/02/10.html">روزِ روشن</a> کی طرح عیاں ہے۔ طاقت کی عہدے کی لالچ میں ہمارے اعلیٰ عہدیدار، اشرافیہ ایک دوسرے کا گلا کاٹنے، اور ایک دوسرے کو جان سے مارنے، سچ اور جھوٹ کی جنگ جاری وساری ہے۔ <a href="https://www.bloglovers.pk/2022/07/10-5.html">کرسی کی لالچ</a> ناجانے کتنے لوگوں کی جان لے گی۔ اور اس بات کی بھی کوئی گارنٹی نہیں ہے کہ آنے والی <a href="https://www.bloglovers.pk/2021/11/blog-post.html">سرکار عوام</a> کے لئے کتنی سودمند ثابت ہوگی۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ7bjstgkAvMrJNuq9DTwTlxSEOvaOfNZIwkKSz73a9sbHVUDzLCBOZvAr36-q0CbReTYcfChXZi-AQVgAd433KsI0zlM0P3ttcJVur8zE81nVVYVbTuUj03CnIntdKCa1qiXDdbo6ogs7yJPf968O-_CChBtV8JIjpyHx9LBEP_EMD9LxsnZv2icw_g/s2240/Blue%20Nature%20Camping%20Blog%20Banner.jpg"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQ7bjstgkAvMrJNuq9DTwTlxSEOvaOfNZIwkKSz73a9sbHVUDzLCBOZvAr36-q0CbReTYcfChXZi-AQVgAd433KsI0zlM0P3ttcJVur8zE81nVVYVbTuUj03CnIntdKCa1qiXDdbo6ogs7yJPf968O-_CChBtV8JIjpyHx9LBEP_EMD9LxsnZv2icw_g/s16000/Blue%20Nature%20Camping%20Blog%20Banner.jpg" alt="بے وقوف حکمرانوں کے بارے میں آپ ﷺ نے کیا فرمایا؟"></a></p>
-<p>یاد رکھیئے! عوام الناس کی اصلاح ان کے حکمرانوں کی اصلاح سے اور ان کا بگاڑ حکمرانوں کے بگاڑ سے مربوط ہے۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا کہ &quot;<a href="https://www.bloglovers.pk/2021/10/blog-post_5.html">حکومت اور قیادت</a> کم فہموں اور بے وقوفوں کے ہاتھ آجائے گی۔ جو نہ تو کتاب و سنت سے روشنی پائیں گے اور نہ کسی کی نصیحت کو خاطر میں لائیں گے&quot;۔</p>
-<p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: &quot;اے کعب! اللہ تمھیں بے وقوفوں کی حکمرانی سے بچائے۔ انھوں نے عرض کی: یا رسول اللہ! <a href="https://www.bloglovers.pk/2021/06/blog-post.html">بے وقوفوں</a> کی حکمرانی کا کیا مطلب ہے؟ آپ ﷺ نے فرمایا: میرے بعد کچھ ایسے حکمران ہوں گے جو نہ میری ہدایت سے روشنی حاصل کریں گے نہ میری سنت پر عمل کریں گے۔ جو لوگ ان کے جھوٹ کی تصدیق کریں گے اور ان کے ظلم وستم پر ان کا ساتھ دیں گے نہ وہ مجھ سے ہیں نہ میں ان سے ہوں اور نہ وہ میرے حوض پر آسکیں گے۔ لیکن جو ان کے جھوٹ کی تصدیق نہ کریں اور ظلم پر ان کی اعانت نہ کریں وہ میرے ہیں اور میں ان کا ہوں۔ اور یہ لوگ میرے حوض (کوثر) پر بھی آئیں گے۔ اے کعب! روزہ ڈھال ہے۔ <a href="https://www.bloglovers.pk/2021/05/blog-post_20.html">صدقہ گناہوں</a> کو مٹا دیتا ہے۔ نماز قربانی ہے۔ یا آپ ﷺ نے یہ فرمایا کہ نماز دلیل ہے۔ اے کعب! وہ گوشت جو حرام غذا سے وجود میں آیا جنت میں داخل نہ ہو سکے گا۔ اس کے لئے جہنم کی آگ ہی زیادہ مناسب ہے۔ اے کعب! لوگ گھر سے نکلتے ہیں اور اپنی جان کا سود کرتے ہیں۔ کوئی اپنی جان کو (عذاب الہیٰ سے) آزاد کرالیتا ہے اور کوئی اسے ہلاکت وبربادی میں ڈال دیتا ہے۔&quot;</p>
-<p>&quot;سفیۃ&quot; کے معنی ہیں، ایسا شخص جو کم عقل ہو اور کم تدبیر ہو، جو دوسروں کے مسائل تو کُجا اپنے مسائل بھی نہ سلجھا سکتا ہو۔ &quot;سفاہت&quot; کے معنی ہیں: <a href="https://www.bloglovers.pk/2021/05/blog-post.html">کم عقلی</a>۔</p>
-<p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا: &quot;قیامت اس وقت تک قائم نہ ہوگی، جب تک ہر قبیلے کی قیادت منافقین کے ہاتھ میں نہ آ جائے۔&quot;</p>
-<p>منافقین سے مراد وہ لوگ ہیں جو کم ایمان، اللہ کے خوف وخشیت سے خالی کثرت سے جھوٹ بکنے والے اور حد درجہ جاہل ہوں۔</p>
-<p>جب لوگوں کے بادشاہ، قائدین اور حکمران ایسے ہوں گے تو ہر چیز تہہ و بالا ہو جائے گی۔ جھوٹے کی تصدیق اور سچے کی تکذیب کی جائے گی۔ امانتیں بددیانت کے سپرد کی جائیں گی اور امانت دار کو شک کی نگاہ سے دیکھا جائے گا، جاہل بات کرے گا اور عالم خاموش رہنے پر مجبور ہوگا۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;قیامت کی نشانیوں میں سے یہ بھی ہے کہ اچھے لوگ پست کر دئیے جائیں گے اور بُرے لوگ بلند کر دئیے جائیں گے۔&quot;</p>
-<p>امام شعبیؒ فرماتے ہیں: &quot;قیامت اس وقت تک قائم نہ ہوگی جب تک علم کو جہالت اور جہالت کو علم نہ سمجھا جانے لگے گا۔&quot;</p>
-<p>دوستو! آج کا آرٹیکل <a href="https://www.bloglovers.pk/2022/06/7.html">ہمارے دور کی عکاسی</a> کر رہا ہے۔ ہمارے حکمران تو وہ کہ قرآن کی ایک سورت تک ٹھیک سے نہیں پڑھ سکتے۔ متعدد بار دیکھنے میں آیا ہے کہ یہ لوگ تلاوت تک نہیں کر پاتے۔ جن کے دل میں قرآن و حدیث کی روشنی نہیں وہ لوگ رعایا کے دکھ درد کیسے جان سکیں گے۔ ایسے لوگ جو صرف اپنے بارے میں سوچتے ہوں وہ لوگوں کے دکھ درد کیسے بانٹیں گے۔ مفاد پرست لوگ، عدل وانصاف کے رکھوالے، ملک و قوم کی سلامتی کے رکھوالے، سب خدا کے بنائے ہوئے قانون کو پسِ پشت ڈال کر خود کے بنائے ہوئے قانون کو زیادہ اہمیت دیتے ہیں کیونکہ وہ قانون اپنی مرضی اور مفاد کی خاطر توڑ جوڑ سکتے ہیں۔ جبکہ اللہ کا قانون اٹل اور حقیقت ہے۔ ہمارے حکمران دن بھر ہزاروں جھوٹ بولتے ہیں ایک چہرے پہ ہزاروں چہرے لگائے ہوتے ہیں۔ دل ودماغ میں غلاظت بھری ہوتی ہے۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ وہ ہم پر نیک، مومن اور عادل حکمران نازل فرمائے جو اللہ اور اس کے رسول کے بنائے ہوئے قوانین کے مطابق زمین پر انصاف کریں نہ کہ خونریزی۔ اللہ ہم سب کو ہدایت نصیب فرمائے۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <div class="container">
+        <div class="animated-border">
+            <div class="post-content">
+                <h1>بے وقوف حکمرانوں کے بارے میں آپ ﷺ نے کیا فرمایا؟</h1>
+                
+                <!-- Featured Image -->
+                <img src="https://bloglovers.pk/images/alamaat-sughra/be-waqoof-hakam-rano-ke-bare-mein-ap-saw-ne-kya-farmaya.png" 
+                     alt="بے وقوف حکمرانوں کے بارے میں آپ ﷺ نے کیا فرمایا؟" 
+                     class="featured-image">
+                
+                <p>دوستو! آج کل ملکی صورتحال ہم سب کے سامنے روزِ روشن کی طرح عیاں ہے۔ طاقت کی عہدے کی لالچ میں ہمارے اعلیٰ عہدیدار، اشرافیہ ایک دوسرے کا گلا کاٹنے، اور ایک دوسرے کو جان سے مارنے، سچ اور جھوٹ کی جنگ جاری وساری ہے۔ کرسی کی لالچ ناجانے کتنے لوگوں کی جان لے گی۔ اور اس بات کی بھی کوئی گارنٹی نہیں ہے کہ آنے والی سرکار عوام کے لئے کتنی سودمند ثابت ہوگی۔</p>
+                
+                <p>یاد رکھیئے! عوام الناس کی اصلاح ان کے حکمرانوں کی اصلاح سے اور ان کا بگاڑ حکمرانوں کے بگاڑ سے مربوط ہے۔</p>
+                
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا کہ "حکومت اور قیادت کم فہموں اور بے وقوفوں کے ہاتھ آجائے گی۔ جو نہ تو کتاب و سنت سے روشنی پائیں گے اور نہ کسی کی نصیحت کو خاطر میں لائیں گے"۔</p>
+                
+                <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: "اے کعب! اللہ تمھیں بے وقوفوں کی حکمرانی سے بچائے۔ انھوں نے عرض کی: یا رسول اللہ! بے وقوفوں کی حکمرانی کا کیا مطلب ہے؟ آپ ﷺ نے فرمایا: میرے بعد کچھ ایسے حکمران ہوں گے جو نہ میری ہدایت سے روشنی حاصل کریں گے نہ میری سنت پر عمل کریں گے۔ جو لوگ ان کے جھوٹ کی تصدیق کریں گے اور ان کے ظلم وستم پر ان کا ساتھ دیں گے نہ وہ مجھ سے ہیں نہ میں ان سے ہوں اور نہ وہ میرے حوض پر آسکیں گے۔ لیکن جو ان کے جھوٹ کی تصدیق نہ کریں اور ظلم پر ان کی اعانت نہ کریں وہ میرے ہیں اور میں ان کا ہوں۔ اور یہ لوگ میرے حوض (کوثر) پر بھی آئیں گے۔ اے کعب! روزہ ڈھال ہے۔ صدقہ گناہوں کو مٹا دیتا ہے۔ نماز قربانی ہے۔ یا آپ ﷺ نے یہ فرمایا کہ نماز دلیل ہے۔ اے کعب! وہ گوشت جو حرام غذا سے وجود میں آیا جنت میں داخل نہ ہو سکے گا۔ اس کے لئے جہنم کی آگ ہی زیادہ مناسب ہے۔ اے کعب! لوگ گھر سے نکلتے ہیں اور اپنی جان کا سود کرتے ہیں۔ کوئی اپنی جان کو (عذاب الہیٰ سے) آزاد کرالیتا ہے اور کوئی اسے ہلاکت وبربادی میں ڈال دیتا ہے۔"</p>
+                
+                <p>"سفیۃ" کے معنی ہیں، ایسا شخص جو کم عقل ہو اور کم تدبیر ہو، جو دوسروں کے مسائل تو کُجا اپنے مسائل بھی نہ سلجھا سکتا ہو۔ "سفاہت" کے معنی ہیں: کم عقلی۔</p>
+                
+                <p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا: "قیامت اس وقت تک قائم نہ ہوگی، جب تک ہر قبیلے کی قیادت منافقین کے ہاتھ میں نہ آ جائے۔"</p>
+                
+                <p>منافقین سے مراد وہ لوگ ہیں جو کم ایمان، اللہ کے خوف وخشیت سے خالی کثرت سے جھوٹ بکنے والے اور حد درجہ جاہل ہوں۔</p>
+                
+                <p>جب لوگوں کے بادشاہ، قائدین اور حکمران ایسے ہوں گے تو ہر چیز تہہ و بالا ہو جائے گی۔ جھوٹے کی تصدیق اور سچے کی تکذیب کی جائے گی۔ امانتیں بددیانت کے سپرد کی جائیں گی اور امانت دار کو شک کی نگاہ سے دیکھا جائے گا، جاہل بات کرے گا اور عالم خاموش رہنے پر مجبور ہوگا۔</p>
+                
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "قیامت کی نشانیوں میں سے یہ بھی ہے کہ اچھے لوگ پست کر دئیے جائیں گے اور بُرے لوگ بلند کر دئیے جائیں گے۔"</p>
+                
+                <p>امام شعبیؒ فرماتے ہیں: "قیامت اس وقت تک قائم نہ ہوگی جب تک علم کو جہالت اور جہالت کو علم نہ سمجھا جانے لگے گا۔"</p>
+                
+                <p>دوستو! آج کا آرٹیکل ہمارے دور کی عکاسی کر رہا ہے۔ ہمارے حکمران تو وہ کہ قرآن کی ایک سورت تک ٹھیک سے نہیں پڑھ سکتے۔ متعدد بار دیکھنے میں آیا ہے کہ یہ لوگ تلاوت تک نہیں کر پاتے۔ جن کے دل میں قرآن و حدیث کی روشنی نہیں وہ لوگ رعایا کے دکھ درد کیسے جان سکیں گے۔ ایسے لوگ جو صرف اپنے بارے میں سوچتے ہوں وہ لوگوں کے دکھ درد کیسے بانٹیں گے۔ مفاد پرست لوگ، عدل وانصاف کے رکھوالے، ملک و قوم کی سلامتی کے رکھوالے، سب خدا کے بنائے ہوئے قانون کو پسِ پشت ڈال کر خود کے بنائے ہوئے قانون کو زیادہ اہمیت دیتے ہیں کیونکہ وہ قانون اپنی مرضی اور مفاد کی خاطر توڑ جوڑ سکتے ہیں۔ جبکہ اللہ کا قانون اٹل اور حقیقت ہے۔ ہمارے حکمران دن بھر ہزاروں جھوٹ بولتے ہیں ایک چہرے پہ ہزاروں چہرے لگائے ہوتے ہیں۔ دل ودماغ میں غلاظت بھری ہوتی ہے۔</p>
+                
+                <p>اللہ رب العزت سے استدعا ہے کہ وہ ہم پر نیک، مومن اور عادل حکمران نازل فرمائے جو اللہ اور اس کے رسول کے بنائے ہوئے قوانین کے مطابق زمین پر انصاف کریں نہ کہ خونریزی۔ اللہ ہم سب کو ہدایت نصیب فرمائے۔</p>
+            </div>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            if (body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = 'var(--accent-color)';
+            } else {
+                icon.className = 'fas fa-magic';
+                themeToggle.style.borderColor = 'var(--primary-color)';
+            }
+        });
+        
+        // Scroll Functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            // T for Theme
+            if (e.key === 't' || e.key === 'T') {
+                themeToggle.click();
+            }
+            // Home for Top
+            if (e.key === 'Home') {
+                scrollToTop();
+            }
+            // End for Bottom
+            if (e.key === 'End') {
+                scrollToBottom();
+            }
+            // Escape for Back
+            if (e.key === 'Escape') {
+                window.history.back();
+            }
+        });
+        
+        // Initialize AI Glow Effect
+        const aiGlow = document.querySelector('.ai-glow');
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            aiGlow.style.background = `
+                radial-gradient(circle at ${x*100}% ${y*100}%, rgba(74, 144, 226, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at ${100 - x*100}% ${100 - y*100}%, rgba(46, 204, 113, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at ${50 + x*50}% ${50 + y*50}%, rgba(255, 107, 107, 0.2) 0%, transparent 50%)
+            `;
+        });
     </script>
 </body>
 </html>
