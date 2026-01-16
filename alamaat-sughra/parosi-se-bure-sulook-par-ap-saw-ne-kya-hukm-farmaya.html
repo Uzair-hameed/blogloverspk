@@ -5,77 +5,561 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Spring Theme Variables */
+        :root {
+            --spring-green: #2ecc71;
+            --spring-light-green: #96ceb4;
+            --spring-pink: #ff9ff3;
+            --spring-yellow: #feca57;
+            --spring-blue: #45b7d1;
+            --spring-light-blue: #a5d8ff;
+            --spring-flower: #ff6b6b;
+        }
+        
+        /* Spring Animation Background */
+        .spring-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow: hidden;
+        }
+        
+        .spring-flower {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.7;
+            z-index: -1;
+            animation: floatFlower 15s linear infinite;
+        }
+        
+        @keyframes floatFlower {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .spring-leaf {
+            position: absolute;
+            font-size: 20px;
+            color: var(--spring-green);
+            opacity: 0.6;
+            z-index: -1;
+            animation: floatLeaf 20s linear infinite;
+        }
+        
+        @keyframes floatLeaf {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100px) translateX(100px) rotate(720deg); opacity: 0; }
+        }
+        
+        /* Main Body Styling */
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 80px;
+        }
+        
+        /* Header Styling */
+        .post-header {
+            text-align: center;
+            margin: 30px 0 40px;
+            padding: 25px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, var(--spring-green), var(--spring-blue));
+            color: white;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .post-title {
+            font-size: 2.8rem;
+            margin: 0;
+            padding: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        
+        /* Content Styling */
+        .post-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+        
+        .post-content:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Text Styling - Increased Size */
+        .post-content p {
+            font-size: 1.4rem;
+            text-align: justify;
+            margin-bottom: 25px;
+            color: #444;
+            line-height: 2.4;
+        }
+        
+        .post-content h2, .post-content h3 {
+            color: var(--spring-green);
+            border-bottom: 3px solid var(--spring-light-green);
+            padding-bottom: 15px;
+            margin-top: 40px;
+            font-size: 2.2rem;
+        }
+        
+        /* Image Styling */
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            display: block;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        /* Control Buttons */
+        .controls {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--spring-green), var(--spring-blue));
+            color: white;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1) translateX(5px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.6);
+        }
+        
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, var(--spring-flower), var(--spring-pink));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-family: inherit;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* Spring Theme Button */
+        .spring-btn {
+            display: block;
+            margin: 30px auto;
+            background: linear-gradient(45deg, var(--spring-yellow), var(--spring-flower));
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(254, 202, 87, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .spring-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(254, 202, 87, 0.6);
+            background: linear-gradient(45deg, var(--spring-flower), var(--spring-yellow));
+        }
+        
+        .spring-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .spring-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Quote Styling */
+        .hadith-quote {
+            background: linear-gradient(45deg, rgba(46, 204, 113, 0.1), rgba(69, 183, 209, 0.1));
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-right: 5px solid var(--spring-green);
+            font-size: 1.5rem;
+            line-height: 2.5;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .post-title {
+                font-size: 2rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .post-content p {
+                font-size: 1.2rem;
+                line-height: 2.2;
+            }
+            
+            .controls {
+                left: 10px;
+                transform: translateY(-50%) scale(0.8);
+            }
+            
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .spring-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .post-title {
+                font-size: 1.7rem;
+            }
+            
+            .post-content p {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .controls {
+                left: 5px;
+                transform: translateY(-50%) scale(0.7);
+            }
+            
+            .hadith-quote {
+                font-size: 1.3rem;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Spring Animated Background -->
+    <div class="spring-bg" id="springBg"></div>
+    
+    <!-- Control Buttons -->
+    <div class="controls">
+        <button class="control-btn" id="pageUpBtn" title="اوپر جائیں"><i class="fas fa-chevron-up"></i></button>
+        <button class="control-btn" id="pageDownBtn" title="نیچے جائیں"><i class="fas fa-chevron-down"></i></button>
+        <button class="control-btn" id="themeBtn" title="تھیم تبدیل کریں"><i class="fas fa-palette"></i></button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Post Header -->
+        <div class="post-header">
+            <h1 class="post-title">پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟</h1>
+        </div>
         
-        <h1>پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟</h1>
-<p>محترم قارئین کرام! ایک وقت تھا جب لوگ آپس میں بیٹھ کر ایک دوسرے کے دکھ درد بانٹتے تھے، ایک دوسرے سے مشورہ کر لیا کرتے تھے، ہر طرف خوبصورتی، برکت، محبت اور سکون تھا، کوئی مسئلہ درپیش ہوتا بھی تو گھر کے بڑے سربراہان آپس میں مل کر انصاف کیا کرتے تھے، ایک دوسرے کو دعوت دینا، خوشی اور غمی میں ایک دوسرے کے ساتھ کھڑے ہونا وغیرہ۔</p>
-<p>لیکن اب وقت گزر چکا ہے اور یہ سب ایک خواب و خیال تصور ہوتا ہے، ہمارے دین اسلام میں جہاں چھوٹی سے چھوٹی بات کو واضح کیا گیا وہیں پر آپ ﷺ نے اپنی امت کو حقوق العباد اور حقوق اللہ سے بھی آگاہ کیا۔ انھی حقوق میں سے پڑوسیوں کے حقوق بھی واضح کیے گئے۔ آپ ﷺ نے پڑوسیوں کے حقوق کی بہت زیادہ تاکید کی، صحابہ کہتے ہیں کہ اتنی زیادہ تاکید کی گئی کہ ایسے لگنے لگا کہ کہیں وراثت میں حصہ دار نہ بنا دیا جائے۔</p>
-<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg9m4FOqYZdoAcFR3d_EiUg6E-WGbJjJelCEccFVuuvswYD58055OjV0PdiqxgafRQlqSzXtK70tOznrpr2yB1_RGjeETv2xT9q5jYe3eQFt5KtqpqWqG0EXLhJWy8SYcGP0RwgxN1RaMllFxQtttcj6MKbufR9NDUaHBRXYn_25VLisDbKma1udHIwhBZ2/s640/%D9%BE%DA%91%D9%88%D8%B3%DB%8C%20%D8%B3%DB%92%20%20%D8%A8%D9%8F%D8%B1%DB%92%20%D8%B3%D9%84%D9%88%DA%A9%20%D9%BE%D8%B1%20%D8%A2%D9%BE%20%EF%B7%BA%20%D9%86%DB%92%20%DA%A9%DB%8C%D8%A7%20%D8%AD%DA%A9%D9%85%20%D9%81%D8%B1%D9%85%D8%A7%DB%8C%D8%A7%D8%9F.jpg" alt="پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟"></p>
-<p>آپ ﷺ نے امت کی اصلاح کے لیے قیامت کی جہاں بہت ساری چھوٹی اور بڑی نشانیاں بیان فرمائی ہیں انھی چھوٹی نشانیوں میں سے ایک نشانی &quot;پڑوسی سے بُرے سلوک کی کثرت ہو جانا&quot; کے بارے میں احادیث کے ذریعے اپنی امت کو آگاہی فرمائی۔</p>
-<p>نبی کریم ﷺ کا فرمان ہے: &quot;قیامت اس وقت تک قائم نہ ہوگی۔ جب تک فحش (بدکلامی)، بے حیائی، قطع رحمی اور پڑوسی سے برا سلوک ظاہر نہ ہو جائے&quot;۔</p>
-<p>آپ ﷺ نے فرمایا: &quot;خدا کی قسم! وہ ایمان نہیں رکھتا، پوچھا گیا، کون ایمان نہیں رکھتا؟ فرمایا &quot;کہ وہ شخص جس کا پڑوسی اس کی تکلیفوں سے محفوظ نہ رہے&quot;۔</p>
-<p>اسی طرح مشکوۃ کی ایک حدیث میں حضرت ابن عباس رضی اللہ عنہ سے روایت ہے کہ آپ ﷺ نے فرمایا: &quot;کہ وہ شخص مومن نہیں ہے جو خود تو پیٹ بھر کر کھائے اور اس کا پڑوسی جو اس کے پہلو میں رہے بھوکا رہے&quot;۔</p>
-<p>اسی طرح ایک جگہ ارشاد فرمایا، اے ابوذر رضی اللہ عنہ &quot;جب تو شوربہ پکائے تو کچھ پانی زیادہ کر دے اور اپنے پڑوسیوں کی خبر گیری کر&quot;۔</p>
-<p>رسول اللہ ﷺ نے فرمایا: &quot;اے مسلمان عورتوں! کوئی پڑوسن اپنی پڑوسن کو ہدیہ دینے میں حقیر نہ سمجھے اگرچہ ایک بکری کی کیری ہی کیوں نہ ہو&quot;۔ (عام طور پر عورتوں کی فطرت ہوتی ہے کہ کوئی معمولی چیز وہ پڑوسن کے گھر بھیجنا پسند نہیں کرتی۔ ان کی خواہش یہ ہوتی ہے کہ وہ اچھی چیز ہی بھیجیں)۔</p>
-<p>حضرت عائشہ رضی اللہ تعالی عنہا سے روایت ہے کہ انہوں نے رسول کریم ﷺ سے پوچھا کہ میرے دو پڑوسی ہیں تو ان میں سے کس کے ہاں ہدیہ بھیجو، آپ ﷺ نے فرمایا: &quot;اس پڑوسی کے ہاں جس کا گھر تمہارے گھر سے زیادہ قریب ہو&quot;۔</p>
-<p>ایک اور جگہ آپ ﷺ نے فرمایا: &quot;جس شخص کو یہ پسند ہو کہ اللہ اور اس کا رسول ﷺ اس سے محبت کریں۔ تو اس کو چاہیے کہ جب وہ گفتگو کرے تو ہمیشہ سچ بولے اور اس کے پاس جب امانت رکھی جائے تو مالک کے پاس اس کی امانت لوٹائے اور اپنے پڑوسیوں کے ساتھ اچھا برتاؤ کرے&quot;۔</p>
-<p>ان احادیث کی روشنی میں یہ بات کتنی واضح ہے کہ ہمسایوں کا خیال بھی ویسے ہی کرنے کی تاکید کی گئی ہے جیسے ہم اپنے والدین کے ساتھ ساتھ قریبی رشتہ داروں کی کرتے ہیں، لیکن افسوس! آپ ﷺ کی بتائی ہوئی یہ نشانی آج ہم اپنی ان گنہگار آنکھوں سے پورا ہوتا دیکھ رہے ہیں، اور جوں جوں وقت گزرتا جا رہا ہے یہ نشانی اور واضح ہوتی جا رہی ہے۔</p>
-<p>ہائے افسوس کہ ہم اپنی آنے والی نسلوں کی تربیت ویسے نہیں کر پارہے جیسے کرنے کا حکم صادر ہوا، آج ہمارے خون اس قدر سفید ہو رہے ہیں کہ ہم سرِ بازار اپنے بزرگوں بشمولیت بوڑھے والدین کو بھیک مانگتے دیکھ رہے ہیں نہ ان کا خیال رکھنے والا کوئی موجود ہوتا ہے نہ ان کی خبر گیری کرنے والا، اکثر دیکھنے میں آیا ہے کہ بچے شادی کر کے دوسرے ملک شفٹ ہو جاتے ہیں اور پیچھے بوڑھے والدین کا کوئی دیکھ بھال کرنے والا نہیں ہوتا، صرف افسوس کا مقام ہے!</p>
-<p>وقت گزرنے کے ساتھ ہمارے رشتے کھوکھلے، مطلبی، اور خودغرضی، دکھلاوئے پر مبنی نظر آتے ہیں، صلح رحمی کرنے کی بجائے معاشرے میں قطع رحمی عروج پر ہے، بھائی بھائی کے خون کا پیاسا ہے، ماں بیٹی، باپ بیٹا، خونی رشتے پامال ہو کر بکھر رہے ہیں، ایسے میں پڑوسی کا حقوق کہاں ادا ہو رہے ہیں، اچھا پڑوسی کسی بھی نعمت سے کم نہیں ہوتا وہ قریبی اور خونی رشتوں سے بڑھ کر ہوتا ہے اگر حقیقتاً اس کے حقوق ادا کیے جائیں۔</p>
-<p>آج ہم نے تو پڑوسیوں کو صرف اپنے بکرے، گاڑیوں، اور خود نمائی تک محدود کر کے رکھا ہے تاکہ وہ جان لے کہ ہم حیثیت میں ان سے کتنے بڑے ہیں، ان سے زیادہ اچھا روزگار ہے، روز اچھے کھانے پکتے ہیں وغیرہ وغیرہ۔</p>
-<p>اللہ رب العزت سے دعا ہے کہ جب تک زندہ رکھے تو دین پر زندہ رکھے اور جب موت دے تو ایمان کی حالت میں موت دے۔ اللہ ہمارے گناہ معاف فرما دے اور ہمیں حقوق العباد کو ادا کرنے کا صحیح طریقہ اور توفیق عطا کرے۔ آمین</p>
-
+        <!-- Post Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/parosi-se-bure-sulook-par-ap-saw-ne-kya-hukm-farmaya.png" alt="پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟" class="post-image">
+        
+        <!-- Spring Theme Button -->
+        <button class="spring-btn" id="springThemeBtn">
+            <i class="fas fa-seedling"></i> بہار کے موسم کا تھیم چالو کریں
+        </button>
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <p>محترم قارئین کرام! ایک وقت تھا جب لوگ آپس میں بیٹھ کر ایک دوسرے کے دکھ درد بانٹتے تھے، ایک دوسرے سے مشورہ کر لیا کرتے تھے، ہر طرف خوبصورتی، برکت، محبت اور سکون تھا، کوئی مسئلہ درپیش ہوتا بھی تو گھر کے بڑے سربراہان آپس میں مل کر انصاف کیا کرتے تھے، ایک دوسرے کو دعوت دینا، خوشی اور غمی میں ایک دوسرے کے ساتھ کھڑے ہونا وغیرہ۔</p>
+            
+            <p>لیکن اب وقت گزر چکا ہے اور یہ سب ایک خواب و خیال تصور ہوتا ہے، ہمارے دین اسلام میں جہاں چھوٹی سے چھوٹی بات کو واضح کیا گیا وہیں پر آپ ﷺ نے اپنی امت کو حقوق العباد اور حقوق اللہ سے بھی آگاہ کیا۔ انھی حقوق میں سے پڑوسیوں کے حقوق بھی واضح کیے گئے۔ آپ ﷺ نے پڑوسیوں کے حقوق کی بہت زیادہ تاکید کی، صحابہ کہتے ہیں کہ اتنی زیادہ تاکید کی گئی کہ ایسے لگنے لگا کہ کہیں وراثت میں حصہ دار نہ بنا دیا جائے۔</p>
+            
+            <div class="hadith-quote">
+                <p>نبی کریم ﷺ کا فرمان ہے: "قیامت اس وقت تک قائم نہ ہوگی۔ جب تک فحش (بدکلامی)، بے حیائی، قطع رحمی اور پڑوسی سے برا سلوک ظاہر نہ ہو جائے"۔</p>
+            </div>
+            
+            <p>آپ ﷺ نے فرمایا: "خدا کی قسم! وہ ایمان نہیں رکھتا، پوچھا گیا، کون ایمان نہیں رکھتا؟ فرمایا "کہ وہ شخص جس کا پڑوسی اس کی تکلیفوں سے محفوظ نہ رہے"۔</p>
+            
+            <p>اسی طرح مشکوۃ کی ایک حدیث میں حضرت ابن عباس رضی اللہ عنہ سے روایت ہے کہ آپ ﷺ نے فرمایا: "کہ وہ شخص مومن نہیں ہے جو خود تو پیٹ بھر کر کھائے اور اس کا پڑوسی جو اس کے پہلو میں رہے بھوکا رہے"۔</p>
+            
+            <p>اسی طرح ایک جگہ ارشاد فرمایا، اے ابوذر رضی اللہ عنہ "جب تو شوربہ پکائے تو کچھ پانی زیادہ کر دے اور اپنے پڑوسیوں کی خبر گیری کر"۔</p>
+            
+            <div class="hadith-quote">
+                <p>رسول اللہ ﷺ نے فرمایا: "اے مسلمان عورتوں! کوئی پڑوسن اپنی پڑوسن کو ہدیہ دینے میں حقیر نہ سمجھے اگرچہ ایک بکری کی کیری ہی کیوں نہ ہو"۔ (عام طور پر عورتوں کی فطرت ہوتی ہے کہ کوئی معمولی چیز وہ پڑوسن کے گھر بھیجنا پسند نہیں کرتی۔ ان کی خواہش یہ ہوتی ہے کہ وہ اچھی چیز ہی بھیجیں)۔</p>
+            </div>
+            
+            <p>حضرت عائشہ رضی اللہ تعالی عنہا سے روایت ہے کہ انہوں نے رسول کریم ﷺ سے پوچھا کہ میرے دو پڑوسی ہیں تو ان میں سے کس کے ہاں ہدیہ بھیجو، آپ ﷺ نے فرمایا: "اس پڑوسی کے ہاں جس کا گھر تمہارے گھر سے زیادہ قریب ہو"۔</p>
+            
+            <p>ایک اور جگہ آپ ﷺ نے فرمایا: "جس شخص کو یہ پسند ہو کہ اللہ اور اس کا رسول ﷺ اس سے محبت کریں۔ تو اس کو چاہیے کہ جب وہ گفتگو کرے تو ہمیشہ سچ بولے اور اس کے پاس جب امانت رکھی جائے تو مالک کے پاس اس کی امانت لوٹائے اور اپنے پڑوسیوں کے ساتھ اچھا برتاؤ کرے"۔</p>
+            
+            <p>ان احادیث کی روشنی میں یہ بات کتنی واضح ہے کہ ہمسایوں کا خیال بھی ویسے ہی کرنے کی تاکید کی گئی ہے جیسے ہم اپنے والدین کے ساتھ ساتھ قریبی رشتہ داروں کی کرتے ہیں، لیکن افسوس! آپ ﷺ کی بتائی ہوئی یہ نشانی آج ہم اپنی ان گنہگار آنکھوں سے پورا ہوتا دیکھ رہے ہیں، اور جوں جوں وقت گزرتا جا رہا ہے یہ نشانی اور واضح ہوتی جا رہی ہے۔</p>
+            
+            <p>ہائے افسوس کہ ہم اپنی آنے والی نسلوں کی تربیت ویسے نہیں کر پارہے جیسے کرنے کا حکم صادر ہوا، آج ہمارے خون اس قدر سفید ہو رہے ہیں کہ ہم سرِ بازار اپنے بزرگوں بشمولیت بوڑھے والدین کو بھیک مانگتے دیکھ رہے ہیں نہ ان کا خیال رکھنے والا کوئی موجود ہوتا ہے نہ ان کی خبر گیری کرنے والا، اکثر دیکھنے میں آیا ہے کہ بچے شادی کر کے دوسرے ملک شفٹ ہو جاتے ہیں اور پیچھے بوڑھے والدین کا کوئی دیکھ بھال کرنے والا نہیں ہوتا، صرف افسوس کا مقام ہے!</p>
+            
+            <p>وقت گزرنے کے ساتھ ہمارے رشتے کھوکھلے، مطلبی، اور خودغرضی، دکھلاوئے پر مبنی نظر آتے ہیں، صلح رحمی کرنے کی بجائے معاشرے میں قطع رحمی عروج پر ہے، بھائی بھائی کے خون کا پیاسا ہے، ماں بیٹی، باپ بیٹا، خونی رشتے پامال ہو کر بکھر رہے ہیں، ایسے میں پڑوسی کا حقوق کہاں ادا ہو رہے ہیں، اچھا پڑوسی کسی بھی نعمت سے کم نہیں ہوتا وہ قریبی اور خونی رشتوں سے بڑھ کر ہوتا ہے اگر حقیقتاً اس کے حقوق ادا کیے جائیں۔</p>
+            
+            <p>آج ہم نے تو پڑوسیوں کو صرف اپنے بکرے، گاڑیوں، اور خود نمائی تک محدود کر کے رکھا ہے تاکہ وہ جان لے کہ ہم حیثیت میں ان سے کتنے بڑے ہیں، ان سے زیادہ اچھا روزگار ہے، روز اچھے کھانے پکتے ہیں وغیرہ وغیرہ۔</p>
+            
+            <div class="hadith-quote">
+                <p>اللہ رب العزت سے دعا ہے کہ جب تک زندہ رکھے تو دین پر زندہ رکھے اور جب موت دے تو ایمان کی حالت میں موت دے۔ اللہ ہمارے گناہ معاف فرما دے اور ہمیں حقوق العباد کو ادا کرنے کا صحیح طریقہ اور توفیق عطا کرے۔ آمین</p>
+            </div>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" id="backBtn">
+        <i class="fas fa-arrow-right"></i> واپس جائیں
+    </button>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Spring Theme Animation
+        function createSpringElements() {
+            const springBg = document.getElementById('springBg');
+            const flowers = ['🌸', '🌺', '🌼', '🌻', '🏵️', '💮', '🪷'];
+            const leaves = ['🌿', '🍃', '🍀', '☘️'];
+            
+            // Clear existing elements
+            springBg.innerHTML = '';
+            
+            // Create flowers
+            for (let i = 0; i < 15; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'spring-flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.animationDelay = Math.random() * 15 + 's';
+                flower.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                flower.style.color = ['#ff6b6b', '#ff9ff3', '#feca57', '#ffd166'][Math.floor(Math.random() * 4)];
+                springBg.appendChild(flower);
+            }
+            
+            // Create leaves
+            for (let i = 0; i < 10; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'spring-leaf';
+                leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.animationDelay = Math.random() * 20 + 's';
+                leaf.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                springBg.appendChild(leaf);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Toggle Spring Theme
+        let springActive = false;
+        const springThemeBtn = document.getElementById('springThemeBtn');
+        const themeBtn = document.getElementById('themeBtn');
+        
+        springThemeBtn.addEventListener('click', toggleSpringTheme);
+        themeBtn.addEventListener('click', toggleSpringTheme);
+        
+        function toggleSpringTheme() {
+            const body = document.body;
+            const postContent = document.querySelector('.post-content');
+            const postHeader = document.querySelector('.post-header');
+            const springBtn = document.getElementById('springThemeBtn');
+            
+            if (!springActive) {
+                // Activate spring theme
+                createSpringElements();
+                body.style.background = 'linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%)';
+                postContent.style.background = 'linear-gradient(45deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98))';
+                postHeader.style.background = 'linear-gradient(45deg, #81c784, #4dd0e1)';
+                springBtn.innerHTML = '<i class="fas fa-wind"></i> بہار کا تھیم بند کریں';
+                springBtn.style.background = 'linear-gradient(45deg, #4dd0e1, #81c784)';
+                springActive = true;
+            } else {
+                // Deactivate spring theme
+                const springBg = document.getElementById('springBg');
+                springBg.innerHTML = '';
+                body.style.background = '';
+                postContent.style.background = '';
+                postHeader.style.background = '';
+                springBtn.innerHTML = '<i class="fas fa-seedling"></i> بہار کے موسم کا تھیم چالو کریں';
+                springBtn.style.background = '';
+                springActive = false;
+            }
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Page Up/Down Buttons
+        const pageUpBtn = document.getElementById('pageUpBtn');
+        const pageDownBtn = document.getElementById('pageDownBtn');
+        
+        pageUpBtn.addEventListener('click', () => {
+            window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+        });
+        
+        pageDownBtn.addEventListener('click', () => {
+            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+        });
+        
+        // Back Button
+        const backBtn = document.getElementById('backBtn');
+        backBtn.addEventListener('click', () => {
+            // In a real scenario, this would navigate back
+            // For demo, we'll just scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            alert('واپسی کا بٹن دبایا گیا۔ اصل ویب سائٹ پر یہ آپ کو پیچھے لے جائے گا۔');
+        });
+        
+        // Hover effects for content
+        const paragraphs = document.querySelectorAll('.post-content p');
+        paragraphs.forEach(p => {
+            p.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.3s ease';
+                this.style.paddingRight = '15px';
+                this.style.borderRight = '3px solid #2ecc71';
+            });
+            
+            p.addEventListener('mouseleave', function() {
+                this.style.paddingRight = '';
+                this.style.borderRight = '';
+            });
+        });
+        
+        // Initialize spring theme with a few elements
+        createSpringElements();
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+            } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleSpringTheme();
+            } else if (e.key === 'Escape') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+        
+        // Mobile touch improvements
+        let touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+            
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    // Swipe up
+                    window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+                } else {
+                    // Swipe down
+                    window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+                }
+            }
+        });
     </script>
 </body>
 </html>
