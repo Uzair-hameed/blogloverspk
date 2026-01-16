@@ -5,66 +5,541 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>کون سا درخت مسلمانوں کے حق میں نہیں بولے گا؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), 
+                 local('Alvi Nastaleeq'), 
+                 url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e0f7e9 0%, #f0f8ff 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Spring Theme Animation */
+        .spring-theme {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .spring-flower {
+            position: absolute;
+            font-size: 24px;
+            color: #ff6b8b;
+            opacity: 0;
+            animation: flowerFall 15s linear infinite;
+        }
+        
+        .spring-flower:nth-child(1) { left: 10%; animation-delay: 0s; color: #ff9ff3; }
+        .spring-flower:nth-child(2) { left: 20%; animation-delay: 3s; color: #ff6b6b; }
+        .spring-flower:nth-child(3) { left: 30%; animation-delay: 6s; color: #ff9f43; }
+        .spring-flower:nth-child(4) { left: 40%; animation-delay: 9s; color: #feca57; }
+        .spring-flower:nth-child(5) { left: 50%; animation-delay: 12s; color: #54a0ff; }
+        .spring-flower:nth-child(6) { left: 60%; animation-delay: 15s; color: #5f27cd; }
+        .spring-flower:nth-child(7) { left: 70%; animation-delay: 18s; color: #00d2d3; }
+        .spring-flower:nth-child(8) { left: 80%; animation-delay: 21s; color: #1dd1a1; }
+        .spring-flower:nth-child(9) { left: 90%; animation-delay: 24s; color: #ff9ff3; }
+        .spring-flower:nth-child(10) { left: 95%; animation-delay: 27s; color: #ff6b6b; }
+        
+        @keyframes flowerFall {
+            0% {
+                top: -50px;
+                opacity: 0;
+                transform: rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+                transform: rotate(360deg);
+            }
+        }
+        
+        .spring-leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0;
+            animation: leafFall 20s linear infinite;
+        }
+        
+        .spring-leaf:nth-child(11) { left: 5%; animation-delay: 1s; transform: scale(0.8); }
+        .spring-leaf:nth-child(12) { left: 15%; animation-delay: 5s; transform: scale(1.2); }
+        .spring-leaf:nth-child(13) { left: 25%; animation-delay: 9s; transform: scale(0.9); }
+        .spring-leaf:nth-child(14) { left: 35%; animation-delay: 13s; transform: scale(1.1); }
+        .spring-leaf:nth-child(15) { left: 45%; animation-delay: 17s; transform: scale(0.7); }
+        .spring-leaf:nth-child(16) { left: 55%; animation-delay: 21s; transform: scale(1); }
+        .spring-leaf:nth-child(17) { left: 65%; animation-delay: 25s; transform: scale(1.3); }
+        .spring-leaf:nth-child(18) { left: 75%; animation-delay: 29s; transform: scale(0.8); }
+        .spring-leaf:nth-child(19) { left: 85%; animation-delay: 33s; transform: scale(1.1); }
+        .spring-leaf:nth-child(20) { left: 95%; animation-delay: 37s; transform: scale(0.9); }
+        
+        @keyframes leafFall {
+            0% {
+                top: -50px;
+                opacity: 0;
+                transform: rotate(0deg) scale(var(--scale));
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+                transform: rotate(720deg) scale(var(--scale));
+            }
+        }
+        
+        .spring-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(255, 107, 107, 0.05), 
+                rgba(78, 205, 196, 0.05), 
+                rgba(69, 183, 209, 0.05), 
+                rgba(150, 206, 180, 0.05), 
+                rgba(254, 202, 87, 0.05), 
+                rgba(255, 159, 243, 0.05));
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+        }
+        
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .post-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            margin-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%);
+        }
+        
+        .post-content:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-color: #4a90e2;
+            transform: translateY(-5px);
+        }
+        
+        /* Heading Styles */
+        h1 {
+            color: #2c3e50;
+            border-bottom: 4px solid #4a90e2;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 3rem;
+            text-align: center;
+            line-height: 1.4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background: linear-gradient(45deg, #2c3e50, #4a90e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4a90e2, #2ecc71);
+            border-radius: 2px;
+        }
+        
+        /* Text Styles */
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #34495e;
+            text-align: justify;
+            line-height: 2.4;
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+        
+        p:hover {
+            background-color: rgba(74, 144, 226, 0.05);
+            transform: translateX(-5px);
+        }
+        
+        /* Image Styles */
+        .post-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 5px solid white;
+            transition: all 0.5s ease;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Control Buttons */
+        .control-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* Remove internal link styling */
+        a {
+            color: inherit;
+            text-decoration: none;
+            pointer-events: none;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 20px;
+                margin-top: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+            
+            p {
+                font-size: 1.3rem;
+                line-height: 2.2;
+                padding: 8px 10px;
+            }
+            
+            .control-buttons {
+                left: 10px;
+                gap: 10px;
+            }
+            
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .spring-flower {
+                font-size: 18px;
+            }
+            
+            .spring-leaf {
+                width: 20px;
+                height: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+                line-height: 2;
+            }
+            
+            .post-content {
+                padding: 15px;
+            }
+            
+            .control-buttons {
+                left: 5px;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Decorative Elements */
+        .decorative-border {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #4a90e2, #2ecc71, #ff6b6b, #feca57);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .decorative-corner {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            opacity: 0.1;
+        }
+        
+        .corner-top-right {
+            top: -20px;
+            right: -20px;
+            border-top: 4px solid #4a90e2;
+            border-right: 4px solid #4a90e2;
+            border-radius: 0 20px 0 0;
+        }
+        
+        .corner-bottom-left {
+            bottom: -20px;
+            left: -20px;
+            border-bottom: 4px solid #2ecc71;
+            border-left: 4px solid #2ecc71;
+            border-radius: 0 0 0 20px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Spring Theme Animation -->
+    <div class="spring-theme">
+        <div class="spring-bg"></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        <div class="spring-flower"><i class="fas fa-spa"></i></div>
+        
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+        <div class="spring-leaf"></div>
+    </div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-right"></i>
+    </button>
+    
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+        <button class="control-btn" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="control-btn" onclick="scrollToBottom()">
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
-        
-        <h1>کون سا درخت مسلمانوں کے حق میں نہیں بولے گا؟</h1>
-<p>دوستو! غرقد درخت کے بارے میں تو شاید آپ نے سُنا ہو گا یہ ایک خاردار جھاڑی کی صورت میں ہوتا ہے اس کو کئی ناموں سے پکارا جاتا ہے مثلاً شجرِ یہود، شجر غرقد، اہل یہود کا محافظ یا پاسبان درخت، شجرِ برگد، اور <a href="https://www.bloglovers.pk/2021/10/blog-post_8.html">گونگا درخت</a> کے نام سر فہرست ہیں۔ انگریزی زبان میں اس کو لائیسیم کے نام سے جانا جاتا ہے۔ قرب قیامت کے بے شمار نشانیوں میں سے ایک نشانی یہ بھی ہے کہ مسلمان جب یہودیوں سے جنگ کریں گے تو ان کی مدد کے لیے درخت اور پتھر بھی کلام کرنے لگیں گے۔ یہ کب ہو گا، کیسے ہو گا اس وقت کا تعین تو اللہ رب العزت کی ذات اقدس ہی بہتر جانتی ہے۔ تاہم ہمیں جو نشانیاں ذکر فرمائی گئی ہیں وہ یہ ہے کہ آخری زمانے میں ایک عظیم معرکہ برپا ہو گا اور وہ اس قدر شدید ہو گا اس معرکے میں مسلمانوں کو اللہ فتح نصیب فرمائیں گے اس موقع پر درخت اور پتھر بول بول کر مسلمانوں سے کہیں گے۔ اے مسلمان! اے اللہ کے بندے! یہ میرے پیچھے ایک <a href="https://www.bloglovers.pk/2023/11/blog-post_14.html">یہودی</a> چھپا ہوا ہے۔ جلدی سے آؤ اور اسے قتل کر ڈالو۔</p>
-<p>یعنی اس جنگ میں درخت اور پتھر بھی مسلمانوں سے محبت اور ہمدردی کا اظہار اور ان کی مدد کریں گے۔ بنیادی طور پر یہ اللہ رب العزت کی طرف سے مسلمانوں کے لیے مدد ہو گی۔ جیسا کہ ایک روایت میں آپ ﷺ نے ذکر فرمایا ہے کہ &quot;یہودی تم سے جنگ کریں گے مگر تم ان پر غلبہ پا لو گے، یہاں تک کہ پتھر بھی بول کر کہے گا: اے مسلم! یہ میرے پیچھے ایک یہودی چھپا ہوا ہے آؤ اور اسے قتل کر ڈالو&quot;۔ جہاں تک درختوں اور پتھروں کا اس طریقے سے بات کرنا علامات قیامت میں سے ہو گا مگر ایک درخت ایسا ہو گا جو مسلمانوں کے حق میں نہیں بولے گا۔ یہ &quot;غرقد&quot; کا درخت ہے جو یہودیوں کا ہمدرد ہے۔ جیسا کہ اللہ کے نبی ﷺ فرماتے ہیں &quot;قیامت اس وقت تک ہرگز قائم نہ ہو گی جبتک مسلمانوں کی یہودیوں سے جنگ نہ ہو جائے، مسلمان یہودیوں کو قتل کریں گے۔ یہاں تک کہ ایک یہودی کسی پتھری یا درخت کے پیچھے چھپ جائے گا لیکن وہ درخت یا وہ پتھر کہے گا: اے مسلم! اے اللہ کے بندے! یہ میرے پیچھے ایک یہودی چھپا ہوا ہے، آؤ اسے قتل کر ڈالو مگر &quot;غرقد&quot; کا درخت نہیں بولے گا کیونکہ وہ یہودیوں کا دوست ہے۔&quot;</p>
-<p>درختوں اور پتھروں کا بات کرنا حقیقی ہو گا، اللہ رب العزت جمادات کو قوت گویائی عطا کرنے پر قادر ہے۔ جمادات کا اس طرح بات کرنا علامات قیامت میں سے ہو گا۔ ایک مقام پر آپ ﷺ نے کچھ یوں ارشاد فرمایا &quot;تم مشرکین سے لڑائی کرو گے، حتی کہ تم میں سے بچ جانے والے دریائے اردن پر دجال اور اس کے لشکر سے لڑیں گے۔ تم دریا کی مشرقی جانب ہو گے اور وہ مغربی جانب ہوں گے&quot;۔ صحابہ رسول فرماتے ہیں کہ میں نہیں جانتا کہ اس دن دریائے اردن کہاں واقع ہو گا؟ بنیادی طور پر یہ دریا فلسطین اور اردن کو ایک دوسرے سے جدا کرتا ہے۔</p>
-<p>اہل یہود اچھی طرح سے جانتے ہیں کہ قرآن و حدیث میں جو باتیں بتائی گئی ہیں وہ سب سچ ہیں۔ اس لیے وہ تحقیقات کر کے اپنے لیے ترقی کی راہیں ہموار کرتے چلے جا رہے ہیں اور ہمیں آپس میں لڑوانے اور فرقہ پرستی جیسے مرض میں مبتلا کر کے تماشہ دیکھ رہے ہیں۔ یہودی جانتے ہیں کہ غرقد کا درخت ان کے لیے پاسبان ہے اس لیے اقوام متحدہ نے 1981 میں دس لاکھ غرقد کے پودے اردن کو دیے تھے۔ اور ساتھ ہی یہ اعلان کیا تھا کہ ان پودوں کو توڑنے یا اکھیڑنے پر قید کی سزا سنائی جائے گی۔ اہل یہود اس درخت کو بطور مورچے کے استعمال کرنا چاہتے ہیں۔ اہل یہود غرقد کی کاشت کو اپنے لیے نعمت سے کم نہیں سمجھتے۔ وہ یہ اچھی طرح جانتے ہیں کہ جو آپ ﷺ نے پیشین گوئی فرمائی ہے وہ ہر حال میں پوری ہونی ہے۔ اس لیے وہ تیاری کرنے میں مصروف عمل ہیں۔</p>
-<p>اہل یہود قرآن و حدیث پر عمل کر کے ہماری کمزوریوں سے فائدہ اٹھا رہے ہیں ہمیں دین سے دور کرتے چلے جا رہے ہیں آج ہماری نسل نو میں فحاشی، بدعنوانی جیسی غلاظت بھر کر تماشہ دیکھ رہے ہیں۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <div class="container">
+        <div class="post-content">
+            <div class="decorative-border"></div>
+            <div class="decorative-corner corner-top-right"></div>
+            <div class="decorative-corner corner-bottom-left"></div>
+            
+            <h1>کون سا درخت مسلمانوں کے حق میں نہیں بولے گا؟</h1>
+            
+            <!-- Post Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/kon-sa-darakht-musalmanon-ke-haq-mein-nahi-bole-ga.png" 
+                 alt="غرقد درخت" 
+                 class="post-image">
+            
+            <p>دوستو! غرقد درخت کے بارے میں تو شاید آپ نے سُنا ہو گا یہ ایک خاردار جھاڑی کی صورت میں ہوتا ہے اس کو کئی ناموں سے پکارا جاتا ہے مثلاً شجرِ یہود، شجر غرقد، اہل یہود کا محافظ یا پاسبان درخت، شجرِ برگد، اور گونگا درخت کے نام سر فہرست ہیں۔ انگریزی زبان میں اس کو لائیسیم کے نام سے جانا جاتا ہے۔ قرب قیامت کے بے شمار نشانیوں میں سے ایک نشانی یہ بھی ہے کہ مسلمان جب یہودیوں سے جنگ کریں گے تو ان کی مدد کے لیے درخت اور پتھر بھی کلام کرنے لگیں گے۔ یہ کب ہو گا، کیسے ہو گا اس وقت کا تعین تو اللہ رب العزت کی ذات اقدس ہی بہتر جانتی ہے۔ تاہم ہمیں جو نشانیاں ذکر فرمائی گئی ہیں وہ یہ ہے کہ آخری زمانے میں ایک عظیم معرکہ برپا ہو گا اور وہ اس قدر شدید ہو گا اس معرکے میں مسلمانوں کو اللہ فتح نصیب فرمائیں گے اس موقع پر درخت اور پتھر بول بول کر مسلمانوں سے کہیں گے۔ اے مسلمان! اے اللہ کے بندے! یہ میرے پیچھے ایک یہودی چھپا ہوا ہے۔ جلدی سے آؤ اور اسے قتل کر ڈالو۔</p>
+            <p>یعنی اس جنگ میں درخت اور پتھر بھی مسلمانوں سے محبت اور ہمدردی کا اظہار اور ان کی مدد کریں گے۔ بنیادی طور پر یہ اللہ رب العزت کی طرف سے مسلمانوں کے لیے مدد ہو گی۔ جیسا کہ ایک روایت میں آپ ﷺ نے ذکر فرمایا ہے کہ "یہودی تم سے جنگ کریں گے مگر تم ان پر غلبہ پا لو گے، یہاں تک کہ پتھر بھی بول کر کہے گا: اے مسلم! یہ میرے پیچھے ایک یہودی چھپا ہوا ہے آؤ اور اسے قتل کر ڈالو"۔ جہاں تک درختوں اور پتھروں کا اس طریقے سے بات کرنا علامات قیامت میں سے ہو گا مگر ایک درخت ایسا ہو گا جو مسلمانوں کے حق میں نہیں بولے گا۔ یہ "غرقد" کا درخت ہے جو یہودیوں کا ہمدرد ہے۔ جیسا کہ اللہ کے نبی ﷺ فرماتے ہیں "قیامت اس وقت تک ہرگز قائم نہ ہو گی جبتک مسلمانوں کی یہودیوں سے جنگ نہ ہو جائے، مسلمان یہودیوں کو قتل کریں گے۔ یہاں تک کہ ایک یہودی کسی پتھری یا درخت کے پیچھے چھپ جائے گا لیکن وہ درخت یا وہ پتھر کہے گا: اے مسلم! اے اللہ کے بندے! یہ میرے پیچھے ایک یہودی چھپا ہوا ہے، آؤ اسے قتل کر ڈالو مگر "غرقد" کا درخت نہیں بولے گا کیونکہ وہ یہودیوں کا دوست ہے۔"</p>
+            <p>درختوں اور پتھروں کا بات کرنا حقیقی ہو گا، اللہ رب العزت جمادات کو قوت گویائی عطا کرنے پر قادر ہے۔ جمادات کا اس طرح بات کرنا علامات قیامت میں سے ہو گا۔ ایک مقام پر آپ ﷺ نے کچھ یوں ارشاد فرمایا "تم مشرکین سے لڑائی کرو گے، حتی کہ تم میں سے بچ جانے والے دریائے اردن پر دجال اور اس کے لشکر سے لڑیں گے۔ تم دریا کی مشرقی جانب ہو گے اور وہ مغربی جانب ہوں گے"۔ صحابہ رسول فرماتے ہیں کہ میں نہیں جانتا کہ اس دن دریائے اردن کہاں واقع ہو گا؟ بنیادی طور پر یہ دریا فلسطین اور اردن کو ایک دوسرے سے جدا کرتا ہے۔</p>
+            <p>اہل یہود اچھی طرح سے جانتے ہیں کہ قرآن و حدیث میں جو باتیں بتائی گئی ہیں وہ سب سچ ہیں۔ اس لیے وہ تحقیقات کر کے اپنے لیے ترقی کی راہیں ہموار کرتے چلے جا رہے ہیں اور ہمیں آپس میں لڑوانے اور فرقہ پرستی جیسے مرض میں مبتلا کر کے تماشہ دیکھ رہے ہیں۔ یہودی جانتے ہیں کہ غرقد کا درخت ان کے لیے پاسبان ہے اس لیے اقوام متحدہ نے 1981 میں دس لاکھ غرقد کے پودے اردن کو دیے تھے۔ اور ساتھ ہی یہ اعلان کیا تھا کہ ان پودوں کو توڑنے یا اکھیڑنے پر قید کی سزا سنائی جائے گی۔ اہل یہود اس درخت کو بطور مورچے کے استعمال کرنا چاہتے ہیں۔ اہل یہود غرقد کی کاشت کو اپنے لیے نعمت سے کم نہیں سمجھتے۔ وہ یہ اچھی طرح جانتے ہیں کہ جو آپ ﷺ نے پیشین گوئی فرمائی ہے وہ ہر حال میں پوری ہونی ہے۔ اس لیے وہ تیاری کرنے میں مصروف عمل ہیں۔</p>
+            <p>اہل یہود قرآن و حدیث پر عمل کر کے ہماری کمزوریوں سے فائدہ اٹھا رہے ہیں ہمیں دین سے دور کرتے چلے جا رہے ہیں آج ہماری نسل نو میں فحاشی، بدعنوانی جیسی غلاظت بھر کر تماشہ دیکھ رہے ہیں۔</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Function to go back
+        function goBack() {
+            window.history.back();
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Function to scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Function to scroll to bottom
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Add interactive hover effects to paragraphs
+        document.addEventListener('DOMContentLoaded', function() {
+            const paragraphs = document.querySelectorAll('p');
+            
+            paragraphs.forEach(p => {
+                p.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(74, 144, 226, 0.1)';
+                    this.style.boxShadow = '0 5px 15px rgba(74, 144, 226, 0.2)';
+                });
+                
+                p.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                    this.style.boxShadow = '';
+                });
+            });
+            
+            // Add spring theme interaction
+            const springTheme = document.querySelector('.spring-theme');
+            
+            document.addEventListener('mousemove', function(e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                springTheme.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Up arrow for scrolling up
+            if (e.key === 'ArrowUp') {
+                scrollToTop();
+            }
+            // Down arrow for scrolling down
+            else if (e.key === 'ArrowDown') {
+                scrollToBottom();
+            }
+            // Escape for going back
+            else if (e.key === 'Escape') {
+                goBack();
+            }
+        });
     </script>
 </body>
 </html>
