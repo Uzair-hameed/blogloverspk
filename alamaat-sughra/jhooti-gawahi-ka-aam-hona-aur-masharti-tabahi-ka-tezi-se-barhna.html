@@ -5,71 +5,400 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جھوٹی گواہی کا عام ہونا اور معاشرتی تباہی کا تیزی سے بڑھنا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background-color: #0a0e17;
+            color: #e0e0ff;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Space Galaxy Background */
+        .galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at center, #0a0e17 0%, #000000 100%);
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: nebulaFloat 25s infinite alternate ease-in-out;
+        }
+        
+        @keyframes nebulaFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.2); }
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(16, 24, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 10, 30, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+            background-size: 400% 100%;
+            animation: gradientFlow 8s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        h1 {
+            color: #ffffff;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(100, 150, 255, 0.5);
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        /* Content Box */
+        .content-box {
+            background: rgba(16, 24, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 10, 30, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 20, 60, 0.7);
+        }
+        
+        /* Post Image */
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 25px 0 40px 0;
+            border: 3px solid rgba(100, 150, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 20, 60, 0.8);
+        }
+        
+        /* Text Styling */
+        .post-text {
+            font-size: 1.4rem;
+            text-align: justify;
+            color: #d0d0f0;
+            margin-bottom: 25px;
+        }
+        
+        .post-text p {
+            margin-bottom: 25px;
+        }
+        
+        /* Control Buttons */
+        .control-buttons {
+            position: fixed;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.8);
+        }
+        
+        /* Back Button */
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-family: inherit;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #a0a0d0;
+            font-size: 1rem;
+            border-top: 1px solid rgba(100, 150, 255, 0.2);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .post-text {
+                font-size: 1.2rem;
+            }
+            
+            .content-box {
+                padding: 25px;
+            }
+            
+            .control-buttons {
+                left: 15px;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .post-text {
+                font-size: 1.1rem;
+            }
+            
+            .control-buttons {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            body {
+                padding-bottom: 100px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Space Galaxy Background -->
+    <div class="galaxy-bg" id="galaxyBg"></div>
+    
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
+        <button class="nav-btn" onclick="location.reload()"><i class="fas fa-sync-alt"></i></button>
     </div>
-
-    <div class="post-content">
+    
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>جھوٹی گواہی کا عام ہونا اور معاشرتی تباہی کا تیزی سے بڑھنا</h1>
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-right"></i> واپس جائیں
+            </button>
+        </div>
         
-        <h1>جھوٹی گواہی کا عام ہونا اور معاشرتی تباہی کا تیزی سے بڑھنا</h1>
-<p>محترم قارئین کرام! جھوٹ ایک بدترین غلاظت ہے اور کبیرہ گناہوں میں سے ایک ہے۔ بندہ جب جھوٹ بولتا ہے تو ملائکہ اس سے دور بھاگ جاتے ہیں کیونکہ جھوٹ بولنے کی وجہ سے اس کے منہ میں بدبو پیدا ہو جاتی ہے۔ بالکل سچائی انسان کو ہمیشہ نجات دلاتی ہے جبکہ جھوٹ کے پاؤں نہیں ہوتے اور وہ انسان کو ہلاکت کی طرف لے جاتا ہے۔</p>
-<p>آدمی جب ایک بار جھوٹ بولتا ہے تو اس جھوٹ کو چھپانے کے لیے پھر سو جھوٹ بولتا ہے اور یوں وہ جھوٹ بول بول کر ایک ایسی عمارت کھڑی کر لیتا ہے جو زیادہ دیر تک ٹک نہیں پاتی بہت جلد اس انسان کا جھوٹا پن ظاہر ہو جاتا ہے اور وہ بے نقاب اور بے آبرو ہو جاتا ہے۔ جھوٹ تو خود ایک کبیرہ گناہ ہے لیکن اس کے اندر پھر جھوٹی گواہی ایک اور بدترین گناہ ہے۔</p>
-<p>آپ ﷺ نے فرمایا: &quot;کیا میں تمہیں بڑے بڑے گناہوں کے بارے میں نہ بتاؤں؟ صحابہ نے کہا کیوں نہیں اللہ کے رسول ﷺ! فرمایا: (اللہ بے نیاز، رکوع اور سجود اسی کے لیے ہیں، اسی کے گھر کا طواف مشروط ہے، وہی دیتا اور وہی لیتا ہے، کائنات کا ذرہ ذرہ اسی کا محتاج اور قبضہ قدرت میں ہے)۔ اس کی ذات میں کسی کو شریک کرنا یہ سب سے بڑا گناہ ہے۔ دوسرا والدین کی نافرمانی کرنا (قرآن میں متعدد جگہ پر اپنی واحدانیت کے ساتھ ساتھ والدین کی اطاعت کا بھی تذکرہ فرمایا۔ اسی حدیث میں اللہ نے اپنے حق کے ساتھ والدین کے حق کا تذکرہ بھی فرمایا۔ اللہ ہمارے حقیقی مالک و خالق ہیں اور والدین ہمارے اس دنیا میں ہمیں لانے کا ایک سبب ہیں اس لیے یہ تذکرہ ہمیشہ ساتھ ساتھ فرمایا ہے۔ والدین کی نافرمانی کرنا، انہیں رنجیدہ کرنا، بے بس کر دینا یہ بھی بدترین گناہ ہے) اور اس کے بعد آپ ﷺ ایک دم سیدھے ہو کر بیٹھ گئے اور بار بار فرمایا جھوٹی گواہی دینا، جھوٹی گواہی دینا، اس فقرے کو اتنی تاکید اور جلالی میں فرمایا کہ صحابہ کہتے ہیں کہ ان فقروں کی تاکید اور سختی اتنی زیادہ تھی گویا انتہائی پریشانی اور اضطرابی کیفیت تھی کہ کاش آپ ﷺ تھوڑی دیر خاموش ہو جائیں۔</p>
-<p>جھوٹی گواہی دینا ایسا ہے گویا حقدار کو زندہ دفن کرنے کے مترادف ہے اور جس کا حق نہیں ہے اس کو جھوٹ کے ذریعے وہ حق دلانا جو اس کا حقیقتاً ہے ہی نہیں، یہ بدترین گناہ ہے۔ اور رحمٰن کے بندے ہرگز ایسے نہیں ہیں نہ وہ جھوٹی گواہی دیتے ہیں اور نہ ہی باطل اور ناحق محفلوں میں شرکت کرتے ہیں۔ (کفار کی عیدیں اور میلے، گانے اور بجانے کی محفلیں، شراب اور رقص و سرود کی محفلیں، الغرض ساری بری محفلیں ہیں) جہاں حق تلفی ہوتی وہاں رحمٰن کے بندے ہرگز نہیں جاتے، اگر ہم اپنے معاشرے میں ایک جھلک دیکھ لیں، ولیمہ، برتھ ڈے، عرس و میلہ وغیرہ اگر ایسی محفل سے گزر ہو جائے تو وہاں سے بڑے معتبر طریقے سے اٹھ جاتے ہیں۔</p>
-<p>لوگوں میں جھوٹی گواہی کا عام ہو جانا اور لوگوں کا اس بارے میں سستی کرنا قیامت کی علامات میں سے ہے، جیسا کہ حدیث سابق میں آپ ﷺ نے فرمایا کہ &quot;قیامت سے پہلے جھوٹی گواہی عام ہو جائے گی&quot;۔</p>
-<p>جھوٹی گواہی صرف عدالتوں میں قاضی اور حاکم کے سامنے ہی نہیں ہوتی بلکہ یہ زندگی کے تمام شعبہ جات اور معاملات کو محیط ہے، جیسا کہ لوگوں کا آپس کے روزمرہ کے معاملات میں غلط بیانی، جھوٹی گواہی دینا، بعض کمپنیوں اور اداروں کے ملازمین کا اپنی ذمہ داری کے حوالے سے مدارس اور جامعات میں طالب علموں کی جھوٹی گواہی اور بچوں کی اپنے والدین کے سامنے جھوٹی گواہی بھی اسی زمرے میں شامل ہے۔</p>
-<p>آپ ﷺ نے جھوٹی گواہی اور جھوٹی قسم یا غلط بیانی کے ذریعے دوسروں کا حق مارنے سے اپنی امت کو بہت ڈرایا ہے۔ آپ ﷺ نے فرمایا: &quot;جو شخص جھوٹی قسم کے ذریعے کسی مسلم بھائی کا مال ہڑپ کر لے گا، وہ کل اللہ کی عدالت میں اس حال میں پیش ہو گا کہ اللہ اس پر سخت ناراض ہو گا&quot;۔</p>
-<p>پھر آپ ﷺ نے اس آیت کریمہ کی تلاوت فرمائی: &quot;بے شک جو لوگ اللہ کے عہد اور اپنی قسموں کو تھوڑے سے دنیاوی فائدے کی خاطر فروخت کر دیتے ہیں ان کا آخرت میں کوئی حصہ نہیں، اللہ تعالیٰ روز قیامت نہ تو ان سے کلام کرے گا، نہ ان کی طرف (نظر رحمت سے) دیکھے گا اور نہ انھیں پاک کرے گا، ان کے لیے نہایت تکلیف دہ عذاب ہے&quot;۔</p>
-<p>حضرت ابو امامہ باہلی رضی اللہ عنہ سے روایت ہے کہ نبی کریم ﷺ نے فرمایا: &quot;جس کسی نے جھوٹی قسم کھا کر اپنے مسلم بھائی کا حق مارا، اللہ نے اس پر جہنم واجب اور جنت حرام کر دی۔ ایک شخص نے عرض کیا: اللہ کے رسول! اگر وہ کوئی معمولی چیز ہو تو؟ آپ ﷺ نے فرمایا: خواہ وہ پیلو کی ایک مسواک ہی کیوں نہ ہو&quot;۔</p>
-<p>گناہ چھوٹا ہو یا بڑا گناہ ذلت و رسوائی کا سبب ہے دنیا میں بھی جھوٹے انسان کے کردار کو اچھا نہیں سمجھا جاتا لیکن گناہ کے سبب دنیا و آخرت دونوں جہتوں پر انسان کے ہلاکت ہے۔ آج ہم اتنی ڈھٹائی سے جھوٹ بولتے ہیں اور اس قدر جھوٹ بولنے کے عادی ہو چکے ہیں کہ گناہ گناہ نہیں لگتا۔ اللہ پاک ہم سب کو معاف کرے اور ہمیں ہمیشہ سچ بولنے کی توفیق عطا فرمائے۔ آمین۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <!-- Content Box -->
+        <div class="content-box">
+            <!-- Post Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/jhooti-gawahi-ka-aam-hona-aur-masharti-tabahi-ka-tezi-se-barhna.png" alt="جھوٹی گواہی" class="post-image">
+            
+            <!-- Post Content -->
+            <div class="post-text">
+                <p>محترم قارئین کرام! جھوٹ ایک بدترین غلاظت ہے اور کبیرہ گناہوں میں سے ایک ہے۔ بندہ جب جھوٹ بولتا ہے تو ملائکہ اس سے دور بھاگ جاتے ہیں کیونکہ جھوٹ بولنے کی وجہ سے اس کے منہ میں بدبو پیدا ہو جاتی ہے۔ بالکل سچائی انسان کو ہمیشہ نجات دلاتی ہے جبکہ جھوٹ کے پاؤں نہیں ہوتے اور وہ انسان کو ہلاکت کی طرف لے جاتا ہے۔</p>
+                <p>آدمی جب ایک بار جھوٹ بولتا ہے تو اس جھوٹ کو چھپانے کے لیے پھر سو جھوٹ بولتا ہے اور یوں وہ جھوٹ بول بول کر ایک ایسی عمارت کھڑی کر لیتا ہے جو زیادہ دیر تک ٹک نہیں پاتی بہت جلد اس انسان کا جھوٹا پن ظاہر ہو جاتا ہے اور وہ بے نقاب اور بے آبرو ہو جاتا ہے۔ جھوٹ تو خود ایک کبیرہ گناہ ہے لیکن اس کے اندر پھر جھوٹی گواہی ایک اور بدترین گناہ ہے۔</p>
+                <p>آپ ﷺ نے فرمایا: "کیا میں تمہیں بڑے بڑے گناہوں کے بارے میں نہ بتاؤں؟ صحابہ نے کہا کیوں نہیں اللہ کے رسول ﷺ! فرمایا: (اللہ بے نیاز، رکوع اور سجود اسی کے لیے ہیں، اسی کے گھر کا طواف مشروط ہے، وہی دیتا اور وہی لیتا ہے، کائنات کا ذرہ ذرہ اسی کا محتاج اور قبضہ قدرت میں ہے)۔ اس کی ذات میں کسی کو شریک کرنا یہ سب سے بڑا گناہ ہے۔ دوسرا والدین کی نافرمانی کرنا (قرآن میں متعدد جگہ پر اپنی واحدانیت کے ساتھ ساتھ والدین کی اطاعت کا بھی تذکرہ فرمایا۔ اسی حدیث میں اللہ نے اپنے حق کے ساتھ والدین کے حق کا تذکرہ بھی فرمایا۔ اللہ ہمارے حقیقی مالک و خالق ہیں اور والدین ہمارے اس دنیا میں ہمیں لانے کا ایک سبب ہیں اس لیے یہ تذکرہ ہمیشہ ساتھ ساتھ فرمایا ہے۔ والدین کی نافرمانی کرنا، انہیں رنجیدہ کرنا، بے بس کر دینا یہ بھی بدترین گناہ ہے) اور اس کے بعد آپ ﷺ ایک دم سیدھے ہو کر بیٹھ گئے اور بار بار فرمایا جھوٹی گواہی دینا، جھوٹی گواہی دینا، اس فقرے کو اتنی تاکید اور جلالی میں فرمایا کہ صحابہ کہتے ہیں کہ ان فقروں کی تاکید اور سختی اتنی زیادہ تھی گویا انتہائی پریشانی اور اضطرابی کیفیت تھی کہ کاش آپ ﷺ تھوڑی دیر خاموش ہو جائیں۔</p>
+                <p>جھوٹی گواہی دینا ایسا ہے گویا حقدار کو زندہ دفن کرنے کے مترادف ہے اور جس کا حق نہیں ہے اس کو جھوٹ کے ذریعے وہ حق دلانا جو اس کا حقیقتاً ہے ہی نہیں، یہ بدترین گناہ ہے۔ اور رحمٰن کے بندے ہرگز ایسے نہیں ہیں نہ وہ جھوٹی گواہی دیتے ہیں اور نہ ہی باطل اور ناحق محفلوں میں شرکت کرتے ہیں۔ (کفار کی عیدیں اور میلے، گانے اور بجانے کی محفلیں، شراب اور رقص و سرود کی محفلیں، الغرض ساری بری محفلیں ہیں) جہاں حق تلفی ہوتی وہاں رحمٰن کے بندے ہرگز نہیں جاتے، اگر ہم اپنے معاشرے میں ایک جھلک دیکھ لیں، ولیمہ، برتھ ڈے، عرس و میلہ وغیرہ اگر ایسی محفل سے گزر ہو جائے تو وہاں سے بڑے معتبر طریقے سے اٹھ جاتے ہیں۔</p>
+                <p>لوگوں میں جھوٹی گواہی کا عام ہو جانا اور لوگوں کا اس بارے میں سستی کرنا قیامت کی علامات میں سے ہے، جیسا کہ حدیث سابق میں آپ ﷺ نے فرمایا کہ "قیامت سے پہلے جھوٹی گواہی عام ہو جائے گی"۔</p>
+                <p>جھوٹی گواہی صرف عدالتوں میں قاضی اور حاکم کے سامنے ہی نہیں ہوتی بلکہ یہ زندگی کے تمام شعبہ جات اور معاملات کو محیط ہے، جیسا کہ لوگوں کا آپس کے روزمرہ کے معاملات میں غلط بیانی، جھوٹی گواہی دینا، بعض کمپنیوں اور اداروں کے ملازمین کا اپنی ذمہ داری کے حوالے سے مدارس اور جامعات میں طالب علموں کی جھوٹی گواہی اور بچوں کی اپنے والدین کے سامنے جھوٹی گواہی بھی اسی زمرے میں شامل ہے۔</p>
+                <p>آپ ﷺ نے جھوٹی گواہی اور جھوٹی قسم یا غلط بیانی کے ذریعے دوسروں کا حق مارنے سے اپنی امت کو بہت ڈرایا ہے۔ آپ ﷺ نے فرمایا: "جو شخص جھوٹی قسم کے ذریعے کسی مسلم بھائی کا مال ہڑپ کر لے گا، وہ کل اللہ کی عدالت میں اس حال میں پیش ہو گا کہ اللہ اس پر سخت ناراض ہو گا"۔</p>
+                <p>پھر آپ ﷺ نے اس آیت کریمہ کی تلاوت فرمائی: "بے شک جو لوگ اللہ کے عہد اور اپنی قسموں کو تھوڑے سے دنیاوی فائدے کی خاطر فروخت کر دیتے ہیں ان کا آخرت میں کوئی حصہ نہیں، اللہ تعالیٰ روز قیامت نہ تو ان سے کلام کرے گا، نہ ان کی طرف (نظر رحمت سے) دیکھے گا اور نہ انھیں پاک کرے گا، ان کے لیے نہایت تکلیف دہ عذاب ہے"۔</p>
+                <p>حضرت ابو امامہ باہلی رضی اللہ عنہ سے روایت ہے کہ نبی کریم ﷺ نے فرمایا: "جس کسی نے جھوٹی قسم کھا کر اپنے مسلم بھائی کا حق مارا، اللہ نے اس پر جہنم واجب اور جنت حرام کر دی۔ ایک شخص نے عرض کیا: اللہ کے رسول! اگر وہ کوئی معمولی چیز ہو تو؟ آپ ﷺ نے فرمایا: خواہ وہ پیلو کی ایک مسواک ہی کیوں نہ ہو"۔</p>
+                <p>گناہ چھوٹا ہو یا بڑا گناہ ذلت و رسوائی کا سبب ہے دنیا میں بھی جھوٹے انسان کے کردار کو اچھا نہیں سمجھا جاتا لیکن گناہ کے سبب دنیا و آخرت دونوں جہتوں پر انسان کے ہلاکت ہے۔ آج ہم اتنی ڈھٹائی سے جھوٹ بولتے ہیں اور اس قدر جھوٹ بولنے کے عادی ہو چکے ہیں کہ گناہ گناہ نہیں لگتا۔ اللہ پاک ہم سب کو معاف کرے اور ہمیں ہمیشہ سچ بولنے کی توفیق عطا فرمائے۔ آمین۔</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>اللہ پاک ہم سب کو سچ بولنے کی توفیق عطا فرمائے</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">© 2023 اسلامی مضامین</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create stars for galaxy background
+        function createStars() {
+            const galaxyBg = document.getElementById('galaxyBg');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                galaxyBg.appendChild(star);
+            }
+            
+            // Create nebula effects
+            const colors = ['#4a90e2', '#ff6b6b', '#2ecc71', '#feca57'];
+            for (let i = 0; i < 4; i++) {
+                const nebula = document.createElement('div');
+                nebula.classList.add('nebula');
+                nebula.style.backgroundColor = colors[i];
+                nebula.style.width = `${Math.random() * 300 + 200}px`;
+                nebula.style.height = `${Math.random() * 300 + 200}px`;
+                nebula.style.left = `${Math.random() * 100}%`;
+                nebula.style.top = `${Math.random() * 100}%`;
+                nebula.style.animationDelay = `${Math.random() * 10}s`;
+                nebula.style.animationDuration = `${Math.random() * 20 + 20}s`;
+                galaxyBg.appendChild(nebula);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Navigation functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                scrollToTop();
+            } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                scrollToBottom();
+            } else if (e.key === 'Escape') {
+                goBack();
+            }
+        });
+        
+        // Initialize on page load
+        window.onload = function() {
+            createStars();
+        };
     </script>
 </body>
 </html>
