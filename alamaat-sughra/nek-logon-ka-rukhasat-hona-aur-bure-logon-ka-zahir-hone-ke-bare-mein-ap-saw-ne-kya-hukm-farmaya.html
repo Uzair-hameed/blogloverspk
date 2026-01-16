@@ -5,77 +5,522 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نیک لوگوں کا رخصت ہونا اور بُرے لوگوں کا ظاہر ہونے کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff6b6b;
+            --dark: #0a0a1a;
+            --light: #f8f9fa;
+            --text: #333333;
+            --text-light: #f8f9fa;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            background-color: var(--dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(100, 100, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 100, 100, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+        }
+        
+        /* Milky Way Background */
+        #milky-way {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.6;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(255, 182, 193, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(100, 149, 237, 0.25) 0%, transparent 60%),
+                linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 40%, #16213e 100%);
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        /* Content Container */
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .post-header {
+            text-align: center;
+            margin: 30px 0 40px;
+            padding: 30px 20px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8));
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://bloglovers.pk/images/alamaat-sughra/nek-logon-ka-rukhasat-hona-aur-bure-logon-ka-zahir-hone-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: white;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+        
+        h1::after {
+            content: '✨';
+            position: absolute;
+            bottom: -15px;
+            right: 50%;
+            transform: translateX(50%);
+            font-size: 2rem;
+        }
+        
+        .title-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        
+        .title-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: rgba(15, 15, 35, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            font-size: 1.4rem;
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+            text-align: justify;
+            color: #f0f0f0;
+        }
+        
+        .post-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(90deg, rgba(106, 17, 203, 0.2), rgba(37, 117, 252, 0.2));
+            padding: 10px 20px;
+            border-radius: 10px;
+            border-right: 4px solid var(--accent);
+            margin: 25px 0;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .content-container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .post-content {
+                padding: 30px;
+                font-size: 1.3rem;
+            }
+            
+            .nav-buttons {
+                left: 15px;
+            }
+            
+            .back-btn {
+                left: 15px;
+                top: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+                font-size: 1.2rem;
+            }
+            
+            .nav-buttons {
+                display: none;
+            }
+            
+            .back-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .post-content {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+            
+            .post-header {
+                padding: 20px 15px;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 15, 35, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--secondary), var(--accent));
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Hover effects for paragraphs */
+        .post-content p:hover {
+            color: #fff;
+            transition: color 0.3s;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Milky Way Background -->
+    <div id="milky-way"></div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" onclick="scrollToBottom()">
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- Main Content -->
+    <div class="content-container">
+        <div class="post-header fade-in">
+            <h1>نیک لوگوں کا رخصت ہونا اور بُرے لوگوں کا ظاہر ہونے کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟</h1>
+        </div>
         
-        <h1>نیک لوگوں کا رخصت ہونا اور بُرے لوگوں کا ظاہر ہونے کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟</h1>
-<p>محترم قارئین کرام! قیامت کی جس نشانی پر ہم آج بات کر رہے ہیں اس کا عنوان ہے &quot;نیک لوگوں کا اس دنیا سے رخصت ہونا اور بُرے لوگوں کا ظاہر ہونا&quot; اور یہ نشانی دور حاضر میں بتدریج آہستہ آہستہ عیاں ہوتی جا رہی ہے۔</p>
-<p>جیسے جیسے وقت کی بے لگام گھوڑی تیزی سے آگے بڑھتی جا رہی ہے اس نشانی میں وقت کے ساتھ ساتھ نکھار پیدا ہوتا جا رہا ہے۔ اور جو بات نبوت والی زبان سے بیان ہوئی تھی وہ حق سچ ہے اور وقت مقررہ پر جہاں تمام نشانیاں پوری ہوتی جا رہی ہیں وہیں یہ نشانی بھی ہم سب اپنی ننگی آنکھوں سے پورا ہوتا ہوا دیکھ رہے ہیں۔</p>
-<p>تاہم صورتحال ابھی اتنی بدترین تو نہیں ہوئی کیونکہ جب تک دین حق کی بات کرنے والے لوگ موجود ہیں ہمارے درمیان لوگوں میں کچھ نہ کچھ خدا خوفی موجود ہے لیکن بتدریج یہ نشانی آہستہ آہستہ واضح ہوتی نظر آ رہی ہے جہاں یہ واضح ہو رہی ہے وہی دوسری طرف فرقہ واریت بڑھتی جا رہی ہے اور اس کے برعکس بُرے لوگ اقتدار سنبھالتے نظر آ رہے ہیں۔</p>
-<p>ایسا محسوس ہونے لگا ہے جیسے حق اور باطل کی لڑائی میں حق کی روشنی مدھم ہوتی دکھائی دے رہی ہے، حق کہیں دبتا، ڈرتا اور روپوش ہوتا نظر آ رہا ہے اور حق کے اردگرد باطل فتنوں کے راج اور اندھیرے منڈلاتے دکھائی دے رہے ہیں۔</p>
-<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiSPpSbMQ_7LUHmHOKOsW7gLQJYYQnSJQCHC1NVRqw9EVoRtYdWRE4olkepvnO5VwrcSQHuWWGsCOnWK7B3TI53k9WuPKxayQZahN9MJkC7TP8v9Y3EQnxJZJYMiVNDpJqGBC59r0bdMR98DSuzY2zV24u9ei2GokFqmNzcurALbGkBsxj_caFEtukOgSYx/s640/%D9%86%DB%8C%DA%A9%20%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%D8%A7%20%20%D8%B1%D8%AE%D8%B5%D8%AA%20%DB%81%D9%88%D9%86%D8%A7%20%D8%A7%D9%88%D8%B1%20%D8%A8%D9%8F%D8%B1%DB%92%20%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%D8%A7%20%D8%B8%D8%A7%DB%81%D8%B1%20%DB%81%D9%88%D9%86%DB%92%20%DA%A9%DB%92%20%D8%A8%D8%A7%D8%B1%DB%92%20%D9%85%DB%8C%DA%BA%20%20%D8%A2%D9%BE%20%EF%B7%BA%20%D9%86%DB%92%20%DA%A9%DB%8C%D8%A7%20%D8%AD%DA%A9%D9%85%20%D9%81%D8%B1%D9%85%D8%A7%DB%8C%D8%A7%D8%9F.jpg" alt="نیک لوگوں کا رخصت ہونا اور بُرے لوگوں کا ظاہر ہونے کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟"></p>
-<p>اس بات میں کوئی شک نہیں کہ نیک، معزز، اور ہر بری بات سے روکنے ٹوکنے اور سمجھانے والے بزرگ لوگ آہستہ آہستہ اس دنیا فانی سے رخصت ہوتے جا رہے ہیں، اور ان کی جگہ ناسمجھ، نادان، کم عقل، گھٹیا، جاہل اور بازاری قسم کے لوگ ظاہر ہوتے جا رہے ہیں جو اپنی کم عقلی، ناسمجھی اور کم علمی کی وجہ سے قیاس آرائیاں کرتے معاشرے میں اردگرد نظر آ رہے ہیں۔</p>
-<p>کیونکہ جو اس دنیا سے رخصت ہوتا جا رہا ہے وہ واپس آنے والا نہیں ہے اس لیے ان لوگوں کے پاس کھلا میدان موجود ہے کیونکہ یہ لوگ خود بھی گمراہ ہیں اور اپنے ساتھ دوسروں کو بھی گمراہ کرتے جا رہے ہیں۔ جب ان لوگوں سے کوئی مشورہ لیا جاتا ہے تو یہ لوگ محض قیاس آرائیاں کرتے دکھائی دیتے ہیں۔</p>
-<p>کہیں مساجد کی ویرانی اور جوا خانوں، شراب خانوں اور بازاروں کی آبادی کے ذمہ دار ہم تو نہیں؟</p>
-<p>نبی کریم ﷺ نے فرمایا: &quot;اس ذات کی قسم جس کے ہاتھ میں محمد کی جان ہے! قیامت اس وقت تک قائم نہ ہوگی جب تک کہ وَعُول فوت نہ ہو جائیں اور تَحُوت عام نہ ہو جائیں۔ پوچھا گیا: یا رسول اللہ! یہ &quot;وعول اور تحوت&quot; کون ہیں؟ فرمایا: &quot;وعول سے مراد معزز اور اشرافیہ طبقہ ہے اور تحوت سے مراد گھٹیا اور غیر معروف لوگ ہیں۔ یعنی جو لوگوں کے قدموں تلے ہوتے تھے اور مناصب سنبھال لیں گے&quot;۔</p>
-<p>آج سٹیلائٹ چینلز کے ذریعے جس طرح جھوٹ کی نمائش کی جا رہی ہے لگتا ہے کہ یہی لوگ سچے ہیں اور حقائق واضح کر رہے ہیں لیکن افسوس! یہ تو وہ باتیں بھی عیاں کرتے دکھائی دیتے ہیں جن کی پردہ پوشی کرنے کا حکم فرمایا گیا تھا۔</p>
-<p>ذرائع ابلاغ کے ذریعے ہر برا کام وہ اتنے ذوق وشوق سے دکھاتے ہیں جیسے اس دنیا میں اللہ نے ان کو اسی کام کے لیے پیدا کیا ہے، گھٹیا لوگوں کا اوپر آنا اور اہم مناصب سنبھالنا، ان کے گرد محفلوں کو سجانے کے لیے ڈھولچیوں اور طبلہ نوازوں کی کثرت کا ہونا۔</p>
-<p>جبکہ دانشور، مفکر اور لوگوں کی خیر خواہی کرنے والوں کو نظروں سے اوجھل اور ذرائع ابلاغ پر نظر انداز کر دیے جاتے ہیں۔</p>
-<p>لوگوں کی نظر میں آج کا معزز شخص وہی کہلاتا ہے جو فحاشی کو پھیلانے والا، کثرت سے جھوٹ بولنے والا، جھوٹ بول کر لوگوں کو خوب ہنسانے والا، گانے بجانے، رقص و سرود اور عیاشی و فحاشی کی محفلیں منعقد کرنے والا، ذاتی خواہشات کی تکمیل کے لیے حرام کمانا، دوسروں کا گلہ دبا کر حق تلفی کرنا وغیرہ۔</p>
-<p>مگر افسوس! جتنی عزت یہ اسٹیج اداکاروں، جھوٹے اور جاہل سیاستدانوں، فلمی اداکاروں کی کرتے ہیں یہاں تک کہ اندھا دھند پیروی بھی کرتے ہیں، وہیں پر اگر دین حق کی بات ہو، کسی مفلس کی مدد کرنی ہو، کسی یتیم کے سر پر ہاتھ رکھنا ہو وہاں ہماری زبانوں کو تالے لگ جاتے ہیں، وہاں ہم لوگ پتلی گلی سے نکلتے دکھائی دیتے ہیں۔</p>
-<p>اکثر مسلم ممالک میں علماء حق اور داعیان دین کی عزت بھی کی جاتی ہے۔ لوگ علمی مجالس میں شرکت کرنے اور ٹی وی چینلز کے دینی پروگرام دیکھنے کا شوق رکھتے ہیں۔ دن بدن ایسے چینلز میں اضافہ ہو رہا ہے حتیٰ کہ دیکھا گیا ہے کہ غیر مسلم بھی دینی لیکچرز سنتے ہیں اور ان سے بہت فائدہ ہو رہا ہے۔ لوگ تیزی سے اسلام کی دعوت کو قبول کر رہے ہیں، اور دائرہ اسلام میں داخل ہو رہے ہیں۔</p>
-<p>اللہ رب العزت سے دعا ہے کہ وہ ایسے شرپسند لوگوں کی پناہ سے محفوظ رکھے اور نیک لوگوں کی صحبت اختیار کرنے کی توفیق عطا فرمائے۔ آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <!-- Title Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/nek-logon-ka-rukhasat-hona-aur-bure-logon-ka-zahir-hone-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" 
+             alt="نیک لوگوں کا رخصت ہونا اور بُرے لوگوں کا ظاہر ہونے کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟" 
+             class="title-image fade-in">
+        
+        <div class="post-content fade-in">
+            <p>محترم قارئین کرام! قیامت کی جس نشانی پر ہم آج بات کر رہے ہیں اس کا عنوان ہے "نیک لوگوں کا اس دنیا سے رخصت ہونا اور بُرے لوگوں کا ظاہر ہونا" اور یہ نشانی دور حاضر میں بتدریج آہستہ آہستہ عیاں ہوتی جا رہی ہے۔</p>
+            
+            <p>جیسے جیسے وقت کی بے لگام گھوڑی تیزی سے آگے بڑھتی جا رہی ہے اس نشانی میں وقت کے ساتھ ساتھ نکھار پیدا ہوتا جا رہا ہے۔ اور جو بات نبوت والی زبان سے بیان ہوئی تھی وہ حق سچ ہے اور وقت مقررہ پر جہاں تمام نشانیاں پوری ہوتی جا رہی ہیں وہیں یہ نشانی بھی ہم سب اپنی ننگی آنکھوں سے پورا ہوتا ہوا دیکھ رہے ہیں۔</p>
+            
+            <p>تاہم صورتحال ابھی اتنی بدترین تو نہیں ہوئی کیونکہ جب تک دین حق کی بات کرنے والے لوگ موجود ہیں ہمارے درمیان لوگوں میں کچھ نہ کچھ خدا خوفی موجود ہے لیکن بتدریج یہ نشانی آہستہ آہستہ واضح ہوتی نظر آ رہی ہے جہاں یہ واضح ہو رہی ہے وہی دوسری طرف فرقہ واریت بڑھتی جا رہی ہے اور اس کے برعکس بُرے لوگ اقتدار سنبھالتے نظر آ رہے ہیں۔</p>
+            
+            <p>ایسا محسوس ہونے لگا ہے جیسے حق اور باطل کی لڑائی میں حق کی روشنی مدھم ہوتی دکھائی دے رہی ہے، حق کہیں دبتا، ڈرتا اور روپوش ہوتا نظر آ رہا ہے اور حق کے اردگرد باطل فتنوں کے راج اور اندھیرے منڈلاتے دکھائی دے رہے ہیں۔</p>
+            
+            <div class="highlight">
+                <p>اس بات میں کوئی شک نہیں کہ نیک، معزز، اور ہر بری بات سے روکنے ٹوکنے اور سمجھانے والے بزرگ لوگ آہستہ آہستہ اس دنیا فانی سے رخصت ہوتے جا رہے ہیں، اور ان کی جگہ ناسمجھ، نادان، کم عقل، گھٹیا، جاہل اور بازاری قسم کے لوگ ظاہر ہوتے جا رہے ہیں جو اپنی کم عقلی، ناسمجھی اور کم علمی کی وجہ سے قیاس آرائیاں کرتے معاشرے میں اردگرد نظر آ رہے ہیں۔</p>
+            </div>
+            
+            <p>کیونکہ جو اس دنیا سے رخصت ہوتا جا رہا ہے وہ واپس آنے والا نہیں ہے اس لیے ان لوگوں کے پاس کھلا میدان موجود ہے کیونکہ یہ لوگ خود بھی گمراہ ہیں اور اپنے ساتھ دوسروں کو بھی گمراہ کرتے جا رہے ہیں۔ جب ان لوگوں سے کوئی مشورہ لیا جاتا ہے تو یہ لوگ محض قیاس آرائیاں کرتے دکھائی دیتے ہیں۔</p>
+            
+            <p>کہیں مساجد کی ویرانی اور جوا خانوں، شراب خانوں اور بازاروں کی آبادی کے ذمہ دار ہم تو نہیں؟</p>
+            
+            <div class="highlight">
+                <p>نبی کریم ﷺ نے فرمایا: "اس ذات کی قسم جس کے ہاتھ میں محمد کی جان ہے! قیامت اس وقت تک قائم نہ ہوگی جب تک کہ وَعُول فوت نہ ہو جائیں اور تَحُوت عام نہ ہو جائیں۔ پوچھا گیا: یا رسول اللہ! یہ "وعول اور تحوت" کون ہیں؟ فرمایا: "وعول سے مراد معزز اور اشرافیہ طبقہ ہے اور تحوت سے مراد گھٹیا اور غیر معروف لوگ ہیں۔ یعنی جو لوگوں کے قدموں تلے ہوتے تھے اور مناصب سنبھال لیں گے"۔</p>
+            </div>
+            
+            <p>آج سٹیلائٹ چینلز کے ذریعے جس طرح جھوٹ کی نمائش کی جا رہی ہے لگتا ہے کہ یہی لوگ سچے ہیں اور حقائق واضح کر رہے ہیں لیکن افسوس! یہ تو وہ باتیں بھی عیاں کرتے دکھائی دیتے ہیں جن کی پردہ پوشی کرنے کا حکم فرمایا گیا تھا۔</p>
+            
+            <p>ذرائع ابلاغ کے ذریعے ہر برا کام وہ اتنے ذوق وشوق سے دکھاتے ہیں جیسے اس دنیا میں اللہ نے ان کو اسی کام کے لیے پیدا کیا ہے، گھٹیا لوگوں کا اوپر آنا اور اہم مناصب سنبھالنا، ان کے گرد محفلوں کو سجانے کے لیے ڈھولچیوں اور طبلہ نوازوں کی کثرت کا ہونا۔</p>
+            
+            <p>جبکہ دانشور، مفکر اور لوگوں کی خیر خواہی کرنے والوں کو نظروں سے اوجھل اور ذرائع ابلاغ پر نظر انداز کر دیے جاتے ہیں۔</p>
+            
+            <p>لوگوں کی نظر میں آج کا معزز شخص وہی کہلاتا ہے جو فحاشی کو پھیلانے والا، کثرت سے جھوٹ بولنے والا، جھوٹ بول کر لوگوں کو خوب ہنسانے والا، گانے بجانے، رقص و سرود اور عیاشی و فحاشی کی محفلیں منعقد کرنے والا، ذاتی خواہشات کی تکمیل کے لیے حرام کمانا، دوسروں کا گلہ دبا کر حق تلفی کرنا وغیرہ۔</p>
+            
+            <p>مگر افسوس! جتنی عزت یہ اسٹیج اداکاروں، جھوٹے اور جاہل سیاستدانوں، فلمی اداکاروں کی کرتے ہیں یہاں تک کہ اندھا دھند پیروی بھی کرتے ہیں، وہیں پر اگر دین حق کی بات ہو، کسی مفلس کی مدد کرنی ہو، کسی یتیم کے سر پر ہاتھ رکھنا ہو وہاں ہماری زبانوں کو تالے لگ جاتے ہیں، وہاں ہم لوگ پتلی گلی سے نکلتے دکھائی دیتے ہیں۔</p>
+            
+            <p>اکثر مسلم ممالک میں علماء حق اور داعیان دین کی عزت بھی کی جاتی ہے۔ لوگ علمی مجالس میں شرکت کرنے اور ٹی وی چینلز کے دینی پروگرام دیکھنے کا شوق رکھتے ہیں۔ دن بدن ایسے چینلز میں اضافہ ہو رہا ہے حتیٰ کہ دیکھا گیا ہے کہ غیر مسلم بھی دینی لیکچرز سنتے ہیں اور ان سے بہت فائدہ ہو رہا ہے۔ لوگ تیزی سے اسلام کی دعوت کو قبول کر رہے ہیں، اور دائرہ اسلام میں داخل ہو رہے ہیں۔</p>
+            
+            <p>اللہ رب العزت سے دعا ہے کہ وہ ایسے شرپسند لوگوں کی پناہ سے محفوظ رکھے اور نیک لوگوں کی صحبت اختیار کرنے کی توفیق عطا فرمائے۔ آمین</p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 | نیک اور بُرے لوگوں کے بارے میں اسلامی تعلیمات</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create stars for Milky Way background
+        function createStars() {
+            const milkyWay = document.getElementById('milky-way');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1 and 3 pixels
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                
+                milkyWay.appendChild(star);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Navigation functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Add hover effect to paragraphs
+        function addHoverEffects() {
+            const paragraphs = document.querySelectorAll('.post-content p');
+            paragraphs.forEach(p => {
+                p.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-5px)';
+                    this.style.transition = 'transform 0.3s';
+                });
+                
+                p.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            addHoverEffects();
+            
+            // Add animation to elements when they come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements to animate
+            const elementsToAnimate = document.querySelectorAll('.post-header, .title-image, .post-content, .footer');
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Up arrow for page up
+            if (e.key === 'ArrowUp') {
+                window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+            }
+            
+            // Down arrow for page down
+            if (e.key === 'ArrowDown') {
+                window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+            }
+            
+            // Home key for top
+            if (e.key === 'Home') {
+                scrollToTop();
+            }
+            
+            // End key for bottom
+            if (e.key === 'End') {
+                scrollToBottom();
+            }
+            
+            // Escape key for back
+            if (e.key === 'Escape') {
+                goBack();
+            }
+        });
     </script>
 </body>
 </html>
