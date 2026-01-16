@@ -5,63 +5,474 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), 
+                 url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background: #0a0e17;
+            color: #e6e6e6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Rainy Season Animated Background */
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(173,216,230,0.2));
+            animation: fall linear infinite;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        .lightning {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            z-index: -1;
+            animation: lightningFlash 15s infinite;
+        }
+        
+        @keyframes lightningFlash {
+            0%, 100% { opacity: 0; }
+            1% { opacity: 0.6; }
+            1.5% { opacity: 0; }
+            2% { opacity: 0.4; }
+            2.5% { opacity: 0; }
+            95% { opacity: 0; }
+        }
+        
+        .cloud {
+            position: absolute;
+            background: rgba(100, 100, 120, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(100, 100, 120, 0.2);
+            animation: cloudMove 60s linear infinite;
+        }
+        
+        @keyframes cloudMove {
+            from { transform: translateX(-100px); }
+            to { transform: translateX(calc(100vw + 100px)); }
+        }
+        
+        /* Main Content Container */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header with Back Button */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(10, 20, 40, 0.7);
+            border-radius: 15px;
+            border: 1px solid rgba(64, 156, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 20, 60, 0.4);
+        }
+        
+        .back-btn {
+            background: linear-gradient(45deg, #1a5fb4, #2d7fd3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(26, 95, 180, 0.4);
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 95, 180, 0.7);
+            background: linear-gradient(45deg, #2d7fd3, #4a9eff);
+        }
+        
+        .page-title {
+            color: #4ecdc4;
+            font-size: 2.2rem;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(78, 205, 196, 0.5);
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4ecdc4;
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: rgba(15, 25, 45, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(64, 156, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 10, 30, 0.6);
+            margin-bottom: 100px;
+            position: relative;
+        }
+        
+        .featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+        }
+        
+        h1 {
+            color: #4ecdc4;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4ecdc4;
+            text-shadow: 0 2px 10px rgba(78, 205, 196, 0.4);
+        }
+        
+        h2 {
+            color: #ff9ff3;
+            font-size: 2.2rem;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 159, 243, 0.4);
+            text-shadow: 0 2px 8px rgba(255, 159, 243, 0.3);
+        }
+        
+        h3 {
+            color: #feca57;
+            font-size: 1.8rem;
+            margin: 30px 0 15px;
+            text-shadow: 0 2px 6px rgba(254, 202, 87, 0.3);
+        }
+        
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #e6e6e6;
+            text-align: justify;
+            padding: 0 10px;
+        }
+        
+        p:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+        
+        ul {
+            margin: 20px 0 30px 40px;
+            font-size: 1.4rem;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            color: #d4d4d4;
+            padding-right: 15px;
+            position: relative;
+        }
+        
+        li:hover {
+            color: #ffffff;
+            transform: translateX(-5px);
+            transition: transform 0.3s;
+        }
+        
+        li:before {
+            content: "•";
+            color: #4ecdc4;
+            font-size: 1.8rem;
+            position: absolute;
+            right: -20px;
+            top: 0;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(26, 95, 180, 0.8);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav-btn:hover {
+            background: rgba(42, 123, 223, 0.9);
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background: rgba(10, 20, 40, 0.7);
+            border-radius: 15px;
+            border-top: 2px solid rgba(78, 205, 196, 0.3);
+            color: #a0a0a0;
+            font-size: 1.3rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1.3rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .nav-buttons {
+                left: 5px;
+                top: auto;
+                bottom: 20px;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                width: 100%;
+                left: 0;
+                right: 0;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(78,205,196,0.1) 0%, rgba(78,205,196,0) 70%);
+            z-index: 0;
+        }
+        
+        .decoration-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: 5%;
+        }
+        
+        .decoration-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            left: 10%;
+            background: radial-gradient(circle, rgba(255,159,243,0.1) 0%, rgba(255,159,243,0) 70%);
+        }
+        
+        /* Remove all link styling from the text */
+        .post-content a {
+            color: inherit;
+            text-decoration: none;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Rainy Season Background -->
+    <div class="rain-container" id="rainContainer"></div>
+    <div class="lightning" id="lightning"></div>
+    
+    <!-- Decorative Elements -->
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
     </div>
-
-    <div class="post-content">
-        <h1>لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا</h1>
-        <p>لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا</p>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header with Back Button -->
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-right"></i> پیچھے جائیں
+            </button>
+            <h1 class="page-title">قیامت کی نشانیاں</h1>
+            <div style="width: 140px;"></div> <!-- Spacer for alignment -->
+        </div>
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <h1>لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا</h1>
+            
+            <!-- Featured Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/londi-ka-apne-malik-aqa-khwand-ko-janam-dena.png" 
+                 alt="لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا" 
+                 class="featured-image">
+            
+            <p>لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا</p>
 <p>محترم قارئین کرام!</p>
-<p>کافی دنوں سے میں اس ٹاپک &quot;لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا&quot; کے بارے میں ریسرچ کر رہا تھا، کہ آپ ﷺ نے جو قیامت کی نشانیاں امت کو بتلائی ہیں۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh6KOdE20Pk5haXeXIiivroum6jvhWnjOVxWQnGpHCqC5hONQgXyl7Nxss3NThPTfNwK7ls0e8Y7xMC9GzfNISG_-339TqNEw6kwKERnQ0C20QnPNl8AnFqAtBz9E3phvl-_QzksVDtpTq4eIOSRMyDQkeM4hfdW54uPQtk_nIUPjtQxTEQRaLVAyCl6Di/s2000/%D9%84%D9%88%D9%86%DA%88%DB%8C%20%DA%A9%D8%A7%20%D8%A7%D9%BE%D9%86%DB%92%20%D9%85%D8%A7%D9%84%DA%A9%D8%A2%D9%82%D8%A7%20%20%D8%AE%D8%A7%D9%88%D9%86%D8%AF%20%20%DA%A9%D9%88%20%D8%AC%D9%86%D9%85%20%D8%AF%DB%8C%D9%86%D8%A7.png"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhh6KOdE20Pk5haXeXIiivroum6jvhWnjOVxWQnGpHCqC5hONQgXyl7Nxss3NThPTfNwK7ls0e8Y7xMC9GzfNISG_-339TqNEw6kwKERnQ0C20QnPNl8AnFqAtBz9E3phvl-_QzksVDtpTq4eIOSRMyDQkeM4hfdW54uPQtk_nIUPjtQxTEQRaLVAyCl6Di/s16000/%D9%84%D9%88%D9%86%DA%88%DB%8C%20%DA%A9%D8%A7%20%D8%A7%D9%BE%D9%86%DB%92%20%D9%85%D8%A7%D9%84%DA%A9%D8%A2%D9%82%D8%A7%20%20%D8%AE%D8%A7%D9%88%D9%86%D8%AF%20%20%DA%A9%D9%88%20%D8%AC%D9%86%D9%85%20%D8%AF%DB%8C%D9%86%D8%A7.png" alt="لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا"></a></p>
-<p>ان میں سے بہت سی نمایاں ہوچکی ہیں، تو یہ نشانی کس شکل میں ظاہر ہوگی یا ابھی تک ظاہر نہیں ہوئی ہے یا ابتدائی شکل میں ہو سکتی ہے وغیرہ وغیرہ۔ لیکن جب میں نے چھان بین شروع کی تو ایک مقام پر آکر میں سوچنے پر مجبور ہوگیا کہ یہ نشانی تو پوری طرح سے عیاں ہو چکی ہے، گویا اس میں وقت کے ساتھ ساتھ شدت ضرور آ رہی ہے۔ اسی طرح باقی نشانیاں بھی اپنے مقررہ <a href="https://www.bloglovers.pk/2023/11/blog-post_63.html">وقت پر پوری ہونگی</a>، اللہ کے حکم سے۔</p>
+<p>کافی دنوں سے میں اس ٹاپک "لونڈی کا اپنے مالک/آقا/خاوند کو جنم دینا" کے بارے میں ریسرچ کر رہا تھا، کہ آپ ﷺ نے جو قیامت کی نشانیاں امت کو بتلائی ہیں۔</p>
+<p>ان میں سے بہت سی نمایاں ہوچکی ہیں، تو یہ نشانی کس شکل میں ظاہر ہوگی یا ابھی تک ظاہر نہیں ہوئی ہے یا ابتدائی شکل میں ہو سکتی ہے وغیرہ وغیرہ۔ لیکن جب میں نے چھان بین شروع کی تو ایک مقام پر آکر میں سوچنے پر مجبور ہوگیا کہ یہ نشانی تو پوری طرح سے عیاں ہو چکی ہے، گویا اس میں وقت کے ساتھ ساتھ شدت ضرور آ رہی ہے۔ اسی طرح باقی نشانیاں بھی اپنے مقررہ وقت پر پوری ہونگی، اللہ کے حکم سے۔</p>
 <p>کافی سوچ وبچار کرنے کے بعد میں کچھ ان نتائج پر پہنچا ہوں جو میں آپ کے ساتھ شئیر کر رہا ہوں۔ ہوسکتا ہے میری رائے غلط ہو۔</p>
 <h2>احادیث مبارکہ کی روشنی میں</h2>
-<p>آپ ﷺ نے اپنی امت کی اصلاح کیلئے فرمایا: &quot;کہ مملوکہ (ملکیت) لونڈی ایسے بچے کو جنم دے گی جو اس کا آقا بنے گا۔ یہ اس طرح ہوگا کہ جب کوئی آزاد شخص اپنی لونڈی سے جماع کرے گا تو وہ اس سے حاملہ ہو جائے گی اور ایک بچے کو جنم دے گی، جو بڑا ہو کر ایک ایسا <a href="https://www.bloglovers.pk/2020/12/blog-post_27.html">آزاد نوجوان بنے گا</a>، جس کا والد زندہ ہو گا مگر اس کی والدہ بدستور لونڈی ہی ہو گی، چنانچہ وہ نوجوان اپنی ماں کے مالک کی حیثیت اختیار کر لے گا&quot;۔</p>
-<p>ایک اور مقام پر اس طرح فرمایا گیا: &quot;کہ میں تمھیں اس کی نشانیوں کے بارے میں بتلاؤں، جب لونڈی اپنی مالکہ کو جنم دے گی تو یہ قرب قیامت کی علامت ہو گی&quot;۔</p>
+<p>آپ ﷺ نے اپنی امت کی اصلاح کیلئے فرمایا: "کہ مملوکہ (ملکیت) لونڈی ایسے بچے کو جنم دے گی جو اس کا آقا بنے گا۔ یہ اس طرح ہوگا کہ جب کوئی آزاد شخص اپنی لونڈی سے جماع کرے گا تو وہ اس سے حاملہ ہو جائے گی اور ایک بچے کو جنم دے گی، جو بڑا ہو کر ایک ایسا آزاد نوجوان بنے گا، جس کا والد زندہ ہو گا مگر اس کی والدہ بدستور لونڈی ہی ہو گی، چنانچہ وہ نوجوان اپنی ماں کے مالک کی حیثیت اختیار کر لے گا"۔</p>
+<p>ایک اور مقام پر اس طرح فرمایا گیا: "کہ میں تمھیں اس کی نشانیوں کے بارے میں بتلاؤں، جب لونڈی اپنی مالکہ کو جنم دے گی تو یہ قرب قیامت کی علامت ہو گی"۔</p>
 <h2>علماء کرام کی تشریحات</h2>
-<p>اس کے معنی یہ بھی بیان کیے گئے ہیں کہ بادشاہ لونڈیوں کے بطن سے پیدا ہوں گے، اس طرح بیٹا بادشاہ ہوگا، جبکہ اس کی <a href="https://www.bloglovers.pk/2020/06/60-59.html">ماں اس کی رعایا</a> میں شامل ہوگی۔</p>
+<p>اس کے معنی یہ بھی بیان کیے گئے ہیں کہ بادشاہ لونڈیوں کے بطن سے پیدا ہوں گے، اس طرح بیٹا بادشاہ ہوگا، جبکہ اس کی ماں اس کی رعایا میں شامل ہوگی۔</p>
 <p>علماء کرام کے نزدیک اس کے کئی طرح سے اشارات بیان کیے گئے، مثلاً:</p>
 <ul>
-<li>&quot;لونڈی جنے گی اپنے میاں کو&quot;</li>
-<li>&quot;لونڈی جنے گی اپنے خاوند کو&quot;</li>
+<li>"لونڈی جنے گی اپنے میاں کو"</li>
+<li>"لونڈی جنے گی اپنے خاوند کو"</li>
 </ul>
-<p>مکاتب فکر کے نزدیک: &quot;ظلم اور بربریت کا دوردورہ ہو گا، جنگیں لڑیں جائیں گی، اور ان جنگوں کے عوض فتوحات ہو گی اور بہت سا مالِ غنیمت حاصل ہوگا، اور چونکہ لونڈی بھی مال غنیمت میں سے ہے، تو اس طرح ان لونڈیوں سے حاصل ہونے والے بچے معاشرے میں پھیل جائیں گے، کیونکہ باپ کے مال اس کے مرنے کے بعد بیٹے کا ہوتا ہے&quot;۔</p>
+<p>مکاتب فکر کے نزدیک: "ظلم اور بربریت کا دوردورہ ہو گا، جنگیں لڑیں جائیں گی، اور ان جنگوں کے عوض فتوحات ہو گی اور بہت سا مالِ غنیمت حاصل ہوگا، اور چونکہ لونڈی بھی مال غنیمت میں سے ہے، تو اس طرح ان لونڈیوں سے حاصل ہونے والے بچے معاشرے میں پھیل جائیں گے، کیونکہ باپ کے مال اس کے مرنے کے بعد بیٹے کا ہوتا ہے"۔</p>
 <p>کچھ کی رائے یہ ہے کہ آنے والے زمانے میں بادشاہ/امراء/اعلیٰ عہدیدار حکمران شریعت کو پس پشت ڈال کر نکاح کے بندھن سے آزاد ہوکر لونڈیوں سے جماع کریں گے، اور ان سے پیدا ہونے والے بچے آزاد حکمران ہونگے لیکن پیدا کرنے والی ماں بدستور رعایا ہی ہوگی۔</p>
 <p>کچھ کے نزدیک اس کا مفہوم یوں بھی کیا گیا کہ جوں جوں حالات بد سے بدترین ہو نگے تو حکمران اپنے والدین کی ناشکری کریں گے اور ان کو چند پیسوں کے عوض بیچنا شروع کر دیں گے، اور نجانے کبھی وہ اپنے ہی بیٹے کے ہاتھوں فروخت ہو، جبکہ اس کو یہ ہرگز معلوم نہ ہوگا کہ وہ اس شخص کی ماں ہے۔</p>
 <p>یہی شرط لونڈیوں کے لیے بھی ممکن ہو سکتی ہے۔ مثال کے طور پر ایک لونڈی ایسے لڑکے کو جنم دے جو اس کے خاوند/مالک کے علاوہ کسی دوسرے شخص کے نطفہ سے ہو، پھر وہ لونڈی فروخت ہوتے ہوئے اپنے ہی بیٹے کے ہاتھوں فروخت ہو اور وہ دونوں ایک دوسرے کو نہ پہچان سکیں۔</p>
-<p>کچھ علماء کے نزدیک یہ رائے لی جاتی ہے کہ &quot;ظلمت کے اس بازار میں اس قدر لونڈیوں کی خریدوفروخت ہو جائے گی کہ شریعت اور کم عقل سوچ وبچار نہ ہونے پر ایک شخص اپنی ہی ماں سے نکاح کر لے گا اور اس کو معلوم نہ ہو گا&quot;۔</p>
-<p>اور بعض علماء کی رائے کے مطابق: &quot;بدترین حالات کے پیش نظر اس دور کے لوگ اپنی ماؤں کی عزت کرنا چھوڑ دیں گے۔ ذلت اور رسوائی کے ان اندھیروں میں وہ اپنی ماؤں سے بھی ویسا برتاؤ کریں گے جیسے وہ لونڈیوں سے برتاؤ کرتے ہیں&quot;۔</p>
+<p>کچھ علماء کے نزدیک یہ رائے لی جاتی ہے کہ "ظلمت کے اس بازار میں اس قدر لونڈیوں کی خریدوفروخت ہو جائے گی کہ شریعت اور کم عقل سوچ وبچار نہ ہونے پر ایک شخص اپنی ہی ماں سے نکاح کر لے گا اور اس کو معلوم نہ ہو گا"۔</p>
+<p>اور بعض علماء کی رائے کے مطابق: "بدترین حالات کے پیش نظر اس دور کے لوگ اپنی ماؤں کی عزت کرنا چھوڑ دیں گے۔ ذلت اور رسوائی کے ان اندھیروں میں وہ اپنی ماؤں سے بھی ویسا برتاؤ کریں گے جیسے وہ لونڈیوں سے برتاؤ کرتے ہیں"۔</p>
 <h2>موجودہ دور کے مسائل</h2>
 <p>یہ بات تو طے ہے کہ وقت کے ساتھ ساتھ لوگوں میں شراب اور زنا عام ہوگا۔ جب یہ خرافات لوگوں میں پائی جائیں گی، تو کچھ بھی توقع کی جاسکتی ہے کہ اس دور کے لوگ کیسے ہونگے۔</p>
 <p>والدین کی ناشکری، گالم گلوچ، بدتمیزی، ذلت اور جائیداد کی لالچ میں والدین کو قتل کرنا یا قید کرنے جیسی مثالیں تو ہم آج بھی اپنی آنکھوں سے دیکھ رہے ہیں۔</p>
 <h2>اسلام میں لونڈیوں کا حکم</h2>
 <p>اسلام میں بھی ایک وقت تک باندی اور لونڈیوں کی اجازت تھی، اس کے بعد مکمل پابندی عائد کر دی گئی اور حرام قرار دے دیا گیا۔ اسی طرح چار سے زائد نکاح پر بھی پابندی عائد کی گی۔</p>
-<p>(اے پیغمبر) ان کے سوا اور عورتیں تم کو جائز نہیں اور نہ یہ کہ ان بیویوں کو چھوڑ کر اور بیویاں کرو خواہ ان کا حسن تم کو (کیسا ہی) اچھا لگے مگر وہ جو تمہاری مملوکہ ہوں۔ اور اللہ ہر چیز پر نگاہ رکھتا ہے&quot;۔</p>
+<p>(اے پیغمبر) ان کے سوا اور عورتیں تم کو جائز نہیں اور نہ یہ کہ ان بیویوں کو چھوڑ کر اور بیویاں کرو خواہ ان کا حسن تم کو (کیسا ہی) اچھا لگے مگر وہ جو تمہاری مملوکہ ہوں۔ اور اللہ ہر چیز پر نگاہ رکھتا ہے"۔</p>
 <h2>جدید دور اور سروگیٹ ماؤں</h2>
 <p>ان سب اشارات کے باوجود دور حاضر میں کسی بھی عورت کو زبردستی باندی یا لونڈی نہیں بنایا جا سکتا، اور نہ ہی کسی آزاد عورت کو خریدا یا فروخت کیا جا سکتا ہے، کیونکہ دور حاضر میں تمام رکن ممالک نے اقوام متحدہ کے پلیٹ فارم سے غلامی کا سلسلہ ختم کرنے کا عہد و پیمان بطور ایگریمنٹ کی شکل میں طے پا چکا ہے۔</p>
 <p>پیارے حبیب حضرت محمد ﷺ کے منہ مبارک سے نکلے یہ فرامین دورِ حاضر کی میڈیکل سائنس کے دور میں پوری طرح سے واضح ہوتا دکھائی دیتا ہے۔ ایسے افراد جو اولاد پیدا کرنے سے قاصر ہیں، جدید میڈیکل سائنس کے عوض ان کے تولیدی مادوں کو ملا کر کسی اور صحت مند عورت کے رحم میں رکھ دیں تو بچہ کی پیدائش ممکن ہو جاتی ہے۔</p>
@@ -76,31 +487,126 @@
 <p>لاکھوں روپے لگا کر غیرفطری اور حرام طریقے سے حاصل کی گئی تسکین وقتی اور فرضی تو ہے، لیکن اس طریقہ سے نا صرف کرائے کی مائیں، بچے کی ایک جھلک دیکھنے کے لئے رو رو کر، گھٹ گھٹ کر نفسیاتی مریضہ بن چکی ہوتی ہیں، بلکہ دکھ، درد اور غم کی شدت میں مزید تڑپتا چھوڑ دیا جاتا ہے۔</p>
 <p>یہی وہ نشانی ہے جس کا ذکر آپ ﷺ نے اپنی امت کو آگاہ کیا کہ وہ اپنے مالک یا مالکہ کو جنم دے گی۔ جس کو جنم دے گی اس کے پیسے لے گی اور اس کے بعد اس کا کوئی کردار نہیں ہے۔</p>
 <p>اللہ رب العزت ہم سب کو محفوظ رکھے۔ آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2023 قیامت کی نشانیاں - تمام حقوق محفوظ ہیں</p>
+            <p>اللہ ہم سب کو ہدایت دے اور آخرت کے دن ہمارا حشر اچھا کرے۔ آمین</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create rainy background effect
+        function createRain() {
+            const rainContainer = document.getElementById('rainContainer');
+            const dropsCount = Math.floor(window.innerWidth / 10);
+            
+            for (let i = 0; i < dropsCount; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                
+                // Random position and animation
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = 1 + Math.random() * 2;
+                const height = 30 + Math.random() * 50;
+                
+                drop.style.left = left + 'vw';
+                drop.style.animationDelay = delay + 's';
+                drop.style.animationDuration = duration + 's';
+                drop.style.height = height + 'px';
+                
+                // Create splash effect (cloud at bottom)
+                if (Math.random() > 0.7) {
+                    const splash = document.createElement('div');
+                    splash.className = 'cloud';
+                    splash.style.width = (20 + Math.random() * 50) + 'px';
+                    splash.style.height = (10 + Math.random() * 20) + 'px';
+                    splash.style.bottom = '0';
+                    splash.style.left = left + 'vw';
+                    splash.style.animationDelay = delay + 's';
+                    splash.style.animationDuration = (10 + Math.random() * 20) + 's';
+                    rainContainer.appendChild(splash);
+                }
+                
+                rainContainer.appendChild(drop);
+            }
+            
+            // Add some larger clouds
+            for (let i = 0; i < 5; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cloud';
+                cloud.style.width = (100 + Math.random() * 200) + 'px';
+                cloud.style.height = (50 + Math.random() * 80) + 'px';
+                cloud.style.top = (20 + Math.random() * 50) + 'vh';
+                cloud.style.left = (Math.random() * -200) + 'px';
+                cloud.style.animationDelay = Math.random() * 30 + 's';
+                cloud.style.animationDuration = (80 + Math.random() * 100) + 's';
+                rainContainer.appendChild(cloud);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Random lightning effect
+        function triggerLightning() {
+            const lightning = document.getElementById('lightning');
+            lightning.style.opacity = 0;
+            
+            // Random lightning flashes
+            setTimeout(() => {
+                lightning.style.opacity = 0.7;
+                setTimeout(() => { lightning.style.opacity = 0; }, 100);
+                setTimeout(() => {
+                    lightning.style.opacity = 0.5;
+                    setTimeout(() => { lightning.style.opacity = 0; }, 80);
+                }, 150);
+            }, Math.random() * 5000 + 10000);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Navigation functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Initialize effects
+        window.onload = function() {
+            createRain();
+            triggerLightning();
+            
+            // Continue lightning effect
+            setInterval(triggerLightning, 15000);
+            
+            // Add hover effect to paragraphs
+            const paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                p.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+            
+            // Add hover effect to list items
+            const listItems = document.querySelectorAll('li');
+            listItems.forEach(li => {
+                li.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+        };
+        
+        // Recreate rain on resize
+        window.addEventListener('resize', function() {
+            const rainContainer = document.getElementById('rainContainer');
+            rainContainer.innerHTML = '';
+            createRain();
+        });
     </script>
 </body>
 </html>
