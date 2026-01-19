@@ -5,74 +5,414 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قرب قیامت لوگ موٹاپے جیسی بیماری میں مبتلا کیوں ہو جائیں گے۔</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            color: #333;
+            position: relative;
+        }
+        
+        /* فوڈ تھیم ہیڈر */
+        .food-theme-header {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            overflow: hidden;
+            border-bottom: 5px solid #ff6b6b;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .food-items {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .food-item {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.7;
+            transition: all 0.5s ease;
+            filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+        }
+        
+        .food-item:hover {
+            opacity: 1;
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(4px 4px 6px rgba(0,0,0,0.3));
+        }
+        
+        /* مین کنٹینر */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        /* پوسٹ کونٹینٹ */
+        .post-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            border: 1px solid #eee;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            text-align: justify;
+            text-justify: inter-word;
+            line-height: 2.2;
+        }
+        
+        .post-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 15px;
+            display: block;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 5px solid white;
+        }
+        
+        /* بٹنز */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.6);
+        }
+        
+        .btn-back {
+            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+        }
+        
+        /* پیج کنٹرول بٹنز */
+        .page-controls {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .page-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .page-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* موبائل ریسپانسیو */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            .food-theme-header {
+                height: 120px;
+            }
+            
+            .food-item {
+                font-size: 30px;
+            }
+            
+            .page-controls {
+                left: 10px;
+            }
+            
+            .page-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .post-content {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .food-theme-header {
+                height: 100px;
+            }
+            
+            .food-item {
+                font-size: 25px;
+            }
+        }
+        
+        /* فوٹر */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            color: #666;
+            font-size: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            padding: 2px 8px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- فوڈ تھیم ہیڈر -->
+    <div class="food-theme-header">
+        <div class="food-items" id="foodItemsContainer">
+            <!-- فوڈ آئٹمز جاوا اسکرپٹ کے ذریعے شامل ہوں گے -->
+        </div>
+    </div>
+    
+    <!-- مین کنٹینر -->
+    <div class="main-container">
+        <!-- ایکشن بٹنز -->
+        <div class="action-buttons">
+            <button class="btn btn-back" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <i class="fas fa-arrow-up"></i> اوپر جائیں
+            </button>
+            <button class="btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+                <i class="fas fa-arrow-down"></i> نیچے جائیں
+            </button>
+        </div>
+        
+        <!-- پوسٹ کونٹینٹ -->
+        <div class="post-content">
+            <h1>قرب قیامت لوگ موٹاپے جیسی بیماری میں مبتلا کیوں ہو جائیں گے۔</h1>
+            
+            <!-- تصویر -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-log-motapay-jesi-bimari-mein-mubtala-kyun-ho-jaeen-ge.png" alt="موٹاپے کے بارے میں احادیث" class="post-image">
+            
+            <p>قرب قیامت لوگ موٹاپے جیسی بیماری میں مبتلا کیوں ہو جائیں گے۔</p>
+            <p>موٹاپا ایک پیچیدہ اور کثیر جہتی مسئلہ ہے جس کے صحت، سماجی اور اقتصادی اثرات ہیں۔ اس سے مراد جسم میں اس حد تک زیادہ چربی ہونے کی حالت ہے کہ یہ کسی شخص کی صحت پر منفی اثر ڈالتی ہے۔</p>
+            <p>اگرچہ یہ سچ ہے کہ موٹاپا عالمی سطح پر ایک وسیع تشویش کا باعث ہے، لیکن حساسیت کے ساتھ اس موضوع تک پہنچنا اور اس سے متاثر ہونے والے افراد کو بدنام کرنے سے بچنا ضروری ہے۔ موٹاپا مختلف عوامل سے پیدا ہوسکتا ہے، جن میں جینیاتی رجحان، طرز زندگی کے انتخاب، سماجی و اقتصادی عوامل اور نفسیاتی اثرات شامل ہیں۔</p>
+            <p>افراد اور معاشرے پر موٹاپے کے اثرات نمایاں ہیں۔ یہ مختلف دائمی حالات کے خطرے کو بڑھاتا ہے، بشمول دل کی بیماریاں، ذیابیطس، بعض قسم کے کینسر، اور عضلاتی عوارض۔ موٹاپا دماغی صحت کے مسائل، زندگی کے معیار میں کمی اور متوقع عمر میں بھی حصہ ڈال سکتا ہے۔</p>
+            <p>موٹاپے سے نمٹنے کے لیے ایک جامع نقطہ نظر کی ضرورت ہے جس میں تعلیم، عوامی بیداری کی مہم، غذائیت سے بھرپور خوراک کے اختیارات تک رسائی، جسمانی سرگرمیوں کو فروغ دینا، اور صحت مند طرز زندگی کے انتخاب میں افراد کی مدد شامل ہے۔ ایک معاون ماحول کو فروغ دینا بہت ضروری ہے جو مجموعی بہبود پر توجہ دے اور جسم کی مثبتیت پر زور دے، جبکہ موٹاپے میں کردار ادا کرنے والے بنیادی عوامل پر بھی توجہ دی جائے۔</p>
+            <p>اس کے علاوہ، یہ تسلیم کرنا ضروری ہے کہ وزن کے انتظام کے ساتھ ہر شخص کا سفر منفرد ہے۔ ہمدردی اور افہام و تفہیم کے ساتھ مسئلے تک پہنچنا تمام افراد کے لیے ایک جامع اور معاون معاشرہ بنانے کے لیے بہت ضروری ہے، چاہے ان کے جسمانی سائز یا وزن کچھ بھی ہو۔</p>
+            <p>دوستو! یہ وہ ساری باتیں ہیں جو ہم لوگ روزمرہ اپنے اردگرد موٹے لوگوں کے ساتھ ہوتے دیکھتے ہیں۔ کہیں پارک میں، بازار میں، فرنیچر کے ایڈجسٹمنٹ پر، یا الماری میں رکھے کپڑے، یا دیگر تقریبات میں ہم ان لوگوں کو موٹاپے سے الجھتے ہوتے دیکھتے ہیں۔</p>
+            <p>یوں تو قیامت کی بے شمار نشانیاں ذکر کیں گئیں تو لوگ اپنی آخرت کے متعلق زندگیاں سنوار لیں۔ قیامت کی ان ڈھیر ساری نشانیوں میں سے ایک نشانی لوگوں میں کثرت سے موٹاپے کا ہر سو پھیل جانا ہے۔</p>
+            <p>آئیے اب فرمان نبوی ﷺ پر ایک نظر ڈالتے ہیں کہ آپ ﷺ کیا فرماتے ہیں۔ ایک روایت کے مطابق آپ ﷺ نے فرمایا "میرا زمانہ سب سے بہترین زمانہ ہے، پھر ان لوگوں کا دور عمدہ ہوگا جو انکے بعد آئیں گے اور پھر وہ جو ان کے بعد آئیں گے، پھر ایسے لوگ ظاہر ہوں گے جو گواہی طلب کئے جانے کے بغیر ہی گواہی دینے کے لئے تیار ہوں گے۔ وہ خیانت کریں گے، اور ان پر اعتماد نہیں کیا جائے گا، وہ نذر تو مانیں گے مگر اس کو پورا نہیں کریں گے۔ اور ان میں موٹاپا ظاہر ہو جائے گا۔"</p>
+            <p>غالباً آخری زمانے میں موٹاپے کی وجہ مالی خوشحالی، آرام دہ زندگی، ہوٹلوں، قہوہ خانوں، مزیدار کھانوں اور مٹھائیوں کی کثرت ہوگی۔ ہمارے اس دور میں لوگوں کی جسمانی حرکت بے حد کم ہوگئی ہے۔</p>
+            <p>انسان کی ہر نوع کی خدمت کے لئے مشینیں اور آلات موجود ہیں۔ وہ پیدل نہیں چلتے اور بدنی حرکت برائے نام رہ گئی ہے۔ نتیجہ یہ ہوا کہ چھوٹے برے سب موٹاپے کا شکار ہوگئے ہیں۔ صورت حال اس حد تک خراب ہوچکی ہے کہ عالمی اعدادو شمار کے مطابق دنیا کی آبادی کا قریبا چھٹا حصہ وزن میں اضافے کے مسئلے کا شکار ہے۔</p>
+            <p>یہی وجہ ہے کہ آج ایسی دواؤں کی بہت کثرت ہوگئی ہے جو وزن گھٹانے، موٹاپے کے علاج اور معدہ کی کارکردگی میں معاون ہوتی ہیں۔</p>
+            <p>اللہ پاک ہم سب کو اس بیماری سے بچائے۔۔۔ آمین</p>
+            
+            <!-- بیک بٹن -->
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-back" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <i class="fas fa-home"></i> اوپر واپس جائیں
+                </button>
+            </div>
+        </div>
+        
+        <!-- فوٹر -->
+        <div class="footer">
+            <p>پڑھنے کا شکریہ۔ اللہ ہم سب کو صحت و تندرستی عطا فرمائے۔</p>
+        </div>
+    </div>
+    
+    <!-- پیج کنٹرول بٹنز -->
+    <div class="page-controls">
+        <button class="page-btn" onclick="window.scrollBy(0, -window.innerHeight * 0.8)">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="page-btn" onclick="window.scrollBy(0, window.innerHeight * 0.8)">
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
 
-    <div class="post-content">
-        <h1>قرب قیامت لوگ موٹاپے جیسی بیماری میں مبتلا کیوں ہو جائیں گے۔</h1>
-        <p>قرب قیامت لوگ موٹاپے جیسی بیماری میں مبتلا کیوں ہو جائیں گے۔</p>
-<p>موٹاپا ایک پیچیدہ اور کثیر جہتی مسئلہ ہے جس کے صحت، سماجی اور اقتصادی اثرات ہیں۔ اس سے مراد جسم میں اس حد تک زیادہ چربی ہونے کی حالت ہے کہ یہ کسی شخص کی <a href="https://www.bloglovers.pk/2023/08/blog-post.html">صحت پر منفی</a> اثر ڈالتی ہے۔</p>
-<p>اگرچہ یہ سچ ہے کہ موٹاپا عالمی سطح پر ایک وسیع تشویش کا باعث ہے، لیکن حساسیت کے ساتھ اس موضوع تک پہنچنا اور اس سے متاثر ہونے والے افراد کو بدنام کرنے سے بچنا ضروری ہے۔ موٹاپا مختلف عوامل سے پیدا ہوسکتا ہے، جن میں جینیاتی رجحان، طرز زندگی کے انتخاب، سماجی و اقتصادی عوامل اور نفسیاتی اثرات شامل ہیں۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgBTEK7QdWZByTXf7D7N6XeMl-q797ye4kTHArxPHmif8mz33-YiVAxm-2pPBs2r2_eJi-D9MWacJ4q2ywRd_gqlt8DgdNO7nKn8VogcP_Cpv4Ye2M9W8BWzpJIrK2BM23SNeIKzAfQwZfJit-_9rjEuGBMVd13JUh4ceDbK_pHEDT2hFkAmbVEYqCkvRtF/s2240/Simple%20Work%20Blog%20Banner%20(1).png"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgBTEK7QdWZByTXf7D7N6XeMl-q797ye4kTHArxPHmif8mz33-YiVAxm-2pPBs2r2_eJi-D9MWacJ4q2ywRd_gqlt8DgdNO7nKn8VogcP_Cpv4Ye2M9W8BWzpJIrK2BM23SNeIKzAfQwZfJit-_9rjEuGBMVd13JUh4ceDbK_pHEDT2hFkAmbVEYqCkvRtF/s16000/Simple%20Work%20Blog%20Banner%20(1).png" alt=""></a></p>
-<p>افراد اور معاشرے پر موٹاپے کے اثرات نمایاں ہیں۔ یہ مختلف دائمی حالات کے خطرے کو بڑھاتا ہے، بشمول دل کی بیماریاں، ذیابیطس، بعض قسم کے کینسر، اور عضلاتی عوارض۔ موٹاپا دماغی صحت کے مسائل، زندگی کے معیار میں کمی اور متوقع عمر میں بھی <a href="https://www.bloglovers.pk/2024/01/blog-post_28.html">حصہ ڈال</a> سکتا ہے۔</p>
-<p>موٹاپے سے نمٹنے کے لیے ایک جامع نقطہ نظر کی ضرورت ہے جس میں تعلیم، عوامی بیداری کی مہم، غذائیت سے بھرپور خوراک کے اختیارات تک رسائی، جسمانی سرگرمیوں کو فروغ دینا، اور صحت مند طرز زندگی کے انتخاب میں افراد کی مدد شامل ہے۔ ایک معاون ماحول کو فروغ دینا بہت ضروری ہے جو مجموعی بہبود پر توجہ دے اور جسم کی مثبتیت پر زور دے، جبکہ موٹاپے میں کردار ادا کرنے والے بنیادی عوامل پر بھی توجہ دی جائے۔</p>
-<p>اس کے علاوہ، یہ تسلیم کرنا ضروری ہے کہ وزن کے انتظام کے ساتھ ہر شخص کا سفر منفرد ہے۔ ہمدردی اور افہام و تفہیم کے ساتھ مسئلے تک پہنچنا تمام افراد کے لیے ایک جامع اور معاون معاشرہ بنانے کے لیے بہت ضروری ہے، چاہے ان کے جسمانی <a href="https://www.bloglovers.pk/2024/01/blog-post_27.html">سائز یا وزن</a> کچھ بھی ہو۔</p>
-<p>دوستو! یہ وہ ساری باتیں ہیں جو ہم لوگ روزمرہ اپنے اردگرد موٹے لوگوں کے ساتھ ہوتے دیکھتے ہیں۔ کہیں پارک میں، بازار میں، فرنیچر کے ایڈجسٹمنٹ پر، یا الماری میں رکھے کپڑے، یا دیگر تقریبات میں ہم ان لوگوں کو موٹاپے سے الجھتے ہوتے دیکھتے ہیں۔</p>
-<p>یوں تو قیامت کی بے شمار نشانیاں ذکر کیں گئیں تو لوگ اپنی آخرت کے متعلق زندگیاں سنوار لیں۔ قیامت کی ان ڈھیر ساری نشانیوں میں سے ایک نشانی لوگوں میں کثرت سے موٹاپے کا ہر سو پھیل جانا ہے۔</p>
-<p>آئیے اب فرمان نبوی ﷺ پر ایک نظر ڈالتے ہیں کہ آپ ﷺ کیا فرماتے ہیں۔ ایک روایت کے مطابق آپ ﷺ نے فرمایا &quot;میرا زمانہ سب سے بہترین زمانہ ہے، پھر ان لوگوں کا دور عمدہ ہوگا جو انکے بعد آئیں گے اور پھر وہ جو ان کے بعد آئیں گے، پھر ایسے لوگ ظاہر ہوں گے جو گواہی طلب کئے جانے کے بغیر ہی گواہی دینے کے لئے تیار ہوں گے۔ وہ خیانت کریں گے، اور ان پر اعتماد نہیں کیا جائے گا، وہ نذر تو مانیں گے مگر اس کو پورا نہیں کریں گے۔ اور ان میں موٹاپا ظاہر ہو جائے گا۔&quot;</p>
-<p>غالباً آخری زمانے میں موٹاپے کی وجہ مالی خوشحالی، آرام دہ زندگی، ہوٹلوں، قہوہ خانوں، مزیدار کھانوں اور مٹھائیوں کی کثرت ہوگی۔ ہمارے اس دور میں لوگوں کی جسمانی حرکت بے حد کم ہوگئی ہے۔</p>
-<p>انسان کی ہر نوع کی خدمت کے لئے مشینیں اور آلات موجود ہیں۔ وہ پیدل نہیں چلتے اور بدنی حرکت برائے نام رہ گئی ہے۔ نتیجہ یہ ہوا کہ چھوٹے برے سب موٹاپے کا شکار ہوگئے ہیں۔ صورت حال اس حد تک خراب ہوچکی ہے کہ عالمی اعدادو شمار کے مطابق دنیا کی آبادی کا قریبا چھٹا حصہ وزن میں اضافے کے مسئلے کا شکار ہے۔</p>
-<p>یہی وجہ ہے کہ آج ایسی دواؤں کی بہت کثرت ہوگئی ہے جو وزن گھٹانے، موٹاپے کے علاج اور معدہ کی کارکردگی میں معاون ہوتی ہیں۔</p>
-<p>اللہ پاک ہم سب کو اس بیماری سے بچائے۔۔۔ آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // فوڈ آئٹمز شامل کرنا
+        const foodItems = ['🍎', '🍕', '🍔', '🍟', '🍦', '🍩', '🍰', '🍫', '🍇', '🍌', '🍉', '🍒', '🥑', '🥨', '🥞', '🧁'];
+        const foodContainer = document.getElementById('foodItemsContainer');
+        
+        // فوڈ آئٹمز پوزیشن کرنا
+        for (let i = 0; i < 20; i++) {
+            const foodItem = document.createElement('div');
+            foodItem.className = 'food-item';
+            foodItem.innerHTML = foodItems[Math.floor(Math.random() * foodItems.length)];
+            
+            // رینڈم پوزیشن
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            const size = 30 + Math.random() * 40;
+            const rotation = Math.random() * 360;
+            
+            foodItem.style.left = `${left}%`;
+            foodItem.style.top = `${top}%`;
+            foodItem.style.fontSize = `${size}px`;
+            foodItem.style.transform = `rotate(${rotation}deg)`;
+            
+            // حرکت کا اینیمیشن
+            const duration = 20 + Math.random() * 30;
+            const delay = Math.random() * 5;
+            
+            foodItem.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
+            
+            foodContainer.appendChild(foodItem);
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // فوٹنگ اینیمیشن
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% { transform: translateY(0) rotate(${Math.random() * 360}deg); }
+                100% { transform: translateY(-20px) rotate(${Math.random() * 360}deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // پیج بٹنز کو موبائل پر چھپانا/دکھانا
+        function togglePageButtons() {
+            const pageControls = document.querySelector('.page-controls');
+            if (window.innerWidth < 768) {
+                pageControls.style.display = 'flex';
+            } else {
+                pageControls.style.display = 'flex';
+            }
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // ایونٹ لسٹنرز
+        window.addEventListener('resize', togglePageButtons);
+        togglePageButtons();
+        
+        // ہوور افیکٹس کے لیے فوڈ آئٹمز
+        document.querySelectorAll('.food-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
     </script>
 </body>
 </html>
