@@ -16,14 +16,15 @@
         }
         
         :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --accent-color: #ff6b6b;
-            --text-color: #f0f0f0;
-            --dark-bg: #0a0a1a;
-            --star-color: #ffffff;
-            --neon-blue: #00d4ff;
-            --neon-purple: #9d4edd;
+            --rain-blue-dark: #0c2461;
+            --rain-blue-medium: #1e3799;
+            --rain-blue-light: #4a69bd;
+            --rain-cyan: #38ada9;
+            --rain-grey: #485460;
+            --rain-silver: #d2dae2;
+            --rain-text: #f1f2f6;
+            --thunder-yellow: #ffdd59;
+            --lightning-blue: #00d8d6;
         }
         
         body {
@@ -33,58 +34,109 @@
             text-align: justify;
             margin: 0;
             padding: 0;
-            background-color: var(--dark-bg);
-            color: var(--text-color);
+            background-color: var(--rain-blue-dark);
+            color: var(--rain-text);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
             font-size: 1.2rem;
         }
         
-        /* Space Galaxy Background */
-        #space-bg {
+        /* Rainy Background */
+        #rain-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(to bottom, #000428, #004e92, #000428);
+            background: linear-gradient(to bottom, #0a1931, #1a3a5f, #0a1931);
             overflow: hidden;
         }
         
-        .star {
-            position: absolute;
-            background-color: var(--star-color);
-            border-radius: 50%;
-            animation: twinkle 5s infinite;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-        
-        .shooting-star {
+        /* Raindrops */
+        .raindrop {
             position: absolute;
             width: 2px;
-            height: 100px;
-            background: linear-gradient(to bottom, transparent, var(--neon-blue));
-            animation: shooting 10s linear infinite;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--rain-silver));
+            animation: rainFall 2s linear infinite;
+            border-radius: 0 0 10px 10px;
+            opacity: 0.7;
         }
         
-        @keyframes shooting {
+        @keyframes rainFall {
             0% {
-                transform: translateY(-100px) rotate(45deg);
+                transform: translateY(-100px);
                 opacity: 0;
             }
             10% {
-                opacity: 1;
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
             }
             100% {
-                transform: translateY(100vh) rotate(45deg);
+                transform: translateY(100vh);
                 opacity: 0;
             }
+        }
+        
+        /* Rain Splash Effect */
+        .splash {
+            position: absolute;
+            width: 15px;
+            height: 10px;
+            background: rgba(210, 218, 226, 0.3);
+            border-radius: 50%;
+            animation: splashEffect 0.5s ease-out;
+        }
+        
+        @keyframes splashEffect {
+            0% {
+                transform: scale(0);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        /* Lightning Effect */
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: -1;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .lightning-flash {
+            animation: lightningFlash 0.3s ease-out;
+        }
+        
+        @keyframes lightningFlash {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Cloud Animation */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: cloudFloat 40s linear infinite;
+        }
+        
+        @keyframes cloudFloat {
+            0% { transform: translateX(100px); }
+            100% { transform: translateX(-100px); }
         }
         
         /* Main Container */
@@ -99,14 +151,14 @@
         /* Back Button */
         .back-btn {
             display: inline-block;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(45deg, var(--rain-blue-medium), var(--rain-cyan));
             color: white;
             padding: 12px 25px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
+            box-shadow: 0 5px 15px rgba(30, 55, 153, 0.5);
             transition: all 0.3s ease;
             border: 2px solid transparent;
             font-size: 1.1rem;
@@ -116,8 +168,8 @@
         
         .back-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.8);
-            border-color: var(--neon-blue);
+            box-shadow: 0 10px 25px rgba(30, 55, 153, 0.8);
+            border-color: var(--lightning-blue);
         }
         
         .back-btn i {
@@ -126,12 +178,12 @@
         
         /* Post Content */
         .post-content {
-            background: rgba(10, 10, 26, 0.85);
+            background: rgba(12, 36, 97, 0.85);
             backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(157, 78, 221, 0.3);
+            border: 1px solid rgba(56, 173, 169, 0.3);
             margin-bottom: 50px;
             position: relative;
             overflow: hidden;
@@ -144,7 +196,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--neon-purple));
+            background: linear-gradient(90deg, var(--rain-blue-medium), var(--rain-cyan), var(--lightning-blue));
             z-index: 2;
         }
         
@@ -153,9 +205,9 @@
             text-align: center;
             padding-bottom: 20px;
             margin-bottom: 30px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            border-bottom: 2px solid rgba(56, 173, 169, 0.3);
             font-size: 2.8rem;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            text-shadow: 0 0 10px rgba(0, 216, 214, 0.3);
             position: relative;
         }
         
@@ -166,7 +218,7 @@
             left: 25%;
             width: 50%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            background: linear-gradient(90deg, transparent, var(--lightning-blue), transparent);
         }
         
         p {
@@ -174,24 +226,39 @@
             font-size: 1.4rem;
             line-height: 2.3;
             text-align: justify;
-            color: #e0e0ff;
+            color: #e0e8ff;
         }
         
-        /* Image Styling */
+        /* Image Styling with Rain Effect */
         .post-image {
             width: 100%;
             height: auto;
             border-radius: 15px;
             margin: 30px 0;
             border: 3px solid transparent;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+            background: linear-gradient(45deg, var(--rain-blue-medium), var(--rain-cyan)) border-box;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
             transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .post-image:hover {
             transform: scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 216, 214, 0.3);
+        }
+        
+        /* Rain overlay on image */
+        .post-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0, 216, 214, 0.1));
+            pointer-events: none;
+            border-radius: 15px;
         }
         
         /* Page Navigation Buttons */
@@ -209,7 +276,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(45deg, var(--rain-blue-medium), var(--rain-cyan));
             color: white;
             border: none;
             font-size: 24px;
@@ -224,9 +291,9 @@
         
         .nav-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
-            border-color: var(--neon-blue);
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            box-shadow: 0 10px 25px rgba(0, 216, 214, 0.5);
+            border-color: var(--lightning-blue);
+            background: linear-gradient(45deg, var(--rain-cyan), var(--rain-blue-medium));
         }
         
         /* Color Fill Feature */
@@ -251,7 +318,7 @@
             position: absolute; 
             width: 100%; 
             height: 100%; 
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
+            background: linear-gradient(45deg, #0c2461, #1e3799, #4a69bd, #38ada9, #00d8d6); 
             background-size: 400% 400%; 
             animation: gradientFlow 15s ease infinite; 
         }
@@ -271,14 +338,14 @@
             max-width: 800px; 
             max-height: 90vh; 
             overflow-y: auto; 
-            background: rgba(10, 10, 26, 0.95); 
+            background: rgba(12, 36, 97, 0.95); 
             padding: 30px; 
             border-radius: 20px; 
             box-shadow: 0 20px 60px rgba(0,0,0,0.7); 
             z-index: 9999; 
             opacity: 0; 
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(0, 216, 214, 0.3);
         }
         
         .post-content-overlay.active { 
@@ -290,7 +357,7 @@
             position: absolute; 
             top: 15px; 
             left: 15px; 
-            background: var(--accent-color); 
+            background: var(--rain-blue-light); 
             color: white; 
             border: none; 
             width: 40px; 
@@ -305,31 +372,48 @@
         
         .close-btn:hover { 
             transform: rotate(90deg); 
-            background: #ff4757;
+            background: var(--rain-cyan);
         }
         
         .trigger-btn { 
             display: inline-block; 
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)); 
+            background: linear-gradient(45deg, var(--rain-blue-medium), var(--rain-cyan)); 
             color: white; 
             padding: 15px 35px; 
             border-radius: 50px; 
             text-decoration: none; 
             font-weight: bold; 
             margin: 20px 0; 
-            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.5); 
+            box-shadow: 0 5px 15px rgba(30, 55, 153, 0.5); 
             transition: all 0.3s; 
             border: none; 
             cursor: pointer; 
             font-size: 1.2rem; 
             font-family: inherit; 
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
         
         .trigger-btn:hover { 
             transform: translateY(-5px); 
-            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.8); 
-            border-color: white;
+            box-shadow: 0 10px 25px rgba(30, 55, 153, 0.8); 
+            border-color: var(--lightning-blue);
+        }
+        
+        .trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .trigger-btn:hover::before {
+            left: 100%;
         }
         
         /* Mobile Responsive */
@@ -384,8 +468,11 @@
     </style>
 </head>
 <body>
-    <!-- Space Galaxy Background -->
-    <div id="space-bg"></div>
+    <!-- Rainy Background -->
+    <div id="rain-bg"></div>
+    
+    <!-- Lightning Effect -->
+    <div class="lightning" id="lightning"></div>
     
     <!-- Page Navigation Buttons -->
     <div class="page-nav">
@@ -397,10 +484,10 @@
         <!-- Back Button -->
         <a href="#" class="back-btn"><i class="fas fa-arrow-right"></i> واپس جائیں</a>
         
-        <!-- Color Fill Trigger -->
+        <!-- Rain Theme Trigger -->
         <div style="text-align: center; margin: 30px 0;">
             <button class="trigger-btn" onclick="openColorFillPost()">
-                <i class="fas fa-palette"></i> اس پوسٹ کو رنگین بیک گراؤنڈ کے ساتھ پڑھیں
+                <i class="fas fa-cloud-rain"></i> اس پوسٹ کو بارش والے موسم کے ساتھ پڑھیں
             </button>
         </div>
         
@@ -435,45 +522,98 @@
     </div>
 
     <script>
-        // Create stars for galaxy background
-        function createStars() {
-            const spaceBg = document.getElementById('space-bg');
-            const starCount = 150;
+        // Create rain effect
+        function createRain() {
+            const rainBg = document.getElementById('rain-bg');
+            const rainCount = 200;
             
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+            for (let i = 0; i < rainCount; i++) {
+                const raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
                 
-                const size = Math.random() * 3 + 1;
                 const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 5 + 3;
+                const duration = Math.random() * 1 + 1;
                 const delay = Math.random() * 5;
+                const size = Math.random() * 30 + 40;
                 
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.animationDuration = `${duration}s`;
-                star.style.animationDelay = `${delay}s`;
+                raindrop.style.left = `${x}%`;
+                raindrop.style.animationDuration = `${duration}s`;
+                raindrop.style.animationDelay = `${delay}s`;
+                raindrop.style.height = `${size}px`;
+                raindrop.style.opacity = Math.random() * 0.5 + 0.3;
                 
-                spaceBg.appendChild(star);
+                rainBg.appendChild(raindrop);
+                
+                // Create splash effect at random intervals
+                if (Math.random() > 0.7) {
+                    setTimeout(() => {
+                        createSplash(x, 95);
+                    }, delay * 1000);
+                }
             }
             
-            // Create shooting stars
-            const shootingStarCount = 5;
-            for (let i = 0; i < shootingStarCount; i++) {
-                const shootingStar = document.createElement('div');
-                shootingStar.classList.add('shooting-star');
+            // Create clouds
+            const cloudCount = 5;
+            for (let i = 0; i < cloudCount; i++) {
+                const cloud = document.createElement('div');
+                cloud.classList.add('cloud');
                 
-                const x = Math.random() * 100;
-                const delay = Math.random() * 15;
+                const size = Math.random() * 150 + 100;
+                const top = Math.random() * 30;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 30 + 30;
+                const delay = Math.random() * 20;
                 
-                shootingStar.style.left = `${x}%`;
-                shootingStar.style.animationDelay = `${delay}s`;
+                cloud.style.width = `${size}px`;
+                cloud.style.height = `${size/2}px`;
+                cloud.style.top = `${top}%`;
+                cloud.style.left = `${left}%`;
+                cloud.style.animationDuration = `${duration}s`;
+                cloud.style.animationDelay = `${delay}s`;
                 
-                spaceBg.appendChild(shootingStar);
+                rainBg.appendChild(cloud);
             }
+        }
+        
+        // Create splash effect
+        function createSplash(x, y) {
+            const rainBg = document.getElementById('rain-bg');
+            const splash = document.createElement('div');
+            splash.classList.add('splash');
+            
+            splash.style.left = `${x}%`;
+            splash.style.top = `${y}%`;
+            
+            rainBg.appendChild(splash);
+            
+            setTimeout(() => {
+                splash.remove();
+            }, 500);
+        }
+        
+        // Lightning effect
+        function lightningEffect() {
+            const lightning = document.getElementById('lightning');
+            
+            // Random lightning intervals
+            const minTime = 10000; // 10 seconds
+            const maxTime = 30000; // 30 seconds
+            
+            function flash() {
+                lightning.classList.add('lightning-flash');
+                
+                setTimeout(() => {
+                    lightning.classList.remove('lightning-flash');
+                }, 300);
+                
+                // Next flash time
+                const nextFlash = Math.random() * (maxTime - minTime) + minTime;
+                setTimeout(flash, nextFlash);
+            }
+            
+            // Start first flash after random time
+            const firstFlash = Math.random() * (maxTime - minTime) + minTime;
+            setTimeout(flash, firstFlash);
         }
         
         // Scroll functions
@@ -492,13 +632,46 @@
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Add rain effect to overlay
+            setTimeout(() => {
+                const overlay = document.getElementById('postOverlay');
+                const rainCount = 50;
+                
+                for (let i = 0; i < rainCount; i++) {
+                    const raindrop = document.createElement('div');
+                    raindrop.classList.add('raindrop');
+                    raindrop.style.position = 'absolute';
+                    raindrop.style.zIndex = '1';
+                    
+                    const x = Math.random() * 100;
+                    const duration = Math.random() * 1 + 1;
+                    const delay = Math.random() * 5;
+                    const size = Math.random() * 20 + 20;
+                    
+                    raindrop.style.left = `${x}%`;
+                    raindrop.style.animationDuration = `${duration}s`;
+                    raindrop.style.animationDelay = `${delay}s`;
+                    raindrop.style.height = `${size}px`;
+                    raindrop.style.opacity = Math.random() * 0.3 + 0.1;
+                    
+                    overlay.appendChild(raindrop);
+                }
+            }, 100);
         }
         
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+            setTimeout(() => { 
+                document.getElementById('postContent').innerHTML = ''; 
+                
+                // Remove rain from overlay
+                const overlay = document.getElementById('postOverlay');
+                const raindrops = overlay.querySelectorAll('.raindrop');
+                raindrops.forEach(drop => drop.remove());
+            }, 500);
         }
         
         // Event listeners
@@ -514,8 +687,20 @@
             window.history.back();
         });
         
-        // Initialize stars when page loads
-        window.addEventListener('DOMContentLoaded', createStars);
+        // Initialize rain and lightning when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            createRain();
+            lightningEffect();
+            
+            // Add occasional rain sound effect (optional)
+            const playRainSound = () => {
+                // You could add actual rain sound here if desired
+                console.log("بارش کی آواز...");
+            };
+            
+            // Play rain sound every 30 seconds
+            setInterval(playRainSound, 30000);
+        });
     </script>
 </body>
 </html>
