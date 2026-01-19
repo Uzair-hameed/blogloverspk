@@ -7,50 +7,448 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* General Styles */
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.2; 
+            direction: rtl; 
+            text-align: justify; 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Color Fill Animation */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+        }
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        /* Post Content Overlay */
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 800px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        /* Close Button */
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: #ff6b6b; 
+            color: white; 
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 20px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: transform 0.3s; 
+        }
+        .close-btn:hover { 
+            transform: rotate(90deg); 
+        }
+        
+        /* Trigger Button */
+        .trigger-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, #4a90e2, #2ecc71); 
+            color: white; 
+            padding: 12px 30px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 20px 0; 
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); 
+            transition: all 0.3s; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-family: inherit; 
+        }
+        .trigger-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); 
+        }
+        
+        /* Post Content */
+        .post-content { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Headings with increased size */
+        h1 { 
+            color: #2c3e50; 
+            border-bottom: 3px solid #4a90e2; 
+            padding-bottom: 15px; 
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.8rem;
+            line-height: 1.4;
+        }
+        
+        h2, h3 { 
+            color: #2c3e50; 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 10px; 
+            margin-top: 30px;
+            font-size: 2.2rem;
+        }
+        
+        /* Text with increased size */
+        p { 
+            font-size: 1.4rem; 
+            line-height: 2.2;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        /* Image Styling */
+        .main-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 5px solid #f8f9fa;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6);
+        }
+        
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        /* Fish Animation */
+        .fish-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .fish-container.active {
+            opacity: 1;
+        }
+        
+        .fish {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            border-radius: 50% 40% 50% 40%;
+            animation: swim 20s linear infinite;
+            opacity: 0.7;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+        }
+        
+        .fish::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #45b7d1, #4ecdc4);
+            border-radius: 50%;
+        }
+        
+        .fish::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .fish:nth-child(2) {
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+            animation-delay: -5s;
+            animation-duration: 25s;
+        }
+        
+        .fish:nth-child(3) {
+            width: 100px;
+            height: 50px;
+            background: linear-gradient(45deg, #feca57, #ff9ff3);
+            animation-delay: -10s;
+            animation-duration: 30s;
+        }
+        
+        @keyframes swim {
+            0% {
+                transform: translateX(-100px) translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateX(25vw) translateY(25vh) rotate(90deg);
+            }
+            50% {
+                transform: translateX(50vw) translateY(10vh) rotate(180deg);
+            }
+            75% {
+                transform: translateX(75vw) translateY(30vh) rotate(270deg);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(0) rotate(360deg);
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .post-content {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .trigger-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.3rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .nav-buttons {
+                display: none;
+            }
+        }
+        
+        /* Remove link styling since internal links are removed */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #2ecc71, #4a90e2);
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()">↑</button>
+        <button class="nav-btn" onclick="scrollToBottom()">↓</button>
+    </div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">← واپس جائیں</button>
+    
+    <!-- Trigger Button -->
     <div style="text-align: center; margin: 40px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
             🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
         </button>
     </div>
 
+    <!-- Main Content -->
     <div class="post-content">
-        
         <h1>قرب قیامت کوہسار اپنی جگہ سے کیوں کھسک جائیں گے؟</h1>
-<p>دوستو! اپنے سابقہ آرٹیکل &quot;<a href="https://www.bloglovers.pk/2024/05/blog-post_18.html">لوگوں کے دلوں سے شہر مدینہ میں بسنے کی تڑپ کیوں دم توڑ جائے گی؟</a>&quot; سے آگے کی مزید نشانیوں میں فرمایا گیا کہ قرب قیامت پہاڑ اپنی جگہ سے کھسک جائیں گے۔ یوں تو ایک ایسی نشانی ہے جو دل دہلا دینے والی ہے، اور ایسا معلوم ہوتا ہے ہر ایک نشانی گزری نشانی سے کہیں زیادہ شدت اور ہولناکی کی طرف اشارہ کرتی دکھائی دیتی ہے۔</p>
-<p>جیسا کہ جامع ترمذی کی روایت ہے کہ اللہ کے پیارے حبیب حضرت محمد ﷺ نے فرمایا: &quot;جو شخص قیامت کو اپنی آنکھوں سے دیکھنا چاہے اسے چاہیے کہ وہ سورۃ التکویر، سورۃ الانشقاق اور سورۃ الانفطار پڑھ لے۔&quot;</p>
-<p>اگر سورۃ التکویر کا ایک نظر جائزہ لیں تو قیامت کی ہولناکیوں کے بارے میں اللہ رب العزت نے بہت واضح پیغام دیا ہے جس میں فرمایا گیا کہ جب سورج لپیٹ دیا جائے گا، اور جب ستارے بے نور ہو جائیں گے، اور جب پہاڑ چلا دیے جائیں گے، اور جب دس مہینے کی حاملہ اونٹنیاں بے کار چھوڑ دی جائیں گی، اور جب وحشی جانور اکٹھے کر دیے جائیں گے، اور جب سمندر بھڑکا دیے جائیں گے اور جب جانیں جوڑ دی جائیں گی اور جب زندہ گاڑی ہوئی لڑکی سے پوچھا جائے گا، بوجہ کس گناہ کے وہ ماری گئی، اور جب اعمال نامے پھیلا دیے جائیں گے اور جب آسمان اس کی کھال اتار دیا جائے گا اور جب جہنم بھرکا دی جائے گا اور جب جنت قریب لے آئی جائے گی۔</p>
-<p>اسی طرح سورۃ الانفطار میں بھی کچھ اسی طرح کے اشارے فرمائے گئے ہیں۔ جیسا کہ جب آسمان پھٹ جائے گا، اور جب ستارے بکھر جائیں گے، اور جب سمندر پھاڑ دیے جائیں گے، اور جب قبریں کھول دی جائیں گی، جان لے گا ہر نفس جو اس نے آگے بھیجا اور اس نے پیچھے چھوڑا، اے انسان! کس چیز نے دھوکے میں ڈالا تجھے تیرے رب کے بارے میں وہ جس نے پیدا کیا تجھے پھر اس نے درست کیا تجھے پھر اس نے برابر کیا تجھے، جس صورت میں جو اس نے چاہا، اس نے جوڑ دیا تجھے، ہرگز نہیں بلکہ تم جھٹلاتے ہو بدلے کے دن کو اور بے شک تم پر یقینانگراں نہیں جو معزز لکھنے والے ہیں۔ اور وہ جانتے ہیں جو کچھ تم کرتے ہو۔</p>
-<p>اسی طرح سورۃ الانشقاق میں بھی کچھ اسی طرح کے اشارے فرمائے گئے ہیں۔ جیسا کہ فرمایا: &quot;جب آسمان پھٹ جائے گا، اور وہ کان لگائے ہوئے ہے اپنے رب کے لیے اور وہ حق دیا گیا ہے، اور زمین پھیلا دی جائے گی، اور وہ ڈال دے گی جو کچھ اس میں ہے اور وہ خالی ہو جائے گی۔ اور وہ کان لگائے ہوئے ہے اپنے رب کے لیے اور وہ حق دی گئی ہے۔&quot;</p>
-<p>تفسیر ابن ابی حاتم میں ان سورتوں کا کچھ اس طرح نقشہ کھینچا گیا ہے وہ فرماتے ہیں کہ قیامت سے پہلے کچھ واقعات رونما ہوں گے لوگ اپنے کاموں میں بہت زیادہ مصروف ہوں گے اچانک <a href="https://www.bloglovers.pk/2023/05/blog-post_25.html">سورج</a> کی روشنی ماند پڑنے لگے گی اور پھر ستارے ٹوٹ ٹوٹ کر گرنے لگیں گے۔ پھر اچانک پہاڑ زمین پر گر پڑیں گے اور زمین زور زور سے جھٹکے لینے لگے گی اور پھر کیا انسان، کیا جنات اور کیا جانور سب آپس میں خلط ملط ہو جائیں گے، بدحواسی اور گھبراہٹ کا یہ عالم ہوگا کہ جو جانور انسانوں سے دور بھاگتے تھے وہ سب انسانوں کے پاس آ جائیں گے، حاملہ اونٹنی یوں کہ کوئی خبر گیری کرنے والا نہ ہوگا۔ جنات کہیں گے کہ ہم جا کر تحقیق کرتے ہیں کہ آخر ہو کیا رہا ہے جیسے وہ دیکھیں گے سمندروں میں آگ لگ رہی ہے۔ اچانک زمین پھٹنے لگے گی اور آسمان بھی ٹوٹنے لگیں گے، اور پھر ایک تند ہوا چلے گی جس سے تمام جانداروں کی روح قبضہو جائے گی۔</p>
-<p>اللہ رب العزت نے روئے زمین پر پہاڑوں کو انتہائی ٹھوس اور مضبوط شکل میں پیدا فرمایا ہے۔ ان نا ختم ہونے والے پہاڑی سلسلوں سے مراد زمین میں توازن اور میخوں کا کام دینا ہے۔ جیسے آپ ﷺ نے امت کو بتایا کہ قرب قیامت پہاڑ اپنی جگہ سے ٹل جائیں گے۔ پہاڑوں کا اپنی جگہ سے ہٹنا یا ختم ہونا یا تو بالکل حقیقی طور پر ہوگا یا وہ اللہ کے حکم سے <a href="https://www.bloglovers.pk/2021/10/blog-post_22.html">زمین بوس ہو جائیں گے</a> یا پھر اللہ کے حکم سے <a href="https://www.bloglovers.pk/2023/06/blog-post_61.html">زلزلوں کی کثرت</a> سے ختم ہو جائیں گے یا پھر <a href="https://www.bloglovers.pk/2021/04/blog-post_15.html">بجلیوں کے باعث</a> ممکن ہو سکے گا – یہ اللہ رب العزت کی ذات اقدس ہی بہتر جانتی ہے۔</p>
-<p>اور دوسری صورت یہ ہو سکتی ہے کہ ان کا زوال دنیاوی طور پر ممکن ہو جیسے کے لوگ اپنے تعمیراتی منصوبہ بندی کے باعث پہاڑوں کو کاٹ کر سڑکوں کا جال بچھانے میں مصروف ہیں۔ جیسا کہ آج دنیا کے بہت سے ممالک میں یہ کام بہت تیزی سے ہو رہا ہے عمارات کی تعمیر کے لیے پہاڑوں کو کاٹا اور کھودا جا رہا ہے۔ اپنے مفادات کے لیے کہیں سرنگیں، کہیں معدنی ذخائر تلاش کیے جا رہے ہیں، کہیں ٹریننگز کے نام پر بمباری کی جاتی ہے تو کہیں ترقی کے نام پر بڑے بڑے بند بنائے جا رہے ہیں۔</p>
-<p>پہاڑوں کے زوال کی تیسری صورت یہ بھی ہو سکتی ہے کہ پہاڑوں کے پتھر کثرت سے ٹوٹ ٹوٹ کر گریں گے اور چٹانیں اپنی جگہ چھوڑ کر زمین بوس ہو جائیں، جیسا کہ اکثر اوقات مختلف ممالک میں ایسے واقعات رونما ہوتے ہیں۔ جو نیوز کی صورت میں سنائی یا دکھائی جاتی ہیں۔ (واللہ اعلم)</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;قیامت قائم نہ ہو گی جبتک کہ پہاڑ اپنی جگہ سے ٹل نہ جائیں اور تم ایسے عظیم حوادث و واقعات کا مشاہدہ نہ کر لو جو تم نے اس سے پہلے نہ دیکھے ہوں۔&quot;</p>
-<p>اس حدیث کے مطابق ایسے عظیم حوادث کی طرف اشارہ دیا گیا ہے یوں لگتا ہے جیسے <a href="https://www.bloglovers.pk/2023/06/blog-post_61.html">قرب قیامت زلزلوں کی کثرت</a> بہت زیادہ ہو جائے گی جیسے میں نے اپنے آرٹیکل میں ذکر کیا تھا۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ وہ ہم سب کی مغفرت فرمائیں اور نیک اعمال کرنے کی ہدایت فرمائیں۔ آمین</p>
-
+        
+        <!-- Main Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-kohsar-apni-jagah-se-kyun-khisk-jaeen-ge.png" 
+             alt="قرب قیامت کوہسار" 
+             class="main-image">
+        
+        <p>دوستو! اپنے سابقہ آرٹیکل "لوگوں کے دلوں سے شہر مدینہ میں بسنے کی تڑپ کیوں دم توڑ جائے گی؟" سے آگے کی مزید نشانیوں میں فرمایا گیا کہ قرب قیامت پہاڑ اپنی جگہ سے کھسک جائیں گے۔ یوں تو ایک ایسی نشانی ہے جو دل دہلا دینے والی ہے، اور ایسا معلوم ہوتا ہے ہر ایک نشانی گزری نشانی سے کہیں زیادہ شدت اور ہولناکی کی طرف اشارہ کرتی دکھائی دیتی ہے۔</p>
+        <p>جیسا کہ جامع ترمذی کی روایت ہے کہ اللہ کے پیارے حبیب حضرت محمد ﷺ نے فرمایا: "جو شخص قیامت کو اپنی آنکھوں سے دیکھنا چاہے اسے چاہیے کہ وہ سورۃ التکویر، سورۃ الانشقاق اور سورۃ الانفطار پڑھ لے۔"</p>
+        <p>اگر سورۃ التکویر کا ایک نظر جائزہ لیں تو قیامت کی ہولناکیوں کے بارے میں اللہ رب العزت نے بہت واضح پیغام دیا ہے جس میں فرمایا گیا کہ جب سورج لپیٹ دیا جائے گا، اور جب ستارے بے نور ہو جائیں گے، اور جب پہاڑ چلا دیے جائیں گے، اور جب دس مہینے کی حاملہ اونٹنیاں بے کار چھوڑ دی جائیں گی، اور جب وحشی جانور اکٹھے کر دیے جائیں گے، اور جب سمندر بھڑکا دیے جائیں گے اور جب جانیں جوڑ دی جائیں گی اور جب زندہ گاڑی ہوئی لڑکی سے پوچھا جائے گا، بوجہ کس گناہ کے وہ ماری گئی، اور جب اعمال نامے پھیلا دیے جائیں گے اور جب آسمان اس کی کھال اتار دیا جائے گا اور جب جہنم بھرکا دی جائے گا اور جب جنت قریب لے آئی جائے گی۔</p>
+        <p>اسی طرح سورۃ الانفطار میں بھی کچھ اسی طرح کے اشارے فرمائے گئے ہیں۔ جیسا کہ جب آسمان پھٹ جائے گا، اور جب ستارے بکھر جائیں گے، اور جب سمندر پھاڑ دیے جائیں گے، اور جب قبریں کھول دی جائیں گی، جان لے گا ہر نفس جو اس نے آگے بھیجا اور اس نے پیچھے چھوڑا، اے انسان! کس چیز نے دھوکے میں ڈالا تجھے تیرے رب کے بارے میں وہ جس نے پیدا کیا تجھے پھر اس نے درست کیا تجھے پھر اس نے برابر کیا تجھے، جس صورت میں جو اس نے چاہا، اس نے جوڑ دی تجھے، ہرگز نہیں بلکہ تم جھٹلاتے ہو بدلے کے دن کو اور بے شک تم پر یقینانگراں نہیں جو معزز لکھنے والے ہیں۔ اور وہ جانتے ہیں جو کچھ تم کرتے ہو۔</p>
+        <p>اسی طرح سورۃ الانشقاق میں بھی کچھ اسی طرح کے اشارے فرمائے گئے ہیں۔ جیسا کہ فرمایا: "جب آسمان پھٹ جائے گا، اور وہ کان لگائے ہوئے ہے اپنے رب کے لیے اور وہ حق دیا گیا ہے، اور زمین پھیلا دی جائے گی، اور وہ ڈال دے گی جو کچھ اس میں ہے اور وہ خالی ہو جائے گی۔ اور وہ کان لگائے ہوئے ہے اپنے رب کے لیے اور وہ حق دی گئی ہے۔"</p>
+        <p>تفسیر ابن ابی حاتم میں ان سورتوں کا کچھ اس طرح نقشہ کھینچا گیا ہے وہ فرماتے ہیں کہ قیامت سے پہلے کچھ واقعات رونما ہوں گے لوگ اپنے کاموں میں بہت زیادہ مصروف ہوں گے اچانک سورج کی روشنی ماند پڑنے لگے گی اور پھر ستارے ٹوٹ ٹوٹ کر گرنے لگیں گے۔ پھر اچانک پہاڑ زمین پر گر پڑیں گے اور زمین زور زور سے جھٹکے لینے لگے گی اور پھر کیا انسان، کیا جنات اور کیا جانور سب آپس میں خلط ملط ہو جائیں گے، بدحواسی اور گھبراہٹ کا یہ عالم ہوگا کہ جو جانور انسانوں سے دور بھاگتے تھے وہ سب انسانوں کے پاس آ جائیں گے، حاملہ اونٹنی یوں کہ کوئی خبر گیری کرنے والا نہ ہوگا۔ جنات کہیں گے کہ ہم جا کر تحقیق کرتے ہیں کہ آخر ہو کیا رہا ہے جیسے وہ دیکھیں گے سمندروں میں آگ لگ رہی ہے۔ اچانک زمین پھٹنے لگے گی اور آسمان بھی ٹوٹنے لگیں گے، اور پھر ایک تند ہوا چلے گی جس سے تمام جانداروں کی روح قبضہو جائے گی۔</p>
+        <p>اللہ رب العزت نے روئے زمین پر پہاڑوں کو انتہائی ٹھوس اور مضبوط شکل میں پیدا فرمایا ہے۔ ان نا ختم ہونے والے پہاڑی سلسلوں سے مراد زمین میں توازن اور میخوں کا کام دینا ہے۔ جیسے آپ ﷺ نے امت کو بتایا کہ قرب قیامت پہاڑ اپنی جگہ سے ٹل جائیں گے۔ پہاڑوں کا اپنی جگہ سے ہٹنا یا ختم ہونا یا تو بالکل حقیقی طور پر ہوگا یا وہ اللہ کے حکم سے زمین بوس ہو جائیں گے یا پھر اللہ کے حکم سے زلزلوں کی کثرت سے ختم ہو جائیں گے یا پھر بجلیوں کے باعث ممکن ہو سکے گا – یہ اللہ رب العزت کی ذات اقدس ہی بہتر جانتی ہے۔</p>
+        <p>اور دوسری صورت یہ ہو سکتی ہے کہ ان کا زوال دنیاوی طور پر ممکن ہو جیسے کے لوگ اپنے تعمیراتی منصوبہ بندی کے باعث پہاڑوں کو کاٹ کر سڑکوں کا جال بچھانے میں مصروف ہیں۔ جیسا کہ آج دنیا کے بہت سے ممالک میں یہ کام بہت تیزی سے ہو رہا ہے عمارات کی تعمیر کے لیے پہاڑوں کو کاٹا اور کھودا جا رہا ہے۔ اپنے مفادات کے لیے کہیں سرنگیں، کہیں معدنی ذخائر تلاش کیے جا رہے ہیں، کہیں ٹریننگز کے نام پر بمباری کی جاتی ہے تو کہیں ترقی کے نام پر بڑے بڑے بند بنائے جا رہے ہیں۔</p>
+        <p>پہاڑوں کے زوال کی تیسری صورت یہ بھی ہو سکتی ہے کہ پہاڑوں کے پتھر کثرت سے ٹوٹ ٹوٹ کر گریں گے اور چٹانیں اپنی جگہ چھوڑ کر زمین بوس ہو جائیں، جیسا کہ اکثر اوقات مختلف ممالک میں ایسے واقعات رونما ہوتے ہیں۔ جو نیوز کی صورت میں سنائی یا دکھائی جاتی ہیں۔ (واللہ اعلم)</p>
+        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "قیامت قائم نہ ہو گی جبتک کہ پہاڑ اپنی جگہ سے ٹل نہ جائیں اور تم ایسے عظیم حوادث و واقعات کا مشاہدہ نہ کر لو جو تم نے اس سے پہلے نہ دیکھے ہوں۔"</p>
+        <p>اس حدیث کے مطابق ایسے عظیم حوادث کی طرف اشارہ دیا گیا ہے یوں لگتا ہے جیسے قرب قیامت زلزلوں کی کثرت بہت زیادہ ہو جائے گی جیسے میں نے اپنے آرٹیکل میں ذکر کیا تھا۔</p>
+        <p>اللہ رب العزت سے استدعا ہے کہ وہ ہم سب کی مغفرت فرمائیں اور نیک اعمال کرنے کی ہدایت فرمائیں۔ آمین</p>
     </div>
 
+    <!-- Fish Animation Container -->
+    <div class="fish-container" id="fishContainer">
+        <div class="fish"></div>
+        <div class="fish"></div>
+        <div class="fish"></div>
+    </div>
+
+    <!-- Color Fill Background -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    
+    <!-- Post Content Overlay -->
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
         <div id="postContent"></div>
@@ -63,15 +461,72 @@
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+            // Activate fish animation
+            document.getElementById('fishContainer').classList.add('active');
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
+            // Deactivate fish animation
+            document.getElementById('fishContainer').classList.remove('active');
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Fish hover effect
+        document.getElementById('fishContainer').addEventListener('mouseenter', function() {
+            const fishes = document.querySelectorAll('.fish');
+            fishes.forEach(fish => {
+                fish.style.animationPlayState = 'paused';
+                fish.style.transform += ' scale(1.5)';
+            });
+        });
+        
+        document.getElementById('fishContainer').addEventListener('mouseleave', function() {
+            const fishes = document.querySelectorAll('.fish');
+            fishes.forEach(fish => {
+                fish.style.animationPlayState = 'running';
+                fish.style.transform = fish.style.transform.replace(' scale(1.5)', '');
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost();
+            if (e.key === 'ArrowUp') scrollToTop();
+            if (e.key === 'ArrowDown') scrollToBottom();
+        });
+        
+        // Close overlay when clicking on background
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fish animation on hover for trigger button
+            const triggerBtn = document.querySelector('.trigger-btn');
+            triggerBtn.addEventListener('mouseenter', function() {
+                document.getElementById('fishContainer').classList.add('active');
+            });
+            
+            triggerBtn.addEventListener('mouseleave', function() {
+                if (!document.getElementById('colorFillBg').classList.contains('active')) {
+                    document.getElementById('fishContainer').classList.remove('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
