@@ -5,50 +5,429 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قرب قیامت آسمان سے ایسی بارشوں کا برسنا جو نفع بخش نہ ہونگی</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff6b6b;
+            --text-color: #f0f0f0;
+            --dark-bg: #0a0a1a;
+            --star-color: #ffffff;
+            --neon-blue: #00d4ff;
+            --neon-purple: #9d4edd;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            font-size: 1.2rem;
+        }
+        
+        /* Space Galaxy Background */
+        #space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(to bottom, #000428, #004e92, #000428);
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: var(--star-color);
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--neon-blue));
+            animation: shooting 10s linear infinite;
+        }
+        
+        @keyframes shooting {
+            0% {
+                transform: translateY(-100px) rotate(45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Back Button */
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.5);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.8);
+            border-color: var(--neon-blue);
+        }
+        
+        .back-btn i {
+            margin-left: 8px;
+        }
+        
+        /* Post Content */
+        .post-content {
+            background: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--neon-purple));
+            z-index: 2;
+        }
+        
+        h1 {
+            color: #fff;
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            font-size: 2.8rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+        }
+        
+        p {
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            line-height: 2.3;
+            text-align: justify;
+            color: #e0e0ff;
+        }
+        
+        /* Image Styling */
+        .post-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Page Navigation Buttons */
+        .page-nav {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.5);
+            border-color: var(--neon-blue);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+        }
+        
+        /* Color Fill Feature */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+        }
+        
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 800px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: rgba(10, 10, 26, 0.95); 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: var(--accent-color); 
+            color: white; 
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            font-size: 20px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: transform 0.3s; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .close-btn:hover { 
+            transform: rotate(90deg); 
+            background: #ff4757;
+        }
+        
+        .trigger-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)); 
+            color: white; 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 20px 0; 
+            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.5); 
+            transition: all 0.3s; 
+            border: none; 
+            cursor: pointer; 
+            font-size: 1.2rem; 
+            font-family: inherit; 
+            border: 2px solid transparent;
+        }
+        
+        .trigger-btn:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(157, 78, 221, 0.8); 
+            border-color: white;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            p {
+                font-size: 1.3rem;
+                line-height: 2.2;
+            }
+            
+            .page-nav {
+                right: 10px;
+                bottom: 80px;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .back-btn, .trigger-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Space Galaxy Background -->
+    <div id="space-bg"></div>
+    
+    <!-- Page Navigation Buttons -->
+    <div class="page-nav">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-chevron-down"></i></button>
     </div>
-
-    <div class="post-content">
+    
+    <div class="container">
+        <!-- Back Button -->
+        <a href="#" class="back-btn"><i class="fas fa-arrow-right"></i> واپس جائیں</a>
         
-        <h1>قرب قیامت آسمان سے ایسی بارشوں کا برسنا جو نفع بخش نہ ہونگی</h1>
-<p>دوستو!</p>
-<p>چند دن پہلے میں نے ایک آرٹیکل لکھا تھا جس کا عنوان تھا &quot;<a href="https://www.bloglovers.pk/2023/12/blog-post_14.html">قرب قیامت شدید بارشوں سے کچھ بھی باقی نہ رہے گا</a>&quot; اس آرٹیکل میں کافی تفصیل سے بیان کیا ہے کہ ایسی بارشیں ہوں گی کہ جس سے کچھ روئے زمین پر کچھ بھی باقی نہ رہے گا یہاں تک کہ پکے مکانات بھی بہہ جائیں گے ہر طرف پانی ہی پانی دکھائی دے گا۔</p>
-<p>لیکن آج جس عنوان پر بات کرنے جا رہا ہوں وہ بھی سابقہ عنوان سے ملتا جلتا ہے لیکن چونکہ حق بات پہنچانا ضروری ہے اس لیے تفصیل سے ذکر کرنے کی کوشش کروں گا تاکہ بات سمجھ آ جائے۔ آج کا ٹاپک بھی ایسی بارشوں کے متعلق ہے جو عنقریب آسمان سے برسائی جائیں گی لیکن انسان ان بارشوں سے کوئی فائدہ حاصل نہ کر سکے گا۔ یعنی بارشیں تو ہوں گی لیکن <a href="https://www.bloglovers.pk/2023/12/blog-post.html">سود مند</a> نہ ہوں گی۔</p>
-<p>وقت گزرنے کے ساتھ ساتھ جغرافیائی لحاظ سے آب و ہوا میں کافی تبدیلی آتی جا رہی ہے۔ اول تو بارشیں بھی کم ہوتی جا رہی ہیں کہ لوگ بارشیں نہ ہونے کی صورت میں شدید بیمار ہو رہے ہیں۔ ہر طرف موسم انتہائی خشک ہے۔ سردی اور گرمی عجیب شدت اختیار کرتا چلا جا رہا ہے۔</p>
-<p>اور دوسری طرف دیکھیں تو بارشیں ہوتی ہیں تو اس قدر بھیانک کہ ہر طرف پانی ہی پانی اکٹھا ہو جاتا ہے یا تو کھیتی میں کھڑی فصیلیں تباہ ہو جاتی ہیں یا ہر طرف طغیانی کی صورت اختیار ہو جاتی ہے۔ یعنی پانی کسی کام میں استعمال نہیں ہوتا بلکہ ضائع ہو جاتا ہے۔ نا تو وہ کسی کاشتکاری کے کام آتا ہے اور نہ اس کو ذخیرہ کیا جا سکتا ہے۔ ایسی صورت میں انسان گناہوں کی دلدل میں گھرتے چلے جا رہے ہیں جس سے اللہ رب العزت کے احکامات کی پیروی تو درکنار حکم عدولی انتہائی شدت اختیار کرتی چلی جا رہی ہے جس سے اللہ رب العزت کی نصرت نہیں بلکہ عذاب الہی کی صورت میں زمین پر نازل ہوتا ہے۔</p>
-<p>آپ ﷺ نے فرمایا آسمان سے بارش تو نازل ہو گی مگر اس سے زمین نباتات اور فصلیں نہیں اگائے گی۔ ایک روایت کے مطابق آپ ﷺ نے ارشاد فرمایا &quot;قیامت اس وقت تک ہرگز قائم نہ ہو گی جبتک کہ لوگوں پر موسلا دھار بارشیں نہ برسائی جائیں مگر زمین کچھ بھی نہیں اگائے گی&quot;۔</p>
-<p>یقینا ایسا اس لیے ہو گا کہ زمین سے برکت ختم ہو جائے گی۔ جیسا کہ آپ ﷺ نے ارشاد فرمایا کہ قحط سالی یہ نہیں کہ بارش نہ ہو بلکہ قحط سالی یہ ہے کہ لوگوں پر بارش تو برسے لیکن زمین کچھ نہ اگائے۔</p>
-<p>حدیث نبوی ﷺ کے مطابق ہم دیکھیں تو ہر سال پیداوار میں شدید کمی واقع ہوتی جا رہی ہے چاہے گرمیوں کے پھل، میوہ جات یا اناج فصیلیں ہوں یا سردیوں کے۔ مہنگائی کا عالم یہ ہے کہ دو وقت کی روٹی میسر نہیں ہے۔ کسانوں کو دیکھیں تو پریشان حال ہیں ایسے میں بجائے کاشتکاری کرنے کے وہ لوگ اپنی زرعی زمین بیچ رہے ہیں۔ اور خریدنے والے زرعی زمین پر بلڈنگ، عمارتیں بنا کر سیل کرتے چلے جا رہے ہیں۔</p>
-<p>ایک پل کے لیے سوچیں تو لگتا ہے کہ قیامت کو ہم خود بلا رہے ہیں اپنی بدعملیوں سے، نافرمانیوں سے، گناہوں سے، ہم نے زمین تنگ کرنا شروع کر دیا ان لوگوں پر جن کو دو وقت کی روٹی بھی میسر نہیں ہوتی۔ تو اللہ رب العزت ہمارے ان کاموں سے کیسے خوش ہونگے کہ وہ برکات والی بارشیں نازل فرمائیں گے۔</p>
-<p>قحط سالی یہ نہیں کہ آسمان سے بارش نہیں ہو گی تو ہر طرف سوکھا ہو جائے گا بلکہ قحط سالی تو یہ بھی ہے کہ بارشیں بھی ہوں، ہوائیں بھی چلیں، دن رات تبدیل ہوں، موسم بھی تبدیل ہوں لیکن جب فصل کی کٹائی کا وقت آئے تو اللہ کی ناراضگی سامنے ہو۔ کیسے اس میں برکت ہو گی جب ہم لوگوں کا حق کھائیں گے۔ ہر وہ کام کریں گے جس سے منع کیا گیا ہو، اللہ اور اس کے رسول ﷺ کی تعلیمات کا حصہ نہ ہوں۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ برکت والی، رحمت والی بارشیں نازل فرمائیں اور ہم سب کے گناہ معاف فرمائیں۔۔۔ آمین</p>
-
+        <!-- Color Fill Trigger -->
+        <div style="text-align: center; margin: 30px 0;">
+            <button class="trigger-btn" onclick="openColorFillPost()">
+                <i class="fas fa-palette"></i> اس پوسٹ کو رنگین بیک گراؤنڈ کے ساتھ پڑھیں
+            </button>
+        </div>
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <h1>قرب قیامت آسمان سے ایسی بارشوں کا برسنا جو نفع بخش نہ ہونگی</h1>
+            
+            <!-- Post Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-asman-se-esi-barishon-ka-barsna-jo-nafa-bakhsh-na-honghi.png" 
+                 alt="قرب قیامت بارشوں کا بیان" 
+                 class="post-image">
+            
+            <p>دوستو!</p>
+            <p>چند دن پہلے میں نے ایک آرٹیکل لکھا تھا جس کا عنوان تھا "قرب قیامت شدید بارشوں سے کچھ بھی باقی نہ رہے گا" اس آرٹیکل میں کافی تفصیل سے بیان کیا ہے کہ ایسی بارشیں ہوں گی کہ جس سے کچھ روئے زمین پر کچھ بھی باقی نہ رہے گا یہاں تک کہ پکے مکانات بھی بہہ جائیں گے ہر طرف پانی ہی پانی دکھائی دے گا۔</p>
+            <p>لیکن آج جس عنوان پر بات کرنے جا رہا ہوں وہ بھی سابقہ عنوان سے ملتا جلتا ہے لیکن چونکہ حق بات پہچانا ضروری ہے اس لیے تفصیل سے ذکر کرنے کی کوشش کروں گا تاکہ بات سمجھ آ جائے۔ آج کا ٹاپک بھی ایسی بارشوں کے متعلق ہے جو عنقریب آسمان سے برسائی جائیں گی لیکن انسان ان بارشوں سے کوئی فائدہ حاصل نہ کر سکے گا۔ یعنی بارشیں تو ہوں گی لیکن سود مند نہ ہوں گی۔</p>
+            <p>وقت گزرنے کے ساتھ ساتھ جغرافیائی لحاظ سے آب و ہوا میں کافی تبدیلی آتی جا رہی ہے۔ اول تو بارشیں بھی کم ہوتی جا رہی ہیں کہ لوگ بارشیں نہ ہونے کی صورت میں شدید بیمار ہو رہے ہیں۔ ہر طرف موسم انتہائی خشک ہے۔ سردی اور گرمی عجیب شدت اختیار کرتا چلا جا رہا ہے۔</p>
+            <p>اور دوسری طرف دیکھیں تو بارشیں ہوتی ہیں تو اس قدر بھیانک کہ ہر طرف پانی ہی پانی اکٹھا ہو جاتا ہے یا تو کھیتی میں کھڑی فصیلیں تباہ ہو جاتی ہیں یا ہر طرف طغیانی کی صورت اختیار ہو جاتی ہے۔ یعنی پانی کسی کام میں استعمال نہیں ہوتا بلکہ ضائع ہو جاتا ہے۔ نا تو وہ کسی کاشتکاری کے کام آتا ہے اور نہ اس کو ذخیرہ کیا جا سکتا ہے۔ ایسی صورت میں انسان گناہوں کی دلدل میں گھرتے چلے جا رہے ہیں جس سے اللہ رب العزت کے احکامات کی پیروی تو درکنار حکم عدولی انتہائی شدت اختیار کرتی چلی جا رہی ہے جس سے اللہ رب العزت کی نصرت نہیں بلکہ عذاب الہی کی صورت میں زمین پر نازل ہوتا ہے۔</p>
+            <p>آپ ﷺ نے فرمایا آسمان سے بارش تو نازل ہو گی مگر اس سے زمین نباتات اور فصلیں نہیں اگائے گی۔ ایک روایت کے مطابق آپ ﷺ نے ارشاد فرمایا "قیامت اس وقت تک ہرگز قائم نہ ہو گی جبتک کہ لوگوں پر موسلا دھار بارشیں نہ برسائی جائیں مگر زمین کچھ بھی نہیں اگائے گی"۔</p>
+            <p>یقینا ایسا اس لیے ہو گا کہ زمین سے برکت ختم ہو جائے گی۔ جیسا کہ آپ ﷺ نے ارشاد فرمایا کہ قحط سالی یہ نہیں کہ بارش نہ ہو بلکہ قحط سالی یہ ہے کہ لوگوں پر بارش تو برسے لیکن زمین کچھ نہ اگائے۔</p>
+            <p>حدیث نبوی ﷺ کے مطابق ہم دیکھیں تو ہر سال پیداوار میں شدید کمی واقع ہوتی جا رہی ہے چاہے گرمیوں کے پھل، میوہ جات یا اناج فصیلیں ہوں یا سردیوں کے۔ مہنگائی کا عالم یہ ہے کہ دو وقت کی روٹی میسر نہیں ہے۔ کسانوں کو دیکھیں تو پریشان حال ہیں ایسے میں بجائے کاشتکاری کرنے کے وہ لوگ اپنی زرعی زمین بیچ رہے ہیں۔ اور خریدنے والے زرعی زمین پر بلڈنگ، عمارتیں بنا کر سیل کرتے چلے جا رہے ہیں۔</p>
+            <p>ایک پل کے لیے سوچیں تو لگتا ہے کہ قیامت کو ہم خود بلا رہے ہیں اپنی بدعملیوں سے، نافرمانیوں سے، گناہوں سے، ہم نے زمین تنگ کرنا شروع کر دیا ان لوگوں پر جن کو دو وقت کی روٹی بھی میسر نہیں ہوتی۔ تو اللہ رب العزت ہمارے ان کاموں سے کیسے خوش ہونگے کہ وہ برکات والی بارشیں نازل فرمائیں گے۔</p>
+            <p>قحط سالی یہ نہیں کہ آسمان سے بارش نہیں ہو گی تو ہر طرف سوکھا ہو جائے گا بلکہ قحط سالی تو یہ بھی ہے کہ بارشیں بھی ہوں، ہوائیں بھی چلیں، دن رات تبدیل ہوں، موسم بھی تبدیل ہوں لیکن جب فصل کی کٹائی کا وقت آئے تو اللہ کی ناراضگی سامنے ہو۔ کیسے اس میں برکت ہو گی جب ہم لوگوں کا حق کھائیں گے۔ ہر وہ کام کریں گے جس سے منع کیا گیا ہو، اللہ اور اس کے رسول ﷺ کی تعلیمات کا حصہ نہ ہوں۔</p>
+            <p>اللہ رب العزت سے استدعا ہے کہ برکت والی، رحمت والی بارشیں نازل فرمائیں اور ہم سب کے گناہ معاف فرمائیں۔۔۔ آمین</p>
+        </div>
     </div>
-
+    
+    <!-- Color Fill Feature -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -56,6 +435,57 @@
     </div>
 
     <script>
+        // Create stars for galaxy background
+        function createStars() {
+            const spaceBg = document.getElementById('space-bg');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 5 + 3;
+                const delay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.animationDuration = `${duration}s`;
+                star.style.animationDelay = `${delay}s`;
+                
+                spaceBg.appendChild(star);
+            }
+            
+            // Create shooting stars
+            const shootingStarCount = 5;
+            for (let i = 0; i < shootingStarCount; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.classList.add('shooting-star');
+                
+                const x = Math.random() * 100;
+                const delay = Math.random() * 15;
+                
+                shootingStar.style.left = `${x}%`;
+                shootingStar.style.animationDelay = `${delay}s`;
+                
+                spaceBg.appendChild(shootingStar);
+            }
+        }
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        // Color Fill Post functions
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -63,14 +493,29 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Event listeners
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeColorFillPost(); 
+        });
+        
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Back button functionality
+        document.querySelector('.back-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.history.back();
+        });
+        
+        // Initialize stars when page loads
+        window.addEventListener('DOMContentLoaded', createStars);
     </script>
 </body>
 </html>
