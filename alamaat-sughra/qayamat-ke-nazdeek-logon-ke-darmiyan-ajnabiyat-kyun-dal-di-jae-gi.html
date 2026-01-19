@@ -5,77 +5,494 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قیامت کے نزدیک لوگوں کے درمیان اجنبیت کیوں ڈال دی جائے گی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Urdu Fonts */
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 30px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 100px;
+        }
+        
+        /* Sun Rising Theme */
+        .sun-theme {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 200, 100, 0.9) 0%, 
+                rgba(255, 165, 0, 0.7) 20%,
+                rgba(255, 140, 0, 0.4) 40%,
+                rgba(255, 100, 0, 0.1) 60%,
+                transparent 100%);
+            z-index: -1;
+            opacity: 0.7;
+            transition: all 1.5s ease;
+        }
+        
+        body:hover .sun-theme {
+            opacity: 1;
+            height: 350px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(90deg, #4a90e2, #2ecc71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff6b6b, #4a90e2, #2ecc71, transparent);
+            border-radius: 10px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        h1:hover {
+            transform: translateY(-5px);
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Main Image */
+        .main-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 5px solid white;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        
+        .main-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.8s ease;
+        }
+        
+        .main-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Content */
+        .post-content {
+            font-size: 1.35rem;
+            text-align: justify;
+            margin-top: 30px;
+            padding: 0 10px;
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+        
+        .post-content a {
+            color: #e74c3c;
+            text-decoration: none;
+            border-bottom: 1px dotted #e74c3c;
+            transition: all 0.3s ease;
+        }
+        
+        .post-content a:hover {
+            color: #c0392b;
+            border-bottom: 2px solid #c0392b;
+            background-color: rgba(231, 76, 60, 0.05);
+            padding: 0 5px;
+            border-radius: 3px;
+        }
+        
+        /* Control Buttons */
+        .control-buttons {
+            position: fixed;
+            left: 30px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 25px rgba(74, 144, 226, 0.7);
+        }
+        
+        .back-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.7);
+        }
+        
+        /* Decorative Elements */
+        .decoration {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .dec-1 {
+            top: 10%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ff9ff3, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .dec-2 {
+            bottom: 20%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #4ecdc4, transparent 70%);
+            border-radius: 50%;
+            animation: float 18s infinite ease-in-out reverse;
+        }
+        
+        .dec-3 {
+            top: 50%;
+            left: 15%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #feca57, transparent 70%);
+            border-radius: 50%;
+            animation: float 12s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .post-content {
+                font-size: 1.2rem;
+                padding: 0;
+            }
+            
+            .control-buttons {
+                left: 15px;
+                bottom: 15px;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .back-btn {
+                right: 15px;
+                bottom: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .sun-theme {
+                height: 200px;
+            }
+            
+            body:hover .sun-theme {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .post-content {
+                font-size: 1.1rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+            color: #777;
+            font-size: 1rem;
+        }
+        
+        /* Highlight Effect */
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 237, 118, 0.3) 0%, rgba(255, 237, 118, 0.7) 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .post-content p:hover .highlight {
+            background: linear-gradient(120deg, rgba(255, 237, 118, 0.7) 0%, rgba(255, 237, 118, 1) 100%);
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Sun Theme Background -->
+    <div class="sun-theme"></div>
+    
+    <!-- Decorative Elements -->
+    <div class="decoration dec-1"></div>
+    <div class="decoration dec-2"></div>
+    <div class="decoration dec-3"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <header>
+            <h1>قیامت کے نزدیک لوگوں کے درمیان اجنبیت کیوں ڈال دی جائے گی؟</h1>
+        </header>
+        
+        <!-- Main Image -->
+        <div class="main-image">
+            <img src="https://bloglovers.pk/images/alamaat-sughra/qayamat-ke-nazdeek-logon-ke-darmiyan-ajnabiyat-kyun-dal-di-jae-gi.png" 
+                 alt="قیامت کے نزدیک لوگوں کے درمیان اجنبیت کیوں ڈال دی جائے گی؟">
+        </div>
+        
+        <!-- Post Content -->
+        <div class="post-content">
+            <p>دوستو! کافی عرصہ سے میں قیامت کی نشانیوں پر مسلسل آرٹیکل لکھتا آ رہا ہوں، جوں جوں وقت قریب آتا جا رہا ہے ویسے ہی کوئی نہ کوئی نشانی ظاہر ہوتی چلی جا رہی ہے۔ اگرچہ اس نشانی کی نوعیت ابھی ابتدائی مرحلہ پر ہو۔ لیکن علامات دکھائی دے رہے ہیں جیسے آپ ﷺ نے امت کی اصلاح فرمائی۔</p>
+            
+            <p>کچھ عرصہ قبل میں نے ایک آرٹیکل لکھا تھا کہ صرف جان پہچان کے لوگوں کو سلام کرنے کے کیا نقصانات ہیں؟ اس آرٹیکل میں میں نے یہ ذکر کیا تھا کہ کس طرح لوگ صرف اپنے جاننے والوں سے کلام کریں گے اجنبی لوگوں سے سلام تک نہیں لیا جائے گا۔ آج اسی سے ملتا جلتا ایک ٹاپک لے کر آپ کی خدمت میں حاضر ہوا ہوں۔</p>
+            
+            <p>اگر آپ سابقہ ٹاپک کو پڑھیں اور اس کے بعد اس کو پڑھیں تو آپ اپنے اردگرد نظر ثانی کر سکتے ہیں کہ کیا یہ نشانی ظاہر ہوئی ہے یا نہیں، اگر ہوئی ہے تو اس میں کس قدر شدت ہے۔</p>
+            
+            <p>ہم سب اچھی طرح سے جانتے ہیں کہ جب فتنوں، مصیبتوں، تنگیوں، یا کٹھن حالات کی کثرت ہو جاتی ہے تو لوگوں کے باہمی تعلقات میں کمزوری، دکھاوا، منہ موڑ لینا، سخت دل ہو جانا، لاتعلقی اختیار کر لینا ایک واجبی سی بات ہے۔</p>
+            
+            <p>احساسات کھوکھلے ہو جاتے ہیں، رشتے بے بنیاد، بے جان سے ہوتے ہیں، ہم یہ سمجھتے ہیں کہ جو بھی تنگیاں ان لوگوں پر آئیں ہیں یقینا وہ انہی کے لئے تھیں یا پھر یہ لوگ اسی لائق تھے۔</p>
+            
+            <p>اس لئے اللہ نے ان کو اس مصیبت میں ڈالا ہے شکر ہے ہم تو بچ گئے۔ یہ نافرمانی، تکبر اللہ کو سخت ناپسند ہے۔ انہی وسوسوں کے پیش نظر ہمارے دل سخت ہوگئے ہیں، جن میں کوئی احساسات باقی نہیں ہیں۔</p>
+            
+            <p>اس وجہ سے ہم ایک دوسرے سے نفرت کرتے جارہے ہیں کیونکہ دل تو مردہ ہوتے جارہے ہیں۔ آج ہم اپنے اردگرد نظر دوڑائیں تو ایسی چلتی پھرتی مثالیں دکھائی دیں گی۔</p>
+            
+            <p>آہستہ آہستہ ہم رشتہ داروں سے قطع تعلقی کرتے چلے جارہے ہیں۔ یہاں تک کہ نوبت اجنبیت تک پہنچ جاتی ہے۔ اس کی ایک وجہ دینی تعلیمات سے بالکل دور ہیں ہماری آج کل کی نسل۔ ہم اس طرح تیار ہی نہیں کر پا رہے اپنی اولادوں کو جس کی معاشرے میں سخت ضرورت ہے۔</p>
+            
+            <p>ہماری آج کی نسل انفرادی سوچ کی مالک ہے، اسے صرف اپنا پتہ ہے اردگرد کے لوگ کیا سوچتے ہیں کیا کہتے ہیں اس کو اس سے کوئی سروکار نہیں۔ یہاں تک کہ ایک ہی چھت کے نیچے بیٹھے اپنے والدین کی شکل بھی دو دو دن بعد دکھاتے ہیں۔ کیونکہ دنیا کے سارے کام اسی ایک شخص کو ہوتے ہیں۔</p>
+            
+            <p>ایسی صورتحال میں لوگ صرف دینوی مصلحت ہی کی خاطر ایک دوسرے سے واقفیت رکھتے ہیں۔</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ سے قیامت کے بارے میں سوال کیا گیا تو آپ ﷺ نے فرمایا "قیامت کب واقع ہوگی، اس کا علم تو میرے رب ہی کے پاس ہے اور وہی اسے اس کے وقت پر ظاہر کرے گا، البتہ میں تمھیں اس کی علامات اور اس سے قبل پیش آمدہ حالات کی خبر دے سکتا ہوں۔</p>
+            
+            <p>قیامت سے پہلے فتنہ اور ھرج ہوگا، صحابہ نے عرض کیا: فتنہ تو ہم جانتے ہیں یہ ھرج کیا چیز ہے؟ فرمایا "یہ حبشی زبان کا لفظ ہے اور اس کے معنی ہیں۔ قتل و خونزیزی، قیامت کے قریب لوگوں کے درمیان اجنبیت ڈال دی جائے گی۔ کوئی کم ہی کسی کو جانتا ہوگا۔"</p>
+            
+            <p>یہ حدیث لوگوں کے آج کے حالات و واقعات کے مطابق ہے۔ آج لوگوں کی ایک بڑی تعداد ایسی ہے جو اپنے رشتہ داروں تک کو نہیں جانتی۔ نوبت یہاں تک پہنچ چکی ہے کہ ایک شخص اپنے ہی بعض عزیزوں سے گھر سے باہر پبلک پارکوں وغیرہ میں ملتا ہے اور وہ نہیں جانتا کہ یہ لوگ اس کے رشتہ دار ہیں۔ اس کی وجہ یہ ہے کہ آج کل زیادہ تر تعلقات شخصی اور ذاتی فوائد کی بنا پر استوار کیے جاتے ہیں۔</p>
+            
+            <p>دینوی مصلحتوں پر مبنی یہ کمزور تعلقات جس تیزی سے قائم ہوتے ہیں اسی تیزی سے اختام پذیر بھی ہوجاتے ہیں۔ کیونکہ یہ ایمان باللہ اور اخوت کی بنیاد پر نہیں بلکہ شخصی مصلحت کی بنا پر قائم ہوتے ہیں۔ بلکہ آدمی اپنی دینوی مصلحت کو دیکھتا ہے۔</p>
+            
+            <p>کہ اگر ان تعلقات کے قائم کرنے سے وہ مصلحت پوری ہوتی ہو تو وہ ان تعلقات کو قائم رکھتا ہے ورنہ بہت جلد ان کو توڑ دیتا ہے۔</p>
+        </div>
+        
+        <footer>
+            <p>مضمون: قیامت کے نزدیک لوگوں کے درمیان اجنبیت کیوں ڈال دی جائے گی؟</p>
+        </footer>
+    </div>
+    
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+        <button class="control-btn" id="pageUpBtn" title="اوپر جائیں">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="control-btn" id="pageDownBtn" title="نیچے جائیں">
+            <i class="fas fa-arrow-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
-        <h1>قیامت کے نزدیک لوگوں کے درمیان اجنبیت کیوں ڈال دی جائے گی؟</h1>
-        <p>قیامت کے نزدیک لوگوں کے درمیان اجنبیت کیوں ڈال دی جائے گی؟</p>
-<p>دوستو! کافی عرصہ سے میں قیامت کی نشانیوں پر مسلسل آرٹیکل لکھتا آ رہا ہوں، جوں جوں وقت قریب آتا جا رہا ہے ویسے ہی کوئی نہ کوئی نشانی ظاہر ہوتی چلی جا رہی ہے۔ اگرچہ اس نشانی کی نوعیت ابھی ابتدائی مرحلہ پر ہو۔ لیکن علامات دکھائی دے رہے ہیں جیسے آپ ﷺ نے امت کی اصلاح فرمائی۔</p>
-<p>کچھ عرصہ قبل میں نے ایک آرٹیکل لکھا تھا کہ <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/7692832084764438738">صرف جان پہچان کے لوگوں کو سلام کرنے کے کیا نقصانات ہیں؟</a> اس آرٹیکل میں میں نے یہ ذکر کیا تھا کہ کس طرح لوگ صرف اپنے جاننے والوں سے کلام کریں گے اجنبی لوگوں سے سلام تک نہیں لیا جائے گا۔ آج اسی سے ملتا جلتا ایک ٹاپک لے کر آپ کی خدمت میں حاضر ہوا ہوں۔</p>
-<p><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgVlN-lufUG-JzAVaR-s3_zUWHiI7tPZReqPlc0vCYmpAu8lNUK6P-YbhiK8wLJOs223zmp2i6tmmLG321kJdDdEi-lqdySk0fJZ5fbBtizF15Ks7zDbQ3yoD0xEPEvnJWNB4uHiNetNAPQopnLGGeGg2F1FhdS6aIFLbLlbaIf5Ah325j9Z6ugofKpLZhV/s2240/%D9%82%DB%8C%D8%A7%D9%85%D8%AA%20%20%DA%A9%DB%92%20%D9%86%D8%B2%D8%AF%DB%8C%DA%A9%20%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%DB%92%20%D8%AF%D8%B1%D9%85%DB%8C%D8%A7%D9%86%20%D8%A7%D8%AC%D9%86%D8%A8%DB%8C%D8%AA%20%DA%A9%DB%8C%D9%88%DA%BA%20%DA%88%D8%A7%D9%84%20%D8%AF%DB%8C%20%D8%AC%D8%A7%D8%A6%DB%92%20%DA%AF%DB%8C%D8%9F.png"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgVlN-lufUG-JzAVaR-s3_zUWHiI7tPZReqPlc0vCYmpAu8lNUK6P-YbhiK8wLJOs223zmp2i6tmmLG321kJdDdEi-lqdySk0fJZ5fbBtizF15Ks7zDbQ3yoD0xEPEvnJWNB4uHiNetNAPQopnLGGeGg2F1FhdS6aIFLbLlbaIf5Ah325j9Z6ugofKpLZhV/s16000/%D9%82%DB%8C%D8%A7%D9%85%D8%AA%20%20%DA%A9%DB%92%20%D9%86%D8%B2%D8%AF%DB%8C%DA%A9%20%D9%84%D9%88%DA%AF%D9%88%DA%BA%20%DA%A9%DB%92%20%D8%AF%D8%B1%D9%85%DB%8C%D8%A7%D9%86%20%D8%A7%D8%AC%D9%86%D8%A8%DB%8C%D8%AA%20%DA%A9%DB%8C%D9%88%DA%BA%20%DA%88%D8%A7%D9%84%20%D8%AF%DB%8C%20%D8%AC%D8%A7%D8%A6%DB%92%20%DA%AF%DB%8C%D8%9F.png" alt=""></a></p>
-<p>اگر آپ سابقہ ٹاپک کو پڑھیں اور اس کے بعد اس کو پڑھیں تو آپ اپنے اردگرد نظر ثانی کر سکتے ہیں کہ کیا یہ نشانی ظاہر ہوئی ہے یا نہیں، اگر ہوئی ہے تو اس میں کس قدر شدت ہے۔</p>
-<p>ہم سب اچھی طرح سے جانتے ہیں کہ جب فتنوں، مصیبتوں، تنگیوں، یا کٹھن حالات کی کثرت ہو جاتی ہے تو لوگوں کے باہمی تعلقات میں کمزوری، دکھاوا، منہ موڑ لینا، سخت دل ہو جانا، لاتعلقی اختیار کر لینا ایک واجبی سی بات ہے۔</p>
-<p><a href="https://www.bloglovers.pk/2023/11/blog-post_85.html">احساسات کھوکھلے</a> ہو جاتے ہیں، رشتے بے بنیاد، بے جان سے ہوتے ہیں، ہم یہ سمجھتے ہیں کہ جو بھی تنگیاں ان لوگوں پر آئیں ہیں یقینا وہ انہی کے لئے تھیں یا پھر یہ لوگ اسی لائق تھے۔</p>
-<p>اس لئے اللہ نے ان کو اس مصیبت میں ڈالا ہے شکر ہے ہم تو بچ گئے۔ یہ نافرمانی، تکبر اللہ کو سخت ناپسند ہے۔ انہی وسوسوں کے پیش نظر ہمارے دل سخت ہوگئے ہیں، جن میں کوئی احساسات باقی نہیں ہیں۔</p>
-<p>اس وجہ سے ہم ایک دوسرے سے نفرت کرتے جارہے ہیں کیونکہ دل تو مردہ ہوتے جارہے ہیں۔ آج ہم اپنے اردگرد نظر دوڑائیں تو ایسی چلتی پھرتی مثالیں دکھائی دیں گی۔</p>
-<p>آہستہ آہستہ ہم رشتہ داروں سے قطع تعلقی کرتے چلے جارہے ہیں۔ یہاں تک کہ نوبت اجنبیت تک پہنچ جاتی ہے۔ اس کی ایک وجہ دینی تعلیمات سے بالکل دور ہیں ہماری آج کل کی نسل۔ ہم اس طرح تیار ہی نہیں کر پا رہے اپنی اولادوں کو جس کی معاشرے میں سخت ضرورت ہے۔</p>
-<p>ہماری آج کی نسل انفرادی سوچ کی مالک ہے، اسے صرف اپنا پتہ ہے اردگرد کے لوگ کیا سوچتے ہیں کیا کہتے ہیں اس کو اس سے کوئی سروکار نہیں۔ یہاں تک کہ ایک ہی چھت کے نیچے بیٹھے اپنے والدین کی شکل بھی دو دو دن بعد دکھاتے ہیں۔ کیونکہ دنیا کے سارے کام اسی ایک شخص کو ہوتے ہیں۔</p>
-<p>ایسی صورتحال میں لوگ صرف دینوی مصلحت ہی کی خاطر ایک دوسرے سے واقفیت رکھتے ہیں۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ سے قیامت کے بارے میں سوال کیا گیا تو آپ ﷺ نے فرمایا &quot;قیامت کب واقع ہوگی، اس کا علم تو میرے رب ہی کے پاس ہے اور وہی اسے اس کے وقت پر ظاہر کرے گا، البتہ میں تمھیں اس کی علامات اور اس سے قبل پیش آمدہ حالات کی خبر دے سکتا ہوں۔</p>
-<p>قیامت سے پہلے فتنہ اور ھرج ہوگا، صحابہ نے عرض کیا: فتنہ تو ہم جانتے ہیں یہ ھرج کیا چیز ہے؟ فرمایا &quot;یہ حبشی زبان کا لفظ ہے اور اس کے معنی ہیں۔ قتل و خونزیزی، قیامت کے قریب لوگوں کے درمیان اجنبیت ڈال دی جائے گی۔ کوئی کم ہی کسی کو جانتا ہوگا۔&quot;</p>
-<p>یہ حدیث لوگوں کے آج کے حالات و واقعات کے مطابق ہے۔ آج لوگوں کی ایک بڑی تعداد ایسی ہے جو اپنے رشتہ داروں تک کو نہیں جانتی۔ نوبت یہاں تک پہنچ چکی ہے کہ ایک شخص اپنے ہی بعض عزیزوں سے گھر سے باہر پبلک پارکوں وغیرہ میں ملتا ہے اور وہ نہیں جانتا کہ یہ لوگ اس کے رشتہ دار ہیں۔ اس کی وجہ یہ ہے کہ آج کل زیادہ تر تعلقات شخصی اور ذاتی فوائد کی بنا پر استوار کیے جاتے ہیں۔</p>
-<p>دینوی مصلحتوں پر مبنی یہ کمزور تعلقات جس تیزی سے قائم ہوتے ہیں اسی تیزی سے اختام پذیر بھی ہوجاتے ہیں۔ کیونکہ یہ ایمان باللہ اور اخوت کی بنیاد پر نہیں بلکہ شخصی مصلحت کی بنا پر قائم ہوتے ہیں۔ بلکہ آدمی اپنی دینوی مصلحت کو دیکھتا ہے۔</p>
-<p>کہ اگر ان تعلقات کے قائم کرنے سے وہ مصلحت پوری ہوتی ہو تو وہ ان تعلقات کو قائم رکھتا ہے ورنہ بہت جلد ان کو توڑ دیتا ہے۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
+    
+    <button class="back-btn" id="backBtn" title="پیچھے جائیں">
+        <i class="fas fa-arrow-left"></i>
+    </button>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // Page Up Button
+        document.getElementById('pageUpBtn').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Page Down Button
+        document.getElementById('pageDownBtn').addEventListener('click', function() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Back Button
+        document.getElementById('backBtn').addEventListener('click', function() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = 'index.html'; // Change this to your home page URL
+            }
+        });
+        
+        // Add hover effects to paragraphs
+        const paragraphs = document.querySelectorAll('.post-content p');
+        paragraphs.forEach(p => {
+            p.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(74, 144, 226, 0.05)';
+                this.style.padding = '15px';
+                this.style.borderRadius = '10px';
+                this.style.transition = 'all 0.3s ease';
+            });
+            
+            p.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '';
+                this.style.padding = '0 10px';
+            });
+        });
+        
+        // Add subtle animation to headings
+        const headings = document.querySelectorAll('h1, h2, h3');
+        headings.forEach(heading => {
+            heading.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(90deg, #ff6b6b, #4a90e2)';
+                this.style.webkitBackgroundClip = 'text';
+                this.style.backgroundClip = 'text';
+                this.style.color = 'transparent';
+            });
+            
+            heading.addEventListener('mouseleave', function() {
+                this.style.background = '';
+                this.style.color = '#2c3e50';
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Space for page down
+            if (e.code === 'Space' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                window.scrollBy({
+                    top: window.innerHeight * 0.8,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Escape for page up
+            if (e.code === 'Escape') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
     </script>
 </body>
 </html>
