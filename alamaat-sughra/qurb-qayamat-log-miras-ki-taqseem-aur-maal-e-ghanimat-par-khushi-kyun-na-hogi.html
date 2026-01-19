@@ -7,25 +7,408 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        /* Jangle Dark Theme with Animation */
+        .jangle-dark-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+            background-size: 400% 400%;
+            animation: darkWave 20s ease infinite;
+        }
+        
+        @keyframes darkWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .dark-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(74, 144, 226, 0.7);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+        
+        /* Color Fill Container - Updated */
+        .color-fill-container { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 0; 
+            transition: opacity 1.5s ease; 
+            pointer-events: none; 
+        }
+        .color-fill-container.active { 
+            opacity: 1; 
+            z-index: 9998; 
+        }
+        .color-fill-background { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); 
+            background-size: 400% 400%; 
+            animation: gradientFlow 15s ease infinite; 
+        }
+        @keyframes gradientFlow { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        /* Post Content Overlay - Updated */
+        .post-content-overlay { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.8); 
+            width: 90%; 
+            max-width: 900px; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            background: linear-gradient(145deg, #2c3e50, #34495e); 
+            padding: 40px; 
+            border-radius: 25px; 
+            box-shadow: 0 25px 70px rgba(0,0,0,0.5), 
+                        inset 0 1px 0 rgba(255,255,255,0.1); 
+            z-index: 9999; 
+            opacity: 0; 
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid rgba(74, 144, 226, 0.2); 
+        }
+        .post-content-overlay.active { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        /* Close Button - Updated */
+        .close-btn { 
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+            background: linear-gradient(45deg, #ff6b6b, #e74c3c); 
+            color: white; 
+            border: none; 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            font-size: 24px; 
+            cursor: pointer; 
+            z-index: 10000; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .close-btn:hover { 
+            transform: rotate(180deg) scale(1.1); 
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6); 
+        }
+        
+        /* Main Body Styles - Updated with Dark Theme */
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.3; 
+            direction: rtl; 
+            text-align: right; 
+            margin: 0; 
+            padding: 20px; 
+            color: #e0e0e0; 
+            min-height: 100vh; 
+            position: relative; 
+        }
+        
+        /* Trigger Button - Updated */
+        .trigger-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, #4a90e2, #3498db); 
+            color: white; 
+            padding: 15px 35px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 20px 0; 
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.5); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: none; 
+            cursor: pointer; 
+            font-size: 18px; 
+            font-family: inherit; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .trigger-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.7s;
+        }
+        .trigger-btn:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 12px 30px rgba(74, 144, 226, 0.7); 
+        }
+        .trigger-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Post Content - Updated */
+        .post-content { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: linear-gradient(145deg, rgba(44, 62, 80, 0.95), rgba(52, 73, 94, 0.95)); 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4), 
+                        inset 0 1px 0 rgba(255,255,255,0.1); 
+            position: relative; 
+            z-index: 1; 
+            border: 1px solid rgba(74, 144, 226, 0.2); 
+            backdrop-filter: blur(10px); 
+        }
+        
+        /* Headings - Increased Size and Effects */
+        h1, h2, h3 { 
+            color: #4a90e2; 
+            border-bottom: 3px solid rgba(74, 144, 226, 0.3); 
+            padding-bottom: 15px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
+            position: relative; 
+        }
+        h1 { 
+            text-align: center; 
+            border-bottom: 4px solid #4a90e2; 
+            font-size: 2.8em; 
+            margin-bottom: 30px; 
+            padding-bottom: 20px; 
+        }
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #4a90e2, transparent);
+        }
+        
+        /* Paragraphs - Increased Size and Justified */
+        p {
+            font-size: 1.3em;
+            text-align: justify;
+            margin-bottom: 25px;
+            color: #d1d1d1;
+            line-height: 2.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        /* Featured Image - Full Width */
+        .featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(74, 144, 226, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .featured-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
+        }
+        
+        /* Back Button - New */
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 15px;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.6);
+        }
+        
+        /* Navigation Buttons - New */
+        .nav-btn {
+            position: fixed;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.5);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(155, 89, 182, 0.7);
+        }
+        .page-up {
+            bottom: 100px;
+        }
+        .page-down {
+            bottom: 30px;
+        }
+        
+        /* Content Links - Updated */
+        a { 
+            color: #3498db; 
+            text-decoration: none; 
+            transition: all 0.3s ease; 
+            position: relative; 
+            padding: 0 2px; 
+        }
+        a:hover { 
+            color: #4a90e2; 
+            text-shadow: 0 0 10px rgba(74, 144, 226, 0.5); 
+        }
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #4a90e2;
+            transition: width 0.3s ease;
+        }
+        a:hover::after {
+            width: 100%;
+        }
+        
+        /* Remove Internal Linking */
+        .post-content a[href*="bloglovers"] {
+            color: inherit;
+            text-decoration: none;
+            pointer-events: none;
+        }
+        
+        /* Button Container */
+        .button-container {
+            text-align: center;
+            margin: 40px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .post-content { padding: 25px; margin: 20px auto; }
+            h1 { font-size: 2em; }
+            p { font-size: 1.1em; line-height: 2.2; }
+            .trigger-btn, .back-btn { padding: 12px 25px; font-size: 16px; }
+            .nav-btn { right: 15px; width: 50px; height: 50px; font-size: 20px; }
+            .page-up { bottom: 90px; }
+            .page-down { bottom: 30px; }
+            .post-content-overlay { padding: 25px; }
+            .featured-image { max-height: 300px; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6em; }
+            p { font-size: 1em; }
+            .post-content { padding: 20px; }
+            .button-container { flex-direction: column; align-items: center; }
+            .nav-btn { right: 10px; width: 45px; height: 45px; }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #4a90e2, #3498db);
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        
+        /* Content Container */
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
+    <!-- Jangle Dark Animated Background -->
+    <div class="jangle-dark-bg"></div>
+    
+    <!-- Animated Particles -->
+    <div class="dark-particles" id="particlesContainer"></div>
+    
+    <!-- Navigation Buttons -->
+    <button class="nav-btn page-up" onclick="scrollToTop()">↑</button>
+    <button class="nav-btn page-down" onclick="scrollToBottom()">↓</button>
+    
+    <!-- Back Button at Top -->
+    <div style="text-align: center; margin: 20px 0;">
+        <button class="back-btn" onclick="window.history.back()">
+            ← واپس جائیں
+        </button>
+    </div>
+    
+    <!-- Main Trigger Button -->
     <div style="text-align: center; margin: 40px 0;">
         <button class="trigger-btn" onclick="openColorFillPost()">
             🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
@@ -33,30 +416,77 @@
     </div>
 
     <div class="post-content">
-        
         <h1>قرب قیامت لوگوں کو میراث کی تقسیم اور مالِ غنیمت پر خوشی کیوں نہ ہوگی؟</h1>
-<p>دوستو! اللہ رب العزت نے جس قدر میراث کی منصفانہ تقسیم اور حقوق العباد کے بارے میں جگہ جگہ قرآن مجید میں ارشاد فرمایا ہے، قربان جائیں اللہ کے اس عدل و انصاف پر کہ جس میں کسی بھی انسان کے ساتھ زیادتی ہونے کا سوال ہی پیدا نہیں ہوتا۔ وہی قوانین اور اللہ کے اس پیغام کو اللہ کے پیارے حبیب حضرت محمد مصطفی ﷺ نے انسانیت تک عملی طور پر کر کے پہنچایا۔ تاکہ لوگ گمراہی اور انتشار کا شکار نہ ہوں۔</p>
-<p>قیامت پر ایمان دینِ اسلام کا ناصرف اہم رکن ہے بلکہ بہت ہی اہم ترین موضوع بھی ہے۔ جب ہم اللہ رب العزت کے بنائے ہوئے قوانین اور حدود کی پامالی کر کے خود کی تسکین حاصل کرنے میں ساری توانائیاں صرف کرنے میں لگائیں گے تو محض تھکاوٹ کے سوا کچھ حاصل نہ ہو سکے گا۔ یہ بات جتنی جلد ہم سمجھ سکیں گے اتنی ہی ہماری زندگی کی تکالیف کم ہو سکیں گی۔</p>
-<p>بھلا کبھی کسی کا گلا کاٹ کر یا میراث میں سے حق تلفی کر کے کسی کو سکون ملا ہے، یقیناً نہیں۔ وقتی طور پر آپ کسی کا حق تلفی کر کے سکون حاصل کر لیں گے لیکن وہ دیرپا نہیں ہو گا بلکہ جزوی یا وقتی ہو گا۔ لیکن اس سے معاشرے پر کیا اثر ہو گا ذرا ایک نظر اس پہلو پر ڈالتے ہوئے بات آگے بڑھاتے ہیں۔</p>
-<p>آپ ﷺ نے فرمایا: &quot;جو شخص ظلم و زیادتی کرتے ہوئے کسی شخص کی ایک بالشت جگہ غضب کر لے گا، تو کل قیامت کے دن اللہ پاک سات زمینوں کا طوق بنا کر اس کے گلے میں ڈال دے گا۔&quot;</p>
-<p>مگر افسوس! آج معاشرے روایات کے برعکس ہم اسے کوئی مسئلہ ہی نہیں سمجھتے، یا ہماری روحیں کانپتی کہ جگہ جگہ لوگوں کے پلاٹوں اور گھروں پر قبضے ہوتے دکھائی دیتے ہیں وہ لوگ عدل و انصاف کے لیے عدالت کا دروازہ کھٹکھٹاتے دکھائی دے رہے ہوتے ہیں۔ بھائی بھائی کی زمین پر قبضہ کر رہے ہیں۔ بہنوں کو میراث میں کچھ حصہ نہیں دیا جاتا یہ کہہ کر ان کے حصے میں جو میراث آتی تھی اس کے نپول بدل میں ان کی شادی کر دی گئی ہیں لہذا اب میراث میں ان کا کوئی حصہ نہیں بنتا۔ شادی کے مواقعوں پر خواتین کے لیے جو حق مہر لکھوایا جاتا ہے وہ بھی محض لوگوں کے دکھلاوے کے لیے ہوتا جس کا ذکر صرف اس نکاح نامے تک محدود ہوتا ہے جبکہ عملی طور پر اس کو ادا نہیں کیا جاتا۔ بدنیتی یا سست روی سے کام لیا جاتا ہے یا یہ کہہ کر چپ کر وا دیا جاتا ہے کہ تمھارے حصے کی رقم کاروبار میں لگا دی گئی ہے اس طرح بڑی آسانی سے خواتین اپنے جائز حق سے محروم کر دی جاتی ہیں۔ کوئی خاتون جب اپنے اس حق کا تقاضا کرتی ہے تو محض حیلے بہانوں سے کام لیا جاتا ہے یا پھر بیہودہ سے اوچھے ہتھکنڈوں کا استعمال کر کے اسے تنگ کرنا شروع کر دیتے ہیں، طعنہ زنی والزامات کی بارش کی جاتی ہے، لیکن ان سب کے باوجود بھی اس کا حق ادا نہیں کیا جاتا۔</p>
-<p>یہ ہمارے معاشرے کی ایک سفاک اور تلخ حقیقت ہے جو دن بدن کم ہونے کے بجائے مسلسل بڑھتی چلی جا رہی ہے۔ اور اس کے ساتھ بڑھنے والے جرائم کی تعداد میں مسلسل اضافہ ہوتا چلا جا رہا ہے۔ مثلاً اگر معاشرے میں دولت کی تقسیم منصفانہ نہ ہو گی تو فرقہ واریت پیدا ہو گی جو کہ معاشرتی بحران کی ایک بڑی وجہ بنتی ہے جو کسی بھی آپسی اختلافات، جھگڑے اور فسادات کی بنیاد ہوتی ہے۔</p>
-<p>اجتماعی فسادات، معاشی بحران، روحانیت کی کمی، مجتمع کی بے ترتیبی بھی اسی سلسلے کی کئی بڑی کڑیاں ہیں۔ ذرا ہم پورے دھیان سے سوچیں کہ یہ تو محض دنیا داری ہے جس میں ہم حقوق العباد ادا کرنے سے قاصر ہیں۔</p>
-<p>آئیے اب ہم اس آرٹیکل کا دوسرا رخ دیکھتے ہیں جو کہ قرب قیامت کی نشانی بتائی گئی ہے۔ کہ لوگوں کو مالِ غنیمت حاصل کرنے کی خوشی نہ ہو گی اور میراث کی تقسیم رک جائے گی۔ اہل علم کہتے ہیں کہ یہ دونوں علامتیں آخری زمانے میں عین اس وقت واقع ہوں گی جب انسانیت کا قتلِ عام ہونا شروع ہو جائے گا، اور اس کے ساتھ ساتھ مسلمانوں اور عیسائیوں کے مابین ہونے والی لڑائیاں بہت زیادہ شدت اختیار کر جائیں گی۔ یعنی کثرت سے لڑائیاں لڑی جائیں گی۔ جیسے میں اپنے سابقہ آرٹیکل &quot;<a href="https://www.bloglovers.pk/2024/02/blog-post.html">امام مہدی سے قبل کن جماعتوں میں زبردست جنگ ہوگی</a>&quot; میں تفصیل سے ذکر کر چکا ہوں۔</p>
-<p>جیسا کہ آپ ﷺ نے ارشاد فرمایا: &quot;قیامت اس وقت تک قائم نہ ہو گی جب تک کہ میراث کی تقسیم نہ رک جائے گی اور مالِ غنیمت کے حصول پر خوشی نہ ہو گی۔&quot;</p>
-<p>اس آرٹیکل کا مطالعہ کرنے کے بعد اس دی گئی حدیث کی وضاحت مزید واضح ہو جائے گی۔ کہ لڑی جانے والی جنگ کس قدر ہولناک ہو گی کہ اگر ایک شخص کے سو بیٹے جنگ لیڈیں گے تو نوے قتل ہو جائیں گے اور محض ایک بیٹا باقی بچے گا۔ اب اس منظر میں میراث کی تقسیم کن مابین ہو سکے گی اور جو باقی بچ جائیں گے وہ مالِ غنیمت لے کر بھی کہاں خرچ کریں گے۔ واللہ اعلم</p>
-<p>وقت کا کھیل بھی کیا عجیب کھیل ہے ایک وہ زمانہ ہو گا کہ لوگوں کے پاس وافر مقدار میں مال و زر ہو گا اور سب کچھ ہونے کے بعد بھی دکھی ہوں گے یعنی خوش نہیں ہوں گے۔ اور میراث کی تقسیم بھی رک جائے گی شاید وارث بھی لاشوں کے ڈھیر میں کہیں دفن ہوں گے۔</p>
-<p>اور ایک وقت یہ ہے کہ لوگوں کو اللہ کا پیغام پہنچایا گیا ہے کہ لوگوں کا حق تم ادا کرو، یتیموں کا مال مت کھاؤ، زمین میں عدل و انصاف قائم رکھو، آپس میں اچھا معاشرت قائم کرو، حقوق اللہ کے ساتھ ساتھ حقوق العباد کا خاص خیال رکھو۔ لیکن مردہ دلی، سفاکی، ظلم و جبر، گمراہی کے اندھیروں میں ٹمٹماتا عدل کا بول بالا محض امیروں کو خوش کرنے اور غریبوں کا حق مارنے کے لیے قائم دائم ہے۔ جس انصاف سے آج کے لوگ خوش نہیں ہیں تو آنے والے کل کے لوگ کیسے خوش ہوں گے۔ سچ بات تو یہ کہ یہ محض دھوکے کا سامان ہے۔</p>
-
+        
+        <!-- Featured Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-log-miras-ki-taqseem-aur-maal-e-ghanimat-par-khushi-kyun-na-hogi.png" 
+             alt="قرب قیامت" 
+             class="featured-image"
+             onerror="this.style.display='none'">
+        
+        <p>دوستو! اللہ رب العزت نے جس قدر میراث کی منصفانہ تقسیم اور حقوق العباد کے بارے میں جگہ جگہ قرآن مجید میں ارشاد فرمایا ہے، قربان جائیں اللہ کے اس عدل و انصاف پر کہ جس میں کسی بھی انسان کے ساتھ زیادتی ہونے کا سوال ہی پیدا نہیں ہوتا۔ وہی قوانین اور اللہ کے اس پیغام کو اللہ کے پیارے حبیب حضرت محمد مصطفی ﷺ نے انسانیت تک عملی طور پر کر کے پہنچایا۔ تاکہ لوگ گمراہی اور انتشار کا شکار نہ ہوں۔</p>
+        <p>قیامت پر ایمان دینِ اسلام کا ناصرف اہم رکن ہے بلکہ بہت ہی اہم ترین موضوع بھی ہے۔ جب ہم اللہ رب العزت کے بنائے ہوئے قوانین اور حدود کی پامالی کر کے خود کی تسکین حاصل کرنے میں ساری توانائیاں صرف کرنے میں لگائیں گے تو محض تھکاوٹ کے سوا کچھ حاصل نہ ہو سکے گا۔ یہ بات جتنی جلد ہم سمجھ سکیں گے اتنی ہی ہماری زندگی کی تکالیف کم ہو سکیں گی۔</p>
+        <p>بھلا کبھی کسی کا گلا کاٹ کر یا میراث میں سے حق تلفی کر کے کسی کو سکون ملا ہے، یقیناً نہیں۔ وقتی طور پر آپ کسی کا حق تلفی کر کے سکون حاصل کر لیں گے لیکن وہ دیرپا نہیں ہو گا بلکہ جزوی یا وقتی ہو گا۔ لیکن اس سے معاشرے پر کیا اثر ہو گا ذرا ایک نظر اس پہلو پر ڈالتے ہوئے بات آگے بڑھاتے ہیں۔</p>
+        <p>آپ ﷺ نے فرمایا: "جو شخص ظلم و زیادتی کرتے ہوئے کسی شخص کی ایک بالشت جگہ غضب کر لے گا، تو کل قیامت کے دن اللہ پاک سات زمینوں کا طوق بنا کر اس کے گلے میں ڈال دے گا۔"</p>
+        <p>مگر افسوس! آج معاشرے روایات کے برعکس ہم اسے کوئی مسئلہ ہی نہیں سمجھتے، یا ہماری روحیں کانپتی کہ جگہ جگہ لوگوں کے پلاٹوں اور گھروں پر قبضے ہوتے دکھائی دیتے ہیں وہ لوگ عدل و انصاف کے لیے عدالت کا دروازہ کھٹکھٹاتے دکھائی دے رہے ہوتے ہیں۔ بھائی بھائی کی زمین پر قبضہ کر رہے ہیں۔ بہنوں کو میراث میں کچھ حصہ نہیں دیا جاتا یہ کہہ کر ان کے حصے میں جو میراث آتی تھی اس کے نپول بدل میں ان کی شادی کر دی گئی ہیں لہذا اب میراث میں ان کا کوئی حصہ نہیں بنتا۔ شادی کے مواقعوں پر خواتین کے لیے جو حق مہر لکھوایا جاتا ہے وہ بھی محض لوگوں کے دکھلاوے کے لیے ہوتا جس کا ذکر صرف اس نکاح نامے تک محدود ہوتا ہے جبکہ عملی طور پر اس کو ادا نہیں کیا جاتا۔ بدنیتی یا سست روی سے کام لیا جاتا ہے یا یہ کہہ کر چپ کر وا دیا جاتا ہے کہ تمھارے حصے کی رقم کاروبار میں لگا دی گئی ہے اس طرح بڑی آسانی سے خواتین اپنے جائز حق سے محروم کر دی جاتی ہیں۔ کوئی خاتون جب اپنے اس حق کا تقاضا کرتی ہے تو محض حیلے بہانوں سے کام لیا جاتا ہے یا پھر بیہودہ سے اوچھے ہتھکنڈوں کا استعمال کر کے اسے تنگ کرنا شروع کر دیتے ہیں، طعنہ زنی والزامات کی بارش کی جاتی ہے، لیکن ان سب کے باوجود بھی اس کا حق ادا نہیں کیا جاتا۔</p>
+        <p>یہ ہمارے معاشرے کی ایک سفاک اور تلخ حقیقت ہے جو دن بدن کم ہونے کے بجائے مسلسل بڑھتی چلی جا رہی ہے۔ اور اس کے ساتھ بڑھنے والے جرائم کی تعداد میں مسلسل اضافہ ہوتا چلا جا رہا ہے۔ مثلاً اگر معاشرے میں دولت کی تقسیم منصفانہ نہ ہو گی تو فرقہ واریت پیدا ہو گی جو کہ معاشرتی بحران کی ایک بڑی وجہ بنتی ہے جو کسی بھی آپسی اختلافات، جھگڑے اور فسادات کی بنیاد ہوتی ہے۔</p>
+        <p>اجتماعی فسادات، معاشی بحران، روحانیت کی کمی، مجتمع کی بے ترتیبی بھی اسی سلسلے کی کئی بڑی کڑیاں ہیں۔ ذرا ہم پورے دھیان سے سوچیں کہ یہ تو محض دنیا داری ہے جس میں ہم حقوق العباد ادا کرنے سے قاصر ہیں۔</p>
+        <p>آئیے اب ہم اس آرٹیکل کا دوسرا رخ دیکھتے ہیں جو کہ قرب قیامت کی نشانی بتائی گئی ہے۔ کہ لوگوں کو مالِ غنیمت حاصل کرنے کی خوشی نہ ہو گی اور میراث کی تقسیم رک جائے گی۔ اہل علم کہتے ہیں کہ یہ دونوں علامتیں آخری زمانے میں عین اس وقت واقع ہوں گی جب انسانیت کا قتلِ عام ہونا شروع ہو جائے گا، اور اس کے ساتھ ساتھ مسلمانوں اور عیسائیوں کے مابین ہونے والی لڑائیاں بہت زیادہ شدت اختیار کر جائیں گی۔ یعنی کثرت سے لڑائیاں لڑی جائیں گی۔ جیسے میں اپنے سابقہ آرٹیکل "امام مہدی سے قبل کن جماعتوں میں زبردست جنگ ہوگی" میں تفصیل سے ذکر کر چکا ہوں۔</p>
+        <p>جیسا کہ آپ ﷺ نے ارشاد فرمایا: "قیامت اس وقت تک قائم نہ ہو گی جب تک کہ میراث کی تقسیم نہ رک جائے گی اور مالِ غنیمت کے حصول پر خوشی نہ ہو گی۔"</p>
+        <p>اس آرٹیکل کا مطالعہ کرنے کے بعد اس دی گئی حدیث کی وضاحت مزید واضح ہو جائے گی۔ کہ لڑی جانے والی جنگ کس قدر ہولناک ہو گی کہ اگر ایک شخص کے سو بیٹے جنگ لیڈیں گے تو نوے قتل ہو جائیں گے اور محض ایک بیٹا باقی بچے گا۔ اب اس منظر میں میراث کی تقسیم کن مابین ہو سکے گی اور جو باقی بچ جائیں گے وہ مالِ غنیمت لے کر بھی کہاں خرچ کریں گے۔ واللہ اعلم</p>
+        <p>وقت کا کھیل بھی کیا عجیب کھیل ہے ایک وہ زمانہ ہو گا کہ لوگوں کے پاس وافر مقدار میں مال و زر ہو گا اور سب کچھ ہونے کے بعد بھی دکھی ہوں گے یعنی خوش نہیں ہوں گے۔ اور میراث کی تقسیم بھی رک جائے گی شاید وارث بھی لاشوں کے ڈھیر میں کہیں دفن ہوں گے۔</p>
+        <p>اور ایک وقت یہ ہے کہ لوگوں کو اللہ کا پیغام پہنچایا گیا ہے کہ لوگوں کا حق تم ادا کرو، یتیموں کا مال مت کھاؤ، زمین میں عدل و انصاف قائم رکھو، آپس میں اچھا معاشرت قائم کرو، حقوق اللہ کے ساتھ ساتھ حقوق العباد کا خاص خیال رکھو۔ لیکن مردہ دلی، سفاکی، ظلم و جبر، گمراہی کے اندھیروں میں ٹمٹماتا عدل کا بول بالا محض امیروں کو خوش کرنے اور غریبوں کا حق مارنے کے لیے قائم دائم ہے۔ جس انصاف سے آج کے لوگ خوش نہیں ہیں تو آنے والے کل کے لوگ کیسے خوش ہوں گے۔ سچ بات تو یہ کہ یہ محض دھوکے کا سامان ہے۔</p>
+        
+        <!-- Back Button at Bottom -->
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="back-btn" onclick="window.history.back()">
+                ← واپس جائیں
+            </button>
+        </div>
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    <!-- Color Fill Background Overlay -->
+    <div class="color-fill-container" id="colorFillBg">
+        <div class="color-fill-background"></div>
+    </div>
+    
+    <!-- Post Content Overlay -->
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
         <div id="postContent"></div>
     </div>
 
     <script>
+        // Create animated particles
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${15 + Math.random() * 10}s`;
+                container.appendChild(particle);
+            }
+        }
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Color Fill Post functions
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
@@ -64,14 +494,38 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+            setTimeout(() => { 
+                document.getElementById('postContent').innerHTML = ''; 
+            }, 500);
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) { 
+                if (e.key === 'Escape') closeColorFillPost(); 
+                if (e.key === 'ArrowUp') scrollToTop();
+                if (e.key === 'ArrowDown') scrollToBottom();
+            });
+            
+            // Close on background click
+            document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+            
+            // Remove internal links
+            document.querySelectorAll('a[href*="bloglovers"]').forEach(link => {
+                link.style.color = 'inherit';
+                link.style.textDecoration = 'none';
+                link.style.cursor = 'default';
+                link.onclick = (e) => e.preventDefault();
+            });
+        });
     </script>
 </body>
 </html>
