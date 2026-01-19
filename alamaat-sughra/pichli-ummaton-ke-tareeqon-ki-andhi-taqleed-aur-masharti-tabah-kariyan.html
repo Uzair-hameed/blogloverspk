@@ -5,79 +5,639 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>پچھلی امتوں کے طریقوں کی اندھی تقلید اور معاشرتی تباہ کاریاں</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --spring-green: #4CAF50;
+            --spring-light-green: #8BC34A;
+            --spring-yellow: #FFEB3B;
+            --spring-pink: #E91E63;
+            --spring-light-blue: #03A9F4;
+            --spring-purple: #9C27B0;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Spring Animation Background */
+        .spring-bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .spring-element {
+            position: absolute;
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        .spring-leaf {
+            background: linear-gradient(45deg, var(--spring-green), var(--spring-light-green));
+            border-radius: 50% 0 50% 50%;
+            animation: floatLeaf 20s infinite linear;
+        }
+        
+        .spring-flower {
+            background: radial-gradient(circle, var(--spring-pink), var(--spring-purple));
+            border-radius: 50%;
+            animation: floatFlower 25s infinite linear;
+        }
+        
+        .spring-petal {
+            background: linear-gradient(45deg, var(--spring-pink), #FF9800);
+            border-radius: 50%;
+            animation: floatPetal 15s infinite linear;
+        }
+        
+        @keyframes floatLeaf {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        @keyframes floatFlower {
+            0% { transform: translateX(0) translateY(100vh) rotate(0deg); }
+            100% { transform: translateX(100px) translateY(-100px) rotate(360deg); }
+        }
+        
+        @keyframes floatPetal {
+            0% { transform: translateX(100vw) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-100px) translateY(100vh) rotate(360deg); }
+        }
+        
+        /* Header and Controls */
+        .header-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 0 15px;
+        }
+        
+        .main-title {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid var(--spring-green);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .main-title::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--spring-green), var(--spring-light-blue), var(--spring-pink));
+            border-radius: 2px;
+        }
+        
+        .controls-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .control-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(45deg, var(--spring-green), var(--spring-light-blue));
+            color: white;
+            padding: 14px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: inherit;
+            min-width: 160px;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.5);
+        }
+        
+        .control-btn.back-btn {
+            background: linear-gradient(45deg, var(--spring-pink), var(--spring-purple));
+        }
+        
+        .control-btn.scroll-btn {
+            background: linear-gradient(45deg, var(--spring-light-blue), var(--spring-purple));
+            min-width: 130px;
+        }
+        
+        /* Post Content */
+        .post-content {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(139, 195, 74, 0.2);
+        }
+        
+        .post-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--spring-green), var(--spring-light-green), var(--spring-yellow), var(--spring-pink), var(--spring-light-blue), var(--spring-purple));
+        }
+        
+        .featured-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 25px auto 40px;
+            display: block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 5px solid white;
+            transition: all 0.5s ease;
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-right: 15px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid var(--spring-green);
+            padding-bottom: 15px;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            border-right: 5px solid var(--spring-light-blue);
+            padding-right: 20px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            border-right: 4px solid var(--spring-pink);
+            padding-right: 18px;
+        }
+        
+        p {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            color: #444;
+            padding: 0 5px;
+            line-height: 2.4;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 235, 59, 0.3) 0%, rgba(255, 235, 59, 0) 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+        }
+        
+        .quote {
+            background: linear-gradient(135deg, #f9f9f9 0%, #f1f8e9 100%);
+            border-right: 6px solid var(--spring-green);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+            font-size: 1.5rem;
+            line-height: 2.5;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .quote::before {
+            content: "❝";
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 4rem;
+            color: var(--spring-green);
+            opacity: 0.3;
+        }
+        
+        /* Floating Action Buttons */
+        .floating-buttons {
+            position: fixed;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--spring-green), var(--spring-light-blue));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.6);
+        }
+        
+        .floating-btn.up-btn {
+            background: linear-gradient(45deg, var(--spring-pink), var(--spring-purple));
+        }
+        
+        .floating-btn.down-btn {
+            background: linear-gradient(45deg, var(--spring-light-blue), var(--spring-purple));
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--spring-green), var(--spring-light-green));
+            color: white;
+            margin-top: 40px;
+            border-radius: 20px 20px 0 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .post-content {
+                padding: 30px;
+                margin: 0 15px 50px;
+            }
+            
+            .main-title {
+                font-size: 2.3rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.3rem;
+                line-height: 2.2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .floating-buttons {
+                left: 15px;
+            }
+            
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .controls-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .main-title {
+                font-size: 1.9rem;
+            }
+            
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+                line-height: 2.1;
+            }
+            
+            .quote {
+                font-size: 1.3rem;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .post-content {
+                padding: 20px;
+            }
+            
+            .main-title {
+                font-size: 1.7rem;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .header-container {
+                margin: 20px 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Spring Animation Elements -->
+    <div class="spring-bg-elements" id="springElements"></div>
+    
+    <!-- Header Section -->
+    <div class="header-container">
+        <h1 class="main-title">پچھلی امتوں کے طریقوں کی اندھی تقلید اور معاشرتی تباہ کاریاں</h1>
+        
+        <!-- Featured Image -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/pichli-ummaton-ke-tareeqon-ki-andhi-taqleed-aur-masharti-tabah-kariyan.png" 
+             alt="پچھلی امتوں کے طریقوں کی اندھی تقلید" 
+             class="featured-image">
+        
+        <!-- Control Buttons -->
+        <div class="controls-container">
+            <button class="control-btn back-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-right"></i> واپس جائیں
+            </button>
+            <button class="control-btn" onclick="scrollToTop()">
+                <i class="fas fa-arrow-up"></i> صفحے کے اوپر جائیں
+            </button>
+            <button class="control-btn" onclick="scrollToBottom()">
+                <i class="fas fa-arrow-down"></i> صفحے کے نیچے جائیں
+            </button>
+        </div>
+    </div>
+    
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn up-btn" onclick="scrollToTop()">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="floating-btn down-btn" onclick="scrollToBottom()">
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
-
+    
+    <!-- Main Content -->
     <div class="post-content">
+        <p>آپ ﷺ نے اپنی امت کو قیامت کی بہت ساری نشانیاں بتائیں تاکہ لوگ ان کو جان کر اپنے آپ کو ان سے دور رکھ سکیں اور اپنے ایمان کی حفاظت کر سکیں۔ ان بہت ساری نشانیوں میں سے ایک نشانی یہ بھی ہے کہ لوگ پچھلی امتوں کے طور طریقوں کی اندھی تقلید کریں گے یعنی ہر وہ حرکت جو حرام کی گئی ہے وہ اس کو اپنا لیں گے۔</p>
         
-        <h1>پچھلی امتوں کے طریقوں کی اندھی تقلید اور معاشرتی تباہ کاریاں</h1>
-<p>آپ ﷺ نے اپنی امت کو قیامت کی بہت ساری نشانیاں بتائیں تاکہ لوگ ان کو جان کر اپنے آپ کو ان سے دور رکھ سکیں اور اپنے ایمان کی حفاظت کر سکیں۔ ان بہت ساری نشانیوں میں سے ایک نشانی یہ بھی ہے کہ لوگ پچھلی امتوں کے طور طریقوں کی اندھی تقلید کریں گے یعنی ہر وہ حرکت جو حرام کی گئی ہے وہ اس کو اپنا لیں گے۔</p>
-<p>آج امت مسلمہ ایک سے بڑھ کر ایک بڑے فتنے میں مبتلا ہوچکی ہے اور اسے اس کی بالکل خبر نہیں ہے کہ وہ اس طرح جکڑا جا چکا ہے۔ ان میں سب سے بڑا فتنہ اندھی تقلید اور عیسائیوں اور یہودیوں یا دیگر کفار کے اخلاق و عادات کی شرمناک، قابل نفرت مشابہت اختیار کرنا ہے۔</p>
-<p>اور ہم امت مسلمہ نعرہ کیا لگاتے ہیں کہ ہم بہت ماڈرن، ترقی پسند امت ہیں ہمیں دور جدید کے ساتھ ساتھ چلنا سیکھنا چاہیے۔ آؤ دیکھتے ہیں کہ اللہ رب العزت ہم سے کیا کلام کر رہے ہیں۔</p>
-<p>&quot;کیا آپ نے ان لوگوں کو نہیں دیکھا جنہیں کتاب کا کچھ حصہ دیا گیا، وہ بتوں اور شیطان کو مانتے ہیں اور کافروں کے متعلق کہتے ہیں کہ یہ لوگ ایمان لانے والوں سے زیادہ صحیح راستہ پر ہیں&quot;۔</p>
-<p>پھر ارشاد فرمایا: &quot;(اے محمد ﷺ) آپ ان لوگوں سے کہہ دیں، کیا تمھیں ان لوگوں کی نشان دہی کر دوں جن کا انجام اللہ کے ہاں، فاسقوں کے انجام سے بھی بدتر ہے؟ وہ لوگ جن پر اللہ نے لعنت کی اور ان پر اللہ کا غضب ہوا اور ان میں سے بعض کو بندر اور خنزیر بنا دیا اور جنہوں نے طاغوت کی بندگی کی&quot;۔</p>
-<p>سورۃ الکہف میں اللہ تعالیٰ نے ان لوگوں کا نقشہ کچھ اس طرح سے بیان فرمایا ہے: &quot;اور ان کے سرکردہ لوگوں نے کہا ہم تو ان کی غار پر ضرور مسجد (عبادت گاہ) بنائیں گے (یعنی قبر پرستی)&quot;۔</p>
-<p>اللہ کے نبی حضرت محمد ﷺ نے اس بات کی خبر دی ہے کہ میری امت کا ایک گروہ سابقہ گمراہ امتوں یہود ونصاریٰ کی عادات و روایات کی تقلید کرے گا۔</p>
-<p>حضرت ابوہریرہ رضی اللہ عنہ بیان کرتے ہیں کہ رسول اللہ ﷺ نے فرمایا: &quot;قیامت اس وقت تک قائم نہ ہو گی جب تک میری امت پہلے لوگوں کے راستے پر من وعن قدم بقدم نہ چلنے لگے&quot;۔</p>
-<p>عرض کیا گیا: یا رسول اللہ! کیا پہلے لوگوں سے آپ کی مراد فارس و روم ہیں؟ آپ ﷺ نے فرمایا: &quot;تو اور کون!&quot;۔</p>
-<p>جن چیزوں سے اللہ کے نبی ﷺ نے اپنی امت کو ڈرایا تھا پہلے سے متنبہ کردیا ان میں سے زیادہ تر نشانیاں واقع ہو چکی ہیں اور جو رہ گئی ہیں وہ بھی یقیناً اپنے مقررہ وقت پر ضرور واقع ہوں گی۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: &quot;تم لوگ اپنے سے پہلے لوگوں کے طریقوں کی اس طرح پوری پوری پیروی کروگے جس طرح بالشت بالشت کے اور ہاتھ ہاتھ کے برابر ہوتا ہے، حتی کہ اگر وہ سانڈے کی بل میں داخل ہوئے تو تم بھی ضرور ان کی پیروی کروگے&quot;۔</p>
-<p>ہم نے عرض کی: یا رسول اللہ! کیا آپ کی مراد یہود و نصاریٰ سے ہے؟ آپ ﷺ نے فرمایا: &quot;تو اور کون؟&quot;۔</p>
-<p>بعض جگہ کچھ یوں بھی بیان کئے گئے ہیں: &quot;تم پہلی امتوں کے راستوں کی پیروی کرتے ہوئے یوں ان کی برابری کرو گے جیسے تیر کا ایک پر دوسرے پر کے برابر ہوتا ہے۔ یہاں تک کہ اگر وہ ضب (سانڈے) کے بل میں گھسے تو تم بھی جا گھسوگے&quot;۔</p>
-<p>صحابہ کرام نے عرض کیا: اے اللہ کے رسول! آپ کی مراد یہود و نصاری ہیں؟ آپ نے فرمایا: اور کون؟۔</p>
-<p>دوسری جگہ کچھ یوں ارشاد فرمایا: &quot;اللہ تعالی نے میرے لیے زمین کو اس حد تک سمیٹ اور سکیٹر دیا کہ میں نے اس کے مشرق و مغرب دیکھ لیے۔ میری امت کی حکومت وہاں تک پہنچے گی جہاں تک زمین مجھے سمیٹ کر دکھائی گئی۔ اور مجھے سفید (چاندی) اور سرخ (سونا) دو خزانے عطا کیے گئے۔ اور میں نے اپنی امت کے لیے اپنے رب سے دعا کی کہ وہ عام قحط سالی سے اسے ہلاک نہ کرے۔ اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہ کرے جو انہیں تباہ کرکے رکھ دے۔ میرے رب نے فرمایا: اے محمد (ﷺ) جب میں کوئی فیصلہ کردیتا ہوں تو اسے ٹالا نہیں جاسکتا۔ میں آپ کی امت کے بارے میں آپ کی یہ دعا قبول کرتا ہوں کہ میں انہیں عام قحط سالی سے ہلاک نہیں کروں گا اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہیں کروں گا، جو انھیں تباہ کرکے رکھ دے اگرچہ سارے دشمن ان کے خلاف متحد اور مجتمع کیوں نہ ہو جائیں۔ البتہ یہ خود آپس میں ایک دوسرے کو ہلاک کریں گے اور ایک دوسرے کو قیدی بھی بنائیں گے&quot;۔</p>
-<p>علماء کرام اس حدیث کی شرح میں فرماتے ہیں کہ بالشت، ہاتھ، تیر کے پر اور سانڈے کے بل کی تشبیہ ان اقوام کی مکمل اقتدا اور اندھی تقلید کو واضح کرنے کے لیے دی گئی ہے۔</p>
-<p>اندھی پیروی/تقلید سے مراد یہ ہے کہ ان کے لباس و عادات اور معاشرتی رسم ورواج، مثلاً: بے حیائی کے کام، مخلوط مردوزن اور بے پردگی وغیرہ کی تقلید کی جائے، یا ان کے اس اقتصادی نظام کی پیروی کی جائے جو ہمارے دین کی تعلیمات کے خلاف ہو، جیسے سودی لین دین، زنا بے حیائی، شراب، جوا، خنزیر وغیرہ کا استعمال کرنا، قبر پرستی، غیر اللہ کے نام نذر و نیاز دینا، منتیں و مرادیں مانگنا، قرآن و احادیث کے خلاف جانا، انبیا اور کتب کا جھٹلانا، چڑھاوے چڑھانا، توہمات پرستی، بدشگونی لینا، قومیت پر فخر کرنا، چھوت چھات، جھوٹ بولنا، ایک کو اعلیٰ اور دوسرے گھٹیا سمجھنا، حرام چیزوں کا استعمال کرنا، کالا جادو، تعویز گنڈے، اور دیگر مالی معاملات وغیرہ وغیرہ۔</p>
-<p>ان احادیث کی روشنی میں یہود ونصاریٰ کی وہ اندھی پیروی/تقلید کی شدید مذمت کی گئی ہے۔ ان احادیث کی روشنی میں یہ بات روز روشن کی طرح عیاں ہے ان میں کوئی چیز/کوئی کام ایسا نہیں چھوڑا گیا جو ہمارے دین کے خلاف نہ ہوں۔</p>
-
+        <p>آج امت مسلمہ ایک سے بڑھ کر ایک بڑے فتنے میں مبتلا ہوچکی ہے اور اسے اس کی بالکل خبر نہیں ہے کہ وہ اس طرح جکڑا جا چکا ہے۔ ان میں سب سے بڑا فتنہ اندھی تقلید اور عیسائیوں اور یہودیوں یا دیگر کفار کے اخلاق و عادات کی شرمناک، قابل نفرت مشابہت اختیار کرنا ہے۔</p>
+        
+        <div class="quote">
+            <p>اور ہم امت مسلمہ نعرہ کیا لگاتے ہیں کہ ہم بہت ماڈرن، ترقی پسند امت ہیں ہمیں دور جدید کے ساتھ ساتھ چلنا سیکھنا چاہیے۔ آؤ دیکھتے ہیں کہ اللہ رب العزت ہم سے کیا کلام کر رہے ہیں۔</p>
+        </div>
+        
+        <p>"کیا آپ نے ان لوگوں کو نہیں دیکھا جنہیں کتاب کا کچھ حصہ دیا گیا، وہ بتوں اور شیطان کو مانتے ہیں اور کافروں کے متعلق کہتے ہیں کہ یہ لوگ ایمان لانے والوں سے زیادہ صحیح راستہ پر ہیں"۔</p>
+        
+        <p>پھر ارشاد فرمایا: "(اے محمد ﷺ) آپ ان لوگوں سے کہہ دیں، کیا تمھیں ان لوگوں کی نشان دہی کر دوں جن کا انجام اللہ کے ہاں، فاسقوں کے انجام سے بھی بدتر ہے؟ وہ لوگ جن پر اللہ نے لعنت کی اور ان پر اللہ کا غضب ہوا اور ان میں سے بعض کو بندر اور خنزیر بنا دیا اور جنہوں نے طاغوت کی بندگی کی"۔</p>
+        
+        <p>سورۃ الکہف میں اللہ تعالیٰ نے ان لوگوں کا نقشہ کچھ اس طرح سے بیان فرمایا ہے: "اور ان کے سرکردہ لوگوں نے کہا ہم تو ان کی غار پر ضرور مسجد (عبادت گاہ) بنائیں گے (یعنی قبر پرستی)"۔</p>
+        
+        <p>اللہ کے نبی حضرت محمد ﷺ نے اس بات کی خبر دی ہے کہ میری امت کا ایک گروہ سابقہ گمراہ امتوں یہود ونصاریٰ کی عادات و روایات کی تقلید کرے گا۔</p>
+        
+        <div class="quote">
+            <p>حضرت ابوہریرہ رضی اللہ عنہ بیان کرتے ہیں کہ رسول اللہ ﷺ نے فرمایا: "قیامت اس وقت تک قائم نہ ہو گی جب تک میری امت پہلے لوگوں کے راستے پر من وعن قدم بقدم نہ چلنے لگے"۔</p>
+        </div>
+        
+        <p>عرض کیا گیا: یا رسول اللہ! کیا پہلے لوگوں سے آپ کی مراد فارس و روم ہیں؟ آپ ﷺ نے فرمایا: "تو اور کون!"۔</p>
+        
+        <p>جن چیزوں سے اللہ کے نبی ﷺ نے اپنی امت کو ڈرایا تھا پہلے سے متنبہ کردیا ان میں سے زیادہ تر نشانیاں واقع ہو چکی ہیں اور جو رہ گئی ہیں وہ بھی یقیناً اپنے مقررہ وقت پر ضرور واقع ہوں گی۔</p>
+        
+        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "تم لوگ اپنے سے پہلے لوگوں کے طریقوں کی اس طرح پوری پوری پیروی کروگے جس طرح بالشت بالشت کے اور ہاتھ ہاتھ کے برابر ہوتا ہے، حتی کہ اگر وہ سانڈے کی بل میں داخل ہوئے تو تم بھی ضرور ان کی پیروی کروگے"۔</p>
+        
+        <p>ہم نے عرض کی: یا رسول اللہ! کیا آپ کی مراد یہود و نصاریٰ سے ہے؟ آپ ﷺ نے فرمایا: "تو اور کون؟"۔</p>
+        
+        <p>بعض جگہ کچھ یوں بھی بیان کئے گئے ہیں: "تم پہلی امتوں کے راستوں کی پیروی کرتے ہوئے یوں ان کی برابری کرو گے جیسے تیر کا ایک پر دوسرے پر کے برابر ہوتا ہے۔ یہاں تک کہ اگر وہ ضب (سانڈے) کے بل میں گھسے تو تم بھی جا گھسوگے"۔</p>
+        
+        <p>صحابہ کرام نے عرض کیا: اے اللہ کے رسول! آپ کی مراد یہود و نصاری ہیں؟ آپ نے فرمایا: اور کون؟۔</p>
+        
+        <p>دوسری جگہ کچھ یوں ارشاد فرمایا: "اللہ تعالی نے میرے لیے زمین کو اس حد تک سمیٹ اور سکیٹر دیا کہ میں نے اس کے مشرق و مغرب دیکھ لیے۔ میری امت کی حکومت وہاں تک پہنچے گی جہاں تک زمین مجھے سمیٹ کر دکھائی گئی۔ اور مجھے سفید (چاندی) اور سرخ (سونا) دو خزانے عطا کیے گئے۔ اور میں نے اپنی امت کے لیے اپنے رب سے دعا کی کہ وہ عام قحط سالی سے اسے ہلاک نہ کرے۔ اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہ کرے جو انہیں تباہ کرکے رکھ دے۔ میرے رب نے فرمایا: اے محمد (ﷺ) جب میں کوئی فیصلہ کردیتا ہوں تو اسے ٹالا نہیں جاسکتا۔ میں آپ کی امت کے بارے میں آپ کی یہ دعا قبول کرتا ہوں کہ میں انہیں عام قحط سالی سے ہلاک نہیں کروں گا اور ان پر کوئی ایسا بیرونی دشمن بھی مسلط نہیں کروں گا، جو انھیں تباہ کرکے رکھ دے اگرچہ سارے دشمن ان کے خلاف متحد اور مجتمع کیوں نہ ہو جائیں۔ البتہ یہ خود آپس میں ایک دوسرے کو ہلاک کریں گے اور ایک دوسرے کو قیدی بھی بنائیں گے"۔</p>
+        
+        <p>علماء کرام اس حدیث کی شرح میں فرماتے ہیں کہ بالشت، ہاتھ، تیر کے پر اور سانڈے کے بل کی تشبیہ ان اقوام کی مکمل اقتدا اور اندھی تقلید کو واضح کرنے کے لیے دی گئی ہے۔</p>
+        
+        <p>اندھی پیروی/تقلید سے مراد یہ ہے کہ ان کے لباس و عادات اور معاشرتی رسم ورواج، مثلاً: بے حیائی کے کام، مخلوط مردوزن اور بے پردگی وغیرہ کی تقلید کی جائے، یا ان کے اس اقتصادی نظام کی پیروی کی جائے جو ہمارے دین کی تعلیمات کے خلاف ہو، جیسے سودی لین دین، زنا بے حیائی، شراب، جوا، خنزیر وغیرہ کا استعمال کرنا، قبر پرستی، غیر اللہ کے نام نذر و نیاز دینا، منتیں و مرادیں مانگنا، قرآن و احادیث کے خلاف جانا، انبیا اور کتب کا جھٹلانا، چڑھاوے چڑھانا، توہمات پرستی، بدشگونی لینا، قومیت پر فخر کرنا، چھوت چھات، جھوٹ بولنا، ایک کو اعلیٰ اور دوسرے گھٹیا سمجھنا، حرام چیزوں کا استعمال کرنا، کالا جادو، تعویز گنڈے، اور دیگر مالی معاملات وغیرہ وغیرہ۔</p>
+        
+        <div class="quote">
+            <p>ان احادیث کی روشنی میں یہود ونصاریٰ کی وہ اندھی پیروی/تقلید کی شدید مذمت کی گئی ہے۔ ان احادیث کی روشنی میں یہ بات روز روشن کی طرح عیاں ہے ان میں کوئی چیز/کوئی کام ایسا نہیں چھوڑا گیا جو ہمارے دین کے خلاف نہ ہوں۔</p>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2023 تمام حقوق محفوظ ہیں۔ یہ مضمون تعلیمی مقاصد کے لیے شائع کیا گیا ہے۔</p>
     </div>
-
+    
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create spring animation elements
+        function createSpringElements() {
+            const container = document.getElementById('springElements');
+            const elementsCount = 20;
+            
+            for (let i = 0; i < elementsCount; i++) {
+                const element = document.createElement('div');
+                const size = Math.random() * 30 + 15;
+                const type = Math.random();
+                
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.right = `${Math.random() * 100}vw`;
+                element.style.top = `${Math.random() * 100}vh`;
+                
+                if (type < 0.33) {
+                    element.classList.add('spring-element', 'spring-leaf');
+                } else if (type < 0.66) {
+                    element.classList.add('spring-element', 'spring-flower');
+                } else {
+                    element.classList.add('spring-element', 'spring-petal');
+                }
+                
+                // Random animation duration
+                const animationDuration = Math.random() * 30 + 15;
+                element.style.animationDuration = `${animationDuration}s`;
+                
+                // Random delay
+                const animationDelay = Math.random() * 5;
+                element.style.animationDelay = `${animationDelay}s`;
+                
+                container.appendChild(element);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Scroll functions
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Add hover effect to paragraphs
+        document.addEventListener('DOMContentLoaded', function() {
+            createSpringElements();
+            
+            // Add hover effect to paragraphs
+            const paragraphs = document.querySelectorAll('.post-content p');
+            paragraphs.forEach(p => {
+                p.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                    this.style.paddingRight = '15px';
+                    this.style.backgroundColor = 'rgba(139, 195, 74, 0.05)';
+                    this.style.borderRadius = '8px';
+                });
+                
+                p.addEventListener('mouseleave', function() {
+                    this.style.paddingRight = '5px';
+                    this.style.backgroundColor = '';
+                });
+            });
+            
+            // Add hover effect to headings
+            const headings = document.querySelectorAll('h1, h2, h3');
+            headings.forEach(h => {
+                h.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                h.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+            
+            // Add spring color animation to control buttons on hover
+            const controlBtns = document.querySelectorAll('.control-btn');
+            controlBtns.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    const colors = [
+                        'linear-gradient(45deg, #4CAF50, #8BC34A, #FFEB3B, #E91E63, #03A9F4, #9C27B0)',
+                        'linear-gradient(45deg, #E91E63, #9C27B0, #4CAF50, #03A9F4, #FFEB3B, #8BC34A)',
+                        'linear-gradient(45deg, #03A9F4, #4CAF50, #E91E63, #FFEB3B, #9C27B0, #8BC34A)'
+                    ];
+                    
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    this.style.background = randomColor;
+                    this.style.backgroundSize = '400% 400%';
+                    
+                    // Animate gradient
+                    let position = 0;
+                    const animateGradient = () => {
+                        position = (position + 1) % 100;
+                        this.style.backgroundPosition = `${position}% 50%`;
+                        if (this.matches(':hover')) {
+                            requestAnimationFrame(animateGradient);
+                        }
+                    };
+                    animateGradient();
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    // Reset to original color after a delay
+                    setTimeout(() => {
+                        if (!this.matches(':hover')) {
+                            this.style.background = '';
+                            this.style.backgroundSize = '';
+                            this.style.backgroundPosition = '';
+                        }
+                    }, 300);
+                });
+            });
+        });
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Up arrow for scroll to top
+            if (e.key === 'ArrowUp' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                scrollToTop();
+            }
+            
+            // Down arrow for scroll to bottom
+            if (e.key === 'ArrowDown' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                scrollToBottom();
+            }
+            
+            // Escape for back
+            if (e.key === 'Escape') {
+                window.history.back();
+            }
+        });
     </script>
 </body>
 </html>
