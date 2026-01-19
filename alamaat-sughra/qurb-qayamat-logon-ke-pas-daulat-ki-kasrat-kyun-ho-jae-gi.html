@@ -7,70 +7,284 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+
+        /* === بنیادی اسٹائلز === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            margin: 0;
+            padding: 0;
+            background: #0b0f1f;
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* === متحرک سَن سیٹ بیک گراؤنڈ === */
+        .sunset-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.85;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+            overflow: hidden;
+        }
+        .sun {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, #ff9a00, #ff5e00, #ff0000);
+            border-radius: 50%;
+            box-shadow: 0 0 80px 40px rgba(255, 94, 0, 0.7), 0 0 200px 100px rgba(255, 0, 0, 0.3);
+            animation: sunsetGlow 8s ease-in-out infinite alternate;
+        }
+        .sun-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: rgba(255, 154, 0, 0.6);
+            border-right-color: rgba(255, 94, 0, 0.4);
+            border-bottom-color: rgba(255, 0, 0, 0.3);
+            border-left-color: rgba(255, 94, 0, 0.5);
+            animation: rotateRays 20s linear infinite;
+        }
+        @keyframes sunsetGlow {
+            0% { box-shadow: 0 0 80px 40px rgba(255, 94, 0, 0.7), 0 0 200px 100px rgba(255, 0, 0, 0.3); }
+            100% { box-shadow: 0 0 100px 50px rgba(255, 154, 0, 0.8), 0 0 250px 120px rgba(255, 94, 0, 0.4); }
+        }
+        @keyframes rotateRays {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* === مضمون کا کنٹینر === */
+        .post-container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+        .post-container:hover {
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* === ہیڈنگز === */
+        h1 {
+            color: #ffcc00;
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid rgba(255, 204, 0, 0.4);
+            text-shadow: 0 3px 10px rgba(255, 204, 0, 0.5);
+        }
+        h2, h3 {
+            color: #4ecdc4;
+            border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+            padding-bottom: 12px;
+            margin-top: 35px;
+            font-size: 2rem;
+        }
+
+        /* === پیراگراف === */
+        p {
+            font-size: 1.45rem;
+            margin-bottom: 25px;
+            color: #e6e6e6;
+            text-align: justify;
+            line-height: 2.4;
+        }
+
+        /* === تصویر === */
+        .featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px solid rgba(255, 204, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .featured-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 40px rgba(255, 204, 0, 0.2);
+        }
+
+        /* === کنٹرول بٹنز (بیک، اوپر، نیچے) === */
+        .control-buttons {
+            position: fixed;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .control-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff9a00, #ff5e00);
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 94, 0, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .control-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 25px rgba(255, 94, 0, 0.6);
+            background: linear-gradient(135deg, #ffcc00, #ff9a00);
+        }
+        #backBtn {
+            background: linear-gradient(135deg, #4a90e2, #2ecc71);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
+        }
+        #backBtn:hover {
+            background: linear-gradient(135deg, #2ecc71, #4a90e2);
+            box-shadow: 0 12px 25px rgba(74, 144, 226, 0.6);
+        }
+
+        /* === موبائل ریسپانسیو === */
+        @media (max-width: 992px) {
+            .post-container {
+                margin: 20px;
+                padding: 30px;
+                border-radius: 25px;
+            }
+            h1 { font-size: 2.4rem; }
+            h2, h3 { font-size: 1.8rem; }
+            p { font-size: 1.35rem; }
+        }
+        @media (max-width: 768px) {
+            .control-buttons {
+                left: 15px;
+                gap: 10px;
+            }
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            .sun {
+                width: 140px;
+                height: 140px;
+            }
+            .sun-rays {
+                width: 240px;
+                height: 240px;
+            }
+            h1 { font-size: 2rem; }
+            p { font-size: 1.25rem; line-height: 2.2; }
+        }
+        @media (max-width: 480px) {
+            .post-container {
+                margin: 15px;
+                padding: 25px;
+            }
+            .control-buttons {
+                left: 10px;
+                bottom: 20px;
+                top: auto;
+                transform: none;
+                flex-direction: row;
+            }
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1.15rem; }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+
+    <!-- متحرک سَن سیٹ بیک گراؤنڈ -->
+    <div class="sunset-bg">
+        <div class="sun"></div>
+        <div class="sun-rays"></div>
     </div>
 
-    <div class="post-content">
-        
+    <!-- کنٹرول بٹنز -->
+    <div class="control-buttons">
+        <button class="control-btn" id="backBtn" onclick="window.history.back()" title="واپس جائیں">←</button>
+        <button class="control-btn" id="upBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">↑</button>
+        <button class="control-btn" id="downBtn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="نیچے جائیں">↓</button>
+    </div>
+
+    <!-- مضمون کا مرکزی حصہ -->
+    <div class="post-container">
         <h1>قرب قیامت لوگوں کے پاس دولت کی کثرت کیوں ہو جائے گی؟</h1>
-<p>دوستو! اسلامی تاریخ کی کتب کا مطالعہ کیا جائے تو یہ بات روزِ روشن کی طرح عیاں ہے کہ مسلمانوں نے اسلام کے ابتدائی سال اللہ کے نبی ﷺ کے رفاقت میں بھی اور بعد میں بھی اس حال میں بسر کیے کہ ان کی زندگی بہت تنگ دستی اور سخت فقر و فاقہ کی تھی۔ یہاں تک کہ ایک کے بعد دوسرا مہینہ بھی گزر جاتا اور اللہ کے رسول ﷺ کے گھر چولہے میں آگ نہ جلتی۔ ان کا گزارا محض دو چیزوں پر نیم اور کھجور پر ہوتا تھا۔</p>
-<p>آپ ﷺ اپنے پیارے ساتھیوں سے فرمایا کرتے تھے کہ عنقریب حالات بدل جائیں گے اور قیامت کی نشانیوں میں سے یہ ہے کہ دولت کی ریل پیل ہو جائے گی۔ آپ ﷺ نے فرمایا کہ مال و متاع کی اس قدر کثرت ہو جائے گی کہ ایک شخص اپنی زکوٰۃ لے کر ایک مہینے تک پھرتا رہے گا مگر اسے کوئی مستحق نہیں ملے گا، اس لیے کہ لوگ اس سے بہت <a href="https://www.bloglovers.pk/2023/11/blog-post_85.html">مستغنی ہوں گے</a>۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے فرمایا &quot;قیامت اس وقت تک ہرگز قائم نہ ہو گی جبتک کہ تم میں مال کی کثرت نہ ہو جائے گی۔ مال کی ریل پیل اس قدر ہو جائے گی کہ مال والے کو یہ پریشانی لاحق ہو گی کہ اس کا صدقہ کون قبول کرے گا؟ وہ ایک شخص کو اپنا مال پیش کرے گا مگر وہ شخص کہے گا: مجھے اس کی کوئی ضرورت نہیں۔&quot;</p>
-<p>ایک اور مقام پر آپ ﷺ نے کچھ یوں ارشاد فرمایا &quot;لوگوں پر ایک ایسا زمانہ بھی آئے گا جب ایک شخص اپنے صدق کا سونا لے کر گھومے گا کہ کوئی لینے والا حاجت مند مل جائے مگر اسے کوئی ایسا شخص نہیں ملے گا جو یہ مال لینے کو تیار ہو۔</p>
-<p>اہل علم کے مطابق بعض کا یہ خیال ہے کہ یہ علامت صحابہ کرام کے زمانے میں واقع ہو چکی ہے جب انھیں بڑی بڑی فتوحات حاصل ہوئیں اور فارس و روم کی غنیمتیں ان کے پاس آئی تھیں۔ اس کے بعد پھر حضرت عمر بن عبدالعزیز کے دورِ حکومت میں مال کی اس قدر فراوانی ہو گئی کہ ایک شخص اپنا صدقہ پیش کرتا مگر کوئی ایسا شخص اسے نہ ملتا جو اس سے یہ مال قبول کر لیتا۔ یہاں تک کہ ایک شخص کسی کو بظاہر محتاج سمجھ کر اس کو مال پیش کرتا مگر وہ کہتا مجھے اس مال کی کوئی حاجت نہیں۔</p>
-<p>اور بعض مکتبہ فکر کا یہ خیال کہ یہ علامت آخری زمانے میں واقع ہو گی اور آپ ﷺ کا اشارہ درحقیقت ظہور مہدی کے زمانے کی طرف ہے۔ اس دور میں مہدی لوگوں میں جھولیاں بھر بھر کر گنے بغیر مال تقسیم کریں گے، اس لیے کہ مال کی کثرت اور فراوانی ہو گی۔ زمین برکتوں سے معدنیات اگلے گی یہاں تک کہ اس کے پیٹ سے سونے اور چاندی کے ذخائر برآمد ہوں گے۔</p>
-<p>ایک اور روایت کے مطابق آپ ﷺ کا فرمان ہے کہ &quot;میری امت کے آخری زمانے میں ایک ایسا خلیفہ ہو گا جو لوگوں کو دونوں ہاتھ بھر بھر کر مال عطا کرے گا اور اسے گنے گا نہیں۔ صحابہ رسول ﷺ نے عرض کیا آپ کا کیا خیال ہے؟ وہ خلیفہ عمر بن عبدالعزیز تو نہیں؟ انھوں نے کہا: نہیں۔&quot;</p>
-<p>اگر ان روایات کا بخوبی مطالعہ کریں اور معاشرے میں جائزہ لیں تو ہمیں ہر شخص اپنی خواہشات کی تکمیل کے لیے سرگرم دکھائی دیتا ہے۔ دولت کا حصول ہر جائز و ناجائز ذرائع کا استعمال، زیادتی، ڈکیتی، قتل و غارت، اور نہ جانے کتنے گھناؤنے اور مکروہ ارادے دکھائی دیتے ہیں۔</p>
-<p>اس دولت کی خاطر انسان کا خون سفید ہو چکا ہے، اپنے سوا کچھ دکھائی نہیں دیتا، رشتے ناطے، دوست احباب سببے نام ہو کر رہ گئے ہیں۔ حتی کہ دین سے اس قدر دوری ہو گئی ہے کہ گویا زنا، شراب، رقص و سرود کی محفلوں میں بے دریغ دولت ضائع کی جاتی ہے جبکہ حقدار کو حق دینے سے ہمکراتے ہیں۔</p>
-<p>آج بھی ہمارے معاشرے میں لوگوں کے پاس بے شمار دولت ہے جبکہ عوام بوند بوند کو ترس رہی ہے۔ سسک سسک کر زندگی گزارنے والے اپنی نگاہیں آسمان پر گاڑے ہوئے ہیں کہ شاید کہیں سے کوئی مدد آ جائے اور وہ اپنی جائز خواہشات کی تکمیل کر سکیں۔</p>
-<p>دولت ایک فتنہ ہے یہ اللہ رب العزت کی طرف سے ایک آزمائش ہے لوگ اس آزمائش پر کتنا کھرا اترتے ہیں یہ اللہ کی ذاتا قدس بہتر جانتی ہے کیونکہ دلوں کے حال اللہ پاک ہی جانتے ہیں۔</p>
 
-    </div>
+        <!-- فیچرڈ تصویر -->
+        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-logon-ke-pas-daulat-ki-kasrat-kyun-ho-jae-gi.png" alt="قرب قیامت لوگوں کے پاس دولت کی کثرت کیوں ہو جائے گی؟" class="featured-image">
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <p>دوستو! اسلامی تاریخ کی کتب کا مطالعہ کیا جائے تو یہ بات روزِ روشن کی طرح عیاں ہے کہ مسلمانوں نے اسلام کے ابتدائی سال اللہ کے نبی ﷺ کے رفاقت میں بھی اور بعد میں بھی اس حال میں بسر کیے کہ ان کی زندگی بہت تنگ دستی اور سخت فقر و فاقہ کی تھی۔ یہاں تک کہ ایک کے بعد دوسرا مہینہ بھی گزر جاتا اور اللہ کے رسول ﷺ کے گھر چولہے میں آگ نہ جلتی۔ ان کا گزارا محض دو چیزوں پر نیم اور کھجور پر ہوتا تھا۔</p>
+        <p>آپ ﷺ اپنے پیارے ساتھیوں سے فرمایا کرتے تھے کہ عنقریب حالات بدل جائیں گے اور قیامت کی نشانیوں میں سے یہ ہے کہ دولت کی ریل پیل ہو جائے گی۔ آپ ﷺ نے فرمایا کہ مال و متاع کی اس قدر کثرت ہو جائے گی کہ ایک شخص اپنی زکوٰۃ لے کر ایک مہینے تک پھرتا رہے گا مگر اسے کوئی مستحق نہیں ملے گا، اس لیے کہ لوگ اس سے بہت مستغنی ہوں گے۔</p>
+        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "قیامت اس وقت تک ہرگز قائم نہ ہو گی جبتک کہ تم میں مال کی کثرت نہ ہو جائے گی۔ مال کی ریل پیل اس قدر ہو جائے گی کہ مال والے کو یہ پریشانی لاحق ہو گی کہ اس کا صدقہ کون قبول کرے گا؟ وہ ایک شخص کو اپنا مال پیش کرے گا مگر وہ شخص کہے گا: مجھے اس کی کوئی ضرورت نہیں۔"</p>
+        <p>ایک اور مقام پر آپ ﷺ نے کچھ یوں ارشاد فرمایا "لوگوں پر ایک ایسا زمانہ بھی آئے گا جب ایک شخص اپنے صدق کا سونا لے کر گھومے گا کہ کوئی لینے والا حاجت مند مل جائے مگر اسے کوئی ایسا شخص نہیں ملے گا جو یہ مال لینے کو تیار ہو۔</p>
+        <p>اہل علم کے مطابق بعض کا یہ خیال ہے کہ یہ علامت صحابہ کرام کے زمانے میں واقع ہو چکی ہے جب انھیں بڑی بڑی فتوحات حاصل ہوئیں اور فارس و روم کی غنیمتیں ان کے پاس آئی تھیں۔ اس کے بعد پھر حضرت عمر بن عبدالعزیز کے دورِ حکومت میں مال کی اس قدر فراوانی ہو گئی کہ ایک شخص اپنا صدقہ پیش کرتا مگر کوئی ایسا شخص اسے نہ ملتا جو اس سے یہ مال قبول کر لیتا۔ یہاں تک کہ ایک شخص کسی کو بظاہر محتاج سمجھ کر اس کو مال پیش کرتا مگر وہ کہتا مجھے اس مال کی کوئی حاجت نہیں۔</p>
+        <p>اور بعض مکتبہ فکر کا یہ خیال کہ یہ علامت آخری زمانے میں واقع ہو گی اور آپ ﷺ کا اشارہ درحقیقت ظہور مہدی کے زمانے کی طرف ہے۔ اس دور میں مہدی لوگوں میں جھولیاں بھر بھر کر گنے بغیر مال تقسیم کریں گے، اس لیے کہ مال کی کثرت اور فراوانی ہو گی۔ زمین برکتوں سے معدنیات اگلے گی یہاں تک کہ اس کے پیٹ سے سونے اور چاندی کے ذخائر برآمد ہوں گے۔</p>
+        <p>ایک اور روایت کے مطابق آپ ﷺ کا فرمان ہے کہ "میری امت کے آخری زمانے میں ایک ایسا خلیفہ ہو گا جو لوگوں کو دونوں ہاتھ بھر بھر کر مال عطا کرے گا اور اسے گنے گا نہیں۔ صحابہ رسول ﷺ نے عرض کیا آپ کا کیا خیال ہے؟ وہ خلیفہ عمر بن عبدالعزیز تو نہیں؟ انھوں نے کہا: نہیں۔"</p>
+        <p>اگر ان روایات کا بخوبی مطالعہ کریں اور معاشرے میں جائزہ لیں تو ہمیں ہر شخص اپنی خواہشات کی تکمیل کے لیے سرگرم دکھائی دیتا ہے۔ دولت کا حصول ہر جائز و ناجائز ذرائع کا استعمال، زیادتی، ڈکیتی، قتل و غارت، اور نہ جانے کتنے گھناؤنے اور مکروہ ارادے دکھائی دیتے ہیں۔</p>
+        <p>اس دولت کی خاطر انسان کا خون سفید ہو چکا ہے، اپنے سوا کچھ دکھائی نہیں دیتا، رشتے ناطے، دوست احباب سببے نام ہو کر رہ گئے ہیں۔ حتی کہ دین سے اس قدر دوری ہو گئی ہے کہ گویا زنا، شراب، رقص و سرود کی محفلوں میں بے دریغ دولت ضائع کی جاتی ہے جبکہ حقدار کو حق دینے سے ہمکراتے ہیں۔</p>
+        <p>آج بھی ہمارے معاشرے میں لوگوں کے پاس بے شمار دولت ہے جبکہ عوام بوند بوند کو ترس رہی ہے۔ سسک سسک کر زندگی گزارنے والے اپنی نگاہیں آسمان پر گاڑے ہوئے ہیں کہ شاید کہیں سے کوئی مدد آ جائے اور وہ اپنی جائز خواہشات کی تکمیل کر سکیں۔</p>
+        <p>دولت ایک فتنہ ہے یہ اللہ رب العزت کی طرف سے ایک آزمائش ہے لوگ اس آزمائش پر کتنا کھرا اترتے ہیں یہ اللہ کی ذاتا قدس بہتر جانتی ہے کیونکہ دلوں کے حال اللہ پاک ہی جانتے ہیں۔</p>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // بٹنوں پر ہور ایفیکٹس کے لیے اضافی انٹرایکشن
+        document.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.1)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // موبائل پر کنٹرول بٹنز کو زیادہ بہتر بنانے کے لیے
+        if (window.innerWidth <= 480) {
+            const controls = document.querySelector('.control-buttons');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    controls.style.opacity = '0.9';
+                } else {
+                    controls.style.opacity = '1';
+                }
+            });
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
     </script>
 </body>
 </html>
