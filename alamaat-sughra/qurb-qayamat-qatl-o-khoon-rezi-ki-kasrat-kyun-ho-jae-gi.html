@@ -5,90 +5,631 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قرب قیامت قتل وخوں ریزی کی کثرت کیوں ہو جائے گی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #0f0f23;
+            --darker: #0a0a1a;
+            --light: #f8f9fa;
+            --text: #e0e0ff;
+            --text-secondary: #b0b0d0;
+            --galaxy-blue: #1a1a2e;
+            --galaxy-purple: #4a1e6e;
+            --galaxy-pink: #9d4edd;
+            --galaxy-cyan: #00bbf9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 0;
+            background-color: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Galaxy Animated Background */
+        .galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 50%, var(--galaxy-blue) 100%);
+            overflow: hidden;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #eee, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: starsMove 50s linear infinite;
+        }
+        
+        @keyframes starsMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(-200px); }
+        }
+        
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            animation: nebulaFloat 20s ease-in-out infinite alternate;
+        }
+        
+        .nebula-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--galaxy-cyan);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .nebula-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--galaxy-pink);
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+        
+        .nebula-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--primary);
+            top: 50%;
+            right: 20%;
+            animation-delay: 10s;
+        }
+        
+        @keyframes nebulaFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, 30px) scale(1.1); }
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--galaxy-pink));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--galaxy-cyan), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .nav-btn i {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .back-btn a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--galaxy-pink));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.5);
+            background: linear-gradient(135deg, var(--galaxy-cyan), var(--accent));
+        }
+        
+        /* Main Content */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .post-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(15, 15, 35, 0.7);
+            border-radius: 20px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--galaxy-cyan), var(--galaxy-pink), var(--primary));
+        }
+        
+        h1 {
+            color: white;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(108, 92, 231, 0.5);
+            line-height: 1.4;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .post-image {
+            width: 100%;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(108, 92, 231, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .post-image:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(108, 92, 231, 0.4);
+            border-color: var(--galaxy-cyan);
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .post-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .post-content {
+            background: rgba(15, 15, 35, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), transparent);
+            border-radius: 0 0 0 100%;
+        }
+        
+        p, li {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: var(--text);
+            text-align: justify;
+            line-height: 2.2;
+        }
+        
+        h2, h3 {
+            color: var(--galaxy-cyan);
+            font-size: 2.2rem;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(108, 92, 231, 0.3);
+            text-shadow: 0 2px 5px rgba(0, 187, 249, 0.3);
+        }
+        
+        ul {
+            padding-right: 30px;
+            margin: 25px 0;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        li::before {
+            content: '✦';
+            color: var(--galaxy-cyan);
+            position: absolute;
+            right: -25px;
+            top: 0;
+        }
+        
+        /* Highlight Quotes */
+        .highlight {
+            background: rgba(108, 92, 231, 0.1);
+            border-right: 4px solid var(--galaxy-cyan);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 15px 15px 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .highlight:hover {
+            background: rgba(108, 92, 231, 0.15);
+            transform: translateX(-10px);
+        }
+        
+        .highlight::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 5rem;
+            color: rgba(108, 92, 231, 0.2);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(108, 92, 231, 0.2);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .back-btn a {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .main-container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.8rem;
+            }
+            
+            p, li {
+                font-size: 1.2rem;
+                line-height: 2;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .post-header, .post-content {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.5rem;
+            }
+            
+            p, li {
+                font-size: 1.1rem;
+            }
+            
+            .nav-buttons {
+                display: none;
+            }
+            
+            .back-btn {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .back-btn a span {
+                display: none;
+            }
+            
+            .back-btn a {
+                padding: 10px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                justify-content: center;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--galaxy-pink));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--galaxy-cyan), var(--accent));
+        }
+        
+        /* Animation for content */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .post-header, .post-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Galaxy Background -->
+    <div class="galaxy-bg">
+        <div class="stars"></div>
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        <div class="nebula nebula-3"></div>
+    </div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="نیچے جائیں">
+            <i class="fas fa-arrow-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- Back Button -->
+    <div class="back-btn">
+        <a href="#" onclick="history.back(); return false;">
+            <i class="fas fa-arrow-right"></i>
+            <span>واپس جائیں</span>
+        </a>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="post-header">
+            <h1>قرب قیامت قتل وخوں ریزی کی کثرت کیوں ہو جائے گی؟</h1>
+        </div>
         
-        <h1>قرب قیامت قتل وخوں ریزی کی کثرت کیوں ہو جائے گی؟</h1>
-<p>محترم قارئین کرام! ہم یہ بات اچھی طرح سے جانتے ہیں کہ اسلام میں قتل کو گناہ کبیرہ میں شمار کیا جاتا ہے اور اس گناہ کے بارے میں کئی جگہ قرآن اور احادیث میں بہت وضاحت سے بیان کیا گیا ہے۔</p>
-<p>چنانچہ ارشاد ربانی ہے &quot;جو کسی مومن کو جان بوجھ کر قتل کر ڈالے اس کی سزا جہنم ہے جس میں وہ ہمیشہ رہے گا، اس پر اللہ تعالیٰ کا غضب ہے، اور اس پر اللہ تعالیٰ نے لعنت کی ہے اور اس کے لیے بڑا عذاب تیار کر رکھا ہے&quot;۔</p>
-<p>پھر ایک جگہ ارشاد فرمایا &quot;جو شخص کسی کو بغیر اس کے کہ وہ کسی کا قاتل ہو یا زمین میں فساد مچانے والا ہو، قتل کر ڈالے تو گویا اس نے تمام لوگوں کو قتل کر دیا اور جس نے کسی ایک انسان کی زندگی بچائی گویا اس نے تمام لوگوں کو بچا لیا&quot;۔</p>
-<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiChICveB1MEk__JRizEPNlJTB2qoRByBJLqcyRl2hONmR8xj6zkVETzpK08ZJJujrVXF8xbL5ekb7KNXmjGrJ_DyyS2LyptJPaJvvD8Rs2F9aztfOpETe1yqtGIQVppiyj77uIRICnNAQ8H7uXCX9zWBJI3GPq1rttrOwht5dv3uf_B__nr6a15QelJNxn/s640/%D9%82%D8%B1%D8%A8%20%D9%82%DB%8C%D8%A7%D9%85%D8%AA%20%D9%82%D8%AA%D9%84%20%D9%88%D8%AE%D9%88%DA%BA%20%D8%B1%DB%8C%D8%B2%DB%8C%20%DA%A9%DB%8C%20%DA%A9%D8%AB%D8%B1%D8%AA%20%DA%A9%DB%8C%D9%88%DA%BA%20%DB%81%D9%88%20%D8%AC%D8%A7%D8%A6%DB%92%20%DA%AF%DB%8C%D8%9F.jpg" alt="قرب قیامت قتل وخوں ریزی کی کثرت کیوں ہو جائے گی؟"></p>
-<p>ارشاد نبوی ﷺ ہے &quot;سات ہلاک کر دینے والی اشیا سے بچو۔۔۔۔۔ پس آپ ﷺ نے (ان میں یہ بھی) ذکر کیا اس جان کو قتل کر دینا جسے اللہ تعالیٰ نے حرام کیا ہے&quot;۔</p>
-<p>ایک اور جگہ ارشاد فرمایا &quot;میرے بعد کفر کی حالت میں مت لوٹ جانا کہ ایک دوسرے کی گردنیں مارنے لگو&quot;۔</p>
-<p>یہی بات دوسری جگہ اس طرح ارشاد فرمائی &quot;اللہ کے نزدیک ایک مومن کا قتل دنیا کے زائل/برباد ہو جانے سے زیادہ بڑا ہے&quot;۔</p>
-<p>اہل دانش فرماتے ہیں کہ ’’بے شک دونوں عذاب (عذابِ جہنم اور عذاب حریق) آخرت میں واقع ہوں گے، مگر فرق یہ ہے کہ عذابِ جہنم ان کے کفر کے سبب ہوگا، اور عذابِ حریق عذابِ کفر پر وہ زائد عذاب ہے جو انہیں مسلمانوں کو جلانے کے سبب ملے گا۔‘‘</p>
-<p>اس بات کو صاحبِ جلالین بھی کچھ اس طرح بیان فرماتے ہیں کہ &quot;’’یعنی وہ لوگ جنہوں نے مومن مرد و زن کو آگ میں جلا کر اذیت میں مبتلا کیا، پھر توبہ بھی نہ کی تو ان کے لیے ان کے کفر کی وجہ سے مومنین کو جلانے کی پاداش میں عذابِ حریق (جلائے جانے کا عذاب) ہوگا۔‘‘</p>
-<p>جہاں نبوت والی زبان نے قیامت کی بہت ساری نشانیاں بیان کیں ہیں وہاں اس نشانی کے بارے میں بھی ضرور ارشاد فرمایا ہے &quot;کہ قتل و غارت اور خونریزی کی اس قدر کثرت ہو جائے گی کہ ایک وقت آئے گا کہ نہ قتل کرنے والے کو علم ہو گا کہ وہ کیوں قتل کر رہا ہے اور نہ ہی قتل ہونے والے کو علم ہو گا کہ اسے کس پاداش میں قتل کیا جا رہا ہے&quot;۔</p>
-<p>رسول ﷺ نے فرمایا &quot;اس رب کعبہ کی قسم جس کے ہاتھ میں میری جان ہے! یہ دنیا ختم نہ ہوگی جب تک ایسا دن نہ آ جائے کہ جب نہ مارنے والے کو علم ہو گا کہ وہ (اس انسان کو) کیوں قتل کر رہا ہے اور نہ قتل ہونے والے کو معلوم ہوگا کہ اسے کیوں قتل کیا گیا ہے۔ پوچھا گیا: یہ کیسے ہوگا؟ آپ ﷺ نے فرمایا: قتل وخوں ریزی کی کثرت کی وجہ سے، اور قاتل اور مقتول دونوں جہنم کا ایندھن بنیں گے&quot;۔</p>
-<p>اگر دیگر مذاہب کا مطالعہ کیا جائے تو اس بات سے ہرگز اعراض نہیں کیا جا سکتا جتنا انسانی وقار احترام، مال وعزت، امن و اطمینان، اور زندگی گزارنے کے طور طریقے، چھوٹی سے چھوٹی بات کی اہمیت، حقوق و فرائض کی ادائیگی دین اسلام میں بتائی گئی ہے دنیا کے کسی اور مذہب میں نہیں بتایا گیا۔</p>
-<p>حالانکہ آپ ﷺ کا خطبہ حجۃ الوداع دائمی منشور اور مکمل دستور کی حیثیت رکھتا ہے۔ کہ ناحق کسی کا خون نہ بہایا جائے، پھر فرمایا: تمہارے خون، تمہارے مال اور تمہاری عزتیں ایک دوسرے پر حرام کی گئی ہیں۔</p>
-<p>علامہ ابن قیمؒ فرماتے ہیں &quot;اسلام عدل، سچائی اور امن پسندی کا دین ہے یہی وجہ ہے کہ محدثین کرام نے اسلام کو امن وسلامتی کے ساتھ لوگوں تک پہنچایا ہے&quot;۔</p>
-<p>دینِ اسلام قتل وغارت کے ساتھ ساتھ فتنہ انگیزی، دہشت گردی اور جھوٹی افواہوں کی بدتہذیبی کو شدت سے ناپسند کرتا ہے وہ اس کو صریحاً جارحانہ اور وحشیانہ عمل قرار دیتا ہے۔</p>
-<p>اس خونریزی کی ابتدا حضرت عثمان غنی کے قتل سے ہوئی اور پھر ایک طویل اور نہ ختم ہونے والی مہلک لڑائیوں کا سلسلہ چل نکلا، حالانکہ ان لڑائیوں کی کوئی معقول وجہ یا جواز نظر نہیں آتی محض عارضی دنیا کی عیش و عشرت کے برعکس ناحق لاکھوں قیمتی جانوں کا ضیاع ضرور ہوا۔</p>
-<p>وقت کی نزاکت کے ساتھ ساتھ جدید تباہ کن اسلحہ کی بھی بھرمار ہوتی چلی گئی جس سے قتل کرنا اور بھی آسان ہوتا چلا گیا اور ہم نے جان لینا تو معمولی سمجھتے ہوئے اپنا معمول بناتے چلے گئے حالانکہ ان سب کے باوجود پھر بھی مسلمان ہی دہشت گرد کہلاتا ہے۔</p>
-<p>اگر ماضی کے جھروکوں میں جھانک کر دیکھیں تو تلخ حقائق کے ساتھ ساتھ نتائج بالکل برعکس ہیں:</p>
-<ul>
-<li>پہلی جنگ عظیم میں ڈیڑھ کروڑ انسانوں کو قتل کیا گیا۔ (یہ مسلمانوں نے قتل نہیں کیے)</li>
-<li>دوسری جنگ عظیم میں ساڑھے پانچ کروڑ افراد لقمہ اجل بنے۔ (جب کہ ان میں بھی مسلمانوں کا کوئی ہاتھ نہیں تھا)</li>
-<li>ویت نام کی جنگ میں تیس لاکھ افراد مارے گئے۔ (یہ بھی مسلمانوں نے قتل نہیں کیے)</li>
-<li>روسی خانہ جنگی میں ایک کروڑ آدمی جان سے گئے</li>
-<li>سپین کی خانہ جنگی ایک کروڑ بیس لاکھ انسانوں کا خون پی گئی</li>
-<li>عراق ایران جنگ (خلیج کی پہلی جنگ) میں دس لاکھ انسانی جانیں گئیں</li>
-<li>عراق پر استعماری قبضے کے دوران دس لاکھ لوگ جان سے ہاتھ دھو بیٹھے</li>
-</ul>
-<p>سوچنے کی بات ہے کہ حال ہی میں برما، فلسطین، شام، کشمیر اور انڈیا کے مسلمانوں کے ساتھ جو کچھ ہو رہا ہے کیا ان میں بھی مسلمانوں کا ہاتھ ہے؟</p>
-<p>اگرچہ ان میں بعض جنگوں پر حدیث کے یہ الفاظ (نہ قتل کرنے والے کو علم ہو گا کہ وہ اس شخص کو کیوں قتل کر رہا ہے) صادق نہیں آتے، تاہم ان کا تذکرہ یہاں قتل وخونریزی کی کثرت کو بیان کرنے کے لیے کیا جا رہا ہے۔ جس کا ذکر اللہ کے نبی نے فرمایا تھا۔ اللہ رب العزت ہم سب کو اپنی حفظ وامان میں رکھے۔ (آمین)</p>
-
+        <!-- Post Image -->
+        <div class="post-image">
+            <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قرب قیامت قتل وخوں ریزی کی کثرت کیوں ہو جائے گی؟">
+        </div>
+        
+        <div class="post-content">
+            <div class="highlight">
+                <p>محترم قارئین کرام! ہم یہ بات اچھی طرح سے جانتے ہیں کہ اسلام میں قتل کو گناہ کبیرہ میں شمار کیا جاتا ہے اور اس گناہ کے بارے میں کئی جگہ قرآن اور احادیث میں بہت وضاحت سے بیان کیا گیا ہے۔</p>
+            </div>
+            
+            <p>چنانچہ ارشاد ربانی ہے "جو کسی مومن کو جان بوجھ کر قتل کر ڈالے اس کی سزا جہنم ہے جس میں وہ ہمیشہ رہے گا، اس پر اللہ تعالیٰ کا غضب ہے، اور اس پر اللہ تعالیٰ نے لعنت کی ہے اور اس کے لیے بڑا عذاب تیار کر رکھا ہے"۔</p>
+            
+            <div class="highlight">
+                <p>پھر ایک جگہ ارشاد فرمایا "جو شخص کسی کو بغیر اس کے کہ وہ کسی کا قاتل ہو یا زمین میں فساد مچانے والا ہو، قتل کر ڈالے تو گویا اس نے تمام لوگوں کو قتل کر دیا اور جس نے کسی ایک انسان کی زندگی بچائی گویا اس نے تمام لوگوں کو بچا لیا"۔</p>
+            </div>
+            
+            <p>ارشاد نبوی ﷺ ہے "سات ہلاک کر دینے والی اشیا سے بچو۔۔۔۔۔ پس آپ ﷺ نے (ان میں یہ بھی) ذکر کیا اس جان کو قتل کر دینا جسے اللہ تعالیٰ نے حرام کیا ہے"۔</p>
+            
+            <p>ایک اور جگہ ارشاد فرمایا "میرے بعد کفر کی حالت میں مت لوٹ جانا کہ ایک دوسرے کی گردنیں مارنے لگو"۔</p>
+            
+            <div class="highlight">
+                <p>یہی بات دوسری جگہ اس طرح ارشاد فرمائی "اللہ کے نزدیک ایک مومن کا قتل دنیا کے زائل/برباد ہو جانے سے زیادہ بڑا ہے"۔</p>
+            </div>
+            
+            <p>اہل دانش فرماتے ہیں کہ ’’بے شک دونوں عذاب (عذابِ جہنم اور عذاب حریق) آخرت میں واقع ہوں گے، مگر فرق یہ ہے کہ عذابِ جہنم ان کے کفر کے سبب ہوگا، اور عذابِ حریق عذابِ کفر پر وہ زائد عذاب ہے جو انہیں مسلمانوں کو جلانے کے سبب ملے گا۔‘‘</p>
+            
+            <p>اس بات کو صاحبِ جلالین بھی کچھ اس طرح بیان فرماتے ہیں کہ "’’یعنی وہ لوگ جنہوں نے مومن مرد و زن کو آگ میں جلا کر اذیت میں مبتلا کیا، پھر توبہ بھی نہ کی تو ان کے لیے ان کے کفر کی وجہ سے مومنین کو جلانے کی پاداش میں عذابِ حریق (جلائے جانے کا عذاب) ہوگا۔‘‘</p>
+            
+            <div class="highlight">
+                <p>جہاں نبوت والی زبان نے قیامت کی بہت ساری نشانیاں بیان کیں ہیں وہاں اس نشانی کے بارے میں بھی ضرور ارشاد فرمایا ہے "کہ قتل و غارت اور خونریزی کی اس قدر کثرت ہو جائے گی کہ ایک وقت آئے گا کہ نہ قتل کرنے والے کو علم ہو گا کہ وہ کیوں قتل کر رہا ہے اور نہ ہی قتل ہونے والے کو علم ہو گا کہ اسے کس پاداش میں قتل کیا جا رہا ہے"۔</p>
+            </div>
+            
+            <p>رسول ﷺ نے فرمایا "اس رب کعبہ کی قسم جس کے ہاتھ میں میری جان ہے! یہ دنیا ختم نہ ہوگی جب تک ایسا دن نہ آ جائے کہ جب نہ مارنے والے کو علم ہو گا کہ وہ (اس انسان کو) کیوں قتل کر رہا ہے اور نہ قتل ہونے والے کو معلوم ہوگا کہ اسے کیوں قتل کیا گیا ہے۔ پوچھا گیا: یہ کیسے ہوگا؟ آپ ﷺ نے فرمایا: قتل وخوں ریزی کی کثرت کی وجہ سے، اور قاتل اور مقتول دونوں جہنم کا ایندھن بنیں گے"۔</p>
+            
+            <p>اگر دیگر مذاہب کا مطالعہ کیا جائے تو اس بات سے ہرگز اعراض نہیں کیا جا سکتا جتنا انسانی وقار احترام، مال وعزت، امن و اطمینان، اور زندگی گزارنے کے طور طریقے، چھوٹی سے چھوٹی بات کی اہمیت، حقوق و فرائض کی ادائیگی دین اسلام میں بتائی گئی ہے دنیا کے کسی اور مذہب میں نہیں بتایا گیا۔</p>
+            
+            <p>حالانکہ آپ ﷺ کا خطبہ حجۃ الوداع دائمی منشور اور مکمل دستور کی حیثیت رکھتا ہے۔ کہ ناحق کسی کا خون نہ بہایا جائے، پھر فرمایا: تمہارے خون، تمہارے مال اور تمہاری عزتیں ایک دوسرے پر حرام کی گئی ہیں۔</p>
+            
+            <div class="highlight">
+                <p>علامہ ابن قیمؒ فرماتے ہیں "اسلام عدل، سچائی اور امن پسندی کا دین ہے یہی وجہ ہے کہ محدثین کرام نے اسلام کو امن وسلامتی کے ساتھ لوگوں تک پہنچایا ہے"۔</p>
+            </div>
+            
+            <p>دینِ اسلام قتل وغارت کے ساتھ ساتھ فتنہ انگیزی، دہشت گردی اور جھوٹی افواہوں کی بدتہذیبی کو شدت سے ناپسند کرتا ہے وہ اس کو صریحاً جارحانہ اور وحشیانہ عمل قرار دیتا ہے۔</p>
+            
+            <p>اس خونریزی کی ابتدا حضرت عثمان غنی کے قتل سے ہوئی اور پھر ایک طویل اور نہ ختم ہونے والی مہلک لڑائیوں کا سلسلہ چل نکلا، حالانکہ ان لڑائیوں کی کوئی معقول وجہ یا جواز نظر نہیں آتی محض عارضی دنیا کی عیش و عشرت کے برعکس ناحق لاکھوں قیمتی جانوں کا ضیاع ضرور ہوا۔</p>
+            
+            <p>وقت کی نزاکت کے ساتھ ساتھ جدید تباہ کن اسلحہ کی بھی بھرمار ہوتی چلی گئی جس سے قتل کرنا اور بھی آسان ہوتا چلا گیا اور ہم نے جان لینا تو معمولی سمجھتے ہوئے اپنا معمول بناتے چلے گئے حالانکہ ان سب کے باوجود پھر بھی مسلمان ہی دہشت گرد کہلاتا ہے۔</p>
+            
+            <p>اگر ماضی کے جھروکوں میں جھانک کر دیکھیں تو تلخ حقائق کے ساتھ ساتھ نتائج بالکل برعکس ہیں:</p>
+            
+            <ul>
+                <li>پہلی جنگ عظیم میں ڈیڑھ کروڑ انسانوں کو قتل کیا گیا۔ (یہ مسلمانوں نے قتل نہیں کیے)</li>
+                <li>دوسری جنگ عظیم میں ساڑھے پانچ کروڑ افراد لقمہ اجل بنے۔ (جب کہ ان میں بھی مسلمانوں کا کوئی ہاتھ نہیں تھا)</li>
+                <li>ویت نام کی جنگ میں تیس لاکھ افراد مارے گئے۔ (یہ بھی مسلمانوں نے قتل نہیں کیے)</li>
+                <li>روسی خانہ جنگی میں ایک کروڑ آدمی جان سے گئے</li>
+                <li>سپین کی خانہ جنگی ایک کروڑ بیس لاکھ انسانوں کا خون پی گئی</li>
+                <li>عراق ایران جنگ (خلیج کی پہلی جنگ) میں دس لاکھ انسانی جانیں گئیں</li>
+                <li>عراق پر استعماری قبضے کے دوران دس لاکھ لوگ جان سے ہاتھ دھو بیٹھے</li>
+            </ul>
+            
+            <div class="highlight">
+                <p>سوچنے کی بات ہے کہ حال ہی میں برما، فلسطین، شام، کشمیر اور انڈیا کے مسلمانوں کے ساتھ جو کچھ ہو رہا ہے کیا ان میں بھی مسلمانوں کا ہاتھ ہے؟</p>
+            </div>
+            
+            <p>اگرچہ ان میں بعض جنگوں پر حدیث کے یہ الفاظ (نہ قتل کرنے والے کو علم ہو گا کہ وہ اس شخص کو کیوں قتل کر رہا ہے) صادق نہیں آتے، تاہم ان کا تذکرہ یہاں قتل وخونریزی کی کثرت کو بیان کرنے کے لیے کیا جا رہا ہے۔ جس کا ذکر اللہ کے نبی نے فرمایا تھا۔ اللہ رب العزت ہم سب کو اپنی حفظ وامان میں رکھے۔ (آمین)</p>
+        </div>
+        
+        <div class="footer">
+            <p>اللہ ہم سب کو ہدایت عطا فرمائے اور دنیا میں امن و سلامتی قائم کرے۔ آمین</p>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
+    
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // Smooth scrolling for navigation buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to elements when they come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe content sections
+            document.querySelectorAll('.post-header, .post-content, .post-image').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+            
+            // Initialize elements
+            setTimeout(() => {
+                document.querySelector('.post-header').style.opacity = '1';
+                document.querySelector('.post-header').style.transform = 'translateY(0)';
+            }, 300);
+        });
+        
+        // Add hover effect to highlights
+        document.querySelectorAll('.highlight').forEach(highlight => {
+            highlight.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(-10px)';
+            });
+            
+            highlight.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
     </script>
 </body>
 </html>
