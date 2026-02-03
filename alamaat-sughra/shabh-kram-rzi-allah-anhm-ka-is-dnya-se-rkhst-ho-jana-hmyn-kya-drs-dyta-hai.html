@@ -5,75 +5,538 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --sky-blue: #87CEEB;
+            --dark-blue: #1E3A8A;
+            --black: #000000;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animated Background Theme */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(-45deg, var(--sky-blue), #e3f2fd, var(--sky-blue), #e3f2fd);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating Text Animation */
+        .floating-text {
+            position: fixed;
+            font-size: 3rem;
+            font-weight: bold;
+            opacity: 0.03;
+            z-index: 0;
+            animation: float 20s infinite linear;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-1000px) rotate(360deg); }
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--sky-blue);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sky-blue), var(--dark-blue), var(--sky-blue));
+            animation: headerLine 3s infinite linear;
+        }
+        
+        @keyframes headerLine {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+        
+        h1 {
+            color: var(--dark-blue);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--sky-blue);
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        h1:hover {
+            color: #0d47a1;
+            transform: translateY(-3px);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Post Image */
+        .post-image {
+            width: 100%;
+            margin: 20px 0 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 5px solid white;
+            transition: all 0.5s ease;
+        }
+        
+        .post-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.5s ease;
+        }
+        
+        /* Content Box */
+        .content-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(30, 58, 138, 0.1);
+            margin-bottom: 30px;
+            border: 1px solid rgba(135, 206, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .content-box:hover {
+            box-shadow: 0 20px 50px rgba(30, 58, 138, 0.15);
+        }
+        
+        .post-content {
+            font-size: 1.4rem;
+            text-align: justify;
+            color: #222;
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .post-content p:hover {
+            color: #111;
+            transform: translateX(5px);
+        }
+        
+        .post-content p::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--sky-blue), var(--dark-blue));
+            transition: width 0.5s ease;
+        }
+        
+        .post-content p:hover::after {
+            width: 100%;
+        }
+        
+        h2, h3 {
+            color: var(--dark-blue);
+            font-size: 2rem;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed var(--sky-blue);
+            transition: all 0.3s ease;
+        }
+        
+        h2:hover, h3:hover {
+            color: #0d47a1;
+            padding-right: 15px;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sky-blue), var(--dark-blue));
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.6);
+        }
+        
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #c0392b);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(192, 57, 43, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 8px 20px rgba(192, 57, 43, 0.6);
+        }
+        
+        /* Decorative Elements */
+        .decoration {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.2), rgba(30, 58, 138, 0.1));
+            z-index: 0;
+            animation: pulse 4s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.1); opacity: 0.5; }
+        }
+        
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+        }
+        
+        .decoration-2 {
+            bottom: 10%;
+            right: 5%;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .container {
+                max-width: 95%;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .post-content {
+                font-size: 1.2rem;
+            }
+            
+            .content-box {
+                padding: 25px;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn, .back-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .back-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .floating-text {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .post-content {
+                font-size: 1.1rem;
+                line-height: 2;
+            }
+            
+            .nav-buttons {
+                position: fixed;
+                bottom: 80px;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .back-btn {
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .decoration {
+                display: none;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--sky-blue), var(--dark-blue));
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--dark-blue), var(--sky-blue));
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+            border-top: 2px dashed var(--sky-blue);
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(135, 206, 235, 0.3) 0%, rgba(135, 206, 235, 0) 100%);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Floating Text Elements -->
+    <div class="floating-text" style="top:10%; left:5%;">صحابہ کرام</div>
+    <div class="floating-text" style="top:20%; left:15%;">رضی اللہ عنہم</div>
+    <div class="floating-text" style="top:30%; left:25%;">اسوہ حسنہ</div>
+    <div class="floating-text" style="top:40%; left:75%;">نبی کریم ﷺ</div>
+    <div class="floating-text" style="top:50%; left:85%;">اتباع سنت</div>
+    
+    <!-- Decorative Elements -->
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" id="pageUpBtn" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" id="pageDownBtn" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
     </div>
-
-    <div class="post-content">
-        <h1>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</h1>
-        <p>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</p>
-<p>اللہ کے حبیب حضرت محمد ﷺ کے اس دنیا سے رخصت ہونے کے بعد اس زمین پر مقدس ہستیاں صرف صحابہ کرام رضی اللہ عنہم کی جماعت ہے۔ جن کو نہ صرف آپ ﷺ کی قربت نصیب ہوئی بلکہ دین کو صحیح طریقے سے سیکھنے، سمجھنے اور سمجھ کر عمل کرنے کا ٹھیک ٹھیک موقع ملا۔ قرآن میں جگہ جگہ صحابہ کی عظمت وقار کے بارے میں بتایا گیا ہے۔ انبیاء کرام اور رسولوں کے بعد سب سے معزز صحابہ کرام کی جماعت ہے۔</p>
-<p>چنانچہ ارشاد نبوی ﷺ ہے کہ آپ ﷺ نے ارشاد فرمایا: &quot;میرے اصحاب کو بُرا نہ کہو اگر تم میں سے کوئی ایک شخص احد پہاڑ جتنا سونا خیرات کردے، پھر بھی وہ ان کے دئیے ہوئے ایک کلو یا نصف کلو کے برابر نہیں ہوگا&quot;۔</p>
-<p>اس حدیث سے شان ِ صحابہ کی وضاحت بالکل ویسے ہی ہے جیسے اس میں حرف بہ حرف کہا گیا ہے اور انہوں نے ایسا کرکے دکھایا۔ آج لوگ طرح طرح باتیں کرتے ہیں، گالیاں دیتے ہیں، نہ جانے کس بات کا بغض رکھتے ہیں اپنے سینوں میں صحابہ کرام کے بارے میں۔ اس روئے زمین پر انبیاء کرام کے بعد کوئی عمل کرکے دکھلانے والا نہیں جیسا عمل انہوں نے کر کے دکھایا اس لئے کہا گیا ہے کہ چاہے تم احد پہاڑ جتنا صدقہ خیرات ہی کیوں نہ کر دو ان کے مرتبے اور عظمت و وقار تک نہیں پہنچ سکتے۔</p>
-<p>ایک اور روایت میں فرمایا: ایک اور روایت کے مطابق آپ ﷺ نے آسمان کی طرف دیکھ کر ارشاد فرمایا: &quot;ستارے آسمان کی امان ہیں اور جب ستارے چلے جائیں گے تو آسمان پر وہ چیزیں آجائیں گی جن سے آسمان کو ڈرایا گیا ہے اور میرے اصحاب میری امت کے امان ہیں۔ جب میرا وصال ہوگا تو میرے اصحاب کے پاس وہ چیزیں آجائیں گی، جن سے ان کو ڈرایا گیا ہے&quot;۔</p>
-<p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: &quot;میرے اصحاب کے متعلق اللہ سے ڈرو، ان کو میرے بعد طنز کا نشانہ نہ بناؤ۔ جس نے ان سے محبت رکھی اس نے میری وجہ سے ان سے محبت رکھی اور جس نے ان سے بغض رکھا انہوں نے مجھ سے بغض رکھا اور جس نے ان کو اذیت دی، اس نے بے شک مجھ کو اذیت دی اور جس نے مجھ کو اذیت دی اس نے بے شک اللہ کو اذیت دی اور جس نے اللہ کو اذیت دی، عنقریب اللہ اس کو پکڑے گا&quot;۔</p>
-<p>گویا اس بات کی وضاحت کی گئی ہے کہ اطاعت صحابہ در حقیقت اطاعت رسول ﷺ ہے اور اطاعت رسول اطاعت خداوندی ہے۔ قرب قیامت کی اس نشانی میں اللہ کے نبی ﷺ نے خود ہی وضاحت کر دی کے میرے صحابہ کے بعد کوئی سمجھانے والا نہیں ہوگا در حقیقت صحابہ کرام کے ذریعے جو دین تابعین، تبع تابعین اور بزرگوں تک پہنچا وہ صحابہ ہی کے مرہون منت ہے۔</p>
-<p>علماء کرام فرماتے ہیں: &quot;یہ ہرگز جائز نہیں کہ کسی بھی صحابی کی طرف قطعی اور یقینی طور پر کوئی غلطی منسوب کی جائے۔ کیونکہ صحابہ کی اس جماعت نے اپنے اپنے طرز عمل میں اجتہاد سے کام لیا تھا اور سب کا مقصد صرف اور صرف اللہ کی خوشنودی اور اس کی رضا تھی۔ صحابہ کرام ہمارے پیشوا ہیں اور ہمیں حکم ہے کہ ان کے باہمی اختلاف میں اپنے منہ سے کوئی بات کریں اور ہمیشہ ان کا ذکر عظمت و وقار سے کریں جس کے یہ مستحق ہیں۔ آپ ﷺ نے ان کو برا کہنے سے منع فرمایا ہے اور یہ خبر دی ہے کہ اللہ نے ان سب کو معاف کر رکھا ہے اور اللہ ان سے راضی ہے&quot;۔</p>
-<p>اللہ کے ان نیک بندوں کو نہ تو دنیا کی کوئی حرص تھی اور نہ ہی مال و دولت سے کوئی لگاؤ بلکہ وہ تو رات کو کمایا ہوا مال صبح تک اور صبح کو کمایا ہوا مال شام تک خرچ کر دیا کرتے تھے۔ قرآن مجید میں انفاق فی سبیل اللہ کی کئی بار مثالیں دی گئی ہیں۔ اللہ کے یہ پیارے اور نیک لوگ سراپا محبت ہیں۔</p>
-<p>ان کی کون کون سی مثالیں دوں اور کون کون سے واقعات قلم بند کروں کیونکہ میرے پاس تو الفاظ ہی نہیں ہیں کہ جن سے ان کی شان میں تعریف کر سکوں۔ مہاجرین اور انصار کی جو مثال پیش کی گئی دنیا میں کہیں کوئی نظیر نہیں ملتی۔ یہی لوگ سچے لوگ تھے۔ دین عزیز تھا لہذا جان کا نذرانہ پیش کرنے میں کبھی پیچھے نہیں ہٹتے تھے۔</p>
-<p>نبی کریم ﷺ کی ذات گرامی کے بعد صحابہ کرام رضی اللہ عنہم اس امت کے افضل ترین لوگ ہیں۔ ایک مقام پر آپ ﷺ نے فرمایا: &quot;آسمان کے ستارے آسمان کے لئے امن و سلامتی (کی ضمانت) ہیں۔ جب ستارے ختم ہوجائیں گے تو وہ (قیامت) آجائے گی جس کا وعدہ کیا گیا ہے اور میں اپنے صحابہ کے لئے امن و سلامتی ہوں۔ جب میں چلا جاؤں گا تو صحابہ پر وہ حالت آجائے گی جس کا ان سے وعدہ کیا گیا ہے۔ اور میرے صحابہ امت کے لئے امن وسلامتی کی ضمانت ہیں۔ جب صحابہ چلے جائیں گے تو امت کو وہ (اختلاف وانتشار) پیش آ جائے گا جس کا ان سے وعدہ کیا گیا ہے&quot;۔</p>
-<p>اس حدیث سے معلوم ہوا کہ نبی کریم ﷺ نے صحابہ کرام رضی اللہ عنہم کے دنیا سے چلے جانے کو قیامت کی دو نشانیوں کے ساتھ ملاکر بیان فرمایا۔ ایک نبی کریم ﷺ کی وفات اور دوسری ستاروں کا جھڑ جانا اور شہابیوں کا گرنا۔</p>
-<p>گویا ایک ایک کرکے اس دنیا نیک لوگ رخصت ہو جائیں گے اور پیچھے گنہگار اور گمراہ لوگ رہ جائیں گے جن پر اللہ تعالیٰ قیامت برپا کریں گے۔ آج اگر حالات دیکھیں تو مایوس کن ہیں، قیامت کی ان نشانیوں کو ذرا سا غور کریں تو یقین کیجئے اتنی تیزی سے دن گزر رہے ہیں۔ لوگ دین سے دور غفلت کی نیند سو رہے ہیں۔ جو مرتا ہے اس کے لئے تو قیامت شروع ہو جاتی ہے لیکن باقی لوگ سمجھتے ہیں کہ جیسے اسی کو ہی مرنا تھا ہمیں نہیں۔</p>
-<p>اللہ پاک ہم سب کی مغفرت فرمائے ہمیں صحابہ جیسی محبت، صحابہ جیسی دین کی خدمت اور صحابہ کے نقش قدم پر چلنے کی توفیق عطا فرمائے۔ آمین سم آمین۔</p>
-<p>مزید آرٹیکل پڑھنے کے لئے <a href="https://www.bloglovers.pk">ویب سائیٹ</a> وزٹ کریں۔</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    
+    <button class="back-btn" id="backBtn" title="واپس جائیں"><i class="fas fa-arrow-right"></i></button>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</h1>
+        </div>
+        
+        <!-- Post Image -->
+        <div class="post-image">
+            <img src="https://bloglovers.pk/images/alamaat-sughra/shabh-kram-rzi-allah-anhm-ka-is-dnya-se-rkhst-ho-jana-hmyn-kya-drs-dyta-hai.jpg" alt="صحابہ کرام رضی اللہ عنہم" onerror="this.style.display='none'">
+        </div>
+        
+        <!-- Content Box -->
+        <div class="content-box">
+            <div class="post-content">
+                <p>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</p>
+                <p>اللہ کے حبیب حضرت محمد ﷺ کے اس دنیا سے رخصت ہونے کے بعد اس زمین پر مقدس ہستیاں صرف صحابہ کرام رضی اللہ عنہم کی جماعت ہے۔ جن کو نہ صرف آپ ﷺ کی قربت نصیب ہوئی بلکہ دین کو صحیح طریقے سے سیکھنے، سمجھنے اور سمجھ کر عمل کرنے کا ٹھیک ٹھیک موقع ملا۔ قرآن میں جگہ جگہ صحابہ کی عظمت وقار کے بارے میں بتایا گیا ہے۔ انبیاء کرام اور رسولوں کے بعد سب سے معزز صحابہ کرام کی جماعت ہے۔</p>
+                <p>چنانچہ ارشاد نبوی ﷺ ہے کہ آپ ﷺ نے ارشاد فرمایا: <span class="highlight">"میرے اصحاب کو بُرا نہ کہو اگر تم میں سے کوئی ایک شخص احد پہاڑ جتنا سونا خیرات کردے، پھر بھی وہ ان کے دئیے ہوئے ایک کلو یا نصف کلو کے برابر نہیں ہوگا"</span>۔</p>
+                <p>اس حدیث سے شان ِ صحابہ کی وضاحت بالکل ویسے ہی ہے جیسے اس میں حرف بہ حرف کہا گیا ہے اور انہوں نے ایسا کرکے دکھایا۔ آج لوگ طرح طرح باتیں کرتے ہیں، گالیاں دیتے ہیں، نہ جانے کس بات کا بغض رکھتے ہیں اپنے سینوں میں صحابہ کرام کے بارے میں۔ اس روئے زمین پر انبیاء کرام کے بعد کوئی عمل کرکے دکھلانے والا نہیں جیسا عمل انہوں نے کر کے دکھایا اس لئے کہا گیا ہے کہ چاہے تم احد پہاڑ جتنا صدقہ خیرات ہی کیوں نہ کر دو ان کے مرتبے اور عظمت و وقار تک نہیں پہنچ سکتے۔</p>
+                <p>ایک اور روایت میں فرمایا: ایک اور روایت کے مطابق آپ ﷺ نے آسمان کی طرف دیکھ کر ارشاد فرمایا: <span class="highlight">"ستارے آسمان کی امان ہیں اور جب ستارے چلے جائیں گے تو آسمان پر وہ چیزیں آجائیں گی جن سے آسمان کو ڈرایا گیا ہے اور میرے اصحاب میری امت کے امان ہیں۔ جب میرا وصال ہوگا تو میرے اصحاب کے پاس وہ چیزیں آجائیں گی، جن سے ان کو ڈرایا گیا ہے"</span>۔</p>
+                <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: <span class="highlight">"میرے اصحاب کے متعلق اللہ سے ڈرو، ان کو میرے بعد طنز کا نشانہ نہ بناؤ۔ جس نے ان سے محبت رکھی اس نے میری وجہ سے ان سے محبت رکھی اور جس نے ان سے بغض رکھا انہوں نے مجھ سے بغض رکھا اور جس نے ان کو اذیت دی، اس نے بے شک مجھ کو اذیت دی اور جس نے مجھ کو اذیت دی اس نے بے شک اللہ کو اذیت دی اور جس نے اللہ کو اذیت دی، عنقریب اللہ اس کو پکڑے گا"</span>۔</p>
+                <p>گویا اس بات کی وضاحت کی گئی ہے کہ اطاعت صحابہ در حقیقت اطاعت رسول ﷺ ہے اور اطاعت رسول اطاعت خداوندی ہے۔ قرب قیامت کی اس نشانی میں اللہ کے نبی ﷺ نے خود ہی وضاحت کر دی کے میرے صحابہ کے بعد کوئی سمجھانے والا نہیں ہوگا در حقیقت صحابہ کرام کے ذریعے جو دین تابعین، تبع تابعین اور بزرگوں تک پہنچا وہ صحابہ ہی کے مرہون منت ہے۔</p>
+                <p>علماء کرام فرماتے ہیں: <span class="highlight">"یہ ہرگز جائز نہیں کہ کسی بھی صحابی کی طرف قطعی اور یقینی طور پر کوئی غلطی منسوب کی جائے۔ کیونکہ صحابہ کی اس جماعت نے اپنے اپنے طرز عمل میں اجتہاد سے کام لیا تھا اور سب کا مقصد صرف اور صرف اللہ کی خوشنودی اور اس کی رضا تھی۔ صحابہ کرام ہمارے پیشوا ہیں اور ہمیں حکم ہے کہ ان کے باہمی اختلاف میں اپنے منہ سے کوئی بات کریں اور ہمیشہ ان کا ذکر عظمت و وقار سے کریں جس کے یہ مستحق ہیں۔ آپ ﷺ نے ان کو برا کہنے سے منع فرمایا ہے اور یہ خبر دی ہے کہ اللہ نے ان سب کو معاف کر رکھا ہے اور اللہ ان سے راضی ہے"</span>۔</p>
+                <p>اللہ کے ان نیک بندوں کو نہ تو دنیا کی کوئی حرص تھی اور نہ ہی مال و دولت سے کوئی لگاؤ بلکہ وہ تو رات کو کمایا ہوا مال صبح تک اور صبح کو کمایا ہوا مال شام تک خرچ کر دیا کرتے تھے۔ قرآن مجید میں انفاق فی سبیل اللہ کی کئی بار مثالیں دی گئی ہیں۔ اللہ کے یہ پیارے اور نیک لوگ سراپا محبت ہیں۔</p>
+                <p>ان کی کون کون سی مثالیں دوں اور کون کون سے واقعات قلم بند کروں کیونکہ میرے پاس تو الفاظ ہی نہیں ہیں کہ جن سے ان کی شان میں تعریف کر سکوں۔ مہاجرین اور انصار کی جو مثال پیش کی گئی دنیا میں کہیں کوئی نظیر نہیں ملتی۔ یہی لوگ سچے لوگ تھے۔ دین عزیز تھا لہذا جان کا نذرانہ پیش کرنے میں کبھی پیچھے نہیں ہٹتے تھے۔</p>
+                <p>نبی کریم ﷺ کی ذات گرامی کے بعد صحابہ کرام رضی اللہ عنہم اس امت کے افضل ترین لوگ ہیں۔ ایک مقام پر آپ ﷺ نے فرمایا: <span class="highlight">"آسمان کے ستارے آسمان کے لئے امن و سلامتی (کی ضمانت) ہیں۔ جب ستارے ختم ہوجائیں گے تو وہ (قیامت) آجائے گی جس کا وعدہ کیا گیا ہے اور میں اپنے صحابہ کے لئے امن و سلامتی ہوں۔ جب میں چلا جاؤں گا تو صحابہ پر وہ حالت آجائے گی جس کا ان سے وعدہ کیا گیا ہے۔ اور میرے صحابہ امت کے لئے امن وسلامتی کی ضمانت ہیں۔ جب صحابہ چلے جائیں گے تو امت کو وہ (اختلاف وانتشار) پیش آ جائے گا جس کا ان سے وعدہ کیا گیا ہے"</span>۔</p>
+                <p>اس حدیث سے معلوم ہوا کہ نبی کریم ﷺ نے صحابہ کرام رضی اللہ عنہم کے دنیا سے چلے جانے کو قیامت کی دو نشانیوں کے ساتھ ملاکر بیان فرمایا۔ ایک نبی کریم ﷺ کی وفات اور دوسری ستاروں کا جھڑ جانا اور شہابیوں کا گرنا۔</p>
+                <p>گویا ایک ایک کرکے اس دنیا نیک لوگ رخصت ہو جائیں گے اور پیچھے گنہگار اور گمراہ لوگ رہ جائیں گے جن پر اللہ تعالیٰ قیامت برپا کریں گے۔ آج اگر حالات دیکھیں تو مایوس کن ہیں، قیامت کی ان نشانیوں کو ذرا سا غور کریں تو یقین کیجئے اتنی تیزی سے دن گزر رہے ہیں۔ لوگ دین سے دور غفلت کی نیند سو رہے ہیں۔ جو مرتا ہے اس کے لئے تو قیامت شروع ہو جاتی ہے لیکن باقی لوگ سمجھتے ہیں کہ جیسے اسی کو ہی مرنا تھا ہمیں نہیں۔</p>
+                <p>اللہ پاک ہم سب کی مغفرت فرمائے ہمیں صحابہ جیسی محبت، صحابہ جیسی دین کی خدمت اور صحابہ کے نقش قدم پر چلنے کی توفیق عطا فرمائے۔ آمین سم آمین۔</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>اللہ ہم سب کو صحابہ کرام کی سیرت پر عمل کرنے کی توفیق عطا فرمائے</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Navigation Functions
+        document.getElementById('pageUpBtn').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        document.getElementById('pageDownBtn').addEventListener('click', function() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+        
+        document.getElementById('backBtn').addEventListener('click', function() {
+            window.history.back();
+        });
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Up arrow key
+            if (e.key === 'ArrowUp') {
+                window.scrollBy({ top: -100, behavior: 'smooth' });
+            }
+            // Down arrow key
+            else if (e.key === 'ArrowDown') {
+                window.scrollBy({ top: 100, behavior: 'smooth' });
+            }
+            // Escape key for back
+            else if (e.key === 'Escape') {
+                window.history.back();
+            }
+        });
+        
+        // Add hover effect to paragraphs
+        document.querySelectorAll('.post-content p').forEach(p => {
+            p.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px)';
+            });
+            
+            p.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+        
+        // Add animation to headings
+        document.querySelectorAll('h1, h2, h3').forEach(heading => {
+            heading.addEventListener('mouseenter', function() {
+                this.style.color = '#0d47a1';
+            });
+            
+            heading.addEventListener('mouseleave', function() {
+                this.style.color = '';
+            });
+        });
+        
+        // Dynamic floating text creation
+        function createFloatingText() {
+            const texts = ['صحابہ کرام', 'رضی اللہ عنہم', 'نبی کریم ﷺ', 'اتباع سنت', 'اسوہ حسنہ', 'دین اسلام'];
+            const container = document.body;
+            
+            texts.forEach((text, index) => {
+                const floatingText = document.createElement('div');
+                floatingText.className = 'floating-text';
+                floatingText.textContent = text;
+                floatingText.style.left = `${Math.random() * 90}%`;
+                floatingText.style.top = `${Math.random() * 90}%`;
+                floatingText.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
+                floatingText.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                container.appendChild(floatingText);
+            });
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Call function to create additional floating text
+        setTimeout(createFloatingText, 1000);
     </script>
 </body>
 </html>
