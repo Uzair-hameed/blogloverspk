@@ -5,65 +5,459 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قرب قیامت شدید بارشوں سے کچھ بھی باقی نہ رہے گا۔</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 0;
+            background: #0a0e17;
+            color: #e0e0e0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* بارش کی اینیمیشن */
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .rain-drop {
+            position: absolute;
+            top: -50px;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, rgba(173, 216, 230, 0.8));
+            border-radius: 0 0 5px 5px;
+            animation: rainFall linear infinite;
+        }
+        
+        @keyframes rainFall {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
+        /* بجلی کی اینیمیشن */
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 2;
+            opacity: 0;
+            pointer-events: none;
+            animation: lightningFlash 8s infinite;
+        }
+        
+        @keyframes lightningFlash {
+            0%, 100% { opacity: 0; }
+            1% { opacity: 0.8; }
+            2% { opacity: 0; }
+            3% { opacity: 0.6; }
+            4% { opacity: 0; }
+            95% { opacity: 0; }
+        }
+        
+        /* مرکزی مواد کا کنٹینر */
+        .main-container {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 80px;
+        }
+        
+        /* ہیڈر */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(20, 30, 48, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+        }
+        
+        h1 {
+            color: #ffdd59;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 221, 89, 0.3);
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        /* پوسٹ کا مواد */
+        .post-content {
+            background: rgba(25, 35, 55, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            margin-bottom: 40px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            text-align: justify;
+            font-size: 1.3rem;
+            line-height: 2.5;
+        }
+        
+        .post-content p {
+            margin-bottom: 25px;
+            color: #d1d8e0;
+        }
+        
+        /* تصویر */
+        .post-image {
+            width: 100%;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .post-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            border: 3px solid rgba(74, 144, 226, 0.5);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        
+        .post-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+        
+        /* نیویگیشن بٹن */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 10;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.8);
+        }
+        
+        /* واپس جائیں بٹن */
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #e74c3c);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: inherit;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+        }
+        
+        /* موبائل کے لیے رسپانسیو */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 10px;
+                padding-top: 60px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .post-content {
+                padding: 25px;
+                font-size: 1.1rem;
+            }
+            
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .back-btn {
+                bottom: 10px;
+                right: 10px;
+                padding: 10px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .post-content {
+                padding: 20px;
+                font-size: 1rem;
+            }
+            
+            .nav-buttons {
+                display: none; /* موبائل پر چھپا دیں */
+            }
+        }
+        
+        /* رنگین ہائی لائٹس */
+        .highlight {
+            color: #ffdd59;
+            font-weight: bold;
+        }
+        
+        /* فوٹر */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* بادل */
+        .cloud {
+            position: fixed;
+            background: rgba(100, 100, 100, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(100, 100, 100, 0.2);
+            z-index: 1;
+            animation: cloudMove linear infinite;
+        }
+        
+        @keyframes cloudMove {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- بارش کی اینیمیشن -->
+    <div class="rain-container" id="rainContainer"></div>
+    
+    <!-- بجلی کی اینیمیشن -->
+    <div class="lightning"></div>
+    
+    <!-- نیویگیشن بٹن -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-chevron-down"></i></button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- واپس جائیں بٹن -->
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-right"></i> واپس جائیں
+    </button>
+    
+    <!-- مرکزی مواد -->
+    <div class="main-container">
+        <div class="header">
+            <h1>قرب قیامت شدید بارشوں سے کچھ بھی باقی نہ رہے گا۔</h1>
+        </div>
         
-        <h1>قرب قیامت شدید بارشوں سے کچھ بھی باقی نہ رہے گا۔</h1>
-<p>دوستو! بارشوں کے موسم میں اکثر میڈیا یہ رپورٹنگ کرتا ہے کہ اس سال بارش نے پچیس سالہ ریکارڈ توڑ دیا ہے۔ جوں جوں وقت گزرتا جا رہا ہے یا تو بارشیں ہوتی ہی نہیں ہے یا جب ہوتی اتنی زیادہ ہوتی ہیں کہ نقصان کا اندیشہ ہونے لگتا ہے۔ تھمنے کا نام نہیں ہوتا ہر طرف جل تھل ہوتی ہے۔ یہ بارشیں اس قدر شدید ہوتی ہیں کہ اپنے ساتھ سیلاب کی گھنٹی بھی بجنے لگتی ہے۔ گزشتہ کئی سالوں سے ایسا ہوتا آ رہا ہے کہ ایک تو ہمارے ہاں سیوریج کا نظام ناپید ہے۔ ڈیموں اور دریاؤں کی حالت بھی انتہائی خستہ ہے۔</p>
-<p>بارشوں کے اس موسم میں جہاں لوگ خوش دکھائی دیتے ہیں، ساتھ ساتھ ان لوگوں کے چہروں پر دکھ، پریشانی کے آثار بھی دکھائی دیتے ہیں۔ جن لوگوں کے گھر کچے ہیں یا کچے اور پسماندہ علاقوں میں رہائش اختیار کی ہوتی ہے۔ یوں تو بارش اللہ رب العزت کی طرف سے رحمت ہوتی ہے، <a href="https://www.bloglovers.pk/2023/11/blog-post_19.html">بارش کے آنے</a> سے موسموں میں تبدیلی ہوتی ہے، فصلوں اور زمینی کاشت کے لیے، پھلوں اور پھولوں میں رس بھرنے اور چرند، پرند، انسانوں کے لیے سکون اور مسرت کا باعث ہوتی ہے۔ لیکن اگر یہی بارش اللہ رب العزت کی طرف سے ناراضگی، غصے، غضب کی صورت میں نازل ہو تو روئے زمین پر کچھ باقی نہیں رہتا۔ بارش کی صورت میں بھیجا جانے والا عذاب انبیاء کرام کے دور میں بھی کئی امتوں پر نازل ہو چکا ہے۔ کبھی پتھروں کی صورت میں، کبھی بارش کی صورت میں، کبھی آسمانی بجلی گرنے کی صورت میں، کبھی زلزلے کی صورت میں، کبھی چہروں کے مسخ ہونے کی صورت میں، کبھی زمین کے پھٹ جانے کی صورت میں، تو کبھی طوفانوں کی صورت میں، کبھی زوردار کڑک کی صورت میں اور یہ محض اللہ رب العزت کے احکامات سے منہ موڑنے اور نافرمانی کی صورت میں نافرمانوں اور بدعقیدہ لوگوں پر نازل ہوتا آیا ہے۔</p>
-<p>ایسی ہی شدید بارشوں کی پیشین گوئی آپ ﷺ نے اپنی امت کو بھی فرمائی ہے جو علامات صغریٰ کی نشانیوں میں سے ایک ہے ایک روایت کے مطابق آپ ﷺ نے ارشاد فرمایا &quot;قیامت اس وقت تک قائم نہ ہو گی جبتک آسمان سے ایسی بارش نازل نہ ہو جس سے مٹی اور پتھر کے گھر بچ نہ سکیں گے، البتہ بالوں سے بنے ہوئے خیمے اس بارش سے بچ جائیں گے۔&quot; اس حدیث کے مطابق پچھلے چند سالوں سے ایسی ہی بارشیں ہوتی دکھائی دے رہی ہیں جہاں پر کچے مکانات تو درکنار پکے مکانات بھی زمین بوس ہو جاتے ہیں اور دیکھتے ہی دیکھتے ساری زمین پر کئی کئی فٹ پانی ہی پانی دکھائی دیتا ہے، لگتا ہی نہیں کہ یہاں تھوڑی دیر پہلے زمین پر مکانات تھے۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ اللہ پاک ہم سب کے گناہ بخش دے اور ہمیں سیدھے راستے پر چلنے کی توفیق عطا فرمائے۔ آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <!-- تصویر -->
+        <div class="post-image">
+            <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-shadeed-barishon-se-kuch-bhi-baqi-na-rahe-ga.png" alt="قرب قیامت شدید بارشوں سے کچھ بھی باقی نہ رہے گا">
+        </div>
+        
+        <!-- پوسٹ کا مواد -->
+        <div class="post-content">
+            <p>دوستو! بارشوں کے موسم میں اکثر میڈیا یہ رپورٹنگ کرتا ہے کہ اس سال بارش نے پچیس سالہ ریکارڈ توڑ دیا ہے۔ جوں جوں وقت گزرتا جا رہا ہے یا تو بارشیں ہوتی ہی نہیں ہے یا جب ہوتی اتنی زیادہ ہوتی ہیں کہ نقصان کا اندیشہ ہونے لگتا ہے۔ تھمنے کا نام نہیں ہوتا ہر طرف جل تھل ہوتی ہے۔ یہ بارشیں اس قدر شدید ہوتی ہیں کہ اپنے ساتھ سیلاب کی گھنٹی بھی بجنے لگتی ہے۔ گزشتہ کئی سالوں سے ایسا ہوتا آ رہا ہے کہ ایک تو ہمارے ہاں سیوریج کا نظام ناپید ہے۔ ڈیموں اور دریاؤں کی حالت بھی انتہائی خستہ ہے۔</p>
+            
+            <p>بارشوں کے اس موسم میں جہاں لوگ خوش دکھائی دیتے ہیں، ساتھ ساتھ ان لوگوں کے چہروں پر دکھ، پریشانی کے آثار بھی دکھائی دیتے ہیں۔ جن لوگوں کے گھر کچے ہیں یا کچے اور پسماندہ علاقوں میں رہائش اختیار کی ہوتی ہے۔ یوں تو بارش اللہ رب العزت کی طرف سے رحمت ہوتی ہے، بارش کے آنے سے موسموں میں تبدیلی ہوتی ہے، فصلوں اور زمینی کاشت کے لیے، پھلوں اور پھولوں میں رس بھرنے اور چرند، پرند، انسانوں کے لیے سکون اور مسرت کا باعث ہوتی ہے۔ لیکن اگر یہی بارش اللہ رب العزت کی طرف سے ناراضگی، غصے، غضب کی صورت میں نازل ہو تو روئے زمین پر کچھ باقی نہیں رہتا۔ بارش کی صورت میں بھیجا جانے والا عذاب انبیاء کرام کے دور میں بھی کئی امتوں پر نازل ہو چکا ہے۔ کبھی پتھروں کی صورت میں، کبھی بارش کی صورت میں، کبھی آسمانی بجلی گرنے کی صورت میں، کبھی زلزلے کی صورت میں، کبھی چہروں کے مسخ ہونے کی صورت میں، کبھی زمین کے پھٹ جانے کی صورت میں، تو کبھی طوفانوں کی صورت میں، کبھی زوردار کڑک کی صورت میں اور یہ محض اللہ رب العزت کے احکامات سے منہ موڑنے اور نافرمانی کی صورت میں نافرمانوں اور بدعقیدہ لوگوں پر نازل ہوتا آیا ہے۔</p>
+            
+            <p>ایسی ہی شدید بارشوں کی پیشین گوئی آپ ﷺ نے اپنی امت کو بھی فرمائی ہے جو علامات صغریٰ کی نشانیوں میں سے ایک ہے ایک روایت کے مطابق آپ ﷺ نے ارشاد فرمایا "قیامت اس وقت تک قائم نہ ہو گی جبتک آسمان سے ایسی بارش نازل نہ ہو جس سے مٹی اور پتھر کے گھر بچ نہ سکیں گے، البتہ بالوں سے بنے ہوئے خیمے اس بارش سے بچ جائیں گے۔" اس حدیث کے مطابق پچھلے چند سالوں سے ایسی ہی بارشیں ہوتی دکھائی دے رہی ہیں جہاں پر کچے مکانات تو درکنار پکے مکانات بھی زمین بوس ہو جاتے ہیں اور دیکھتے ہی دیکھتے ساری زمین پر کئی کئی فٹ پانی ہی پانی دکھائی دیتا ہے، لگتا ہی نہیں کہ یہاں تھوڑی دیر پہلے زمین پر مکانات تھے۔</p>
+            
+            <p>اللہ رب العزت سے استدعا ہے کہ اللہ پاک ہم سب کے گناہ بخش دے اور ہمیں سیدھے راستے پر چلنے کی توفیق عطا فرمائے۔ آمین</p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 قرب قیامت کی علامات</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // بارش کی اینیمیشن بنانا
+        function createRain() {
+            const rainContainer = document.getElementById('rainContainer');
+            const rainCount = 100;
+            
+            for (let i = 0; i < rainCount; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('rain-drop');
+                
+                // بے ترتیب پوزیشن
+                const left = Math.random() * 100;
+                const animationDuration = 1 + Math.random() * 2;
+                const animationDelay = Math.random() * 5;
+                
+                drop.style.left = `${left}%`;
+                drop.style.animationDuration = `${animationDuration}s`;
+                drop.style.animationDelay = `${animationDelay}s`;
+                
+                // بے ترتیب سائز
+                const width = Math.random() * 2 + 1;
+                const height = Math.random() * 30 + 20;
+                drop.style.width = `${width}px`;
+                drop.style.height = `${height}px`;
+                
+                rainContainer.appendChild(drop);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // بادل بنانا
+        function createClouds() {
+            const cloudCount = 5;
+            
+            for (let i = 0; i < cloudCount; i++) {
+                const cloud = document.createElement('div');
+                cloud.classList.add('cloud');
+                
+                // بے ترتیب پوزیشن اور سائز
+                const top = Math.random() * 50;
+                const size = Math.random() * 150 + 100;
+                const animationDuration = 30 + Math.random() * 40;
+                const animationDelay = Math.random() * 20;
+                
+                cloud.style.top = `${top}%`;
+                cloud.style.width = `${size}px`;
+                cloud.style.height = `${size / 3}px`;
+                cloud.style.animationDuration = `${animationDuration}s`;
+                cloud.style.animationDelay = `${animationDelay}s`;
+                
+                document.body.appendChild(cloud);
+            }
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // اوپر سکرول کرنے کے لیے فنکشن
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // نیچے سکرول کرنے کے لیے فنکشن
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // واپس جانے کے لیے فنکشن
+        function goBack() {
+            window.history.back();
+        }
+        
+        // بے ترتیب بجلی کا اثر
+        function randomLightning() {
+            const lightning = document.querySelector('.lightning');
+            const randomTime = Math.random() * 10000 + 5000;
+            
+            setTimeout(() => {
+                lightning.style.animation = 'none';
+                setTimeout(() => {
+                    lightning.style.animation = 'lightningFlash 8s infinite';
+                }, 100);
+                randomLightning();
+            }, randomTime);
+        }
+        
+        // ایونٹ لسٹنر شامل کریں
+        document.addEventListener('DOMContentLoaded', function() {
+            createRain();
+            createClouds();
+            randomLightning();
+            
+            // موبائل پر نیویگیشن بٹن چھپائیں
+            if (window.innerWidth <= 768) {
+                document.querySelector('.nav-buttons').style.display = 'none';
+            }
+        });
+        
+        // ونڈو ریزائز ایونٹ
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                document.querySelector('.nav-buttons').style.display = 'none';
+            } else {
+                document.querySelector('.nav-buttons').style.display = 'flex';
+            }
+        });
     </script>
 </body>
 </html>
