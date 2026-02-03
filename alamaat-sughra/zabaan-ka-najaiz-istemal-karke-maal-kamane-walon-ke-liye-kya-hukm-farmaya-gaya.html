@@ -5,70 +5,541 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>زبان کا ناجائز استعمال کرکے مال کمانے والوں کے لئے کیا حکم فرمایا گیا؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+        }
+
+        /* Solar Galaxy Dark Theme */
+        :root {
+            --primary-color: #0a0e17;
+            --secondary-color: #1a1f2e;
+            --accent-color: #ff6b6b;
+            --accent-color2: #4ecdc4;
+            --accent-color3: #45b7d1;
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --star-color: #fffacd;
+            --transition-speed: 0.4s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 144, 226, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(78, 205, 196, 0.03) 0%, transparent 30%);
+            padding: 20px;
+        }
+
+        /* Animated Stars Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: var(--star-color);
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation Buttons */
+        .nav-btn {
+            position: fixed;
+            z-index: 100;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-color2));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .back-btn {
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff9f43, var(--accent-color));
+        }
+
+        .up-btn {
+            bottom: 80px;
+            left: 20px;
+        }
+
+        .down-btn {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        /* Main Content Container */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .post-content {
+            background: linear-gradient(145deg, var(--secondary-color), #141824);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform var(--transition-speed);
+        }
+
+        .post-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .post-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-color2), var(--accent-color3));
+            z-index: 1;
+        }
+
+        /* Headings */
+        h1, h2, h3 {
+            color: var(--heading-color);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--accent-color);
+            text-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+        }
+
+        /* Paragraphs */
+        p {
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            text-align: justify;
+            line-height: 2.4;
+            color: var(--text-color);
+            position: relative;
+            padding-right: 10px;
+        }
+
+        p:hover {
+            color: #ffffff;
+        }
+
+        /* Image Styling */
+        .featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 5px 15px rgba(255, 107, 107, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-speed);
+            position: relative;
+            z-index: 5;
+        }
+
+        .featured-image:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.7),
+                0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        .decoration-1 {
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-color2), transparent 70%);
+            filter: blur(40px);
+        }
+
+        .decoration-2 {
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-color), transparent 70%);
+            filter: blur(40px);
+        }
+
+        /* Special Highlight Effect */
+        .highlight-section {
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-right: 5px solid var(--accent-color);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .highlight-section:hover::before {
+            transform: translateX(100%);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.5rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+                line-height: 2.2;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .up-btn, .down-btn {
+                left: 15px;
+            }
+            
+            .back-btn {
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+                line-height: 2.0;
+            }
+            
+            .post-content {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .up-btn {
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .post-content {
+                padding: 15px;
+            }
+            
+            .nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+            
+            .up-btn {
+                bottom: 60px;
+                left: 10px;
+            }
+            
+            .down-btn {
+                left: 10px;
+            }
+            
+            .back-btn {
+                right: 10px;
+            }
+        }
+
+        /* Animation for page load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-content {
+            animation: fadeInUp 1s ease-out;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
-    </div>
-
-    <div class="post-content">
-        
-        <h1>زبان کا ناجائز استعمال کرکے مال کمانے والوں کے لئے کیا حکم فرمایا گیا؟</h1>
-<p>محترم قارئین کرام! ایک وقت تھا جب ہندوستان میں انگریز سرکار انھی لوگوں کو ملازمت کی آفر کیا کرتی تھی جن کو انگریزی بولنی، پڑھنی یا لکھنی آتی ہو وہ انگریزوں کے منظور نظر ہوا کرتے تھے کیونکہ وہ ان سے ان کی زبان میں ہی بات کرتے ہیں۔ کئی سال گزر چکے ہیں انگریز چلے گئے لیکن ہمارے معاشرے میں آج بھی یہ وائرس موجود ہے آج پاکستان میں بھی انھی لوگوں کو ملازمت کی آفر زیادہ کی جاتی ہے کہ جن کو انگریزی میں بات کرنی آتی ہو، ان کے لئے اچھے مراعات آفر کیے جاتے ہیں، گویا انگریزی بولنے سے انسان کی قابلیت کے معیار کا جانچا جاتا ہے جس کو انگریزی نہیں بولنی آتی لوگوں کی نظر میں وہ بیکار شخص ہے۔</p>
-<p>میں انگریزی بولنے کے ہرگز خلاف نہیں ہوں وہ ایک اچھی لینگوئج ہے لیکن اس کو محض قابلیت کا پیمانہ بنانا یہ غلط ہے۔ اسی غلط فہمی کی بدولت نہ تو ہم اپنی زبان کی شناخت کر پائے اور نہ انگریزی کو ٹھیک سے رائج کر پائے، ان دونوں زبانوں کی کشمکش میں ہم عربی زبان سے ہی دور ہو کر رہ گئے۔ ہمارے سکولوں میں جو نصاب پڑھایا جاتا ہے وہاں عربی صرف نہ ہونے کے برابر رہ گئی ہے اس کے نہ ہونے کی وجہ سے ہماری آنے والی نسل دین اسلام کی پیروی تو دور کی بات ہے اصل مقصد سے ہی دور ہو گئی اور بھٹک گئی ہے۔ اس کی گمراہی میں زیادہ ہاتھ دین کے سمجھانے والوں کی طرف سے ہوا اور باقی ہم نے اپنے ہاتھوں سے ہلاکت کمانا شروع کر دی۔ نتیجہ آج ہر گھر میں وہ فتنے پہنچ گئے ہیں جن سے ہمیں منع کیا گیا تھا۔</p>
-<p>آپ ﷺ نے قرب قیامت کی بہت ساری نشانیوں میں سے ایک نشانی یہ بھی بتائی گئی ہے کہ &quot;انسان اپنی زبان کا استعمال کر کے خوب مال کمائے گا اور چرب زبان میں بات کر کے اترائے گا&quot;۔</p>
-<p>اگر انسان جائز طریقوں سے دنیا کا مال کمائے یا شرعی طور طریقوں سے دنیا حاصل کرے تو اس میں کوئی بری بات نہیں۔ آدمی بیان و کلام اور دلیل کے ذریعے سے روزی کمائے یہ بھی شرعی طریقہ ہی ہے۔ جس طرح کہ وکلاء حضرات جو حق بات کہنے سے نہیں ڈرتے اور راست بار رہتے ہیں سچ کو سچ اور جھوٹ کو جھوٹ کہتے ہیں، اور نیوز رپورٹرز، ٹرینرز، دین کو سمجھانے والے، کوچ، اساتذہ، سیلز آفیسرز، وغیرہ ان حضرات کی روزی کا زیادہ اعتماد چرب، شائستہ، نرم گفتگو پر ہی ہوتا ہے۔ لیکن اگر یہ سب اپنی زبان کا غلط استعمال کرتے ہیں مثلاً جھوٹ کا سہارا لیتے ہیں جو کہ آج ہمارے معاشرے میں عام ہے، تو ایسے مال کو اکٹھا کرنے کی وعید بتائی گئی ہے۔</p>
-<p>جھوٹ اور حرام کاری سے کمایا ہوا مال ہمارے کسی کام نہیں آنے والا۔ اگر انسان چرب زبانی، شائستہ گفتگو کے ذریعے دنیا کمائے، یا پھر کسی غیر مستحق شخص کی جھوٹی اور ناجائز تعریف یا خوشامد کرے، یا اپنے لین دین میں جھوٹی قسمیں کھا کر اشیاء فروخت کرے یا پھر بے ایمانی اور غلط بیانی کر کے مال اکٹھا کرے، اسی طرح دیگر زبان کے جتنے بھی ناجائز استعمالات کے طریقے ہیں وہ سب ممنوع و ناجائز ہیں۔</p>
-<p>عمر بن سعد کو اپنے والد حضرت سعد بن ابی وقاص رضی اللہ عنہ سے کوئی کام تھا۔ وہ والد صاحب کی خدمت میں حاضر ہوئے۔ لیکن اپنا مقصد بیان کرنے سے پہلے انھوں نے فصاحت و بلاغت سے لبریز کچھ ایسی خوشنما گفتگو کی جس طرح کہ لوگ اپنی مقصد برآری کے لیے کیا کرتے ہیں۔ سیدنا سعد بن ابی وقاص رضی اللہ عنہ نے قبل ازیں ان سے ایسی شاندار گفتگو کبھی نہ سنی تھی۔ بیٹا جب اپنی کہہ چکا تو حضرت سعد رضی اللہ عنہ گویا ہوئے: جی بیٹا! تم نے اپنی بات مکمل کر لی؟ اس نے کہا: جی ہاں، مجھے جو عرض کرنا تھی، کر چکا ہوں۔ حضرت سعد رضی اللہ عنہ نے فرمایا: جب سے میں نے تمھاری یہ گفتگو سنی ہے تم اپنے مقصد سے زیادہ دور ہو گئے ہو۔ اور میں تم سے اس قدر متنفر پہلے کبھی نہ تھا جس قدر آج ہوا ہوں۔ میں نے نبی کریم ﷺ کو یہ فرماتے ہوئے سنا ہے: &quot;قیامت اس وقت تک قائم نہ ہوگی جب تک ایک ایسی قوم ظاہر نہ ہو جائے جو اپنی زبانوں سے اس طرح کھائے گی جس طرح گائے زمین سے کھاتی ہے&quot;۔</p>
-<p>رسول اللہ ﷺ نے فرمایا: &quot;قرب قیامت برے لوگ بلند کر دیے جائیں گے۔ اچھے لوگ پست کر دیے جائیں گے۔ گفتگو کی کثرت ہو جائے گی۔ جبکہ عمل روک دیا جائے گا، یعنی عمل نہیں ہو گا اور لوگوں کو &quot;مُثَنَّاۃ&quot; پڑھائی جائے گی اور کوئی اسے برا نہیں سمجھے گا۔ پوچھا گیا: یہ مثناہ &quot; کیا چیز ہے؟ فرمایا: جو کچھ اللہ کی کتاب کے سوا لکھا جائے&quot;۔</p>
-<p>آج اگر ہم اپنے اردگرد کے حالات پر نظر ڈالیں تو اس بات کا بخوبی اندازہ لگایا جا سکتا ہے کہ باقاعدہ انسٹیٹیوٹ موجود ہیں جو آپ کو سکلز مہیا کرتے ہیں کہ آپ نے کلام کس طرح کرنا ہے، گاہک کو کس طرح گھیرنا ہے، اور چیز کس طرح بیچنی ہے، غلط بیانی کس طرح کرنی ہے لوگوں کو چیٹ کس طرح کرنا ہے، دوسری طرف دیکھیں تو ہماری آنے والی نسلوں کو جو نصاب پڑھایا جا رہا ہے وہ بھی سب دنیا کمانے کے طریقوں پر مشتمل ہے آپ جو بھی سبق اٹھا کر دیکھیں تو دنیا داری ہی نظر آتی ہے اور لگتا ہے کہ یہ جو الفاظ پڑھائے جاتے ہیں سب کے سب کھوکھلے اور بناوٹی ہیں کیونکہ ان کا اصل حقیقت سے دور دور تک کوئی تعلق نہیں، پڑھایا کچھ جا رہا ہے عملاً کچھ ہو رہا ہے، اس لیے ہمارے معاشرے میں بگاڑ اور انتشار زیادہ پھیل رہا ہے کیونکہ اللہ اور اس کے رسول کے بتائے ہوئے طور طریقوں میں ہم نے ملاوٹ شروع کر دی اور نتیجہ یہ کہ ہم اصلی اور حقیقی مقصد سے دور ہو کر بھٹک گئے ہیں۔</p>
-<p>اللہ رب العزت سے استدعا ہے کہ جب تک زندہ رکھے دین پر زندہ رکھے اور جب موت دے تو ایمان کی حالت میں موت دے۔۔۔ آمین</p>
-
-    </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+    <!-- Stars Background -->
+    <div class="stars" id="starsContainer"></div>
+    
+    <!-- Navigation Buttons -->
+    <button class="nav-btn back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-right"></i>
+    </button>
+    
+    <button class="nav-btn up-btn" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <button class="nav-btn down-btn" onclick="scrollToBottom()">
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="post-content">
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2"></div>
+            
+            <h1>زبان کا ناجائز استعمال کرکے مال کمانے والوں کے لئے کیا حکم فرمایا گیا؟</h1>
+            
+            <!-- Featured Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/zabaan-ka-najaiz-istemal-karke-maal-kamane-walon-ke-liye-kya-hukm-farmaya-gaya.png" alt="زبان کا ناجائز استعمال" class="featured-image">
+            
+            <p>محترم قارئین کرام! ایک وقت تھا جب ہندوستان میں انگریز سرکار انھی لوگوں کو ملازمت کی آفر کیا کرتی تھی جن کو انگریزی بولنی، پڑھنی یا لکھنی آتی ہو وہ انگریزوں کے منظور نظر ہوا کرتے تھے کیونکہ وہ ان سے ان کی زبان میں ہی بات کرتے ہیں۔ کئی سال گزر چکے ہیں انگریز چلے گئے لیکن ہمارے معاشرے میں آج بھی یہ وائرس موجود ہے آج پاکستان میں بھی انھی لوگوں کو ملازمت کی آفر زیادہ کی جاتی ہے کہ جن کو انگریزی میں بات کرنی آتی ہو، ان کے لئے اچھے مراعات آفر کیے جاتے ہیں، گویا انگریزی بولنے سے انسان کی قابلیت کے معیار کا جانچا جاتا ہے جس کو انگریزی نہیں بولنی آتی لوگوں کی نظر میں وہ بیکار شخص ہے۔</p>
+            
+            <div class="highlight-section">
+                <p>میں انگریزی بولنے کے ہرگز خلاف نہیں ہوں وہ ایک اچھی لینگوئج ہے لیکن اس کو محض قابلیت کا پیمانہ بنانا یہ غلط ہے۔ اسی غلط فہمی کی بدولت نہ تو ہم اپنی زبان کی شناخت کر پائے اور نہ انگریزی کو ٹھیک سے رائج کر پائے، ان دونوں زبانوں کی کشمکش میں ہم عربی زبان سے ہی دور ہو کر رہ گئے۔ ہمارے سکولوں میں جو نصاب پڑھایا جاتا ہے وہاں عربی صرف نہ ہونے کے برابر رہ گئی ہے اس کے نہ ہونے کی وجہ سے ہماری آنے والی نسل دین اسلام کی پیروی تو دور کی بات ہے اصل مقصد سے ہی دور ہو گئی اور بھٹک گئی ہے۔ اس کی گمراہی میں زیادہ ہاتھ دین کے سمجھانے والوں کی طرف سے ہوا اور باقی ہم نے اپنے ہاتھوں سے ہلاکت کمانا شروع کر دی۔ نتیجہ آج ہر گھر میں وہ فتنے پہنچ گئے ہیں جن سے ہمیں منع کیا گیا تھا۔</p>
+            </div>
+            
+            <p>آپ ﷺ نے قرب قیامت کی بہت ساری نشانیوں میں سے ایک نشانی یہ بھی بتائی گئی ہے کہ &quot;انسان اپنی زبان کا استعمال کر کے خوب مال کمائے گا اور چرب زبان میں بات کر کے اترائے گا&quot;۔</p>
+            
+            <p>اگر انسان جائز طریقوں سے دنیا کا مال کمائے یا شرعی طور طریقوں سے دنیا حاصل کرے تو اس میں کوئی بری بات نہیں۔ آدمی بیان و کلام اور دلیل کے ذریعے سے روزی کمائے یہ بھی شرعی طریقہ ہی ہے۔ جس طرح کہ وکلاء حضرات جو حق بات کہنے سے نہیں ڈرتے اور راست بار رہتے ہیں سچ کو سچ اور جھوٹ کو جھوٹ کہتے ہیں، اور نیوز رپورٹرز، ٹرینرز، دین کو سمجھانے والے، کوچ، اساتذہ، سیلز آفیسرز، وغیرہ ان حضرات کی روزی کا زیادہ اعتماد چرب، شائستہ، نرم گفتگو پر ہی ہوتا ہے۔ لیکن اگر یہ سب اپنی زبان کا غلط استعمال کرتے ہیں مثلاً جھوٹ کا سہارا لیتے ہیں جو کہ آج ہمارے معاشرے میں عام ہے، تو ایسے مال کو اکٹھا کرنے کی وعید بتائی گئی ہے۔</p>
+            
+            <div class="highlight-section">
+                <p>جھوٹ اور حرام کاری سے کمایا ہوا مال ہمارے کسی کام نہیں آنے والا۔ اگر انسان چرب زبانی، شائستہ گفتگو کے ذریعے دنیا کمائے، یا پھر کسی غیر مستحق شخص کی جھوٹی اور ناجائز تعریف یا خوشامد کرے، یا اپنے لین دین میں جھوٹی قسمیں کھا کر اشیاء فروخت کرے یا پھر بے ایمانی اور غلط بیانی کر کے مال اکٹھا کرے، اسی طرح دیگر زبان کے جتنے بھی ناجائز استعمالات کے طریقے ہیں وہ سب ممنوع و ناجائز ہیں۔</p>
+            </div>
+            
+            <p>عمر بن سعد کو اپنے والد حضرت سعد بن ابی وقاص رضی اللہ عنہ سے کوئی کام تھا۔ وہ والد صاحب کی خدمت میں حاضر ہوئے۔ لیکن اپنا مقصد بیان کرنے سے پہلے انھوں نے فصاحت و بلاغت سے لبریز کچھ ایسی خوشنما گفتگو کی جس طرح کہ لوگ اپنی مقصد برآری کے لیے کیا کرتے ہیں۔ سیدنا سعد بن ابی وقاص رضی اللہ عنہ نے قبل ازیں ان سے ایسی شاندار گفتگو کبھی ن سنی تھی۔ بیٹا جب اپنی کہہ چکا تو حضرت سعد رضی اللہ عنہ گویا ہوئے: جی بیٹا! تم نے اپنی بات مکمل کر لی؟ اس نے کہا: جی ہاں، مجھے جو عرض کرنا تھی، کر چکا ہوں۔ حضرت سعد رضی اللہ عنہ نے فرمایا: جب سے میں نے تمھاری یہ گفتگو سنی ہے تم اپنے مقصد سے زیادہ دور ہو گئے ہو۔ اور میں تم سے اس قدر متنفر پہلے کبھی نہ تھا جس قدر آج ہوا ہوں۔ میں نے نبی کریم ﷺ کو یہ فرماتے ہوئے سنا ہے: &quot;قیامت اس وقت تک قائم نہ ہوگی جب تک ایک ایسی قوم ظاہر نہ ہو جائے جو اپنی زبانوں سے اس طرح کھائے گی جس طرح گائے زمین سے کھاتی ہے&quot;۔</p>
+            
+            <p>رسول اللہ ﷺ نے فرمایا: &quot;قرب قیامت برے لوگ بلند کر دیے جائیں گے۔ اچھے لوگ پست کر دیے جائیں گے۔ گفتگو کی کثرت ہو جائے گی۔ جبکہ عمل روک دیا جائے گا، یعنی عمل نہیں ہو گا اور لوگوں کو &quot;مُثَنَّاۃ&quot; پڑھائی جائے گی اور کوئی اسے برا نہیں سمجھے گا۔ پوچھا گیا: یہ مثناہ &quot; کیا چیز ہے؟ فرمایا: جو کچھ اللہ کی کتاب کے سوا لکھا جائے&quot;۔</p>
+            
+            <div class="highlight-section">
+                <p>آج اگر ہم اپنے اردگرد کے حالات پر نظر ڈالیں تو اس بات کا بخوبی اندازہ لگایا جا سکتا ہے کہ باقاعدہ انسٹیٹیوٹ موجود ہیں جو آپ کو سکلز مہیا کرتے ہیں کہ آپ نے کلام کس طرح کرنا ہے، گاہک کو کس طرح گھیرنا ہے، اور چیز کس طرح بیچنی ہے، غلط بیانی کس طرح کرنی ہے لوگوں کو چیٹ کس طرح کرنا ہے، دوسری طرف دیکھیں تو ہماری آنے والی نسلوں کو جو نصاب پڑھایا جا رہا ہے وہ بھی سب دنیا کمانے کے طریقوں پر مشتمل ہے آپ جو بھی سبق اٹھا کر دیکھیں تو دنیا داری ہی نظر آتی ہے اور لگتا ہے کہ یہ جو الفاظ پڑھائے جاتے ہیں سب کے سب کھوکھلے اور بناوٹی ہیں کیونکہ ان کا اصل حقیقت سے دور دور تک کوئی تعلق نہیں، پڑھایا کچھ جا رہا ہے عملاً کچھ ہو رہا ہے، اس لیے ہمارے معاشرے میں بگاڑ اور انتشار زیادہ پھیل رہا ہے کیونکہ اللہ اور اس کے رسول کے بتائے ہوئے طور طریقوں میں ہم نے ملاوٹ شروع کر دی اور نتیجہ یہ کہ ہم اصلی اور حقیقی مقصد سے دور ہو کر بھٹک گئے ہیں۔</p>
+            </div>
+            
+            <p>اللہ رب العزت سے استدعا ہے کہ جب تک زندہ رکھے دین پر زندہ رکھے اور جب موت دے تو ایمان کی حالت میں موت دے۔۔۔ آمین</p>
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                starsContainer.appendChild(star);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Navigation functions
+        function goBack() {
+            window.history.back();
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Initialize stars and other effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // Add hover effect to paragraphs
+            const paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                p.addEventListener('mouseenter', function() {
+                    this.style.transition = 'color 0.3s ease';
+                });
+            });
+            
+            // Add click effect to navigation buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Up arrow for scrolling up
+            if (e.key === 'ArrowUp') {
+                scrollToTop();
+            }
+            // Down arrow for scrolling down
+            else if (e.key === 'ArrowDown') {
+                scrollToBottom();
+            }
+            // Escape key for going back
+            else if (e.key === 'Escape') {
+                goBack();
+            }
+        });
     </script>
 </body>
 </html>
