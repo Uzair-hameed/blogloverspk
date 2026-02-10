@@ -5,74 +5,508 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --dark-bg: #0a0a2a;
+            --text-color: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: justify;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Galaxy Animated Background */
+        .galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: pulse 15s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.2; }
+            100% { transform: scale(1.1); opacity: 0.4; }
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.7);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #ff7675);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-btn:hover {
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 0 25px rgba(231, 76, 60, 0.8);
+        }
+        
+        /* Main Content Container */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px 100px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Card Styling */
+        .content-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            margin-bottom: 40px;
+        }
+        
+        .content-card:hover {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+        }
+        
+        /* Heading Styles */
+        h1 {
+            color: #fff;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+        }
+        
+        h2, h3 {
+            color: #4ecdc4;
+            border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+            padding-bottom: 10px;
+            margin-top: 30px;
+            font-size: 2rem;
+        }
+        
+        /* Text Styles */
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            line-height: 2.2;
+        }
+        
+        /* Image Styling */
+        .featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+        }
+        
+        .featured-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* Quote Styling */
+        .hadith-quote {
+            background: rgba(46, 204, 113, 0.15);
+            border-right: 5px solid var(--secondary-color);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 15px;
+            font-style: italic;
+            font-size: 1.4rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Remove internal links styling */
+        a {
+            color: #feca57;
+            text-decoration: none;
+            border-bottom: 1px dashed #feca57;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #ff9ff3;
+            border-bottom: 1px solid #ff9ff3;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-container {
+                padding: 20px 15px 80px;
+            }
+            
+            .content-card {
+                padding: 30px 25px;
+            }
+            
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-buttons {
+                left: 10px;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .back-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.6rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+            
+            .featured-image {
+                max-height: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 15px 10px 60px;
+            }
+            
+            .content-card {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2, h3 {
+                font-size: 1.4rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .featured-image {
+                max-height: 250px;
+            }
+        }
+        
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 0%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            z-index: 101;
+            transition: width 0.3s ease;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+    <!-- Galaxy Animated Background -->
+    <div class="galaxy-bg" id="galaxyBg"></div>
+    
+    <!-- Scroll Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Back Button -->
+    <button class="back-btn" id="backBtn" title="پیچھے جائیں">
+        <i class="fas fa-arrow-right"></i>
+    </button>
+    
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" id="pageUpBtn" title="اوپر جائیں">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <button class="nav-btn" id="pageDownBtn" title="نیچے جائیں">
+            <i class="fas fa-chevron-down"></i>
         </button>
     </div>
-
-    <div class="post-content">
+    
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <div class="content-card">
+            <h1>عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</h1>
+            
+            <!-- Featured Image -->
+            <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی" class="featured-image">
+            
+            <p>غیر عقلی عقائد پر اندھا دھند یقین رکھنا، چاہے وہ کسی خوف کی وجہ ہو یا پھر کسی جہالت کی وجہ یا ایمان کی کمزوری ہو توہم پرستی کہلاتا ہے۔ توہم پرستی درحقیقت اندھی تقلید کی وجہ سے نسل در نسل پروان چڑھتی چلی جاتی ہے۔ یہ عام طور پر ان روایات کی وجہ سے پروان چڑھتی ہے جو اباؤ اجداد کرتے چلے آئے اور آگے ان کی شدید خواہش ہوتی ہے کہ ان کی اولادیں بھی انہی روایات کو برقرار رکھیں تاکہ خاندان کا نام روشن ہو سکے۔</p>
+            
+            <p>توہم پرستی محض لوگوں میں بے چینی اور تشویش کا باعث بنتی ہے، مثلاً ایسے لوگ ہر چھوٹی سے چھوٹی بات پر وہم کرتے ہیں کہ شاید کالے رنگ کی بوتل پی ہے ہو سکتا ہے مجھے بخار ہو جائے، نماز پڑھتے ہوئے بھی اکثر بھول جاتے ہیں کہ میں نے سجدہ کیا تھا یا رکوع کیا تھا وغیرہ۔</p>
+            
+            <p>توہم پرست لوگ منفی سوچ زیادہ رکھتے ہیں مثلاً اگر وہ یہ سوچتا ہے کہ کالی بلی اس کے آگے سے گزر کر گئی ہے جو کہ اس کے لیے نقصان کا باعث ہو سکتا ہے تو وہ کبھی بھی آگے قدم نہیں اٹھائے گا کیونکہ توہم پرست کمزور عقائد کی سوچ کے مالک ہوتے ہیں۔</p>
+            
+            <div class="hadith-quote">
+                <p>ایک روایت کے مطابق: "کچھ لوگوں نے آپ ﷺ سے کاہنوں کے بارے میں پوچھا تو آپ ﷺ نے اُن سے کہا: 'وہ کچھ نہیں ہیں'۔ صحابہ نے عرض کیا: اے اللہ کے رسول ﷺ، بعض اوقات وہ ایسی بات بھی تو کہہ دیتے ہیں جو سچی ثابت ہوتی ہے۔ آپ نے وضاحت فرمائی: یہ ایک سچا کلمہ ہوتا ہے، جس کو جن اچک لیتا ہے اور اپنے دوست کے کان میں مرغی کی طرح قر قر کر کے ڈال دیتا ہے۔ اس کے بعد یہ کاہن لوگ اُس میں سو سے زیادہ جھوٹ ملا دیتے ہیں۔"</p>
+            </div>
+            
+            <p>اسی طرح ایک اور روایت کے مطابق آپ ﷺ نے فرمایا: "جو شخص کسی نجومی کے پاس جائے کہ اُس سے کوئی سوال پوچھے، اُس کی چالیس شب و روز کی نمازیں قبول نہیں کی جاتیں"۔</p>
+            
+            <p>توہم پرست لوگ اپنے آپ کو کھوجتے رہتے ہیں ایسے لوگ مزاروں، پیروں، نجومیوں اور قبرستانوں میں چکر لگاتے نظر آتے ہیں۔ جو بھی اباؤ اجداد کی طرف سے نظریات، روایات اور عقائد منتقل کیے جاتے ہیں ان پر آنکھیں بند کرکے پیروی کرتے دکھائی دیتے ہیں۔</p>
+            
+            <div class="hadith-quote">
+                <p>ایک روایت کے مطابق آپ ﷺ نے حدیبیہ میں ہمیں صبح کی نماز پڑھائی۔ اُسی رات بارش ہوئی تھی۔ آپ ﷺ جب نماز سے فارغ ہو گئے تو لوگوں کی طرف متوجہ ہوئے اور فرمایا: تم جانتے ہو کہ تمھارے پروردگار نے کیا کہا ہے؟ صحابہ نے عرض کیا: اللہ اور اُس کا رسول بہتر جانتے ہیں۔ آپ ﷺ نے فرمایا: میرے بندوں میں سے کچھ نے میرے اوپر ایمان کے ساتھ صبح کی ہے اور بعض نے کفر کی حالت میں۔ سو جس شخص نے کہا کہ اللہ تعالیٰ کے فضل اور اُس کی رحمت سے ہم پر بارش برسی، وہ میرے اوپر ایمان لایا اور تاروں کا انکار کیا۔ اور جس نے کہا کہ فلاں تارے کی وجہ سے ہمارے اوپر بارش برسی، اُس نے میرے ساتھ کفر کیا اور وہ تاروں پر ایمان لایا۔</p>
+            </div>
+            
+            <p>اسلام میں توہم پرستی کا تصور موجود نہیں ہے۔ کیونکہ توہم پرستی انسان کو شرک اور بدعات جیسی گھناؤنی سرگرمیوں میں مبتلا کر دیتی ہے۔ ہمارے معاشرے میں آج بھی لوگ توہم پرستی کے شکار ہیں، مثلاً ہم اکثر دیکھتے ہیں کہ نئے سال کی شروعات ہوتے ہی لوگ جنتریاں خریدتے ہیں اور پورے سال کی معلومات اکٹھی کرتے ہیں اور اسی جنتری کے مطابق اپنے آپ کو ڈھالتے ہیں، بالکل اسی طرح اگر میگزین دیکھیں تو لوگ "آپ کا ہفتہ کیسے گزرے گا" جیسے موضوع کو شوق اور دلچسپی سے نہ صرف پڑھتے ہیں بلکہ تاروں ستاروں کی حرکات کے مطابق اپنی روزمرہ سرگرمی پلان کرتے ہیں۔</p>
+            
+            <p>اسی طرح ٹی وی پر ایک کاہن کو بلایا جاتا ہے جو اکثر یہ بتاتا ہے کہ یہ سال کیسے گزرے گا، حکومت رہے گی کہ نہیں، کیا تباہی آئے گی، کون کیا کرے گا وغیرہ وغیرہ۔</p>
+            
+            <p>توہم پرست انسان جادو ٹونہ، تعویذ گنڈے، تنتر منتر، جھاڑ پھونک، چلہ کاٹنا پر اندھا اعتماد کرتے ہیں۔ دورِ جاہلیت میں عرب کے لوگ چونکہ علم و تحقیق سے عاری تھے اس لیے جہالت کی تاریکی کی وجہ سے بت پرستی رائج ہوگئی۔ بت پرستی ہی کی بدولت وہ لوگ توہم پرستی کا شکار ہوتے چلے گئے۔ توہم پرستی کے اس گناہ میں عرب کے لوگ اللہ رب العزت کی ہستی کا اقرار کرنا تو درکنار، سزا و جزا کا تصور، نیکی اور بدی کا تصور، دنیا و آخرت کا تصور، نبیوں پر ایمان، فرشتوں پر ایمان، اللہ کی کتب پر ایمان صرف اور صرف استہزاء کی باتیں بن کر رہ گئی تھیں۔</p>
+            
+            <p>توہم پرستی نے ان کی عقل پر ایسا پردہ ڈالا کہ ان کے عقائد و اعمال ہی بگڑ کر رہ گئے، شرک و بدعت، ظلم و ستم اور کفر و ضلالت کے کالے بادل اس وقت تک رہے جب تک اللہ رب العزت نے عرب کی سرزمین پر آپ ﷺ کو مبعوث نہ فرما دیا۔ آپ ﷺ کی بعثت پر ظلم کے کالے بادل آہستہ آہستہ چھٹنے لگے کیونکہ آپ ﷺ نے لوگوں کو توہم پرستی کی دلدلوں سے نکال کر انہیں حقیقت سے روشناس کروایا، حقیقی تعلیم نے نہ صرف شرک کی جڑوں کو کھوکھلا کر کے توحید کا درس دیا اور بت پرستی کی جگہ اللہ وحدہ لاشریک کی تعلیمات کو پروان چڑھایا۔ اچھائی اور برائی، باطل نظریات، عقائد و اعمال میں ان کے لیے درست سمت متعین فرمائی جو لوگ کل تک دوزخ کے کنارے کھڑے تھے ان کو جہنم کی آگ سے بچا کر جنت کی روشنیوں کی طرف لے گئے۔</p>
+            
+            <p>انتہائی افسوس ہے کہ آج امت مسلمہ میں تعلیمات اسلامی، قرآن و حدیث کی روشنی سے بہرہ ور نہ ہونا اور اہل مغرب کی جدید اور تنوع بھری تہذیب و ثقافت اور اس کی رنگین ثقافت قبول کرنے کی وجہ سے ہمارے مسلمانوں میں بہت سے ایسے خیالات نے جنم لے رکھا ہے کہ جن کا دین الہی اور دین اسلام سے دور کا بھی واسطہ نہیں ہے، اسی گمراہی کے نتیجے میں آج بھی دورِ جاہلیت ظہورِ اسلام کے ساتھ ملتی جلتی مختلف توہم پرستیاں جیسے ’’ماہِ صفر‘‘ "ماہ محرم" ماہ ربیع الاول" ماہ شعبان" ماہ رجب" کے بارے میں بھی پائی جاتی ہیں۔</p>
+        </div>
         
-        <h1>عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</h1>
-<p>غیر عقلی عقائد پر اندھا دھند یقین رکھنا، چاہے وہ کسی خوف کی وجہ ہو یا پھر کسی جہالت کی وجہ یا ایمان کی کمزوری ہو توہم پرستی کہلاتا ہے۔ توہم پرستی درحقیقت اندھی تقلید کی وجہ سے نسل در نسل پروان چڑھتی چلی جاتی ہے۔ یہ عام طور پر ان روایات کی وجہ سے پروان چڑھتی ہے جو اباؤ اجداد کرتے چلے آئے اور آگے ان کی شدید خواہش ہوتی ہے کہ ان کی اولادیں بھی انہی روایات کو برقرار رکھیں تاکہ خاندان کا نام روشن ہو سکے۔</p>
-<p>توہم پرستی محض لوگوں میں بے چینی اور تشویش کا باعث بنتی ہے، مثلاً ایسے لوگ ہر چھوٹی سے چھوٹی بات پر وہم کرتے ہیں کہ شاید کالے رنگ کی بوتل پی ہے ہو سکتا ہے مجھے بخار ہو جائے، نماز پڑھتے ہوئے بھی اکثر بھول جاتے ہیں کہ میں نے سجدہ کیا تھا یا رکوع کیا تھا وغیرہ۔</p>
-<p>توہم پرست لوگ منفی سوچ زیادہ رکھتے ہیں مثلاً اگر وہ یہ سوچتا ہے کہ کالی بلی اس کے آگے سے گزر کر گئی ہے جو کہ اس کے لیے نقصان کا باعث ہو سکتا ہے تو وہ کبھی بھی آگے قدم نہیں اٹھائے گا کیونکہ توہم پرست کمزور عقائد کی سوچ کے مالک ہوتے ہیں۔</p>
-<p>عصر حاضر کے دس بڑے گناہ جن میں <a href="https://www.bloglovers.pk/2022/06/10-1.html">غیر اللہ کی پکار</a>، <a href="https://www.bloglovers.pk/2022/06/10-2.html">بت پرستی</a>، <a href="https://www.bloglovers.pk/2022/06/10-3.html">مردہ پرستی</a>، <a href="https://www.bloglovers.pk/2022/06/10-4.html">اکابر پرستی</a>، <a href="https://www.bloglovers.pk/2022/07/10-5.html">فرقہ پرستی</a>، <a href="https://www.bloglovers.pk/2022/07/10-6.html">تعویذات</a> کے بعد توہم پرستی پر بات کرنے جا رہا ہوں۔ توہم پرستی بھی کبیرہ گناہوں میں سے ایک ہے اور شرک کی ایک خاص قسم ہے جو لوگوں کو آہستہ آہستہ گمراہی کی دلدلوں میں دھکیلتا چلا جاتا ہے۔ توہم پرست انسان اپنے ہی وسوسوں کا شکار ہوتا ہے۔</p>
-<p>ایک روایت کے مطابق: &quot;کچھ لوگوں نے آپ ﷺ سے کاہنوں کے بارے میں پوچھا تو آپ ﷺ نے اُن سے کہا: &#39;وہ کچھ نہیں ہیں&#39;۔ صحابہ نے عرض کیا: اے اللہ کے رسول ﷺ، بعض اوقات وہ ایسی بات بھی تو کہہ دیتے ہیں جو سچی ثابت ہوتی ہے۔ آپ نے وضاحت فرمائی: یہ ایک سچا کلمہ ہوتا ہے، جس کو جن اچک لیتا ہے اور اپنے دوست کے کان میں مرغی کی طرح قر قر کر کے ڈال دیتا ہے۔ اس کے بعد یہ کاہن لوگ اُس میں سو سے زیادہ جھوٹ ملا دیتے ہیں۔&quot;</p>
-<p>اسی طرح ایک اور روایت کے مطابق آپ ﷺ نے فرمایا: &quot;جو شخص کسی نجومی کے پاس جائے کہ اُس سے کوئی سوال پوچھے، اُس کی چالیس شب و روز کی نمازیں قبول نہیں کی جاتیں&quot;۔</p>
-<p>توہم پرست لوگ اپنے آپ کو کھوجتے رہتے ہیں ایسے لوگ مزاروں، پیروں، نجومیوں اور <a href="https://www.bloglovers.pk/2023/11/blog-post_19.html">قبرستانوں</a> میں چکر لگاتے نظر آتے ہیں۔ جو بھی اباؤ اجداد کی طرف سے نظریات، روایات اور عقائد منتقل کیے جاتے ہیں ان پر آنکھیں بند کرکے پیروی کرتے دکھائی دیتے ہیں۔</p>
-<p>ایک روایت کے مطابق آپ ﷺ نے حدیبیہ میں ہمیں صبح کی نماز پڑھائی۔ اُسی رات بارش ہوئی تھی۔ آپ ﷺ جب نماز سے فارغ ہو گئے تو لوگوں کی طرف متوجہ ہوئے اور فرمایا: تم جانتے ہو کہ تمھارے پروردگار نے کیا کہا ہے؟ صحابہ نے عرض کیا: اللہ اور اُس کا رسول بہتر جانتے ہیں۔ آپ ﷺ نے فرمایا: میرے بندوں میں سے کچھ نے میرے اوپر ایمان کے ساتھ صبح کی ہے اور بعض نے کفر کی حالت میں۔ سو جس شخص نے کہا کہ اللہ تعالیٰ کے فضل اور اُس کی رحمت سے ہم پر بارش برسی، وہ میرے اوپر ایمان لایا اور تاروں کا انکار کیا۔ اور جس نے کہا کہ فلاں تارے کی وجہ سے ہمارے اوپر بارش برسی، اُس نے میرے ساتھ کفر کیا اور وہ تاروں پر ایمان لایا۔</p>
-<p>اسلام میں توہم پرستی کا تصور موجود نہیں ہے۔ کیونکہ توہم پرستی انسان کو شرک اور بدعات جیسی گھناؤنی سرگرمیوں میں مبتلا کر دیتی ہے۔ ہمارے معاشرے میں آج بھی لوگ توہم پرستی کے شکار ہیں، مثلاً ہم اکثر دیکھتے ہیں کہ نئے سال کی شروعات ہوتے ہی لوگ جنتریاں خریدتے ہیں اور پورے سال کی معلومات اکٹھی کرتے ہیں اور اسی جنتری کے مطابق اپنے آپ کو ڈھالتے ہیں، بالکل اسی طرح اگر میگزین دیکھیں تو لوگ &quot;آپ کا ہفتہ کیسے گزرے گا&quot; جیسے موضوع کو شوق اور دلچسپی سے نہ صرف پڑھتے ہیں بلکہ تاروں ستاروں کی حرکات کے مطابق اپنی روزمرہ سرگرمی پلان کرتے ہیں۔</p>
-<p>اسی طرح ٹی وی پر ایک کاہن کو بلایا جاتا ہے جو اکثر یہ بتاتا ہے کہ یہ سال کیسے گزرے گا، حکومت رہے گی کہ نہیں، کیا تباہی آئے گی، کون کیا کرے گا وغیرہ وغیرہ۔</p>
-<p>توہم پرست انسان جادو ٹونہ، تعویذ گنڈے، تنتر منتر، جھاڑ پھونک، چلہ کاٹنا پر اندھا اعتماد کرتے ہیں۔ دورِ جاہلیت میں عرب کے لوگ چونکہ علم و تحقیق سے عاری تھے اس لیے جہالت کی تاریکی کی وجہ سے بت پرستی رائج ہوگئی۔ بت پرستی ہی کی بدولت وہ لوگ توہم پرستی کا شکار ہوتے چلے گئے۔ توہم پرستی کے اس گناہ میں عرب کے لوگ اللہ رب العزت کی ہستی کا اقرار کرنا تو درکنار، سزا و جزا کا تصور، نیکی اور بدی کا تصور، دنیا و آخرت کا تصور، نبیوں پر ایمان، فرشتوں پر ایمان، اللہ کی کتب پر ایمان صرف اور صرف استہزاء کی باتیں بن کر رہ گئی تھیں۔</p>
-<p>توہم پرستی نے ان کی عقل پر ایسا پردہ ڈالا کہ ان کے عقائد و اعمال ہی بگڑ کر رہ گئے، شرک و بدعت، ظلم و ستم اور کفر و ضلالت کے کالے بادل اس وقت تک رہے جب تک اللہ رب العزت نے عرب کی سرزمین پر آپ ﷺ کو مبعوث نہ فرما دیا۔ آپ ﷺ کی بعثت پر ظلم کے کالے بادل آہستہ آہستہ چھٹنے لگے کیونکہ آپ ﷺ نے لوگوں کو توہم پرستی کی دلدلوں سے نکال کر انہیں حقیقت سے روشناس کروایا، حقیقی تعلیم نے نہ صرف شرک کی جڑوں کو کھوکھلا کر کے توحید کا درس دیا اور بت پرستی کی جگہ اللہ وحدہ لاشریک کی تعلیمات کو پروان چڑھایا۔ اچھائی اور برائی، باطل نظریات، عقائد و اعمال میں ان کے لیے درست سمت متعین فرمائی جو لوگ کل تک دوزخ کے کنارے کھڑے تھے ان کو جہنم کی آگ سے بچا کر جنت کی روشنیوں کی طرف لے گئے۔</p>
-<p>انتہائی افسوس ہے کہ آج امت مسلمہ میں تعلیمات اسلامی، قرآن و حدیث کی روشنی سے بہرہ ور نہ ہونا اور اہل مغرب کی جدید اور تنوع بھری تہذیب و ثقافت اور اس کی رنگین ثقافت قبول کرنے کی وجہ سے ہمارے مسلمانوں میں بہت سے ایسے خیالات نے جنم لے رکھا ہے کہ جن کا دین الہی اور دین اسلام سے دور کا بھی واسطہ نہیں ہے، اسی گمراہی کے نتیجے میں آج بھی دورِ جاہلیت ظہورِ اسلام کے ساتھ ملتی جلتی مختلف توہم پرستیاں جیسے ’’ماہِ صفر‘‘ &quot;ماہ محرم&quot; ماہ ربیع الاول&quot; ماہ شعبان&quot; ماہ رجب&quot; کے بارے میں بھی پائی جاتی ہیں۔</p>
-
+        <div class="footer">
+            <p>© اسلامی تعلیمات | توہم پرستی کے بارے میں آگاہی</p>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
+    
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Create Galaxy Background
+        function createGalaxy() {
+            const galaxyBg = document.getElementById('galaxyBg');
+            
+            // Create stars
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.right = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                galaxyBg.appendChild(star);
+            }
+            
+            // Create nebulae
+            const colors = ['#4ecdc4', '#ff6b6b', '#feca57', '#ff9ff3', '#3498db'];
+            for (let i = 0; i < 8; i++) {
+                const nebula = document.createElement('div');
+                nebula.classList.add('nebula');
+                nebula.style.width = `${Math.random() * 300 + 150}px`;
+                nebula.style.height = nebula.style.width;
+                nebula.style.top = `${Math.random() * 100}%`;
+                nebula.style.right = `${Math.random() * 100}%`;
+                nebula.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                nebula.style.animationDelay = `${Math.random() * 10}s`;
+                nebula.style.opacity = Math.random() * 0.3 + 0.1;
+                galaxyBg.appendChild(nebula);
+            }
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Scroll Progress Bar
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / documentHeight) * 100;
+            progressBar.style.width = `${progress}%`;
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Navigation Functions
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create galaxy background
+            createGalaxy();
+            
+            // Set up event listeners
+            document.getElementById('pageUpBtn').addEventListener('click', scrollToTop);
+            document.getElementById('pageDownBtn').addEventListener('click', scrollToBottom);
+            document.getElementById('backBtn').addEventListener('click', goBack);
+            
+            // Update progress bar on scroll
+            window.addEventListener('scroll', updateProgressBar);
+            
+            // Add hover effects to content card
+            const contentCard = document.querySelector('.content-card');
+            contentCard.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            contentCard.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+            
+            // Remove all internal links as requested
+            const links = document.querySelectorAll('a[href*="bloglovers.pk"]');
+            links.forEach(link => {
+                link.removeAttribute('href');
+                link.style.cursor = 'default';
+                link.style.borderBottom = 'none';
+                link.style.color = 'inherit';
+            });
+        });
     </script>
 </body>
 </html>
