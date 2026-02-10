@@ -5,156 +5,566 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025-09-15-ڈیجیٹل-دور-میں-غیبت-اسکرین-شاٹس،-اسٹیٹس-اور-ہماری-ذمہ-داری</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
+            line-height: 2.2; 
+            direction: rtl; 
+            text-align: right; 
+            background-color: #000; 
+            color: #333;
+            min-height: 100vh;
+            padding-top: 120px;
+        }
+        
+        /* Header with animated yellow and black theme */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #000 0%, #111 25%, #222 50%, #111 75%, #000 100%);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(255, 204, 0, 0.3);
+            border-bottom: 3px solid #ffcc00;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffcc00, #ffdd44, #ffcc00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .logo:hover {
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+            transform: scale(1.05);
+        }
+        
+        .controls-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Control buttons */
+        .control-btn {
+            background: linear-gradient(45deg, #ffcc00, #ffaa00);
+            color: #000;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(255, 204, 0, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            background: linear-gradient(45deg, #ffdd44, #ffcc00);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(255, 204, 0, 0.6);
+        }
+        
+        /* Main content container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        
+        .post-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s;
+            border: 1px solid #ffcc00;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 204, 0, 0.2);
+        }
+        
+        /* Post image */
+        .post-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-bottom: 5px solid #ffcc00;
+            display: block;
+        }
+        
+        .post-content {
+            padding: 40px;
+        }
+        
+        /* Headings with increased size */
+        h1 {
+            color: #000;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #ffcc00;
+            padding-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        h2 {
+            color: #000;
+            font-size: 32px;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        h3 {
+            color: #000;
+            font-size: 26px;
+            margin: 20px 0 10px;
+        }
+        
+        /* Text with increased size and justify alignment */
+        p, li, blockquote {
+            font-size: 22px;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: #222;
+        }
+        
+        blockquote {
+            background: linear-gradient(to left, rgba(255, 204, 0, 0.1), transparent);
+            border-right: 5px solid #ffcc00;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-style: italic;
+        }
+        
+        blockquote p {
+            font-weight: bold;
+            color: #000;
+        }
+        
+        ol {
+            padding-right: 25px;
+            margin-bottom: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(45deg, #000, #333);
+            color: #ffcc00;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            border: 2px solid #ffcc00;
+            font-size: 20px;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(45deg, #333, #000);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.4);
+        }
+        
+        /* Page up/down buttons */
+        .page-scroll-btn {
+            position: fixed;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ffcc00, #ffaa00);
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(255, 204, 0, 0.5);
+            transition: all 0.3s;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-up {
+            bottom: 100px;
+        }
+        
+        .page-down {
+            bottom: 30px;
+        }
+        
+        .page-scroll-btn:hover {
+            background: linear-gradient(45deg, #ffdd44, #ffcc00);
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.7);
+        }
+        
+        /* Footer with yellow and black theme */
+        .main-footer {
+            background: linear-gradient(90deg, #000 0%, #111 25%, #222 50%, #111 75%, #000 100%);
+            padding: 25px 0;
+            margin-top: 50px;
+            border-top: 3px solid #ffcc00;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            color: #ffcc00;
+            font-size: 18px;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 26px;
+            }
+            
+            h3 {
+                font-size: 22px;
+            }
+            
+            p, li, blockquote {
+                font-size: 20px;
+            }
+            
+            .post-content {
+                padding: 25px;
+            }
+            
+            .post-image {
+                height: 300px;
+            }
+            
+            .page-scroll-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                right: 20px;
+            }
+            
+            .page-up {
+                bottom: 90px;
+            }
+            
+            .page-down {
+                bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .post-image {
+                height: 250px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            p, li, blockquote {
+                font-size: 19px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
-    </div>
-
-    <div class="post-content">
+    <!-- Header with controls -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo">📱 ڈیجیٹل اخلاقیات</div>
+            <div class="controls-container">
+                <button class="control-btn" onclick="scrollToTop()" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
+                <button class="control-btn" onclick="scrollToBottom()" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
+                <button class="control-btn" onclick="window.print()" title="پرنٹ کریں"><i class="fas fa-print"></i></button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main content container -->
+    <div class="container">
+        <!-- Back button -->
+        <a href="javascript:history.back()" class="back-btn">
+            <i class="fas fa-arrow-right"></i> واپس جائیں
+        </a>
         
-        <h1>ڈیجیٹل دور میں غیبت: اسکرین شاٹس، اسٹیٹس اور ہماری ذمہ داری</h1>
-<p>انٹرنیٹ اور سوشل میڈیا کی دنیا نے انسانی زندگی کو بنیادی طور پر بدل دیا ہے۔ آج ہم ایسے دور میں جی رہے ہیں جہاں معلومات کی منتقلی پہلے سے کہیں زیادہ تیز اور آسان ہو گئی ہے۔ لیکن اس آسانی کے ساتھ ساتھ کئی اخلاقی مسائل بھی پیدا ہوئے ہیں جن میں غیبت ایک بڑا اور سنگین مسئلہ ہے۔</p>
-<p>قرآن کریم میں ارشاد ہوتا ہے:</p>
-<blockquote>
-<p><strong>&quot;اے ایمان والو! زیادہ قیاس سے بچو، بے شک بعض قیاس گناہ ہیں، اور نہ جاسوسی کیا کرو، اور تم میں سے کوئی اپنے مردہ بھائی کا گوشت کھانے سے بدتر بات نہ کہے، تم اسے کیسے ناپسند کرتے ہو؟&quot;</strong> (الحجرات: 12)</p>
-</blockquote>
-<p>یہ آیت آج کے ڈیجیٹل دور میں پہلے سے کہیں زیادہ اہمیت اختیار کر گئی ہے کیونکہ آج ہم نے غیبت کو نئی شکلوں میں اپنایا ہے - اسکرین شاٹس، فارورڈ شدہ میسجز، اور سوشل میڈیا اسٹیٹس کے ذریعے۔</p>
-<h2>غیبت کی تعریف اور اسلامی تعلیمات</h2>
-<p>غیبت کا مطلب ہے کسی کی غیر موجودگی میں ایسی بات کرنا جو اگر وہ سن لے تو ناپسند کرے، خواہ وہ بات سچ ہو یا جھوٹ۔ اسلام میں غیبت کو انتہائی سنگین گناہ قرار دیا گیا ہے۔</p>
-<p>رسول اللہ ﷺ نے فرمایا:</p>
-<blockquote>
-<p><strong>&quot;تم جانتے ہو غیبت کیا ہے؟ صحابہ نے عرض کی: اللہ اور اس کے رسول بہتر جانتے ہیں۔ آپ ﷺ نے فرمایا: تمہارے بھائی کی ایسی بات کرنا جو وہ ناپسند کرے۔&quot;</strong> (مسلم)</p>
-</blockquote>
-<p>آج کے دور میں ہم نے غیبت کو جدید ٹیکنالوجی کے ذریعے کتنی آسانی سے اپنایا ہے، یہ ایک فکر انگیز مسئلہ ہے۔ وٹس ایپ گروپس، فیس بک پوسٹس، انسٹاگرام اسٹوریز، اور ٹویٹر پر تبصرے - یہ سب جگہیں اب غیبت کے میدان بن چکے ہیں۔</p>
-<h2>ڈیجیٹل غیبت کی نئی شکلیں</h2>
-<h3>اسکرین شاٹس کی ثقافت</h3>
-<p>اسکرین شاٹ لینا اور اسے دوسروں کو بھیجنا آج کی سب سے عام عادت بن چکی ہے۔ ہم کسی کی نجی باتچیت کا اسکرین شاٹ لے کر اسے دوسروں کو دکھاتے ہیں، بعض اوقات مذاق کے طور پر، اور بعض اوقات &quot;ثبوت&quot; کے طور پر۔ لیکن ہم یہ بھول جاتے ہیں کہ:</p>
-<ol>
-<li><strong>ہم نے اس شخص کی رضامندی حاصل نہیں کی</strong></li>
-<li><strong>یہ اس کی پرائیویسی کی خلاف ورزی ہے</strong></li>
-<li><strong>ہم اس کے اعتماد کو توڑ رہے ہیں</strong></li>
-</ol>
-<p>ایک تحقیق میں یہ بات سامنے آئی ہے کہ نوجوان اسکرین شاٹس زیادہ تر ٹیکسٹ میسجنگ پلیٹ فارمز پر لیتے ہیں، جو کہ سب سے ذاتی سمجھے جاتے ہیں۔ جب پلیٹ فارم نوٹیفکیشن دیتا ہے جیسے Snapchat کرتا ہے تو صارفین زیادہ احتیاط سے کام لیتے ہیں۔</p>
-<h3>فارورڈ میسجز کی وبا</h3>
-<p>وٹس ایپ پر میسجز فارورڈ کرنا ایک عام سی بات ہو گئی ہے، لیکن ہم کبھی نہیں سوچتے کہ:</p>
-<ol>
-<li><strong>کیا ہم اس شخص کی اجازت کے بغیر اس کا میسج فارورڈ کر رہے ہیں؟</strong></li>
-<li><strong>کیا ہم اس کی نجی بات کو بغیر اجازت کے عام کر رہے ہیں؟</strong></li>
-<li><strong>اگر کوئی ہماری نجی بات کو اسی طرح فارورڈ کرے تو ہمیں کیسا لگے گا؟</strong></li>
-</ol>
-<h3>سوشل میڈیا اسٹیٹس اور تبصرے</h3>
-<p>فیس بک یا انسٹاگرام پر ہم اکثر ایسے اسٹیٹس لگاتے ہیں یا تبصرے کرتے ہیں جو کسی مخصوص شخص کی طرف اشارہ ہوتے ہیں، حالانکہ ہم اس کا نام نہیں لیتے۔ یہ &quot;<strong>پاس شاٹ</strong>&quot; کہلانے والی غیبت کی ایک جدید شکل ہے۔</p>
-<h2>اسلام میں ڈیجیٹل اخلاقیات</h2>
-<h3>امانت داری اور پرائیویسی</h3>
-<p>اسلام میں امانت داری کو انتہائی اہمیت حاصل ہے۔ قرآن کریم میں ارشاد ہے:</p>
-<blockquote>
-<p><strong>&quot;بے شک اللہ تمہیں امانتیں لوٹانے کا حکم دیتا ہے&quot;</strong> (النساء: 58)</p>
-</blockquote>
-<p>جب کوئی ہمیں میسج کرتا ہے یا ہم سے ذاتی بات کرتا ہے، تو یہ ہمارے اوپر ایک امانت ہے۔ اسے بغیر اجازت کے دوسروں سے شیئر کرنا امانت داری کی خلاف ورزی ہے۔</p>
-<h3>سچائی اور تصدیق</h3>
-<p>اللہ تعالیٰ کا ارشاد ہے:</p>
-<blockquote>
-<p><strong>&quot;اے ایمان والو! اگر کوئی فاسق تمہارے پاس کوئی خبر لائے تو تم اس کی تحقیق کر لیا کرو&quot;</strong> (الحجرات: 6)</p>
-</blockquote>
-<p>سوشل میڈیا پر ہم اکثر بغیر تصدیق کے میسجز فارورڈ کر دیتے ہیں، تصاویر شیئر کر دیتے ہیں، یا خبریں پھیلا دیتے ہیں۔ یہ سب غلط ہے اور ہمیں اس سے بچنا چاہیے۔</p>
-<h2>ہماری ذمہ داریاں</h2>
-<h3>ذاتی سطح پر</h3>
-<ol>
-<li><strong>اپنی زبان پر قابو رکھیں</strong> - چاہے وہ حقیقی زبان ہو یا ڈیجیٹل &quot;زبان&quot;</li>
-<li><strong>دوسروں کی پرائیویسی کا احترام کریں</strong></li>
-<li><strong>بغیر اجازت کسی کی نجی بات شیئر نہ کریں</strong></li>
-<li><strong>میسجز فارورڈ کرنے سے پہلے سوچیں</strong></li>
-<li><strong>اسکرین شاٹ لینے سے پہلے اجازت لیں</strong></li>
-</ol>
-<h3>سماجی سطح پر</h3>
-<ol>
-<li><strong>ڈیجیٹل لٹریسی میں خود اور دوسروں کو تعلیم دیں</strong></li>
-<li><strong>بچوں کو ڈیجیٹل اخلاقیات سکھائیں</strong></li>
-<li><strong>غلط معلومات کی اصلاح کریں</strong></li>
-<li><strong>اچھے ڈیجیٹل رول ماڈل بنیں</strong></li>
-</ol>
-<h2>عملی اقدامات</h2>
-<h3>وٹس ایپ اور سوشل میڈیا کے لیے رہنما اصول</h3>
-<ol>
-<li><strong>ہمیشہ یہ فرض کریں کہ جو میسج آپ کو ملا ہے وہ صرف آپ کے لیے ہے</strong></li>
-<li><strong>اگر آپ کسی میسج کو فارورڈ کرنا چاہتے ہیں، تو پہلے بھیجنے والی سے اجازت لیں</strong></li>
-<li><strong>کسی کی تصویر یا ذاتی معلومات شیئر کرنے سے پہلے اجازت لیں</strong></li>
-<li><strong>منفی یا طنزیہ تبصرے کرنے سے بچیں</strong></li>
-<li><strong>اگر آپ غلطی سے کسی کی غیبت کر بیٹھیں، تو فوراً توبہ کریں اور اس سے معافی مانگیں</strong></li>
-</ol>
-<h3>ماہانہ ڈیجیٹل جائزہ</h3>
-<p>ہمیں چاہیے کہ ہم ماہانہ یا ہفتہ وار بنیاد پر اپنی ڈیجیٹل سرگرمیوں کا جائزہ لیں:</p>
-<ol>
-<li><strong>کیا ہم نے کوئی ایسی پوسٹ کی ہے جو غیبت ہو سکتی ہے؟</strong></li>
-<li><strong>کیا ہم نے کسی کا میسج بغیر اجازت کے فارورڈ کیا ہے؟</strong></li>
-<li><strong>کیا ہم نے کسی کی تصویر یا معلومات بغیر اجازت کے شیئر کی ہیں؟</strong></li>
-<li><strong>اگر ہاں، تو ہمیں فوراً اسے ڈیلیٹ کرنا چاہیے اور توبہ کرنی چاہیے</strong></li>
-</ol>
-<h2>اختتامیہ</h2>
-<p>ڈیجیٹل دور ہمارے لیے مواقع اور چیلنجز دونوں لے کر آیا ہے۔ ہمیں چاہیے کہ ہم اس ٹیکنالوجی کو استعمال کریں، لیکن اسلامی اصولوں کے دائرے میں رہ کر۔ ہمیں یاد رکھنا چاہیے کہ ہم جو کچھ بھی ڈیجیٹل طور پر کرتے ہیں، اس کا حساب دینا ہوگا۔</p>
-<p>رسول اللہ ﷺ نے فرمایا:</p>
-<blockquote>
-<p><strong>&quot;جو شخص ہماری ایک بھی امانت ہمارے پاس لوٹا لائے، تو وہ ہماری امت میں سے ہے&quot;</strong> (احمد)</p>
-</blockquote>
-<p>آئیے ہم عہد کریں کہ ہم ڈیجیٹل دنیا میں بھی امانت دار بنیں گے، دوسروں کی پرائیویسی کا احترام کریں گے، اور غیبت کی تمام شکلوں سے بچیں گے۔ یہی ہماری ذمہ داری ہے، اور یہی ہماری کامیابی کی کلید ہے۔</p>
-<h2>یاد رکھنے کے اہم نکات:</h2>
-<ol>
-<li><strong>غیبت صرف منہ سے نہیں ہوتی</strong> - ٹائپنگ، شیئرنگ، اور فارورڈنگ بھی غیبت ہے</li>
-<li><strong>اسکرین شاٹ لینا امانت داری کی خلاف ورزی ہے</strong> اگر اجازت نہ لی جائے</li>
-<li><strong>ذرا تصور کریں</strong> - اگر آپ کی اپنی نجی بات اسی طرح شیئر ہو جائے تو کیسا لگے گا؟</li>
-<li><strong>ڈیجیٹل امانت دار بنیں</strong> - جو کچھ آپ کے پاس آئے اس کی حفاظت کریں</li>
-<li><strong>بچوں کو سکھائیں</strong> - ڈیجیٹل اخلاقیات نئی نسل کو سکھانا ضروری ہے</li>
-<li><strong>تصدیق کریں پھر شیئر کریں</strong> - بغیر تصدیق کے کچھ بھی فارورڈ نہ کریں</li>
-<li><strong>اچھائی پھیلائیں</strong> - ٹیکنالوجی کو بھلائی کے لیے استعمال کریں</li>
-<li><strong>توبہ کریں</strong> - اگر غلطی ہو جائے تو فوراً توبہ کریں اور معافی مانگیں</li>
-</ol>
-
+        <!-- Post card -->
+        <div class="post-card">
+            <!-- Post image after title -->
+            <img src="https://bloglovers.pk/images/islami-taleemat/dyjytl-dor-main-ghybt-askryn-shats-astyts-aur-hmari-zmh-dari.png" 
+                 alt="ڈیجیٹل دور میں غیبت" 
+                 class="post-image">
+            
+            <!-- Post content -->
+            <div class="post-content">
+                <h1>ڈیجیٹل دور میں غیبت: اسکرین شاٹس، اسٹیٹس اور ہماری ذمہ داری</h1>
+                
+                <p>انٹرنیٹ اور سوشل میڈیا کی دنیا نے انسانی زندگی کو بنیادی طور پر بدل دیا ہے۔ آج ہم ایسے دور میں جی رہے ہیں جہاں معلومات کی منتقلی پہلے سے کہیں زیادہ تیز اور آسان ہو گئی ہے۔ لیکن اس آسانی کے ساتھ ساتھ کئی اخلاقی مسائل بھی پیدا ہوئے ہیں جن میں غیبت ایک بڑا اور سنگین مسئلہ ہے۔</p>
+                
+                <p>قرآن کریم میں ارشاد ہوتا ہے:</p>
+                
+                <blockquote>
+                    <p><strong>"اے ایمان والو! زیادہ قیاس سے بچو، بے شک بعض قیاس گناہ ہیں، اور نہ جاسوسی کیا کرو، اور تم میں سے کوئی اپنے مردہ بھائی کا گوشت کھانے سے بدتر بات نہ کہے، تم اسے کیسے ناپسند کرتے ہو؟"</strong> (الحجرات: 12)</p>
+                </blockquote>
+                
+                <p>یہ آیت آج کے ڈیجیٹل دور میں پہلے سے کہیں زیادہ اہمیت اختیار کر گئی ہے کیونکہ آج ہم نے غیبت کو نئی شکلوں میں اپنایا ہے - اسکرین شاٹس، فارورڈ شدہ میسجز، اور سوشل میڈیا اسٹیٹس کے ذریعے۔</p>
+                
+                <h2>غیبت کی تعریف اور اسلامی تعلیمات</h2>
+                
+                <p>غیبت کا مطلب ہے کسی کی غیر موجودگی میں ایسی بات کرنا جو اگر وہ سن لے تو ناپسند کرے، خواہ وہ بات سچ ہو یا جھوٹ۔ اسلام میں غیبت کو انتہائی سنگین گناہ قرار دیا گیا ہے۔</p>
+                
+                <p>رسول اللہ ﷺ نے فرمایا:</p>
+                
+                <blockquote>
+                    <p><strong>"تم جانتے ہو غیبت کیا ہے؟ صحابہ نے عرض کی: اللہ اور اس کے رسول بہتر جانتے ہیں۔ آپ ﷺ نے فرمایا: تمہارے بھائی کی ایسی بات کرنا جو وہ ناپسند کرے۔"</strong> (مسلم)</p>
+                </blockquote>
+                
+                <p>آج کے دور میں ہم نے غیبت کو جدید ٹیکنالوجی کے ذریعے کتنی آسانی سے اپنایا ہے، یہ ایک فکر انگیز مسئلہ ہے۔ وٹس ایپ گروپس، فیس بک پوسٹس، انسٹاگرام اسٹوریز، اور ٹویٹر پر تبصرے - یہ سب جگہیں اب غیبت کے میدان بن چکے ہیں۔</p>
+                
+                <h2>ڈیجیٹل غیبت کی نئی شکلیں</h2>
+                
+                <h3>اسکرین شاٹس کی ثقافت</h3>
+                
+                <p>اسکرین شاٹ لینا اور اسے دوسروں کو بھیجنا آج کی سب سے عام عادت بن چکی ہے۔ ہم کسی کی نجی باتچیت کا اسکرین شاٹ لے کر اسے دوسروں کو دکھاتے ہیں، بعض اوقات مذاق کے طور پر، اور بعض اوقات "ثبوت" کے طور پر۔ لیکن ہم یہ بھول جاتے ہیں کہ:</p>
+                
+                <ol>
+                    <li><strong>ہم نے اس شخص کی رضامندی حاصل نہیں کی</strong></li>
+                    <li><strong>یہ اس کی پرائیویسی کی خلاف ورزی ہے</strong></li>
+                    <li><strong>ہم اس کے اعتماد کو توڑ رہے ہیں</strong></li>
+                </ol>
+                
+                <p>ایک تحقیق میں یہ بات سامنے آئی ہے کہ نوجوان اسکرین شاٹس زیادہ تر ٹیکسٹ میسجنگ پلیٹ فارمز پر لیتے ہیں، جو کہ سب سے ذاتی سمجھے جاتے ہیں۔ جب پلیٹ فارم نوٹیفکیشن دیتا ہے جیسے Snapchat کرتا ہے تو صارفین زیادہ احتیاط سے کام لیتے ہیں۔</p>
+                
+                <h3>فارورڈ میسجز کی وبا</h3>
+                
+                <p>وٹس ایپ پر میسجز فارورڈ کرنا ایک عام سی بات ہو گئی ہے، لیکن ہم کبھی نہیں سوچتے کہ:</p>
+                
+                <ol>
+                    <li><strong>کیا ہم اس شخص کی اجازت کے بغیر اس کا میسج فارورڈ کر رہے ہیں؟</strong></li>
+                    <li><strong>کیا ہم اس کی نجی بات کو بغیر اجازت کے عام کر رہے ہیں؟</strong></li>
+                    <li><strong>اگر کوئی ہماری نجی بات کو اسی طرح فارورڈ کرے تو ہمیں کیسا لگے گا؟</strong></li>
+                </ol>
+                
+                <h3>سوشل میڈیا اسٹیٹس اور تبصرے</h3>
+                
+                <p>فیس بک یا انسٹاگرام پر ہم اکثر ایسے اسٹیٹس لگاتے ہیں یا تبصرے کرتے ہیں جو کسی مخصوص شخص کی طرف اشارہ ہوتے ہیں، حالانکہ ہم اس کا نام نہیں لیتے۔ یہ "<strong>پاس شاٹ</strong>" کہلانے والی غیبت کی ایک جدید شکل ہے۔</p>
+                
+                <h2>اسلام میں ڈیجیٹل اخلاقیات</h2>
+                
+                <h3>امانت داری اور پرائیویسی</h3>
+                
+                <p>اسلام میں امانت داری کو انتہائی اہمیت حاصل ہے۔ قرآن کریم میں ارشاد ہے:</p>
+                
+                <blockquote>
+                    <p><strong>"بے شک اللہ تمہیں امانتیں لوٹانے کا حکم دیتا ہے"</strong> (النساء: 58)</p>
+                </blockquote>
+                
+                <p>جب کوئی ہمیں میسج کرتا ہے یا ہم سے ذاتی بات کرتا ہے، تو یہ ہمارے اوپر ایک امانت ہے۔ اسے بغیر اجازت کے دوسروں سے شیئر کرنا امانت داری کی خلاف ورزی ہے۔</p>
+                
+                <h3>سچائی اور تصدیق</h3>
+                
+                <p>اللہ تعالیٰ کا ارشاد ہے:</p>
+                
+                <blockquote>
+                    <p><strong>"اے ایمان والو! اگر کوئی فاسق تمہارے پاس کوئی خبر لائے تو تم اس کی تحقیق کر لیا کرو"</strong> (الحجرات: 6)</p>
+                </blockquote>
+                
+                <p>سوشل میڈیا پر ہم اکثر بغیر تصدیق کے میسجز فارورڈ کر دیتے ہیں، تصاویر شیئر کر دیتے ہیں، یا خبریں پھیلا دیتے ہیں۔ یہ سب غلط ہے اور ہمیں اس سے بچنا چاہیے۔</p>
+                
+                <h2>ہماری ذمہ داریاں</h2>
+                
+                <h3>ذاتی سطح پر</h3>
+                
+                <ol>
+                    <li><strong>اپنی زبان پر قابو رکھیں</strong> - چاہے وہ حقیقی زبان ہو یا ڈیجیٹل "زبان"</li>
+                    <li><strong>دوسروں کی پرائیویسی کا احترام کریں</strong></li>
+                    <li><strong>بغیر اجازت کسی کی نجی بات شیئر نہ کریں</strong></li>
+                    <li><strong>میسجز فارورڈ کرنے سے پہلے سوچیں</strong></li>
+                    <li><strong>اسکرین شاٹ لینے سے پہلے اجازت لیں</strong></li>
+                </ol>
+                
+                <h3>سماجی سطح پر</h3>
+                
+                <ol>
+                    <li><strong>ڈیجیٹل لٹریسی میں خود اور دوسروں کو تعلیم دیں</strong></li>
+                    <li><strong>بچوں کو ڈیجیٹل اخلاقیات سکھائیں</strong></li>
+                    <li><strong>غلط معلومات کی اصلاح کریں</strong></li>
+                    <li><strong>اچھے ڈیجیٹل رول ماڈل بنیں</strong></li>
+                </ol>
+                
+                <h2>عملی اقدامات</h2>
+                
+                <h3>وٹس ایپ اور سوشل میڈیا کے لیے رہنما اصول</h3>
+                
+                <ol>
+                    <li><strong>ہمیشہ یہ فرض کریں کہ جو میسج آپ کو ملا ہے وہ صرف آپ کے لیے ہے</strong></li>
+                    <li><strong>اگر آپ کسی میسج کو فارورڈ کرنا چاہتے ہیں، تو پہلے بھیجنے والی سے اجازت لیں</strong></li>
+                    <li><strong>کسی کی تصویر یا ذاتی معلومات شیئر کرنے سے پہلے اجازت لیں</strong></li>
+                    <li><strong>منفی یا طنزیہ تبصرے کرنے سے بچیں</strong></li>
+                    <li><strong>اگر آپ غلطی سے کسی کی غیبت کر بیٹھیں، تو فوراً توبہ کریں اور اس سے معافی مانگیں</strong></li>
+                </ol>
+                
+                <h3>ماہانہ ڈیجیٹل جائزہ</h3>
+                
+                <p>ہمیں چاہیے کہ ہم ماہانہ یا ہفتہ وار بنیاد پر اپنی ڈیجیٹل سرگرمیوں کا جائزہ لیں:</p>
+                
+                <ol>
+                    <li><strong>کیا ہم نے کوئی ایسی پوسٹ کی ہے جو غیبت ہو سکتی ہے؟</strong></li>
+                    <li><strong>کیا ہم نے کسی کا میسج بغیر اجازت کے فارورڈ کیا ہے؟</strong></li>
+                    <li><strong>کیا ہم نے کسی کی تصویر یا معلومات بغیر اجازت کے شیئر کی ہیں؟</strong></li>
+                    <li><strong>اگر ہاں، تو ہمیں فوراً اسے ڈیلیٹ کرنا چاہیے اور توبہ کرنی چاہیے</strong></li>
+                </ol>
+                
+                <h2>اختتامیہ</h2>
+                
+                <p>ڈیجیٹل دور ہمارے لیے مواقع اور چیلنجز دونوں لے کر آیا ہے۔ ہمیں چاہیے کہ ہم اس ٹیکنالوجی کو استعمال کریں، لیکن اسلامی اصولوں کے دائرے میں رہ کر۔ ہمیں یاد رکھنا چاہیے کہ ہم جو کچھ بھی ڈیجیٹل طور پر کرتے ہیں، اس کا حساب دینا ہوگا۔</p>
+                
+                <p>رسول اللہ ﷺ نے فرمایا:</p>
+                
+                <blockquote>
+                    <p><strong>"جو شخص ہماری ایک بھی امانت ہمارے پاس لوٹا لائے، تو وہ ہماری امت میں سے ہے"</strong> (احمد)</p>
+                </blockquote>
+                
+                <p>آئیے ہم عہد کریں کہ ہم ڈیجیٹل دنیا میں بھی امانت دار بنیں گے، دوسروں کی پرائیویسی کا احترام کریں گے، اور غیبت کی تمام شکلوں سے بچیں گے۔ یہی ہماری ذمہ داری ہے، اور یہی ہماری کامیابی کی کلید ہے۔</p>
+                
+                <h2>یاد رکھنے کے اہم نکات:</h2>
+                
+                <ol>
+                    <li><strong>غیبت صرف منہ سے نہیں ہوتی</strong> - ٹائپنگ، شیئرنگ، اور فارورڈنگ بھی غیبت ہے</li>
+                    <li><strong>اسکرین شاٹ لینا امانت داری کی خلاف ورزی ہے</strong> اگر اجازت نہ لی جائے</li>
+                    <li><strong>ذرا تصور کریں</strong> - اگر آپ کی اپنی نجی بات اسی طرح شیئر ہو جائے تو کیسا لگے گا؟</li>
+                    <li><strong>ڈیجیٹل امانت دار بنیں</strong> - جو کچھ آپ کے پاس آئے اس کی حفاظت کریں</li>
+                    <li><strong>بچوں کو سکھائیں</strong> - ڈیجیٹل اخلاقیات نئی نسل کو سکھانا ضروری ہے</li>
+                    <li><strong>تصدیق کریں پھر شیئر کریں</strong> - بغیر تصدیق کے کچھ بھی فارورڈ نہ کریں</li>
+                    <li><strong>اچھائی پھیلائیں</strong> - ٹیکنالوجی کو بھلائی کے لیے استعمال کریں</li>
+                    <li><strong>توبہ کریں</strong> - اگر غلطی ہو جائے تو فوراً توبہ کریں اور معافی مانگیں</li>
+                </ol>
+            </div>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
+    
+    <!-- Page scroll buttons -->
+    <button class="page-scroll-btn page-up" onclick="scrollToTop()" title="اوپر جائیں">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <button class="page-scroll-btn page-down" onclick="scrollToBottom()" title="نیچے جائیں">
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>© 2025 ڈیجیٹل اخلاقیات - تمام حقوق محفوظ ہیں</p>
+            <p>ہماری ذمہ داری ہے کہ ہم ڈیجیٹل دنیا میں بھی اسلامی اصولوں پر عمل کریں</p>
+        </div>
+    </footer>
+    
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Function to scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        
+        // Function to scroll to bottom
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
         }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        
+        // Show/hide page up button based on scroll position
+        window.addEventListener('scroll', function() {
+            const pageUpBtn = document.querySelector('.page-up');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 300) {
+                pageUpBtn.style.display = 'flex';
+            } else {
+                pageUpBtn.style.display = 'none';
+            }
+        });
+        
+        // Initialize - hide page up button initially
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.page-up').style.display = 'none';
+        });
     </script>
 </body>
 </html>
