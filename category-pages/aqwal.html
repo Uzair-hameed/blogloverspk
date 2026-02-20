@@ -4,74 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اقوال زریں | بلاگ لوورز</title>
-    <!-- Urdu Font -->
+    <!-- Jameel Noori Nastaleeq Font + Fallback -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    
+    <!-- Font Awesome 6 (Free) for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- Font & Colors --- */
+        /* ----- FONT & RESET ----- */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
             src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Kasheeda'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v18/IONv7VFLir0wyV3C1bK6y5iQ06T6L7i0.woff2') format('woff2');
+            font-display: swap;
         }
-
-        :root {
-            --bg-dark: #0a0a0a;
-            --card-bg: #141414;
-            --gold: #FFD700;
-            --gold-dim: #998100;
-            --text: #f0f0f0;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
-
+        :root {
+            --baby-sky-light: #d9f0ff;
+            --baby-sky-medium: #b0e0ff;
+            --baby-sky-dark: #7fc9ff;
+            --glass-bg: rgba(255, 255, 255, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-deep: #013a5c;
+            --golden-touch: #d4a017;
+            --card-shadow: 0 20px 40px -15px #0280b3;
+        }
         body {
-            background-color: var(--bg-dark);
-            background-image: linear-gradient(to bottom, #000 0%, #111 100%);
-            color: var(--text);
-            font-size: 16px;
-            overflow-x: hidden;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            background: linear-gradient(145deg, var(--baby-sky-light) 0%, var(--baby-sky-medium) 50%, var(--baby-sky-dark) 100%);
             min-height: 100vh;
+            color: var(--text-deep);
+            font-size: 14px;
+            line-height: 1.7;
+            position: relative;
+            overflow-x: hidden;
         }
-
-        /* --- Header --- */
+        /* Animated background lines (different) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(45deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 20px, rgba(255,255,240,0.05) 20px, rgba(255,255,240,0.05) 40px);
+            pointer-events: none;
+            z-index: 0;
+            animation: slideBackground 20s linear infinite;
+        }
+        @keyframes slideBackground {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+        
+        /* ----- HEADER (different: centered glass) ----- */
         header {
             text-align: center;
-            padding: 30px 10px;
-            border-bottom: 2px solid var(--gold-dim);
-            background: rgba(0,0,0,0.5);
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            color: var(--gold);
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-            margin-bottom: 5px;
-        }
-
-        .symbol-decor {
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin: 0 10px;
-        }
-
-        /* --- Slider --- */
-        .slider-container {
-            width: 95%;
-            max-width: 800px;
-            height: 250px;
-            margin: 25px auto;
-            border-radius: 15px;
-            border: 1px solid var(--gold-dim);
+            padding: 25px 15px;
+            margin: 20px auto 10px;
+            width: 90%;
+            max-width: 700px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 80px 80px 30px 30px;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 15px 30px -10px #0284c7;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.1);
+            z-index: 10;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            color: #024d73;
+            text-shadow: 3px 3px 0 white, 5px 5px 0 rgba(2, 100, 150, 0.3);
+            display: inline-block;
+            animation: gentleWave 3s infinite ease-in-out;
+        }
+        @keyframes gentleWave {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .symbol-decor {
+            font-size: 2rem;
+            color: #0277b3;
+            margin: 0 8px;
+            display: inline-block;
+            animation: rotateSlow 8s infinite linear;
+        }
+        @keyframes rotateSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        header p {
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(4px);
+            padding: 5px 20px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            width: fit-content;
+            margin: 10px auto 0;
+            border: 1px solid white;
         }
 
+        /* ----- MAIN FEATURE CARD (Slider + Welcome) different layout ----- */
+        .feature-card {
+            width: 90%;
+            max-width: 950px;
+            margin: 20px auto 30px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(16px);
+            border: 2px solid white;
+            border-radius: 50px 50px 30px 30px;
+            padding: 20px 20px 15px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            z-index: 10;
+        }
+        .feature-title {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #024d73;
+            margin-bottom: 15px;
+            background: rgba(255,255,240,0.5);
+            display: inline-block;
+            padding: 5px 40px;
+            border-radius: 40px;
+            margin-right: auto;
+            margin-left: auto;
+            width: fit-content;
+            border: 1px solid white;
+        }
+        /* Slider inside feature card */
+        .slider-container {
+            width: 100%;
+            height: 260px;
+            border-radius: 40px 40px 20px 20px;
+            border: 3px solid white;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 30px -10px #02658f;
+            margin-bottom: 15px;
+        }
         .slide {
             width: 100%;
             height: 100%;
@@ -79,179 +150,327 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 1.2s ease;
             display: flex;
             align-items: flex-end;
             justify-content: center;
         }
-
         .slide.active { opacity: 1; }
-
         .slide-caption {
-            background: rgba(0, 0, 0, 0.8);
+            background: linear-gradient(0deg, #013a5c 0%, rgba(1,70,100,0.8) 100%);
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
-            color: var(--gold);
+            color: white;
             font-size: 1.2rem;
-            border-top: 1px solid var(--gold-dim);
+            border-top: 3px solid white;
+            text-shadow: 0 2px 5px black;
         }
 
-        /* --- Stats Bar --- */
+        /* Stats inside feature card */
         .stats-bar {
             text-align: center;
-            margin: 20px 0;
-            color: var(--text);
-            font-size: 0.9rem;
-            background: #111;
-            padding: 8px;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(4px);
+            width: fit-content;
+            margin: 10px auto 5px;
+            padding: 7px 30px;
+            border-radius: 40px;
+            border: 1px solid white;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .live-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #00ff00;
+            width: 14px;
+            height: 14px;
+            background: #00c851;
             border-radius: 50%;
-            margin-left: 5px;
-            animation: blink 1s infinite;
+            animation: pulseDot 1s infinite, spinSmall 5s infinite;
         }
-        @keyframes blink { 50% { opacity: 0.2; } }
+        @keyframes pulseDot { 50% { opacity: 0.3; } }
+        @keyframes spinSmall { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- Grid --- */
+        /* ----- POSTS GRID (different: glass cards with icon) ----- */
         .container {
             width: 90%;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding-bottom: 40px;
+            max-width: 800px;
+            margin: 30px auto;
+            position: relative;
+            z-index: 10;
         }
-
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             justify-content: center;
         }
-
         .card {
-            background: var(--card-bg);
-            border: 1px solid #333;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid white;
+            border-radius: 50px 50px 30px 30px;
             overflow: hidden;
             text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+            transition: 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            box-shadow: 0 15px 30px -10px #02658f;
+            display: block;
+            color: inherit;
         }
-
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.15);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ffdb7e;
+            box-shadow: 0 25px 35px -8px #025c8a;
         }
-
         .card-img-box {
             width: 100%;
             height: 180px;
             overflow: hidden;
             position: relative;
         }
-
+        .card-img-box::before {
+            content: "\f10e"; /* quote right icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            bottom: 10px; right: 15px;
+            font-size: 2.5rem;
+            color: rgba(255,255,200,0.7);
+            z-index: 2;
+            text-shadow: 0 0 8px #023b5e;
+            animation: floatIcon 4s infinite alternate;
+        }
+        @keyframes floatIcon {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-10px) rotate(10deg); }
+        }
         .card-img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.7s ease;
         }
-
         .card:hover .card-img-box img {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
-
         .card-content {
-            padding: 15px;
+            padding: 15px 12px;
             text-align: center;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
         }
-
         .card-title {
-            color: var(--text);
-            font-size: 1.1rem;
+            color: #01446b;
+            font-size: 1rem;
+            font-weight: 700;
             margin: 0;
-            transition: color 0.3s;
+            transition: 0.2s;
+            text-shadow: 0 1px 3px white;
         }
-
         .card:hover .card-title {
-            color: var(--gold);
+            color: #022c42;
+            text-decoration: underline wavy #ffb703 2px;
         }
 
-        /* --- Buttons --- */
+        /* ----- BUTTONS + SOCIALS (same robust but clean) ----- */
         .actions {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin: 40px 0;
+            gap: 20px;
+            margin: 40px 0 30px;
             flex-wrap: wrap;
+            z-index: 15;
+            position: relative;
         }
-
         .btn {
-            background: #111;
-            border: 1px solid var(--gold);
-            color: var(--gold);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 2px solid white;
+            color: #014a70;
             padding: 10px 30px;
-            border-radius: 30px;
-            text-decoration: none;
+            border-radius: 50px;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.25s;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
         }
-
+        .btn i { font-size: 1.2rem; transition: transform 0.3s; }
         .btn:hover {
-            background: var(--gold);
-            color: #000;
-            box-shadow: 0 0 15px var(--gold);
+            background: white;
+            border-color: #0284c7;
+            color: #013a5c;
+            box-shadow: 0 5px 20px #0284c7;
+        }
+        .btn:hover i { transform: rotate(180deg); }
+
+        /* social share strip (left) */
+        .social-share-strip {
+            position: fixed;
+            top: 35%;
+            left: 8px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+            background: rgba(255,255,240,0.4);
+            backdrop-filter: blur(12px);
+            padding: 12px 6px;
+            border-radius: 50px;
+            border: 2px solid white;
+        }
+        .social-share-strip a {
+            color: #015e91;
+            background: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: 0.3s;
+            border: 1px solid #b0e0ff;
+            text-decoration: none;
+        }
+        .social-share-strip a:hover {
+            transform: scale(1.2) rotate(15deg);
+            background: #0284c7;
+            color: white;
+        }
+        /* up/down */
+        .page-updown {
+            position: fixed;
+            bottom: 25px;
+            left: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 99;
+        }
+        .page-updown button {
+            background: white;
+            border: 2px solid #0290d0;
+            color: #01658c;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 15px #7fc3ff;
+        }
+        .page-updown button:hover {
+            background: #0284c7;
+            color: white;
+            transform: translateY(-5px);
+        }
+        /* home fixed */
+        .home-fixed {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            z-index: 99;
+        }
+        .home-fixed a {
+            background: white;
+            color: #01658c;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 2px solid #bee0f5;
+            box-shadow: 0 8px 20px #0284c7;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .home-fixed a:hover {
+            background: #01658c;
+            color: white;
+            transform: scale(1.15) rotate(360deg);
         }
 
         footer {
             text-align: center;
-            padding: 20px;
-            border-top: 1px solid #222;
-            color: #555;
+            padding: 15px;
+            color: #01466b;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(8px);
+            border-top: 3px solid white;
             font-size: 0.8rem;
+            position: relative;
+            z-index: 10;
         }
 
+        @media (max-width: 600px) {
+            .social-share-strip { left: 2px; padding: 8px 3px; }
+            .social-share-strip a { width: 36px; height: 36px; font-size: 1rem; }
+            .page-updown { left: 5px; }
+            .home-fixed { right: 8px; }
+            .slider-container { height: 180px; }
+            .feature-card { padding: 15px; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Social strip -->
+    <div class="social-share-strip">
+        <a href="#" onclick="shareSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" onclick="shareSocial('twitter')"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" onclick="shareSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" onclick="shareSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" onclick="shareSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" onclick="shareSocial('pinterest')"><i class="fab fa-pinterest"></i></a>
+    </div>
+
+    <!-- Up/Down -->
+    <div class="page-updown">
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});"><i class="fas fa-arrow-down"></i></button>
+    </div>
+
+    <!-- Home fixed -->
+    <div class="home-fixed">
+        <a href="https://bloglovers.pk" target="_blank"><i class="fas fa-home"></i></a>
+    </div>
+
+    <!-- Header -->
     <header>
-        <span class="symbol-decor">✦</span>
+        <span class="symbol-decor"><i class="fas fa-star"></i></span>
         <h1>اقوال زریں</h1>
-        <span class="symbol-decor">✦</span>
-        <p>حکمت و دانائی کے نایاب موتی</p>
+        <span class="symbol-decor"><i class="fas fa-star"></i></span>
+        <p>حکمت کے چند قیمتی پتے</p>
     </header>
 
-    <!-- Slider -->
-    <div class="slider-container" id="slider">
-        <!-- Slides inserted via JS -->
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-bar">
-        <span class="live-dot"></span>
-        لائیو اپڈیٹ | کل پوسٹس: <span id="count">0</span>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="grid" id="posts-grid">
-            <!-- Posts inserted via JS -->
+    <!-- Feature Card (Slider + Stats) -->
+    <div class="feature-card">
+        <div class="feature-title">✨ منتخب اقوال ✨</div>
+        <div class="slider-container" id="slider"></div>
+        <div class="stats-bar">
+            <span class="live-dot"></span>
+            <span>لائیو اپڈیٹ | کل پوسٹس: <span id="count">0</span></span>
         </div>
     </div>
 
-    <!-- Buttons -->
+    <!-- Posts Grid (only 2 posts) -->
+    <div class="container">
+        <div class="grid" id="posts-grid"></div>
+    </div>
+
+    <!-- Action Buttons -->
     <div class="actions">
-        <button class="btn" onclick="sharePage()">➦ دوستوں سے شیئر کریں</button>
-        <a href="https://bloglovers.pk" class="btn">🏠 مرکزی صفحہ</a>
+        <button class="btn" onclick="sharePage()"><i class="fas fa-share-alt"></i> دوستوں سے شیئر کریں</button>
+        <a href="https://bloglovers.pk" class="btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
     </div>
 
     <footer>
@@ -259,7 +478,7 @@
     </footer>
 
     <script>
-        // --- DATA SECTION: Only Aqwal Posts ---
+        // --- ONLY 2 POSTS (as per original aqwal.html) ---
         const posts = [
             {
                 url: "https://bloglovers.pk/aqwal/taleem-ki-roshni-par-50-aqwal-zareen",
@@ -273,57 +492,72 @@
             }
         ];
 
-        // --- Render Functions ---
+        // render
         const sliderContainer = document.getElementById('slider');
         const gridContainer = document.getElementById('posts-grid');
         document.getElementById('count').innerText = posts.length;
 
         posts.forEach((post, index) => {
-            // 1. Add to Slider
+            // slide
             const slideDiv = document.createElement('div');
             slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
             slideDiv.style.backgroundImage = `url('${post.img}')`;
             slideDiv.innerHTML = `<div class="slide-caption">${post.title}</div>`;
             sliderContainer.appendChild(slideDiv);
 
-            // 2. Add to Grid
+            // card
             const cardLink = document.createElement('a');
             cardLink.href = post.url;
             cardLink.className = 'card';
-            cardLink.innerHTML = `
-                <div class="card-img-box">
-                    <img src="${post.img}" onerror="this.src='https://via.placeholder.com/300x180/000/FFD700?text=Aqwal'" alt="${post.title}">
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">${post.title}</h3>
-                </div>
-            `;
+            const imgBox = document.createElement('div');
+            imgBox.className = 'card-img-box';
+            const img = document.createElement('img');
+            img.src = post.img;
+            img.alt = post.title;
+            img.onerror = function() { this.src = 'https://via.placeholder.com/400x200/b0e0ff/013a5c?text=اقوال+زریں'; };
+            imgBox.appendChild(img);
+            cardLink.appendChild(imgBox);
+            const content = document.createElement('div');
+            content.className = 'card-content';
+            content.innerHTML = `<h3 class="card-title">${post.title}</h3>`;
+            cardLink.appendChild(content);
             gridContainer.appendChild(cardLink);
         });
 
-        // --- Slider Animation Logic ---
+        // slider auto
         let current = 0;
         const slides = document.querySelectorAll('.slide');
-        
-        function runSlider() {
-            slides[current].classList.remove('active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('active');
+        if (slides.length) {
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 4200);
         }
-        setInterval(runSlider, 4000); // Change slide every 4 seconds
 
-        // --- Share Logic ---
+        // share functions
         function sharePage() {
             if (navigator.share) {
-                navigator.share({
-                    title: document.title,
-                    url: window.location.href
-                });
+                navigator.share({ title: document.title, url: window.location.href });
             } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert('لنک کاپی ہو گیا ہے!');
+                navigator.clipboard?.writeText(window.location.href);
+                alert('لنک کاپی ہو گیا!');
             }
         }
+        window.sharePage = sharePage;
+
+        window.shareSocial = function(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let text = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${text}%20${url}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        };
     </script>
 </body>
 </html>
