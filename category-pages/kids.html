@@ -4,22 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بچوں کی دنیا | Kids Corner</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Jameel Noori Nastaleeq Font Setup */
+        /* Jameel Noori Nastaleeq Font */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
-            src: url('https://fonts.gstatic.com/s/jameelnoorinastaleeq/v1/JameelNooriNastaleeq.ttf') format('truetype'); 
-            /* Note: If local font is not available, it will fallback to system Urdu font */
-        }
-
-        :root {
-            --primary-blue: #001f3f;
-            --secondary-blue: #003366;
-            --accent-cyan: #00d2ff;
-            --text-white: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.1);
+            src: url('https://fonts.gstatic.com/s/jameelnoorinastaleeq/v1/JameelNooriNastaleeq.ttf') format('truetype');
         }
 
         * {
@@ -28,427 +19,483 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-bg: #0d2b1f;      /* گہرا سبز */
+            --card-bg: #1c3b2b;         /* کارڈ کا پس منظر */
+            --accent-red: #e03a3a;       /* سرخ طوطا */
+            --accent-green: #4caf7a;     /* سبز طوطا */
+            --accent-gold: #fdbb4c;      /* سنہری */
+            --text-soft: #f1f0d7;
+            --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+
         body {
-            background-color: var(--primary-blue);
-            color: var(--text-white);
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-            overflow-x: hidden;
+            background: linear-gradient(145deg, #0a271b, #123d28);
+            color: var(--text-soft);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Animated Background Particles */
-        .background-animation {
+        /*  ===== انیمیٹڈ پارٹیکلز (طوطے اور پتے) ===== */
+        .floating-parrot {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            z-index: 0;
+            opacity: 0.25;
+            pointer-events: none;
+            animation: flyAround 35s infinite ease-in-out;
+        }
+        .green-parrot { color: #78b83e; }
+        .red-parrot { color: #e65d4f; }
+
+        @keyframes flyAround {
+            0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0.2; }
+            20% { opacity: 0.4; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        .star {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.3);
-            animation: float 15s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Header & Navigation */
+        /*  ===== ہیڈر جدید ===== */
         header {
-            background: linear-gradient(180deg, #000c1a 0%, var(--primary-blue) 100%);
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            background: #123b22e0;
+            backdrop-filter: blur(12px);
+            padding: 12px 25px;
+            border-bottom: 4px solid var(--accent-red);
+            box-shadow: 0 10px 25px #00000055;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 2px solid var(--accent-cyan);
         }
 
         .nav-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
-        .back-btn {
-            background: var(--accent-cyan);
-            color: var(--primary-blue);
-            padding: 8px 15px;
-            border-radius: 50px;
+        .home-btn {
+            background: var(--accent-red);
+            width: 48px;
+            height: 48px;
+            border-radius: 30px 10px 30px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
             text-decoration: none;
-            font-weight: bold;
-            font-family: sans-serif;
-            transition: 0.3s;
-            font-size: 0.9rem;
+            box-shadow: 0 0 0 3px #ffe1a0;
+            transition: 0.2s;
         }
-
-        .back-btn:hover {
+        .home-btn:hover {
+            background: var(--accent-green);
+            border-radius: 10px 30px 10px 30px;
             transform: scale(1.1);
-            background: white;
         }
 
         .page-title {
-            font-size: 2rem;
-            text-shadow: 0 0 10px var(--accent-cyan);
-            animation: glow 2s infinite alternate;
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #f9f3b0, #ffc8a2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 0 #aa4a3a;
+            letter-spacing: 1px;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px var(--accent-cyan); }
-            to { text-shadow: 0 0 20px #ffffff, 0 0 10px var(--accent-cyan); }
-        }
-
-        .share-buttons i {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .share-buttons i:hover {
-            color: var(--accent-cyan);
-            transform: rotate(20deg) scale(1.2);
-        }
-
-        /* Main Slider (CSS Only) */
-        .slider-container {
-            max-width: 800px;
-            height: 250px;
-            margin: 30px auto;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 2px solid var(--accent-cyan);
-        }
-
-        .slider-wrapper {
+        .social-share {
             display: flex;
-            width: 300%;
-            height: 100%;
-            animation: slide 15s infinite;
+            gap: 12px;
+        }
+        .social-share a {
+            background: #2a4d34;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 20px 5px 20px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid var(--accent-gold);
+            transition: 0.25s;
+            text-decoration: none;
+        }
+        .social-share a:hover {
+            background: var(--accent-red);
+            border-radius: 5px 20px 5px 20px;
+            transform: translateY(-7px);
+            border-color: white;
         }
 
-        .slide {
-            width: 33.33%;
-            height: 100%;
-            position: relative;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.7);
-        }
-
-        .slide-caption {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            width: 100%;
-            padding: 10px;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        @keyframes slide {
-            0%, 30% { transform: translateX(0); }
-            33%, 63% { transform: translateX(33.33%); }
-            66%, 96% { transform: translateX(66.66%); }
-            100% { transform: translateX(0); }
-        }
-
-        /* Posts Grid */
-        .container {
+        /*  ===== سلائیڈر (پوسٹ اسکرولر) ===== */
+        .scroller-section {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 40px auto 20px;
             padding: 0 20px;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+        .scroller-wrap {
+            background: #1c452ec0;
+            backdrop-filter: blur(6px);
+            border-radius: 60px 60px 20px 20px;
+            padding: 20px 15px;
+            border: 3px solid var(--accent-green);
+            box-shadow: 0 20px 25px -10px #0f321b;
         }
 
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.4s ease;
+        .scroller-horizontal {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 10px 15px;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-red) #1f5f3a;
+        }
+        .scroller-horizontal::-webkit-scrollbar {
+            height: 10px;
+        }
+        .scroller-horizontal::-webkit-scrollbar-thumb {
+            background: var(--accent-red);
+            border-radius: 30px;
+        }
+
+        .scroll-item {
+            min-width: 200px;
+            background: #275a37;
+            border-radius: 40px 15px 40px 15px;
+            padding: 10px;
+            border: 3px solid transparent;
+            transition: 0.3s;
+            box-shadow: 0 8px 10px #00000040;
             position: relative;
         }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.2);
-            border-color: var(--accent-cyan);
+        .scroll-item:hover {
+            border-color: var(--accent-gold);
+            background: #347a47;
+            transform: translateY(-8px) scale(1.02);
+        }
+        .scroll-item img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 30px 8px 30px 8px;
+            border: 3px solid #ffda8b;
+        }
+        .scroll-item h4 {
+            font-size: 0.8rem;
+            font-weight: 400;
+            text-align: center;
+            margin: 8px 0 5px;
+            color: #fff6ce;
+        }
+        .scroll-item .full-link {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
         }
 
-        .card-img-container {
+        /*  ===== مین پوسٹ گرڈ (نیا خوبصورت سٹائل) ===== */
+        .container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        /* کارڈ بالکل نیا لوک */
+        .story-card {
+            background: #1c402be0;
+            backdrop-filter: blur(4px);
+            border-radius: 50px 15px 50px 15px;
+            overflow: hidden;
+            border: 3px solid #47b376;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 30px -18px black;
+        }
+
+        .story-card:hover {
+            transform: translateY(-18px) scale(1.02);
+            border-color: var(--accent-red);
+            box-shadow: 0 0 30px #ffcf8a;
+            background: #235c37;
+        }
+
+        .card-media {
             position: relative;
             height: 180px;
             overflow: hidden;
+            border-bottom: 4px solid var(--accent-red);
         }
-
-        .card img {
+        .card-media img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.5s;
+            transition: 0.6s;
+        }
+        .story-card:hover .card-media img {
+            transform: scale(1.2) rotate(2deg);
         }
 
-        .card:hover img {
-            transform: scale(1.1);
-        }
-
-        .spinning-icon {
+        /* چھوٹا گھومتا ہوا آئیکن (ہر کارڈ میں) */
+        .icon-spin {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(0,0,0,0.6);
-            padding: 8px;
+            background: #143823e0;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            font-size: 12px;
-            color: #ffd700;
-            animation: spin 3s infinite linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            border: 2px solid #fff1b5;
+            animation: spinMe 5s infinite linear;
+            z-index: 8;
+            box-shadow: 0 0 15px currentColor;
+        }
+        @keyframes spinMe {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .card-content {
-            padding: 15px;
+        /* ٹائٹل کا علاقہ - بالکل چھوٹا فونٹ */
+        .card-caption {
+            padding: 18px 12px 22px;
             text-align: center;
+            background: rgba(0, 15, 5, 0.3);
+        }
+        .card-caption h3 {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: #fcf9dd;
+            text-shadow: 1px 1px 2px #02200b;
         }
 
-        .card h3 {
-            font-size: 1rem; /* Small font size as requested */
-            line-height: 1.6;
-            margin-bottom: 0;
-            color: #e0e0e0;
-        }
-
-        .card a.full-link {
+        /* مکمل طور پر ڈھکا ہوا لنک (ٹائٹل کے نیچے ظاہر نہیں) */
+        .story-link {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 10;
+            z-index: 20;
         }
 
-        /* Footer */
+        /*  ===== اپ ڈاؤن بٹنز ===== */
+        .float-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+        .float-buttons a {
+            background: var(--accent-red);
+            width: 58px;
+            height: 58px;
+            border-radius: 30px 10px 30px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            border: 3px solid #fbc16a;
+            box-shadow: 0 0 25px #fabc3c;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+        .float-buttons a:hover {
+            background: var(--accent-green);
+            border-radius: 10px 30px 10px 30px;
+            transform: scale(1.15);
+        }
+
+        /* فوٹر */
         footer {
+            background: #0f2d1cd9;
+            backdrop-filter: blur(5px);
+            padding: 25px;
             text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            background: rgba(0,0,0,0.3);
-            border-top: 1px solid var(--secondary-blue);
-            font-size: 0.9rem;
+            border-top: 5px solid var(--accent-red);
+            margin-top: 40px;
+            color: #d2ecbb;
+            font-size: 1rem;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            }
-            .card-img-container {
-                height: 140px;
-            }
-            .page-title {
-                font-size: 1.5rem;
-            }
-            .slider-container {
-                height: 180px;
-            }
+        @media (max-width: 600px) {
+            .post-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .card-media { height: 130px; }
+            .card-caption { padding: 10px; }
+            .card-caption h3 { font-size: 0.75rem; }
+            .page-title { font-size: 1.5rem; }
+            .social-share a { width: 38px; height: 38px; font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Animation -->
-    <div class="background-animation">
-        <i class="fas fa-star star" style="left: 10%; font-size: 10px; animation-duration: 12s;"></i>
-        <i class="fas fa-rocket star" style="left: 30%; font-size: 15px; animation-duration: 20s; color: #ff6b6b;"></i>
-        <i class="fas fa-moon star" style="left: 50%; font-size: 20px; animation-duration: 16s; color: #feca57;"></i>
-        <i class="fas fa-star star" style="left: 70%; font-size: 12px; animation-duration: 14s;"></i>
-        <i class="fas fa-plane star" style="left: 90%; font-size: 18px; animation-duration: 25s; color: #48dbfb;"></i>
-    </div>
+<!-- ===== فلوٹنگ تھیم (سبز و سرخ طوطے) ===== -->
+<div style="position: fixed; width: 100%; height: 100%; pointer-events: none; z-index: 0;">
+    <i class="fas fa-dove floating-parrot green-parrot" style="left: 8%; font-size: 55px; animation-duration: 28s;"></i>
+    <i class="fas fa-dove floating-parrot red-parrot" style="right: 15%; font-size: 80px; animation-duration: 40s; top: 10%;"></i>
+    <i class="fas fa-feather-alt floating-parrot green-parrot" style="left: 70%; font-size: 45px; animation-duration: 22s;"></i>
+    <i class="fas fa-crown floating-parrot red-parrot" style="right: 40%; font-size: 60px; animation-duration: 30s; color: #ffb259;"></i>
+    <i class="fas fa-tree floating-parrot green-parrot" style="left: 45%; font-size: 65px; animation-duration: 50s;"></i>
+    <i class="fas fa-apple-alt floating-parrot red-parrot" style="right: 70%; font-size: 40px; animation-duration: 18s;"></i>
+</div>
 
-    <!-- Header -->
-    <header>
-        <div class="nav-bar">
-            <a href="index.html" class="back-btn">
-                <i class="fas fa-arrow-left"></i> واپسی
-            </a>
-            <h1 class="page-title">بچوں کی دنیا</h1>
-            <div class="share-buttons">
-                <i class="fab fa-whatsapp" onclick="window.open('https://wa.me/?text=Check this amazing kids page: ' + window.location.href)"></i>
-                <i class="fab fa-facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + window.location.href)"></i>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Moving Slider (Featured Posts) -->
-    <div class="slider-container">
-        <div class="slider-wrapper">
-            <!-- Slide 1 -->
-            <div class="slide">
-                <img src="https://www.bloglovers.pk/images/kids/bachchon-ke-liye-akbar-birbal-ki-10-behtareen-kahaniyan.png" alt="Akbar Birbal">
-                <div class="slide-caption">اکبر بیربل کی 10 بہترین کہانیاں</div>
-            </div>
-            <!-- Slide 2 -->
-            <div class="slide">
-                <img src="https://www.bloglovers.pk/images/kids/billi-khala-ki-aakhri-maham.png" alt="Billi Khala">
-                <div class="slide-caption">بلی خالہ کی آخری مہم</div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="slide">
-                <img src="https://www.bloglovers.pk/images/kids/kshsh-sql-ki-pydash-nyotn-aur-syb-ka-dlchsp-sfr.png" alt="Newton">
-                <div class="slide-caption">نیوٹن اور سیب کا دلچسپ سفر</div>
-            </div>
+<!-- ہیڈر -->
+<header>
+    <div class="nav-bar">
+        <a href="https://bloglovers.pk" class="home-btn"><i class="fas fa-home"></i></a>
+        <h1 class="page-title">بچوں کی دنیا</h1>
+        <div class="social-share">
+            <a href="#" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href))"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" onclick="window.open('https://wa.me/?text='+encodeURIComponent('بچوں کی دنیا ' + location.href))"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href))"><i class="fab fa-twitter"></i></a>
+            <a href="#" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(location.href))"><i class="fab fa-telegram"></i></a>
+            <a href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href))"><i class="fab fa-linkedin-in"></i></a>
         </div>
     </div>
+</header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="grid">
+<!-- ہوریزونٹل اسکرولر (پوسٹ اسکرولر) -->
+<div class="scroller-section">
+    <div class="scroller-wrap">
+        <div class="scroller-horizontal" id="horizontalScroller"></div>
+    </div>
+</div>
 
-            <!-- Post 1 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/bachchon-ke-liye-akbar-birbal-ki-10-behtareen-kahaniyan.png" loading="lazy" alt="Akbar Birbal">
-                    <i class="fas fa-star spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>بچوں کے لیے اکبر بیربل کی 10 بہترین کہانیاں</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2022/12/10.html" class="full-link"></a>
-            </div>
+<!-- مین پوسٹ گرڈ (صرف 8 پوسٹس اصلی فائل سے) -->
+<div class="container">
+    <div class="post-grid" id="postGrid"></div>
+</div>
 
-            <!-- Post 2 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/billi-khala-ki-aakhri-maham.png" loading="lazy" alt="Billi Khala">
-                    <i class="fas fa-paw spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>بلی خالہ کی آخری مہم</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2024/07/blog-post.html" class="full-link"></a>
-            </div>
+<!-- اپ ڈاؤن بٹنز -->
+<div class="float-buttons">
+    <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
+</div>
 
-            <!-- Post 3 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/aymandari-bhtryn-palysi-hai.html" loading="lazy" alt="Honesty">
-                    <i class="fas fa-heart spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>ایمانداری بہترین پالیسی ہے</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2024/10/blog-post.html" class="full-link"></a>
-            </div>
+<footer>
+    <p>© 2025 بلاگ لوورز - بچوں کا گوشہ  <i class="fas fa-feather" style="color:var(--accent-red);"></i>  <i class="fas fa-leaf" style="color:var(--accent-green);"></i></p>
+    <p style="font-size:0.8rem; color: #fecb8a;">طوطوں کی دنیا • سبز و سرخ</p>
+</footer>
 
-            <!-- Post 4 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/ayk-nnhi-chyonti-aur-ayk-azym-pyghmbrhkmt-bhri-anokhi-mlaqat.png" loading="lazy" alt="Ant Story">
-                    <i class="fas fa-bug spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>ایک ننھی چیونٹی اور ایک عظیم پیغمبر: حکمت بھری انوکھی ملاقات</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2025/09/blog-post_16.html" class="full-link"></a>
-            </div>
+<script>
+    (function() {
+        // صرف 8 پوسٹس (جو اصل فائل میں تھیں، www ہٹا دیا)
+        const originalPosts = [
+            {
+                title: "بچوں کے لیے اکبر بیربل کی 10 بہترین کہانیاں",
+                img: "https://bloglovers.pk/images/kids/bachchon-ke-liye-akbar-birbal-ki-10-behtareen-kahaniyan.png",
+                link: "https://bloglovers.pk/2022/12/10.html"
+            },
+            {
+                title: "بلی خالہ کی آخری مہم",
+                img: "https://bloglovers.pk/images/kids/billi-khala-ki-aakhri-maham.png",
+                link: "https://bloglovers.pk/2024/07/blog-post.html"
+            },
+            {
+                title: "ایمانداری بہترین پالیسی ہے",
+                img: "https://bloglovers.pk/images/kids/aymandari-bhtryn-palysi-hai.png",
+                link: "https://bloglovers.pk/2024/10/blog-post.html"
+            },
+            {
+                title: "ایک ننھی چیونٹی اور ایک عظیم پیغمبر: حکمت بھری انوکھی ملاقات",
+                img: "https://bloglovers.pk/images/kids/ayk-nnhi-chyonti-aur-ayk-azym-pyghmbrhkmt-bhri-anokhi-mlaqat.png",
+                link: "https://bloglovers.pk/2025/09/blog-post_16.html"
+            },
+            {
+                title: "کششِ ثقل کی پیدائش: نیوٹن اور سیب کا دلچسپ سفر",
+                img: "https://bloglovers.pk/images/kids/kshsh-sql-ki-pydash-nyotn-aur-syb-ka-dlchsp-sfr.png",
+                link: "https://bloglovers.pk/2025/09/blog-post_1.html"
+            },
+            {
+                title: "اکبر بیربل کی کہانیوں پر کچھ نئے اور پرکشش موضوعات",
+                img: "https://bloglovers.pk/images/kids/akbr-byrbl-ki-khanyon-par-kchh-ne-aur-prkshsh-mozoaat.png",
+                link: "https://bloglovers.pk/2025/09/10_25.html"
+            },
+            {
+                title: "کہانیوں کا جادوئی صندوق: اکبر بیربل کی انوکھی داستانیں",
+                img: "https://bloglovers.pk/images/kids/kahaniyon-ka-jadooi-sandooq-akbar-birbal-ki-anokhi-dastaanein.png",
+                link: "https://bloglovers.pk/2025/09/blog-post_25.html"
+            },
+            {
+                title: "کہانیوں کا تحفہ: اکبر اور بیربل کے 10 نئے موضوعات",
+                img: "https://bloglovers.pk/images/kids/kahaniyon-ka-tohfa-akbar-aur-birbal-ke-10-naye-mauzuaat.png",
+                link: "https://bloglovers.pk/2025/09/blog-post_24.html"
+            }
+        ];
 
-            <!-- Post 5 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/kshsh-sql-ki-pydash-nyotn-aur-syb-ka-dlchsp-sfr.png" loading="lazy" alt="Newton">
-                    <i class="fas fa-apple-alt spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>کششِ ثقل کی پیدائش: نیوٹن اور سیب کا دلچسپ سفر</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2025/09/blog-post_1.html" class="full-link"></a>
-            </div>
-
-            <!-- Post 6 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/akbr-byrbl-ki-khanyon-par-kchh-ne-aur-prkshsh-mozoaat.png" loading="lazy" alt="Akbar Birbal Topics">
-                    <i class="fas fa-lightbulb spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>اکبر بیربل کی کہانیوں پر کچھ نئے اور پرکشش موضوعات</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2025/09/10_25.html" class="full-link"></a>
-            </div>
-
-            <!-- Post 7 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/kahaniyon-ka-jadooi-sandooq-akbar-birbal-ki-anokhi-dastaanein.png" loading="lazy" alt="Magic Box">
-                    <i class="fas fa-box-open spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>کہانیوں کا جادوئی صندوق: اکبر بیربل کی انوکھی داستانیں</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2025/09/blog-post_25.html" class="full-link"></a>
-            </div>
-
-            <!-- Post 8 -->
-            <div class="card">
-                <div class="card-img-container">
-                    <img src="https://www.bloglovers.pk/images/kids/kahaniyon-ka-tohfa-akbar-aur-birbal-ke-10-naye-mauzuaat.png" loading="lazy" alt="Story Gift">
-                    <i class="fas fa-gift spinning-icon"></i>
-                </div>
-                <div class="card-content">
-                    <h3>کہانیوں کا تحفہ: اکبر اور بیربل کے 10 نئے موضوعات</h3>
-                </div>
-                <a href="https://www.bloglovers.pk/2025/09/blog-post_24.html" class="full-link"></a>
-            </div>
-
+        // === گرڈ میں کارڈز بنائیں (نیا سٹائل) ===
+        const grid = document.getElementById('postGrid');
+        if (grid) {
+            grid.innerHTML = '';
+            originalPosts.forEach(post => {
+                const card = document.createElement('article');
+                card.className = 'story-card';
+                card.innerHTML = `
+                    <div class="card-media">
+                        <img src="${post.img}" loading="lazy" alt="${post.title}">
+                        <div class="icon-spin"><i class="fas fa-${post.title.includes('بلی') ? 'cat' : (post.title.includes('اکبر') ? 'crown' : 'feather')}"></i></div>
                     </div>
-    </div>
-
-    <footer>
-        <p>© 2025 بلاگ لوورز - بچوں کا سیکشن</p>
-        <p style="font-size: 0.8rem; margin-top:5px; color: var(--accent-cyan);">علم کی شمع، بچوں کے لیے</p>
-    </footer>
-
-    <script>
-        // Simple JS to add more floating stars dynamically
-        const bg = document.querySelector('.background-animation');
-        for(let i=0; i<15; i++) {
-            const icon = document.createElement('i');
-            const icons = ['fa-star', 'fa-moon', 'fa-cloud', 'fa-bolt'];
-            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
-            
-            icon.className = `fas ${randomIcon} star`;
-            icon.style.left = Math.random() * 100 + '%';
-            icon.style.animationDuration = (Math.random() * 20 + 10) + 's';
-            icon.style.fontSize = (Math.random() * 15 + 8) + 'px';
-            icon.style.animationDelay = (Math.random() * 5) + 's';
-            
-            bg.appendChild(icon);
+                    <div class="card-caption">
+                        <h3>${post.title}</h3>
+                    </div>
+                    <a href="${post.link}" class="story-link"></a>
+                `;
+                grid.appendChild(card);
+            });
         }
-    </script>
+
+        // === ہوریزونٹل اسکرولر بھی انہی 8 پوسٹس سے بھریں (کچھ ڈپلیکیٹ نہیں) ===
+        const scroller = document.getElementById('horizontalScroller');
+        if (scroller) {
+            scroller.innerHTML = '';
+            // پہلی 5 پوسٹس کو اسکرولر میں ڈالیں (کم تعداد مگر خوبصورت)
+            const scrollPosts = originalPosts.slice(0,5);
+            scrollPosts.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'scroll-item';
+                item.innerHTML = `
+                    <img src="${p.img}" loading="lazy">
+                    <h4>${p.title.length > 35 ? p.title.substr(0,32)+'…' : p.title}</h4>
+                    <a href="${p.link}" class="full-link"></a>
+                `;
+                scroller.appendChild(item);
+            });
+        }
+
+        // مزید فلوٹنگ پارٹیکلز (اختیاری)
+        for (let i=0;i<5;i++) {
+            let bird = document.createElement('i');
+            bird.className = `fas fa-${i%2===0?'dove':'feather-alt'} floating-parrot ${i%3===0?'red-parrot':'green-parrot'}`;
+            bird.style.left = Math.random()*90 + '%';
+            bird.style.fontSize = (Math.random()*40 + 30) + 'px';
+            bird.style.animationDuration = (Math.random()*30 + 25) + 's';
+            document.body.appendChild(bird);
+        }
+    })();
+</script>
 </body>
 </html>
