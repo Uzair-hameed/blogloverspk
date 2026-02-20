@@ -4,27 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اسلامی سوالات | بلاگ لوورز</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Font Awesome 6 (social icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- FONT SETUP --- */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
-        
+        /* ===== FONTS ===== */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
-            src: url('https://misbah.pk/font/JameelNooriNastaleeq.ttf') format('truetype');
+            src: url('https://cdn.jsdelivr.net/gh/ihsan-ch/urdu-fonts@main/fonts/JameelNooriNastaleeq.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
-        }
-
-        :root {
-            /* New Royal Theme Colors */
-            --royal-blue: #1B263B;
-            --deep-navy: #0D1B2A;
-            --luxury-gold: #C5A059;
-            --soft-gold: #E0C097;
-            --text-color: #E0E1DD;
-            --glass-bg: rgba(27, 38, 59, 0.7);
+            font-display: swap;
         }
 
         * {
@@ -35,247 +24,300 @@
         }
 
         body {
-            background-color: var(--deep-navy);
-            color: var(--text-color);
-            overflow-x: hidden;
-            font-size: 15px;
+            background: linear-gradient(125deg, #d8f0f7 0%, #b8e2c8 60%, #9fd3b3 100%);
+            color: #013a3a;
+            font-size: 14px;
+            line-height: 1.8;
+            min-height: 100vh;
             position: relative;
+            padding-bottom: 70px;
+            scroll-behavior: smooth;
         }
 
-        /* --- LIVE ANIMATED BACKGROUND (Starry Night / Spiritual Glow) --- */
-        .background-animation {
+        /* ===== SOFT FLOATING CLOUDS EFFECT ===== */
+        body::before {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(255,255,220,0.4) 0%, rgba(170, 230, 180, 0.2) 80%);
+            pointer-events: none;
             z-index: -1;
-            background: radial-gradient(circle at top, #1f4068 0%, #0D1B2A 80%);
-            overflow: hidden;
         }
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: twinkle 4s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 0.8; transform: scale(1.2); }
-        }
-
-        /* --- HEADER --- */
+        /* ===== HEADER (elegant glass) ===== */
         header {
-            background: rgba(13, 27, 42, 0.85);
-            backdrop-filter: blur(12px);
-            padding: 15px 20px;
+            background: rgba(255, 255, 250, 0.55);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 12px 25px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid var(--luxury-gold);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+            border-bottom: 2px solid #b3d9c0;
+            box-shadow: 0 10px 25px -8px #466b5e;
+            border-radius: 0 0 40px 40px;
         }
 
-        .back-btn {
-            background: transparent;
-            color: var(--luxury-gold);
-            padding: 8px 25px;
+        .home-btn {
+            background: #c4e3d5;  /* soft mint */
+            color: #015d5a;
+            padding: 8px 22px;
+            border-radius: 60px;
             text-decoration: none;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            transition: 0.4s;
-            border: 1px solid var(--luxury-gold);
+            font-size: 0.95rem;
+            font-weight: bold;
+            border: 1px solid #a2d0b0;
+            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
+            box-shadow: 0 6px 14px rgba(89, 150, 120, 0.4);
+            letter-spacing: 0.3px;
         }
 
-        .back-btn:hover {
-            background: var(--luxury-gold);
-            color: #000;
-            box-shadow: 0 0 20px var(--luxury-gold);
+        .home-btn:hover {
+            background: #a2d0b0;
+            color: #ffffff;
+            border-color: #c4e3d5;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(54, 110, 90, 0.5);
         }
 
         .logo-text {
-            font-size: 1.8rem;
-            color: var(--luxury-gold);
-            text-shadow: 0 0 15px rgba(197, 160, 89, 0.5);
+            font-size: 1.9rem;
+            font-weight: bold;
+            color: #075e5b;
+            text-shadow: 3px 3px 0 #cfeae0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        /* --- POST UPDATER (TICKER) --- */
-        .ticker-wrap {
-            width: 100%;
-            background: linear-gradient(90deg, #0a1520, #14283a);
-            overflow: hidden;
-            height: 40px;
+        /* ===== SOCIAL FLOATING (elegant) ===== */
+        .social-share-float {
+            position: fixed;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: rgba(250, 255, 245, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 18px 10px;
+            border-radius: 50px;
+            border: 1px solid #b8d9cb;
+            z-index: 99;
+            box-shadow: 0 15px 30px rgba(20, 90, 70, 0.25);
+        }
+
+        .social-share-float a, .social-share-float button {
+            background: transparent;
+            border: none;
+            font-size: 1.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #1b7a6b;
+            width: 46px;
+            height: 46px;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
-            margin-bottom: 30px;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,250,0.7);
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
-        .ticker {
-            display: inline-block;
-            white-space: nowrap;
-            padding-right: 100%;
-            animation: ticker 30s linear infinite;
+        .social-share-float a:hover, .social-share-float button:hover {
+            color: #f0ffe0;
+            background: #2a8875;
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 0 22px #c2f0c2;
         }
 
-        .ticker-item {
-            display: inline-block;
-            padding: 0 2rem;
-            color: var(--soft-gold);
-            font-size: 1rem;
+        /* ===== UP/DOWN MINIMAL ===== */
+        .page-up-down {
+            position: fixed;
+            left: 22px;
+            bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 99;
         }
 
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(100%, 0, 0); }
+        .up-btn, .down-btn {
+            background: #cae5da;
+            border: 2px solid #9cc2b2;
+            color: #01504a;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 10px 18px rgba(56, 110, 90, 0.3);
+            text-decoration: none;
         }
 
-        /* --- MAIN SLIDER --- */
-        .main-slider {
-            width: 95%;
+        .up-btn:hover, .down-btn:hover {
+            background: #9cc2b2;
+            color: #f4fff0;
+            border-color: #cae5da;
+            transform: scale(1.08);
+        }
+
+        /* ===== MAIN SLIDER (soft, rounded) ===== */
+        .slider-container {
             max-width: 950px;
-            height: 380px;
-            margin: 20px auto;
-            border-radius: 25px;
+            margin: 25px auto 20px;
+            border-radius: 48px;
             overflow: hidden;
+            box-shadow: 0 30px 35px -8px rgba(42, 100, 80, 0.5);
+            border: 4px solid #fffbe6;
+            height: 280px;
             position: relative;
-            border: 2px solid var(--luxury-gold);
-            box-shadow: 0 0 40px rgba(197, 160, 89, 0.15);
         }
 
-        .slides {
+        .slider {
+            display: flex;
             width: 100%;
             height: 100%;
-            position: relative;
+            transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1);
         }
 
         .slide {
-            width: 100%;
+            min-width: 100%;
             height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            display: flex; /* Changed from none to handle opacity */
-        }
-
-        .slide.active {
-            opacity: 1;
+            position: relative;
         }
 
         .slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.65);
+            filter: brightness(0.85) contrast(1.05) saturate(1.2);
         }
 
         .slide-caption {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(13, 27, 42, 0.85);
-            padding: 10px 40px;
-            border-radius: 50px;
-            border: 1px solid var(--luxury-gold);
-            color: var(--luxury-gold);
-            font-size: 1.6rem;
-            white-space: nowrap;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            bottom: 22px;
+            right: 25px;
+            background: rgba(235, 255, 235, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 8px 28px;
+            border-radius: 60px;
+            color: #01544b;
+            font-size: 1.5rem;
+            border: 1px solid #b3e0c5;
+            box-shadow: 0 8px 20px #b1dfc0;
+            font-weight: bold;
         }
 
-        /* --- SPINNING ICONS STRIP --- */
-        .icon-strip {
+        /* ===== SPINNING ICONS (playful) ===== */
+        .spinning-icons {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 40px 0;
-            perspective: 1000px;
+            gap: 35px;
+            margin: 35px 0 20px;
+            flex-wrap: wrap;
         }
 
-        .icon-box {
-            font-size: 2.2rem;
-            color: rgba(255,255,255,0.3);
-            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            position: relative;
+        .spin-icon {
+            font-size: 2.5rem;
+            color: #277a68;
+            animation: floatSpin 10s infinite alternate ease-in-out;
+            background: rgba(250, 255, 235, 0.8);
+            width: 80px;
+            height: 80px;
+            border-radius: 40% 60% 40% 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px dotted #b0e5cf;
+            box-shadow: 0 15px 20px -5px #479f86;
+            transition: 0.3s;
         }
 
-        .icon-box::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -10px;
-            left: 0;
-            background: var(--luxury-gold);
-            transform: scaleX(0);
-            transition: 0.4s;
+        .spin-icon:hover {
+            animation: none;
+            transform: scale(1.3) rotate(20deg);
+            background: #b0e5cf;
+            color: #004d40;
+            border: 3px solid #4f9e89;
         }
 
-        .icon-box:hover {
-            color: var(--luxury-gold);
-            transform: translateY(-15px);
-            text-shadow: 0 0 25px var(--luxury-gold);
+        @keyframes floatSpin {
+            0% { transform: rotate(0deg) translateY(0); }
+            100% { transform: rotate(360deg) translateY(-15px); }
         }
 
-        .icon-box:hover::after {
-            transform: scaleX(1);
-        }
-
-        /* --- POSTS GRID --- */
+        /* ===== POSTS GRID (modern, appealing thumbnails) ===== */
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 1300px;
+            margin: 20px auto;
+            padding: 15px;
         }
 
         .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 40px 25px;
         }
 
-        /* --- POST CARD DESIGN --- */
+        /* ===== NEW THUMBNAIL STYLE (elegant cards with soft shadow & frame) ===== */
         .post-card {
-            background: var(--glass-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
+            background: rgba(255, 255, 250, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px 40px 30px 30px;
             overflow: hidden;
-            transition: all 0.5s ease;
-            position: relative;
-            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 250, 220, 0.9);
+            box-shadow: 0 20px 30px -5px rgba(46, 110, 90, 0.4);
+            transition: all 0.35s ease;
+            transform: translateY(0);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .post-card::after {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border-radius: 30px;
+            border: 2px dashed rgba(159, 211, 179, 0.4);
+            pointer-events: none;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .post-card:hover::after {
+            opacity: 1;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
         }
 
         .post-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            border-color: var(--luxury-gold);
+            transform: translateY(-16px) scale(1.01);
+            box-shadow: 0 35px 40px -8px #1e6b5c;
+            border-color: #c2f0d0;
+            background: rgba(255, 255, 250, 0.9);
         }
 
         .img-container {
-            width: 100%;
-            height: 200px;
+            height: 180px;
             overflow: hidden;
             position: relative;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin: 12px 12px 0 12px;
+            border-radius: 30px 30px 18px 18px;
+            box-shadow: inset 0 0 20px #c1e0d0;
         }
 
         .img-container img {
@@ -283,304 +325,205 @@
             height: 100%;
             object-fit: cover;
             transition: 0.8s;
+            display: block;
+            border-radius: 30px 30px 18px 18px;
         }
 
         .post-card:hover .img-container img {
-            transform: scale(1.15) rotate(2deg);
+            transform: scale(1.18) rotate(2deg);
         }
 
         .card-content {
-            padding: 20px;
+            padding: 18px 10px 22px;
             text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
         .post-title {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #025f53;
+            margin-bottom: 6px;
             line-height: 1.7;
             font-weight: bold;
+            text-shadow: 0 1px 3px white;
+            background: rgba(255, 255, 240, 0.5);
+            padding: 8px 8px;
+            border-radius: 60px;
+            border: 1px solid #b3dec5;
+            backdrop-filter: blur(2px);
         }
 
-        .read-btn {
-            display: inline-block;
-            padding: 10px 0;
-            width: 80%;
-            margin: 0 auto;
-            background: transparent;
-            border: 1px solid var(--luxury-gold);
-            color: var(--luxury-gold);
-            border-radius: 50px;
-            text-decoration: none;
-            transition: 0.4s;
-            font-size: 0.9rem;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
+        /* NO post link under title — entire card clickable (handled by js) */
 
-        .read-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--luxury-gold);
-            transition: 0.4s;
-            z-index: -1;
-        }
+        /* ===== REMOVED BOTTOM SCROLLER / MINI SLIDER (extra) ===== */
 
-        .read-btn:hover::before {
-            width: 100%;
-        }
-
-        .read-btn:hover {
-            color: #000;
-            box-shadow: 0 0 20px rgba(197, 160, 89, 0.6);
-        }
-
-        /* --- MINI SLIDER (Topics) --- */
-        .mini-slider {
-            margin: 60px 0;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 20px 0;
-            overflow: hidden;
-            border-top: 1px solid var(--luxury-gold);
-            border-bottom: 1px solid var(--luxury-gold);
-            transform: rotate(-1deg);
-        }
-
-        .mini-track {
-            display: flex;
-            width: calc(220px * 10);
-            animation: scroll 25s linear infinite;
-        }
-
-        .mini-item {
-            width: 220px;
-            text-align: center;
-            color: #bbb;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            border-left: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .mini-item i { 
-            color: var(--luxury-gold); 
-            font-size: 1.5rem;
-        }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-220px * 5)); }
-        }
-
-        /* --- SHARE & FOOTER --- */
-        .share-section {
-            text-align: center;
-            margin: 60px auto;
-        }
-
-        .share-btn {
-            background: linear-gradient(45deg, var(--luxury-gold), #e6c885);
-            color: #0d1b2a;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 0 25px rgba(197, 160, 89, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .share-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(197, 160, 89, 0.6);
-        }
-
+        /* ===== FOOTER minimal ===== */
         footer {
             text-align: center;
-            padding: 30px;
-            background: #050a10;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #222;
+            padding: 22px;
+            background: rgba(170, 220, 190, 0.5);
+            backdrop-filter: blur(4px);
+            margin-top: 50px;
+            border-top: 2px solid #b3dcc0;
+            color: #035f53;
+            font-size: 1rem;
+            border-radius: 60px 60px 0 0;
         }
 
-        @media (max-width: 768px) {
-            .posts-grid { grid-template-columns: 1fr; }
-            .main-slider { height: 260px; }
-            .slide-caption { font-size: 1.2rem; padding: 8px 25px; bottom: 20px; }
-            .logo-text { font-size: 1.5rem; }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .slider-container { height: 190px; }
+            .slide-caption { font-size: 1.1rem; padding: 6px 18px; }
+            .logo-text { font-size: 1.4rem; }
+            .home-btn span { display: none; }
+            .social-share-float { right: 8px; gap: 10px; padding: 12px 6px; }
+            .social-share-float a { font-size: 1.4rem; width: 38px; height: 38px; }
+            .page-up-down { left: 12px; bottom: 25px; }
+            .up-btn, .down-btn { width: 44px; height: 44px; font-size: 1.6rem; }
+            .posts-grid { gap: 25px; }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Animated Starry Background -->
-    <div class="background-animation" id="bg-anim"></div>
+<!-- SOCIAL SHARE (all platforms) -->
+<div class="social-share-float">
+    <a href="#" onclick="sharePage('facebook')" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" onclick="sharePage('twitter')" title="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" onclick="sharePage('whatsapp')" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <a href="#" onclick="sharePage('telegram')" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+    <a href="#" onclick="sharePage('linkedin')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <button onclick="sharePage('copy')" title="کاپی لنک"><i class="fas fa-link"></i></button>
+</div>
 
-    <!-- Header -->
-    <header>
-        <a href="/" class="back-btn"><i class="fas fa-home"></i> ہوم پیج</a>
-        <div class="logo-text">
-            <i class="fas fa-kaaba"></i> اسلامی سوالات
-        </div>
-        <div style="width: 80px;"></div>
-    </header>
+<!-- UP & DOWN BUTTONS -->
+<div class="page-up-down">
+    <a href="#" class="up-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" class="down-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
+</div>
 
-    <!-- Post Updater Ticker -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <div class="ticker-item">✨ قرآن مجید اور نماز کے بارے میں اہم سوالات اور جوابات یہاں پڑھیں</div>
-            <div class="ticker-item">✨ اپنی دینی معلومات میں اضافہ کریں</div>
-            <div class="ticker-item">✨ روزانہ کی بنیاد پر نئے اسلامی سوالات</div>
-        </div>
+<!-- HEADER with home button (https://bloglovers.pk) without www -->
+<header>
+    <a href="https://bloglovers.pk" class="home-btn"><i class="fas fa-home"></i> <span>بلاگ لوورز</span></a>
+    <div class="logo-text"><i class="fas fa-mosque" style="color:#1d8c6e;"></i> اسلامی سوالات</div>
+    <div style="width:50px;"></div>
+</header>
+
+<!-- MAIN SLIDER (images from posts) -->
+<div class="slider-container">
+    <div class="slider" id="mainSlider">
+        <!-- slides injected via js -->
     </div>
+</div>
 
-    <!-- Main Featured Slider -->
-    <div class="main-slider">
-        <div class="slides">
-            <!-- Slide 1 -->
-            <div class="slide active">
-                <!-- NOTE: .html replaced with .png for display purposes -->
-                <img src="https://bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.png" alt="Quran Questions">
-                <div class="slide-caption">قرآن مجید: ہدایت کا نور</div>
-            </div>
-             <!-- Slide 2 -->
-             <div class="slide">
-                <!-- NOTE: .html replaced with .png for display purposes -->
-                <img src="https://bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.png" alt="Namaz Questions">
-                <div class="slide-caption">نماز: مومن کی معراج</div>
-            </div>
-        </div>
-    </div>
+<!-- SPINNING ICONS (attractive) -->
+<div class="spinning-icons">
+    <div class="spin-icon"><i class="fas fa-quran"></i></div>
+    <div class="spin-icon"><i class="fas fa-hand-sparkles"></i></div>
+    <div class="spin-icon"><i class="fas fa-kaaba"></i></div>
+    <div class="spin-icon"><i class="fas fa-star-and-crescent"></i></div>
+    <div class="spin-icon"><i class="fas fa-pray"></i></div>
+</div>
 
-    <!-- Floating Icons -->
-    <div class="icon-strip">
-        <div class="icon-box" title="Quran"><i class="fas fa-quran"></i></div>
-        <div class="icon-box" title="Dua"><i class="fas fa-hands-praying"></i></div>
-        <div class="icon-box" title="Mosque"><i class="fas fa-mosque"></i></div>
-        <div class="icon-box" title="Tasbih"><i class="fas fa-stopwatch"></i></div>
-        <div class="icon-box" title="Direction"><i class="fas fa-compass"></i></div>
-    </div>
+<!-- MAIN POSTS GRID (only the two original posts, no extra) -->
+<div class="container">
+    <div class="posts-grid" id="postsGrid"></div>
+</div>
 
-    <!-- Main Posts Grid -->
-    <div class="container">
-        <div class="posts-grid">
+<!-- FOOTER -->
+<footer>
+    <p>© 2025 بلاگ لوورز | جملہ حقوق محفوظ ہیں</p>
+</footer>
 
-            <!-- Post 1: Quran Questions -->
-            <div class="post-card">
-                <div class="img-container">
-                    <!-- Image link updated to .png so it renders -->
-                    <img src="https://www.bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.html" alt="Quran Questions">
-                </div>
-                <div class="card-content">
-                    <h3 class="post-title">قرآن مجید پر 50 دلچسپ سوالات</h3>
-                    <a href="https://www.bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat" class="read-btn">مطالعہ کریں</a>
-                </div>
-            </div>
-
-            <!-- Post 2: Namaz Questions -->
-            <div class="post-card">
-                <div class="img-container">
-                    <!-- Image link updated to .png so it renders -->
-                    <img src="https://www.bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.html" alt="Namaz Questions">
-                </div>
-                <div class="card-content">
-                    <h3 class="post-title">نماز کی اہمیت پر مبنی 50 سوالات</h3>
-                    <a href="https://www.bloglovers.pk/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat" class="read-btn">مطالعہ کریں</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Mini Topics Slider -->
-    <div class="mini-slider">
-        <div class="mini-track">
-            <div class="mini-item"><i class="fas fa-book-quran"></i> تفسیر قرآن</div>
-            <div class="mini-item"><i class="fas fa-users"></i> سیرت النبیﷺ</div>
-            <div class="mini-item"><i class="fas fa-question-circle"></i> فقہی مسائل</div>
-            <div class="mini-item"><i class="fas fa-moon"></i> اسلامی تاریخ</div>
-            <div class="mini-item"><i class="fas fa-heart"></i> اصلاحی مضامین</div>
-            <!-- Repeats for infinite scroll -->
-            <div class="mini-item"><i class="fas fa-book-quran"></i> تفسیر قرآن</div>
-            <div class="mini-item"><i class="fas fa-users"></i> سیرت النبیﷺ</div>
-            <div class="mini-item"><i class="fas fa-question-circle"></i> فقہی مسائل</div>
-            <div class="mini-item"><i class="fas fa-moon"></i> اسلامی تاریخ</div>
-            <div class="mini-item"><i class="fas fa-heart"></i> اصلاحی مضامین</div>
-        </div>
-    </div>
-
-    <!-- Share Button -->
-    <div class="share-section">
-        <button class="share-btn" onclick="sharePage()">
-            <i class="fas fa-share-alt"></i> پیج شیئر کریں
-        </button>
-    </div>
-
-    <footer>
-        <p>© 2025 بلاگ لوورز | جملہ حقوق محفوظ ہیں</p>
-    </footer>
-
-    <script>
-        // Starry Background Animation
-        function createStars() {
-            const container = document.getElementById('bg-anim');
-            for(let i=0; i<60; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 3;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = (Math.random() * 5) + 's';
-                container.appendChild(star);
+<script>
+    (function() {
+        // ===== EXACT POST DATA (only two as per original, without www) =====
+        const posts = [
+            {
+                title: "قرآن مجید پر 50 دلچسپ سوالات",
+                postUrl: "https://bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat",
+                imgUrl: "https://bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.webp"
+            },
+            {
+                title: "نماز کی اہمیت پر مبنی 50 سوالات",
+                postUrl: "https://bloglovers.pk/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat",
+                imgUrl: "https://bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.webp"
             }
-        }
-        createStars();
+        ];
 
-        // Cross-fade Slider Logic
-        let currentSlide = 0;
+        // render posts grid
+        const grid = document.getElementById('postsGrid');
+        grid.innerHTML = '';
+        posts.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'post-card';
+            card.onclick = () => { window.location.href = p.postUrl; };
+            card.innerHTML = `
+                <div class="img-container">
+                    <img src="${p.imgUrl}" alt="${p.title}" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="post-title">${p.title}</h3>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // build main slider with these two posts
+        const sliderTrack = document.getElementById('mainSlider');
+        sliderTrack.innerHTML = '';
+        posts.forEach((p, idx) => {
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'slide';
+            slideDiv.innerHTML = `
+                <img src="${p.imgUrl}" alt="slider img">
+                <div class="slide-caption">${p.title}</div>
+            `;
+            sliderTrack.appendChild(slideDiv);
+        });
+
+        // simple slider auto transition
+        let currentIndex = 0;
         const slides = document.querySelectorAll('.slide');
-        
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        const totalSlides = slides.length;
+        if (totalSlides > 1) {
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }, 4700);
         }
-        setInterval(nextSlide, 5000); // Change every 5 seconds
 
-        // Share Function
-        function sharePage() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'اسلامی سوالات | بلاگ لوورز',
-                    text: 'دینی معلومات میں اضافے کے لیے یہ صفحہ ملاحظہ کریں۔',
-                    url: window.location.href,
-                })
-                .catch((error) => console.log('Error sharing', error));
-            } else {
-                alert('لنک کاپی ہو گیا!');
-                navigator.clipboard.writeText(window.location.href);
+        // share function (all platforms + copy)
+        window.sharePage = function(platform) {
+            const pageUrl = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('اسلامی سوالات | بلاگ لوورز');
+            let shareLink = '';
+            switch(platform) {
+                case 'facebook': shareLink = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`; break;
+                case 'twitter': shareLink = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${title}`; break;
+                case 'whatsapp': shareLink = `https://wa.me/?text=${title}%20${pageUrl}`; break;
+                case 'telegram': shareLink = `https://t.me/share/url?url=${pageUrl}&text=${title}`; break;
+                case 'linkedin': shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`; break;
+                case 'copy': 
+                    navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!'));
+                    return;
+                default: return;
             }
-        }
-    </script>
+            if (shareLink) window.open(shareLink, '_blank', 'width=600,height=450');
+        };
+    })();
+</script>
+
+<!-- fix social links behavior -->
+<script>
+    document.querySelectorAll('.social-share-float a, .social-share-float button').forEach(el => {
+        el.addEventListener('click', (e) => {
+            if (el.tagName === 'A' && el.getAttribute('onclick')) {
+                e.preventDefault(); 
+            } else if (el.tagName === 'BUTTON') {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>
