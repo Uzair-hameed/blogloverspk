@@ -2,85 +2,390 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <title>غفلت میں چھپے 50 گناہ 5- طعنہ دینا</title>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 5 (social icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.4;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(145deg, #d4edf5 0%, #d0f0e8 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            color: #033b4a;
+        }
+
+        /* animated light green + blue moving background (subtle glowing) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, #b6e3d4, #b1dcf0, #b6e3d4, #a7d9e7, #b8eed9);
+            background-size: 400% 400%;
+            animation: fluidMove 22s ease infinite;
+            z-index: -2;
+            opacity: 0.8;
+        }
+
+        @keyframes fluidMove {
+            0% { background-position: 0% 20%; }
+            25% { background-position: 60% 40%; }
+            50% { background-position: 100% 70%; }
+            75% { background-position: 30% 80%; }
+            100% { background-position: 0% 20%; }
+        }
+
+        /* main container */
+        .post-container {
+            max-width: 860px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(3px);
+            border-radius: 42px 42px 32px 32px;
+            box-shadow: 0 25px 55px rgba(0, 70, 60, 0.25);
+            padding: 25px 30px 40px 30px;
+            border: 2px solid rgba(240, 255, 250, 0.9);
+            transition: box-shadow 0.4s, transform 0.2s;
+        }
+
+        .post-container:hover {
+            box-shadow: 0 35px 65px rgba(18, 112, 104, 0.4);
+            transform: scale(1.01);
+        }
+
+        /* heading styles */
+        h1 {
+            font-size: 2.2rem;
+            color: #035c5c;
+            border-bottom: 4px double #62b5b5;
+            padding-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0 #d0f2ec;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #d9f3f0, #f3fffb);
+            border-radius: 60px;
+            padding: 15px 10px;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            background: linear-gradient(120deg, #f0fdfa, #e1f7e9);
+            color: #1b6d6d;
+            padding: 12px 25px;
+            border-radius: 50px 15px 50px 15px;
+            box-shadow: -5px 5px 0 #92cece;
+            border-right: 7px solid #248f8f;
+            margin: 30px 0 20px 0;
+            font-weight: 680;
+            text-shadow: none;
+        }
+
+        h3 {
+            font-size: 1.7rem;
+            color: #2f7a7a;
+            margin: 25px 0 10px 0;
+            padding-right: 15px;
+            border-right: 7px dotted #62c2b0;
+        }
+
+        /* text */
+        p, li, .text-block {
+            font-size: 1.5rem;
+            text-align: justify;
+            word-spacing: 2px;
+            margin-bottom: 20px;
+            color: #043b47;
+        }
+
+        /* image style: full width visible after title */
+        .featured-image {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 30px 0;
+            border-radius: 35px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -8px rgba(14, 90, 80, 0.5);
+            border: 3px solid white;
+            transition: 0.35s ease;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+            border-radius: 32px;
+            display: block;
+            transition: transform 0.7s;
+        }
+
+        .featured-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* button container + nav */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            margin: 35px 0 25px 0;
+        }
+
+        .nav-btn {
+            background: #268f8f;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-size: 1.45rem;
+            font-family: inherit;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 10px 15px #71bfb0;
+            cursor: pointer;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid #bef5e3;
+        }
+
+        .nav-btn a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-btn i {
+            font-size: 1.5rem;
+        }
+
+        .nav-btn:hover {
+            background: #1dab9c;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 18px 25px -6px #216b60;
+            border-color: #f3fff9;
+        }
+
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 40px 0 25px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            border-radius: 50px;
+            background: white;
+            color: #026969;
+            font-size: 2rem;
+            box-shadow: 0 6px 12px #99cfcf;
+            transition: 0.3s;
+            text-decoration: none;
+            border: 2px solid #b7f0e0;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.2) rotate(5deg);
+            background: #b1efe5;
+            color: #024b4b;
+            border-color: #0e8e7a;
+        }
+
+        /* page up/down buttons (floating) */
+        .scroll-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 999;
+        }
+
+        .scroll-buttons button {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #0d9488;
+            border: 4px solid #dcfff0;
+            font-size: 2.3rem;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 10px 18px #29655c;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-buttons button:hover {
+            background: #b6ede4;
+            color: #025e5e;
+            transform: translateY(-7px) scale(1.08);
+            border-color: #0c6e62;
+        }
+
+        /* footer/home extra */
+        .footer-note {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            color: #095f5f;
+        }
+
+        .footer-note a {
+            color: #0b5f74;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* remove all internal links (they become plain text, but keep URL text as plain, not clickable) */
+        a[href*="bloglovers.pk"]:not(.nav-btn a):not(.social-btn) {
+            color: inherit;
+            text-decoration: none;
+            pointer-events: none;
+            cursor: default;
+            background: transparent;
+            font-weight: normal;
+        }
+
+        /* but social & nav btns keep links — but we set them manually after */
+        /* also ensure any stray internal links are unlinked */
+        .post-content a:not(.keep-link) {
+            text-decoration: none;
+            color: #024d4d;
+            pointer-events: none;
+            border-bottom: 1px dashed #499b9b;
+        }
+
+        /* mobile fine-tune */
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            h1 { font-size: 1.9rem; }
+            h2 { font-size: 1.7rem; }
+            p { font-size: 1.4rem; }
+            .nav-btn { padding: 10px 20px; font-size: 1.2rem; }
+            .social-btn { width: 55px; height: 55px; font-size: 1.7rem; }
+            .scroll-buttons button { width: 55px; height: 55px; font-size: 2rem; }
+        }
+
+        /* remove any image duplication */
+        img[src*="images/islami-taleemat"] {
+            max-width: 100%;
+        }
+
+        /* internal links that were removed: they become plain text but keep words */
+        .post-content a {
+            color: #0d4c5a;
+            border-bottom: 1px dotted #58a8a8;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+
+    <!-- floating scroll buttons (up/down) -->
+    <div class="scroll-buttons">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
     </div>
 
-    <div class="post-content">
-        
+    <!-- main post container -->
+    <div class="post-container">
+        <!-- post title (h1) as given -->
         <h1>غفلت میں چھپے 50 گناہ 5- طعنہ دینا</h1>
-<p>طعنہ دینا ایک ایسا عمل ہے جس میں کسی شخص کے بارے میں طنزیہ یا حقارت آمیز الفاظ استعمال کیے جاتے ہیں، تاکہ اس کی تذلیل کی جا سکے یا اسے نیچا دکھایا جا سکے۔ طعنہ دینا <a href="https://www.bloglovers.pk/2020/06/53-55.html">اکثر اوقات</a> دوسروں کے کمزور پہلوؤں یا ان کی بیماریوں کی غلطیوں کو نشانہ بناتا ہے۔ اس کا مقصد نہ صرف دوسرے شخص کو دکھ پہنچانا ہوتا ہے بلکہ اسے اپنی غلطیوں کا بار بار احساس دلانا بھی ہوتا ہے۔ غفلت میں چھپے 50 گناہوں کی لسٹ میں یہ گناہ پانچویں نمبر پر آتا ہے۔ اس سے پہلے <a href="https://www.bloglovers.pk/2024/09/50-1.html">حقارت سے کسی پر ہنسنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-2.html">دھوکہ دینا</a>، <a href="https://www.bloglovers.pk/2024/09/50-3.html">چغلی کرنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-4.html">بدگمانی کرنا</a> وغیرہ آپ کے ساتھ تفصیلاً شیئر کر چکا ہوں۔</p>
-<p>قرآن مجید میں اللہ تعالیٰ نے طعنہ زنی کی <a href="https://www.bloglovers.pk/2020/06/38-40.html">مذمت کرتے</a> ہوئے فرمایا: &quot;اے ایمان والو! نہ مرد دوسرے مردوں کا مذاق اڑائیں، ممکن ہے کہ وہ ان سے بہتر ہوں، اور نہ عورتیں دوسری عورتوں کا مذاق اڑائیں، ممکن ہے کہ وہ ان سے بہتر ہوں، اور نہ آپس میں ایک دوسرے کو عیب لگاؤ اور نہ برے القاب سے پکارو۔&quot; اس آیت میں اللہ تعالیٰ نے واضح طور پر طعنہ زنی سے منع کیا ہے اور اسے ناپسندیدہ عمل قرار دیا ہے۔</p>
-<h2><strong>طعنہ زنی کرنا ہمارے معاشرے کی ایک لعنت</strong></h2>
-<p>آج کے دور میں طعنہ زنی ہمارے معاشرے میں ایک عام اور خطرناک عمل بن چکا ہے۔ طعنہ زنی صرف زبانی نہیں ہوتی بلکہ بعض اوقات یہ غیر زبانی رویے اور اشارے کنایے کے ذریعے بھی کی جاتی ہے۔ کسی کے خلاف نفرت، حسد، یا عدم برداشت کے جذبات کو ظاہر کرنے کے لیے طعنہ زنی کا سہارا لیا جاتا ہے۔ معاشرتی طور پر، طعنہ زنی کے ذریعے افراد اور خاندانوں کے درمیان فاصلے بڑھ جاتے ہیں۔ یہ عمل رشتہ داروں، دوستوں، اور حتیٰ کہ میاں بیوی کے تعلقات میں بھی تلخی پیدا کر سکتا ہے۔ طعنہ زنی کرنے والا شخص <a href="https://www.bloglovers.pk/2020/06/41-45.html">خود کو دوسروں</a> سے برتر سمجھتا ہے، جبکہ حقیقت میں یہ عمل اس کے اپنے کردار کی کمزوری کو ظاہر کرتا ہے۔ رسول اللہ ﷺ نے فرمایا: &quot;مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں۔&quot; یہ حدیث ہمیں یاد دلاتی ہے کہ طعنہ زنی ایک مسلمان کی شخصیت کے منافی ہے، کیونکہ یہ دوسرے مسلمانوں کے لیے تکلیف دہ ہوتی ہے۔</p>
-<h2><strong>طعنہ زنی زمانہ جاہلیت کا وطیرہ</strong></h2>
-<p>زمانہ جاہلیت میں طعنہ زنی ایک عام رواج تھا۔ لوگ ایک دوسرے کی کمزوریوں اور ناکامیوں کو نشانہ بناتے تھے اور ان کا مذاق اڑاتے تھے۔ قبیلوں کے درمیان دشمنی اور مقابلے کے جذبے نے طعنہ زنی کو مزید فروغ دیا۔ ہر قبیلہ دوسرے قبیلے کو نیچا دکھانے کے لیے طعنہ زنی کا سہارا لیتا تھا، جس سے معاشرتی <a href="https://www.bloglovers.pk/2020/06/38-40.html">انتشار بڑھتا</a>۔ اسلام نے طعنہ زنی کو ختم کرنے کی بھرپور کوشش کی اور اس کی مذمت کی۔ رسول اللہ ﷺ نے طعنہ زنی کو ناپسندیدہ قرار دیا اور مسلمانوں کو اس سے بچنے کی تاکید کی۔ قرآن مجید میں اللہ تعالیٰ نے فرمایا: &quot;ہلاکت ہے ہر اس شخص کے لیے جو طعنہ دیتا ہے اور عیب جوئی کرتا ہے۔&quot; اس آیت میں اللہ تعالیٰ نے طعنہ دینے اور عیب جوئی کرنے والوں کے لیے سخت عذاب کی وعید سنائی ہے، جو اس عمل کی سنگینی کو ظاہر کرتی ہے۔</p>
-<h2><strong>طعنہ زنی کے معاشرے پر برے اثرات</strong></h2>
-<p>طعنہ زنی کے معاشرتی اثرات انتہائی منفی اور <a href="https://www.bloglovers.pk/2020/06/60-59.html">تباہ کن</a> ہوتے ہیں۔ اس کے نتیجے میں:</p>
-<p><strong>نفرت اور دشمنی بڑھتی ہے:</strong> طعنہ زنی کے ذریعے افراد اور گروہوں کے درمیان نفرت اور دشمنی پیدا ہوتی ہے۔ یہ عمل معاشرتی ہم آہنگی کو نقصان پہنچاتا ہے اور افراد کے درمیان <a href="https://www.bloglovers.pk/2021/01/blog-post.html">فاصلے بڑھاتا ہے</a>۔</p>
-<p><strong>اعتماد کی کمی:</strong> طعنہ زنی کی وجہ سے لوگوں میں اعتماد کی کمی پیدا ہوتی ہے۔ جب کسی شخص کو مسلسل طعنوں کا سامنا کرنا پڑتا ہے، تو وہ خود اعتمادی کھو بیٹھتا ہے اور اس کا ذہنی سکون متاثر ہوتا ہے۔</p>
-<p><strong>خاندانی تعلقات میں دراڑیں:</strong> طعنہ زنی کے ذریعے خاندانوں میں اختلافات اور جھگڑے پیدا ہوتے ہیں۔ خاص طور پر میاں بیوی کے درمیان طعنہ زنی کی وجہ سے رشتے کمزور ہو جاتے ہیں اور بعض اوقات یہ طلاق تک <a href="https://www.bloglovers.pk/2021/03/blog-post.html">نوبت</a> پہنچا دیتی ہے۔</p>
-<p><strong>معاشرتی بگاڑ:</strong> طعنہ زنی کی وجہ سے معاشرے میں ایک دوسرے کے خلاف بدگمانی اور حسد کے جذبات پروان چڑھتے ہیں۔ یہ عمل معاشرتی بگاڑ کا سبب بنتا ہے اور لوگوں کے درمیان فرقہ واریت اور اختلافات کو ہوا دیتا ہے۔</p>
-<h2><strong>طعنہ زنی سے کیسے بچا جا سکتا ہے؟</strong></h2>
-<p>طعنہ زنی سے بچنے کے لیے ہمیں اپنے کردار اور رویے میں <a href="https://www.bloglovers.pk/2021/04/blog-post_28.html">تبدیلی لانے</a> کی ضرورت ہے۔ اس کے لیے چند اہم اقدامات درج ذیل ہیں:</p>
-<p><strong>اپنی زبان پر قابو پائیں:</strong> طعنہ زنی اکثر زبان کے ذریعے کی جاتی ہے، لہٰذا ہمیں اپنی زبان کو قابو میں رکھنا چاہئے اور دوسروں کے خلاف طنزیہ الفاظ سے بچنا چاہئے۔</p>
-<p><strong>نرم دلی اپنائیں:</strong> دوسروں کے لیے نرم دل ہونا اور ان کی مشکلات کو سمجھنا ہمیں طعنہ زنی سے بچا سکتا ہے۔ نرم دلی سے دلوں میں محبت اور الفت پیدا ہوتی ہے۔</p>
-<p><strong>حسنِ ظن رکھیں:</strong> دوسروں کے بارے میں ہمیشہ اچھا گمان رکھیں اور ان کی غلطیوں کو نظر انداز کرنے کی کوشش کریں۔ حسنِ ظن رکھنے سے ہم طعنہ زنی کے گناہ سے بچ سکتے ہیں۔</p>
-<p><strong>تعلیم و تربیت:</strong> معاشرتی تعلیم و تربیت کے ذریعے لوگوں کو طعنہ زنی کے نقصانات اور اس سے بچنے کے طریقوں سے آگاہ کیا جا سکتا ہے۔</p>
-<p><strong>دعا کریں:</strong> اللہ تعالیٰ سے دعا کریں کہ وہ آپ کو طعنہ زنی کے گناہ سے محفوظ رکھے اور آپ کے دل کو نرم اور صاف کرے۔</p>
-<p>خلاصہ یہ کہ طعنہ زنی ایک سنگین گناہ ہے جو انسان کو <a href="https://www.bloglovers.pk/2021/01/blog-post_14.html">واللہ تعالیٰ</a> کی رحمت سے دور کر دیتا ہے اور معاشرتی تعلقات کو بگاڑتا ہے۔ ہمیں طعنہ زنی سے بچنے کے لیے اپنے کردار اور رویے میں تبدیلی لانے کی ضرورت ہے، تاکہ ہم ایک بہتر اور پرسکون معاشرہ تشکیل دے سکیں۔ اللہ تعالیٰ ہمیں طعنہ زنی کے گناہ سے محفوظ رکھے اور ہمیں حسنِ ظن رکھنے والا بنائے۔ آمین۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
 
-    </div>
+        <!-- new image added after title (full visible) -->
+        <div class="featured-image">
+            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-5-tanh-dyna.png" alt="طعنہ دینا - تصویری وضاحت" loading="lazy">
+        </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <!-- post content exactly same text, but all internal links stripped (kept as plain) -->
+        <div class="post-content">
+            <p>طعنہ دینا ایک ایسا عمل ہے جس میں کسی شخص کے بارے میں طنزیہ یا حقارت آمیز الفاظ استعمال کیے جاتے ہیں، تاکہ اس کی تذلیل کی جا سکے یا اسے نیچا دکھایا جا سکے۔ طعنہ دینا <a href="https://www.bloglovers.pk/2020/06/53-55.html">اکثر اوقات</a> دوسروں کے کمزور پہلوؤں یا ان کی بیماریوں کی غلطیوں کو نشانہ بناتا ہے۔ اس کا مقصد نہ صرف دوسرے شخص کو دکھ پہنچانا ہوتا ہے بلکہ اسے اپنی غلطیوں کا بار بار احساس دلانا بھی ہوتا ہے۔ غفلت میں چھپے 50 گناہوں کی لسٹ میں یہ گناہ پانچویں نمبر پر آتا ہے۔ اس سے پہلے <a href="https://www.bloglovers.pk/2024/09/50-1.html">حقارت سے کسی پر ہنسنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-2.html">دھوکہ دینا</a>، <a href="https://www.bloglovers.pk/2024/09/50-3.html">چغلی کرنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-4.html">بدگمانی کرنا</a> وغیرہ آپ کے ساتھ تفصیلاً شیئر کر چکا ہوں۔</p>
+            <p>قرآن مجید میں اللہ تعالیٰ نے طعنہ زنی کی <a href="https://www.bloglovers.pk/2020/06/38-40.html">مذمت کرتے</a> ہوئے فرمایا: "اے ایمان والو! نہ مرد دوسرے مردوں کا مذاق اڑائیں، ممکن ہے کہ وہ ان سے بہتر ہوں، اور نہ عورتیں دوسری عورتوں کا مذاق اڑائیں، ممکن ہے کہ وہ ان سے بہتر ہوں، اور نہ آپس میں ایک دوسرے کو عیب لگاؤ اور نہ برے القاب سے پکارو۔" اس آیت میں اللہ تعالیٰ نے واضح طور پر طعنہ زنی سے منع کیا ہے اور اسے ناپسندیدہ عمل قرار دیا ہے۔</p>
+            <h2><strong>طعنہ زنی کرنا ہمارے معاشرے کی ایک لعنت</strong></h2>
+            <p>آج کے دور میں طعنہ زنی ہمارے معاشرے میں ایک عام اور خطرناک عمل بن چکا ہے۔ طعنہ زنی صرف زبانی نہیں ہوتی بلکہ بعض اوقات یہ غیر زبانی رویے اور اشارے کنایے کے ذریعے بھی کی جاتی ہے۔ کسی کے خلاف نفرت، حسد، یا عدم برداشت کے جذبات کو ظاہر کرنے کے لیے طعنہ زنی کا سہارا لیا جاتا ہے۔ معاشرتی طور پر، طعنہ زنی کے ذریعے افراد اور خاندانوں کے درمیان فاصلے بڑھ جاتے ہیں۔ یہ عمل رشتہ داروں، دوستوں، اور حتیٰ کہ میاں بیوی کے تعلقات میں بھی تلخی پیدا کر سکتا ہے۔ طعنہ زنی کرنے والا شخص <a href="https://www.bloglovers.pk/2020/06/41-45.html">خود کو دوسروں</a> سے برتر سمجھتا ہے، جبکہ حقیقت میں یہ عمل اس کے اپنے کردار کی کمزوری کو ظاہر کرتا ہے۔ رسول اللہ ﷺ نے فرمایا: "مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں۔" یہ حدیث ہمیں یاد دلاتی ہے کہ طعنہ زنی ایک مسلمان کی شخصیت کے منافی ہے، کیونکہ یہ دوسرے مسلمانوں کے لیے تکلیف دہ ہوتی ہے۔</p>
+            <h2><strong>طعنہ زنی زمانہ جاہلیت کا وطیرہ</strong></h2>
+            <p>زمانہ جاہلیت میں طعنہ زنی ایک عام رواج تھا۔ لوگ ایک دوسرے کی کمزوریوں اور ناکامیوں کو نشانہ بناتے تھے اور ان کا مذاق اڑاتے تھے۔ قبیلوں کے درمیان دشمنی اور مقابلے کے جذبے نے طعنہ زنی کو مزید فروغ دیا۔ ہر قبیلہ دوسرے قبیلے کو نیچا دکھانے کے لیے طعنہ زنی کا سہارا لیتا تھا، جس سے معاشرتی <a href="https://www.bloglovers.pk/2020/06/38-40.html">انتشار بڑھتا</a>۔ اسلام نے طعنہ زنی کو ختم کرنے کی بھرپور کوشش کی اور اس کی مذمت کی۔ رسول اللہ ﷺ نے طعنہ زنی کو ناپسندیدہ قرار دیا اور مسلمانوں کو اس سے بچنے کی تاکید کی۔ قرآن مجید میں اللہ تعالیٰ نے فرمایا: "ہلاکت ہے ہر اس شخص کے لیے جو طعنہ دیتا ہے اور عیب جوئی کرتا ہے۔" اس آیت میں اللہ تعالیٰ نے طعنہ دینے اور عیب جوئی کرنے والوں کے لیے سخت عذاب کی وعید سنائی ہے، جو اس عمل کی سنگینی کو ظاہر کرتی ہے۔</p>
+            <h2><strong>طعنہ زنی کے معاشرے پر برے اثرات</strong></h2>
+            <p>طعنہ زنی کے معاشرتی اثرات انتہائی منفی اور <a href="https://www.bloglovers.pk/2020/06/60-59.html">تباہ کن</a> ہوتے ہیں۔ اس کے نتیجے میں:</p>
+            <p><strong>نفرت اور دشمنی بڑھتی ہے:</strong> طعنہ زنی کے ذریعے افراد اور گروہوں کے درمیان نفرت اور دشمنی پیدا ہوتی ہے۔ یہ عمل معاشرتی ہم آہنگی کو نقصان پہنچاتا ہے اور افراد کے درمیان <a href="https://www.bloglovers.pk/2021/01/blog-post.html">فاصلے بڑھاتا ہے</a>۔</p>
+            <p><strong>اعتماد کی کمی:</strong> طعنہ زنی کی وجہ سے لوگوں میں اعتماد کی کمی پیدا ہوتی ہے۔ جب کسی شخص کو مسلسل طعنوں کا سامنا کرنا پڑتا ہے، تو وہ خود اعتمادی کھو بیٹھتا ہے اور اس کا ذہنی سکون متاثر ہوتا ہے۔</p>
+            <p><strong>خاندانی تعلقات میں دراڑیں:</strong> طعنہ زنی کے ذریعے خاندانوں میں اختلافات اور جھگڑے پیدا ہوتے ہیں۔ خاص طور پر میاں بیوی کے درمیان طعنہ زنی کی وجہ سے رشتے کمزور ہو جاتے ہیں اور بعض اوقات یہ طلاق تک <a href="https://www.bloglovers.pk/2021/03/blog-post.html">نوبت</a> پہنچا دیتی ہے۔</p>
+            <p><strong>معاشرتی بگاڑ:</strong> طعنہ زنی کی وجہ سے معاشرے میں ایک دوسرے کے خلاف بدگمانی اور حسد کے جذبات پروان چڑھتے ہیں۔ یہ عمل معاشرتی بگاڑ کا سبب بنتا ہے اور لوگوں کے درمیان فرقہ واریت اور اختلافات کو ہوا دیتا ہے۔</p>
+            <h2><strong>طعنہ زنی سے کیسے بچا جا سکتا ہے؟</strong></h2>
+            <p>طعنہ زنی سے بچنے کے لیے ہمیں اپنے کردار اور رویے میں <a href="https://www.bloglovers.pk/2021/04/blog-post_28.html">تبدیلی لانے</a> کی ضرورت ہے۔ اس کے لیے چند اہم اقدامات درج ذیل ہیں:</p>
+            <p><strong>اپنی زبان پر قابو پائیں:</strong> طعنہ زنی اکثر زبان کے ذریعے کی جاتی ہے، لہٰذا ہمیں اپنی زبان کو قابو میں رکھنا چاہئے اور دوسروں کے خلاف طنزیہ الفاظ سے بچنا چاہئے۔</p>
+            <p><strong>نرم دلی اپنائیں:</strong> دوسروں کے لیے نرم دل ہونا اور ان کی مشکلات کو سمجھنا ہمیں طعنہ زنی سے بچا سکتا ہے۔ نرم دلی سے دلوں میں محبت اور الفت پیدا ہوتی ہے۔</p>
+            <p><strong>حسنِ ظن رکھیں:</strong> دوسروں کے بارے میں ہمیشہ اچھا گمان رکھیں اور ان کی غلطیوں کو نظر انداز کرنے کی کوشش کریں۔ حسنِ ظن رکھنے سے ہم طعنہ زنی کے گناہ سے بچ سکتے ہیں۔</p>
+            <p><strong>تعلیم و تربیت:</strong> معاشرتی تعلیم و تربیت کے ذریعے لوگوں کو طعنہ زنی کے نقصانات اور اس سے بچنے کے طریقوں سے آگاہ کیا جا سکتا ہے۔</p>
+            <p><strong>دعا کریں:</strong> اللہ تعالیٰ سے دعا کریں کہ وہ آپ کو طعنہ زنی کے گناہ سے محفوظ رکھے اور آپ کے دل کو نرم اور صاف کرے۔</p>
+            <p>خلاصہ یہ کہ طعنہ زنی ایک سنگین گناہ ہے جو انسان کو <a href="https://www.bloglovers.pk/2021/01/blog-post_14.html">واللہ تعالیٰ</a> کی رحمت سے دور کر دیتا ہے اور معاشرتی تعلقات کو بگاڑتا ہے۔ ہمیں طعنہ زنی سے بچنے کے لیے اپنے کردار اور رویے میں تبدیلی لانے کی ضرورت ہے، تاکہ ہم ایک بہتر اور پرسکون معاشرہ تشکیل دے سکیں۔ اللہ تعالیٰ ہمیں طعنہ زنی کے گناہ سے محفوظ رکھے اور ہمیں حسنِ ظن رکھنے والا بنائے۔ آمین۔</p>
+            <p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
+        </div>
+
+        <!-- home & back buttons (with correct links) -->
+        <div class="nav-buttons">
+            <button class="nav-btn"><i class="fas fa-home"></i> <a href="https://bloglovers.pk/" target="_blank">ہوم پیج</a></button>
+            <button class="nav-btn"><i class="fas fa-arrow-right"></i> <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" target="_blank">واپس (اسلامی تعلیمات)</a></button>
+        </div>
+
+        <!-- social media sharing buttons (multiple platforms) -->
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/2024/09/50-5.html" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/2024/09/50-5.html&text=غفلت میں چھپے 50 گناہ 5- طعنہ دینا" target="_blank" class="social-btn"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/?text=https://bloglovers.pk/2024/09/50-5.html" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk/2024/09/50-5.html&text=غفلت میں چھپے 50 گناہ 5- طعنہ دینا" target="_blank" class="social-btn"><i class="fab fa-telegram-plane"></i></a>
+            <a href="mailto:?subject=غفلت میں چھپے 50 گناہ 5- طعنہ دینا&body=https://bloglovers.pk/2024/09/50-5.html" target="_blank" class="social-btn"><i class="fa fa-envelope"></i></a>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-heart" style="color: #b3306b;"></i> خالصتاً اصلاحی مقصد 
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // ensure all internal bloglovers.pk links are non-clickable, but we already did via css pointer-events, but also avoid new window.
+        document.querySelectorAll('.post-content a[href*="bloglovers.pk"]').forEach(link => {
+            link.removeAttribute('href');
+            // make it look like plain text but keep the word underlined dashed
+            link.style.pointerEvents = 'none';
+            link.style.textDecoration = 'none';
+            link.style.color = '#0e5f5f';
+            link.style.borderBottom = '1px dashed #6bb0b0';
+        });
     </script>
 </body>
 </html>
