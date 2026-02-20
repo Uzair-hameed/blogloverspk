@@ -2,55 +2,336 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</title>
+    <!-- فونٹس اور بنیادی اسٹائل -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- فونٹ اوسم 5 (سوشل آئیکنز کے لیے) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        /* تصفیہ بنیادی */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(145deg, #d4f3d0 0%, #f0fff0 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* اینیمیٹڈ بیبی پیرٹ گرین کمبائن بیک گراؤنڈ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #b3e0b0, #c8f0c0, #a0d8a8, #b8e6b0, #d2f0c8, #9fd9a0);
+            background-size: 400% 400%;
+            opacity: 0.4;
+            z-index: -2;
+            animation: babyParrotMove 18s ease infinite;
+            pointer-events: none;
+        }
+
+        @keyframes babyParrotMove {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 50% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 50% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* ہوور ایفیکٹس کے ساتھ بٹن اور کارڈز */
+        .post-card {
+            max-width: 950px;
+            margin: 25px auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(3px);
+            border-radius: 30px;
+            padding: 30px 25px;
+            box-shadow: 0 30px 50px rgba(0, 60, 0, 0.2);
+            border: 2px solid #b0e0a0;
+            transition: all 0.4s ease;
+        }
+
+        .post-card:hover {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 40px 70px rgba(40, 100, 20, 0.35);
+            transform: scale(1.01);
+            border-color: #70b85e;
+        }
+
+        /* امیج مکمل چوڑائی اور خوبصورت */
+        .feature-image {
+            width: 100%;
+            margin: 25px 0 15px 0;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px -8px #2f5a2f;
+            transition: transform 0.5s;
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 25px;
+            border: 4px solid #f5ffdc;
+            object-fit: cover;
+            transition: transform 1s;
+        }
+
+        .feature-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* ہیڈنگز */
+        h1 {
+            font-size: 2.3rem;
+            color: #1e4a1e;
+            border-bottom: 4px solid #6f9e5f;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #e5ffd0;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            color: #256725;
+            background: linear-gradient(130deg, #ebffe5, #d6f5cf);
+            display: inline-block;
+            padding: 8px 25px 8px 35px;
+            border-radius: 0 60px 60px 0;
+            margin: 35px 0 20px -15px;
+            box-shadow: 5px 7px 12px rgba(30, 80, 0, 0.15);
+            border-right: 8px solid #7cb85c;
+            text-shadow: 1px 1px white;
+        }
+
+        h3 {
+            font-size: 1.7rem;
+            color: #116411;
+            border-right: 5px solid #5f9e4b;
+            padding-right: 20px;
+            margin: 30px 0 15px;
+        }
+
+        /* پیراگراف */
+        p, li, .post-content p {
+            font-size: 1.45rem;
+            text-align: justify;
+            word-spacing: 2px;
+            margin-bottom: 1.2rem;
+            color: #103010;
+            line-height: 2.3;
+        }
+
+        /* تمام اندرونی لنک کو ہٹا کر عام متن */
+        a:not([class*="btn"]):not([class*="social"]) {
+            color: inherit !important;
+            text-decoration: none !important;
+            pointer-events: none;
+            background: transparent;
+        }
+
+        /* بٹن پینلز */
+        .nav-panel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 30px 0 25px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #64b84a, #3f8f2c);
+            color: white !important;
+            font-size: 1.4rem;
+            padding: 14px 30px;
+            border-radius: 60px;
+            box-shadow: 0 12px 15px -8px #1f4f1f;
+            border: 2px solid #e6ffb3;
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
+            gap: 8px;
+            cursor: pointer;
+            pointer-events: auto !important;
+            text-decoration: none !important;
+        }
+
+        .btn i {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(145deg, #7ed16b, #54a83d);
+            transform: translateY(-7px) scale(1.07);
+            box-shadow: 0 25px 30px -6px #2f6b2f;
+            border-color: #f9ffcf;
+        }
+
+        .btn:hover i {
+            transform: scale(1.2);
+        }
+
+        /* سوشل میڈیا بار */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 35px 0 20px;
+            padding: 15px 0;
+            border-top: 3px dashed #9fd18b;
+            border-bottom: 3px dashed #9fd18b;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #ffffffd9;
+            color: #1f4f1f !important;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 16px #77a86f;
+            transition: all 0.4s;
+            border: 2px solid #78b06c;
+            text-decoration: none !important;
+            pointer-events: auto !important;
+        }
+
+        .social-btn:hover {
+            transform: rotate(8deg) scale(1.15);
+            background: #daf7d0;
+            color: #0e4d0e !important;
+            box-shadow: 0 15px 25px #3b843b;
+        }
+
+        /* اپ ڈاؤن بٹنز */
+        .page-up-down {
+            position: fixed;
+            left: 20px;
+            bottom: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 99;
+        }
+
+        .updown-btn {
+            background: #427e35;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 14px #183618;
+            border: 3px solid #bcf5a3;
+            transition: all 0.3s;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .updown-btn:hover {
+            background: #9fdf8b;
+            color: #0f3f0f;
+            transform: scale(1.1);
+            border-color: #f5ffb2;
+        }
+
+        /* موبائل ریسپانسیو */
+        @media (max-width: 650px) {
+            h1 { font-size: 1.9rem; }
+            h2 { font-size: 1.6rem; padding-right: 15px; }
+            p { font-size: 1.25rem; }
+            .btn { font-size: 1.2rem; padding: 12px 18px; }
+            .social-btn { width: 55px; height: 55px; font-size: 1.8rem; }
+            .post-card { padding: 20px 12px; }
+        }
+
+        @media (max-width: 450px) {
+            h1 { font-size: 1.7rem; }
+        }
+
+        /* دیگر */
+        .clearfix { clear: both; }
+        .spacer { height: 10px; }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+
+    <!-- فکسڈ اپ/ڈاؤن بٹن -->
+    <div class="page-up-down">
+        <button class="updown-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" aria-label="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
+        <button class="updown-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});" aria-label="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
     </div>
 
-    <div class="post-content">
-        <h1>غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</h1>
-        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں بارہواں گناہ کسی اور کی زمین پر قبضہ کرنا ہے۔ اس سے پہلے تواتر سے کئی آرٹیکل جو میں تفصیل سے شیئر کرتا آرہا ہوں، اگر آپ ان کو پڑھنا چاہیے تو دیے گئے ناموں پر کلک کر کے پڑھ سکتے ہیں، ان میں سے حقارت سے کسی پر ہنسنا، <a href="https://www.bloglovers.pk/2024/09/50-2.html">دھوکا دینا</a>، <a href="https://www.bloglovers.pk/2024/09/50-3.html">چغلی کرنا</a>، بدگمانی کرنا، طعنہ دینا، کسی کے عیب تلاش کرنا، <a href="https://www.bloglovers.pk/2024/09/50-7.html">تہمت لگانا</a> شامل ہیں۔</p>
+    <!-- مرکزی مواد کارڈ -->
+    <div class="post-card">
+        <!-- ہوم اور بیک بٹن -->
+        <div class="nav-panel">
+            <a href="https://bloglovers.pk/" class="btn" target="_blank" rel="noopener"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank" rel="noopener"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+        </div>
+
+        <!-- پوسٹ کا مواد شروع (تبدیل شدہ متن نہیں، صرف امیج شامل) -->
+        <div class="post-content">
+            <h1>غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</h1>
+
+            <!-- نیا امیج لنک (صرف ایک امیج، ٹائٹل کے بعد مکمل) -->
+            <div class="feature-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا" loading="lazy">
+            </div>
+
+            <!-- اصل متن (ایک لفظ بھی تبدیل نہیں کیا گیا) -->
+            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں بارہواں گناہ کسی اور کی زمین پر قبضہ کرنا ہے۔ اس سے پہلے تواتر سے کئی آرٹیکل جو میں تفصیل سے شیئر کرتا آرہا ہوں، اگر آپ ان کو پڑھنا چاہیے تو دیے گئے ناموں پر کلک کر کے پڑھ سکتے ہیں، ان میں سے حقارت سے کسی پر ہنسنا، <a href="https://www.bloglovers.pk/2024/09/50-2.html">دھوکا دینا</a>، <a href="https://www.bloglovers.pk/2024/09/50-3.html">چغلی کرنا</a>، بدگمانی کرنا، طعنہ دینا، کسی کے عیب تلاش کرنا، <a href="https://www.bloglovers.pk/2024/09/50-7.html">تہمت لگانا</a> شامل ہیں۔</p>
 <p>اسلام نے ہمیشہ عدل و انصاف اور حقوق کی حفاظت کی تعلیم دی ہے۔ کسی کا حق چھیننا، خاص طور پر زمین جیسی قیمتی چیز پر ناجائز قبضہ کرنا، ایک سنگین گناہ ہے جس کے بارے میں قرآن و حدیث میں واضح طور پر منع کیا گیا ہے۔ زمین پر قبضہ کرنے والوں کے لیے سخت وعید ہے، اور یہ گناہ نہ صرف دنیا میں ظلم کا باعث بنتا ہے بلکہ آخرت میں بھی شدید عذاب کا سبب بنے گا۔</p>
 <p>زمین پر قبضہ کرنے سے مراد یہ ہے کہ کوئی شخص ناجائز طریقے سے کسی دوسرے کی ملکیت، خواہ وہ زمین ہو یا جائیداد، پر زبردستی قابض ہو جائے۔ یہ عمل ظلم اور ناانصافی پر مبنی ہے اور <a href="https://www.bloglovers.pk/2024/05/blog-post_19.html">معاشرتی فساد</a> کی جڑ ہے۔ زمین پر ناجائز قبضہ کرنے والے لوگ عام طور پر طاقت اور پیسے کے بل بوتے پر مظلوم لوگوں کے حقوق پامال کرتے ہیں۔</p>
-<p>آپ ﷺ نے فرمایا: &quot;جو شخص کسی کی زمین کا ایک بالشت بھی ظلم سے ہتھیائے گا، قیامت کے دن اللہ تعالیٰ اسے سات زمینوں کا طوق پہنائے گا۔&quot; یہ حدیث اس بات کو واضح کرتی ہے کہ زمین پر ناجائز قبضہ کرنا ایک شدید گناہ ہے اور <a href="https://www.bloglovers.pk/2024/08/blog-post_20.html">قیامت کے</a> دن اس کا حساب دینا ہوگا۔</p>
+<p>آپ ﷺ نے فرمایا: "جو شخص کسی کی زمین کا ایک بالشت بھی ظلم سے ہتھیائے گا، قیامت کے دن اللہ تعالیٰ اسے سات زمینوں کا طوق پہنائے گا۔" یہ حدیث اس بات کو واضح کرتی ہے کہ زمین پر ناجائز قبضہ کرنا ایک شدید گناہ ہے اور <a href="https://www.bloglovers.pk/2024/08/blog-post_20.html">قیامت کے</a> دن اس کا حساب دینا ہوگا۔</p>
 <h2><strong>اسلام میں کسی کا حق کھانے پر کیا وعید بتائی گئی ہے؟</strong></h2>
-<p>اسلام میں کسی کا حق چھیننا ایک <a href="https://www.bloglovers.pk/2024/08/blog-post_27.html">سنگین جرم</a> ہے، چاہے وہ زمین ہو یا کوئی اور چیز۔ قرآن مجید میں اللہ تعالیٰ نے واضح طور پر ایسے لوگوں کو خبردار کیا ہے جو دوسروں کے حقوق چھینتے ہیں۔ اللہ رب العزت فرماتے ہیں: &quot;اور نہ ہی ایک دوسرے کے مال ناحق طریقے سے کھاؤ، اور نہ ہی حاکموں کے سامنے ان کو لے جاؤ تاکہ کسی کے مال کو ناجائز طریقے سے ہتھیا سکو جبکہ تم جانتے ہو کہ یہ غلط ہے۔&quot; یہ آیت اس بات کی وضاحت کرتی ہے کہ کسی کا حق چھیننا اور ناحق قبضہ کرنا اسلام میں منع ہے۔ جو لوگ ظلم کرتے ہیں اور دوسروں کا حق ہتھیاتے ہیں، وہ اللہ کے قہر کا سامنا کریں گے۔</p>
+<p>اسلام میں کسی کا حق چھیننا ایک <a href="https://www.bloglovers.pk/2024/08/blog-post_27.html">سنگین جرم</a> ہے، چاہے وہ زمین ہو یا کوئی اور چیز۔ قرآن مجید میں اللہ تعالیٰ نے واضح طور پر ایسے لوگوں کو خبردار کیا ہے جو دوسروں کے حقوق چھینتے ہیں۔ اللہ رب العزت فرماتے ہیں: "اور نہ ہی ایک دوسرے کے مال ناحق طریقے سے کھاؤ، اور نہ ہی حاکموں کے سامنے ان کو لے جاؤ تاکہ کسی کے مال کو ناجائز طریقے سے ہتھیا سکو جبکہ تم جانتے ہو کہ یہ غلط ہے۔" یہ آیت اس بات کی وضاحت کرتی ہے کہ کسی کا حق چھیننا اور ناحق قبضہ کرنا اسلام میں منع ہے۔ جو لوگ ظلم کرتے ہیں اور دوسروں کا حق ہتھیاتے ہیں، وہ اللہ کے قہر کا سامنا کریں گے۔</p>
 <h2><strong>طاقت کے نشے میں کسی مظلوم پر ظلم کرنا کیسا ہے؟</strong></h2>
-<p>طاقت اور اختیار اللہ کی ایک نعمت ہے، لیکن اگر کوئی شخص اس طاقت کا غلط استعمال کرے اور <a href="https://www.bloglovers.pk/2023/08/blog-post.html">مظلوموں</a> پر ظلم کرے، تو یہ ایک عظیم گناہ ہے۔ طاقتور لوگ اکثر <a href="https://www.bloglovers.pk/2024/03/blog-post.html">اپنی طاقت</a> کے بل بوتے پر کمزوروں اور غریبوں کے حقوق غصب کر لیتے ہیں، جس سے ظلم و زیادتی کا بازار گرم ہو جاتا ہے۔ جیسا کہ نبی کریم ﷺ نے فرمایا: &quot;مظلوم کی بد دعا سے بچو، کیونکہ یہ بادلوں کے اوپر اٹھا لی جاتی ہے اور اللہ تعالیٰ فرماتا ہے: میری عزت اور جلال کی قسم، میں تمہاری مدد ضرور کروں گا، چاہے کچھ دیر بعد ہو۔&quot;</p>
+<p>طاقت اور اختیار اللہ کی ایک نعمت ہے، لیکن اگر کوئی شخص اس طاقت کا غلط استعمال کرے اور <a href="https://www.bloglovers.pk/2023/08/blog-post.html">مظلوموں</a> پر ظلم کرے، تو یہ ایک عظیم گناہ ہے۔ طاقتور لوگ اکثر <a href="https://www.bloglovers.pk/2024/03/blog-post.html">اپنی طاقت</a> کے بل بوتے پر کمزوروں اور غریبوں کے حقوق غصب کر لیتے ہیں، جس سے ظلم و زیادتی کا بازار گرم ہو جاتا ہے۔ جیسا کہ نبی کریم ﷺ نے فرمایا: "مظلوم کی بد دعا سے بچو، کیونکہ یہ بادلوں کے اوپر اٹھا لی جاتی ہے اور اللہ تعالیٰ فرماتا ہے: میری عزت اور جلال کی قسم، میں تمہاری مدد ضرور کروں گا، چاہے کچھ دیر بعد ہو۔"</p>
 <p>یہ حدیث اس بات کی نشاندہی کرتی ہے کہ مظلوموں پر ظلم کرنے والوں کا انجام بہت برا ہوتا ہے اور ان پر اللہ کا عذاب نازل ہوتا ہے۔</p>
 <h2><strong>یتیموں، مسکینوں اور مظلوموں کی بد دعاؤں سے بچو</strong></h2>
 <p>یتیموں، مسکینوں اور مظلوموں کا حق مارنا ایک <a href="https://www.bloglovers.pk/2023/12/blog-post.html">سنگین گناہ</a> ہے۔ اللہ تعالیٰ نے قرآن میں بارہا یتیموں کے حقوق کی حفاظت کرنے کی تلقین کی ہے۔ جو شخص یتیموں کے حقوق غصب کرتا ہے، وہ اللہ کے غضب کا سامنا کرے گا۔</p>
-<p>اللہ رب العزت فرماتے ہیں: &quot;جو لوگ یتیموں کا مال ظلم سے کھاتے ہیں، وہ اپنے پیٹ میں آگ بھر رہے ہیں اور انہیں جلد ہی بھڑکتی ہوئی آگ میں ڈالا جائے گا۔&quot; یتیموں اور مظلوموں کی دعائیں فوراً اللہ کے دربار میں پہنچتی ہیں، اور ایسے ظالم لوگ جلد ہی اللہ کے قہر کا سامنا کرتے ہیں۔</p>
+<p>اللہ رب العزت فرماتے ہیں: "جو لوگ یتیموں کا مال ظلم سے کھاتے ہیں، وہ اپنے پیٹ میں آگ بھر رہے ہیں اور انہیں جلد ہی بھڑکتی ہوئی آگ میں ڈالا جائے گا۔" یتیموں اور مظلوموں کی دعائیں فوراً اللہ کے دربار میں پہنچتی ہیں، اور ایسے ظالم لوگ جلد ہی اللہ کے قہر کا سامنا کرتے ہیں۔</p>
 <h2><strong>ہماری عدالتیں، حکمران کا اس معاملے میں خاموش رہنا اللہ کے عذابوں کو دعوت دینا ہے</strong></h2>
 <p>ہمارے معاشرتی نظام میں عدالتوں اور حکمرانوں کا کردار انتہائی اہم ہے۔ اگر حکمران اور عدالتیں ظلم و زیادتی کے خلاف کھڑے نہ ہوں اور ظالموں کے خلاف کارروائی نہ کریں، تو یہ معاشرتی بد امنی اور اللہ کے عذاب کا باعث بنے گا۔</p>
-<p>حضرت علی رضی اللہ عنہ نے فرمایا: &quot;عدل و انصاف کا قیام حکومت کی بقا کا ضامن ہوتا ہے اور ظلم و زیادتی حکومت کو تباہ کر دیتی ہے۔&quot; جب حکمران اور عدالتیں انصاف کرنے میں ناکام ہو جائیں، تو معاشرے میں بد امنی اور ظلم بڑھتا ہے اور اس کا نتیجہ ہمیشہ اللہ کی گرفت میں آتا ہے۔</p>
+<p>حضرت علی رضی اللہ عنہ نے فرمایا: "عدل و انصاف کا قیام حکومت کی بقا کا ضامن ہوتا ہے اور ظلم و زیادتی حکومت کو تباہ کر دیتی ہے۔" جب حکمران اور عدالتیں انصاف کرنے میں ناکام ہو جائیں، تو معاشرے میں بد امنی اور ظلم بڑھتا ہے اور اس کا نتیجہ ہمیشہ اللہ کی گرفت میں آتا ہے۔</p>
 <h2><strong>ہمارے موجودہ معاشرے میں قبضہ مافیا کا بھیانک کردار</strong></h2>
-<p>موجودہ دور میں &quot;قبضہ مافیا&quot; ایک ایسی برائی بن چکی ہے جو کمزوروں اور غریبوں کے حقوق پامال کرتی ہے۔ یہ لوگ طاقت اور دولت کے بل بوتے پر دوسروں کی زمینوں اور جائیدادوں پر ناجائز قبضہ کرتے ہیں۔ قبضہ مافیا کے خلاف کارروائی کرنا اور ان کو قانون کے کٹہرے میں لانا معاشرتی فریضہ ہے، لیکن افسوس کہ اکثر حکومتی ادارے ان کے خلاف خاموش رہتے ہیں۔ قبضہ مافیا کا یہ بھیانک کردار ایک بڑے فساد کا سبب بن رہا ہے اور یہ معاشرتی بگاڑ کا باعث ہے۔</p>
+<p>موجودہ دور میں "قبضہ مافیا" ایک ایسی برائی بن چکی ہے جو کمزوروں اور غریبوں کے حقوق پامال کرتی ہے۔ یہ لوگ طاقت اور دولت کے بل بوتے پر دوسروں کی زمینوں اور جائیدادوں پر ناجائز قبضہ کرتے ہیں۔ قبضہ مافیا کے خلاف کارروائی کرنا اور ان کو قانون کے کٹہرے میں لانا معاشرتی فریضہ ہے، لیکن افسوس کہ اکثر حکومتی ادارے ان کے خلاف خاموش رہتے ہیں۔ قبضہ مافیا کا یہ بھیانک کردار ایک بڑے فساد کا سبب بن رہا ہے اور یہ معاشرتی بگاڑ کا باعث ہے۔</p>
 <h2><strong>موجودہ دور میں لوگوں کی اتنی بھوک بڑھ گئی ہے کہ قبرستانوں کی زمینوں پر بھی قبضہ مافیا کا راج ہے</strong></h2>
 <p>آج کل قبضہ مافیا کی بھوک اس حد تک بڑھ چکی ہے کہ لوگ قبرستانوں کی زمینوں پر بھی قبضہ کر رہے ہیں۔ قبروں پر تعمیرات کر کے گھروں کے صحن بنائے جا رہے ہیں، اور قبرستان کھنڈر اور رہائشی کالونیاں زیادہ نظر آتی ہیں۔ یہ انسانی ضمیر کی پستی اور لالچ کی انتہا ہے کہ لوگ مرنے والوں کی جگہ بھی نہیں چھوڑتے اور قبروں پر قبضہ کر لیتے ہیں۔</p>
 <h2><strong>اس گناہ سے لوگوں کو کیسے روکا جا سکتا ہے؟</strong></h2>
@@ -61,31 +342,44 @@
 <p><strong>دعا</strong>: اللہ تعالیٰ سے دعا کرنی چاہیے کہ وہ ہمیں ظلم و زیادتی سے بچائے اور عدل و انصاف کے قیام میں مدد فرمائے۔</p>
 <p>اللہ رب العزت سے استدعا ہے کہ ہم سب کو صغیرہ و کبیرہ گناہوں سے بچائے۔۔۔ آمین</p>
 <p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
+        </div>
+        <!-- پوسٹ مواد ختم -->
 
+        <!-- سوشل میڈیا شیئرنگ بٹنز (متعدد) -->
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/ghflt-main-chhpe-50-gnah-12" target="_blank" class="social-btn" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ%2012%20-%20کسی%20اور%20کی%20زمین%20پر%20قبضہ%20کرنا%20https://bloglovers.pk/ghflt-main-chhpe-50-gnah-12" target="_blank" class="social-btn" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/ghflt-main-chhpe-50-gnah-12&text=غفلت%20میں%20چھپے%2050%20گناہ%2012" target="_blank" class="social-btn" rel="noopener"><i class="fab fa-twitter"></i></a>
+            <a href="https://telegram.me/share/url?url=https://bloglovers.pk/ghflt-main-chhpe-50-gnah-12&text=غفلت%20میں%20چھپے%2050%20گناہ%2012" target="_blank" class="social-btn" rel="noopener"><i class="fab fa-telegram-plane"></i></a>
+            <a href="mailto:?subject=غفلت میں چھپے 50 گناہ 12&amp;body=یہ پوسٹ پڑھیں: https://bloglovers.pk/ghflt-main-chhpe-50-gnah-12" target="_blank" class="social-btn" rel="noopener"><i class="fas fa-envelope"></i></a>
+        </div>
+
+        <!-- دوبارہ نیچے بھی نیویگیشن بٹن (اختیاری مگر دوستانہ) -->
+        <div class="nav-panel" style="margin-top: 15px;">
+            <a href="https://bloglovers.pk/" class="btn" target="_blank" rel="noopener"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank" rel="noopener"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+        </div>
+
+        <p style="text-align: center; margin-top: 35px; color: #2f6b2f; font-size: 1.3rem;"> 
+            <i class="fas fa-heart" style="color:#e64242;"></i> نیک اعمال کی توفیق نصیب ہو
+        </p>
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
+    <!-- کوئی ٹوگل نہیں، تمام اندرونی لنک غیر فعال -->
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // مکمل طور پر تمام اندرونی لنک کو بے اثر کرنے کے لیے مزید (پہلے سے pointer-events:none)
+        (function removeInternalLinksEffect() {
+            // اس بات کو یقینی بنانا کہ کسی بھی کلک سے کہی نہ جائے سوائے بٹنوں کے
+            document.querySelectorAll('a:not(.btn):not(.social-btn)').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+        })();
     </script>
+
+    <!-- خوش آئند کلر فل پس منظر کا حصہ پہلے سے baby parrot میں ضم ہے، کوئی علیحدہ کنٹینر نہیں -->
+    <!-- موبائل فرینڈلی کے لیے میٹا ویو پورٹ اوپر -->
 </body>
 </html>
