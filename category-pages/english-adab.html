@@ -4,626 +4,555 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>انگریزی ادب | بلاگ لوورز</title>
+    <!-- Font Awesome 6 (for icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* --- FONTS SETUP --- */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
-        
+        /* ===== FONTS ===== */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
-            src: url('https://misbah.pk/font/JameelNooriNastaleeq.ttf') format('truetype');
+            src: url('https://cdn.jsdelivr.net/gh/arooshali/fonts@main/JameelNooriNastaleeq.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
+            font-display: swap;
         }
-
-        :root {
-            --gold: #D4AF37;
-            --dark-gold: #AA8C2C;
-            --bg-dark: #050505;
-            --card-bg: #121212;
-            --text-main: #ffffff;
-            --neon-glow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
-
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background: #0B1A2F;  /* navy blue base */
+            color: #FAF9F6;
             overflow-x: hidden;
+            line-height: 1.5;
+            font-size: 0.95rem;   /* small font */
             position: relative;
         }
-
-        /* --- BACKGROUND ANIMATION (Particles) --- */
+        /* ===== baby yellow accents ===== */
+        :root {
+            --navy: #0B1A2F;
+            --light-navy: #11223b;
+            --baby-yellow: #fdfd96;
+            --soft-yellow: #fce883;
+            --golden: #e5b73b;
+        }
+        /* ===== animated background particles (navy & yellow) ===== */
         #particles-js {
             position: fixed;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
-            background-image: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
+            background: radial-gradient(circle at 20% 30%, #1a2f4b, #051020);
         }
-
         .particle {
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--gold);
+            width: 6px;
+            height: 6px;
+            background: var(--baby-yellow);
             border-radius: 50%;
-            animation: float 10s infinite linear;
-            opacity: 0.3;
+            filter: blur(1px);
+            opacity: 0.25;
+            animation: floatParticle 14s infinite linear;
         }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+        @keyframes floatParticle {
+            0% { transform: translateY(110vh) translateX(0) scale(0.8); opacity: 0; }
+            20% { opacity: 0.5; }
+            100% { transform: translateY(-20vh) translateX(30px) scale(1.5); opacity: 0; }
         }
-
-        /* --- HEADER --- */
+        /* ===== HEADER with home button ===== */
         header {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 15px 20px;
-            border-bottom: 2px solid var(--gold);
+            background: rgba(7, 18, 33, 0.92);
+            backdrop-filter: blur(12px);
+            padding: 12px 25px;
+            border-bottom: 2px solid var(--baby-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            z-index: 999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
         }
-
+        .home-btn {
+            background: var(--baby-yellow);
+            color: var(--navy);
+            padding: 8px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.35s;
+            border: 1px solid var(--baby-yellow);
+        }
+        .home-btn i {
+            font-size: 1.2rem;
+        }
+        .home-btn:hover {
+            background: transparent;
+            color: var(--baby-yellow);
+            box-shadow: 0 0 18px var(--baby-yellow);
+        }
         .logo {
             font-size: 2rem;
-            color: var(--gold);
-            text-shadow: var(--neon-glow);
+            color: var(--baby-yellow);
+            text-shadow: 0 0 12px #ffec9e;
+            letter-spacing: 2px;
         }
-
-        .back-btn {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 8px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: 0.4s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
+        .logo i {
+            margin-left: 8px;
         }
-
-        .back-btn:hover {
-            background: var(--gold);
-            color: #000;
-            box-shadow: 0 0 20px var(--gold);
+        .spacer {
+            width: 110px;
         }
-
-        /* --- NEWS TICKER --- */
-        .ticker-container {
-            background: linear-gradient(90deg, #000, #222, #000);
-            border-bottom: 1px solid #333;
+        /* ===== TICKER (post scroller) ===== */
+        .ticker-wrap {
+            background: #051b30;
+            border-bottom: 1px solid var(--soft-yellow);
+            border-top: 1px solid #2f4d73;
+            padding: 6px 0;
             overflow: hidden;
             white-space: nowrap;
-            padding: 8px 0;
         }
-
-        .ticker-text {
+        .ticker-content {
             display: inline-block;
-            color: #ccc;
-            font-size: 1rem;
-            padding-left: 100%;
-            animation: ticker 35s linear infinite;
+            animation: tickerMove 40s linear infinite;
+            color: #e9e2b6;
+            font-size: 0.95rem;
         }
-
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(100%, 0, 0); }
+        .ticker-content span {
+            margin: 0 25px;
         }
-
-        /* --- HERO SLIDER --- */
+        .ticker-content i {
+            color: var(--baby-yellow);
+            margin: 0 5px;
+        }
+        @keyframes tickerMove {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+        /* ===== HERO SLIDER (post slider) ===== */
         .slider-section {
-            width: 95%;
-            max-width: 900px;
-            margin: 30px auto;
-            position: relative;
-            border-radius: 20px;
+            max-width: 950px;
+            margin: 30px auto 25px;
+            border-radius: 28px;
             overflow: hidden;
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            border: 3px solid var(--baby-yellow);
+            box-shadow: 0 0 30px rgba(253, 253, 150, 0.3);
+            position: relative;
         }
-
         .slides-wrapper {
             display: flex;
-            transition: transform 1s ease-in-out;
+            transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
         }
-
         .slide {
             min-width: 100%;
-            height: 350px;
+            height: 340px;
             position: relative;
         }
-
         .slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.6);
+            filter: brightness(0.7) contrast(1.1);
         }
-
         .slide-caption {
             position: absolute;
             bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--gold);
-            padding: 10px 20px;
-            border-right: 4px solid var(--gold);
-            font-size: 1.5rem;
-            border-radius: 5px;
+            right: 25px;
+            background: rgba(11, 26, 47, 0.8);
+            color: var(--baby-yellow);
+            padding: 10px 30px;
+            border-right: 6px solid var(--baby-yellow);
+            font-size: 1.8rem;
+            border-radius: 0 40px 0 40px;
+            backdrop-filter: blur(3px);
+            box-shadow: 0 5px 15px black;
         }
-
-        /* --- MOVING ICONS STRIP --- */
+        /* ===== MOVING ICONS (spinning icons) ===== */
         .icon-strip {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.2);
+            gap: 45px;
+            margin: 20px 0 30px;
+            flex-wrap: wrap;
         }
-
         .icon-strip i {
-            transition: 0.5s;
-            animation: bounce 3s infinite;
+            font-size: 2.7rem;
+            color: var(--soft-yellow);
+            filter: drop-shadow(0 0 8px #fce883);
+            animation: spinSlow 8s infinite linear, bounceSoft 3s infinite alternate;
         }
-
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes bounceSoft {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
         .icon-strip i:hover {
-            color: var(--gold);
-            transform: scale(1.5);
-            text-shadow: 0 0 20px var(--gold);
+            color: #ffffff;
+            filter: drop-shadow(0 0 18px yellow);
+            scale: 1.2;
         }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* --- POSTS GRID --- */
+        /* ===== POST GRID (card hover effects) ===== */
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 20px 40px;
         }
-
         .section-title {
             text-align: center;
-            color: var(--gold);
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            color: var(--baby-yellow);
+            font-size: 2.3rem;
+            margin-bottom: 45px;
             position: relative;
-            display: inline-block;
-            width: 100%;
         }
-
         .section-title::after {
             content: '';
-            display: block;
-            width: 100px;
+            width: 160px;
             height: 3px;
-            background: var(--gold);
-            margin: 10px auto;
-            box-shadow: 0 0 10px var(--gold);
+            background: linear-gradient(90deg, transparent, var(--baby-yellow), transparent);
+            display: block;
+            margin: 12px auto 0;
+            box-shadow: 0 0 15px #fce883;
         }
-
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
             gap: 30px;
         }
-
-        /* --- CARD DESIGN (PREMIUM) --- */
+        /* card premium navy & yellow */
         .card {
-            background: var(--card-bg);
-            border-radius: 15px;
+            background: #10263d; /* lighter navy */
+            border-radius: 24px;
             overflow: hidden;
-            position: relative;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #333;
+            border: 1px solid #2e4b6e;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            box-shadow: 0 12px 25px -8px rgba(0,0,0,0.7);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
-
         .card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            height: 6px;
+            background: linear-gradient(90deg, var(--baby-yellow), #b88a2c, var(--baby-yellow));
             transform: scaleX(0);
-            transition: 0.4s;
+            transition: 0.45s;
+            transform-origin: right;
+            z-index: 5;
         }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-            border-color: var(--gold);
-        }
-
         .card:hover::before {
             transform: scaleX(1);
         }
-
+        .card:hover {
+            transform: translateY(-10px) scale(1.01);
+            border-color: var(--baby-yellow);
+            box-shadow: 0 25px 35px -5px #000000cc, 0 0 20px #fdfd9670;
+        }
         .card-img {
-            width: 100%;
-            height: 200px;
+            height: 190px;
             overflow: hidden;
             position: relative;
         }
-
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.6s;
+            transition: 0.7s ease;
         }
-
         .card:hover .card-img img {
-            transform: scale(1.15) rotate(2deg);
-            filter: brightness(0.8);
+            transform: scale(1.2) rotate(1.5deg);
+            filter: brightness(0.75) contrast(1.1);
         }
-
-        /* Removed overlay English text issue by strictly controlling content */
-        
+        /* image overlay removed – only title visible */
         .card-content {
-            padding: 20px;
+            padding: 20px 15px 20px;
+            text-align: center;
+            background: #0e2035;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            text-align: center;
         }
-
         .card h3 {
-            font-size: 1.3rem;
-            color: #e0e0e0;
-            margin-bottom: 15px;
-            line-height: 1.6;
+            color: #f5edcf;
+            font-size: 1.2rem;   /* small font */
+            font-weight: 400;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 3px black;
         }
-
+        /* post link hidden under title — removed (no link under title, only button) */
         .btn-read {
             display: inline-block;
-            padding: 10px 30px;
             background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
+            border: 2px solid var(--baby-yellow);
+            color: var(--baby-yellow);
+            padding: 9px 20px;
             border-radius: 50px;
             text-decoration: none;
             font-size: 1rem;
-            transition: 0.3s;
+            transition: 0.35s;
+            margin-top: 5px;
             align-self: center;
+            font-weight: bold;
             position: relative;
             overflow: hidden;
+            z-index: 2;
         }
-
+        .btn-read:hover {
+            background: var(--baby-yellow);
+            color: var(--navy);
+            box-shadow: 0 0 25px var(--baby-yellow);
+        }
         .btn-read::after {
             content: '';
             position: absolute;
+            top: 0;
+            right: -100%;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: -100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
-            transition: 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,200,0.3), transparent);
+            transition: 0.4s;
         }
-
         .btn-read:hover::after {
-            left: 100%;
+            right: 100%;
         }
-
-        .btn-read:hover {
-            background: var(--gold);
-            color: #000;
-            box-shadow: 0 0 15px var(--gold);
-        }
-
-        /* --- MINI SLIDER (Bottom) --- */
+        /* ===== MINI SLIDER (bottom post scroller) ===== */
         .mini-slider {
-            margin: 60px 0;
-            background: rgba(255,255,255,0.03);
-            padding: 15px 0;
-            transform: rotate(-1deg);
-            border-top: 1px solid var(--gold);
-            border-bottom: 1px solid var(--gold);
+            background: #0e1c31;
+            padding: 14px 0;
+            border-top: 2px dashed var(--baby-yellow);
+            border-bottom: 2px dashed var(--baby-yellow);
+            margin: 50px 0 20px;
             overflow: hidden;
         }
-
         .mini-track {
             display: flex;
-            width: calc(200px * 10);
-            animation: scroll 20s linear infinite;
+            width: calc(200px * 12);
+            animation: scrollMini 28s linear infinite;
         }
-
         .mini-item {
             width: 200px;
             text-align: center;
-            color: #666;
+            color: #e7dba4;
             font-size: 1.2rem;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-
-        @keyframes scroll {
+        .mini-item i {
+            color: var(--baby-yellow);
+            font-size: 1.5rem;
+        }
+        @keyframes scrollMini {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-200px * 5)); }
+            100% { transform: translateX(calc(-200px * 6)); }
         }
-
-        /* --- SHARE SECTION --- */
+        /* ===== SOCIAL SHARE ALL ICONS ===== */
         .share-box {
-            text-align: center;
-            padding: 40px;
-            background: radial-gradient(circle, #222 0%, #000 100%);
-            margin-top: 50px;
-            border-top: 3px double var(--gold);
+            background: #0b1e32;
+            border-radius: 60px;
+            max-width: 650px;
+            margin: 20px auto 30px;
+            padding: 22px 25px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            border: 2px solid var(--baby-yellow);
+            box-shadow: 0 0 30px rgba(252, 232, 131, 0.3);
         }
-
         .share-btn {
-            background: var(--gold);
-            color: black;
+            background: var(--baby-yellow);
             border: none;
-            padding: 12px 40px;
-            font-size: 1.2rem;
+            color: var(--navy);
+            padding: 10px 32px;
             border-radius: 50px;
+            font-size: 1.3rem;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            animation: pulse 2s infinite;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 0 #b39240;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        .share-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b39240; }
+        .share-btn:hover { background: #fff3b0; }
+        .social-mini {
+            display: flex;
+            gap: 20px;
+            font-size: 2rem;
         }
-
+        .social-mini a {
+            color: var(--baby-yellow);
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .social-mini a:hover {
+            transform: scale(1.25) rotate(5deg);
+            color: white;
+            text-shadow: 0 0 20px #fdfd96;
+        }
+        /* ===== PAGE UP/DOWN BUTTONS ===== */
+        .page-nav-buttons {
+            position: fixed;
+            left: 18px;
+            bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 9999;
+        }
+        .page-nav-buttons a {
+            background: var(--navy);
+            border: 2px solid var(--baby-yellow);
+            color: var(--baby-yellow);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: 0.3s;
+            backdrop-filter: blur(6px);
+            text-decoration: none;
+        }
+        .page-nav-buttons a:hover {
+            background: var(--baby-yellow);
+            color: var(--navy);
+            box-shadow: 0 0 28px var(--baby-yellow);
+            transform: scale(1.15);
+        }
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            padding: 20px;
-            background: #080808;
-            color: #555;
+            padding: 18px;
+            background: #061220;
+            color: #99aec6;
+            border-top: 2px solid #2b4a6a;
             font-size: 0.9rem;
-            border-top: 1px solid #222;
         }
-
-        @media (max-width: 768px) {
-            .section-title { font-size: 1.8rem; }
-            .slide { height: 200px; }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 720px) {
+            .slide { height: 220px; }
+            .slide-caption { font-size: 1.2rem; padding: 6px 18px; }
+            .logo { font-size: 1.5rem; }
+            .home-btn span { display: none; }
+            .home-btn i { margin: 0; }
+            .spacer { width: 40px; }
+            .icon-strip i { font-size: 2rem; }
             .grid { grid-template-columns: 1fr; }
+            .share-box { flex-direction: column; gap: 15px; }
         }
-
+        @media (max-width: 420px) {
+            .card h3 { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Dynamic Background -->
+    <!-- particles container -->
     <div id="particles-js"></div>
 
-    <!-- Header -->
+    <!-- header with home page button -->
     <header>
-        <a href="/" class="back-btn">
-            <i class="fas fa-arrow-right"></i> مرکزی صفحہ
-        </a>
-        <div class="logo">
-            <i class="fas fa-feather-alt"></i> انگریزی ادب
-        </div>
-        <div style="width:100px;"></div> <!-- Spacer -->
+        <a href="https://bloglovers.pk" class="home-btn"><i class="fas fa-home"></i><span>مرکزی صفحہ</span></a>
+        <div class="logo"><i class="fas fa-feather-alt"></i> انگریزی ادب</div>
+        <div class="spacer"></div>
     </header>
 
-    <!-- Ticker -->
-    <div class="ticker-container">
-        <div class="ticker-text">
-            جارج اورویل کا شاہکار ناول "1984" اور آج کا دور • وکٹورین دور کے ادب کا تفصیلی جائزہ • شیکسپیئر کی ڈرامہ نگاری اور انسانی نفسیات • رومانوی دور کی خصوصیات
+    <!-- post scroller (ticker) with names -->
+    <div class="ticker-wrap">
+        <div class="ticker-content">
+            <span><i class="fas fa-book"></i> وکٹورین دور (حصہ اول) 1837-1913</span>
+            <span><i class="fas fa-feather"></i> رومانوی دور: ایک جائزہ</span>
+            <span><i class="fas fa-mask"></i> شیکسپیئر: نفسیاتی مطالعہ</span>
+            <span><i class="fas fa-eye"></i> 1984 اور نگرانی کا موازنہ</span>
+            <span><i class="fas fa-crown"></i> وکٹورین دور (آخری حصہ)</span>
+            <span><i class="fas fa-pen-fancy"></i> طاقت کا کھیل: ایوان سے پاکستان</span>
         </div>
     </div>
 
-    <!-- Main Slider -->
+    <!-- main slider (post slider) -->
     <div class="slider-section">
         <div class="slides-wrapper">
-            <div class="slide">
-                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" alt="Slide 1">
-                <div class="slide-caption">وکٹورین دور کا آغاز</div>
-            </div>
-            <div class="slide">
-                <img src="https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" alt="Slide 2">
-                <div class="slide-caption">جدید نگرانی اور 1984</div>
-            </div>
-            <div class="slide">
-                <img src="https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" alt="Slide 3">
-                <div class="slide-caption">شیکسپیئر کی بصیرت</div>
-            </div>
+            <div class="slide"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" alt="Victorian part 1"><div class="slide-caption">وکٹورین دور (حصہ اول)</div></div>
+            <div class="slide"><img src="https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" alt="1984 surveillance"><div class="slide-caption">1984 اور جدید نگرانی</div></div>
+            <div class="slide"><img src="https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" alt="Shakespeare"><div class="slide-caption">شیکسپیئر کا نفسیاتی مطالعہ</div></div>
         </div>
     </div>
 
-    <!-- Icons -->
+    <!-- moving/spinning icons -->
     <div class="icon-strip">
-        <i class="fas fa-book-open"></i>
-        <i class="fas fa-pen-fancy"></i>
-        <i class="fas fa-theater-masks"></i>
-        <i class="fas fa-university"></i>
+        <i class="fas fa-quill"></i>
+        <i class="fas fa-scroll"></i>
+        <i class="fas fa-dragon"></i>
+        <i class="fas fa-crown"></i>
+        <i class="fas fa-mask"></i>
+        <i class="fas fa-hat-wizard"></i>
     </div>
 
-    <!-- Main Content -->
+    <!-- main posts grid (all links updated) -->
     <div class="container">
         <h2 class="section-title">تازہ ترین ادبی مضامین</h2>
-        
-        <div class="grid">
-            
-            <!-- Post 1: Victorian 1 -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (حصہ اول) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 2: Victorian 2 -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-dosra-hsh.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (دوسرا حصہ) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 3: Victorian 3 -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (حصہ سوئم) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 4: Victorian 4 -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chharm.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (حصہ چہارم) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 5: Victorian 5 -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-panchoan-hsh.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (پانچواں حصہ) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 6: Victorian 6 -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chhta.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (حصہ چھٹا) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 7: Victorian 7 -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (حصہ ساتواں) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 8: Victorian Last Part -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>وکٹورین دور (آخری حصہ) (1913-1837)</h3>
-                    <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 9: Romantic Era -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>رومانوی دور (ادبی تاریخ کا جائزہ)</h3>
-                    <a href="https://bloglovers.pk/english-adab/romanoi-dor" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 10: 1984 Orwell -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>ٹیلی اسکرینز سے سمارٹ فونز تک: 1984 اور آج کی نگرانی کا موازنہ</h3>
-                    <a href="https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 11: Shakespeare -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ</h3>
-                    <a href="https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
-            <!-- Post 12: Power Game -->
-            <div class="card">
-                <div class="card-img">
-                    <img src="https://bloglovers.pk/images/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak.png" alt="Post Image">
-                </div>
-                <div class="card-content">
-                    <h3>طاقت کا کھیل: افسانہ ایوان سے پاکستان تک</h3>
-                    <a href="https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak" class="btn-read">مزید پڑھیں</a>
-                </div>
-            </div>
-
+        <div class="grid" id="postGrid">
+            <!-- dynamic posts will be injected via javascript from given lists -->
         </div>
     </div>
 
-    <!-- Mini Bottom Slider -->
+    <!-- mini bottom slider (post scroller) -->
     <div class="mini-slider">
         <div class="mini-track">
-            <div class="mini-item"><i class="fas fa-book"></i> ناول نگاری</div>
-            <div class="mini-item"><i class="fas fa-feather"></i> شاعری</div>
+            <div class="mini-item"><i class="fas fa-book-open"></i> ناول</div>
+            <div class="mini-item"><i class="fas fa-feather-alt"></i> شاعری</div>
             <div class="mini-item"><i class="fas fa-theater-masks"></i> ڈرامہ</div>
-            <div class="mini-item"><i class="fas fa-pen"></i> افسانہ</div>
-            <div class="mini-item"><i class="fas fa-glasses"></i> تنقید</div>
-            <!-- Repeat -->
-            <div class="mini-item"><i class="fas fa-book"></i> ناول نگاری</div>
-            <div class="mini-item"><i class="fas fa-feather"></i> شاعری</div>
+            <div class="mini-item"><i class="fas fa-newspaper"></i> افسانہ</div>
+            <div class="mini-item"><i class="fas fa-microphone-alt"></i> تنقید</div>
+            <div class="mini-item"><i class="fas fa-landmark"></i> تاریخ</div>
+            <!-- duplicate for seamless loop -->
+            <div class="mini-item"><i class="fas fa-book-open"></i> ناول</div>
+            <div class="mini-item"><i class="fas fa-feather-alt"></i> شاعری</div>
             <div class="mini-item"><i class="fas fa-theater-masks"></i> ڈرامہ</div>
-            <div class="mini-item"><i class="fas fa-pen"></i> افسانہ</div>
-            <div class="mini-item"><i class="fas fa-glasses"></i> تنقید</div>
+            <div class="mini-item"><i class="fas fa-newspaper"></i> افسانہ</div>
+            <div class="mini-item"><i class="fas fa-microphone-alt"></i> تنقید</div>
+            <div class="mini-item"><i class="fas fa-landmark"></i> تاریخ</div>
         </div>
     </div>
 
-    <!-- Share Section -->
+    <!-- share box (all social icons + share button) -->
     <div class="share-box">
-        <button class="share-btn" onclick="sharePage()">
-            <i class="fas fa-share-alt"></i> پیج شیئر کریں
-        </button>
+        <button class="share-btn" onclick="sharePage()"><i class="fas fa-share-alt"></i> شیئر کریں</button>
+        <div class="social-mini">
+            <a href="#" onclick="shareOn('facebook')" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" onclick="shareOn('twitter')" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" onclick="shareOn('whatsapp')" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" onclick="shareOn('telegram')" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" onclick="shareOn('linkedin')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" onclick="copyLink()" title="کاپی لنک"><i class="fas fa-link"></i></a>
+        </div>
+    </div>
+
+    <!-- page up/down buttons -->
+    <div class="page-nav-buttons">
+        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-chevron-up"></i></a>
+        <a href="#" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;"><i class="fas fa-chevron-down"></i></a>
     </div>
 
     <footer>
@@ -631,45 +560,86 @@
     </footer>
 
     <script>
-        // Particles Animation Logic
+        // ----------------------------------------------
+        // POSTS DATA (exact links and titles from your file & images from txt)
+        // ----------------------------------------------
+        const posts = [
+            { title: "وکٹورین دور (حصہ اول) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" },
+            { title: "وکٹورین دور (دوسرا حصہ) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-dosra-hsh.jpg" },
+            { title: "وکٹورین دور (حصہ سوئم) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" },
+            { title: "وکٹورین دور (حصہ چہارم) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chharm.jpg" },
+            { title: "وکٹورین دور (پانچواں حصہ) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-panchoan-hsh.jpg" },
+            { title: "وکٹورین دور (حصہ چھٹا) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chhta.jpg" },
+            { title: "وکٹورین دور (حصہ ساتواں) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" },
+            { title: "وکٹورین دور (آخری حصہ) (1913-1837)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" },
+            { title: "رومانوی دور (ادبی تاریخ کا جائزہ)", link: "https://bloglovers.pk/english-adab/romanoi-dor", img: "https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" },
+            { title: "ٹیلی اسکرینز سے سمارٹ فونز تک: 1984 اور آج کی نگرانی کا موازنہ", link: "https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh", img: "https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" },
+            { title: "شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ", link: "https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea", img: "https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" },
+            { title: "طاقت کا کھیل: افسانہ ایوان سے پاکستان تک", link: "https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak", img: "https://bloglovers.pk/images/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak.png" }
+        ];
+
+        // render posts into grid
+        const grid = document.getElementById('postGrid');
+        if (grid) {
+            posts.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-img"><img src="${p.img}" alt="post image" loading="lazy"></div>
+                    <div class="card-content">
+                        <h3>${p.title}</h3>
+                        <a href="${p.link}" class="btn-read">مزید پڑھیں</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // particles
         function createParticles() {
             const container = document.getElementById('particles-js');
-            for(let i=0; i<40; i++) {
+            for (let i=0; i<48; i++) {
                 let p = document.createElement('div');
                 p.className = 'particle';
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                p.style.animationDelay = (Math.random() * 5) + 's';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (Math.random() * 12 + 6) + 's';
+                p.style.animationDelay = (Math.random() * 8) + 's';
+                p.style.background = i % 3 === 0 ? '#fdfd96' : '#fce883';
                 container.appendChild(p);
             }
         }
         createParticles();
 
-        // Main Slider Logic
+        // slider
         let slideIndex = 0;
-        const slides = document.querySelector('.slides-wrapper');
+        const slidesWrap = document.querySelector('.slides-wrapper');
         const totalSlides = 3;
+        function autoSlide() { slideIndex = (slideIndex+1) % totalSlides; slidesWrap.style.transform = `translateX(-${slideIndex * 100}%)`; }
+        setInterval(autoSlide, 4600);
 
-        function autoSlide() {
-            slideIndex++;
-            if(slideIndex >= totalSlides) slideIndex = 0;
-            slides.style.transform = `translateX(${slideIndex * 100}%)`; 
-        }
-        setInterval(autoSlide, 5000);
-
-        // Native Share Logic
-        function sharePage() {
+        // native share fallback
+        window.sharePage = function() {
             if (navigator.share) {
-                navigator.share({
-                    title: 'انگریزی ادب - بلاگ لوورز',
-                    text: 'انگریزی ادب کے بہترین مضامین پڑھیں',
-                    url: window.location.href,
-                });
-            } else {
-                alert("لنک کاپی کر لیا گیا ہے!");
-                navigator.clipboard.writeText(window.location.href);
-            }
-        }
+                navigator.share({ title: 'انگریزی ادب', text: 'بہترین ادبی مضامین', url: window.location.href });
+            } else { copyLink(); }
+        };
+        window.copyLink = function() {
+            navigator.clipboard?.writeText(window.location.href);
+            alert("لنک کاپی ہو گیا!");
+        };
+        window.shareOn = function(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let text = encodeURIComponent('انگریزی ادب | بلاگ لوورز');
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            else if (platform === 'whatsapp') shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        };
+
+        // ticker infinite (no extra)
     </script>
 </body>
 </html>
