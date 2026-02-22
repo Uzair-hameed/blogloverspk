@@ -3,85 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غفلت میں چھپے 50 گناہ 32 - جوا کھیلنا</title>
+    <title>غفلت میں چھپے 50 گناہ: 32 - جوا کھیلنا</title>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social & arrow icons (free CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(145deg, #ffe4ec 0%, #ffe0b5 100%); /* baby pink & vibrant peach base */
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* animated hover background effect (subtle moving gradient) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, #ffb7c5, #ffdab9, #ffc8a2, #ffb3a5, #ffe0b0);
+            background-size: 400% 400%;
+            z-index: -2;
+            animation: softFlow 16s ease infinite;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @keyframes softFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* hover effect on main container */
+        .main-wrapper {
+            max-width: 950px;
+            margin: 0 auto;
+            background: rgba(255, 245, 240, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 40px 40px 30px 30px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 45px rgba(255, 120, 100, 0.3);
+            transition: all 0.4s ease;
+            border: 2px solid #ffb0a0;
+        }
+
+        .main-wrapper:hover {
+            box-shadow: 0 30px 60px rgba(255, 140, 120, 0.6);
+            transform: scale(1.005);
+            background: rgba(255, 245, 240, 0.85);
+        }
+
+        /* Heading styles */
+        h1 {
+            font-size: 2.2rem; /* normal size but worth reading */
+            color: #9b2c2c;
+            border-bottom: 4px double #ff8a7a;
+            padding-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0 #ffe0c0;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        h2, h3 {
+            font-size: 1.9rem; /* sub heading different from main */
+            color: #b85b3a;
+            background: linear-gradient(90deg, #ffddd6, #fff3e6);
+            display: inline-block;
+            padding: 8px 25px 8px 25px;
+            border-radius: 60px 20px 60px 20px;
+            border-right: 8px solid #ff7b6b;
+            margin: 25px 0 15px 0;
+            box-shadow: 0 5px 10px #ffc0b0;
+            font-weight: 650;
+        }
+
+        /* Text styling */
+        p {
+            font-size: 1.4rem; /* adjusted for readability */
+            text-align: justify;
+            color: #2e2b2b;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        /* image styling - full width, visible */
+        .featured-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 30px;
+            margin: 20px 0 30px 0;
+            display: block;
+            box-shadow: 0 20px 30px rgba(200, 110, 80, 0.5);
+            border: 5px solid #ffe0c0;
+            transition: 0.3s;
+        }
+
+        .featured-image:hover {
+            transform: scale(1.01);
+            border-color: #ff9f8c;
+        }
+
+        /* navigation and social bar */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px 0 25px 0;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #ff8a7a, #ffb497);
+            border: none;
+            border-radius: 60px;
+            padding: 14px 32px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #3d2620;
+            box-shadow: 0 10px 15px #fbb0a0;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid #ffeae0;
+            font-family: inherit;
+        }
+
+        .nav-btn a {
+            color: #3d2620;
+            text-decoration: none;
+        }
+
+        .nav-btn i {
+            font-size: 1.4rem;
+            color: #702c1c;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #ffb0a0, #ffccb3);
+            transform: translateY(-7px) scale(1.05);
+            box-shadow: 0 15px 25px #ff9f80;
+        }
+
+        /* Social share buttons */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 30px 0 20px;
+        }
+
+        .social-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #ffb8b0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #4a251e;
+            text-decoration: none;
+            box-shadow: 0 8px 14px #f99b8b;
+            transition: 0.3s;
+            border: 3px solid #fff2e6;
+        }
+
+        .social-btn:hover {
+            transform: rotate(8deg) scale(1.2);
+            background: #ffd7c4;
+            color: #b1412c;
+            box-shadow: 0 18px 30px #fc9f8b;
+        }
+
+        /* up/down page buttons */
+        .page-up-down {
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 99;
+        }
+
+        .page-up-down a {
+            background: #ffaa99;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #462013;
+            box-shadow: 0 5px 15px #f98873;
+            transition: 0.2s;
+            border: 3px solid #ffdac8;
+            text-decoration: none;
+        }
+
+        .page-up-down a:hover {
+            background: #ffbcaa;
+            transform: scale(1.2);
+            box-shadow: 0 10px 25px #ff6f5e;
+        }
+
+        /* remove any old overlay or toggle, keep it clean */
+        .old-triggers, .color-fill-container, .post-content-overlay, .trigger-btn {
+            display: none !important;
+        }
+
+        /* just in case: hide any leftover internal links but keep text */
+        a[href*="draft.blogger.com"], a[href*="blogger.com"] {
+            pointer-events: none;
+            text-decoration: none;
+            color: inherit;
+            background: transparent;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.9rem; }
+            h2 { font-size: 1.6rem; }
+            p { font-size: 1.2rem; }
+            .nav-btn { padding: 12px 18px; font-size: 1.1rem; }
+            .social-btn { width: 55px; height: 55px; font-size: 1.8rem; }
+            .page-up-down a { width: 50px; height: 50px; font-size: 1.8rem; left: 10px; }
+        }
+
+        @media (max-width: 400px) {
+            .nav-bar { flex-direction: column; align-items: center; }
+        }
+
+        /* extra polish: image placement exactly after title (we'll use inline structure) */
+        .post-body {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+
+    <!-- up/down fixed buttons -->
+    <div class="page-up-down">
+        <a href="#top" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
+        <a href="#bottom" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
     </div>
 
-    <div class="post-content">
-        
-        <h1>غفلت میں چھپے 50 گناہ: 32 - جوا کھیلنا</h1>
-<p>غفلت میں چھپے 50 گناہوں کی فہرست میں بتیسواں گناہ جوا کھیلنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-<p>جوا کھیلنے سے مراد کسی بھی قسم کی وہ مالی یا مادی سرگرمی ہے جس میں دو یا زیادہ افراد قسمت کے ذریعے کسی ایک کی جیت اور دوسرے کی ہار طے کرتے ہیں۔ یہ ایک ایسی سرگرمی ہے جس میں مالی دولت کو کسی لاٹری، کارڈز، سٹے، یا کسی اور غیر یقینی صورتِ حال میں داؤ پر لگایا جاتا ہے۔ جوا کھیلنے والے کی امید یہ ہوتی ہے کہ وہ بغیر کسی محنت کے زیادہ مال حاصل کر لے، لیکن یہ ایک غیر یقینی اور خطرناک عمل ہے جس کا انجام اکثر نقصان ہوتا ہے۔</p>
-<p><img src="image.png" alt="جوا کھیلنا"></p>
-<p>قرآن مجید میں اللہ تعالیٰ نے جوا (میسر) کو حرام قرار دیا ہے اور اس کے متعلق فرمایا: &quot;اے ایمان والو! بے شک شراب، جوا، بت، اور پانسے یہ سب ناپاک شیطانی کام ہیں، سو ان سے بچو تاکہ تم فلاح پا سکو۔&quot;</p>
-<p>جوئے کے پیچھے کئی وجوہات ہوتی ہیں، جن میں سے ایک بڑی وجہ آسان اور تیز تر دولت کمانے کی خواہش ہے۔ لوگ جوئے کی طرف اس امید کے ساتھ راغب ہوتے ہیں کہ وہ تھوڑی سی محنت یا قسمت کے بل پر بڑی دولت حاصل کر لیں گے۔ اس کے علاوہ، جوئے کے کھیل میں ملنے والا عارضی لطف اور جذباتی جوش و خروش بھی لوگوں کو اس کی طرف مائل کرتا ہے۔</p>
-<p>دیگر وجوہات میں مالی مشکلات، لالچ، اور معاشرتی یا دوستانہ دباؤ بھی شامل ہیں۔ بعض اوقات لوگ جوئے کو بطور تفریح کھیلتے ہیں، لیکن یہ تفریح بہت جلد ان کی زندگیوں کو تباہی کی طرف لے جاتی ہے۔</p>
-<p>جواری کی جیت عموماً عارضی ہوتی ہے، اور زیادہ تر لوگ جو جوا کھیلتے ہیں، وہ اپنے مال سے محروم ہو جاتے ہیں۔ جوا کھیلنے کی عادت ایک شخص کو مسلسل مالی مشکلات میں مبتلا رکھتی ہے اور بالآخر وہ اپنی زندگی اور اہل و عیال کی ضروریات سے غفلت برتتا ہے۔ جواری کے گرد رہنے والے افراد بھی اس کے جوئے کی وجہ سے مشکلات کا سامنا کرتے ہیں۔ خاندان میں جھگڑے، مالی بحران، اور بچوں کی تعلیم و تربیت میں کمی واقع ہوتی ہے۔ جوئے کی لت انسان کی شخصیت اور کردار کو تباہ کرتی ہے اور اسے معاشرتی طور پر ذلت اور رسوائی کی طرف دھکیل دیتی ہے۔</p>
-<p>دورِ جاہلیت میں عرب معاشرے میں جوا کھیلنا ایک عام سرگرمی تھی۔ لوگ اپنی دولت اور جانوروں کو داؤ پر لگا کر کھیلتے تھے اور ایک دوسرے کے ساتھ جوئے میں شریک ہوتے تھے۔ اس وقت جوئے کے کھیل میں جیتنے والے کو بہت سی دولت ملتی تھی جبکہ ہارنے والے کو انتہائی ذلت اور معاشرتی نقصان کا سامنا کرنا پڑتا تھا۔</p>
-<p>جوئے کی وجہ سے معاشرے میں بغض، عداوت، اور نفرت پھیلتی تھی۔ یہ سرگرمی لوگوں کو اپنی حقیقی زندگی اور معاشرتی ذمہ داریوں سے دور کرتی تھی، اور جوا کھیلنے والے اپنی زندگی کو تباہ کرتے تھے۔</p>
-<p>مختلف مذاہب میں جوئے کی مخالفت کی گئی ہے۔ اسلام، یہودیت، اور عیسائیت میں جوا کھیلنے کی سختی سے منع کیا گیا ہے، کیونکہ یہ ایک ایسی سرگرمی ہے جو معاشرتی نظام اور خاندانوں کو تباہ کرتی ہے۔ ان مذاہب میں مال کو جائز طریقے سے کمانے پر زور دیا گیا ہے، اور جوئے کو ایک غیر شرعی عمل قرار دیا گیا ہے۔</p>
-<p>مغربی ممالک میں جوا کھیلنا قانونی حیثیت رکھتا ہے، اور وہاں کی حکومتیں مختلف لائسنس یافتہ کیسینوز اور لاٹری کے ذریعے جوئے کو فروغ دیتی ہیں۔ لیکن اس کے ساتھ ساتھ، مغربی معاشروں میں بھی جوئے کے منفی اثرات واضح ہیں۔ جواریوں کی زندگی میں مالی بحران، ذہنی دباؤ، اور خاندانی جھگڑے عام ہیں۔ جوئے کی عادت مغربی معاشروں میں بھی لوگوں کی زندگیوں کو نقصان پہنچا رہی ہے۔</p>
-<p>جنوبی ایشیائی ممالک میں بھی جوئے کا رجحان تیزی سے بڑھ رہا ہے۔ یہاں کے لوگ مختلف قسم کے سٹے، لاٹری، اور قمار کے ذریعے جوئے میں ملوث ہو رہے ہیں۔ جوئے کی لت یہاں بھی مالی مشکلات، خاندانی جھگڑوں، اور معاشرتی بحران کا سبب بن رہی ہے۔ خاص طور پر نوجوان نسل جوئے کی طرف مائل ہو رہی ہے، جو کہ ایک بڑا معاشرتی مسئلہ بنتا جا رہا ہے۔</p>
-<p>اسلام میں جوا سختی سے حرام قرار دیا گیا ہے۔ قرآن مجید میں اللہ تعالیٰ نے جوئے کو شیطانی عمل قرار دیتے ہوئے اس سے بچنے کی تاکید کی ہے۔ رسول اللہ ﷺ نے بھی جوئے کو ناپسندیدہ قرار دیا اور فرمایا کہ یہ انسان کو تباہی کی طرف لے جاتا ہے۔</p>
-<p>حدیث میں آیا ہے: &quot;جو شخص کسی جوئے میں مال لگا کر کھیلے گا، وہ اللہ کی نافرمانی میں شریک ہوگا۔&quot;</p>
-<p>علماء کرام کے نزدیک جوا کھیلنے والے لوگ دین اور دنیا دونوں لحاظ سے نقصان اٹھاتے ہیں۔ جواریوں کے بارے میں علماء کا کہنا ہے کہ یہ عمل انسان کو دین سے دور کر دیتا ہے اور اس کی زندگی کو بربادی کی طرف لے جاتا ہے۔ جواریوں کے لیے سخت تنبیہ کی گئی ہے کہ وہ توبہ کریں اور اس عمل سے باز آئیں۔</p>
-<p>جوا کی کئی اقسام ہیں جن میں سٹے، قمار، لاٹری، کارڈ گیمز، اور دیگر کئی سرگرمیاں شامل ہیں۔ اسلام نے ان تمام اقسام پر لعنت فرمائی ہے اور ان سے بچنے کی تلقین کی ہے۔</p>
-<p>پاکستان میں بھی جوئے کا رجحان بڑھتا جا رہا ہے۔ لوگ مختلف طریقوں سے جوئے میں ملوث ہو رہے ہیں، جیسے کہ کرکٹ کے سٹے، لاٹری اور دیگر غیر قانونی جوئے کے کھیل۔ اس رجحان کی وجہ سے معاشرے میں مالی مشکلات، خاندانی جھگڑے، اور اخلاقی زوال دیکھنے کو ملتا ہے۔</p>
-<p>لوگ اس کبیرہ گناہ کو اس لیے معمولی سمجھتے ہیں کیونکہ وہ فوری فائدے کی طرف دیکھتے ہیں اور اس کے طویل مدتی نقصان کو نظر انداز کر دیتے ہیں۔ اس کے علاوہ، معاشرتی دباؤ اور مادی دنیا کی لالچ بھی لوگوں کو اس گناہ کی طرف راغب کرتی ہے۔</p>
-<p>جوئے کی دلدل سے بچنے کے لیے ہمیں اسلام کی تعلیمات پر عمل کرنا ہوگا۔ ہمیں اپنے مال کو حلال طریقے سے کمانا اور خرچ کرنا چاہیے۔ جوئے سے بچنے کے لیے دینی تعلیمات کو فروغ دینا اور لوگوں کو اس گناہ کے نقصانات سے آگاہ کرنا ضروری ہے۔</p>
-<p>&quot;اے ایمان والو! بے شک شیطان چاہتا ہے کہ تمہارے درمیان شراب اور جوئے کے ذریعے دشمنی اور بغض ڈال دے۔&quot; اس آیت سے واضح ہوتا ہے کہ جوا اور شراب جیسے اعمال معاشرتی نقصان کا سبب بنتے ہیں، اور ان سے بچنا ہی فلاح کا راستہ ہے۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-<p>جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">سود کھانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">ظلم کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">رشوت لینا یا دینا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">زنا کرنا</a></p>
+    <!-- main content wrapper with hover effect -->
+    <div class="main-wrapper" id="top">
 
-    </div>
+        <!-- Post content exactly as given, except image and links modifications -->
+        <div class="post-body">
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
+            <!-- main heading normal -->
+            <h1>غفلت میں چھپے 50 گناہ: 32 - جوا کھیلنا</h1>
 
+            <!-- new image added after title (full visible) -->
+            <img class="featured-image" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-32-joa-khylna.png" alt="جوا کھیلنا - تصویر">
+
+            <!-- original text starts (not a single word changed) but we must remove internal hyperlinks. 
+                 we'll wrap in span to remove linking but preserve text. 
+                 and we need to delete the old image line if present. 
+                 we'll keep the text exactly but strip any <a> tags around words. 
+                 also remove the line containing "image.png" if any. 
+                 implementation: manually we'll rewrite the text exactly but omitting <a> and image line, using pure text from original. 
+                 to be safe: i'll copy the text content without any anchor tags and without the old img tag. 
+                 i see the old image line is: <img src="image.png" alt="جوا کھیلنا"> — we remove that line entirely. 
+                 all internal links like <a href=...>سود کھانا</a> become just plain text "سود کھانا" without link. 
+            -->
+
+            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں بتیسواں گناہ جوا کھیلنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+
+            <p>جوا کھیلنے سے مراد کسی بھی قسم کی وہ مالی یا مادی سرگرمی ہے جس میں دو یا زیادہ افراد قسمت کے ذریعے کسی ایک کی جیت اور دوسرے کی ہار طے کرتے ہیں۔ یہ ایک ایسی سرگرمی ہے جس میں مالی دولت کو کسی لاٹری، کارڈز، سٹے، یا کسی اور غیر یقینی صورتِ حال میں داؤ پر لگایا جاتا ہے۔ جوا کھیلنے والے کی امید یہ ہوتی ہے کہ وہ بغیر کسی محنت کے زیادہ مال حاصل کر لے، لیکن یہ ایک غیر یقینی اور خطرناک عمل ہے جس کا انجام اکثر نقصان ہوتا ہے۔</p>
+
+            <!-- old image line removed (we already inserted new image above) -->
+
+            <p>قرآن مجید میں اللہ تعالیٰ نے جوا (میسر) کو حرام قرار دیا ہے اور اس کے متعلق فرمایا: "اے ایمان والو! بے شک شراب، جوا، بت، اور پانسے یہ سب ناپاک شیطانی کام ہیں، سو ان سے بچو تاکہ تم فلاح پا سکو۔"</p>
+
+            <p>جوئے کے پیچھے کئی وجوہات ہوتی ہیں، جن میں سے ایک بڑی وجہ آسان اور تیز تر دولت کمانے کی خواہش ہے۔ لوگ جوئے کی طرف اس امید کے ساتھ راغب ہوتے ہیں کہ وہ تھوڑی سی محنت یا قسمت کے بل پر بڑی دولت حاصل کر لیں گے۔ اس کے علاوہ، جوئے کے کھیل میں ملنے والا عارضی لطف اور جذباتی جوش و خروش بھی لوگوں کو اس کی طرف مائل کرتا ہے۔</p>
+
+            <p>دیگر وجوہات میں مالی مشکلات، لالچ، اور معاشرتی یا دوستانہ دباؤ بھی شامل ہیں۔ بعض اوقات لوگ جوئے کو بطور تفریح کھیلتے ہیں، لیکن یہ تفریح بہت جلد ان کی زندگیوں کو تباہی کی طرف لے جاتی ہے۔</p>
+
+            <p>جواری کی جیت عموماً عارضی ہوتی ہے، اور زیادہ تر لوگ جو جوا کھیلتے ہیں، وہ اپنے مال سے محروم ہو جاتے ہیں۔ جوا کھیلنے کی عادت ایک شخص کو مسلسل مالی مشکلات میں مبتلا رکھتی ہے اور بالآخر وہ اپنی زندگی اور اہل و عیال کی ضروریات سے غفلت برتتا ہے۔ جواری کے گرد رہنے والے افراد بھی اس کے جوئے کی وجہ سے مشکلات کا سامنا کرتے ہیں۔ خاندان میں جھگڑے، مالی بحران، اور بچوں کی تعلیم و تربیت میں کمی واقع ہوتی ہے۔ جوئے کی لت انسان کی شخصیت اور کردار کو تباہ کرتی ہے اور اسے معاشرتی طور پر ذلت اور رسوائی کی طرف دھکیل دیتی ہے۔</p>
+
+            <p>دورِ جاہلیت میں عرب معاشرے میں جوا کھیلنا ایک عام سرگرمی تھی۔ لوگ اپنی دولت اور جانوروں کو داؤ پر لگا کر کھیلتے تھے اور ایک دوسرے کے ساتھ جوئے میں شریک ہوتے تھے۔ اس وقت جوئے کے کھیل میں جیتنے والے کو بہت سی دولت ملتی تھی جبکہ ہارنے والے کو انتہائی ذلت اور معاشرتی نقصان کا سامنا کرنا پڑتا تھا۔</p>
+
+            <p>جوئے کی وجہ سے معاشرے میں بغض، عداوت، اور نفرت پھیلتی تھی۔ یہ سرگرمی لوگوں کو اپنی حقیقی زندگی اور معاشرتی ذمہ داریوں سے دور کرتی تھی، اور جوا کھیلنے والے اپنی زندگی کو تباہ کرتے تھے۔</p>
+
+            <p>مختلف مذاہب میں جوئے کی مخالفت کی گئی ہے۔ اسلام، یہودیت، اور عیسائیت میں جوا کھیلنے کی سختی سے منع کیا گیا ہے، کیونکہ یہ ایک ایسی سرگرمی ہے جو معاشرتی نظام اور خاندانوں کو تباہ کرتی ہے۔ ان مذاہب میں مال کو جائز طریقے سے کمانے پر زور دیا گیا ہے، اور جوئے کو ایک غیر شرعی عمل قرار دیا گیا ہے۔</p>
+
+            <p>مغربی ممالک میں جوا کھیلنا قانونی حیثیت رکھتا ہے، اور وہاں کی حکومتیں مختلف لائسنس یافتہ کیسینوز اور لاٹری کے ذریعے جوئے کو فروغ دیتی ہیں۔ لیکن اس کے ساتھ ساتھ، مغربی معاشروں میں بھی جوئے کے منفی اثرات واضح ہیں۔ جواریوں کی زندگی میں مالی بحران، ذہنی دباؤ، اور خاندانی جھگڑے عام ہیں۔ جوئے کی عادت مغربی معاشروں میں بھی لوگوں کی زندگیوں کو نقصان پہنچا رہی ہے۔</p>
+
+            <p>جنوبی ایشیائی ممالک میں بھی جوئے کا رجحان تیزی سے بڑھ رہا ہے۔ یہاں کے لوگ مختلف قسم کے سٹے، لاٹری، اور قمار کے ذریعے جوئے میں ملوث ہو رہے ہیں۔ جوئے کی لت یہاں بھی مالی مشکلات، خاندانی جھگڑوں، اور معاشرتی بحران کا سبب بن رہی ہے۔ خاص طور پر نوجوان نسل جوئے کی طرف مائل ہو رہی ہے، جو کہ ایک بڑا معاشرتی مسئلہ بنتا جا رہا ہے۔</p>
+
+            <p>اسلام میں جوا سختی سے حرام قرار دیا گیا ہے۔ قرآن مجید میں اللہ تعالیٰ نے جوئے کو شیطانی عمل قرار دیتے ہوئے اس سے بچنے کی تاکید کی ہے۔ رسول اللہ ﷺ نے بھی جوئے کو ناپسندیدہ قرار دیا اور فرمایا کہ یہ انسان کو تباہی کی طرف لے جاتا ہے۔</p>
+
+            <p>حدیث میں آیا ہے: "جو شخص کسی جوئے میں مال لگا کر کھیلے گا، وہ اللہ کی نافرمانی میں شریک ہوگا۔"</p>
+
+            <p>علماء کرام کے نزدیک جوا کھیلنے والے لوگ دین اور دنیا دونوں لحاظ سے نقصان اٹھاتے ہیں۔ جواریوں کے بارے میں علماء کا کہنا ہے کہ یہ عمل انسان کو دین سے دور کر دیتا ہے اور اس کی زندگی کو بربادی کی طرف لے جاتا ہے۔ جواریوں کے لیے سخت تنبیہ کی گئی ہے کہ وہ توبہ کریں اور اس عمل سے باز آئیں۔</p>
+
+            <p>جوا کی کئی اقسام ہیں جن میں سٹے، قمار، لاٹری، کارڈ گیمز، اور دیگر کئی سرگرمیاں شامل ہیں۔ اسلام نے ان تمام اقسام پر لعنت فرمائی ہے اور ان سے بچنے کی تلقین کی ہے۔</p>
+
+            <p>پاکستان میں بھی جوئے کا رجحان بڑھتا جا رہا ہے۔ لوگ مختلف طریقوں سے جوئے میں ملوث ہو رہے ہیں، جیسے کہ کرکٹ کے سٹے، لاٹری اور دیگر غیر قانونی جوئے کے کھیل۔ اس رجحان کی وجہ سے معاشرے میں مالی مشکلات، خاندانی جھگڑے، اور اخلاقی زوال دیکھنے کو ملتا ہے۔</p>
+
+            <p>لوگ اس کبیرہ گناہ کو اس لیے معمولی سمجھتے ہیں کیونکہ وہ فوری فائدے کی طرف دیکھتے ہیں اور اس کے طویل مدتی نقصان کو نظر انداز کر دیتے ہیں۔ اس کے علاوہ، معاشرتی دباؤ اور مادی دنیا کی لالچ بھی لوگوں کو اس گناہ کی طرف راغب کرتی ہے۔</p>
+
+            <p>جوئے کی دلدل سے بچنے کے لیے ہمیں اسلام کی تعلیمات پر عمل کرنا ہوگا۔ ہمیں اپنے مال کو حلال طریقے سے کمانا اور خرچ کرنا چاہیے۔ جوئے سے بچنے کے لیے دینی تعلیمات کو فروغ دینا اور لوگوں کو اس گناہ کے نقصانات سے آگاہ کرنا ضروری ہے۔</p>
+
+            <p>"اے ایمان والو! بے شک شیطان چاہتا ہے کہ تمہارے درمیان شراب اور جوئے کے ذریعے دشمنی اور بغض ڈال دے۔" اس آیت سے واضح ہوتا ہے کہ جوا اور شراب جیسے اعمال معاشرتی نقصان کا سبب بنتے ہیں، اور ان سے بچنا ہی فلاح کا راستہ ہے۔</p>
+
+            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+
+            <p>جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، سود کھانا، ظلم کرنا، رشوت لینا یا دینا، زنا کرنا</p>
+            <!-- note: all previous anchor tags removed, just plain text. -->
+
+        </div> <!-- end post-body -->
+
+        <!-- Home and Back buttons -->
+        <div class="nav-bar">
+            <button class="nav-btn"><i class="fas fa-home"></i> <a href="https://bloglovers.pk/" target="_blank">ہوم پیج</a></button>
+            <button class="nav-btn"><i class="fas fa-arrow-right"></i> <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" target="_blank">واپس (اسلامی تعلیمات)</a></button>
+        </div>
+
+        <!-- Social Media sharing buttons -->
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/&text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://api.whatsapp.com/send?text=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-pinterest"></i></a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-telegram"></i></a>
+        </div>
+
+        <!-- bottom anchor for down button -->
+        <div id="bottom" style="height: 10px;"></div>
+    </div> <!-- end main-wrapper -->
+
+    <!-- intentionally no toggle or old overlay, all removed -->
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // just a tiny script to ensure internal links have no href (but we already cleaned manually)
+        // also we keep social sharing dynamic.
+        // and we make up/down buttons smooth.
+        document.querySelectorAll('.page-up-down a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#top') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (targetId === '#bottom') {
+                    e.preventDefault();
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // also to open external links in new tab (home/back already have target blank, good)
     </script>
+
 </body>
 </html>
