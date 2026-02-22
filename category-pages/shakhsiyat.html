@@ -4,24 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شخصیات | بلاگ لوورز.pk</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- Font Face Setup --- */
+        /* -------------------- FONT -------------------- */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
             src: url('https://misbahur.com/fonts/Jameel Noori Nastaleeq.ttf') format('truetype');
-            /* Note: If font doesn't load, it will fallback to system Urdu font */
-        }
-
-        :root {
-            --neon-gold: #ffd700;
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --dark-bg: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --text-color: #e0e0e0;
         }
 
         * {
@@ -31,657 +20,519 @@
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
 
+        /* -------------------- VARIABLES & THEME -------------------- */
+        :root {
+            --baby-orange: #ffb347;    /* نرم اورنج */
+            --baby-blue:   #89CFF0;     /* بیبی بلیو */
+            --neon-glow:   #ff9f1a;
+            --dark-bg:     #0d0f10;
+            --card-bg:     #1b1e20;
+            --text-light:  #f0f0f0;
+        }
+
         body {
             background-color: var(--dark-bg);
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.1), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.1), transparent 25%);
-            color: var(--text-color);
+                radial-gradient(circle at 5% 10%, rgba(255, 180, 70, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 95% 85%, rgba(137, 207, 240, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 40% 50%, rgba(255, 140, 0, 0.05) 0%, transparent 40%);
+            color: var(--text-light);
+            font-size: 16px;           /* چھوٹا فونٹ سائز */
+            line-height: 1.7;
             overflow-x: hidden;
-            font-size: 16px; /* Small font size base */
         }
 
-        /* --- Back Button --- */
-        .back-btn {
+        /* -------------------- ANIMATED FLOATING ICONS -------------------- */
+        .float-icon {
+            position: fixed;
+            font-size: 2.5rem;
+            color: rgba(255, 180, 90, 0.1);
+            z-index: 0;
+            pointer-events: none;
+            animation: spinSlow 18s infinite linear;
+        }
+        .float-icon.blue {
+            color: rgba(137, 207, 240, 0.12);
+            font-size: 3rem;
+        }
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg) translateY(0px); }
+            100% { transform: rotate(360deg) translateY(-20px); }
+        }
+
+        /* -------------------- ACTION BUTTONS (fixed) -------------------- */
+        .action-buttons {
+            position: fixed;
+            bottom: 25px;
+            left: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .action-btn {
+            background: linear-gradient(145deg, var(--baby-orange), #ffaa33);
+            color: #0a0a0a;
+            width: 50px;
+            height: 50px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(255, 180, 70, 0.6);
+            transition: 0.3s;
+            border: 2px solid white;
+            text-decoration: none;
+        }
+        .action-btn.blue {
+            background: linear-gradient(145deg, var(--baby-blue), #5fa9d0);
+            box-shadow: 0 4px 15px rgba(137, 207, 240, 0.6);
+        }
+        .action-btn:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        /* home button up + down are in left panel, back to main is separate */
+        .back-home-fixed {
             position: fixed;
             top: 20px;
-            left: 20px;
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
+            right: 20px;
+            background: var(--baby-orange);
+            color: black;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
             text-decoration: none;
-            z-index: 1000;
-            box-shadow: 0 0 15px var(--neon-purple);
-            transition: transform 0.3s;
-            font-size: 14px;
+            z-index: 999;
+            box-shadow: 0 0 20px #ffa726;
             border: 2px solid white;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .back-btn:hover {
-            transform: scale(1.1);
+        .back-home-fixed i {
+            font-size: 1.3rem;
+        }
+        .back-home-fixed:hover {
+            background: var(--baby-blue);
+            box-shadow: 0 0 25px #89CFF0;
         }
 
-        /* --- Header & Title --- */
+        /* header */
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px 20px;
             position: relative;
+            z-index: 5;
         }
-        
         h1 {
             font-size: 3rem;
-            background: linear-gradient(to right, var(--neon-gold), var(--neon-purple));
+            background: linear-gradient(135deg, var(--baby-orange), var(--baby-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            text-shadow: 0 0 15px #ffb347;
             margin-bottom: 10px;
-            animation: titlePulse 3s infinite;
+            animation: pulseGlow 3s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 5px #ffb347); }
+            50% { filter: drop-shadow(0 0 20px #89CFF0); }
+            100% { filter: drop-shadow(0 0 5px #ffb347); }
         }
 
-        /* --- Post Updater (Ticker) --- */
-        .news-ticker-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-top: 1px solid var(--neon-blue);
-            border-bottom: 1px solid var(--neon-blue);
-            padding: 8px 0;
-            margin-bottom: 30px;
+        /* ticker (scrolling) */
+        .ticker-wrap {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border-top: 2px solid var(--baby-orange);
+            border-bottom: 2px solid var(--baby-blue);
+            padding: 10px 0;
+            margin: 20px 0;
             overflow: hidden;
             white-space: nowrap;
-            position: relative;
         }
-        .news-ticker {
+        .ticker {
             display: inline-block;
-            animation: scrollTicker 25s linear infinite;
-            color: var(--neon-gold);
-            font-size: 14px;
-        }
-
-        /* --- Main Slider --- */
-        .slider-container {
-            max-width: 900px;
-            margin: 0 auto 50px auto;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
-            border: 2px solid var(--neon-blue);
-        }
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .slide {
-            min-width: 100%;
-            position: relative;
-        }
-        .slide img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            filter: brightness(0.7);
-        }
-        .slide-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to top, black, transparent);
-            padding: 20px;
-            text-align: center;
-        }
-        .slide-caption h3 {
-            color: var(--neon-gold);
-            font-size: 1.8rem;
-            text-shadow: 2px 2px 4px black;
-        }
-
-        /* --- Grid Layout --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        /* --- Post Card Design --- */
-        .post-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(255,255,255,0.1);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .post-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(188, 19, 254, 0.4);
-            border-color: var(--neon-gold);
-            z-index: 10;
-        }
-
-        .post-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .post-card:hover img {
-            transform: scale(1.1) rotate(2deg);
-        }
-
-        .card-content {
-            padding: 15px;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .post-title {
-            font-size: 1.1rem;
-            color: white;
-            margin-bottom: 10px;
-            line-height: 1.6;
-            font-weight: bold;
-        }
-
-        .post-link-wrapper {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            height: 100%;
-        }
-
-        /* Hide raw URL as requested */
-        .raw-url {
-            display: none;
-        }
-
-        /* --- Small Moving Slider --- */
-        .small-slider-wrapper {
-            margin: 60px 0;
-            overflow: hidden;
-            background: rgba(255,255,255,0.05);
-            padding: 20px 0;
-            transform: rotate(-2deg);
-            border-top: 2px dashed var(--neon-gold);
-            border-bottom: 2px dashed var(--neon-gold);
-        }
-        .small-track {
-            display: flex;
-            gap: 20px;
-            animation: scrollSmall 20s linear infinite;
-            width: max-content;
-        }
-        .small-card {
-            width: 200px;
-            background: #222;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--neon-blue);
-            flex-shrink: 0;
-        }
-        .small-card img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .small-card h4 {
-            font-size: 0.9rem;
-            margin-top: 5px;
-            text-align: center;
-            color: var(--neon-gold);
-        }
-
-        /* --- Animated Icons --- */
-        .floating-icon {
-            position: fixed;
-            color: rgba(255, 255, 255, 0.05);
-            font-size: 4rem;
-            z-index: -1;
-            animation: spin 10s infinite linear;
-        }
-        
-        /* --- Sharing Button --- */
-        .share-btn-container {
-            text-align: center;
-            margin: 40px 0;
-        }
-        .share-page-btn {
-            background: linear-gradient(45deg, #ff0055, #ff00aa);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
+            animation: tickerMove 30s linear infinite;
             font-size: 1.2rem;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 0 20px #ff0055;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            color: #fff2d7;
         }
-        .share-page-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 40px #ff00aa;
+        .ticker span {
+            margin: 0 30px;
+            background: rgba(255,140,0,0.3);
+            padding: 5px 15px;
+            border-radius: 40px;
         }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #000;
-            border-top: 3px solid var(--neon-gold);
-            margin-top: 50px;
-        }
-
-        /* --- Animations --- */
-        @keyframes scrollTicker {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        @keyframes scrollSmall {
+        @keyframes tickerMove {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
+
+        /* main slider (featured) */
+        .featured-slider {
+            max-width: 1000px;
+            margin: 30px auto;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 180, 70, 0.5);
+            border: 3px solid var(--baby-blue);
+            position: relative;
+            z-index: 10;
         }
-        @keyframes titlePulse {
-            0%, 100% { opacity: 1; text-shadow: 0 0 20px var(--neon-gold); }
-            50% { opacity: 0.8; text-shadow: 0 0 10px var(--neon-purple); }
+        .slider-container {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+        .slider-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        .slider-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            filter: brightness(0.8) contrast(1.1);
+        }
+        .slider-caption {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: linear-gradient(to top, #000000cc, transparent);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .slider-caption h3 {
+            font-size: 2.2rem;
+            color: var(--baby-orange);
+            text-shadow: 2px 2px 0 #000;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .posts-grid { grid-template-columns: 1fr; }
-            .slider-container { margin: 20px; }
+        /* grid container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 15px;
         }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        /* post card */
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+            border: 1px solid rgba(255,200,120,0.2);
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+        }
+        .post-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border: 2px solid var(--baby-orange);
+            box-shadow: 0 20px 40px var(--baby-blue);
+        }
+        .post-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .post-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: 0.5s;
+            border-bottom: 2px solid var(--baby-blue);
+        }
+        .post-card:hover img {
+            transform: scale(1.1) rotate(1deg);
+        }
+        .card-content {
+            padding: 15px 10px;
+            text-align: center;
+        }
+        .post-title {
+            font-size: 1rem;      /* چھوٹا سائز */
+            color: #f5e6d3;
+            line-height: 1.8;
+            font-weight: normal;
+        }
+
+        /* small moving slider (bottom) */
+        .mini-slider-section {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px 0;
+            margin: 60px 0 30px;
+            border-top: 3px dashed var(--baby-orange);
+            border-bottom: 3px dashed var(--baby-blue);
+            transform: rotate(-0.5deg);
+        }
+        .mini-track {
+            display: flex;
+            gap: 25px;
+            animation: miniScroll 25s linear infinite;
+            width: max-content;
+        }
+        .mini-card {
+            width: 180px;
+            background: #22272b;
+            border-radius: 20px;
+            padding: 12px;
+            border: 1px solid var(--baby-orange);
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .mini-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid var(--baby-blue);
+        }
+        .mini-card h4 {
+            font-size: 1rem;
+            margin-top: 8px;
+            color: var(--baby-orange);
+        }
+        @keyframes miniScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* social share buttons */
+        .share-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            background: #2a2f33;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: 0.3s;
+            border: 2px solid var(--baby-orange);
+            text-decoration: none;
+        }
+        .social-btn:hover {
+            background: var(--baby-blue);
+            color: black;
+            transform: scale(1.2) rotate(8deg);
+            border-color: white;
+        }
+
+        /* footer */
+        footer {
+            background: #0a0c0d;
+            text-align: center;
+            padding: 30px;
+            border-top: 4px solid var(--baby-blue);
+            font-size: 1.2rem;
+        }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            h1 { font-size: 2.2rem; }
+            .posts-grid { grid-template-columns: 1fr 1fr; }
+            .slider-slide img { height: 250px; }
+        }
+        @media (max-width: 450px) {
+            .posts-grid { grid-template-columns: 1fr; }
+            .back-home-fixed span { display: none; }
+            .back-home-fixed i { margin-left: 0; }
+        }
+
+        /* Hide any raw url / link */
+        .post-link-wrapper .raw-url, .raw-url { display: none; }
+
+        /* no underlines or link text under titles */
     </style>
 </head>
 <body>
 
-    <!-- Back Button -->
-    <a href="https://www.bloglovers.pk" class="back-btn">
-        <i class="fas fa-arrow-right"></i> واپس مین پیج
+    <!-- floating background icons (baby orange & blue) -->
+    <i class="fas fa-star float-icon" style="top: 8%; left: 12%;"></i>
+    <i class="fas fa-moon float-icon blue" style="bottom: 15%; right: 8%;"></i>
+    <i class="fas fa-crown float-icon" style="top: 20%; left: 85%;"></i>
+    <i class="fas fa-feather-alt float-icon blue" style="bottom: 25%; left: 5%;"></i>
+    <i class="fas fa-flask float-icon" style="top: 70%; right: 12%;"></i>
+    <i class="fas fa-brain float-icon blue" style="top: 40%; left: 20%;"></i>
+    <i class="fas fa-scroll float-icon" style="bottom: 5%; right: 20%;"></i>
+
+    <!-- fixed home button (bloglovers.pk main) -->
+    <a href="https://bloglovers.pk" class="back-home-fixed">
+        <i class="fas fa-home"></i> <span>مرکزی صفحہ</span>
     </a>
 
-    <!-- Floating Background Icons -->
-    <i class="fas fa-feather-alt floating-icon" style="top: 10%; left: 5%; animation-duration: 15s;"></i>
-    <i class="fas fa-book-open floating-icon" style="top: 20%; right: 10%; animation-duration: 20s;"></i>
-    <i class="fas fa-history floating-icon" style="bottom: 15%; left: 15%; animation-duration: 12s;"></i>
-    <i class="fas fa-pen-nib floating-icon" style="bottom: 10%; right: 5%; animation-duration: 18s;"></i>
+    <!-- action buttons: up / down / share (simplified) -->
+    <div class="action-buttons">
+        <a href="#" class="action-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+        <a href="#" class="action-btn blue" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
+    </div>
 
+    <!-- header -->
     <header>
-        <h1><i class="fas fa-user-graduate"></i> شخصیات</h1>
-        <p style="color: var(--neon-blue); font-size: 1.2rem;">مسلم تاریخ کے عظیم ہیروز اور سائنسدان</p>
+        <h1><i class="fas fa-user-astronaut" style="color:var(--baby-orange);"></i> شخصیات</h1>
+        <p style="color:var(--baby-blue); font-size:1.3rem;">مسلم تاریخ کے تابندہ ستارے</p>
     </header>
 
-    <!-- Post Updater / Ticker -->
-    <div class="news-ticker-container">
-        <div class="news-ticker">
-            ✨ نئی اپڈیٹ: ابن سینا کی سوانح عمری اپڈیٹ کر دی گئی ہے | ✨ ابن الہیثم پر نیا تحقیقی مضمون | ✨ مسلم سائنسدانوں کا سنہرا دور | ✨ تاریخ کے روشن ستارے
+    <!-- moving ticker (updater) -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span>✨ ابن سینا کا نیا مقالہ</span> <span>✨ الخوارزمی ریاضی</span> <span>✨ ابن الہیثم بصریات</span> <span>✨ البیرونی و طب</span> <span>✨ جابر بن حیان کیمیا</span> <span>✨ ابن النفیس دوران خون</span> <span>✨ ابن خلدون معاشرت</span>
+            <span>✨ ابن سینا کا نیا مقالہ</span> <span>✨ الخوارزمی ریاضی</span> <span>✨ ابن الہیثم بصریات</span> <!-- double for smooth loop -->
         </div>
     </div>
 
-    <!-- Main Slider (Featured 3) -->
-    <div class="slider-container">
-        <div class="slides">
-            <div class="slide">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt="Ibn Sina">
-                <div class="slide-caption">
-                    <h3>ابن سینا - امیر الاطباء</h3>
-                </div>
+    <!-- main slider (featured 3 personalities) -->
+    <div class="featured-slider">
+        <div class="slider-container" id="mainSlider">
+            <div class="slider-slide">
+                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt="Ibn Sina" loading="lazy">
+                <div class="slider-caption"><h3>ابن سینا</h3></div>
             </div>
-            <div class="slide">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt="Al Khawarizmi">
-                <div class="slide-caption">
-                    <h3>الخوارزمی - بابائے الجبرا</h3>
-                </div>
+            <div class="slider-slide">
+                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt="Al Khawarizmi" loading="lazy">
+                <div class="slider-caption"><h3>الخوارزمی</h3></div>
             </div>
-            <div class="slide">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" alt="Ibn Al Haytham">
-                <div class="slide-caption">
-                    <h3>ابن الہیثم - ماہر بصریات</h3>
-                </div>
+            <div class="slider-slide">
+                <img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" alt="Ibn Al Haytham" loading="lazy">
+                <div class="slider-caption"><h3>ابن الہیثم</h3></div>
             </div>
         </div>
     </div>
 
+    <!-- main posts grid (exactly 23 as per given list) -->
     <div class="container">
-        <!-- Posts Grid (Total 23) -->
         <div class="posts-grid">
-            
-            <!-- Post 1 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" loading="lazy" alt="Ibn Sina">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 1-ابن سینا (Avicenna)</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 2 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys.png" loading="lazy" alt="Ibn Al Nafis">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 2-ابن النفیس</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 3 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi.png" loading="lazy" alt="Nasir ud Din Tusi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات3- نصیر الدین طوسی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 4 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh.png" loading="lazy" alt="Ibn Miskawayh">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات4- ابن مسکویہ</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 5 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni.png" loading="lazy" alt="Al Beruni">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات5-ابوریحان البیرونی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 6 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" loading="lazy" alt="Ibn Al Haytham">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات6-ابن الہیثم</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 7 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam.png" loading="lazy" alt="Omar Khayyam">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات7- عمر خیام</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 8 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth.png" loading="lazy" alt="Ibn Battuta">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات8- ابن بطوطہ</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 9 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" loading="lazy" alt="Ibn Khaldun">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 10 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" loading="lazy" alt="Al Khawarizmi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات10-الخوارزمی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 11 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" loading="lazy" alt="Kamal ud Din Farsi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 12 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan.png" loading="lazy" alt="Jabir Bin Hayan">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات12-جابر بن حیان</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 13 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd.png" loading="lazy" alt="Ibn Rushd">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات13-ابن رشد</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 14 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" loading="lazy" alt="Al Farabi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 15 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi.png" loading="lazy" alt="Al Zahrawi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات15-ابو القاسم الزہراوی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 16 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi.png" loading="lazy" alt="Abu Mashar">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 16-ابو معشر البلخی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 17 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" loading="lazy" alt="Al Buzjani">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفا البوزجانی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 18 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi.png" loading="lazy" alt="Al Kindi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 18-ابو یوسف کندی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 19 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi.png" loading="lazy" alt="Al Razi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 19-ابوبکر الرازی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 20 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor.png" loading="lazy" alt="Abu Nasr Mansoor">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 20-ابو نصر منصور</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 21 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" loading="lazy" alt="Sharaf al Din Tusi">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 22 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh.png" loading="lazy" alt="Ibn Qutaybah">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 22-ابن قتیبہ</div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Post 23 -->
-            <div class="post-card">
-                <a href="https://www.bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani" class="post-link-wrapper">
-                    <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani.png" loading="lazy" alt="Al Farghani">
-                    <div class="card-content">
-                        <div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 23-ابوالعباس احمد بن کثیرالفرغانی</div>
-                    </div>
-                </a>
-            </div>
-
-        </div> <!-- End Grid -->
-    </div> <!-- End Container -->
-
-    <!-- Small Moving Slider Section -->
-    <div class="small-slider-wrapper">
-        <div class="small-track">
-            <!-- Items duplicated for infinite scroll -->
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png">
-                <h4>ابن سینا</h4>
-            </div>
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png">
-                <h4>الخوارزمی</h4>
-            </div>
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png">
-                <h4>ابن الہیثم</h4>
-            </div>
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni.png">
-                <h4>البیرونی</h4>
-            </div>
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys.png">
-                <h4>ابن النفیس</h4>
-            </div>
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan.png">
-                <h4>جابر بن حیان</h4>
-            </div>
-            <!-- Duplicates -->
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png">
-                <h4>ابن سینا</h4>
-            </div>
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png">
-                <h4>الخوارزمی</h4>
-            </div>
-            <div class="small-card">
-                <img src="https://www.bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png">
-                <h4>ابن الہیثم</h4>
-            </div>
+            <!-- 1 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt="Ibn Sina" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 1-ابن سینا</div></div></a></div>
+            <!-- 2 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys.png" alt="Ibn Nafis" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 2-ابن النفیس</div></div></a></div>
+            <!-- 3 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi.png" alt="Nasir Tusi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات3- نصیر الدین طوسی</div></div></a></div>
+            <!-- 4 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh.png" alt="Ibn Miskawayh" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات4- ابن مسکویہ</div></div></a></div>
+            <!-- 5 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni.png" alt="Al Beruni" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات5-ابوریحان البیرونی</div></div></a></div>
+            <!-- 6 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" alt="Ibn Haytham" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات6-ابن الہیثم</div></div></a></div>
+            <!-- 7 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam.png" alt="Omar Khayyam" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات7- عمر خیام</div></div></a></div>
+            <!-- 8 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth.png" alt="Ibn Battuta" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات8- ابن بطوطہ</div></div></a></div>
+            <!-- 9 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" alt="Ibn Khaldun" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</div></div></a></div>
+            <!-- 10 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt="Al Khawarizmi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات10-الخوارزمی</div></div></a></div>
+            <!-- 11 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" alt="Kamal ud Din" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</div></div></a></div>
+            <!-- 12 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan.png" alt="Jabir Bin Hayan" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات12-جابر بن حیان</div></div></a></div>
+            <!-- 13 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd.png" alt="Ibn Rushd" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات13-ابن رشد</div></div></a></div>
+            <!-- 14 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="Al Farabi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</div></div></a></div>
+            <!-- 15 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi.png" alt="Al Zahrawi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات15-ابو القاسم الزہراوی</div></div></a></div>
+            <!-- 16 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi.png" alt="Abu Mashar" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 16-ابو معشر البلخی</div></div></a></div>
+            <!-- 17 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" alt="Al Buzjani" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفا البوزجانی</div></div></a></div>
+            <!-- 18 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi.png" alt="Al Kindi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 18-ابو یوسف کندی</div></div></a></div>
+            <!-- 19 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi.png" alt="Al Razi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 19-ابوبکر الرازی</div></div></a></div>
+            <!-- 20 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor.png" alt="Abu Nasr" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 20-ابو نصر منصور</div></div></a></div>
+            <!-- 21 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" alt="Sharaf Tusi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</div></div></a></div>
+            <!-- 22 -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh.png" alt="Ibn Qutaybah" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 22-ابن قتیبہ</div></div></a></div>
+            <!-- 23 (last) -->
+            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani.png" alt="Al Farghani" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 23-ابوالعباس الفرغانی</div></div></a></div>
         </div>
     </div>
 
-    <!-- Page Share Button -->
-    <div class="share-btn-container">
-        <button class="share-page-btn" onclick="sharePage()">
-            <i class="fas fa-share-alt"></i> اس پیج کو شیئر کریں
-        </button>
+    <!-- small moving slider (personalities scroller) -->
+    <div class="mini-slider-section">
+        <div class="mini-track">
+            <!-- repeated items for seamless loop -->
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt=""><h4>ابن سینا</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt=""><h4>الخوارزمی</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" alt=""><h4>ابن الہیثم</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni.png" alt=""><h4>البیرونی</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys.png" alt=""><h4>ابن النفیس</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan.png" alt=""><h4>جابر بن حیان</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam.png" alt=""><h4>عمر خیام</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd.png" alt=""><h4>ابن رشد</h4></div>
+            <!-- duplicate for continuity -->
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt=""><h4>ابن سینا</h4></div>
+            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt=""><h4>الخوارزمی</h4></div>
+        </div>
+    </div>
+
+    <!-- social sharing buttons (all platforms) -->
+    <div class="share-row">
+        <a href="#" class="social-btn" onclick="sharePage('facebook')"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-btn" onclick="sharePage('twitter')"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-btn" onclick="sharePage('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn" onclick="sharePage('telegram')"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-btn" onclick="sharePage('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-btn" onclick="sharePage('copy')"><i class="fas fa-link"></i></a>
     </div>
 
     <footer>
-        <p>&copy; 2025 بلاگ لوورز.pk | جملہ حقوق محفوظ ہیں</p>
-        <p style="color: var(--neon-gold); margin-top:10px;">علم کی روشنی پھیلائیں</p>
+        <p>© 2025 بلاگ لوورز.pk | جملہ حقوق محفوظ</p>
+        <p style="color:var(--baby-orange);">علم کی روشنی پھیلائیں — بیبی اورنج اینڈ بلیو تھیم</p>
     </footer>
 
     <script>
-        // --- Main Slider Logic ---
-        let slideIndex = 0;
-        const slides = document.querySelectorAll('.slide');
-        const slideContainer = document.querySelector('.slides');
+        // main slider
+        const slider = document.getElementById('mainSlider');
+        let idx = 0;
+        setInterval(() => {
+            idx = (idx + 1) % 3;  // we have exactly 3 slides
+            slider.style.transform = `translateX(-${idx * 100}%)`;
+        }, 3200);
 
-        function showSlides() {
-            slideIndex++;
-            if (slideIndex >= slides.length) {
-                slideIndex = 0;
+        // share function (all social)
+        function sharePage(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let title = encodeURIComponent('شخصیات | بلاگ لوورز');
+            let text = encodeURIComponent('مسلم تاریخ کی عظیم شخصیات');
+            let shareLink = '';
+            if (platform === 'facebook') shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'twitter') shareLink = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            else if (platform === 'whatsapp') shareLink = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if (platform === 'telegram') shareLink = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if (platform === 'linkedin') shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'copy') {
+                navigator.clipboard?.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!'));
+                return;
             }
-            slideContainer.style.transform = `translateX(${slideIndex * 100}%)`; // RTL Logic
-            setTimeout(showSlides, 3000); 
+            if (shareLink) window.open(shareLink, '_blank', 'width=600,height=400');
         }
-        showSlides();
 
-        // --- Share Page Logic ---
-        function sharePage() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'شخصیات | بلاگ لوورز',
-                    text: 'مسلم تاریخ کی عظیم شخصیات کے بارے میں جانیں۔',
-                    url: window.location.href
-                }).catch(console.error);
-            } else {
-                alert(' لنک کاپی ہو گیا ہے! دوستوں کے ساتھ شیئر کریں۔');
-            }
-        }
+        // remove www from all links (already done in hrefs, but ensure no www appears)
+        // all links are without www as requested
     </script>
+
 </body>
 </html>
