@@ -4,635 +4,613 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تاریخ | بلاگ لوورز</title>
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- فونٹ اوسم (Social icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ----- فونٹ: صرف Jameel Noori Nastaleeq ----- */
+        /* === پس منظر اور عمومی تھیم (بیبی بلیو & بیبی یلو) === */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
-            src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Regular'), local('Noto Nastaliq Urdu');
-            font-weight: normal;
-            font-style: normal;
+            src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Regular');
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Traditional Arabic', serif;
-        }
-
-        :root {
-            --baby-yellow: #f9e07c;    /* نرم پیلا */
-            --baby-purple: #c7a2f0;     /* ہلکا جامنی */
-            --deep-purple: #3a2c4a;      /* گہرا جامنی (بیس) */
-            --dark-bg: #221c2c;          /* گہرا پس منظر */
-            --text-light: #f2e9ff;
-            --shadow-glow: rgba(201, 160, 240, 0.5);
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            font-size: 14px;
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            background: linear-gradient(145deg, #f9f3d9 0%, #d4e8ff 100%); /* بیبی یلو سے بیبی بلیو گریڈینٹ */
+            min-height: 100vh;
+            font-size: 14px; /* چھوٹا فونٹ */
+            color: #1e2a3e;
             line-height: 1.7;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* ----- اینیمیٹڈ بیبی یلو اور پرپل بیک گراؤنڈ ----- */
-        .animated-bg {
+        /* اینیمیٹڈ پس منظر کے ذرات (بیبی بلیو اور یلو ڈاٹس) */
+        .particle-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(145deg, #1a1425 0%, #2e2340 100%);
-        }
-
-        .floating-orb {
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle at 30% 30%, var(--baby-yellow), rgba(250, 225, 140, 0.2));
-            border-radius: 50%;
-            filter: blur(60px);
-            animation: orbFloat1 20s infinite alternate ease-in-out;
-            opacity: 0.45;
-        }
-
-        .orb2 {
-            background: radial-gradient(circle at 70% 30%, var(--baby-purple), rgba(170, 130, 230, 0.2));
-            width: 300px;
-            height: 300px;
-            filter: blur(70px);
-            animation: orbFloat2 25s infinite alternate;
-        }
-
-        @keyframes orbFloat1 {
-            0% { top: 0%; left: 0%; transform: scale(1); }
-            100% { top: 60%; left: 50%; transform: scale(1.4); }
-        }
-        @keyframes orbFloat2 {
-            0% { bottom: 0%; right: 0%; transform: scale(1.2); }
-            100% { bottom: 50%; right: 40%; transform: scale(0.8); }
-        }
-
-        /* چھوٹے چمکتے نقطے (بیبی یلو/پرپل) */
-        .particle-dots {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
             pointer-events: none;
         }
-        .dot {
+
+        .particle {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background: var(--baby-yellow);
+            background: rgba(255, 223, 128, 0.25); /* بیبی یلو */
             border-radius: 50%;
-            opacity: 0.3;
-            animation: dotMove 22s linear infinite;
-        }
-        .dot-purple {
-            background: var(--baby-purple);
-        }
-        @keyframes dotMove {
-            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            20% { opacity: 0.5; }
-            100% { transform: translateY(-20vh) translateX(30px); opacity: 0; }
+            box-shadow: 0 0 15px #fff8d0;
+            animation: levitate 18s infinite alternate ease-in-out;
         }
 
-        /* ----- ہیڈر (پرپل/یلو ٹچ) ----- */
-        header {
-            background: rgba(20, 15, 30, 0.85);
-            backdrop-filter: blur(8px);
+        .particle:nth-child(even) {
+            background: rgba(173, 216, 255, 0.4); /* بیبی بلیو */
+            box-shadow: 0 0 20px #add8ff;
+        }
+
+        @keyframes levitate {
+            0% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.3; }
+            100% { transform: translateY(-120px) translateX(40px) scale(1.3); opacity: 0.7; }
+        }
+
+        /* ہیڈر — گھومنے والے آئیکن */
+        .site-header {
+            background: rgba(255, 250, 235, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 12px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 3px solid var(--baby-yellow);
-            box-shadow: 0 5px 20px var(--shadow-glow);
+            flex-wrap: wrap;
+            border-bottom: 3px solid #ffd966;
+            box-shadow: 0 8px 20px rgba(100, 149, 237, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 0 0 25px 25px;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
-        .home-icon {
-            background: var(--baby-purple);
-            color: #1e1a2b;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+
+        .spinning-icon {
+            font-size: 28px;
+            color: #6ba6ff;
+            animation: spinSlow 6s infinite linear;
+            filter: drop-shadow(0 0 5px #ffe47f);
+        }
+
+        .spinning-icon.fast {
+            animation-duration: 3s;
+            color: #ffbf47;
+        }
+
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .home-btn {
+            background: #ffdb7c;
+            color: #2f4858;
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            transition: 0.3s;
-            border: 1px solid var(--baby-yellow);
+            gap: 8px;
+            font-size: 16px;
+            border: 1px solid #b0d4ff;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 100, 255, 0.15);
         }
-        .home-icon:hover {
-            background: var(--baby-yellow);
-            color: #2a1e3a;
-            transform: rotate(360deg) scale(1.1);
+
+        .home-btn:hover {
+            background: #ffe69b;
+            transform: scale(1.04);
+            box-shadow: 0 10px 18px #b0d4ff;
         }
-        .spinning-icon {
-            font-size: 2rem;
-            color: var(--baby-yellow);
-            animation: spin 6s infinite linear;
-            text-shadow: 0 0 8px var(--baby-purple);
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         h1 {
-            color: var(--baby-yellow);
-            text-shadow: 0 0 12px var(--baby-purple);
-            font-size: 1.9rem;
-            letter-spacing: 1px;
+            font-size: 28px;
+            background: linear-gradient(135deg, #3e6990, #b47c2e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 12px #fffbcb;
         }
 
-        .header-left .social-mini {
+        /* سوشل آئیکنز */
+        .social-share-header {
             display: flex;
-            gap: 10px;
-            background: rgba(200, 160, 240, 0.15);
-            padding: 5px 15px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #ffffffd1;
+            border-radius: 50%;
+            color: #2b4f7b;
+            text-decoration: none;
+            font-size: 20px;
+            transition: 0.25s;
+            border: 1px solid #ffdb8e;
+            box-shadow: 0 5px 12px #b3d9ff;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(5deg);
+            background: #ffeeb5;
+            color: #113955;
+        }
+
+        /* سلائیڈر (مین) */
+        .slider-box {
+            max-width: 1100px;
+            margin: 30px auto 15px;
             border-radius: 40px;
-        }
-        .social-mini a {
-            color: var(--baby-yellow);
-            font-size: 1.3rem;
-            transition: 0.2s;
-        }
-        .social-mini a:hover {
-            color: var(--baby-purple);
-            transform: translateY(-4px);
+            overflow: hidden;
+            box-shadow: 0 18px 35px -5px #a0c0eb;
+            border: 2px solid #ffe294;
+            background: #fffef7;
         }
 
-        /* ----- مین سلائیڈر (نیا سٹائل) ----- */
-        .slider-wrapper {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 10px;
-        }
-        .slider-container {
-            border-radius: 32px 32px 32px 32px;
-            overflow: hidden;
-            box-shadow: 0 20px 30px rgba(201, 160, 240, 0.4);
-            border: 2px solid var(--baby-yellow);
-            position: relative;
-        }
-        .slides {
+        .slides-container {
             display: flex;
-            transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        .slide {
+
+        .slide-item {
             min-width: 100%;
             position: relative;
+            height: 300px;
         }
-        .slide img {
+
+        .slide-item img {
             width: 100%;
-            height: 380px;
+            height: 100%;
             object-fit: cover;
-            filter: brightness(0.75) contrast(1.1) saturate(1.2);
             display: block;
         }
+
         .slide-caption {
             position: absolute;
             bottom: 0;
             right: 0;
             left: 0;
-            background: linear-gradient(transparent 5%, rgba(55, 40, 75, 0.95));
-            color: white;
-            padding: 30px 20px 20px;
+            background: linear-gradient(to left, rgba(255, 241, 181, 0.9), rgba(161, 214, 255, 0.9));
+            color: #1d2c41;
+            padding: 18px;
             text-align: center;
-            border-top: 2px dashed var(--baby-yellow);
-        }
-        .slide-caption h3 {
-            font-size: 1.8rem;
-            color: var(--baby-yellow);
-            text-shadow: 3px 3px 0 var(--baby-purple);
+            font-size: 20px;
+            font-weight: bold;
+            border-top: 2px dashed #ffb82e;
+            backdrop-filter: blur(2px);
         }
 
-        /* چھوٹا اسکرولر (بیبی یلو/پرپل) */
-        .scroller-bar {
-            background: #2a1f36;
-            padding: 15px 0;
-            border-top: 2px solid var(--baby-yellow);
-            border-bottom: 2px solid var(--baby-purple);
-            margin: 30px 0;
+        /* اسکرولر (مارکی) */
+        .ticker-wrap {
+            background: #ffda8b;
+            padding: 10px 0;
+            border-block: 2px solid #90c0ff;
+            margin: 20px 0;
+            box-shadow: 0 5px 0 #c3dfff;
+        }
+
+        .ticker-content {
+            display: flex;
             overflow: hidden;
-            box-shadow: inset 0 0 20px #1e1429;
-        }
-        .scroll-track {
             white-space: nowrap;
-            animation: scrollMove 40s linear infinite;
+            gap: 40px;
+            animation: scrollTicker 30s linear infinite;
+            font-size: 15px;
         }
-        .scroll-item {
-            display: inline-block;
-            margin: 0 25px;
-            font-size: 1.1rem;
-            color: #faefff;
-            background: rgba(200, 150, 250, 0.2);
-            padding: 6px 22px;
-            border-radius: 40px;
-            border: 1px solid var(--baby-yellow);
-            backdrop-filter: blur(4px);
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffffba;
+            padding: 5px 20px;
+            border-radius: 50px;
+            color: #1b3e61;
+            border: 1px solid #ffe572;
         }
-        .scroll-item i {
-            color: var(--baby-purple);
-            margin-left: 10px;
+
+        .ticker-item i {
+            color: #ffa42b;
         }
-        @keyframes scrollMove {
-            0% { transform: translateX(50%); }
+
+        @keyframes scrollTicker {
+            0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
 
-        /* ----- پوسٹ گرڈ (نیا پوسٹ سٹائل: بیبی یلو/پرپل) ----- */
-        .container {
-            max-width: 1300px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
+        /* مرکزی پوسٹ گرڈ */
         .posts-grid {
+            max-width: 1300px;
+            margin: 20px auto;
+            padding: 10px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
         }
 
-        .post-card {
-            background: rgba(45, 35, 60, 0.6);
-            backdrop-filter: blur(6px);
-            border-radius: 40px 40px 30px 30px;
+        .card {
+            background: rgba(255, 253, 240, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 35px 10px 35px 10px;
             overflow: hidden;
-            border: 1.5px solid var(--baby-purple);
-            transition: all 0.35s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            position: relative;
+            border: 2px solid #fdebb3;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px #c9dbff;
             display: flex;
             flex-direction: column;
         }
-        .post-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--baby-yellow), var(--baby-purple));
-            z-index: 2;
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ffb956;
+            box-shadow: 0 25px 30px -10px #7aa3d4;
         }
-        .post-card:hover {
-            transform: translateY(-15px) scale(1.01);
-            border-color: var(--baby-yellow);
-            box-shadow: 0 30px 30px var(--shadow-glow);
-            background: rgba(55, 40, 75, 0.8);
-        }
-        .img-container {
-            height: 175px;
+
+        .card-img {
+            width: 100%;
+            height: 170px;
             overflow: hidden;
-            position: relative;
-            border-bottom: 3px solid var(--baby-yellow);
+            border-bottom: 3px solid #ffe087;
         }
-        .post-card img {
+
+        .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.7s;
+            transition: transform 0.4s;
         }
-        .post-card:hover img {
-            transform: scale(1.2) rotate(1.5deg);
-        }
-        .post-content {
-            padding: 18px 12px 22px;
-            text-align: center;
-            flex: 1;
-            background: rgba(20, 15, 28, 0.5);
-            border-radius: 0 0 30px 30px;
-        }
-        .post-title {
-            color: var(--baby-yellow);
-            font-size: 1.1rem;
-            text-decoration: none;
-            line-height: 1.7;
-            display: block;
-            transition: 0.2s;
-            text-shadow: 0 0 5px var(--baby-purple);
-            word-spacing: 1px;
-        }
-        .post-card:hover .post-title {
-            color: #ffffff;
-            text-shadow: 0 0 10px var(--baby-yellow);
-        }
-        /* لنک چھپا ہوا */
-        .raw-link, .post-link-visible { display: none; }
 
-        /* fixed کنٹرول پینل (پرپل/یلو) */
-        .control-panel {
+        .card:hover .card-img img {
+            transform: scale(1.15) rotate(1deg);
+        }
+
+        .card-title {
+            padding: 14px 10px 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #1f4a6b;
+            background: #ffffffb3;
+            margin: 0 6px 6px;
+            border-radius: 20px 5px 20px 5px;
+            border: 1px solid #fff1b5;
+            transition: background 0.2s;
+            /* لنک انڈر لائن نہیں دکھانی */
+            text-decoration: none;
+        }
+
+        .card a {
+            text-decoration: none;
+        }
+
+        .card-title:hover {
+            background: #fffae1;
+            color: #b45400;
+        }
+
+        /* تمام لنک پتے چھپاؤ (بغیر انڈر لائن) */
+        a, a:visited, a:hover {
+            text-decoration: none !important;
+            outline: none;
+        }
+
+        /* اپ ڈاون بٹن */
+        .scroll-buttons {
             position: fixed;
-            left: 20px;
-            bottom: 80px;
+            bottom: 100px;
+            left: 25px; /* RTL میں left پر */
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            z-index: 999;
+            gap: 12px;
+            z-index: 99;
         }
-        .ctrl-btn {
-            background: #322844;
-            border: 2px solid var(--baby-yellow);
-            color: var(--baby-yellow);
+
+        .scroll-btn {
+            background: #fffbe6;
+            border: none;
             width: 52px;
             height: 52px;
             border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            font-size: 26px;
+            color: #3182b3;
             cursor: pointer;
+            box-shadow: 0 6px 16px #96c0ff;
             transition: 0.2s;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 20px var(--baby-purple);
-        }
-        .ctrl-btn:hover {
-            background: var(--baby-yellow);
-            color: #2a1e3a;
-            border-color: var(--baby-purple);
-            transform: scale(1.15);
+            border: 2px solid #ffe594;
         }
 
-        /* سوشل شیئر بار (نیچے) */
-        .social-share-bar {
+        .scroll-btn:hover {
+            background: #ffeaa5;
+            transform: scale(1.15);
+            color: #203a5e;
+        }
+
+        /* شیئر فلوٹنگ (سوشل ملا کر) */
+        .share-float-panel {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+            bottom: 25px;
+            left: 25px;
+            background: #fffef0;
+            border-radius: 60px;
+            padding: 10px 15px;
             display: flex;
-            justify-content: center;
-            z-index: 99;
-            pointer-events: none;
+            gap: 12px;
+            border: 2px solid #ffd966;
+            box-shadow: 0 10px 18px #a4c6f0;
+            backdrop-filter: blur(6px);
+            z-index: 98;
         }
-        .share-inner {
-            background: rgba(35, 25, 45, 0.8);
-            backdrop-filter: blur(15px);
-            padding: 10px 28px;
-            border-radius: 70px;
-            border: 1px solid var(--baby-yellow);
-            display: flex;
-            gap: 28px;
-            pointer-events: auto;
-            box-shadow: 0 0 35px var(--baby-purple);
-        }
-        .share-inner a {
-            color: var(--baby-yellow);
-            font-size: 1.9rem;
+
+        .share-float-panel a {
+            color: #3173a3;
+            font-size: 22px;
             transition: 0.2s;
         }
-        .share-inner a:hover {
-            color: var(--baby-purple);
-            transform: scale(1.25) rotate(6deg);
+
+        .share-float-panel a:hover {
+            color: #efb13b;
+            transform: translateY(-5px);
         }
 
         /* فوٹر */
         footer {
             text-align: center;
-            padding: 28px 10px 35px;
-            background: #1a1322;
-            color: #c9b0e0;
-            border-top: 2px solid var(--baby-yellow);
-            font-size: 0.95rem;
-            margin-top: 60px;
+            padding: 20px;
+            background: #d1e3ffc9;
+            margin-top: 45px;
+            border-top: 4px double #ffc75f;
+            font-size: 14px;
+            color: #1b4265;
         }
 
-        .up-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+        /* ریسپانسیو */
+        @media (max-width: 650px) {
+            .site-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .social-share-header {
+                justify-content: center;
+            }
+            .slide-item {
+                height: 200px;
+            }
+            .posts-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
         }
 
-        /* موبائل دوستانہ */
-        @media (max-width: 700px) {
-            .posts-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            h1 { font-size: 1.4rem; }
-            .slide img { height: 200px; }
-            .slide-caption h3 { font-size: 1.3rem; }
-            .social-mini { display: none; }
-            .share-inner { gap: 15px; }
-            .share-inner a { font-size: 1.5rem; }
+        @media (max-width: 430px) {
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
         }
-        @media (max-width: 450px) {
-            .posts-grid { grid-template-columns: 1fr; }
+
+        /* مخصوص کلاس لنک کو مکمل طور پر چھپانے کے لیے */
+        .hide-link {
+            display: none;
         }
     </style>
 </head>
 <body>
+    <!-- اینیمیٹڈ بیبی بلیو اور یلو پارٹیکلز -->
+    <div class="particle-bg" id="particles-js"></div>
 
-<!-- اینیمیٹڈ بیبی یلو اور پرپل بیک گراؤنڈ -->
-<div class="animated-bg">
-    <div class="floating-orb" style="top:0%; left:0%;"></div>
-    <div class="floating-orb orb2" style="bottom:0; right:0;"></div>
-</div>
-<div class="particle-dots" id="dotContainer"></div>
-
-<!-- ہیڈر: گھومتا آئیکن + ہوم + سوشل منی -->
-<header>
-    <div class="logo-area">
-        <a href="https://bloglovers.pk" class="home-icon"><i class="fas fa-home"></i></a>
-        <div class="spinning-icon"><i class="fas fa-crown"></i></div>
-        <h1>تاریخ کے دریچوں سے</h1>
-    </div>
-    <div class="header-left">
-        <div class="social-mini">
-            <a href="#" onclick="shareAll('facebook')"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" onclick="shareAll('whatsapp')"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" onclick="shareAll('twitter')"><i class="fab fa-twitter"></i></a>
-            <a href="#" onclick="shareAll('telegram')"><i class="fab fa-telegram"></i></a>
+    <!-- ہیڈر: گھومتے آئیکن + ہوم بٹن + سوشل -->
+    <header class="site-header">
+        <div class="logo-area">
+            <i class="fas fa-compass spinning-icon"></i>
+            <i class="fas fa-clock spinning-icon fast"></i>
+            <h1>📜 تاریخ کے دریچے</h1>
         </div>
-    </div>
-</header>
+        <div>
+            <a href="https://bloglovers.pk" class="home-btn"><i class="fas fa-home"></i> بلاگ لوورز</a>
+        </div>
+        <div class="social-share-header">
+            <a href="#" class="social-icon" onclick="sharePage('facebook')"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" onclick="sharePage('twitter')"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" onclick="sharePage('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-icon" onclick="sharePage('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" onclick="sharePage('telegram')"><i class="fab fa-telegram-plane"></i></a>
+        </div>
+    </header>
 
-<!-- بڑا سلائیڈر (فیچر پوسٹس) تمام لنکس بغیر www کے -->
-<div class="slider-wrapper">
-    <div class="slider-container">
-        <div class="slides" id="mainSlider">
+    <!-- مین سلائیڈر (تین نمایاں) -->
+    <div class="slider-box">
+        <div class="slides-container" id="mainSliderTrack">
             <!-- سلائیڈ 1 -->
-            <div class="slide">
+            <div class="slide-item">
                 <a href="https://bloglovers.pk/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai">
-                    <img src="https://bloglovers.pk/images/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai.png" alt="تکشاشیلا">
-                    <div class="slide-caption"><h3>تکشاشیلا تا نالندہ: علم کی شاہراہ</h3></div>
+                    <img src="https://bloglovers.pk/images/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai.png" alt="تکشاشیلا" loading="lazy">
+                    <div class="slide-caption">تکشاشیلا تا نالندہ: علم کی شاہراہ</div>
                 </a>
             </div>
             <!-- سلائیڈ 2 -->
-            <div class="slide">
-                <a href="https://bloglovers.pk/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya">
-                    <img src="https://bloglovers.pk/images/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya.png" alt="سقوط ڈھاکہ">
-                    <div class="slide-caption"><h3>سقوطِ ڈھاکہ: مہلک غلطیاں</h3></div>
+            <div class="slide-item">
+                <a href="https://bloglovers.pk/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay">
+                    <img src="https://bloglovers.pk/images/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay.png" alt="مغلیہ راز" loading="lazy">
+                    <div class="slide-caption">سلطنت مغلیہ: کتابوں میں نہ ملنے والے راز</div>
                 </a>
             </div>
             <!-- سلائیڈ 3 -->
-            <div class="slide">
+            <div class="slide-item">
                 <a href="https://bloglovers.pk/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi">
-                    <img src="https://bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" alt="سلطنت عثمانیہ">
-                    <div class="slide-caption"><h3>سلطنت عثمانیہ کا زوال</h3></div>
+                    <img src="https://bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" alt="عثمانیہ زوال" loading="lazy">
+                    <div class="slide-caption">عثمانیہ کا زوال: کیا صرف جنگ وجہ تھی؟</div>
                 </a>
             </div>
         </div>
     </div>
-</div>
 
-<!-- متحرک اسکرولر (چھوٹی پوسٹ ٹائٹل) -->
-<div class="scroller-bar">
-    <div class="scroll-track">
-        <span class="scroll-item"><i class="fas fa-star"></i> تکشاشیلا سے نالندہ تک علم کی شاہراہ</span>
-        <span class="scroll-item"><i class="fas fa-star"></i> سقوط ڈھاکہ کی وہ غلطیاں</span>
-        <span class="scroll-item"><i class="fas fa-star"></i> سلطنت عثمانیہ کا زوال: کیا صرف جنگ؟</span>
-        <span class="scroll-item"><i class="fas fa-star"></i> دیوار برلن: انسانی قید خانہ؟</span>
-        <span class="scroll-item"><i class="fas fa-star"></i> مایا تہذیب کا انہدام</span>
-        <span class="scroll-item"><i class="fas fa-star"></i> منگول اسلام کے محافظ کیسے بنے؟</span>
+    <!-- اسکرولنگ ٹکر (post scroller) -->
+    <div class="ticker-wrap">
+        <div class="ticker-content" id="ticker">
+            <span class="ticker-item"><i class="fas fa-scroll"></i> سقوط ڈھاکہ: وہ غلطیاں جنہوں نے پاکستان دو لخت کیا</span>
+            <span class="ticker-item"><i class="fas fa-landmark"></i> دیوار برلن: انسانی قید خانہ یا اینٹی فاشسٹ?</span>
+            <span class="ticker-item"><i class="fas fa-mask"></i> مایا تہذیب کا انہدام: قحط یا جنگ؟</span>
+            <span class="ticker-item"><i class="fas fa-dragon"></i> منگول جو اسلام کے محافظ بن گئے</span>
+            <span class="ticker-item"><i class="fas fa-monument"></i> نیم و گرام: بدھ مت کی عظمت رفتہ کا شہر</span>
+        </div>
     </div>
-</div>
 
-<!-- مرکزی پوسٹ گرڈ (تمام 8 پوسٹس نئے سٹائل کے ساتھ) -->
-<div class="container">
+    <!-- پوسٹ گرڈ: تمام 8 لنکس کے ساتھ، www ہٹایا ہوا، تصاویر .png -->
     <div class="posts-grid">
-
-        <!-- پوسٹ 1 -->
-        <div class="post-card">
+        <!-- 1. Taxila -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai.png" loading="lazy" alt="taxila"></div>
-                <div class="post-content"><span class="post-title">تکشاشیلا سے نالندہ تک علم کی وہ شاہراہ جس پر چل کر دنیا بدل گئی</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai.png" loading="lazy" alt="taxila"></div>
+                <div class="card-title">تکشاشیلا سے نالندہ تک علم کی وہ شاہراہ جس پر چل کر دنیا بدل گئی</div>
             </a>
         </div>
-        <!-- پوسٹ 2 -->
-        <div class="post-card">
+        <!-- 2. Suqoot Dhaka -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya.png" loading="lazy" alt="dhaka"></div>
-                <div class="post-content"><span class="post-title">سقوطِ ڈھاکہ وہ کون سی غلطیاں تھیں جنہوں نے پاکستان کو دو لخت کیا؟</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya.png" loading="lazy" alt="dhaka"></div>
+                <div class="card-title">سقوطِ ڈھاکہ وہ کون سی غلطیاں تھیں جنہوں نے پاکستان کو دو لخت کیا؟</div>
             </a>
         </div>
-        <!-- پوسٹ 3 -->
-        <div class="post-card">
+        <!-- 3. Saltanat Usmania -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" loading="lazy" alt="ottoman"></div>
-                <div class="post-content"><span class="post-title">سلطنتِ عثمانیہ کا زوال کیا صرف جنگ ہی وجہ تھی؟</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" loading="lazy" alt="usmania"></div>
+                <div class="card-title">سلطنتِ عثمانیہ کا زوال کیا صرف جنگ ہی وجہ تھی؟</div>
             </a>
         </div>
-        <!-- پوسٹ 4 -->
-        <div class="post-card">
+        <!-- 4. Berlin Wall -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/anti-fascist-rampart-ya-insaniyat-ka-qaid-khana-dewar-e-berlin-ki-asal-kahani">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/anti-fascist-rampart-ya-insaniyat-ka-qaid-khana-dewar-e-berlin-ki-asal-kahani.png" loading="lazy" alt="berlin"></div>
-                <div class="post-content"><span class="post-title">اینٹی فاشسٹ ریمپارٹ یا انسانیت کا قید خانہ؟ دیوارِ برلن کی اصل کہانی</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/anti-fascist-rampart-ya-insaniyat-ka-qaid-khana-dewar-e-berlin-ki-asal-kahani.png" loading="lazy" alt="berlin"></div>
+                <div class="card-title">اینٹی فاشسٹ ریمپارٹ یا انسانیت کا قید خانہ؟ دیوارِ برلن کی اصل کہانی</div>
             </a>
         </div>
-        <!-- پوسٹ 5 -->
-        <div class="post-card">
+        <!-- 5. Mughlia Raaz -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay.png" loading="lazy" alt="mughal"></div>
-                <div class="post-content"><span class="post-title">سلطنتِ مغلیہ کے وہ راز جو تاریخ کی کتابوں میں نہیں ملتے</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/saltanat-e-mughlia-ke-woh-raaz-jo-tareekh-ki-kitabon-mein-nahi-miltay.png" loading="lazy" alt="mughal"></div>
+                <div class="card-title">سلطنتِ مغلیہ کے وہ راز جو تاریخ کی کتابوں میں نہیں ملتے</div>
             </a>
         </div>
-        <!-- پوسٹ 6 -->
-        <div class="post-card">
+        <!-- 6. Nymogram -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/nymogram-bdh-mt-ki-azmt-rfth-ka-gm-shdh-shhr">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/nymogram-bdh-mt-ki-azmt-rfth-ka-gm-shdh-shhr.png" loading="lazy" alt="nymogram"></div>
-                <div class="post-content"><span class="post-title">نیم و گرام بدھ مت کی عظمت رفتہ کا گم شدہ شہر</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/nymogram-bdh-mt-ki-azmt-rfth-ka-gm-shdh-shhr.png" loading="lazy" alt="nymogram"></div>
+                <div class="card-title">نیم و گرام بدھ مت کی عظمت رفتہ کا گم شدہ شہر</div>
             </a>
         </div>
-        <!-- پوسٹ 7 -->
-        <div class="post-card">
+        <!-- 7. Maya Tahzeeb -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/maya-tahzeeb-ke-inhidaam-ka-raaz-qahat-jang-ya-koi-aur-wajah">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/maya-tahzeeb-ke-inhidaam-ka-raaz-qahat-jang-ya-koi-aur-wajah.png" loading="lazy" alt="maya"></div>
-                <div class="post-content"><span class="post-title">مایا تہذیب کے انہدام کا راز قحط جنگ یا کوئی اور وجہ</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/maya-tahzeeb-ke-inhidaam-ka-raaz-qahat-jang-ya-koi-aur-wajah.png" loading="lazy" alt="maya"></div>
+                <div class="card-title">مایا تہذیب کے انہدام کا راز قحط جنگ یا کوئی اور وجہ</div>
             </a>
         </div>
-        <!-- پوسٹ 8 -->
-        <div class="post-card">
+        <!-- 8. Mangols -->
+        <div class="card">
             <a href="https://bloglovers.pk/tareekh/jin-mangoloon-ne-islam-ko-mitana-tha-woh-is-ke-muhafiz-kaise-ban-gaye">
-                <div class="img-container"><img src="https://bloglovers.pk/images/tareekh/jin-mangoloon-ne-islam-ko-mitana-tha-woh-is-ke-muhafiz-kaise-ban-gaye.png" loading="lazy" alt="mongol"></div>
-                <div class="post-content"><span class="post-title">جن منگولوں نے اسلام کو مٹانا تھا، وہ اس کے محافظ کیسے بن گئے؟</span></div>
+                <div class="card-img"><img src="https://bloglovers.pk/images/tareekh/jin-mangoloon-ne-islam-ko-mitana-tha-woh-is-ke-muhafiz-kaise-ban-gaye.png" loading="lazy" alt="mongols"></div>
+                <div class="card-title">جن منگولوں نے اسلام کو مٹانا تھا، وہ اس کے محافظ کیسے بن گئے؟</div>
             </a>
         </div>
     </div>
-</div>
 
-<!-- fixed کنٹرول پینل: اپ، ڈاؤن، شیئر -->
-<div class="control-panel">
-    <div class="ctrl-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></div>
-    <div class="ctrl-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"><i class="fas fa-arrow-down"></i></div>
-    <div class="ctrl-btn" onclick="sharePageAll()"><i class="fas fa-share-alt"></i></div>
-</div>
-
-<!-- سوشل میڈیا آئیکن بار (تمام بڑے پلیٹ فارم) -->
-<div class="social-share-bar">
-    <div class="share-inner">
-        <a href="#" onclick="shareWindow('https://www.facebook.com/sharer/sharer.php?u=')"><i class="fab fa-facebook"></i></a>
-        <a href="#" onclick="shareWindow('https://wa.me/?text=')"><i class="fab fa-whatsapp"></i></a>
-        <a href="#" onclick="shareWindow('https://twitter.com/intent/tweet?url=')"><i class="fab fa-twitter"></i></a>
-        <a href="#" onclick="shareWindow('https://t.me/share/url?url=')"><i class="fab fa-telegram"></i></a>
-        <a href="#" onclick="shareWindow('https://www.linkedin.com/sharing/share-offsite/?url=')"><i class="fab fa-linkedin"></i></a>
-        <a href="#" onclick="shareWindow('https://www.pinterest.com/pin/create/button/?url=')"><i class="fab fa-pinterest"></i></a>
-        <a href="#" onclick="shareWindow('mailto:?subject=تاریخ&body=')"><i class="fas fa-envelope"></i></a>
+    <!-- اپ ڈاؤن بٹنز -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+        <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'})"><i class="fas fa-arrow-down"></i></button>
     </div>
-</div>
 
-<!-- ڈبل اپ بٹن -->
-<div class="up-button">
-    <div class="ctrl-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-chevron-up"></i></div>
-</div>
+    <!-- فلوٹنگ سوشل شیئر پینل (تمام) -->
+    <div class="share-float-panel">
+        <a href="#" onclick="sharePage('facebook')"><i class="fab fa-facebook"></i></a>
+        <a href="#" onclick="sharePage('twitter')"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" onclick="sharePage('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" onclick="sharePage('pinterest')"><i class="fab fa-pinterest"></i></a>
+        <a href="#" onclick="sharePage('reddit')"><i class="fab fa-reddit-alien"></i></a>
+        <a href="#" onclick="sharePage('email')"><i class="fas fa-envelope"></i></a>
+    </div>
 
-<footer>
-    <p>© 2025 بلاگ لوورز - جملہ حقوق محفوظ ہیں</p>
-    <p><i class="fas fa-cog fa-spin" style="color:var(--baby-yellow)"></i> اپ ڈیٹ شدہ | بیبی یلو & پرپل تھیم</p>
-</footer>
+    <footer>
+        <p>📘 بلاگ لوورز - تمام تاریخ ایک جگہ | کلی حقوق © 2025</p>
+        <p><i class="fas fa-heart" style="color:#ff8484;"></i> جملہ حقوق محفوظ ہیں </p>
+    </footer>
 
-<script>
-    // ڈاٹ جنریٹر (بیبی یلو اور پرپل)
-    const dotContainer = document.getElementById('dotContainer');
-    for (let i=0;i<30;i++) {
-        let d = document.createElement('div');
-        d.className = 'dot' + (i%3===0 ? ' dot-purple' : '');
-        d.style.left = Math.random()*100+'%';
-        d.style.animationDelay = Math.random()*15+'s';
-        d.style.animationDuration = (Math.random()*15+15)+'s';
-        dotContainer.appendChild(d);
-    }
-
-    // سلائیڈر آٹو پلے
-    let slideIndex = 0;
-    const slides = document.getElementById('mainSlider');
-    const totalSlides = document.querySelectorAll('.slide').length;
-    function nextSlide() {
-        slideIndex = (slideIndex+1) % totalSlides;
-        slides.style.transform = `translateX(-${slideIndex*100}%)`;
-    }
-    setInterval(nextSlide, 4800);
-
-    // شیئر ہیلپرز
-    function shareWindow(base) {
-        let url = encodeURIComponent(window.location.href);
-        window.open(base+url, '_blank');
-    }
-    function sharePageAll() {
-        if (navigator.share) {
-            navigator.share({ title: document.title, url: window.location.href }).catch(()=>{});
-        } else {
-            prompt("کاپی کرنے کے لیے لنک:", window.location.href);
+    <script>
+        // پارٹیکلز جنریٹر (بیبی بلیو/یلو)
+        const particleContainer = document.getElementById('particles-js');
+        for (let i=0; i<28; i++) {
+            let div = document.createElement('div');
+            div.className = 'particle';
+            let size = Math.random() * 16 + 6;
+            div.style.width = size + 'px';
+            div.style.height = size + 'px';
+            div.style.left = Math.random() * 100 + '%';
+            div.style.top = Math.random() * 100 + '%';
+            div.style.animationDuration = (Math.random() * 12 + 8) + 's';
+            div.style.animationDelay = (Math.random() * 5) + 's';
+            particleContainer.appendChild(div);
         }
-    }
-    function shareAll(platform) {
-        let u = window.location.href;
-        if(platform==='facebook') window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(u));
-        else if(platform==='whatsapp') window.open('https://wa.me/?text='+encodeURIComponent(u));
-        else if(platform==='twitter') window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(u));
-        else if(platform==='telegram') window.open('https://t.me/share/url?url='+encodeURIComponent(u));
-    }
-</script>
+
+        // سلائیڈر آٹو چلے
+        const track = document.getElementById('mainSliderTrack');
+        const slides = document.querySelectorAll('.slide-item');
+        let index = 0;
+        function slideRotate() {
+            index = (index + 1) % slides.length;
+            track.style.transform = `translateX(-${index * 100}%)`; // RTL سمت
+        }
+        setInterval(slideRotate, 3800);
+
+        // شارنگ فنکشن (تمام بڑے سوشل پلیٹ فارم)
+        function sharePage(platform) {
+            let pageUrl = encodeURIComponent(window.location.href);
+            let pageTitle = encodeURIComponent(document.title);
+            let finalUrl = '';
+            if (platform === 'facebook') {
+                finalUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+            } else if (platform === 'twitter') {
+                finalUrl = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+            } else if (platform === 'whatsapp') {
+                finalUrl = `https://wa.me/?text=${pageTitle}%20${pageUrl}`;
+            } else if (platform === 'linkedin') {
+                finalUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+            } else if (platform === 'telegram') {
+                finalUrl = `https://t.me/share/url?url=${pageUrl}&text=${pageTitle}`;
+            } else if (platform === 'pinterest') {
+                finalUrl = `https://pinterest.com/pin/create/button/?url=${pageUrl}`;
+            } else if (platform === 'reddit') {
+                finalUrl = `https://reddit.com/submit?url=${pageUrl}&title=${pageTitle}`;
+            } else if (platform === 'email') {
+                finalUrl = `mailto:?subject=${pageTitle}&body=${pageUrl}`;
+            }
+            if (finalUrl) window.open(finalUrl, '_blank');
+            else alert('براہ کرم دستیاب پلیٹ فارم منتخب کریں');
+        }
+
+        // ٹکر کو مزید متحرک بنانے (دوبارہ اسٹارٹ کی ضرورت نہیں)
+        // بس یقین کر لیں کہ ٹھیک ہے
+    </script>
 </body>
 </html>
