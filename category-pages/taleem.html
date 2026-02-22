@@ -3,26 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تعلیم | بلاگ لوورز.pk</title>
+    <title>تعلیم | بلاگ لوورز</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts for Fallback -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- FONT SETUP --- */
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
             src: local('Jameel Noori Nastaleeq'), local('Jameel Noori Nastaleeq Kasheeda');
-        }
-
-        :root {
-            --bg-dark: #050510;
-            --card-bg: rgba(20, 20, 35, 0.7);
-            --neon-cyan: #00f3ff;
-            --neon-pink: #ff00ff;
-            --neon-purple: #bc13fe;
-            --text-main: #ffffff;
-            --text-sec: #cccccc;
+            font-display: swap;
         }
 
         * {
@@ -32,554 +20,652 @@
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
 
+        :root {
+            --baby-blue: #89CFF0;
+            --soft-blue: #B0E0E6;
+            --baby-yellow: #FFF9B0;
+            --soft-yellow: #FFF5BA;
+            --powder-blue: #B6D0E2;
+            --light-peach: #FFE5B4;
+            --bg-gradient: linear-gradient(145deg, #f8faff 0%, #fff9e6 100%);
+            --card-shadow: 0 8px 20px rgba(137, 207, 240, 0.15);
+            --hover-shadow: 0 15px 30px rgba(255, 249, 176, 0.3);
+            --text-soft: #2c3e50;
+        }
+
         body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(188, 19, 254, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 243, 255, 0.1) 0%, transparent 20%);
-            color: var(--text-main);
-            overflow-x: hidden;
+            background: var(--bg-gradient);
             min-height: 100vh;
+            color: var(--text-soft);
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Animated Background Particles */
-        body::before {
-            content: '';
+        /* Animated Background Elements */
+        .floating-circle {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.3;
-            animation: bgMove 100s linear infinite;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(137,207,240,0.2) 0%, transparent 70%);
+            top: -100px;
+            left: -100px;
             z-index: -1;
-            pointer-events: none;
+            animation: float 20s infinite ease-in-out;
         }
 
-        @keyframes bgMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 1000px 1000px; }
+        .floating-circle-2 {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,249,176,0.2) 0%, transparent 70%);
+            bottom: -150px;
+            right: -100px;
+            z-index: -1;
+            animation: floatReverse 25s infinite ease-in-out;
         }
 
-        /* --- NAVIGATION & HEADER --- */
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        @keyframes floatReverse {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, -30px) scale(1.2); }
+        }
+
+        /* Top Navigation */
         .top-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-bottom: 2px solid var(--baby-blue);
         }
 
-        .back-btn {
+        .home-btn {
+            background: var(--baby-yellow);
+            color: #2c3e50;
             text-decoration: none;
-            color: var(--neon-cyan);
-            font-size: 1.1rem;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: 0.3s;
-            border: 1px solid var(--neon-cyan);
-            padding: 5px 15px;
-            border-radius: 20px;
+            border: 1px solid var(--baby-blue);
+            font-weight: bold;
         }
 
-        .back-btn:hover {
-            background: var(--neon-cyan);
-            color: black;
-            box-shadow: 0 0 15px var(--neon-cyan);
+        .home-btn:hover {
+            background: var(--baby-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(137,207,240,0.4);
         }
 
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: #4a5568;
+            font-size: 1.2rem;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+            transition: 0.3s;
+            border: 1px solid var(--baby-blue);
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background: var(--baby-yellow);
+            transform: translateY(-3px) rotate(8deg);
+        }
+
+        /* Header Section */
         header {
             text-align: center;
             padding: 40px 20px;
             position: relative;
         }
 
-        header h1 {
-            font-size: 3rem;
-            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
-            margin-bottom: 20px;
-            animation: glowText 3s infinite alternate;
-        }
-
-        @keyframes glowText {
-            0% { filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.5)); }
-            100% { filter: drop-shadow(0 0 15px rgba(188, 19, 254, 0.8)); }
-        }
-
-        /* Spinning Icons */
-        .icon-container {
+        .spinning-icons {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
+            gap: 30px;
+            margin-bottom: 20px;
         }
 
         .spin-icon {
             font-size: 2.5rem;
-            color: var(--neon-pink);
+            color: var(--baby-blue);
             animation: spin 8s linear infinite;
-            text-shadow: 0 0 10px var(--neon-pink);
+            filter: drop-shadow(0 0 5px rgba(137,207,240,0.5));
         }
 
-        .spin-icon:nth-child(2) { color: var(--neon-cyan); animation-duration: 6s; animation-direction: reverse; text-shadow: 0 0 10px var(--neon-cyan); }
-        .spin-icon:nth-child(3) { color: var(--neon-purple); animation-duration: 10s; text-shadow: 0 0 10px var(--neon-purple); }
+        .spin-icon:nth-child(2) {
+            color: var(--baby-yellow);
+            animation-duration: 6s;
+            animation-direction: reverse;
+            filter: drop-shadow(0 0 5px rgba(255,249,176,0.5));
+        }
+
+        .spin-icon:nth-child(3) {
+            color: #FFB6C1;
+            animation-duration: 10s;
+        }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* --- MARQUEE SLIDER (Small Moving Slider) --- */
-        .marquee-container {
-            background: rgba(0, 243, 255, 0.1);
-            border-top: 1px solid var(--neon-cyan);
-            border-bottom: 1px solid var(--neon-cyan);
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #5c9ead, #e4a788);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(137,207,240,0.3);
+        }
+
+        /* Scrolling Marquee */
+        .scroller-wrapper {
+            background: linear-gradient(90deg, var(--baby-blue), var(--baby-yellow));
+            padding: 12px 0;
             overflow: hidden;
+            margin: 20px 0;
+            border-top: 2px solid white;
+            border-bottom: 2px solid white;
+        }
+
+        .scroller-content {
+            display: flex;
+            animation: scrollTitles 60s linear infinite;
             white-space: nowrap;
-            padding: 10px 0;
-            margin-bottom: 30px;
         }
 
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 40s linear infinite;
+        .scroller-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 20px;
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: bold;
         }
 
-        .marquee-item {
-            display: inline-block;
-            margin: 0 30px;
-            font-size: 1.1rem;
-            color: var(--text-main);
+        .scroller-item i {
+            margin-left: 8px;
+            color: #ff6b6b;
         }
 
-        @keyframes marquee {
+        @keyframes scrollTitles {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
 
-        /* --- MAIN SLIDER --- */
-        .main-slider {
-            width: 90%;
+        /* Main Slider */
+        .slider-container {
             max-width: 1000px;
             height: 350px;
-            margin: 0 auto 50px auto;
-            border-radius: 20px;
-            overflow: hidden;
+            margin: 30px auto;
             position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            border: 2px solid var(--neon-purple);
+            overflow: hidden;
+            border-radius: 30px;
+            box-shadow: 0 15px 30px rgba(137,207,240,0.3);
+            border: 3px solid white;
+        }
+
+        .slider {
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
 
         .slide {
+            position: absolute;
             width: 100%;
             height: 100%;
-            position: absolute;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1s ease;
             background-size: cover;
             background-position: center;
         }
 
-        .slide.active { opacity: 1; }
+        .slide.active {
+            opacity: 1;
+        }
 
         .slide-content {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(to top, black, transparent);
-            color: white;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(255,249,176,0.8));
+            color: #2c3e50;
+            backdrop-filter: blur(5px);
         }
 
-        .slide-content h2 {
-            font-size: 1.8rem;
-            text-shadow: 2px 2px 4px black;
+        .slide-content h3 {
+            font-size: 1.3rem;
             margin-bottom: 10px;
+            color: #1a2634;
         }
 
-        /* --- POST GRID --- */
+        .slide-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--baby-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .slide-btn:hover {
+            background: var(--baby-yellow);
+            color: #2c3e50;
+            transform: scale(1.05);
+        }
+
+        /* Posts Grid */
         .container {
-            width: 90%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 80px;
+            margin: 50px auto;
+            padding: 0 20px;
         }
 
-        .grid {
+        .posts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
-            position: relative;
+        .post-card {
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(5px);
+            border-radius: 20px;
+            overflow: hidden;
             text-decoration: none;
-            display: flex;
-            flex-direction: column;
+            color: inherit;
+            border: 2px solid rgba(255,255,255,0.8);
+            transition: 0.4s;
+            box-shadow: var(--card-shadow);
         }
 
-        .card:hover {
+        .post-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 20px var(--neon-cyan);
-            border-color: var(--neon-cyan);
-            z-index: 10;
+            box-shadow: var(--hover-shadow);
+            border-color: var(--baby-yellow);
         }
 
-        .card-img {
+        .card-image {
             width: 100%;
             height: 180px;
             object-fit: cover;
-            border-bottom: 2px solid var(--neon-purple);
-            transition: 0.4s;
+            border-bottom: 3px solid var(--baby-blue);
+            transition: 0.5s;
         }
 
-        .card:hover .card-img {
-            filter: brightness(1.2);
-        }
-
-        .card-content {
-            padding: 15px;
-            text-align: right;
-            flex-grow: 1;
+        .post-card:hover .card-image {
+            transform: scale(1.05);
+            filter: brightness(1.1);
         }
 
         .card-title {
-            font-size: 1.2rem; /* Small font size as requested */
-            color: var(--text-main);
-            margin-bottom: 10px;
-            line-height: 1.6;
-            font-weight: bold;
+            padding: 15px;
+            text-align: right;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #2d4059;
+            font-weight: normal;
         }
 
-        .card:hover .card-title {
-            color: var(--neon-cyan);
+        /* Navigation Buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
         }
 
-        /* Hide URL text but keep card clickable */
-        .card-link-text {
-            display: none;
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--baby-blue);
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* --- SHARE BUTTON --- */
-        .share-btn-fixed {
+        .nav-btn:hover {
+            background: var(--baby-yellow);
+            transform: scale(1.1);
+            border-color: var(--baby-yellow);
+        }
+
+        /* Share Button */
+        .share-wrapper {
             position: fixed;
             bottom: 30px;
             right: 30px;
+            z-index: 999;
+        }
+
+        .share-main {
             width: 60px;
             height: 60px;
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--baby-blue), var(--baby-yellow));
+            border: none;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(137,207,240,0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 5px 20px rgba(137,207,240,0.5); }
+            50% { box-shadow: 0 5px 30px rgba(255,249,176,0.8); }
+            100% { box-shadow: 0 5px 20px rgba(137,207,240,0.5); }
+        }
+
+        .share-main:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .share-dropdown {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: white;
+            border-radius: 30px;
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 2px solid var(--baby-yellow);
+        }
+
+        .share-dropdown a {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
-            z-index: 1000;
+            text-decoration: none;
             transition: 0.3s;
-            animation: pulse 2s infinite;
         }
 
-        .share-btn-fixed:hover {
-            transform: scale(1.1) rotate(15deg);
+        .share-dropdown a:hover {
+            transform: scale(1.1);
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(188, 19, 254, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(188, 19, 254, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(188, 19, 254, 0); }
+        .share-wrapper:hover .share-dropdown {
+            display: flex;
         }
 
-        /* Mobile Responsive */
+        /* Responsive */
         @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
-            .main-slider { height: 250px; }
-            .grid { grid-template-columns: 1fr; }
-            .icon-container { gap: 20px; }
-            .spin-icon { font-size: 2rem; }
+            .top-nav {
+                padding: 10px 15px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .slider-container {
+                height: 250px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-icons {
+                gap: 8px;
+            }
+            
+            .social-icons a {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
         }
 
+        @media (max-width: 480px) {
+            .slider-container {
+                height: 200px;
+            }
+            
+            .slide-content h3 {
+                font-size: 1rem;
+            }
+            
+            .spin-icon {
+                font-size: 2rem;
+            }
+        }
+
+        /* Hide URLs */
+        .post-link, .url-text {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="floating-circle"></div>
+    <div class="floating-circle-2"></div>
 
-    <!-- Navigation -->
+    <!-- Top Navigation -->
     <nav class="top-nav">
-        <a href="../index.html" class="back-btn">
-            <i class="fas fa-arrow-right"></i> واپس جائیں
+        <a href="https://bloglovers.pk" class="home-btn">
+            <i class="fas fa-home"></i> ہوم
         </a>
-        <div style="color:var(--neon-cyan); font-weight:bold;">بلاگ لوورز.pk</div>
+        
+        <div class="social-icons">
+            <a href="#" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" onclick="shareOnSocial('twitter')"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest"></i></a>
+            <a href="#" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram"></i></a>
+        </div>
     </nav>
 
     <!-- Header -->
     <header>
-        <div class="icon-container">
+        <div class="spinning-icons">
             <i class="fas fa-graduation-cap spin-icon"></i>
             <i class="fas fa-book-open spin-icon"></i>
-            <i class="fas fa-atom spin-icon"></i>
+            <i class="fas fa-pen-fancy spin-icon"></i>
         </div>
         <h1>تعلیم و تربیت</h1>
-        <p style="color:var(--text-sec); font-size:1.1rem;">علم کی روشنی، کامیابی کا راستہ</p>
+        <p style="color:#5c6b7e;">علم کی روشنی، کامیابی کا راستہ</p>
     </header>
 
-    <!-- Small Moving Slider (Marquee) -->
-    <div class="marquee-container">
-        <div class="marquee-content" id="marquee-content">
-            <!-- Items will be injected by JS -->
-        </div>
+    <!-- Post Titles Scroller -->
+    <div class="scroller-wrapper">
+        <div class="scroller-content" id="titleScroller"></div>
     </div>
 
     <!-- Main Slider -->
-    <div class="main-slider" id="main-slider">
-        <!-- Slides will be injected by JS -->
+    <div class="slider-container">
+        <div class="slider" id="mainSlider"></div>
     </div>
 
-    <!-- Main Grid -->
+    <!-- Posts Grid -->
     <div class="container">
-        <div class="grid" id="posts-grid">
-            <!-- Posts will be injected by JS -->
+        <div class="posts-grid" id="postsGrid"></div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+
+    <!-- Share Button -->
+    <div class="share-wrapper">
+        <button class="share-main">
+            <i class="fas fa-share-alt"></i>
+        </button>
+        <div class="share-dropdown">
+            <a href="#" onclick="shareOnSocial('facebook')" style="background:#1877f2"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" onclick="shareOnSocial('twitter')" style="background:#000000"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" onclick="shareOnSocial('whatsapp')" style="background:#25d366"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" onclick="shareOnSocial('linkedin')" style="background:#0a66c2"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" onclick="shareOnSocial('pinterest')" style="background:#bd081c"><i class="fab fa-pinterest"></i></a>
+            <a href="#" onclick="shareOnSocial('telegram')" style="background:#0088cc"><i class="fab fa-telegram"></i></a>
         </div>
     </div>
 
-    <!-- Fixed Share Button -->
-    <div class="share-btn-fixed" onclick="sharePage()">
-        <i class="fas fa-share-alt"></i>
-    </div>
-
     <script>
-        // Data Array - Containing ONLY "Taleem" category posts
-        const taleemPosts = [
-            {
-                url: "https://www.bloglovers.pk/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn",
-                img: "https://www.bloglovers.pk/images/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn.png",
-                title: "کرونا کی صورت میں کمیونٹی بیسڈ سکولز کے بچوں کو کیسے سنبھالیں؟"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye",
-                img: "https://www.bloglovers.pk/images/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye.png",
-                title: "دورِحاضر کے اساتذہ کو کیسا ہونا چاہیے؟"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/islam-mein-ustaad-ka-miyar-kya-hai",
-                img: "https://www.bloglovers.pk/images/taleem/islam-mein-ustaad-ka-miyar-kya-hai.png",
-                title: "اسلام میں استاد کا معیار کیا ہے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/1400-saal-qabl-istemal-hone-wali-islami-tadrisi-hikmat-amliyan-kon-si-hain",
-                img: "https://www.bloglovers.pk/images/taleem/1400-saal-qabl-istemal-hone-wali-islami-tadrisi-hikmat-amliyan-kon-si-hain.png",
-                title: "1400 سال قبل استعمال ہونے والی اسلامی تدریسی حکمت عملی کیا تھیں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/aaj-ka-ustaad-pareshan-kyun",
-                img: "https://www.bloglovers.pk/images/taleem/aaj-ka-ustaad-pareshan-kyun.png",
-                title: "آج کا استاد پریشان کیوں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/islami-taleem-ka-bunyadi-maqsad-achhay-aur-nek-aadmi-ki-takhleeq-kyun-hai",
-                img: "https://www.bloglovers.pk/images/taleem/islami-taleem-ka-bunyadi-maqsad-achhay-aur-nek-aadmi-ki-takhleeq-kyun-hai.png",
-                title: "اسلامی تعلیم کا بنیادی مقصد اچھے اور نیک آدمی کی تخلیق کیوں ہے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/akysoyn-sdi-ka-talymi-chylnj-kya-ho-ga",
-                img: "https://www.bloglovers.pk/images/taleem/akysoyn-sdi-ka-talymi-chylnj-kya-ho-ga.png",
-                title: "اکیسویں صدی کا تعلیمی چیلنج کیا ہوگا"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/naslon-mein-sudhar-lane-ke-liye-taleemi-nisab-kaisa-hona-chahiye",
-                img: "https://www.bloglovers.pk/images/taleem/naslon-mein-sudhar-lane-ke-liye-taleemi-nisab-kaisa-hona-chahiye.png",
-                title: "نسلوں میں سدھار لانے کے لیے تعلیمی نصاب کیسا ہونا چاہیے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/skol-aur-kmyonti-maashre-ke-le-kaise-mfyd-ho-skte-hain",
-                img: "https://www.bloglovers.pk/images/taleem/skol-aur-kmyonti-maashre-ke-le-kaise-mfyd-ho-skte-hain.png",
-                title: "سکول اور کمیونٹی معاشرے کے لیے کیسے مفید ہو سکتے ہیں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/asanmnt-tfoyz-kaise-lkhyn",
-                img: "https://www.bloglovers.pk/images/taleem/asanmnt-tfoyz-kaise-lkhyn.png",
-                title: "اسائنمنٹ/ تفویض کیسے لکھیں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/rysrch-propozl-kaise-lkhyn",
-                img: "https://www.bloglovers.pk/images/taleem/rysrch-propozl-kaise-lkhyn.png",
-                title: "ریسرچ پروپوزل کیسے لکھیں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain",
-                img: "https://www.bloglovers.pk/images/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain.jpg",
-                title: "10ایسی دشواریاں جو بچوں کو سیکھنے میں رکاوٹ کا باعث بنتی ہیں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan",
-                img: "https://www.bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan.png",
-                title: "4-5سال کے بچوں کے لئے ٹاپ 16 پری-رائٹنگ سرگرمیاں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan",
-                img: "https://www.bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan.png",
-                title: "4-5سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/4-se-5-sal-ke-bchon-main-chori-ki-aadt-ko-khtm-krne-ke-10-bhtryn-tryqe",
-                img: "https://www.bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-main-chori-ki-aadt-ko-khtm-krne-ke-10-bhtryn-tryqe.jpg",
-                title: "4-5سال کے بچوں میں چوری کی عادت کو ختم کرنے کے 10 بہترین طریقے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/10-esi-kotahiyan-jo-walidain-ko-apni-aulad-ke-samne-nahi-karni-chahiye",
-                img: "https://www.bloglovers.pk/images/taleem/10-esi-kotahiyan-jo-walidain-ko-apni-aulad-ke-samne-nahi-karni-chahiye.png",
-                title: "10 ایسی کوتاہیاں والدین کو اپنی اولاد کے سامنے نہیں کرنی چاہیے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal",
-                img: "https://www.bloglovers.pk/images/taleem/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal.png",
-                title: "آج کی دنیا میں 21ویں صدی کے سیکھنے کی مہارت کی اہمیت پر تبادلہ خیال"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/akysoyn-sdi-ka-nyt-wrk-tychr",
-                img: "https://www.bloglovers.pk/images/taleem/akysoyn-sdi-ka-nyt-wrk-tychr.jpg",
-                title: "اکیسویں صدی کا نیٹ ورک ٹیچر"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe",
-                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe.png",
-                title: "ای سی سی ای میں ریاضی کے 10 عملی طریقے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-tlba-main-prhne-ki-mhart-ko-brhane-ke-10-bhtryn-tryqe",
-                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-tlba-main-prhne-ki-mhart-ko-brhane-ke-10-bhtryn-tryqe.png",
-                title: "ای سی سی ای کے طلبہ میں پڑھنے کی مہارت کو بڑھانے کے 10 بہترین طریقے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-ki-talymi-karkrdgi-ko-prkhne-ke-10-msr-tryqe",
-                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-ki-talymi-karkrdgi-ko-prkhne-ke-10-msr-tryqe.webp",
-                title: "ای سی سی ای کے بچوں کی تعلیمی کارکردگی کو پرکھنے کے 10 موثر طریقے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad",
-                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad.webp",
-                title: "ای سی سی ای کے بچوں میں زبان کی نشوونما کامیاب زندگی کی بنیاد"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-ke-lye5bhtryn-hkmt-amlyan",
-                img: "https://www.bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-ke-lye5bhtryn-hkmt-amlyan.webp",
-                title: "ای سی سی ای کے بچوں میں زبان کی نشوونما کے لیے 5 بہترین حکمت عملی"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm",
-                img: "https://www.bloglovers.pk/images/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm.png",
-                title: "میٹرک کے بعد زیرہ سے کیوں شروع کرتا ہے پاکستانی طالب علم؟"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/jab-memar-e-qoom-hi-bad-diyanat-ho-jaye",
-                img: "https://www.bloglovers.pk/images/taleem/jab-memar-e-qoom-hi-bad-diyanat-ho-jaye.png",
-                title: "جب معمار قوم ہی بد دیانت ہو جائے"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd",
-                img: "https://www.bloglovers.pk/images/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd.png",
-                title: "کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اور آن لائن ایجوکیشن کا عہد"
-            },
-            {
-                url: "https://www.bloglovers.pk/taleem/brhti-hoi-fyson-ke-dor-main-mayari-talym-ke-hsol-ke-mtbadl-zraa-aan-lan-askalrshps-aur-mft-korsz",
-                img: "https://www.bloglovers.pk/images/taleem/brhti-hoi-fyson-ke-dor-main-mayari-talym-ke-hsol-ke-mtbadl-zraa-aan-lan-askalrshps-aur-mft-korsz.png",
-                title: "بڑھتی ہوئی فیسوں کے دور میں معیاری تعلیم کے حصول کے متبادل ذرائع آن لائن اسکالرشپس اور مفت کورسز"
-            }
+        // Complete Posts Data (extracted from your HTML file)
+        const posts = [
+            { url: "https://bloglovers.pk/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn", img: "https://bloglovers.pk/images/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn.png", title: "کرونا کی صورت میں کمیونٹی بیسڈ سکولز کے بچوں کو کیسے سنبھالیں؟" },
+            { url: "https://bloglovers.pk/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye", img: "https://bloglovers.pk/images/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye.png", title: "دورِحاضر کے اساتذہ کو کیسا ہونا چاہیے؟" },
+            { url: "https://bloglovers.pk/taleem/islam-mein-ustaad-ka-miyar-kya-hai", img: "https://bloglovers.pk/images/taleem/islam-mein-ustaad-ka-miyar-kya-hai.png", title: "اسلام میں استاد کا معیار کیا ہے" },
+            { url: "https://bloglovers.pk/taleem/1400-saal-qabl-istemal-hone-wali-islami-tadrisi-hikmat-amliyan-kon-si-hain", img: "https://bloglovers.pk/images/taleem/1400-saal-qabl-istemal-hone-wali-islami-tadrisi-hikmat-amliyan-kon-si-hain.png", title: "1400 سال قبل استعمال ہونے والی اسلامی تدریسی حکمت عملی کیا تھیں" },
+            { url: "https://bloglovers.pk/taleem/aaj-ka-ustaad-pareshan-kyun", img: "https://bloglovers.pk/images/taleem/aaj-ka-ustaad-pareshan-kyun.png", title: "آج کا استاد پریشان کیوں" },
+            { url: "https://bloglovers.pk/taleem/islami-taleem-ka-bunyadi-maqsad-achhay-aur-nek-aadmi-ki-takhleeq-kyun-hai", img: "https://bloglovers.pk/images/taleem/islami-taleem-ka-bunyadi-maqsad-achhay-aur-nek-aadmi-ki-takhleeq-kyun-hai.png", title: "اسلامی تعلیم کا بنیادی مقصد اچھے اور نیک آدمی کی تخلیق کیوں ہے" },
+            { url: "https://bloglovers.pk/taleem/akysoyn-sdi-ka-talymi-chylnj-kya-ho-ga", img: "https://bloglovers.pk/images/taleem/akysoyn-sdi-ka-talymi-chylnj-kya-ho-ga.png", title: "اکیسویں صدی کا تعلیمی چیلنج کیا ہوگا" },
+            { url: "https://bloglovers.pk/taleem/naslon-mein-sudhar-lane-ke-liye-taleemi-nisab-kaisa-hona-chahiye", img: "https://bloglovers.pk/images/taleem/naslon-mein-sudhar-lane-ke-liye-taleemi-nisab-kaisa-hona-chahiye.png", title: "نسلوں میں سدھار لانے کے لیے تعلیمی نصاب کیسا ہونا چاہیے" },
+            { url: "https://bloglovers.pk/taleem/skol-aur-kmyonti-maashre-ke-le-kaise-mfyd-ho-skte-hain", img: "https://bloglovers.pk/images/taleem/skol-aur-kmyonti-maashre-ke-le-kaise-mfyd-ho-skte-hain.png", title: "سکول اور کمیونٹی معاشرے کے لیے کیسے مفید ہو سکتے ہیں" },
+            { url: "https://bloglovers.pk/taleem/asanmnt-tfoyz-kaise-lkhyn", img: "https://bloglovers.pk/images/taleem/asanmnt-tfoyz-kaise-lkhyn.png", title: "اسائنمنٹ/ تفویض کیسے لکھیں" },
+            { url: "https://bloglovers.pk/taleem/rysrch-propozl-kaise-lkhyn", img: "https://bloglovers.pk/images/taleem/rysrch-propozl-kaise-lkhyn.png", title: "ریسرچ پروپوزل کیسے لکھیں" },
+            { url: "https://bloglovers.pk/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain", img: "https://bloglovers.pk/images/taleem/10-esi-dushwariyan-jo-bachchon-ko-seekhne-mein-rukawat-ka-bais-banti-hain.jpg", title: "10 ایسی دشواریاں جو بچوں کو سیکھنے میں رکاوٹ کا باعث بنتی ہیں" },
+            { url: "https://bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan", img: "https://bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-tap-16-pri-ratng-srgrmyan.png", title: "4-5 سال کے بچوں کے لیے ٹاپ 16 پری رائٹنگ سرگرمیاں" },
+            { url: "https://bloglovers.pk/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan", img: "https://bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan.png", title: "4-5 سال کے بچوں کے لیے 10 بہترین سننے کی تفریحی سرگرمیاں" },
+            { url: "https://bloglovers.pk/taleem/4-se-5-sal-ke-bchon-main-chori-ki-aadt-ko-khtm-krne-ke-10-bhtryn-tryqe", img: "https://bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-main-chori-ki-aadt-ko-khtm-krne-ke-10-bhtryn-tryqe.jpg", title: "4-5 سال کے بچوں میں چوری کی عادت ختم کرنے کے 10 طریقے" },
+            { url: "https://bloglovers.pk/taleem/10-esi-kotahiyan-jo-walidain-ko-apni-aulad-ke-samne-nahi-karni-chahiye", img: "https://bloglovers.pk/images/taleem/10-esi-kotahiyan-jo-walidain-ko-apni-aulad-ke-samne-nahi-karni-chahiye.png", title: "10 کوتاہیاں والدین اولاد کے سامنے نہ کریں" },
+            { url: "https://bloglovers.pk/taleem/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal", img: "https://bloglovers.pk/images/taleem/aaj-ki-dunya-mein-21ween-sadi-ke-seekhne-ki-maharat-ki-ehmiyat-par-tabadla-e-khayal.png", title: "اکیسویں صدی کی سیکھنے کی مہارت کی اہمیت" },
+            { url: "https://bloglovers.pk/taleem/akysoyn-sdi-ka-nyt-wrk-tychr", img: "https://bloglovers.pk/images/taleem/akysoyn-sdi-ka-nyt-wrk-tychr.jpg", title: "اکیسویں صدی کا نیٹ ورک ٹیچر" },
+            { url: "https://bloglovers.pk/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe", img: "https://bloglovers.pk/images/taleem/ai-si-si-ai-main-ryazi-ke-10-amli-tryqe.png", title: "ای سی سی ای میں ریاضی کے 10 عملی طریقے" },
+            { url: "https://bloglovers.pk/taleem/ai-si-si-ai-ke-tlba-main-prhne-ki-mhart-ko-brhane-ke-10-bhtryn-tryqe", img: "https://bloglovers.pk/images/taleem/ai-si-si-ai-ke-tlba-main-prhne-ki-mhart-ko-brhane-ke-10-bhtryn-tryqe.png", title: "ای سی سی ای طلبہ میں پڑھنے کی مہارت بڑھانے کے 10 طریقے" },
+            { url: "https://bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-ki-talymi-karkrdgi-ko-prkhne-ke-10-msr-tryqe", img: "https://bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-ki-talymi-karkrdgi-ko-prkhne-ke-10-msr-tryqe.webp", title: "ای سی سی ای بچوں کی تعلیمی کارکردگی پرکھنے کے 10 طریقے" },
+            { url: "https://bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad", img: "https://bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-kamyab-zindagi-ki-bnyad.webp", title: "ای سی سی ای میں زبان کی نشوونما: کامیاب زندگی کی بنیاد" },
+            { url: "https://bloglovers.pk/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-ke-lye5bhtryn-hkmt-amlyan", img: "https://bloglovers.pk/images/taleem/ai-si-si-ai-ke-bchon-main-zban-ki-nshoonma-ke-lye5bhtryn-hkmt-amlyan.webp", title: "زبان کی نشوونما کے لیے 5 حکمت عملی" },
+            { url: "https://bloglovers.pk/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm", img: "https://bloglovers.pk/images/taleem/metric-ke-baad-zeera-se-kyun-shuru-karta-hai-pakistani-talib-e-ilm.png", title: "میٹرک کے بعد زیرہ سے کیوں شروع کرتا ہے پاکستانی طالب علم؟" },
+            { url: "https://bloglovers.pk/taleem/jab-memar-e-qoom-hi-bad-diyanat-ho-jaye", img: "https://bloglovers.pk/images/taleem/jab-memar-e-qoom-hi-bad-diyanat-ho-jaye.png", title: "جب معمار قوم ہی بددیانت ہو جائے" },
+            { url: "https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd", img: "https://bloglovers.pk/images/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd.png", title: "کلاس روم سے کلاؤڈ تک: پاکستان کا تعلیمی سفر" },
+            { url: "https://bloglovers.pk/taleem/brhti-hoi-fyson-ke-dor-main-mayari-talym-ke-hsol-ke-mtbadl-zraa-aan-lan-askalrshps-aur-mft-korsz", img: "https://bloglovers.pk/images/taleem/brhti-hoi-fyson-ke-dor-main-mayari-talym-ke-hsol-ke-mtbadl-zraa-aan-lan-askalrshps-aur-mft-korsz.png", title: "بڑھتی فیسوں میں تعلیم کے متبادل ذرائع" }
         ];
 
-        const gridContainer = document.getElementById('posts-grid');
-        const sliderContainer = document.getElementById('main-slider');
-        const marqueeContainer = document.getElementById('marquee-content');
-
         // Render Posts Grid
-        taleemPosts.forEach(post => {
+        const grid = document.getElementById('postsGrid');
+        posts.forEach(post => {
             const card = document.createElement('a');
-            card.className = 'card';
             card.href = post.url;
-            card.target = '_blank'; // Open in new tab
-            
+            card.target = '_blank';
+            card.className = 'post-card';
             card.innerHTML = `
-                <img src="${post.img}" alt="${post.title}" class="card-img" onerror="this.src='https://via.placeholder.com/300x180?text=BlogLovers';">
-                <div class="card-content">
-                    <div class="card-title">${post.title}</div>
-                </div>
+                <img src="${post.img}" alt="${post.title}" class="card-image" onerror="this.src='https://via.placeholder.com/300x180?text=BlogLovers&bg=89CFF0'">
+                <div class="card-title">${post.title}</div>
             `;
-            gridContainer.appendChild(card);
+            grid.appendChild(card);
         });
 
-        // Render Small Marquee
-        taleemPosts.forEach(post => {
-            const span = document.createElement('span');
-            span.className = 'marquee-item';
-            span.innerHTML = `<i class="fas fa-star" style="color:var(--neon-pink);font-size:0.8rem;"></i> ${post.title}`;
-            marqueeContainer.appendChild(span);
+        // Render Title Scroller
+        const scroller = document.getElementById('titleScroller');
+        posts.forEach(post => {
+            const item = document.createElement('span');
+            item.className = 'scroller-item';
+            item.innerHTML = `<i class="fas fa-star"></i> ${post.title}`;
+            scroller.appendChild(item);
         });
-        // Duplicate for infinite scroll visual
-        taleemPosts.forEach(post => {
-            const span = document.createElement('span');
-            span.className = 'marquee-item';
-            span.innerHTML = `<i class="fas fa-star" style="color:var(--neon-pink);font-size:0.8rem;"></i> ${post.title}`;
-            marqueeContainer.appendChild(span);
+        // Duplicate for seamless scroll
+        posts.forEach(post => {
+            const item = document.createElement('span');
+            item.className = 'scroller-item';
+            item.innerHTML = `<i class="fas fa-star"></i> ${post.title}`;
+            scroller.appendChild(item);
         });
 
-        // Render Main Slider (First 5 Posts)
-        const sliderPosts = taleemPosts.slice(0, 5); // Take first 5 for slider
-        sliderPosts.forEach((post, index) => {
+        // Render Main Slider (first 5 posts)
+        const slider = document.getElementById('mainSlider');
+        posts.slice(0, 5).forEach((post, index) => {
             const slide = document.createElement('div');
-            slide.className = index === 0 ? 'slide active' : 'slide';
+            slide.className = `slide ${index === 0 ? 'active' : ''}`;
             slide.style.backgroundImage = `url('${post.img}')`;
-            
             slide.innerHTML = `
                 <div class="slide-content">
-                    <h2>${post.title}</h2>
-                    <a href="${post.url}" style="color:var(--neon-cyan); text-decoration:none; font-weight:bold;">مزید پڑھیں <i class="fas fa-arrow-left"></i></a>
+                    <h3>${post.title}</h3>
+                    <a href="${post.url}" target="_blank" class="slide-btn">مزید پڑھیں <i class="fas fa-arrow-left"></i></a>
                 </div>
             `;
-            sliderContainer.appendChild(slide);
+            slider.appendChild(slide);
         });
 
-        // Main Slider Logic
+        // Slider Auto-play
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
-        
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 4000); // Change slide every 4 seconds
-
-        // Share Function
-        function sharePage() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'تعلیم | بلاگ لوورز.pk',
-                    text: 'تعلیم اور تربیت کے بہترین مضامین پڑھیں۔',
-                    url: window.location.href,
-                })
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing', error));
-            } else {
-                alert(' لنک کاپی ہو گیا!\n' + window.location.href);
-            }
+        if (slides.length > 0) {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 4000);
         }
+
+        // Social Share Function
+        window.shareOnSocial = function(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('تعلیم | بلاگ لوورز');
+            
+            const shareUrls = {
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                twitter: `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
+                whatsapp: `https://wa.me/?text=${title}%20${url}`,
+                linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+                pinterest: `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`,
+                telegram: `https://t.me/share/url?url=${url}&text=${title}`
+            };
+            
+            window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+        };
     </script>
 </body>
 </html>
