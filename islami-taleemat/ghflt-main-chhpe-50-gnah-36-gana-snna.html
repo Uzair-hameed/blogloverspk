@@ -3,86 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غفلت میں چھپے 50 گناہ 36 - گانا سننا</title>
+    <title>غفلت میں چھپے 50 گناہ: 36 - گانا سننا</title>
+    <!-- Fonts for Urdu and Fallback -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons (Social, Up/Down) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        /* Base & Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Local font preference */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2; /* Keep original line height */
+            direction: rtl;
+            text-align: right;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            /* Base background remains minimal, main background will be behind content */
+            background: #f9f7f3; /* Warm off-white base */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* MAIN THEME: Animated Orange & Light Green Background with hover effects */
+        .theme-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            padding: 25px 15px;
+            background: linear-gradient(135deg, #fff8e7 0%, #e8f5e9 100%);
+            /* Subtle base before animation */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Animated moving gradient background with baby orange & vibrant light green */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(45deg, #ffcc80, #c8e6c9, #ffe0b2, #a5d6a7, #ffb74d, #81c784);
+            background-size: 300% 300%;
+            animation: floatGradient 18s ease infinite;
+            opacity: 0.6; /* softer to keep text readable */
+            pointer-events: none;
+        }
+
+        @keyframes floatGradient {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Main content card with friendly interface */
+        .post-card {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 40px 40px 30px 30px;
+            padding: 35px 30px;
+            box-shadow: 0 25px 50px -8px rgba(251, 140, 0, 0.3), 0 10px 20px rgba(0,0,0,0.1);
+            border: 2px solid #ffb74d55;
+            transition: transform 0.3s, box-shadow 0.4s;
+            margin: 20px 0;
+        }
+
+        .post-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 60px -5px #ffa726, 0 15px 25px rgba(0,0,0,0.15);
+            border-color: #ff9800;
+        }
+
+        /* Main Heading: size normal but distinct */
+        .post-card h1 {
+            color: #bf360c; /* deep orange */
+            border-bottom: 4px solid #ffb74d;
+            padding-bottom: 15px;
+            text-align: center;
+            font-size: 2.1rem; /* normal but prominent */
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0 #ffe0b2;
+            background: linear-gradient(145deg, #e65100, #f9a825);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+
+        /* Subheading: different colour and shading */
+        .post-card h2, .post-card h3 {
+            color: #2e7d32; /* vibrant green */
+            font-size: 1.8rem;
+            border-right: 8px solid #ffa726;
+            padding-right: 20px;
+            margin: 30px 0 20px 0;
+            background: linear-gradient(to left, #f1f8e9, transparent);
+            border-radius: 0 30px 30px 0;
+            box-shadow: -5px 5px 10px #c8e6c9;
+            font-weight: 700;
+        }
+
+        .post-card h3 {
+            font-size: 1.6rem;
+            border-right-width: 5px;
+            background: #f0f4c3;
+        }
+
+        /* Text size adjustment: worth reading, justify alignment */
+        .post-card p {
+            font-size: 1.4rem; /* comfortable reading size */
+            text-align: justify;
+            color: #2c3e2f;
+            margin-bottom: 25px;
+            word-spacing: 1px;
+        }
+
+        /* Full width image after title */
+        .featured-image {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 30px;
+            margin: 30px auto;
+            box-shadow: 0 20px 30px -5px #81c784, 0 5px 15px #ffb74d;
+            border: 5px solid white;
+            transition: 0.4s;
+        }
+
+        .featured-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 40px -5px #ff9800;
+        }
+
+        /* Buttons container */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0 20px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #fb8c00, #66bb6a);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-family: inherit;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 15px #c5e1a5;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid #ffe0b2;
+            font-weight: bold;
+        }
+
+        .nav-btn a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-btn i {
+            font-size: 1.5rem;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #e65100, #43a047);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px #ffb74d;
+            border-color: white;
+        }
+
+        /* Social sharing buttons */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 30px 0 10px;
+            padding: 15px 0;
+        }
+
+        .social-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #fbc02d;
+            color: #1b5e20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 10px #a5d6a7;
+            border: 2px solid white;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            transform: rotate(360deg) scale(1.2);
+            background: #ffa726;
+            color: white;
+            box-shadow: 0 8px 20px #ff6d00;
+        }
+
+        /* Up / Down page buttons fixed */
+        .scroll-controls {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .scroll-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 30px;
+            background: #ffa726;
+            color: #1f3a1f;
+            border: 3px solid #c8e6c9;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px #4caf50;
+            transition: 0.3s;
+            opacity: 0.9;
+        }
+
+        .scroll-btn:hover {
+            background: #ff9100;
+            color: #004d40;
+            transform: scale(1.1);
+            border-color: #ffffff;
+        }
+
+        /* Remove any old internal links styling, but keep plain text */
+        .post-card a {
+            color: #d32f2f;
+            text-decoration: none;
+            pointer-events: none;   /* internal links disabled */
+            cursor: default;
+            font-weight: 500;
+        }
+
+        /* Override for actual functional external buttons: home, back, social */
+        .nav-btn a, .social-share a {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        /* Responsive fine-tuning */
+        @media (max-width: 600px) {
+            .post-card {
+                padding: 20px 15px;
+            }
+            .post-card h1 {
+                font-size: 1.8rem;
+            }
+            .post-card h2 {
+                font-size: 1.6rem;
+            }
+            .post-card p {
+                font-size: 1.2rem;
+                line-height: 2;
+            }
+            .nav-btn {
+                font-size: 1.1rem;
+                padding: 10px 18px;
+            }
+            .scroll-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Remove any hidden old containers if any */
+        .old-trigger, .color-fill-container, .post-content-overlay {
+            display: none !important;
+        }
+
+        /* Image after title positioning */
+        .image-container {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
-    </div>
+    <div class="theme-wrapper">
+        <div class="animated-bg"></div> <!-- Moving Orange & Green -->
 
-    <div class="post-content">
-        
-        <h1>غفلت میں چھپے 50 گناہ: 36 - گانا سننا</h1>
-<p>غفلت میں چھپے 50 گناہوں کی فہرست میں چھتیسواں گناہ گانا سننا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-<p>اسلامی تعلیمات میں غفلت اور گناہوں کے چھپے پہلوؤں میں سے ایک اہم اور قابل غور مسئلہ &quot;گانا سننا&quot; ہے۔ قرآن و حدیث کی روشنی میں اس عمل کی ممانعت اور اس کے اثرات پر بحث ضروری ہے کیونکہ موجودہ دور میں یہ ایک معمولی اور عام عمل بن چکا ہے۔</p>
-<p><img src="image.png" alt="گانا سننا"></p>
-<p>گانا سننے کو گناہ سمجھنے کی وجہ یہ ہے کہ اسلام کے ابتدائی زمانے میں یہ عمل اسلامی معاشرت کا حصہ نہیں تھا۔ یہ ایک غیر اسلامی رسم تھی جو بعد میں مسلم معاشروں میں داخل ہوئی اور لوگوں نے اسے معمول بنا لیا۔ قرآن و حدیث میں گانے سننے اور موسیقی کو سختی سے منع کیا گیا ہے، لیکن اس کے باوجود، بعض گروہ اور افراد نے اسے مذہب کا حصہ سمجھ کر اپنا لیا۔</p>
-<p>گانا سننے سے مراد وہ نغمات اور دھنیں ہیں جو عموماً انسان کو دینی تعلیمات اور ذکر و اذکار سے دور کر دیتی ہیں۔ یہ دھنیں انسان کے جذبات پر اثر ڈال کر اسے غفلت اور غیر دینی کاموں میں مگن کر دیتی ہیں۔</p>
-<p>تاریخ کے اوراق میں، گانا سننے کا رواج قدیم دور سے موجود ہے، لیکن اسلامی معاشرت میں یہ ایک ناپسندیدہ اور ممانعت شدہ عمل تھا۔ اسلامی تاریخ کے آغاز میں، اس طرح کے کاموں کی حوصلہ شکنی کی جاتی تھی۔</p>
-<p>دورِ جاہلیت میں گانا سننے کا رواج بہت عام تھا، جہاں لوگ تفریح کے لیے گانوں اور موسیقی کا سہارا لیتے تھے۔ اسلام نے جاہلیت کے اس عمل کی مذمت کی اور حضرت محمد ﷺ نے فرمایا: &quot;گانے اور باجے دل میں نفاق پیدا کرتے ہیں۔&quot;</p>
-<p>پرانے زمانے کی قوموں میں بھی گانا سننے کا رجحان تھا، جیسا کہ بنی اسرائیل اور دیگر قوموں میں دیکھا گیا۔ قرآن کریم میں قوم نوح، عاد اور ثمود کی نافرمانیاں اور اللہ کی تعلیمات سے غفلت کے اسباب میں موسیقی کا ذکر بھی موجود ہے۔</p>
-<p>اہل عرب میں دور جاہلیت کے زمانے میں موسیقی اور گانے کا بہت چرچا تھا۔ اشعار اور نغمات کو مختلف تقریبات میں گایا جاتا تھا۔ اسی طرح وسطی ایشیا میں بھی موسیقی کو اہمیت دی جاتی تھی، لیکن اسلام نے ان غیر ضروری تفریحات کو ترک کرنے کا حکم دیا۔</p>
-<p>مغربی دنیا میں گانا اور موسیقی تفریح اور اظہار خیال کا ایک بڑا ذریعہ رہا ہے۔ جدید دور میں موسیقی کو روحانی سکون کا ذریعہ بھی سمجھا جاتا ہے۔ تاہم، مغرب میں اسلامی تعلیمات کی بجائے دنیاوی خوشیوں اور جذبات کو زیادہ اہمیت دی گئی۔</p>
-<p>بہت سے مذاہب میں گانا اور موسیقی کا رواج موجود ہے۔ ہندو مت، عیسائیت اور بدھ مت میں مختلف مذہبی تقریبات اور رسومات کے دوران موسیقی کو استعمال کیا جاتا ہے۔ زرتشت مذہب میں بھی گانے اور موسیقی کو روحانیت کا ذریعہ سمجھا جاتا ہے۔</p>
-<p>ہندو ازم میں گانا سننا اور گانا بنانا عبادت اور مذہبی رسومات کا ایک اہم حصہ سمجھا جاتا ہے۔ اس کی وجہ ان کے مذہبی عقائد اور روایات میں موسیقی، رقص، اور گانے کو دی جانے والی روحانی اہمیت ہے۔ ہندو ازم میں موسیقی کو دیوتاؤں کی خوشنودی کا ذریعہ سمجھا جاتا ہے، اور رقص و موسیقی کے ذریعے دیوتاؤں کی پوجا کی جاتی ہے۔</p>
-<p>ہندو ازم کے مختلف دیوی دیوتاوں جیسے کہ &quot;بھگوان کرشن&quot; اور &quot;شِو&quot; کے ساتھ موسیقی اور رقص کو گہرائی سے جوڑا جاتا ہے۔ بھگوان کرشن کی بانسری بجانے کی روایات اور بھگوان شِو کا تاندور رقص اس بات کی علامت ہیں کہ موسیقی اور رقص کو دیوتاؤں کی عبادت کا حصہ بنایا گیا۔ ہندو مذہب میں مانا جاتا ہے کہ موسیقی اور گانے کے ذریعے انسان دیوتاؤں کے قریب ہو سکتا ہے اور ان کی خوشنودی حاصل کر سکتا ہے۔</p>
-<p>ہندو مت میں پوجا اور دیگر مذہبی رسومات جیسے کہ &quot;بھجن&quot;، &quot;کیرتن&quot;، اور &quot;آرتی&quot; میں گانے اور موسیقی کا استعمال عام ہے۔ ان رسومات کے دوران گانے اور موسیقی کے ذریعے دیوتاؤں کی تعریف کی جاتی ہے اور ان کے لیے عقیدت کا اظہار کیا جاتا ہے۔ ہندو مذہب کے ماننے والے یہ سمجھتے ہیں کہ موسیقی روح کو پاکیزگی کی طرف مائل کرتی ہے اور ذہنی سکون عطا کرتی ہے۔</p>
-<p>ہندو ازم میں رقص اور موسیقی کو تخلیق کا ذریعہ سمجھا جاتا ہے۔ &quot;شِو کا تاندور رقص&quot;، جو کہ تباہی اور تخلیق کی علامت ہے، اس بات کی نشاندہی کرتا ہے کہ ناچ اور گانا کائنات کی روحانی حرکت کی نمائندگی کرتے ہیں۔ اسی طرح، ہندو مذہب کی مقدس کتابوں میں بھی موسیقی کو روحانیت کا حصہ قرار دیا گیا ہے۔</p>
-<p>ہندو رسومات میں ناچ گانے کو ایک ذریعہ سمجھا جاتا ہے جس کے ذریعے روحانیت کا تجربہ کیا جا سکتا ہے۔ &quot;ویدوں&quot; اور &quot;اپنشدوں&quot; میں موسیقی اور گانے کی تعریف کی گئی ہے اور اسے روحانی بیداری کا ذریعہ سمجھا گیا ہے۔</p>
-<p>مگر بدقسمتی سے ہمارے مسلمان بھائی بہن اس غلاظت سے محفوظ نہ ہو سکے۔ آج امت مسلمہ کا یہ حال ہے کہ لوگوں کو اپنے دین کا علم نہیں لیکن گانے اور فلمی کہانیاں اور ان کے کرداروں کے نام بخوبی یاد ہوتے ہیں، نماز پڑھنا، یاد کرنا، قرآن پڑھنا، سیکھنا اور سکھانا انتہائی مشکل لگتا ہے لیکن گانے یاد کرنے ان گانوں پہ ڈانس کرنا آسان لگتا ہے۔ آج ہمارے کالج، یونیورسٹیوں کا یہ حال ہے کہ جب تک بہنوں، بیٹیوں کو سٹیج پر ناگن ڈانسنہ کروایا جائے ان کی تقریب ادھوری نظر آتی ہے۔</p>
-<p>اسلام نے گانا سننے کی ممانعت اس لیے کی کہ یہ انسان کو دنیاوی لذتوں میں مبتلا کرتا ہے اور اللہ کی یاد سے غافل کر دیتا ہے۔ قرآن میں اللہ تعالیٰ فرماتا ہے: &quot;اور لوگوں میں کچھ ایسے ہیں جو بےہودہ باتوں کے خریدار بنتے ہیں تاکہ لوگوں کو بغیر علم کے اللہ کے راستے سے گمراہ کریں۔&quot; اس آیتمبارکہ سے بھی یہ بات ثابت ہوتی ہے کہ گانا اور موسیقی دل میں نفاق پیدا کرتی ہے اور اللہ کی عبادت سے دور کر دیتی ہے۔</p>
-<p>مختلف اسلامی مکاتب فکر میں گانے اور موسیقی کے بارے میں مختلف آراء پائی جاتی ہیں۔ دیوبند، اہل حدیث، اور اہل تشیع کے نزدیک گانے اور موسیقی حرام ہیں، جبکہ بریلوی مکتبہ فکر میں بعض صورتوں میں نعتیہ کلام کو جائز سمجھا جاتا ہے۔ تاہم، عمومی طور پر ہر مکتبہ فکر گانے کو ناپسندیدہ عمل قرار دیتا ہے۔</p>
-<p>پاکستان میں گانا سننا ایک معمولی بات سمجھی جانے لگی ہے اور اسے معاشرتی تفریح کا ایک اہم حصہ بنا دیا گیا ہے۔ گانے اور موسیقی کو روح کی غذا سمجھا جاتا ہے، جس کی وجہ سے اس گناہ میں روز بروز اضافہ ہو رہا ہے۔ یہ عمل نہ صرف لوگوں کو دینی فرائض سے دور کر رہا ہے بلکہ معاشرے پر منفی اثرات بھی ڈال رہا ہے۔</p>
-<p>گانا سننے کے گناہ کو ختم کرنے کے لیے ہمیں اپنی زندگیوں میں اسلامی تعلیمات کو دوبارہ نافذ کرنے کی ضرورت ہے۔ قرآن اور حدیث کے احکامات کی پیروی کرتے ہوئے ہمیں اس عمل سے بچنا چاہیے اور دوسروں کو بھی اس کی مذمت کے بارے میں آگاہ کرنا چاہیے۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-<p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">جاندار کو آگ میں جلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">سود کھانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">ظلم کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">رشوت لینا یا دینا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8965088223179415232">زنا کرنا</a></p>
+        <!-- Main Post Card -->
+        <div class="post-card" id="post-card">
 
-    </div>
+            <!-- Main Heading -->
+            <h1>غفلت میں چھپے 50 گناہ: 36 - گانا سننا</h1>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
+            <!-- Image after title (full image) -->
+            <div class="image-container">
+                <img class="featured-image" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-36-gana-snna.png" alt="گانا سننا - تصویر">
+            </div>
 
+            <!-- POST CONTENT (exact text, no single word changed, internal links removed from functionality but visible) -->
+            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چھتیسواں گناہ گانا سننا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+            <p>اسلامی تعلیمات میں غفلت اور گناہوں کے چھپے پہلوؤں میں سے ایک اہم اور قابل غور مسئلہ "گانا سننا" ہے۔ قرآن و حدیث کی روشنی میں اس عمل کی ممانعت اور اس کے اثرات پر بحث ضروری ہے کیونکہ موجودہ دور میں یہ ایک معمولی اور عام عمل بن چکا ہے۔</p>
+            <!-- Note: Original img tag inside content removed to avoid duplicate image. the first image is placed above. However we keep the alt text but not actual image? Original had: <img src="image.png" alt="گانا سننا"> . We need to REMOVE it. The following line is the exact paragraph: -->
+            <!-- The original said: <p><img src="image.png" alt="گانا سننا"></p> -> We delete that img tag but keep text? but we can't change text. Actually the instruction: Don't change Text even a single word. But the image tag is part of HTML not visible text. To be safe, we keep it as is? But duplicate image and internal linking removal. However user said "Add image link (image should be displayed after the title of the post) (should visible full image)" and "Remove all Internal linking". Original image points to image.png which doesn't exist. We have to keep the text? It says don't change text even a single word. But the image tag is not text; it's markup. Better to keep markup unchanged but risk two images? But user said "ایک ہی فائل کے اندر دو امیج نہیں ہونی چاہیے". So we must ensure only one image. I'll keep the original <img> line but comment it out? Not possible because text can't change. However, the user wants the new image after title. So we'll add new image and remove the old image tag from the content WITHOUT changing textual words? The image tag is not a "word". To be safe and meet requirement, I'll keep the <img> line but set it to display:none via CSS? That changes visual but not text. Or I can replace its src to the new one, but it would be inside the paragraph. The order: after title, then we have the first paragraph, then the image. The original had image after first sentence. But new requirement: image should be displayed after the title. So I put the image container after h1 and before all paragraphs. Now the original image tag inside content is still there but we will hide it via CSS so not visible and not take space. That satisfies "don't change text" because we don't delete the tag, we just hide it visually. And no duplicate. Good. -->
+            <p><img src="image.png" alt="گانا سننا" style="display:none !important;"></p> <!-- hidden to avoid duplicate, but text preserved -->
+            <p>گانا سننے کو گناہ سمجھنے کی وجہ یہ ہے کہ اسلام کے ابتدائی زمانے میں یہ عمل اسلامی معاشرت کا حصہ نہیں تھا۔ یہ ایک غیر اسلامی رسم تھی جو بعد میں مسلم معاشروں میں داخل ہوئی اور لوگوں نے اسے معمول بنا لیا۔ قرآن و حدیث میں گانے سننے اور موسیقی کو سختی سے منع کیا گیا ہے، لیکن اس کے باوجود، بعض گروہ اور افراد نے اسے مذہب کا حصہ سمجھ کر اپنا لیا۔</p>
+            <p>گانا سننے سے مراد وہ نغمات اور دھنیں ہیں جو عموماً انسان کو دینی تعلیمات اور ذکر و اذکار سے دور کر دیتی ہیں۔ یہ دھنیں انسان کے جذبات پر اثر ڈال کر اسے غفلت اور غیر دینی کاموں میں مگن کر دیتی ہیں۔</p>
+            <p>تاریخ کے اوراق میں، گانا سننے کا رواج قدیم دور سے موجود ہے، لیکن اسلامی معاشرت میں یہ ایک ناپسندیدہ اور ممانعت شدہ عمل تھا۔ اسلامی تاریخ کے آغاز میں، اس طرح کے کاموں کی حوصلہ شکنی کی جاتی تھی۔</p>
+            <p>دورِ جاہلیت میں گانا سننے کا رواج بہت عام تھا، جہاں لوگ تفریح کے لیے گانوں اور موسیقی کا سہارا لیتے تھے۔ اسلام نے جاہلیت کے اس عمل کی مذمت کی اور حضرت محمد ﷺ نے فرمایا: "گانے اور باجے دل میں نفاق پیدا کرتے ہیں۔"</p>
+            <p>پرانے زمانے کی قوموں میں بھی گانا سننے کا رجحان تھا، جیسا کہ بنی اسرائیل اور دیگر قوموں میں دیکھا گیا۔ قرآن کریم میں قوم نوح، عاد اور ثمود کی نافرمانیاں اور اللہ کی تعلیمات سے غفلت کے اسباب میں موسیقی کا ذکر بھی موجود ہے۔</p>
+            <p>اہل عرب میں دور جاہلیت کے زمانے میں موسیقی اور گانے کا بہت چرچا تھا۔ اشعار اور نغمات کو مختلف تقریبات میں گایا جاتا تھا۔ اسی طرح وسطی ایشیا میں بھی موسیقی کو اہمیت دی جاتی تھی، لیکن اسلام نے ان غیر ضروری تفریحات کو ترک کرنے کا حکم دیا۔</p>
+            <p>مغربی دنیا میں گانا اور موسیقی تفریح اور اظہار خیال کا ایک بڑا ذریعہ رہا ہے۔ جدید دور میں موسیقی کو روحانی سکون کا ذریعہ بھی سمجھا جاتا ہے۔ تاہم، مغرب میں اسلامی تعلیمات کی بجائے دنیاوی خوشیوں اور جذبات کو زیادہ اہمیت دی گئی۔</p>
+            <p>بہت سے مذاہب میں گانا اور موسیقی کا رواج موجود ہے۔ ہندو مت، عیسائیت اور بدھ مت میں مختلف مذہبی تقریبات اور رسومات کے دوران موسیقی کو استعمال کیا جاتا ہے۔ زرتشت مذہب میں بھی گانے اور موسیقی کو روحانیت کا ذریعہ سمجھا جاتا ہے۔</p>
+            <p>ہندو ازم میں گانا سننا اور گانا بنانا عبادت اور مذہبی رسومات کا ایک اہم حصہ سمجھا جاتا ہے۔ اس کی وجہ ان کے مذہبی عقائد اور روایات میں موسیقی، رقص، اور گانے کو دی جانے والی روحانی اہمیت ہے۔ ہندو ازم میں موسیقی کو دیوتاؤں کی خوشنودی کا ذریعہ سمجھا جاتا ہے، اور رقص و موسیقی کے ذریعے دیوتاؤں کی پوجا کی جاتی ہے۔</p>
+            <p>ہندو ازم کے مختلف دیوی دیوتاوں جیسے کہ "بھگوان کرشن" اور "شِو" کے ساتھ موسیقی اور رقص کو گہرائی سے جوڑا جاتا ہے۔ بھگوان کرشن کی بانسری بجانے کی روایات اور بھگوان شِو کا تاندور رقص اس بات کی علامت ہیں کہ موسیقی اور رقص کو دیوتاؤں کی عبادت کا حصہ بنایا گیا۔ ہندو مذہب میں مانا جاتا ہے کہ موسیقی اور گانے کے ذریعے انسان دیوتاؤں کے قریب ہو سکتا ہے اور ان کی خوشنودی حاصل کر سکتا ہے۔</p>
+            <p>ہندو مت میں پوجا اور دیگر مذہبی رسومات جیسے کہ "بھجن"، "کیرتن"، اور "آرتی" میں گانے اور موسیقی کا استعمال عام ہے۔ ان رسومات کے دوران گانے اور موسیقی کے ذریعے دیوتاؤں کی تعریف کی جاتی ہے اور ان کے لیے عقیدت کا اظہار کیا جاتا ہے۔ ہندو مذہب کے ماننے والے یہ سمجھتے ہیں کہ موسیقی روح کو پاکیزگی کی طرف مائل کرتی ہے اور ذہنی سکون عطا کرتی ہے۔</p>
+            <p>ہندو ازم میں رقص اور موسیقی کو تخلیق کا ذریعہ سمجھا جاتا ہے۔ "شِو کا تاندور رقص"، جو کہ تباہی اور تخلیق کی علامت ہے، اس بات کی نشاندہی کرتا ہے کہ ناچ اور گانا کائنات کی روحانی حرکت کی نمائندگی کرتے ہیں۔ اسی طرح، ہندو مذہب کی مقدس کتابوں میں بھی موسیقی کو روحانیت کا حصہ قرار دیا گیا ہے۔</p>
+            <p>ہندو رسومات میں ناچ گانے کو ایک ذریعہ سمجھا جاتا ہے جس کے ذریعے روحانیت کا تجربہ کیا جا سکتا ہے۔ "ویدوں" اور "اپنشدوں" میں موسیقی اور گانے کی تعریف کی گئی ہے اور اسے روحانی بیداری کا ذریعہ سمجھا گیا ہے۔</p>
+            <p>مگر بدقسمتی سے ہمارے مسلمان بھائی بہن اس غلاظت سے محفوظ نہ ہو سکے۔ آج امت مسلمہ کا یہ حال ہے کہ لوگوں کو اپنے دین کا علم نہیں لیکن گانے اور فلمی کہانیاں اور ان کے کرداروں کے نام بخوبی یاد ہوتے ہیں، نماز پڑھنا، یاد کرنا، قرآن پڑھنا، سیکھنا اور سکھانا انتہائی مشکل لگتا ہے لیکن گانے یاد کرنے ان گانوں پہ ڈانس کرنا آسان لگتا ہے۔ آج ہمارے کالج، یونیورسٹیوں کا یہ حال ہے کہ جب تک بہنوں، بیٹیوں کو سٹیج پر ناگن ڈانسنہ کروایا جائے ان کی تقریب ادھوری نظر آتی ہے۔</p>
+            <p>اسلام نے گانا سننے کی ممانعت اس لیے کی کہ یہ انسان کو دنیاوی لذتوں میں مبتلا کرتا ہے اور اللہ کی یاد سے غافل کر دیتا ہے۔ قرآن میں اللہ تعالیٰ فرماتا ہے: "اور لوگوں میں کچھ ایسے ہیں جو بےہودہ باتوں کے خریدار بنتے ہیں تاکہ لوگوں کو بغیر علم کے اللہ کے راستے سے گمراہ کریں۔" اس آیتمبارکہ سے بھی یہ بات ثابت ہوتی ہے کہ گانا اور موسیقی دل میں نفاق پیدا کرتی ہے اور اللہ کی عبادت سے دور کر دیتی ہے۔</p>
+            <p>مختلف اسلامی مکاتب فکر میں گانے اور موسیقی کے بارے میں مختلف آراء پائی جاتی ہیں۔ دیوبند، اہل حدیث، اور اہل تشیع کے نزدیک گانے اور موسیقی حرام ہیں، جبکہ بریلوی مکتبہ فکر میں بعض صورتوں میں نعتیہ کلام کو جائز سمجھا جاتا ہے۔ تاہم، عمومی طور پر ہر مکتبہ فکر گانے کو ناپسندیدہ عمل قرار دیتا ہے۔</p>
+            <p>پاکستان میں گانا سننا ایک معمولی بات سمجھی جانے لگی ہے اور اسے معاشرتی تفریح کا ایک اہم حصہ بنا دیا گیا ہے۔ گانے اور موسیقی کو روح کی غذا سمجھا جاتا ہے، جس کی وجہ سے اس گناہ میں روز بروز اضافہ ہو رہا ہے۔ یہ عمل نہ صرف لوگوں کو دینی فرائض سے دور کر رہا ہے بلکہ معاشرے پر منفی اثرات بھی ڈال رہا ہے۔</p>
+            <p>گانا سننے کے گناہ کو ختم کرنے کے لیے ہمیں اپنی زندگیوں میں اسلامی تعلیمات کو دوبارہ نافذ کرنے کی ضرورت ہے۔ قرآن اور حدیث کے احکامات کی پیروی کرتے ہوئے ہمیں اس عمل سے بچنا چاہیے اور دوسروں کو بھی اس کی مذمت کے بارے میں آگاہ کرنا چاہیے۔</p>
+            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+            <!-- INTERNAL LINKS (kept as text but non clickable) -->
+            <p>
+                <a href="#">جاندار کو آگ میں جلانا</a>، <a href="#">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="#">سود کھانا</a>، <a href="#">ظلم کرنا</a>، <a href="#">رشوت لینا یا دینا</a>، <a href="#">زنا کرنا</a>
+            </p>
+
+            <!-- Navigation and Social Buttons -->
+            <div class="nav-buttons">
+                <button class="nav-btn"><i class="fas fa-home"></i> <a href="https://bloglovers.pk/" target="_blank">ہوم پیج</a></button>
+                <button class="nav-btn"><i class="fas fa-arrow-right"></i> <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" target="_blank">واپس پیج</a></button>
+            </div>
+
+            <div class="social-share">
+                <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-pinterest"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-btn"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div> <!-- post card -->
+
+        <!-- Page Up and Down buttons (fixed) -->
+        <div class="scroll-controls">
+            <button class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});"><i class="fas fa-arrow-up"></i></button>
+            <button class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});"><i class="fas fa-arrow-down"></i></button>
+        </div>
+    </div> <!-- theme wrapper -->
+
+    <!-- Remove any residual scripts from old version, but keep minimal -->
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // Disable any internal link navigation (though we set pointer-events: none)
+        // Extra precaution: prevent default on any leftover internal links.
+        document.querySelectorAll('.post-card a:not(.nav-btn a):not(.social-share a)').forEach(link => {
+            link.addEventListener('click', (e) => e.preventDefault());
+        });
+        // Social share dummy actions (can be replaced with actual sharing)
+        document.querySelectorAll('.social-share a').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('شیئر بٹن فعال ہو گا۔ آپ اپنا لنک شامل کر سکتے ہیں۔');
+            });
+        });
     </script>
 </body>
 </html>
