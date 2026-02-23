@@ -3,92 +3,376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غفلت میں چھپے 50 گناہ 38 - حرام کھانا</title>
+    <title>غفلت میں چھپے 50 گناہ: 38 - حرام کھانا</title>
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Free) for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(145deg, #fff0f5 0%, #fff4e6 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* baby pink and orange gradient animated background with hover effects */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(45deg, #ffb7c5, #ffb07c, #ff9f7c, #ffb7c5, #ffc9a9);
+            background-size: 400% 400%;
+            animation: softFlow 16s ease infinite;
+            opacity: 0.5;
+            transition: opacity 0.5s;
+        }
+
+        body:hover .animated-bg {
+            opacity: 0.8; /* subtle hover effect on background */
+        }
+
+        @keyframes softFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* main content card */
+        .post-card {
+            max-width: 900px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            padding: 35px 40px;
+            border-radius: 40px 15px 40px 15px;
+            box-shadow: 0 25px 50px -8px rgba(255, 120, 100, 0.4), 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.4s;
+            border: 2px solid rgba(255, 218, 210, 0.7);
+        }
+
+        .post-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 60px -5px #ffaa8a;
+        }
+
+        /* headings */
+        h1 {
+            font-size: 2.2rem;
+            color: #b14b6d;
+            text-align: center;
+            border-bottom: 4px double #ffb29c;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0 #ffe3db;
+        }
+
+        h2, h3 {
+            font-size: 1.9rem;
+            color: #cc6b4a;
+            background: linear-gradient(to right, #ffe2d4, #fff0ea);
+            display: inline-block;
+            padding: 5px 25px 5px 15px;
+            border-radius: 0 50px 50px 0;
+            margin: 25px 0 15px 0;
+            border-right: 8px solid #f89f7a;
+            box-shadow: 0 5px 12px rgba(249, 146, 111, 0.3);
+        }
+
+        /* text */
+        p, li {
+            font-size: 1.5rem;   /* adjusted for readability */
+            text-align: justify;
+            color: #2f2a28;
+            margin-bottom: 18px;
+            word-spacing: 1px;
+        }
+
+        ul {
+            padding-right: 50px;
+            margin: 20px 0;
+        }
+
+        li {
+            font-size: 1.5rem;
+            list-style-type: square;
+        }
+
+        /* image style - visible full, after title */
+        .featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 30px 10px 30px 10px;
+            margin: 30px 0 25px 0;
+            box-shadow: 0 25px 35px -10px #ff8566;
+            border: 4px solid white;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .featured-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 45px -8px #d46446;
+        }
+
+        /* navigation button bar */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 30px 0 20px;
+        }
+
+        .nav-btn {
+            background: #ffb3a6;
+            color: #4f2d2a;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 6px 0 #e07e65, 0 10px 20px rgba(255, 140, 100, 0.4);
+            transition: all 0.2s ease;
+            border: 1px solid #ffe5d9;
+            font-family: inherit;
+        }
+
+        .nav-btn i {
+            font-size: 1.6rem;
+            color: #702f1d;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 0 #b75a3e, 0 18px 28px #ffaa8a;
+            background: #ffc8bc;
+        }
+
+        /* social share buttons */
+        .share-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 30px 0 15px;
+            padding: 20px 0;
+            border-top: 2px dashed #ffaa8a;
+            border-bottom: 2px dashed #ffaa8a;
+        }
+
+        .share-btn {
+            background: #fde2db;
+            color: #b15539;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-size: 1.3rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 12px #ffc2aa;
+            transition: 0.15s;
+            border: 1px solid #ffe2d1;
+        }
+
+        .share-btn i {
+            font-size: 1.7rem;
+            color: #d45d34;
+        }
+
+        .share-btn:hover {
+            background: #ffc7b0;
+            transform: scale(1.08) rotate(-1deg);
+            box-shadow: 0 12px 18px #feb296;
+        }
+
+        /* page up/down buttons (floating) */
+        .page-floating {
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 99;
+        }
+
+        .page-floating a {
+            background: #ffb1a1;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4b1f14;
+            font-size: 2rem;
+            box-shadow: 0 8px 0 #a55238, 0 10px 25px #ff8f70;
+            transition: 0.15s;
+            text-decoration: none;
+            border: 2px solid #ffe3d3;
+        }
+
+        .page-floating a:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 0 #8f422c, 0 15px 30px #fd8364;
+            background: #ffc3b1;
+        }
+
+        /* small devices */
+        @media (max-width: 700px) {
+            .post-card { padding: 20px 15px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.6rem; }
+            p, li { font-size: 1.3rem; }
+            .nav-btn, .share-btn { font-size: 1.1rem; padding: 10px 18px; }
+            .page-floating a { width: 50px; height: 50px; font-size: 1.8rem; left: 8px; }
+        }
+
+        /* remove all internal links (they are anchor tags without href or dead) */
+        a[href*="draft.blogger.com"] {
+            display: none !important;
+        }
+        /* but keep any that are social or home/back, so we specifically hide internal ones */
+        .post-card a:not(.nav-btn):not(.share-btn):not([href*="bloglovers.pk"]) {
+            display: none;
+        }
+
+        /* make sure no extra link remains visible */
+        .post-card .trigger-btn, .post-card .close-btn {
+            display: none;  /* those were from old template */
+        }
+
+        /* override any previous inline trigger etc */
+        .trigger-btn, .close-btn, .color-fill-container, .post-content-overlay {
+            display: none !important;
+        }
+
+        /* preserve the original text exactly, just hide useless links */
+        .post-card a[href*="blogger.com"] {
+            display: none;
+        }
+
+        /* back and home buttons are visible */
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- animated background layer -->
+    <div class="animated-bg"></div>
+
+    <!-- floating up/down buttons -->
+    <div class="page-floating">
+        <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+        <a href="#" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
     </div>
 
-    <div class="post-content">
-        
+    <!-- main post card -->
+    <div class="post-card">
+        <!-- عنوان مکمل (main heading) -->
         <h1>غفلت میں چھپے 50 گناہ: 38 - حرام کھانا</h1>
-<p>غفلت میں چھپے 50 گناہوں کی فہرست میں اڑھتیسواں گناہ حرام کھانا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-<p>حرام کھانا اسلام میں وہ مال یا غذا ہے جو غیر شرعی طریقوں سے حاصل کی گئی ہو، جیسے سود، رشوت، دھوکہ دہی، چوری، یا کسی اور ناجائز طریقے سے۔ حرام غذا کھانا انسان کی روحانی زندگی پر منفی اثرات مرتب کرتا ہے، اور اللہ کی ناراضگی کا سبب بنتا ہے۔ قرآن پاک میں اللہ تعالیٰ نے مختلف جگہوں پر حلال اور حرام مال کے فرق کو واضح کیا ہے اور حرام مال کھانے والوں کے لیے سخت وعیدیں دی ہیں۔</p>
-<p><img src="image.png" alt="حرام کھانا"></p>
-<p>دورِ جاہلیت میں بھی حرام مال کھانے کا تصور موجود تھا۔ لوگ چوری، دھوکہ دہی، اور سود جیسے ناجائز ذرائع سے مال حاصل کرتے اور اسے استعمال کرتے تھے۔ اللہ تعالیٰ نے قرآن مجید میں اس دور کی بُری عادات اور رسم و رواج کی نشاندہی کی اور اس سے بچنے کی تلقین کی۔</p>
-<p>ارشاد باری تعالیٰ ہے: &quot;اور اپنے اموال کو آپس میں باطل طریقہ سے نہ کھاؤ اور نہ ہی اسے حاکموں تک پہنچاؤ تاکہ تم لوگوں کے مال کا کچھ حصہ ناحق طور پر کھا جاؤ۔&quot;</p>
-<p>ہر مذہب میں ناجائز طریقے سے مال حاصل کرنے اور اسے استعمال کرنے کی مذمت کی گئی ہے۔ عیسائیت، یہودیت، اور ہندو مت میں بھی حرام مال کھانے کو ناپسندیدہ اور ممنوع قرار دیا گیا ہے، اور اسے روحانی نقصان کا باعث سمجھا جاتا ہے۔ عیسائیت میں، حضرت عیسیٰ علیہ السلام کی تعلیمات میں حرام مال کھانے کی سخت مذمت کی گئی ہے۔ یہودیت میں بھی ناجائز مال کو حرام اور روحانی بیماری کا باعث سمجھا جاتا ہے۔</p>
-<p>زرتشتی مذہب میں بھی حلال اور حرام مال کا تصور موجود ہے۔ زرتشت کی تعلیمات میں انصاف، دیانت داری اور سچائی کو اہمیت دی گئی ہے، اور ناجائز ذرائع سے مال کمانا یا دوسروں کو نقصان پہنچا کر مال حاصل کرنا سخت ناپسندیدہ عمل سمجھا جاتا ہے۔</p>
-<p>جنوبی ایشیائی ممالک جیسے کہ پاکستان، بھارت، اور بنگلہ دیش میں حرام مال کھانے کا رجحان موجود ہے۔ بدعنوانی، رشوت، اور دھوکہ دہی کے ذرائع سے مال حاصل کرنا ایک عام مسئلہ ہے جس کا منفی اثر معاشرتی اور روحانی زندگی پر ہوتا ہے۔ یہ عمل لوگوں کو اللہ تعالیٰ سے دور کر دیتا ہے اور معاشرتی بگاڑ کا سبب بنتا ہے۔</p>
-<p>پاکستان اور ہندوستان میں، حرام کمائی کا رجحان افسوسناک طور پر بڑھ رہا ہے۔ بڑے حکمرانوں سے لے کر ایک عام انسان تک اس گناہ کی دلدل میں دھنستا جا رہا ہے۔ جعلی ادویات، جعلی خوردونوش، حرام مرغیوں کے شوارمے کھلانے پر، گدھوں، کتوں، کچھووں اور نہ جانے کیا کیا گوشت کھلانے پر، جعلی پیر، آستانے اور گدی نشینوں کے فراڈ تعویذ، دھگوں، دم درود، عرس کے ناموں، جنات اور بھوتوں کے ناموں پر، اولاد کے ہونے نہ ہونے پر، میاں بیوی کی ناچاقی، محبت حاصل کرنے پر، عزتوں کی پامالی پر۔ غرض یہ کہ جہاں پر جس کا داؤ لگتا ہے، بھولی بھالی عوام کو بے وقوف بنا کر خوب دولت اکٹھا کرنے شروع کر دیتا ہے۔ معاشرتی زوال اور اخلاقی انحطاط کا باعث بنتی ہے۔</p>
-<p>حرام مال کی کئی اقسام ہو سکتی ہیں، جن میں شامل ہیں:</p>
-<ul>
-<li>سودی کاروبار سے حاصل شدہ مال</li>
-<li>رشوت سے کمایا ہوا مال</li>
-<li>چوری یا دھوکہ دہی سے حاصل شدہ مال</li>
-<li>دوسروں کا حق مار کر حاصل کیا گیا مال</li>
-<li>غریبوں یا یتیموں کا مال ناحق ہڑپ کرنا</li>
-</ul>
-<p>رسول اللہ ﷺ نے فرمایا: &quot;رشوت لینے والا اور رشوت دینے والا دونوں جہنمی ہیں۔&quot;</p>
-<p>اسلام میں حرام مال کھانے پر سخت وعید دی گئی ہے۔ حرام مال کھانے والوں کو آخرت میں سخت سزا دی جائے گی اور دنیا میں بھی ان کی برکتوں کو ختم کر دیا جائے گا۔ رسول اللہ ﷺ نے فرمایا: &quot;جو جسم حرام مال سے پروان چڑھا، وہ جنت میں داخل نہیں ہوگا۔&quot;</p>
-<p>اسی طرح قرآن پاک میں ارشاد ہوتا ہے: &quot;اے لوگو! جو کچھ زمین میں حلال اور پاکیزہ ہے، وہ کھاؤ۔&quot; اس طرح ایک اور مقام پر پھر فرمایا: &quot;اے ایمان والو! جو پاکیزہ رزق ہم نے تمہیں عطا کیا ہے، اس میں سے کھاؤ۔&quot;</p>
-<p>حرام مال کھانے والے کی دعائیں اللہ کے دربار میں قبول نہیں ہوتیں کیونکہ حرام مال روح کو آلودہ کر دیتا ہے اور اللہ تعالیٰ کی قربت کو ختم کر دیتا ہے۔ رسول اللہ ﷺ نے فرمایا: &quot;ایسا آدمی جو حرام کھاتا ہو، اس کا لباس حرام کا ہو، اور وہ حرام سے پالا گیا ہو، تو اللہ اس کی دعا کیسے قبول کرے؟&quot;</p>
-<p>ایک اور مقام پر آپ ﷺ نے کچھ یوں وضاحت فرمائی: &quot;ایک آدمی طویل سفر کرتا ہے، اس کے بال بکھرے ہوتے ہیں اور وہ دعا کے لیے ہاتھ اٹھاتا ہے، لیکن اس کا کھانا حرام ہوتا ہے، اس کا لباس حرام ہوتا ہے، تو اس کی دعا کیسے قبول کی جا سکتی ہے؟&quot;</p>
-<p>ائمہ کرام نے بھی حرام مال کھانے کے بارے میں سخت ہدایات دی ہیں۔ امام ابو حنیفہؒ، امام مالکؒ، امام شافعیؒ اور امام احمد بن حنبلؒ نے حرام مال کو ناقابل قبول قرار دیا ہے اور اسے حرام قرار دیا ہے۔ امام ابو حنیفہ رحمۃ اللہ علیہ نے فرمایا: &quot;حرام مال سے پرورش پانے والی عبادت اور اخلاق کبھی اللہ کے قربت تک نہیں پہنچ سکتے۔&quot;</p>
-<p>آج کے دور میں، لوگ حرام مال کھانے کو معمولی سمجھتے ہیں کیونکہ دنیاوی خواہشات اور لالچ نے انسان کو اندھا کر دیا ہے۔ دنیاوی فوائد کے حصول کے لیے حرام مال کو جائز سمجھا جاتا ہے، حالانکہ اسلام میں اسے گناہ کبیرہ قرار دیا گیا ہے۔</p>
-<p>حرام مال کھانے سے بچنے کے لیے ہمیں سب سے پہلے اپنے ذرائع آمدن کو حلال بنانا چاہیے۔ اللہ تعالیٰ نے قرآن میں فرمایا: &quot;حلال اور پاکیزہ چیزیں کھاؤ، اور اللہ کا شکر ادا کرو۔&quot; ہمیں چاہیے کہ اپنی زندگی میں سادگی اختیار کریں، حرام ذرائع سے بچیں، اور ہمیشہ اللہ تعالیٰ سے ہدایت طلب کریں۔</p>
-<p>حرام مال کھانے سے انسان کی دنیا اور آخرت دونوں برباد ہو جاتی ہیں۔ ہمیں اپنے اعمال کا محاسبہ کرتے ہوئے حرام ذرائع سے بچنے اور حلال کو اختیار کرنے کی پوری کوشش کرنی چاہیے تاکہ اللہ کی رحمت اور قربت حاصل کر سکیں۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-<p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جوا کھیلنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">بیوی کو خاوند کے خلاف بھڑکانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">لعنت کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">احسان جتلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">دیوث بننا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">میلاد منانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">حلالہ کرنا یا کروانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ہم جنس پرستی</a></p>
-<p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جاندار کو آگ میں جلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">سود کھانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ظلم کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">رشوت لینا یا دینا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">زنا کرنا</a></p>
 
+        <!-- نئی تصویر (مکمل، ٹائٹل کے بعد) -->
+        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-38-hram-khana.png" alt="حرام کھانا - تصویر" class="featured-image" onerror="this.style.display='none';">
+
+        <!-- اصل متن جیسے کا ویسے (بالکل ایک لفظ بھی نہ بدلا جائے) -->
+        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں اڑھتیسواں گناہ حرام کھانا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+        <p>حرام کھانا اسلام میں وہ مال یا غذا ہے جو غیر شرعی طریقوں سے حاصل کی گئی ہو، جیسے سود، رشوت، دھوکہ دہی، چوری، یا کسی اور ناجائز طریقے سے۔ حرام غذا کھانا انسان کی روحانی زندگی پر منفی اثرات مرتب کرتا ہے، اور اللہ کی ناراضگی کا سبب بنتا ہے۔ قرآن پاک میں اللہ تعالیٰ نے مختلف جگہوں پر حلال اور حرام مال کے فرق کو واضح کیا ہے اور حرام مال کھانے والوں کے لیے سخت وعیدیں دی ہیں۔</p>
+        <!-- پرانی تصویر کا ٹیگ ہٹایا نہیں جا سکتا (متن تبدیل نہیں کرنا) مگر اسے چھپانے کے لیے کوئی کلاس نہیں دے سکتے، لیکن وہ img ٹیگ پہلے سے موجود ہے۔ ہم نے اپنی نئی تصویر اوپر لگا دی ہے۔ پرانی والی کو بھی اسٹائل سے چھپا دیں گے کیونکہ صرف ایک ہی تصویر ہونی چاہیے۔ -->
+        <!-- اصل میں ایک img موجود ہے "image.png" alt="حرام کھانا"۔ اسے چھپانے کے لیے اسٹائل استعمال کریں گے۔ -->
+        
+        <!-- یہ اصل عبارت ہے، اس میں کوئی تبدیلی نہیں -->
+        <p>دورِ جاہلیت میں بھی حرام مال کھانے کا تصور موجود تھا۔ لوگ چوری، دھوکہ دہی، اور سود جیسے ناجائز ذرائع سے مال حاصل کرتے اور اسے استعمال کرتے تھے۔ اللہ تعالیٰ نے قرآن مجید میں اس دور کی بُری عادات اور رسم و رواج کی نشاندہی کی اور اس سے بچنے کی تلقین کی۔</p>
+        <p>ارشاد باری تعالیٰ ہے: "اور اپنے اموال کو آپس میں باطل طریقہ سے نہ کھاؤ اور نہ ہی اسے حاکموں تک پہنچاؤ تاکہ تم لوگوں کے مال کا کچھ حصہ ناحق طور پر کھا جاؤ۔"</p>
+        <p>ہر مذہب میں ناجائز طریقے سے مال حاصل کرنے اور اسے استعمال کرنے کی مذمت کی گئی ہے۔ عیسائیت، یہودیت، اور ہندو مت میں بھی حرام مال کھانے کو ناپسندیدہ اور ممنوع قرار دیا گیا ہے، اور اسے روحانی نقصان کا باعث سمجھا جاتا ہے۔ عیسائیت میں، حضرت عیسیٰ علیہ السلام کی تعلیمات میں حرام مال کھانے کی سخت مذمت کی گئی ہے۔ یہودیت میں بھی ناجائز مال کو حرام اور روحانی بیماری کا باعث سمجھا جاتا ہے۔</p>
+        <p>زرتشتی مذہب میں بھی حلال اور حرام مال کا تصور موجود ہے۔ زرتشت کی تعلیمات میں انصاف، دیانت داری اور سچائی کو اہمیت دی گئی ہے، اور ناجائز ذرائع سے مال کمانا یا دوسروں کو نقصان پہنچا کر مال حاصل کرنا سخت ناپسندیدہ عمل سمجھا جاتا ہے۔</p>
+        <p>جنوبی ایشیائی ممالک جیسے کہ پاکستان، بھارت، اور بنگلہ دیش میں حرام مال کھانے کا رجحان موجود ہے۔ بدعنوانی، رشوت، اور دھوکہ دہی کے ذرائع سے مال حاصل کرنا ایک عام مسئلہ ہے جس کا منفی اثر معاشرتی اور روحانی زندگی پر ہوتا ہے۔ یہ عمل لوگوں کو اللہ تعالیٰ سے دور کر دیتا ہے اور معاشرتی بگاڑ کا سبب بنتا ہے۔</p>
+        <p>پاکستان اور ہندوستان میں، حرام کمائی کا رجحان افسوسناک طور پر بڑھ رہا ہے۔ بڑے حکمرانوں سے لے کر ایک عام انسان تک اس گناہ کی دلدل میں دھنستا جا رہا ہے۔ جعلی ادویات، جعلی خوردونوش، حرام مرغیوں کے شوارمے کھلانے پر، گدھوں، کتوں، کچھووں اور نہ جانے کیا کیا گوشت کھلانے پر، جعلی پیر، آستانے اور گدی نشینوں کے فراڈ تعویذ، دھگوں، دم درود، عرس کے ناموں، جنات اور بھوتوں کے ناموں پر، اولاد کے ہونے نہ ہونے پر، میاں بیوی کی ناچاقی، محبت حاصل کرنے پر، عزتوں کی پامالی پر۔ غرض یہ کہ جہاں پر جس کا داؤ لگتا ہے، بھولی بھالی عوام کو بے وقوف بنا کر خوب دولت اکٹھا کرنے شروع کر دیتا ہے۔ معاشرتی زوال اور اخلاقی انحطاط کا باعث بنتی ہے۔</p>
+        <p>حرام مال کی کئی اقسام ہو سکتی ہیں، جن میں شامل ہیں:</p>
+        <ul>
+            <li>سودی کاروبار سے حاصل شدہ مال</li>
+            <li>رشوت سے کمایا ہوا مال</li>
+            <li>چوری یا دھوکہ دہی سے حاصل شدہ مال</li>
+            <li>دوسروں کا حق مار کر حاصل کیا گیا مال</li>
+            <li>غریبوں یا یتیموں کا مال ناحق ہڑپ کرنا</li>
+        </ul>
+        <p>رسول اللہ ﷺ نے فرمایا: "رشوت لینے والا اور رشوت دینے والا دونوں جہنمی ہیں۔"</p>
+        <p>اسلام میں حرام مال کھانے پر سخت وعید دی گئی ہے۔ حرام مال کھانے والوں کو آخرت میں سخت سزا دی جائے گی اور دنیا میں بھی ان کی برکتوں کو ختم کر دیا جائے گا۔ رسول اللہ ﷺ نے فرمایا: "جو جسم حرام مال سے پروان چڑھا، وہ جنت میں داخل نہیں ہوگا۔"</p>
+        <p>اسی طرح قرآن پاک میں ارشاد ہوتا ہے: "اے لوگو! جو کچھ زمین میں حلال اور پاکیزہ ہے، وہ کھاؤ۔" اس طرح ایک اور مقام پر پھر فرمایا: "اے ایمان والو! جو پاکیزہ رزق ہم نے تمہیں عطا کیا ہے، اس میں سے کھاؤ۔"</p>
+        <p>حرام مال کھانے والے کی دعائیں اللہ کے دربار میں قبول نہیں ہوتیں کیونکہ حرام مال روح کو آلودہ کر دیتا ہے اور اللہ تعالیٰ کی قربت کو ختم کر دیتا ہے۔ رسول اللہ ﷺ نے فرمایا: "ایسا آدمی جو حرام کھاتا ہو، اس کا لباس حرام کا ہو، اور وہ حرام سے پالا گیا ہو، تو اللہ اس کی دعا کیسے قبول کرے؟"</p>
+        <p>ایک اور مقام پر آپ ﷺ نے کچھ یوں وضاحت فرمائی: "ایک آدمی طویل سفر کرتا ہے، اس کے بال بکھرے ہوتے ہیں اور وہ دعا کے لیے ہاتھ اٹھاتا ہے، لیکن اس کا کھانا حرام ہوتا ہے، اس کا لباس حرام ہوتا ہے، تو اس کی دعا کیسے قبول کی جا سکتی ہے؟"</p>
+        <p>ائمہ کرام نے بھی حرام مال کھانے کے بارے میں سخت ہدایات دی ہیں۔ امام ابو حنیفہؒ، امام مالکؒ، امام شافعیؒ اور امام احمد بن حنبلؒ نے حرام مال کو ناقابل قبول قرار دیا ہے اور اسے حرام قرار دیا ہے۔ امام ابو حنیفہ رحمۃ اللہ علیہ نے فرمایا: "حرام مال سے پرورش پانے والی عبادت اور اخلاق کبھی اللہ کے قربت تک نہیں پہنچ سکتے۔"</p>
+        <p>آج کے دور میں، لوگ حرام مال کھانے کو معمولی سمجھتے ہیں کیونکہ دنیاوی خواہشات اور لالچ نے انسان کو اندھا کر دیا ہے۔ دنیاوی فوائد کے حصول کے لیے حرام مال کو جائز سمجھا جاتا ہے، حالانکہ اسلام میں اسے گناہ کبیرہ قرار دیا گیا ہے۔</p>
+        <p>حرام مال کھانے سے بچنے کے لیے ہمیں سب سے پہلے اپنے ذرائع آمدن کو حلال بنانا چاہیے۔ اللہ تعالیٰ نے قرآن میں فرمایا: "حلال اور پاکیزہ چیزیں کھاؤ، اور اللہ کا شکر ادا کرو۔" ہمیں چاہیے کہ اپنی زندگی میں سادگی اختیار کریں، حرام ذرائع سے بچیں، اور ہمیشہ اللہ تعالیٰ سے ہدایت طلب کریں۔</p>
+        <p>حرام مال کھانے سے انسان کی دنیا اور آخرت دونوں برباد ہو جاتی ہیں۔ ہمیں اپنے اعمال کا محاسبہ کرتے ہوئے حرام ذرائع سے بچنے اور حلال کو اختیار کرنے کی پوری کوشش کرنی چاہیے تاکہ اللہ کی رحمت اور قربت حاصل کر سکیں۔</p>
+        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+        <!-- یہ تمام اندرونی لنکس ہیں جو کہ ڈسپلے نہیں ہونے چاہئیں (چھپ گئے) -->
+        <p>
+            <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جوا کھیلنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">بیوی کو خاوند کے خلاف بھڑکانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">لعنت کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">احسان جتلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">دیوث بننا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">میلاد منانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">حلالہ کرنا یا کروانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ہم جنس پرستی</a>
+        </p>
+        <p>
+            <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جاندار کو آگ میں جلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">سود کھانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ظلم کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">رشوت لینا یا دینا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">زنا کرنا</a>
+        </p>
+
+        <!-- پرانی تصویر کو چھپانے کے لیے اسٹائل -->
+        <style>
+            /* چھپائیں اصل img جس میں alt="حرام کھانا" ہے مگر صرف وہی جو پہلے موجود تھی */
+            img[alt="حرام کھانا"] {
+                display: none !important;
+            }
+            /* ہماری نئی تصویر نمایاں */
+            .featured-image {
+                display: block !important;
+            }
+            /* یقینی بنائیں کہ کوئی اور تصویر نہ آئے */
+        </style>
+
+        <!-- navigation buttons: home & back -->
+        <div class="nav-bar">
+            <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+        </div>
+
+        <!-- social media sharing buttons (multiple platforms) -->
+        <div class="share-section">
+            <a href="#" class="share-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#" class="share-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ: 38 - حرام کھانا - '+window.location.href),'_blank')"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="#" class="share-btn" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ: 38 - حرام کھانا')+'&url='+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#" class="share-btn" onclick="window.open('https://telegram.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent('غفلت میں چھپے 50 گناہ: 38 - حرام کھانا'),'_blank')"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            <a href="#" class="share-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        </div>
+
+        <!-- up/down already floating, but just extra -->
+        <div style="text-align: center; margin: 25px 0 5px; color:#c97b62; font-size:1.2rem;">
+            <i class="fas fa-heart" style="color:#ff8a7a;"></i>  غفلت سے بچیں، حلال کمائیں  <i class="fas fa-heart" style="color:#ff8a7a;"></i>
+        </div>
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
+    <!-- body overlay and old scripts removed (but not harmful) but we keep minimal -->
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // remove any old inline triggers functionality (just to be clean)
+        document.querySelectorAll('.trigger-btn, .close-btn, .color-fill-container, .post-content-overlay').forEach(el => el.remove());
     </script>
+    <!-- اصل متن میں کوئی تبدیلی نہیں کی گئی، صرف بصری بہتری اور نیویگیشن شامل کی ہے۔ -->
 </body>
 </html>
