@@ -4,87 +4,370 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>غفلت میں چھپے 50 گناہ 45۔ مسجد میں لوگوں کی گردنوں کو پھلانگ کر آگے بڑھنا</title>
+    <!-- فانٹ اور فانٹ اوسم شامل ہیں -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: #fff8f0; /* ہلکا گرم پس منظر */
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ---------- بیبی اورنج اینیمیٹڈ بیک گراؤنڈ (وائبرنٹ وائٹ کے ساتھ) ---------- */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #fff8e7, #fff2d7, #ffe6c4, #fff8e7);
+            background-size: 300% 300%;
+            animation: bgMove 16s ease infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* نارنجی ببلز (hover effect کے لیے) */
+        .orange-bubble {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.2) 0%, rgba(255, 140, 0, 0.05) 80%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatBubble 18s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatBubble {
+            0% { transform: translate(10px, 10px) scale(1); }
+            25% { transform: translate(30px, -20px) scale(1.1); }
+            50% { transform: translate(-20px, 30px) scale(0.9); }
+            75% { transform: translate(20px, -30px) scale(1.05); }
+            100% { transform: translate(-10px, 20px) scale(1); }
+        }
+
+        .bubble1 { top: 5%; left: 5%; width: 200px; height: 200px; }
+        .bubble2 { bottom: 10%; right: 5%; width: 250px; height: 250px; animation-duration: 20s; }
+        .bubble3 { top: 20%; right: 15%; width: 180px; height: 180px; animation-duration: 14s; }
+        .bubble4 { bottom: 15%; left: 10%; width: 220px; height: 220px; animation-duration: 22s; }
+
+        /* ---------- مین کنٹینر ---------- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 30px 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(255, 140, 0, 0.25);
+            border: 2px solid rgba(255, 165, 0, 0.5);
+        }
+
+        /* ---------- بٹنز (ہوور ایفیکٹس کے ساتھ) ---------- */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(145deg, #ffb347, #ff8c00);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 6px 15px rgba(255, 140, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            cursor: pointer;
+            font-family: inherit;
+            letter-spacing: 0.5px;
+        }
+
+        .btn i {
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        /* ہوور ایفیکٹس */
+        .btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(255, 140, 0, 0.7);
+            background: linear-gradient(145deg, #ffa726, #ff6f00);
+        }
+
+        .btn:hover i {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .social-btn {
+            background: #fff;
+            color: #ff8c00;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 10px 18px;
+            font-size: 16px;
+        }
+
+        .social-btn:hover {
+            background: #ff8c00;
+            color: white;
+        }
+
+        /* ---------- پوسٹ کا مواد ---------- */
+        .post-content {
+            padding: 10px 5px;
+        }
+
+        h1 {
+            font-size: 2.4rem; /* نارمل سائز سے بڑا مگر مناسب */
+            color: #b45f06;
+            text-align: center;
+            border-bottom: 4px solid #ffb347;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 165, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #d35400;
+            background: linear-gradient(to right, transparent, #ffe6cc, transparent);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 30px 0 20px;
+            box-shadow: 0 4px 8px rgba(255, 140, 0, 0.2);
+            border-right: 6px solid #ff8c00;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #e67e22;
+            margin: 20px 0;
+            padding-right: 15px;
+            border-right: 4px solid #ffb347;
+        }
+
+        p {
+            font-size: 1.5rem;
+            text-align: justify;
+            margin-bottom: 25px;
+            color: #3e2c1a;
+            line-height: 2.3;
+        }
+
+        /* تصویر والا حصہ */
+        .post-image {
+            margin: 30px 0;
+            text-align: center;
+            background: linear-gradient(145deg, #fff, #fff2e0);
+            padding: 15px;
+            border-radius: 40px;
+            box-shadow: 0 15px 30px rgba(255, 140, 0, 0.25);
+        }
+
+        .post-image img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            border-radius: 30px;
+            border: 4px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.4s;
+        }
+
+        .post-image img:hover {
+            transform: scale(1.01);
+        }
+
+        /* مضبوط ٹیگز */
+        strong {
+            color: #c95f0c;
+            font-size: 1.7rem;
+        }
+
+        a {
+            color: #e67e22;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* اپ ڈاؤن بٹنز */
+        .up-down-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 99;
+        }
+
+        .up-down-btn {
+            background: #ffa726;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.5);
+            border: 2px solid white;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .up-down-btn:hover {
+            background: #ff8c00;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 12px 25px #ff8c00;
+        }
+
+        /* فوٹر سوشل بار */
+        .social-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+            padding-top: 20px;
+            border-top: 3px dashed #ffb347;
+        }
+
+        /* ریسپانسو */
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.8rem; }
+            p { font-size: 1.3rem; }
+            .btn { padding: 10px 16px; font-size: 16px; }
+            .nav-buttons { flex-direction: column; align-items: stretch; }
+            .nav-left, .nav-right { justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            p { font-size: 1.2rem; }
+            .btn { width: 100%; }
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+
+    <!-- اینیمیٹڈ بیبی اورنج بیک گراؤنڈ -->
+    <div class="animated-bg"></div>
+    <div class="orange-bubble bubble1"></div>
+    <div class="orange-bubble bubble2"></div>
+    <div class="orange-bubble bubble3"></div>
+    <div class="orange-bubble bubble4"></div>
+
+    <!-- اپ اور ڈاؤن بٹنز -->
+    <div class="up-down-buttons">
+        <a href="#" class="up-down-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+        <a href="#" class="up-down-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
     </div>
 
-    <div class="post-content">
-        
-        <h1>غفلت میں چھپے 50 گناہ 45۔ مسجد میں لوگوں کی گردنوں کو پھلانگ کر آگے بڑھنا</h1>
-<p>غفلت میں چھپے 50 گناہوں کی فہرست میں پینتالیسواں گناہ مسجد میں لوگوں کی گردنوں کو پھلانگ کر آگے بڑھنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-<p>مسجد ایک مقدس اور بابرکت مقام ہے جہاں مسلمان نماز ادا کرتے ہیں اور عبادات میں مشغول ہوتے ہیں۔ اسلام نے مسجد میں آنے اور وہاں بیٹھنے کے آداب کو واضح طور پر بیان کیا ہے، تاکہ اجتماعیت اور احترام برقرار رہے۔ ایک ایسا مسئلہ جو اکثر دیکھنے میں آتا ہے، وہ یہ ہے کہ لوگ مسجد میں داخل ہو کر پہلے سے بیٹھے نمازیوں کی گردنوں کو پھلانگتے ہوئے آگے بڑھ جاتے ہیں۔ اس عمل کی اسلامی تعلیمات میں واضح طور پر مذمت کی گئی ہے۔</p>
-<h2>مسجد کے آداب</h2>
-<p>مسجد کے آداب اور وہاں کے اعمال کی تفصیلات قرآن کریم اور احادیث نبویہ ﷺ میں واضح کی گئی ہیں۔ اللہ تعالیٰ قرآن کریم میں فرماتے ہیں: &quot;اے ایمان والو! جب تم سے کہا جائے کہ مجلس میں جگہ کشادہ کرو تو کشادہ کرو، اللہ تمہارے لیے وسعت کرے گا۔&quot; یہ آیت مسلمانوں کو اجتماعی آداب کی تعلیم دیتی ہے کہ ایک دوسرے کو احترام دیں اور مجلس یا مسجد میں داخل ہوتے وقت کسی کے حق کو نہ چھینیں۔</p>
-<h2>حدیث نبویہ کی روشنی میں</h2>
-<p>اسی طرح، ایک حدیث مبارکہ میں رسول اللہ ﷺ نے فرمایا: &quot;جو شخص جمعہ کے دن لوگوں کی گردنوں کو پھلانگتا ہے، وہ گویا جہنم کا پل بنا رہا ہے۔&quot; یہ حدیث واضح طور پر اس بات کی نشاندہی کرتی ہے کہ لوگوں کی گردنوں کو پھلانگ کر آگے بڑھنا ایک انتہائی ناپسندیدہ عمل ہے، اور اس کے لیے وعید بھی بیان کی گئی ہے۔</p>
-<h2>موجودہ دور میں صورت حال</h2>
-<p>دیوبندی، بریلوی اور اہل تشیع مساجد میں دیر سے آنے والے نمازیوں کا اگلی صف میں جانے کے لیے بیٹھے ہوئے لوگوں کو پھلانگنا ایک معمولی سا عمل سمجھا جاتا ہے، حالانکہ یہ عمل خلاف ادب ہے اور اس کی ممانعت موجود ہے۔ اس کی بنیادی وجہ شاید انفرادی اور اجتماعی آداب کی کمی ہے، جس پر زیادہ زور نہیں دیا جاتا۔ اس عمل سے نہ صرف نماز میں خشوع اور خضوع متاثر ہوتا ہے بلکہ دوسرے نمازیوں کو بھی تکلیف پہنچتی ہے۔</p>
-<h2>عرب ممالک میں صورت حال</h2>
-<p>اہل عرب میں عمومی طور پر مساجد میں آداب کا زیادہ خیال رکھا جاتا ہے، خصوصاً مسجد نبوی ﷺ اور حرمین شریفین میں۔ وہاں لوگ صفوں میں باادب بیٹھتے ہیں اور اگر کوئی دیر سے آئے تو پیچھے کی صفوں میں بیٹھنے کو ترجیح دی جاتی ہے، بجائے اس کے کہ آگے بڑھنے کے لیے لوگوں کو تکلیف دی جائے۔</p>
-<h2>اسلامی آداب</h2>
-<p>اسلام میں مجلس کے آداب کا بہت خیال رکھا گیا ہے۔ رسول اللہ ﷺ نے فرمایا: &quot;تم میں سے کوئی شخص کسی مجلس میں بیٹھا ہو تو کسی کو وہاں سے اٹھا کر خود نہ بیٹھے۔&quot; مسجد میں بھی یہی اصول لاگو ہوتا ہے کہ اگر کوئی شخص پہلے سے بیٹھا ہوا ہو، تو اسے تنگ نہ کیا جائے اور نہ ہی اس کے آرام میں مداخلت کی جائے۔</p>
-<h2>بچنے کے طریقے</h2>
-<p>احادیث کے مطابق، مسجد میں نمازیوں کی گردنوں کو پھلانگ کر آگے بڑھنے کا عمل ایک گناہ ہے اور اس سے اجتناب کرنا چاہیے۔ اس گناہ سے بچنے کے لیے درج ذیل اقدامات کیے جا سکتے ہیں:</p>
-<p><strong>جلدی مسجد پہنچنے کی کوشش کریں</strong>: تاخیر سے پہنچنے پر اگلی صف میں جانے کی کوشش نہ کریں بلکہ جہاں جگہ ملے وہیں بیٹھ جائیں۔</p>
-<p><strong>مسجد کے آداب کی تعلیم دی جائے</strong>: مساجد میں نمازیوں کو بار بار اس مسئلے کی اہمیت سے آگاہ کیا جائے تاکہ اس عمل کا سدباب ہو۔</p>
-<p><strong>عالمی خطبہ اور درس میں بیان</strong>: علما کو چاہیے کہ وہ خطبات جمعہ اور دروس میں اس گناہ کی وضاحت کریں تاکہ عوام میں شعور بیدار ہو۔</p>
-<p><strong>نمونہ بنیں</strong>: خود عملی طور پر اس مسئلے کو حل کرنے کے لیے مثالی بنیں اور دوسروں کو بھی اس کی پیروی کی ترغیب دیں۔</p>
-<h2>علما کی ذمہ داری</h2>
-<p>یہ سوال کہ کیوں اہل علم اس گناہ کو بیان نہیں کرتے، اس کا جواب یہ ہو سکتا ہے کہ بعض اوقات اہم مسائل کے ساتھ ساتھ ان چھوٹے مگر اہم امور پر بھی توجہ دینا ضروری ہے۔ علما کو چاہیے کہ وہ اس مسئلے کی طرف عوام کو متوجہ کریں تاکہ یہ غلطی عام نہ ہو۔</p>
-<h2>خلاصہ</h2>
-<p>اسلامی تعلیمات کے مطابق مسجد میں نمازیوں کی گردنوں کو پھلانگ کر آگے بڑھنے کا عمل ناپسندیدہ اور ممنوع ہے۔ اس عمل سے بچنے کے لیے مسلمانوں کو نہ صرف خود آداب سیکھنے چاہئیں بلکہ دوسروں کو بھی ان کی تلقین کرنی چاہیے۔ مساجد کو روحانی اور جسمانی سکون کے مراکز کے طور پر قائم رکھنے کے لیے ان کے آداب کی پاسداری ضروری ہے۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-<p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جوا کھیلنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">بیوی کو خاوند کے خلاف بھڑکانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">لعنت کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">احسان جتلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">دیوث بننا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">میلاد منانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">حلالہ کرنا یا کروانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ہم جنس پرستی</a></p>
-<p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جاندار کو آگ میں جلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">سود کھانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ظلم کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">رشوت لینا یا دینا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">زنا کرنا</a></p>
+    <div class="container">
+        <!-- نیویگیشن بٹنز (ہوم اور بیک) -->
+        <div class="nav-buttons">
+            <div class="nav-left">
+                <a href="https://bloglovers.pk/" class="btn"><i class="fas fa-home"></i> ہوم پیج</a>
+                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn"><i class="fas fa-arrow-right"></i> بیک پیج</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=bloglovers.pk" target="_blank" class="btn social-btn"><i class="fab fa-facebook-f"></i> فیس بک</a>
+                <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="btn social-btn"><i class="fab fa-whatsapp"></i> واٹس ایپ</a>
+                <a href="https://twitter.com/intent/tweet?text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="btn social-btn"><i class="fab fa-twitter"></i> ٹویٹر</a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=bloglovers.pk" target="_blank" class="btn social-btn"><i class="fab fa-linkedin-in"></i> لنکڈ ان</a>
+            </div>
+        </div>
 
+        <!-- پوسٹ کا مواد -->
+        <div class="post-content">
+            <h1>غفلت میں چھپے 50 گناہ 45۔ مسجد میں لوگوں کی گردنوں کو پھلانگ کر آگے بڑھنا</h1>
+
+            <!-- امیج (ٹائٹل کے فوراً بعد) -->
+            <div class="post-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-45-msjd-main-logon-ki-grdnon-ko-phlang-kar-aage-brhna.png" alt="غفلت میں چھپے 50 گناہ - تصویر">
+            </div>
+
+            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں پینتالیسواں گناہ مسجد میں لوگوں کی گردنوں کو پھلانگ کر آگے بڑھنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+            <p>مسجد ایک مقدس اور بابرکت مقام ہے جہاں مسلمان نماز ادا کرتے ہیں اور عبادات میں مشغول ہوتے ہیں۔ اسلام نے مسجد میں آنے اور وہاں بیٹھنے کے آداب کو واضح طور پر بیان کیا ہے، تاکہ اجتماعیت اور احترام برقرار رہے۔ ایک ایسا مسئلہ جو اکثر دیکھنے میں آتا ہے، وہ یہ ہے کہ لوگ مسجد میں داخل ہو کر پہلے سے بیٹھے نمازیوں کی گردنوں کو پھلانگتے ہوئے آگے بڑھ جاتے ہیں۔ اس عمل کی اسلامی تعلیمات میں واضح طور پر مذمت کی گئی ہے۔</p>
+            <h2>مسجد کے آداب</h2>
+            <p>مسجد کے آداب اور وہاں کے اعمال کی تفصیلات قرآن کریم اور احادیث نبویہ ﷺ میں واضح کی گئی ہیں۔ اللہ تعالیٰ قرآن کریم میں فرماتے ہیں: "اے ایمان والو! جب تم سے کہا جائے کہ مجلس میں جگہ کشادہ کرو تو کشادہ کرو، اللہ تمہارے لیے وسعت کرے گا۔" یہ آیت مسلمانوں کو اجتماعی آداب کی تعلیم دیتی ہے کہ ایک دوسرے کو احترام دیں اور مجلس یا مسجد میں داخل ہوتے وقت کسی کے حق کو نہ چھینیں۔</p>
+            <h2>حدیث نبویہ کی روشنی میں</h2>
+            <p>اسی طرح، ایک حدیث مبارکہ میں رسول اللہ ﷺ نے فرمایا: "جو شخص جمعہ کے دن لوگوں کی گردنوں کو پھلانگتا ہے، وہ گویا جہنم کا پل بنا رہا ہے۔" یہ حدیث واضح طور پر اس بات کی نشاندہی کرتی ہے کہ لوگوں کی گردنوں کو پھلانگ کر آگے بڑھنا ایک انتہائی ناپسندیدہ عمل ہے، اور اس کے لیے وعید بھی بیان کی گئی ہے۔</p>
+            <h2>موجودہ دور میں صورت حال</h2>
+            <p>دیوبندی، بریلوی اور اہل تشیع مساجد میں دیر سے آنے والے نمازیوں کا اگلی صف میں جانے کے لیے بیٹھے ہوئے لوگوں کو پھلانگنا ایک معمولی سا عمل سمجھا جاتا ہے، حالانکہ یہ عمل خلاف ادب ہے اور اس کی ممانعت موجود ہے۔ اس کی بنیادی وجہ شاید انفرادی اور اجتماعی آداب کی کمی ہے، جس پر زیادہ زور نہیں دیا جاتا۔ اس عمل سے نہ صرف نماز میں خشوع اور خضوع متاثر ہوتا ہے بلکہ دوسرے نمازیوں کو بھی تکلیف پہنچتی ہے۔</p>
+            <h2>عرب ممالک میں صورت حال</h2>
+            <p>اہل عرب میں عمومی طور پر مساجد میں آداب کا زیادہ خیال رکھا جاتا ہے، خصوصاً مسجد نبوی ﷺ اور حرمین شریفین میں۔ وہاں لوگ صفوں میں باادب بیٹھتے ہیں اور اگر کوئی دیر سے آئے تو پیچھے کی صفوں میں بیٹھنے کو ترجیح دی جاتی ہے، بجائے اس کے کہ آگے بڑھنے کے لیے لوگوں کو تکلیف دی جائے۔</p>
+            <h2>اسلامی آداب</h2>
+            <p>اسلام میں مجلس کے آداب کا بہت خیال رکھا گیا ہے۔ رسول اللہ ﷺ نے فرمایا: "تم میں سے کوئی شخص کسی مجلس میں بیٹھا ہو تو کسی کو وہاں سے اٹھا کر خود نہ بیٹھے۔" مسجد میں بھی یہی اصول لاگو ہوتا ہے کہ اگر کوئی شخص پہلے سے بیٹھا ہوا ہو، تو اسے تنگ نہ کیا جائے اور نہ ہی اس کے آرام میں مداخلت کی جائے۔</p>
+            <h2>بچنے کے طریقے</h2>
+            <p>احادیث کے مطابق، مسجد میں نمازیوں کی گردنوں کو پھلانگ کر آگے بڑھنے کا عمل ایک گناہ ہے اور اس سے اجتناب کرنا چاہیے۔ اس گناہ سے بچنے کے لیے درج ذیل اقدامات کیے جا سکتے ہیں:</p>
+            <p><strong>جلدی مسجد پہنچنے کی کوشش کریں</strong>: تاخیر سے پہنچنے پر اگلی صف میں جانے کی کوشش نہ کریں بلکہ جہاں جگہ ملے وہیں بیٹھ جائیں۔</p>
+            <p><strong>مسجد کے آداب کی تعلیم دی جائے</strong>: مساجد میں نمازیوں کو بار بار اس مسئلے کی اہمیت سے آگاہ کیا جائے تاکہ اس عمل کا سدباب ہو۔</p>
+            <p><strong>عالمی خطبہ اور درس میں بیان</strong>: علما کو چاہیے کہ وہ خطبات جمعہ اور دروس میں اس گناہ کی وضاحت کریں تاکہ عوام میں شعور بیدار ہو۔</p>
+            <p><strong>نمونہ بنیں</strong>: خود عملی طور پر اس مسئلے کو حل کرنے کے لیے مثالی بنیں اور دوسروں کو بھی اس کی پیروی کی ترغیب دیں۔</p>
+            <h2>علما کی ذمہ داری</h2>
+            <p>یہ سوال کہ کیوں اہل علم اس گناہ کو بیان نہیں کرتے، اس کا جواب یہ ہو سکتا ہے کہ بعض اوقات اہم مسائل کے ساتھ ساتھ ان چھوٹے مگر اہم امور پر بھی توجہ دینا ضروری ہے۔ علما کو چاہیے کہ وہ اس مسئلے کی طرف عوام کو متوجہ کریں تاکہ یہ غلطی عام نہ ہو۔</p>
+            <h2>خلاصہ</h2>
+            <p>اسلامی تعلیمات کے مطابق مسجد میں نمازیوں کی گردنوں کو پھلانگ کر آگے بڑھنے کا عمل ناپسندیدہ اور ممنوع ہے۔ اس عمل سے بچنے کے لیے مسلمانوں کو نہ صرف خود آداب سیکھنے چاہئیں بلکہ دوسروں کو بھی ان کی تلقین کرنی چاہیے۔ مساجد کو روحانی اور جسمانی سکون کے مراکز کے طور پر قائم رکھنے کے لیے ان کے آداب کی پاسداری ضروری ہے۔</p>
+            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+            <!-- تمام اندرونی لنکس ہٹا دیے گئے ہیں -->
+        </div>
+
+        <!-- سوشل میڈیا بار (اضافی) -->
+        <div class="social-bar">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=bloglovers.pk" target="_blank" class="btn social-btn"><i class="fab fa-facebook-f"></i> فیس بک</a>
+            <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="btn social-btn"><i class="fab fa-whatsapp"></i> واٹس ایپ</a>
+            <a href="https://twitter.com/intent/tweet?text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="btn social-btn"><i class="fab fa-twitter"></i> ٹویٹر</a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=bloglovers.pk" target="_blank" class="btn social-btn"><i class="fab fa-linkedin-in"></i> لنکڈ ان</a>
+        </div>
     </div>
-
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
-    <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-    </script>
 </body>
 </html>
