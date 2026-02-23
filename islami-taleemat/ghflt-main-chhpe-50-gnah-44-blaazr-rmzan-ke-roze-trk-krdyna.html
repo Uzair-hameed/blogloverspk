@@ -5,84 +5,337 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>غفلت میں چھپے 50 گناہ 44۔ بلاعذر رمضان کے روزے ترک کردینا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(145deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            animation: bgGlow 8s infinite alternate;
+        }
+        @keyframes bgGlow {
+            0% { background: linear-gradient(145deg, #e0f2fe, #f0f9ff, #ffffff); }
+            50% { background: linear-gradient(225deg, #d9eaf9, #f9f9ff, #e6f7ff); }
+            100% { background: linear-gradient(145deg, #e0f2fe, #f0f9ff, #ffffff); }
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(3px);
+            border-radius: 40px 40px 30px 30px;
+            padding: 25px 30px;
+            box-shadow: 0 25px 50px -8px rgba(0, 140, 200, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            transition: all 0.4s ease;
+        }
+        .container:hover {
+            box-shadow: 0 35px 60px -8px #0284c7;
+            background: rgba(255, 255, 255, 0.95);
+            transform: scale(1.005);
+        }
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .nav-btn {
+            background: linear-gradient(130deg, #38bdf8, #0284c7);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px #7dd3fc;
+            transition: all 0.3s;
+            border: 1px solid white;
+        }
+        .nav-btn i {
+            font-size: 1.4rem;
+        }
+        .nav-btn:hover {
+            background: linear-gradient(130deg, #0b74b9, #0369a1);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 15px 30px #38bdf8;
+        }
+        .home-back {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .up-down {
+            display: flex;
+            gap: 10px;
+        }
+        .up-down .nav-btn {
+            padding: 12px 20px;
+        }
+        /* Social Share Buttons */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        .social-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            box-shadow: 0 5px 15px #b0d4f0;
+            transition: all 0.4s;
+            color: #0c4a6e;
+            border: 2px solid #bae6fd;
+            text-decoration: none;
+        }
+        .social-btn:hover {
+            transform: rotate(10deg) scale(1.2);
+            background: #0c4a6e;
+            color: white;
+            border-color: #f0f9ff;
+            box-shadow: 0 10px 25px #0369a1;
+        }
+        /* Post Title */
+        h1 {
+            font-size: 2.2rem;
+            color: #0c4a6e;
+            text-align: center;
+            border-bottom: 4px double #0284c7;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 0 #e0f2fe;
+            font-weight: 700;
+        }
+        /* Image after title */
+        .featured-image {
+            width: 100%;
+            border-radius: 30px;
+            margin: 25px 0 35px 0;
+            overflow: hidden;
+            box-shadow: 0 25px 35px -10px #0369a1;
+            transition: 0.5s;
+            border: 3px solid white;
+        }
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 28px;
+            transition: transform 0.8s, filter 0.5s;
+        }
+        .featured-image:hover img {
+            transform: scale(1.02);
+            filter: brightness(1.03) saturate(1.2);
+        }
+        /* Subheading */
+        h2 {
+            font-size: 1.9rem;
+            color: #b45309;
+            background: linear-gradient(to left, #fff7ed, #fed7aa);
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 0 50px 50px 0;
+            margin: 25px 0 15px 0;
+            border-right: 8px solid #ea580c;
+            box-shadow: 0 5px 10px #fde68a;
+            text-shadow: 1px 1px 0 white;
+        }
+        h3 {
+            font-size: 1.7rem;
+            color: #1e40af;
+            padding-right: 15px;
+            border-right: 5px dotted #3b82f6;
+            margin: 20px 0 10px;
+        }
+        /* Paragraphs */
+        p {
+            font-size: 1.5rem;
+            text-align: justify;
+            margin-bottom: 20px;
+            color: #1e293b;
+            line-height: 2.3;
+        }
+        /* Remove internal links styling (they remain text only) */
+        a:not(.nav-btn):not(.social-btn) {
+            color: inherit;
+            text-decoration: none;
+            pointer-events: none;
+            background: none;
+            font-weight: normal;
+        }
+        /* Special links at bottom (only visual, non-clickable) */
+        .bottom-links {
+            background: #e2e8f0;
+            padding: 20px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
+            color: #334155;
+            border: 2px dashed #0284c7;
+        }
+        /* Up and Down buttons as floating helper */
+        .float-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 99;
+        }
+        .float-btn {
+            background: #0284c7;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px #7ab7e0;
+            transition: 0.3s;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        .float-btn:hover {
+            background: #075985;
+            transform: scale(1.1);
+        }
+        /* Responsive */
+        @media (max-width: 700px) {
+            .container { padding: 15px; }
+            h1 { font-size: 1.9rem; }
+            h2 { font-size: 1.7rem; }
+            p { font-size: 1.3rem; }
+            .nav-btn { padding: 8px 16px; font-size: 1.2rem; }
+        }
+        @media (max-width: 450px) {
+            .nav-buttons { flex-direction: column; }
+        }
+        /* Remove any leftover Blogger links (but keep text) */
+        a[href*="draft.blogger.com"] {
+            color: #2d3748;
+            background: transparent;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- Floating Up/Down Buttons -->
+    <div class="float-buttons">
+        <button class="float-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-arrow-up"></i></button>
+        <button class="float-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-arrow-down"></i></button>
     </div>
 
-    <div class="post-content">
-        
+    <div class="container">
+        <!-- Home & Back Buttons -->
+        <div class="nav-buttons">
+            <div class="home-back">
+                <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</a>
+                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn"><i class="fas fa-arrow-right"></i> واپس</a>
+            </div>
+            <div class="up-down">
+                <a href="#" class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"><i class="fas fa-angle-up"></i> اوپر</a>
+                <a href="#" class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); return false;"><i class="fas fa-angle-down"></i> نیچے</a>
+            </div>
+        </div>
+
+        <!-- Social Sharing Buttons (Multiple Platforms) -->
+        <div class="social-share">
+            <a href="#" class="social-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.title)+' '+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent(document.title+' '+window.location.href),'_blank'); return false;"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-btn" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank'); return false;"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="social-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" onclick="window.open('https://www.pinterest.com/pin/create/button/?url='+encodeURIComponent(window.location.href)+'&media=&description='+encodeURIComponent(document.title),'_blank'); return false;"><i class="fab fa-pinterest"></i></a>
+        </div>
+
+        <!-- POST CONTENT (exact original text, no changes) -->
         <h1>غفلت میں چھپے 50 گناہ 44۔ بلاعذر رمضان کے روزے ترک کردینا</h1>
-<p>غفلت میں چھپے 50 گناہوں کی فہرست میں چوالیسواں گناہ بلاعذر رمضان کے روزے ترک کردینا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-<p>اسلام میں رمضان المبارک کے روزوں کو ترک کرنا ایک بہت سنگین معاملہ سمجھا جاتا ہے، اور اسے بڑے گناہوں میں شمار کیا جاتا ہے۔ نبی کریم ﷺ نے بلاعذر روزے ترک کرنے کو نہ صرف ایک روحانی نقصان قرار دیا بلکہ اس عمل کو آخرت میں سخت سزا کا باعث بھی بتایا ہے۔ اس مضمون میں ہم اس گناہ کی تفصیلات، تاریخی پس منظر، اسلامی احکامات اور موجودہ دور میں اس کی نوعیت پر تفصیل سے بات کریں گے۔</p>
-<h2>روزہ کی اہمیت</h2>
-<p>روزہ اسلام کے پانچ بنیادی ارکان میں سے ایک ہے اور ہر مسلمان پر فرض کیا گیا ہے جو بالغ اور صحتمند ہو۔ قرآن مجید میں اللہ تعالیٰ نے روزے کی فرضیت کا ذکر کرتے ہوئے فرمایا: &quot;اے ایمان والو! تم پر روزہ فرض کیا گیا ہے جیسے تم سے پہلے لوگوں پر فرض کیا گیا تھا تاکہ تم تقویٰ اختیار کرو۔&quot; اس آیت میں اللہ تعالیٰ نے روزے کو تقویٰ کے حصول کا ذریعہ بتایا ہے اور اس کی فرضیت کو واضح کیا ہے۔</p>
-<h2>بلاعذر روزہ چھوڑنے کا گناہ</h2>
-<p>بلاعذر روزہ چھوڑنا ایک بڑا گناہ ہے۔ اگر کوئی شخص بلاعذر رمضان کے روزے ترک کرتا ہے تو اس کے بارے میں نبی کریم ﷺ نے سخت وعیدیں بیان فرمائی ہیں: &quot;جو شخص بلا کسی عذر یا بیماری کے رمضان کا ایک روزہ چھوڑ دے، تو وہ ہمیشہ روزے رکھے تب بھی اس کی قضا نہیں ہو سکتی۔&quot; یہ حدیث اس بات کی وضاحت کرتی ہے کہ رمضان کا روزہ چھوڑنے کی کتنی بڑی وعید ہے اور یہ عمل کتنا سنگین ہے۔</p>
-<h2>تاریخی پس منظر</h2>
-<p>اسلام کے ابتدائی دور میں روزہ فرض کیا گیا اور صحابہ کرام ؓ نے اس فرض کو پورے اخلاص اور پابندی کے ساتھ ادا کیا۔ رمضان المبارک کا مہینہ مسلمانوں کے لیے نہ صرف روحانی بلندی کا مہینہ ہے بلکہ اس میں اللہ کی طرف سے بے پناہ برکتیں اور رحمتیں نازل ہوتی ہیں۔</p>
-<p>آپ ﷺ نے فرمایا: &quot;اسلام کی بنیاد پانچ چیزوں پر رکھی گئی ہے: کلمہ شہادت، نماز قائم کرنا، زکات دینا، رمضان کے روزے رکھنا، اور بیت اللہ کا حج کرنا۔&quot; اس حدیث میں رمضان کے روزوں کی اہمیت کو واضح کیا گیا ہے۔</p>
-<h2>اسلامی احکامات</h2>
-<p>اسلام میں روزہ ترک کرنے کی ممانعت واضح طور پر کی گئی ہے، خاص طور پر رمضان المبارک کے مہینے میں۔ قرآن اور حدیث دونوں میں بلاعذر روزہ ترک کرنے والوں کے لیے سخت وعیدیں موجود ہیں۔</p>
-<p>اللہ تعالیٰ نے قرآن مجید میں فرمایا: &quot;تم میں سے جو کوئی بھی اس مہینے میں موجود ہو، اسے اس مہینے کے روزے رکھنا چاہیے۔&quot; یہ واضح حکم ہے کہ رمضان کے روزے ہر مسلمان پر فرض ہیں، اور ان کو ترک کرنے کی اجازت نہیں ہے سوائے شرعی عذر کے۔</p>
-<h2>موجودہ دور میں صورت حال</h2>
-<p>موجودہ دور میں، جہاں دین سے غفلت بڑھتی جا رہی ہے، بہت سے مسلمان بلاعذر روزے ترک کر دیتے ہیں۔ روزے کو محض ایک رسمی یا ثقافتی علامت سمجھا جاتا ہے، جبکہ اس کی حقیقت روحانی اور دینی اہمیت کو نظر انداز کر دیا جاتا ہے۔</p>
-<p>بعض لوگ روزے کو صحتی یا کاروباری مصروفیات کے بہانے ترک کرتے ہیں، جبکہ یہ سب عذر شرعی اعتبار سے قابل قبول نہیں ہیں۔ اسلام میں صرف چند صورتوں میں روزہ چھوڑنے کی اجازت ہے، جیسے بیماری، سفر، یا عورتوں کے مخصوص ایام۔</p>
-<p>اللہ تعالیٰ قرآن مجید میں فرماتے ہیں: &quot;اور جو کوئی بیمار ہو یا سفر پر ہو، تو وہ دوسرے دنوں میں گنتی پوری کر لے۔&quot; یہ آیت صرف ان لوگوں کے لیے استثنیٰ دیتی ہے جو واقعی عذر رکھتے ہیں۔</p>
-<h2>آخرت میں سزا</h2>
-<p>بلاعذر روزہ ترک کرنے والے کے لیے آخرت میں سخت سزا کی وعید ہے۔ ایک روایت میں حضرت ابو امامہ ؓ سے مروی ہے کہ نبی کریم ﷺ نے فرمایا: &quot;میں خواب میں تھا کہ دو فرشتے آئے اور مجھے ایک مشکل پہاڑ کی طرف لے گئے۔ پھر میں نے کچھ لوگوں کو دیکھا جن کے جبڑے چیرے جا رہے تھے اور ان سے خون بہہ رہا تھا۔ میں نے پوچھا کہ یہ کون ہیں؟ تو فرشتوں نے جواب دیا: یہ وہ لوگ ہیں جو رمضان میں روزہ کھولنے کا وقت ہونے سے پہلے افطار کرتے ہیں۔&quot;</p>
-<h2>خلاصہ</h2>
-<p>اسلام میں رمضان کے روزے ترک کرنا ایک سنگین گناہ ہے اور اسے کسی صورت معمولی نہیں سمجھا جانا چاہیے۔ قرآن و حدیث کی روشنی میں یہ ثابت ہوتا ہے کہ روزے کی فرضیت بہت اہم ہے اور بلاعذر اس کو ترک کرنے کی سخت سزا ہے۔ مسلمانوں کو چاہیے کہ وہ روزے کی اہمیت کو سمجھیں اور غفلت سے بچتے ہوئے اس فرض کی مکمل ادائیگی کریں۔</p>
-<p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-<p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جوا کھیلنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">بیوی کو خاوند کے خلاف بھڑکانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">لعنت کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">احسان جتلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">دیوث بننا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">میلاد منانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">حلالہ کرنا یا کروانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ہم جنس پرستی</a></p>
-<p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">جاندار کو آگ میں جلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">سود کھانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">ظلم کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">رشوت لینا یا دینا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311">زنا کرنا</a></p>
 
+        <!-- Image after title (full visible) -->
+        <div class="featured-image">
+            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-44-blaazr-rmzan-ke-roze-trk-krdyna.png" alt="غفلت میں چھپے 50 گناہ">
+        </div>
+
+        <!-- Original text (unaltered) -->
+        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چوالیسواں گناہ بلاعذر رمضان کے روزے ترک کردینا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+        <p>اسلام میں رمضان المبارک کے روزوں کو ترک کرنا ایک بہت سنگین معاملہ سمجھا جاتا ہے، اور اسے بڑے گناہوں میں شمار کیا جاتا ہے۔ نبی کریم ﷺ نے بلاعذر روزے ترک کرنے کو نہ صرف ایک روحانی نقصان قرار دیا بلکہ اس عمل کو آخرت میں سخت سزا کا باعث بھی بتایا ہے۔ اس مضمون میں ہم اس گناہ کی تفصیلات، تاریخی پس منظر، اسلامی احکامات اور موجودہ دور میں اس کی نوعیت پر تفصیل سے بات کریں گے۔</p>
+        <h2>روزہ کی اہمیت</h2>
+        <p>روزہ اسلام کے پانچ بنیادی ارکان میں سے ایک ہے اور ہر مسلمان پر فرض کیا گیا ہے جو بالغ اور صحتمند ہو۔ قرآن مجید میں اللہ تعالیٰ نے روزے کی فرضیت کا ذکر کرتے ہوئے فرمایا: "اے ایمان والو! تم پر روزہ فرض کیا گیا ہے جیسے تم سے پہلے لوگوں پر فرض کیا گیا تھا تاکہ تم تقویٰ اختیار کرو۔" اس آیت میں اللہ تعالیٰ نے روزے کو تقویٰ کے حصول کا ذریعہ بتایا ہے اور اس کی فرضیت کو واضح کیا ہے۔</p>
+        <h2>بلاعذر روزہ چھوڑنے کا گناہ</h2>
+        <p>بلاعذر روزہ چھوڑنا ایک بڑا گناہ ہے۔ اگر کوئی شخص بلاعذر رمضان کے روزے ترک کرتا ہے تو اس کے بارے میں نبی کریم ﷺ نے سخت وعیدیں بیان فرمائی ہیں: "جو شخص بلا کسی عذر یا بیماری کے رمضان کا ایک روزہ چھوڑ دے، تو وہ ہمیشہ روزے رکھے تب بھی اس کی قضا نہیں ہو سکتی۔" یہ حدیث اس بات کی وضاحت کرتی ہے کہ رمضان کا روزہ چھوڑنے کی کتنی بڑی وعید ہے اور یہ عمل کتنا سنگین ہے۔</p>
+        <h2>تاریخی پس منظر</h2>
+        <p>اسلام کے ابتدائی دور میں روزہ فرض کیا گیا اور صحابہ کرام ؓ نے اس فرض کو پورے اخلاص اور پابندی کے ساتھ ادا کیا۔ رمضان المبارک کا مہینہ مسلمانوں کے لیے نہ صرف روحانی بلندی کا مہینہ ہے بلکہ اس میں اللہ کی طرف سے بے پناہ برکتیں اور رحمتیں نازل ہوتی ہیں۔</p>
+        <p>آپ ﷺ نے فرمایا: "اسلام کی بنیاد پانچ چیزوں پر رکھی گئی ہے: کلمہ شہادت، نماز قائم کرنا، زکات دینا، رمضان کے روزے رکھنا، اور بیت اللہ کا حج کرنا۔" اس حدیث میں رمضان کے روزوں کی اہمیت کو واضح کیا گیا ہے۔</p>
+        <h2>اسلامی احکامات</h2>
+        <p>اسلام میں روزہ ترک کرنے کی ممانعت واضح طور پر کی گئی ہے، خاص طور پر رمضان المبارک کے مہینے میں۔ قرآن اور حدیث دونوں میں بلاعذر روزہ ترک کرنے والوں کے لیے سخت وعیدیں موجود ہیں۔</p>
+        <p>اللہ تعالیٰ نے قرآن مجید میں فرمایا: "تم میں سے جو کوئی بھی اس مہینے میں موجود ہو، اسے اس مہینے کے روزے رکھنا چاہیے۔" یہ واضح حکم ہے کہ رمضان کے روزے ہر مسلمان پر فرض ہیں، اور ان کو ترک کرنے کی اجازت نہیں ہے سوائے شرعی عذر کے۔</p>
+        <h2>موجودہ دور میں صورت حال</h2>
+        <p>موجودہ دور میں، جہاں دین سے غفلت بڑھتی جا رہی ہے، بہت سے مسلمان بلاعذر روزے ترک کر دیتے ہیں۔ روزے کو محض ایک رسمی یا ثقافتی علامت سمجھا جاتا ہے، جبکہ اس کی حقیقت روحانی اور دینی اہمیت کو نظر انداز کر دیا جاتا ہے۔</p>
+        <p>بعض لوگ روزے کو صحتی یا کاروباری مصروفیات کے بہانے ترک کرتے ہیں، جبکہ یہ سب عذر شرعی اعتبار سے قابل قبول نہیں ہیں۔ اسلام میں صرف چند صورتوں میں روزہ چھوڑنے کی اجازت ہے، جیسے بیماری، سفر، یا عورتوں کے مخصوص ایام۔</p>
+        <p>اللہ تعالیٰ قرآن مجید میں فرماتے ہیں: "اور جو کوئی بیمار ہو یا سفر پر ہو، تو وہ دوسرے دنوں میں گنتی پوری کر لے۔" یہ آیت صرف ان لوگوں کے لیے استثنیٰ دیتی ہے جو واقعی عذر رکھتے ہیں۔</p>
+        <h2>آخرت میں سزا</h2>
+        <p>بلاعذر روزہ ترک کرنے والے کے لیے آخرت میں سخت سزا کی وعید ہے۔ ایک روایت میں حضرت ابو امامہ ؓ سے مروی ہے کہ نبی کریم ﷺ نے فرمایا: "میں خواب میں تھا کہ دو فرشتے آئے اور مجھے ایک مشکل پہاڑ کی طرف لے گئے۔ پھر میں نے کچھ لوگوں کو دیکھا جن کے جبڑے چیرے جا رہے تھے اور ان سے خون بہہ رہا تھا۔ میں نے پوچھا کہ یہ کون ہیں؟ تو فرشتوں نے جواب دیا: یہ وہ لوگ ہیں جو رمضان میں روزہ کھولنے کا وقت ہونے سے پہلے افطار کرتے ہیں۔"</p>
+        <h2>خلاصہ</h2>
+        <p>اسلام میں رمضان کے روزے ترک کرنا ایک سنگین گناہ ہے اور اسے کسی صورت معمولی نہیں سمجھا جانا چاہیے۔ قرآن و حدیث کی روشنی میں یہ ثابت ہوتا ہے کہ روزے کی فرضیت بہت اہم ہے اور بلاعذر اس کو ترک کرنے کی سخت سزا ہے۔ مسلمانوں کو چاہیے کہ وہ روزے کی اہمیت کو سمجھیں اور غفلت سے بچتے ہوئے اس فرض کی مکمل ادائیگی کریں۔</p>
+        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+
+        <!-- bottom internal links (only text, no actual link) -->
+        <div class="bottom-links">
+            <span>جوا کھیلنا</span>، <span>بیوی کو خاوند کے خلاف بھڑکانا</span>، <span>لعنت کرنا</span>، <span>احسان جتلانا</span>، <span>دیوث بننا،</span> <span>میلاد منانا</span>، <span>حلالہ کرنا یا کروانا</span>، <span>ہم جنس پرستی</span>
+        </div>
+        <div class="bottom-links" style="margin-top: 5px;">
+            <span>جاندار کو آگ میں جلانا</span>، <span>پیشاب کے چھینٹوں سے نہ بچنا،</span> <span>سود کھانا</span>، <span>ظلم کرنا</span>، <span>رشوت لینا یا دینا</span>، <span>زنا کرنا</span>
+        </div>
+        <!-- Note: all internal links removed / turned into plain spans -->
     </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
-
+    <!-- Simple JS for smooth scrolling (already used inline) -->
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        // Ensuring that any stray anchor links don't cause page movement
+        document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href && href !== "#") {
+                    const target = document.querySelector(href);
+                    if(target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
     </script>
 </body>
 </html>
