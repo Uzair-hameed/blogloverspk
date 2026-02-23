@@ -2,115 +2,423 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مذاق میں کسی کا دل دکھانا</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>مذاق میں کسی کا دل دکھانا | bloglovers.pk</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
-        .color-fill-container.active { opacity: 1; z-index: 9998; }
-        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
-        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
-        .close-btn:hover { transform: rotate(90deg); }
-        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
-        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
-        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
-        a { color: #e74c3c; text-decoration: none; }
+        /* === جامد نستعلیق فونٹ === */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            background: linear-gradient(145deg, #fff9f0 0%, #fff0e8 100%);
+            min-height: 100vh;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* === animated vibrant background (baby light yellow + light red & white touch) === */
+        .vibrant-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(45deg, #fef9e7 0%, #ffece5 25%, #fff9f0 50%, #ffded3 75%, #fffbe6 100%);
+            background-size: 300% 300%;
+            animation: softFlow 18s ease infinite;
+            opacity: 0.9;
+        }
+        @keyframes softFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* floating subtle particles (hover magic) */
+        .vibrant-bg::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 240, 210, 0.3) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 220, 200, 0.25) 0%, transparent 35%),
+                        radial-gradient(circle at 10% 80%, rgba(255, 255, 255, 0.7) 0%, transparent 40%);
+            pointer-events: none;
+            animation: floatParticle 22s infinite alternate;
+        }
+        @keyframes floatParticle {
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.9; transform: scale(1.08); }
+        }
+
+        /* main container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(3px);
+            border-radius: 40px 40px 30px 30px;
+            box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.2);
+            padding: 25px 20px;
+            border: 2px solid rgba(255, 245, 215, 0.9);
+            transition: box-shadow 0.3s ease, transform 0.2s;
+        }
+        .container:hover {
+            box-shadow: 0 30px 60px -5px rgba(255, 140, 100, 0.3);
+            transform: scale(1.003);
+        }
+
+        /* === header buttons (home / back) === */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .nav-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: linear-gradient(145deg, #ffb58a, #ff9f6e);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d1a0e;
+            box-shadow: 0 10px 18px -8px #ffb08a;
+            cursor: pointer;
+            transition: 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            border: 1px solid #ffe2c1;
+        }
+        .nav-btn a {
+            color: #2d1a0e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-btn i {
+            font-size: 1.3rem;
+            color: #471f0a;
+        }
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #ffa26b, #ff8c55);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 18px 25px -8px #ff9966;
+        }
+
+        /* title image — after main heading */
+        .title-image {
+            text-align: center;
+            margin: 25px 0 15px;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.2);
+            transition: all 0.4s;
+        }
+        .title-image img {
+            width: 100%;
+            max-width: 850px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 32px;
+            border: 4px solid #fff4e2;
+            transition: transform 0.5s, box-shadow 0.4s;
+        }
+        .title-image:hover img {
+            transform: scale(1.01);
+            box-shadow: 0 30px 40px -12px #d99f7a;
+        }
+
+        /* main heading (normal size, readable) */
+        h1 {
+            font-size: 2.4rem;
+            color: #792b00;
+            text-align: center;
+            border-bottom: 4px solid #ffc6a9;
+            padding-bottom: 12px;
+            margin: 15px 0 0;
+            font-weight: 750;
+            text-shadow: 2px 2px 0 #ffe5d6;
+            letter-spacing: 0.5px;
+            background: linear-gradient(transparent 80%, #fff1e6 100%);
+            border-radius: 0 0 40px 40px;
+        }
+
+        /* subheading with diff color & shading */
+        h2, h3 {
+            color: #b64516;
+            font-size: 1.9rem;
+            margin: 25px 0 15px;
+            padding-right: 15px;
+            border-right: 8px solid #ffb38b;
+            background: linear-gradient(to left, #fff4ec, transparent);
+            text-shadow: 1px 1px 0 white;
+        }
+        h3 {
+            font-size: 1.7rem;
+            border-right: 6px solid #f7a57b;
+        }
+
+        /* text size adjustable & justify */
+        p, li, blockquote, .post-content, .description {
+            font-size: 1.4rem;
+            text-align: justify;
+            word-spacing: 1px;
+            color: #2f1d12;
+        }
+        li {
+            margin: 8px 0;
+        }
+        blockquote {
+            background: #fffaf2;
+            padding: 20px 25px;
+            border-radius: 30px 10px 30px 10px;
+            border: 1px solid #fccdaf;
+            font-size: 1.45rem;
+            box-shadow: inset 0 0 20px #ffe2cc;
+            margin: 25px 0;
+        }
+
+        /* lists alignment */
+        ul, ol {
+            padding-right: 40px;
+        }
+
+        /* social share buttons */
+        .share-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0 25px;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 70px;
+            justify-content: center;
+            backdrop-filter: blur(2px);
+        }
+        .share-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #ffffffd6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 6px 14px #ffc8ad;
+            transition: all 0.25s;
+            color: #632e0e;
+            border: 2px solid #fdc6a8;
+            text-decoration: none;
+        }
+        .share-btn:hover {
+            transform: translateY(-7px) rotate(6deg);
+            background: #ffefe3;
+            color: #b33f00;
+            box-shadow: 0 16px 20px #ffae80;
+        }
+
+        /* up / down page buttons (floating) */
+        .page-updown {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 99;
+        }
+        .updown-btn {
+            background: #fec89a;
+            border: 3px solid #ffe9d4;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #542d12;
+            cursor: pointer;
+            box-shadow: 0 10px 15px #d99467;
+            transition: 0.25s;
+            opacity: 0.8;
+        }
+        .updown-btn:hover {
+            opacity: 1;
+            background: #ffb77c;
+            transform: scale(1.1) translateY(-3px);
+        }
+
+        /* remove all internal links (already none, but safe) */
+        a[href*="#"]:not(.nav-btn a):not(.share-btn) {
+            pointer-events: none;
+            color: #b14500;
+            text-decoration: none;
+        }
+
+        /* responsive adjustments */
+        @media (max-width: 700px) {
+            h1 { font-size: 1.9rem; }
+            h2 { font-size: 1.6rem; }
+            p, li, blockquote { font-size: 1.2rem; }
+            .nav-btn { padding: 8px 16px; font-size: 1rem; }
+            .share-btn { width: 50px; height: 50px; font-size: 1.7rem; }
+        }
+        @media (max-width: 480px) {
+            .nav-buttons { flex-direction: column; align-items: stretch; }
+            .nav-group { justify-content: center; }
+            h1 { font-size: 1.7rem; }
+        }
+
+        /* disable any toggle, no extra overlays — just pure beauty */
+        .clean-beauty {
+            /* special class not needed */
+        }
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+    <!-- animated background (baby yellow, light red, white) -->
+    <div class="vibrant-bg"></div>
+
+    <!-- floating up/down buttons -->
+    <div class="page-updown">
+        <button class="updown-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});" aria-label="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
+        <button class="updown-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});" aria-label="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
     </div>
 
-    <div class="post-content">
+    <div class="container">
+        <!-- home & back buttons + extra nav -->
+        <div class="nav-buttons">
+            <div class="nav-group">
+                <!-- home page button -->
+                <button class="nav-btn"><a href="https://bloglovers.pk/" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a></button>
+                <!-- back page button (اسلامی تعلیمات) -->
+                <button class="nav-btn"><a href="https://bloglovers.pk/category-pages/islami-taleemat.html" target="_blank"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a></button>
+            </div>
+            <!-- extra space, can add something nice -->
+            <span style="color:#aa5f33; font-size:1.2rem;"><i class="fas fa-heart" style="color:#ff8060;"></i> دکھانا مت</span>
+        </div>
+
+        <!-- main heading (h1) unchanged -->
         <h1>مذاق میں کسی کا دل دکھانا</h1>
-        <p>انسانی معاشرے میں خوش طبعی اور مذاق ایک فطری عمل ہے، جو تعلقات کو خوشگوار بناتا ہے۔ لیکن جب مذاق کی حدیں پار ہو جائیں اور کسی کے دل کو تکلیف پہنچے، تو یہ عمل اخلاقی اور شرعی دونوں اعتبار سے ناپسندیدہ ہو جاتا ہے۔ اسلام نے ہر قسم کے ظلم، تکبر اور دوسروں کو تکلیف دینے سے منع فرمایا ہے، چاہے وہ سنجیدگی سے ہو یا مذاق میں۔ اس مضمون میں ہم قرآن و حدیث، فقہ حنافہ اور دیگر ائمہ کرام کے اقوال کی روشنی میں مذاق میں دل آزاری کے احکامات، معاشرتی رویوں کے بدلتے رجحانات، اور موجودہ دور میں اس سے بچاؤ کے طریقوں پر تفصیل سے بات کریں گے۔</p>
-<p>اللہ تعالیٰ نے قرآن پاک میں واضح الفاظ میں مسلمانوں کو ایک دوسرے کا مذاق اڑانے، طعنہ دینے یا برے القابات سے پکارنے سے منع فرمایا ہے۔ ارشاد باری تعالیٰ ہے:</p>
-<blockquote>
-<p>&quot;يَا أَيُّهَا الَّذِينَ آمَنُوا لَا يَسْخَرْ قَوْمٌ مِنْ قَوْمٍ عَسَىٰ أَنْ يَكُونُوا خَيْرًا مِنْهُمْ وَلَا نِسَاءٌ مِنْ نِّسَاءٍ عَسَىٰ أَنْ يَكُنَّ خَيْرًا مِنْهُنَّ ۖ وَلَا تَلْمِزُوا أَنفُسَكُمْ وَلَا تَنَابَزُوا بِالْأَلْقَابِ ۖ بِئْسَ الِاسْمُ الْفُسُوقُ بَعْدَ الْإِيمَانِ ۚ وَمَنْ لَّمْ يَتُبْ فَأُولَٰئِكَ هُمُ الظَّالِمُونَ&quot; (الحجرات: 11)</p>
-</blockquote>
-<p>&quot;اے ایمان والو! نہ تو کوئی قوم کسی قوم کا مذاق اڑائے، ہو سکتا ہے کہ وہ ان سے بہتر ہوں، اور نہ ہی عورتیں دوسری عورتوں کا، ہو سکتا ہے کہ وہ ان سے بہتر ہوں۔ اور نہ ایک دوسرے پر طعنہ کرو، اور نہ برے القابات سے پکارو۔ ایمان لانے کے بعد فسق کا نام بُرا ہے۔ اور جو توبہ نہ کریں، تو وہی ظالم ہیں۔&quot;</p>
-<p>اس آیت میں تین اہم پہلو واضح کیے گئے ہیں:</p>
-<ol>
-<li><strong>مذاق اڑانا (سخریہ کرنا)</strong> – کسی کو نیچا دکھانا یا اس کی تضحیک کرنا۔</li>
-<li><strong>طعنہ دینا (لمز کرنا)</strong> – کسی کی عیب جوئی کرنا یا اسے شرمندہ کرنا۔</li>
-<li><strong>برے ناموں سے پکارنا (تنابز بالالقاب)</strong> – کسی کو اس کے ناپسندیدہ نام یا القاب سے پکارنا۔</li>
-</ol>
-<p>یہ آیت واضح کرتی ہے کہ مذاق میں بھی اگر کسی کو تکلیف پہنچے، تو یہ گناہ کا باعث ہے۔</p>
-<p>نبی کریم ﷺ نے بھی مذاق میں زیادتی سے منع فرمایا ہے۔ آپ ﷺ خود بھی خوش طبعی فرماتے تھے، لیکن کبھی کسی کے دل آزاری نہیں کی۔</p>
-<p>حضرت عبداللہ بن مسعود رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا:</p>
-<blockquote>
-<p>&quot;اس شخص کے لیے ہلاکت ہے جو لوگوں کو ہنسانے کے لیے جھوٹی بات بیان کرے، اس کے لیے ہلاکت ہے، اس کے لیے ہلاکت ہے۔&quot;</p>
-</blockquote>
-<p>اس حدیث سے واضح ہوتا ہے کہ مذاق کے لیے جھوٹ بولنا بھی حرام ہے۔</p>
-<p>حضرت ابو ہریرہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا:</p>
-<blockquote>
-<p>&quot;تم میں سے کوئی اپنے بھائی کا سامان نہ لے، خواہ مذاق میں ہو یا سنجیدگی سے۔&quot;</p>
-</blockquote>
-<p>یہ حدیث بتاتی ہے کہ مذاق میں بھی کسی کی چیز چھیننا یا اسے تکلیف دینا جائز نہیں۔</p>
-<p>حضرت معاویہ بن حیدہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا:</p>
-<blockquote>
-<p>&quot;بڑے گناہوں میں سے یہ ہے کہ آدمی اپنے والدین کو لعنت کرے۔ صحابہ نے پوچھا: یا رسول اللہ! آدمی اپنے والدین کو کیسے لعنت کرتا ہے؟ آپ ﷺ نے فرمایا: وہ کسی کے باپ کو گالی دیتا ہے تو وہ جواب میں اس کے باپ کو گالی دیتا ہے، اور وہ کسی کی ماں کو گالی دیتا ہے تو وہ جواب میں اس کی ماں کو گالی دیتا ہے۔&quot;</p>
-</blockquote>
-<p>اس سے معلوم ہوا کہ مذاق میں بھی اگر کسی کے والدین یا اس کی عزت پر حملہ کیا جائے، تو یہ گناہ کبیرہ ہے۔</p>
-<p>امام اعظم ابو حنیفہ رحمہ اللہ کے نزدیک اگر مذاق میں کسی کو تکلیف پہنچے یا اس کی عزت مجروح ہو، تو یہ ناجائز ہے۔ فقہ حنفی میں کسی کی تضحیک کرنا یا اسے شرمندہ کرنا گناہ تصور کیا جاتا ہے۔</p>
-<p>امام مالک رحمہ اللہ فرماتے ہیں کہ مذاق اچھا ہے، لیکن اس میں کسی کی غیبت، چغل خوری یا طعنہ زنی شامل نہ ہو۔</p>
-<p>ان دونوں ائمہ کے نزدیک بھی مذاق میں کسی کو ذلیل کرنا یا اس کی دل آزاری کرنا حرام ہے۔</p>
-<p>موجودہ دور میں سوشل میڈیا اور عام معاشرتی گفتگو میں مذاق کے نام پر لوگوں کو ذلیل کرنے کا رجحان بڑھ گیا ہے۔ کچھ اہم پہلو یہ ہیں:</p>
-<ul>
-<li><p>آج کل لوگ سوشل میڈیا پر دوسروں کی تصاویر یا ویڈیوز کو تنقید کا نشانہ بناتے ہیں، جس سے کئی نوجوان ذہنی دباؤ کا شکار ہو رہے ہیں۔</p>
-</li>
-<li><p>کچھ لوگ دوستوں کے ساتھ مذاق میں گالی گلوچ کرتے ہیں، جس سے تعلقات خراب ہوتے ہیں۔</p>
-</li>
-<li><p>مذاق میں دل دکھانا اخلاقی گراوٹ کی علامت ہے۔ جب معاشرے میں دین کی تعلیمات کم ہو جاتی ہیں، تو لوگ حدیں پار کرنے لگتے ہیں۔</p>
-</li>
-<li><p>قرآن و حدیث کی تعلیمات پر عمل کریں – اللہ اور رسول ﷺ کے احکامات کو سمجھیں۔</p>
-</li>
-<li><p>دوسروں کے جذبات کا خیال رکھیں – ہر بات سوچ سمجھ کر کہیں۔</p>
-</li>
-<li><p>سوشل میڈیا پر محتاط رہیں – کسی کی تضحیک یا تنقید نہ کریں۔</p>
-</li>
-<li><p>توبہ اور معافی کی عادت اپنائیں – اگر کسی کو تکلیف پہنچ جائے، تو فوراً معافی مانگیں۔</p>
-</li>
-<li><p>اخلاقی تربیت حاصل کریں – دینی کتابوں اور اچھے لوگوں کی صحبت اختیار کریں۔</p>
-</li>
-</ul>
-<p>مذاق فطری چیز ہے، لیکن اگر اس میں کسی کی دل آزاری ہو، تو یہ اسلام میں ناجائز ہے۔ قرآن و حدیث اور فقہائے کرام نے اس پر سختی سے روک لگائی ہے۔ موجودہ دور میں ہمیں اپنے رویوں کو اسلامی اصولوں کے مطابق ڈھالنا ہوگا، تاکہ ہمارے معاشرے میں محبت اور احترام قائم رہے۔ اللہ تعالیٰ ہمیں دوسروں کے حقوق کا خیال رکھنے کی توفیق عطا فرمائے۔ آمین!</p>
 
-    </div>
+        <!-- image placed immediately after title (full width) -->
+        <div class="title-image">
+            <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" 
+                 alt="مذاق میں کسی کا دل دکھانا - تصویری پیغام"
+                 loading="lazy"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%20viewBox%3D%220%200%20800%20400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23fce5d5%22%2F%3E%3Ctext%20x%3D%22200%22%20y%3D%22200%22%20font-family%3D%22system-ui%22%20font-size%3D%2230%22%20fill%3D%22%23955530%22%3E%D9%85%D8%B0%D8%A7%D9%82%20%D9%85%DB%8C%DA%BA%20%DA%A9%D8%B3%DB%8C%20%DA%A9%D8%A7%20%D8%AF%D9%84%20%D8%AF%DA%A9%DA%BE%D8%A7%D9%86%D8%A7%3C%2Ftext%3E%3C%2Fsvg%3E';">
+        </div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
+        <!-- main post content (exactly same text, not a single word changed) -->
+        <div class="post-content">
+            <p>انسانی معاشرے میں خوش طبعی اور مذاق ایک فطری عمل ہے، جو تعلقات کو خوشگوار بناتا ہے۔ لیکن جب مذاق کی حدیں پار ہو جائیں اور کسی کے دل کو تکلیف پہنچے، تو یہ عمل اخلاقی اور شرعی دونوں اعتبار سے ناپسندیدہ ہو جاتا ہے۔ اسلام نے ہر قسم کے ظلم، تکبر اور دوسروں کو تکلیف دینے سے منع فرمایا ہے، چاہے وہ سنجیدگی سے ہو یا مذاق میں۔ اس مضمون میں ہم قرآن و حدیث، فقہ حنافہ اور دیگر ائمہ کرام کے اقوال کی روشنی میں مذاق میں دل آزاری کے احکامات، معاشرتی رویوں کے بدلتے رجحانات، اور موجودہ دور میں اس سے بچاؤ کے طریقوں پر تفصیل سے بات کریں گے۔</p>
+            <p>اللہ تعالیٰ نے قرآن پاک میں واضح الفاظ میں مسلمانوں کو ایک دوسرے کا مذاق اڑانے، طعنہ دینے یا برے القابات سے پکارنے سے منع فرمایا ہے۔ ارشاد باری تعالیٰ ہے:</p>
+            <blockquote>
+                <p>"يَا أَيُّهَا الَّذِينَ آمَنُوا لَا يَسْخَرْ قَوْمٌ مِنْ قَوْمٍ عَسَىٰ أَنْ يَكُونُوا خَيْرًا مِنْهُمْ وَلَا نِسَاءٌ مِنْ نِّسَاءٍ عَسَىٰ أَنْ يَكُنَّ خَيْرًا مِنْهُنَّ ۖ وَلَا تَلْمِزُوا أَنفُسَكُمْ وَلَا تَنَابَزُوا بِالْأَلْقَابِ ۖ بِئْسَ الِاسْمُ الْفُسُوقُ بَعْدَ الْإِيمَانِ ۚ وَمَنْ لَّمْ يَتُبْ فَأُولَٰئِكَ هُمُ الظَّالِمُونَ" (الحجرات: 11)</p>
+            </blockquote>
+            <p>"اے ایمان والو! نہ تو کوئی قوم کسی قوم کا مذاق اڑائے، ہو سکتا ہے کہ وہ ان سے بہتر ہوں، اور نہ ہی عورتیں دوسری عورتوں کا، ہو سکتا ہے کہ وہ ان سے بہتر ہوں۔ اور نہ ایک دوسرے پر طعنہ کرو، اور نہ برے القابات سے پکارو۔ ایمان لانے کے بعد فسق کا نام بُرا ہے۔ اور جو توبہ نہ کریں، تو وہی ظالم ہیں۔"</p>
+            <p>اس آیت میں تین اہم پہلو واضح کیے گئے ہیں:</p>
+            <ol>
+                <li><strong>مذاق اڑانا (سخریہ کرنا)</strong> – کسی کو نیچا دکھانا یا اس کی تضحیک کرنا۔</li>
+                <li><strong>طعنہ دینا (لمز کرنا)</strong> – کسی کی عیب جوئی کرنا یا اسے شرمندہ کرنا۔</li>
+                <li><strong>برے ناموں سے پکارنا (تنابز بالالقاب)</strong> – کسی کو اس کے ناپسندیدہ نام یا القاب سے پکارنا۔</li>
+            </ol>
+            <p>یہ آیت واضح کرتی ہے کہ مذاق میں بھی اگر کسی کو تکلیف پہنچے، تو یہ گناہ کا باعث ہے۔</p>
+            <p>نبی کریم ﷺ نے بھی مذاق میں زیادتی سے منع فرمایا ہے۔ آپ ﷺ خود بھی خوش طبعی فرماتے تھے، لیکن کبھی کسی کے دل آزاری نہیں کی۔</p>
+            <p>حضرت عبداللہ بن مسعود رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا:</p>
+            <blockquote>
+                <p>"اس شخص کے لیے ہلاکت ہے جو لوگوں کو ہنسانے کے لیے جھوٹی بات بیان کرے، اس کے لیے ہلاکت ہے، اس کے لیے ہلاکت ہے۔"</p>
+            </blockquote>
+            <p>اس حدیث سے واضح ہوتا ہے کہ مذاق کے لیے جھوٹ بولنا بھی حرام ہے۔</p>
+            <p>حضرت ابو ہریرہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا:</p>
+            <blockquote>
+                <p>"تم میں سے کوئی اپنے بھائی کا سامان نہ لے، خواہ مذاق میں ہو یا سنجیدگی سے۔"</p>
+            </blockquote>
+            <p>یہ حدیث بتاتی ہے کہ مذاق میں بھی کسی کی چیز چھیننا یا اسے تکلیف دینا جائز نہیں۔</p>
+            <p>حضرت معاویہ بن حیدہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا:</p>
+            <blockquote>
+                <p>"بڑے گناہوں میں سے یہ ہے کہ آدمی اپنے والدین کو لعنت کرے۔ صحابہ نے پوچھا: یا رسول اللہ! آدمی اپنے والدین کو کیسے لعنت کرتا ہے؟ آپ ﷺ نے فرمایا: وہ کسی کے باپ کو گالی دیتا ہے تو وہ جواب میں اس کے باپ کو گالی دیتا ہے، اور وہ کسی کی ماں کو گالی دیتا ہے تو وہ جواب میں اس کی ماں کو گالی دیتا ہے۔"</p>
+            </blockquote>
+            <p>اس سے معلوم ہوا کہ مذاق میں بھی اگر کسی کے والدین یا اس کی عزت پر حملہ کیا جائے، تو یہ گناہ کبیرہ ہے۔</p>
+            <p>امام اعظم ابو حنیفہ رحمہ اللہ کے نزدیک اگر مذاق میں کسی کو تکلیف پہنچے یا اس کی عزت مجروح ہو، تو یہ ناجائز ہے۔ فقہ حنفی میں کسی کی تضحیک کرنا یا اسے شرمندہ کرنا گناہ تصور کیا جاتا ہے۔</p>
+            <p>امام مالک رحمہ اللہ فرماتے ہیں کہ مذاق اچھا ہے، لیکن اس میں کسی کی غیبت، چغل خوری یا طعنہ زنی شامل نہ ہو۔</p>
+            <p>ان دونوں ائمہ کے نزدیک بھی مذاق میں کسی کو ذلیل کرنا یا اس کی دل آزاری کرنا حرام ہے۔</p>
+            <p>موجودہ دور میں سوشل میڈیا اور عام معاشرتی گفتگو میں مذاق کے نام پر لوگوں کو ذلیل کرنے کا رجحان بڑھ گیا ہے۔ کچھ اہم پہلو یہ ہیں:</p>
+            <ul>
+                <li><p>آج کل لوگ سوشل میڈیا پر دوسروں کی تصاویر یا ویڈیوز کو تنقید کا نشانہ بناتے ہیں، جس سے کئی نوجوان ذہنی دباؤ کا شکار ہو رہے ہیں۔</p>
+                </li>
+                <li><p>کچھ لوگ دوستوں کے ساتھ مذاق میں گالی گلوچ کرتے ہیں، جس سے تعلقات خراب ہوتے ہیں۔</p>
+                </li>
+                <li><p>مذاق میں دل دکھانا اخلاقی گراوٹ کی علامت ہے۔ جب معاشرے میں دین کی تعلیمات کم ہو جاتی ہیں، تو لوگ حدیں پار کرنے لگتے ہیں۔</p>
+                </li>
+                <li><p>قرآن و حدیث کی تعلیمات پر عمل کریں – اللہ اور رسول ﷺ کے احکامات کو سمجھیں۔</p>
+                </li>
+                <li><p>دوسروں کے جذبات کا خیال رکھیں – ہر بات سوچ سمجھ کر کہیں۔</p>
+                </li>
+                <li><p>سوشل میڈیا پر محتاط رہیں – کسی کی تضحیک یا تنقید نہ کریں۔</p>
+                </li>
+                <li><p>توبہ اور معافی کی عادت اپنائیں – اگر کسی کو تکلیف پہنچ جائے، تو فوراً معافی مانگیں۔</p>
+                </li>
+                <li><p>اخلاقی تربیت حاصل کریں – دینی کتابوں اور اچھے لوگوں کی صحبت اختیار کریں۔</p>
+                </li>
+            </ul>
+            <p>مذاق فطری چیز ہے، لیکن اگر اس میں کسی کی دل آزاری ہو، تو یہ اسلام میں ناجائز ہے۔ قرآن و حدیث اور فقہائے کرام نے اس پر سختی سے روک لگائی ہے۔ موجودہ دور میں ہمیں اپنے رویوں کو اسلامی اصولوں کے مطابق ڈھالنا ہوگا، تاکہ ہمارے معاشرے میں محبت اور احترام قائم رہے۔ اللہ تعالیٰ ہمیں دوسروں کے حقوق کا خیال رکھنے کی توفیق عطا فرمائے۔ آمین!</p>
+        </div>
+
+        <!-- social sharing buttons (multiple platforms) -->
+        <div class="share-section">
+            <a href="#" class="share-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank');return false;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-btn" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.title)+' '+encodeURIComponent(window.location.href),'_blank');return false;"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent(document.title+' '+window.location.href),'_blank');return false;"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="share-btn" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank');return false;"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="share-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank');return false;"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="share-btn" onclick="window.open('https://www.pinterest.com/pin/create/button/?url='+encodeURIComponent(window.location.href)+'&description='+encodeURIComponent(document.title),'_blank');return false;"><i class="fab fa-pinterest"></i></a>
+        </div>
+
+        <!-- small footer note (no internal links) -->
+        <div style="text-align:center; color:#ad6238; margin:30px 0 5px; font-size:1.2rem;">
+            <i class="fas fa-heart" style="color:#f77e5e;"></i>  مذاق میں کسی کا دل دکھانا – اسلام میں ناجائز ہے
+        </div>
     </div>
 
     <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        (function() {
+            // disable any internal link with # (if any) – extra safe
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', (e) => e.preventDefault());
+            });
+        })();
     </script>
 </body>
 </html>
