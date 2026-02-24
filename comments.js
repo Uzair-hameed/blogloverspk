@@ -5,10 +5,19 @@
     // پہلے سے موجود ہے تو نہ کریں
     if (document.getElementById('bloglovers-comments-section')) return;
     
-    // موجودہ URL (https کو یقینی بنائیں)
+    // موجودہ URL
     const currentUrl = window.location.href;
     
-    // Facebook SDK لوڈ کرنے کا بہترین طریقہ
+    // Facebook SDK لوڈ کرنے کا آسان طریقہ
+    window.fbAsyncInit = function() {
+        FB.init({
+            xfbml: true,
+            version: 'v18.0'
+        });
+        console.log('✅ Facebook SDK initialized');
+    };
+    
+    // SDK لوڈ کریں
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -17,8 +26,8 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     
-    // کمنٹ سیکشن بنانے کا فنکشن
-    function createCommentSection() {
+    // کمنٹ سیکشن بنائیں
+    function addCommentSection() {
         const postContent = document.querySelector('article') || 
                            document.querySelector('.post-content') || 
                            document.querySelector('.entry-content') ||
@@ -31,11 +40,11 @@
         section.id = 'bloglovers-comments-section';
         
         section.innerHTML = `
-            <div style="margin: 50px 0 30px 0; padding: 30px; background: #fff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); direction: rtl;">
+            <div style="margin: 50px 0 30px 0; padding: 30px; background: #ffffff; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); direction: rtl;">
                 
                 <!-- سوشل میڈیا بٹنز -->
                 <div style="margin-bottom: 40px; text-align: center;">
-                    <h3 style="font-size: 28px; color: #333; margin-bottom: 20px;">📱 اس تحریر کو شیئر کریں</h3>
+                    <h3 style="font-size: 28px; color: #1e293b; margin-bottom: 20px;">📱 اس تحریر کو شیئر کریں</h3>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                         <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}" 
                            target="_blank" 
@@ -55,8 +64,8 @@
                 </div>
                 
                 <!-- Facebook Comments -->
-                <div style="margin-top: 40px; background: #f8f9fa; padding: 25px; border-radius: 15px;">
-                    <h3 style="font-size: 28px; color: #333; margin-bottom: 20px; text-align: center;">💬 تبصرے</h3>
+                <div style="margin-top: 40px; background: #f8fafc; padding: 25px; border-radius: 15px;">
+                    <h3 style="font-size: 28px; color: #1e293b; margin-bottom: 20px; text-align: center;">💬 تبصرے</h3>
                     
                     <div class="fb-comments" 
                          data-href="${currentUrl.split('?')[0].split('#')[0]}" 
@@ -66,7 +75,7 @@
                          data-mobile="true">
                     </div>
                     
-                    <p style="text-align: center; color: #666; margin-top: 15px; font-size: 14px;">
+                    <p style="text-align: center; color: #64748b; margin-top: 15px; font-size: 14px;">
                         💡 تبصرہ کرنے کے لیے فیس بک میں لاگ ان کریں
                     </p>
                 </div>
@@ -90,10 +99,13 @@
         `;
         
         postContent.appendChild(section);
-        console.log('✅ Facebook Comments سیکشن تیار');
+        console.log('✅ Comment section added');
     }
     
-    // Facebook SDK کے لوڈ ہونے کا انتظار کریں
-    setTimeout(createCommentSection, 2000);
-    
+    // صفحہ مکمل لوڈ ہونے کے بعد اضافہ کریں
+    if (document.readyState === 'complete') {
+        addCommentSection();
+    } else {
+        window.addEventListener('load', addCommentSection);
+    }
 })();
