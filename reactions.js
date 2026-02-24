@@ -1,4 +1,4 @@
-// reactions.js - Bloglovers.pk پرفیکٹ ورژن
+// reactions.js - Bloglovers.pk ڈائنامک ورژن
 (function() {
     'use strict';
     
@@ -57,39 +57,73 @@
         `;
     });
     
+    // **ڈائنامک کیٹگری لنک**
     const currentPath = window.location.pathname;
-    const categoryPath = currentPath.split('/')[1] || '';
+    const pathParts = currentPath.split('/').filter(p => p);
+    const currentCategory = pathParts[0] || ''; // مثلاً: alamaat-kubra, aqwal, etc.
     
-    // Navigation Buttons - 4+4 دو لائنوں میں
+    // **کیٹگری کا نام صاف کریں (مثلاً: alamaat-kubra → علامات کبری)**
+    function getCategoryName(category) {
+        const categoryNames = {
+            'alamaat-kubra': 'علامات کبری',
+            'alamaat-sughra': 'علامات صغری',
+            'aqwal': 'اقوال',
+            'azkar': 'اذکار',
+            'islami-sawalat': 'اسلامی سوالات',
+            'islami-taleemat': 'اسلامی تعلیمات',
+            'kids': 'بچوں کی دنیا',
+            'english-adab': 'انگریزی ادب',
+            'category-pages': 'تمام اقسام'
+        };
+        return categoryNames[category] || category.replace(/-/g, ' ');
+    }
+    
+    // **پاپولر پوسٹس کا لنک (اسی کیٹگری میں)**
+    const popularPosts = {
+        'alamaat-kubra': 'https://bloglovers.pk/alamaat-kubra/mashoor-post',
+        'aqwal': 'https://bloglovers.pk/aqwal/mashoor-aqwal',
+        'default': 'https://bloglovers.pk/popular'
+    };
+    
+    const popularLink = popularPosts[currentCategory] || popularPosts.default;
+    
+    // **نئی پوسٹس کا لنک (اسی کیٹگری میں)**
+    const newPosts = {
+        'alamaat-kubra': 'https://bloglovers.pk/alamaat-kubra/nayi-post',
+        'aqwal': 'https://bloglovers.pk/aqwal/naye-aqwal',
+        'default': 'https://bloglovers.pk/new'
+    };
+    
+    const newLink = newPosts[currentCategory] || newPosts.default;
+    
+    // Navigation Buttons - ڈائنامک لنکس کے ساتھ
     const navButtonsRow1 = [
         { icon: '🏠', text: 'مرکزی صفحہ', url: 'https://bloglovers.pk/', color: '#4f46e5' },
-        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages/alamaat-kubra.html', color: '#7c3aed' },
-        { icon: '📂', text: categoryPath.replace(/-/g, ' ') || 'موجودہ کیٹیگری', url: categoryPath ? `https://bloglovers.pk/category-pages/alamaat-kubra.html` : '#', color: '#059669' },
-        { icon: '⭐', text: 'مشہور پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi', color: '#d97706' }
+        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages', color: '#7c3aed' },
+        { 
+            icon: '📂', 
+            text: currentCategory ? getCategoryName(currentCategory) : 'مرکزی صفحہ', 
+            url: currentCategory ? `https://bloglovers.pk/${currentCategory}` : 'https://bloglovers.pk/', 
+            color: '#059669' 
+        },
+        { icon: '⭐', text: 'مشہور پوسٹ', url: popularLink, color: '#d97706' }
     ];
     
     const navButtonsRow2 = [
-        { icon: '🆕', text: 'فیچر پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain', color: '#dc2626' },
-        { icon: '📞', text: 'رابطہ', url: 'https://bloglovers.pk/contact', color: '#0891b2' },
+        { icon: '🆕', text: 'نئی پوسٹ', url: newLink, color: '#dc2626' },
+        { icon: '📞', text: 'رابطہ', url: 'https://bloglovers.pk/contact-us.html', color: '#0891b2' },
         { icon: '⬆️', text: 'اوپر جائیں', action: 'scrollToTop', color: '#b45309' },
         { icon: '⬇️', text: 'نیچے جائیں', action: 'scrollToBottom', color: '#6b7280' }
     ];
     
     let navHTMLRow1 = '';
     navButtonsRow1.forEach(btn => {
-        if (btn.url && btn.url !== '#') {
+        if (btn.url) {
             navHTMLRow1 += `
                 <a href="${btn.url}" class="nav-btn" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd);">
                     <span class="nav-icon">${btn.icon}</span>
                     <span class="nav-text">${btn.text}</span>
                 </a>
-            `;
-        } else {
-            navHTMLRow1 += `
-                <span class="nav-btn disabled" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd); opacity: 0.5;">
-                    <span class="nav-icon">${btn.icon}</span>
-                    <span class="nav-text">${btn.text}</span>
-                </span>
             `;
         }
     });
@@ -120,7 +154,7 @@
         }
     });
     
-    // Social Media Icons 
+    // Social Media Icons
     const socialIconsRow1 = [
         { icon: '📘', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, color: '#1877f2', name: 'Facebook' },
         { icon: '📱', url: `https://wa.me/?text=${encodeURIComponent(document.title + ' ' + window.location.href)}`, color: '#25D366', name: 'WhatsApp' },
@@ -185,7 +219,7 @@
                 </div>
             </div>
             
-            <!-- نیویگیشن سیکشن - 4+4 دو لائنوں میں -->
+            <!-- نیویگیشن سیکشن - ڈائنامک -->
             <div class="nav-section">
                 <div class="section-title">
                     <span class="title-icon">🧭</span>
@@ -201,7 +235,7 @@
                 </div>
             </div>
             
-            <!-- سوشل میڈیا سیکشن - صرف آئیکونز، 5+5 دو لائنوں میں -->
+            <!-- سوشل میڈیا سیکشن -->
             <div class="social-section">
                 <div class="section-title">
                     <span class="title-icon">📱</span>
@@ -220,7 +254,6 @@
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
                 
-                /* Main Container */
                 .reactions-wrapper {
                     max-width: 800px;
                     margin: 40px auto 30px;
@@ -239,7 +272,6 @@
                     to { opacity: 1; transform: translateY(0); }
                 }
                 
-                /* Section Title */
                 .section-title {
                     display: flex;
                     align-items: center;
@@ -262,12 +294,8 @@
                     font-size: 24px;
                     color: #1e293b;
                     font-weight: 600;
-                    background: linear-gradient(135deg, #1e293b, #334155);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
                 }
                 
-                /* Reactions Grid */
                 .reactions-section {
                     margin-bottom: 40px;
                 }
@@ -348,7 +376,6 @@
                     text-align: center;
                 }
                 
-                /* Navigation Section */
                 .nav-section {
                     margin-bottom: 40px;
                 }
@@ -410,7 +437,6 @@
                     font-weight: 500;
                 }
                 
-                /* Social Icons Section */
                 .social-section {
                     background: #ffffff;
                     border-radius: 30px;
@@ -469,23 +495,16 @@
                     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
                 }
                 
-                /* Responsive */
                 @media (max-width: 768px) {
                     .reactions-wrapper { padding: 20px; margin: 20px 10px; }
-                    
                     .reactions-grid { grid-template-columns: repeat(3, 1fr); }
-                    
                     .nav-grid-row { grid-template-columns: repeat(2, 1fr); }
-                    
                     .social-icons-row { grid-template-columns: repeat(3, 1fr); }
-                    
                     .title-text { font-size: 20px; }
                 }
                 
                 @media (max-width: 480px) {
                     .reactions-grid { grid-template-columns: repeat(2, 1fr); }
-                    
-                    .social-icons-row { grid-template-columns: repeat(3, 1fr); }
                 }
             </style>
         </div>
