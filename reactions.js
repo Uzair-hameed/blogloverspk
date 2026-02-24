@@ -65,9 +65,9 @@
     const navButtons = [
         { icon: '🏠', text: 'مرکزی صفحہ', url: 'https://bloglovers.pk/', color: '#4f46e5' },
         { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages/alamaat-kubra.html', color: '#7c3aed' },
-        { icon: '📂', text: categoryPath.replace(/-/g, ' ') || 'کیٹیگری', url: categoryPath ? `https://bloglovers.pk/${categoryPath}` : '#', color: '#059669' },
-        { icon: '⭐', text: 'مشہور پوسٹ', url: 'https://bloglovers.pk/popular', color: '#d97706' },
-        { icon: '🆕', text: 'نئی پوسٹ', url: 'https://bloglovers.pk/new', color: '#dc2626' },
+        { icon: '📂', text: categoryPath.replace(/-/g, ' ') || 'کیٹیگری', url: categoryPath ? `https://bloglovers.pk/category-pages/alamaat-kubra.html` : '#', color: '#059669' },
+        { icon: '⭐', text: 'مشہور پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay', color: '#d97706' },
+        { icon: '🆕', text: 'فیچر پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal', color: '#dc2626' },
         { icon: '📞', text: 'رابطہ', url: 'https://bloglovers.pk/contact-us.html', color: '#6b7280' }
     ];
     
