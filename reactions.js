@@ -25,16 +25,15 @@
         reactionsData[emoji] = (reactionsData[emoji] || 0) + 1;
         localStorage.setItem(`reactions_${pageId}`, JSON.stringify(reactionsData));
         
-        // اینیمیشن
-        btn.style.transform = 'scale(1.2)';
-        btn.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
-        setTimeout(() => { 
-            btn.style.transform = 'scale(1)';
-            btn.style.boxShadow = '0 4px 6px rgba(0,0,0,0.02)';
-        }, 200);
+        btn.style.transform = 'scale(1.2) rotate(5deg)';
+        setTimeout(() => { btn.style.transform = 'scale(1) rotate(0deg)'; }, 200);
     };
     
-    // Reactions Array with colors
+    window.printPage = function() {
+        window.print();
+    };
+    
+    // Reactions Array
     const reactions = [
         { emoji: '👍', text: 'پسند آیا', color: '#3b82f6', bgColor: '#eff6ff', border: '#bfdbfe' },
         { emoji: '❤️', text: 'دل کو چھو لیا', color: '#ef4444', bgColor: '#fee2e2', border: '#fecaca' },
@@ -61,27 +60,32 @@
     const currentPath = window.location.pathname;
     const categoryPath = currentPath.split('/')[1] || '';
     
-    // Navigation Buttons - بڑے اور خوبصورت
-    const navButtons = [
+    // Navigation Buttons - 4+4 دو لائنوں میں
+    const navButtonsRow1 = [
         { icon: '🏠', text: 'مرکزی صفحہ', url: 'https://bloglovers.pk/', color: '#4f46e5' },
         { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages/alamaat-kubra.html', color: '#7c3aed' },
-        { icon: '📂', text: categoryPath.replace(/-/g, ' ') || 'کیٹیگری', url: categoryPath ? `https://bloglovers.pk/category-pages/alamaat-kubra.html` : '#', color: '#059669' },
-        { icon: '⭐', text: 'مشہور پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay', color: '#d97706' },
-        { icon: '🆕', text: 'فیچر پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/yajoj-majoj-ke-fitna-se-log-kaise-nijaat-paeen-ge-hissa-awwal', color: '#dc2626' },
-        { icon: '📞', text: 'رابطہ', url: 'https://bloglovers.pk/contact-us.html', color: '#6b7280' }
+        { icon: '📂', text: categoryPath.replace(/-/g, ' ') || 'موجودہ کیٹیگری', url: categoryPath ? `https://bloglovers.pk/category-pages/alamaat-kubra.html` : '#', color: '#059669' },
+        { icon: '⭐', text: 'مشہور پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi', color: '#d97706' }
     ];
     
-    let navHTML = '';
-    navButtons.forEach(btn => {
-        if (btn.url !== '#') {
-            navHTML += `
+    const navButtonsRow2 = [
+        { icon: '🆕', text: 'فیچر پوسٹ', url: 'https://bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain', color: '#dc2626' },
+        { icon: '📞', text: 'رابطہ', url: 'https://bloglovers.pk/contact', color: '#0891b2' },
+        { icon: '⬆️', text: 'اوپر جائیں', action: 'scrollToTop', color: '#b45309' },
+        { icon: '⬇️', text: 'نیچے جائیں', action: 'scrollToBottom', color: '#6b7280' }
+    ];
+    
+    let navHTMLRow1 = '';
+    navButtonsRow1.forEach(btn => {
+        if (btn.url && btn.url !== '#') {
+            navHTMLRow1 += `
                 <a href="${btn.url}" class="nav-btn" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd);">
                     <span class="nav-icon">${btn.icon}</span>
                     <span class="nav-text">${btn.text}</span>
                 </a>
             `;
         } else {
-            navHTML += `
+            navHTMLRow1 += `
                 <span class="nav-btn disabled" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd); opacity: 0.5;">
                     <span class="nav-icon">${btn.icon}</span>
                     <span class="nav-text">${btn.text}</span>
@@ -90,53 +94,85 @@
         }
     });
     
-    // Add scroll buttons
-    navHTML += `
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="nav-btn" style="background: linear-gradient(135deg, #0891b2, #06b6d4);">
-            <span class="nav-icon">⬆️</span>
-            <span class="nav-text">اوپر جائیں</span>
-        </button>
-        <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" class="nav-btn" style="background: linear-gradient(135deg, #b45309, #d97706);">
-            <span class="nav-icon">⬇️</span>
-            <span class="nav-text">نیچے جائیں</span>
-        </button>
-    `;
+    let navHTMLRow2 = '';
+    navButtonsRow2.forEach(btn => {
+        if (btn.action === 'scrollToTop') {
+            navHTMLRow2 += `
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="nav-btn" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd);">
+                    <span class="nav-icon">${btn.icon}</span>
+                    <span class="nav-text">${btn.text}</span>
+                </button>
+            `;
+        } else if (btn.action === 'scrollToBottom') {
+            navHTMLRow2 += `
+                <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" class="nav-btn" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd);">
+                    <span class="nav-icon">${btn.icon}</span>
+                    <span class="nav-text">${btn.text}</span>
+                </button>
+            `;
+        } else {
+            navHTMLRow2 += `
+                <a href="${btn.url}" class="nav-btn" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd);">
+                    <span class="nav-icon">${btn.icon}</span>
+                    <span class="nav-text">${btn.text}</span>
+                </a>
+            `;
+        }
+    });
     
-    // Social Media Platforms
-    const socialPlatforms = [
-        { name: 'فیس بک', icon: '📘', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, color: '#1877f2' },
-        { name: 'واٹس ایپ', icon: '📱', url: `https://wa.me/?text=${encodeURIComponent(document.title + ' ' + window.location.href)}`, color: '#25D366' },
-        { name: 'ٹویٹر', icon: '🐦', url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.title)}`, color: '#1DA1F2' },
-        { name: 'لنکڈ ان', icon: '💼', url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, color: '#0077b5' },
-        { name: 'ٹیلی گرام', icon: '📨', url: `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.title)}`, color: '#0088cc' },
-        { name: 'پنٹیرسٹ', icon: '📌', url: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&description=${encodeURIComponent(document.title)}`, color: '#bd081c' },
-        { name: 'ریڈٹ', icon: '🤖', url: `https://www.reddit.com/submit?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(document.title)}`, color: '#ff4500' },
-        { name: 'ای میل', icon: '📧', url: `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(window.location.href)}`, color: '#ea4335' }
+    // Social Media Icons 
+    const socialIconsRow1 = [
+        { icon: '📘', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, color: '#1877f2', name: 'Facebook' },
+        { icon: '📱', url: `https://wa.me/?text=${encodeURIComponent(document.title + ' ' + window.location.href)}`, color: '#25D366', name: 'WhatsApp' },
+        { icon: '🐦', url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.title)}`, color: '#1DA1F2', name: 'Twitter' },
+        { icon: '💼', url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, color: '#0077b5', name: 'LinkedIn' },
+        { icon: '📨', url: `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.title)}`, color: '#0088cc', name: 'Telegram' }
     ];
     
-    let socialHTML = '';
-    socialPlatforms.forEach(platform => {
-        socialHTML += `
-            <a href="${platform.url}" target="_blank" class="social-btn" style="background: linear-gradient(135deg, ${platform.color}, ${platform.color}dd);">
-                <span class="social-icon">${platform.icon}</span>
-                <span class="social-name">${platform.name}</span>
+    const socialIconsRow2 = [
+        { icon: '📌', url: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(window.location.href)}&description=${encodeURIComponent(document.title)}`, color: '#bd081c', name: 'Pinterest' },
+        { icon: '🤖', url: `https://www.reddit.com/submit?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(document.title)}`, color: '#ff4500', name: 'Reddit' },
+        { icon: '📧', url: `mailto:?subject=${encodeURIComponent(document.title)}&body=${encodeURIComponent(window.location.href)}`, color: '#ea4335', name: 'Email' },
+        { icon: '🔗', action: 'copy', color: '#6c757d', name: 'Copy Link' },
+        { icon: '🖨️', action: 'print', color: '#4b5563', name: 'Print' }
+    ];
+    
+    let socialHTMLRow1 = '';
+    socialIconsRow1.forEach(icon => {
+        socialHTMLRow1 += `
+            <a href="${icon.url}" target="_blank" class="social-icon-btn" style="background: ${icon.color};" title="${icon.name}">
+                <span class="social-icon">${icon.icon}</span>
             </a>
         `;
     });
     
+    let socialHTMLRow2 = '';
+    socialIconsRow2.forEach(icon => {
+        if (icon.action === 'copy') {
+            socialHTMLRow2 += `
+                <button onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('✅ لنک کاپی ہو گیا!'))" 
+                        class="social-icon-btn" style="background: ${icon.color};" title="${icon.name}">
+                    <span class="social-icon">${icon.icon}</span>
+                </button>
+            `;
+        } else if (icon.action === 'print') {
+            socialHTMLRow2 += `
+                <button onclick="window.print()" 
+                        class="social-icon-btn" style="background: ${icon.color};" title="${icon.name}">
+                    <span class="social-icon">${icon.icon}</span>
+                </button>
+            `;
+        } else {
+            socialHTMLRow2 += `
+                <a href="${icon.url}" target="_blank" class="social-icon-btn" style="background: ${icon.color};" title="${icon.name}">
+                    <span class="social-icon">${icon.icon}</span>
+                </a>
+            `;
+        }
+    });
+    
     const html = `
         <div class="reactions-wrapper">
-            <!-- نیویگیشن بٹنز -->
-            <div class="nav-section">
-                <div class="section-title">
-                    <span class="title-icon">🧭</span>
-                    <span class="title-text">نیویگیشن</span>
-                </div>
-                <div class="nav-grid">
-                    ${navHTML}
-                </div>
-            </div>
-            
             <!-- Reactions سیکشن -->
             <div class="reactions-section">
                 <div class="section-title">
@@ -149,24 +185,35 @@
                 </div>
             </div>
             
-            <!-- شیئر سیکشن -->
-            <div class="share-section">
+            <!-- نیویگیشن سیکشن - 4+4 دو لائنوں میں -->
+            <div class="nav-section">
+                <div class="section-title">
+                    <span class="title-icon">🧭</span>
+                    <span class="title-text">نیویگیشن</span>
+                </div>
+                
+                <div class="nav-grid-row">
+                    ${navHTMLRow1}
+                </div>
+                
+                <div class="nav-grid-row">
+                    ${navHTMLRow2}
+                </div>
+            </div>
+            
+            <!-- سوشل میڈیا سیکشن - صرف آئیکونز، 5+5 دو لائنوں میں -->
+            <div class="social-section">
                 <div class="section-title">
                     <span class="title-icon">📱</span>
-                    <span class="title-text">سوشل میڈیا پر شیئر کریں</span>
+                    <span class="title-text">شیئر کریں</span>
                 </div>
                 
-                <div class="social-grid">
-                    ${socialHTML}
+                <div class="social-icons-row">
+                    ${socialHTMLRow1}
                 </div>
                 
-                <!-- Copy Link Button -->
-                <div class="copy-link-section">
-                    <button onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('✅ لنک کاپی ہو گیا!'))" 
-                            class="copy-link-btn">
-                        <span class="copy-icon">🔗</span>
-                        <span class="copy-text">لنک کاپی کریں</span>
-                    </button>
+                <div class="social-icons-row">
+                    ${socialHTMLRow2}
                 </div>
             </div>
             
@@ -175,27 +222,21 @@
                 
                 /* Main Container */
                 .reactions-wrapper {
-                    max-width: 1000px;
+                    max-width: 800px;
                     margin: 40px auto 30px;
-                    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+                    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
                     border-radius: 40px;
                     box-shadow: 0 20px 40px rgba(0,0,0,0.05);
                     padding: 30px;
                     direction: rtl;
-                    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+                    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
                     border: 1px solid #eef2f6;
                     animation: fadeInUp 0.8s ease;
                 }
                 
                 @keyframes fadeInUp {
-                    from {
-                        opacity: 0;
-                        transform: translateY(30px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
+                    from { opacity: 0; transform: translateY(30px); }
+                    to { opacity: 1; transform: translateY(0); }
                 }
                 
                 /* Section Title */
@@ -203,10 +244,8 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    gap: 12px;
+                    gap: 10px;
                     margin-bottom: 25px;
-                    padding-bottom: 10px;
-                    border-bottom: 3px solid #e2e8f0;
                 }
                 
                 .title-icon {
@@ -223,30 +262,115 @@
                     font-size: 24px;
                     color: #1e293b;
                     font-weight: 600;
+                    background: linear-gradient(135deg, #1e293b, #334155);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                 }
                 
-                /* Navigation Grid */
-                .nav-section {
-                    margin-bottom: 35px;
+                /* Reactions Grid */
+                .reactions-section {
+                    margin-bottom: 40px;
                 }
                 
-                .nav-grid {
+                .reactions-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                    grid-template-columns: repeat(6, 1fr);
                     gap: 12px;
                 }
                 
+                .reaction-item {
+                    width: 100%;
+                }
+                
+                .reaction-btn {
+                    width: 100%;
+                    background: white;
+                    border: 2px solid;
+                    border-radius: 25px;
+                    padding: 12px 5px;
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 6px;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .reaction-btn::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.5);
+                    transform: translate(-50%, -50%);
+                    transition: width 0.6s, height 0.6s;
+                }
+                
+                .reaction-btn:hover::before {
+                    width: 300px;
+                    height: 300px;
+                }
+                
+                .reaction-btn:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+                }
+                
+                .reaction-emoji {
+                    font-size: 32px;
+                    filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.1));
+                    animation: pulse 2s infinite;
+                }
+                
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.1); }
+                }
+                
+                .reaction-text {
+                    font-size: 16px;
+                    font-weight: 500;
+                    text-align: center;
+                }
+                
+                .reaction-count {
+                    padding: 3px 10px;
+                    border-radius: 30px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    min-width: 25px;
+                    text-align: center;
+                }
+                
+                /* Navigation Section */
+                .nav-section {
+                    margin-bottom: 40px;
+                }
+                
+                .nav-grid-row {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 10px;
+                    margin-bottom: 10px;
+                }
+                
                 .nav-btn {
-                    padding: 12px 15px;
+                    padding: 10px 12px;
                     border-radius: 40px;
                     text-decoration: none;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    gap: 8px;
+                    gap: 6px;
                     transition: all 0.3s ease;
                     color: white;
-                    font-size: 16px;
+                    font-size: 14px;
                     border: none;
                     cursor: pointer;
                     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -273,140 +397,50 @@
                 }
                 
                 .nav-btn:hover {
-                    transform: translateY(-5px) scale(1.02);
-                    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-                }
-                
-                .nav-btn:active {
-                    transform: scale(0.95);
+                    transform: translateY(-3px);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
                 }
                 
                 .nav-icon {
-                    font-size: 20px;
-                    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+                    font-size: 18px;
                 }
                 
                 .nav-text {
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: 500;
                 }
                 
-                /* Reactions Grid */
-                .reactions-section {
-                    margin-bottom: 35px;
-                }
-                
-                .reactions-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                    gap: 15px;
-                }
-                
-                .reaction-item {
-                    width: 100%;
-                }
-                
-                .reaction-btn {
-                    width: 100%;
-                    background: white;
-                    border: 2px solid;
-                    border-radius: 25px;
-                    padding: 15px 8px;
-                    cursor: pointer;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 8px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-                    position: relative;
-                    overflow: hidden;
-                }
-                
-                .reaction-btn::before {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 0;
-                    height: 0;
-                    border-radius: 50%;
-                    background: rgba(255,255,255,0.5);
-                    transform: translate(-50%, -50%);
-                    transition: width 0.6s, height 0.6s;
-                }
-                
-                .reaction-btn:hover::before {
-                    width: 300px;
-                    height: 300px;
-                }
-                
-                .reaction-btn:hover {
-                    transform: translateY(-5px) scale(1.02);
-                    box-shadow: 0 15px 25px rgba(0,0,0,0.15);
-                }
-                
-                .reaction-emoji {
-                    font-size: 36px;
-                    filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.1));
-                    animation: pulse 2s infinite;
-                }
-                
-                @keyframes pulse {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.1); }
-                }
-                
-                .reaction-text {
-                    font-size: 18px;
-                    font-weight: 500;
-                    text-align: center;
-                    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-                }
-                
-                .reaction-count {
-                    padding: 4px 12px;
+                /* Social Icons Section */
+                .social-section {
+                    background: #ffffff;
                     border-radius: 30px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    min-width: 30px;
-                    text-align: center;
-                    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+                    padding: 20px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
                 }
                 
-                /* Social Grid */
-                .share-section {
-                    background: #f8fafc;
-                    border-radius: 30px;
-                    padding: 25px;
-                }
-                
-                .social-grid {
+                .social-icons-row {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-                    gap: 12px;
-                    margin-bottom: 20px;
+                    grid-template-columns: repeat(5, 1fr);
+                    gap: 10px;
+                    margin-bottom: 10px;
                 }
                 
-                .social-btn {
-                    padding: 12px 15px;
-                    border-radius: 40px;
-                    text-decoration: none;
+                .social-icon-btn {
+                    width: 100%;
+                    aspect-ratio: 1;
+                    border-radius: 30px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    gap: 8px;
                     transition: all 0.3s ease;
-                    color: white;
-                    font-size: 16px;
                     border: none;
                     cursor: pointer;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
                     position: relative;
                     overflow: hidden;
                 }
                 
-                .social-btn::before {
+                .social-icon-btn::before {
                     content: '';
                     position: absolute;
                     top: 50%;
@@ -419,100 +453,39 @@
                     transition: width 0.6s, height 0.6s;
                 }
                 
-                .social-btn:hover::before {
+                .social-icon-btn:hover::before {
                     width: 300px;
                     height: 300px;
                 }
                 
-                .social-btn:hover {
-                    transform: translateY(-5px) scale(1.02);
+                .social-icon-btn:hover {
+                    transform: translateY(-5px) rotate(5deg);
                     box-shadow: 0 15px 25px rgba(0,0,0,0.2);
                 }
                 
                 .social-icon {
-                    font-size: 18px;
-                    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
-                }
-                
-                .social-name {
-                    font-size: 14px;
-                    font-weight: 500;
-                }
-                
-                /* Copy Link Button */
-                .copy-link-section {
-                    text-align: center;
-                    margin-top: 20px;
-                    padding-top: 20px;
-                    border-top: 2px dashed #e2e8f0;
-                }
-                
-                .copy-link-btn {
-                    background: linear-gradient(135deg, #1e293b, #334155);
+                    font-size: 28px;
                     color: white;
-                    border: none;
-                    padding: 15px 30px;
-                    border-radius: 50px;
-                    cursor: pointer;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 12px;
-                    font-size: 18px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                    position: relative;
-                    overflow: hidden;
-                }
-                
-                .copy-link-btn::before {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 0;
-                    height: 0;
-                    border-radius: 50%;
-                    background: rgba(255,255,255,0.2);
-                    transform: translate(-50%, -50%);
-                    transition: width 0.6s, height 0.6s;
-                }
-                
-                .copy-link-btn:hover::before {
-                    width: 300px;
-                    height: 300px;
-                }
-                
-                .copy-link-btn:hover {
-                    transform: translateY(-5px) scale(1.02);
-                    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-                }
-                
-                .copy-icon {
-                    font-size: 20px;
-                }
-                
-                .copy-text {
-                    font-size: 18px;
-                    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+                    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
                 }
                 
                 /* Responsive */
                 @media (max-width: 768px) {
                     .reactions-wrapper { padding: 20px; margin: 20px 10px; }
                     
-                    .nav-grid { grid-template-columns: repeat(2, 1fr); }
-                    .reactions-grid { grid-template-columns: repeat(2, 1fr); }
-                    .social-grid { grid-template-columns: repeat(2, 1fr); }
+                    .reactions-grid { grid-template-columns: repeat(3, 1fr); }
+                    
+                    .nav-grid-row { grid-template-columns: repeat(2, 1fr); }
+                    
+                    .social-icons-row { grid-template-columns: repeat(3, 1fr); }
                     
                     .title-text { font-size: 20px; }
-                    .nav-text { font-size: 14px; }
-                    .reaction-text { font-size: 16px; }
                 }
                 
                 @media (max-width: 480px) {
-                    .nav-grid { grid-template-columns: 1fr; }
-                    .reactions-grid { grid-template-columns: 1fr; }
-                    .social-grid { grid-template-columns: 1fr; }
+                    .reactions-grid { grid-template-columns: repeat(2, 1fr); }
+                    
+                    .social-icons-row { grid-template-columns: repeat(3, 1fr); }
                 }
             </style>
         </div>
