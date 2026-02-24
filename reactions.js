@@ -1,4 +1,4 @@
-// reactions.js - بلوگرز ڈاٹ پی کے
+// reactions.js - بلوگرز ڈاٹ پی کے (Firebase)
 (function() {
     'use strict';
     
@@ -6,38 +6,74 @@
     
     if (document.getElementById('bloglovers-reactions')) return;
     
-    // ========== ڈیٹا ==========
-    const pageId = window.location.pathname.replace(/\//g, '-');
+    // ========== FIREBASE CONFIG ==========
+    const firebaseConfig = {
+        apiKey: "AIzaSyDkB7FCubEwLko8-M0E_XbYcc52RjCbq4Y",
+        authDomain: "bloglovers-reactions.firebaseapp.com",
+        databaseURL: "https://bloglovers-reactions-default-rtdb.firebaseio.com",
+        projectId: "bloglovers-reactions",
+        storageBucket: "bloglovers-reactions.firebasestorage.app",
+        messagingSenderId: "234362795204",
+        appId: "1:234362795204:web:da28aef4c7e06bc13f8591"
+    };
     
-    let reactions = {
+    // Firebase Initialize
+    if (!window.firebaseApp) {
+        firebase.initializeApp(firebaseConfig);
+        window.firebaseApp = true;
+        console.log("✅ Firebase initialized");
+    }
+    
+    const database = firebase.database();
+    
+    // ========== PAGE INFO ==========
+    const pathParts = window.location.pathname.split('/');
+    const category = pathParts[1] || 'home';
+    const postSlug = pathParts[2] || 'index';
+    const pageId = category + '-' + postSlug;
+    
+    console.log("📄 Page ID:", pageId);
+    
+    // ========== REACTIONS DATA ==========
+    let reactionsData = {
         '👍': 0, '❤️': 0, '😊': 0, '😢': 0, '👏': 0
     };
     
-    // لوکل سٹوریج سے ڈیٹا لوڈ
-    try {
-        const saved = localStorage.getItem('react_' + pageId);
-        if (saved) reactions = JSON.parse(saved);
-    } catch(e) {}
+    // Firebase سے ڈیٹا لینا
+    const reactionsRef = database.ref('reactions/' + pageId);
+    reactionsRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            reactionsData = data;
+            updateCounts();
+            console.log("📊 Data loaded from Firebase:", data);
+        }
+    });
     
-    // ========== Reaction فنکشن ==========
+    // ========== ADD REACTION ==========
     window.addReaction = function(emoji) {
-        reactions[emoji] = reactions[emoji] + 1;
-        localStorage.setItem('react_' + pageId, JSON.stringify(reactions));
+        reactionsData[emoji] = (reactionsData[emoji] || 0) + 1;
+        reactionsRef.set(reactionsData);
         
         const span = document.getElementById('count-' + emoji);
-        if (span) span.innerText = reactions[emoji];
+        if (span) span.innerText = reactionsData[emoji];
         
-        // اینیمیشن
         const btn = event.currentTarget;
         btn.style.transform = 'scale(1.2)';
         setTimeout(() => btn.style.transform = 'scale(1)', 200);
+        
+        console.log("👍 Reaction added:", emoji, reactionsData[emoji]);
     };
     
-    // ========== کیٹگری ==========
-    const pathParts = window.location.pathname.split('/');
-    const category = pathParts[1] || '';
+    function updateCounts() {
+        const emojis = ['👍', '❤️', '😊', '😢', '👏'];
+        emojis.forEach(emoji => {
+            const span = document.getElementById('count-' + emoji);
+            if (span) span.innerText = reactionsData[emoji] || 0;
+        });
+    }
     
-    // ========== کیٹگری کے اردو نام ==========
+    // ========== CATEGORY NAMES ==========
     const catNames = {
         'alamaat-kubra': 'علامات کبری',
         'alamaat-sughra': 'علامات صغری',
@@ -62,9 +98,12 @@
             direction: rtl;
             max-width: 800px;
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', sans-serif;
-            border: 1px solid #e2e8f0;
         ">
-            <!-- نیویگیشن -->
+            <!-- Firebase Scripts -->
+            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+            
+            <!-- Navigation -->
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px;">
                 <a href="https://bloglovers.pk/" style="background: #4f46e5; color: white; padding: 8px 20px; border-radius: 40px; text-decoration: none;">🏠 مرکزی صفحہ</a>
                 
@@ -81,44 +120,45 @@
                 <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" style="background: #6b7280; color: white; padding: 8px 20px; border-radius: 40px; border: none; cursor: pointer;">⬇️ نیچے</button>
             </div>
             
-            <!-- Reactions -->
+            <!-- Title -->
             <h3 style="text-align: center; font-size: 28px; color: #1e293b; margin-bottom: 20px;">
                 😊 اس تحریر پر اپنا ردعمل دیں
             </h3>
             
+            <!-- Reactions -->
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                 <button onclick="addReaction('👍')" style="background: #eff6ff; border: 2px solid #3b82f6; border-radius: 50px; padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 24px;">👍</span>
                     <span style="color: #3b82f6;">پسند</span>
-                    <span id="count-👍" style="background: #3b82f6; color: white; padding: 2px 12px; border-radius: 20px;">${reactions['👍']}</span>
+                    <span id="count-👍" style="background: #3b82f6; color: white; padding: 2px 12px; border-radius: 20px;">${reactionsData['👍']}</span>
                 </button>
                 
                 <button onclick="addReaction('❤️')" style="background: #fee2e2; border: 2px solid #ef4444; border-radius: 50px; padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 24px;">❤️</span>
                     <span style="color: #ef4444;">محبت</span>
-                    <span id="count-❤️" style="background: #ef4444; color: white; padding: 2px 12px; border-radius: 20px;">${reactions['❤️']}</span>
+                    <span id="count-❤️" style="background: #ef4444; color: white; padding: 2px 12px; border-radius: 20px;">${reactionsData['❤️']}</span>
                 </button>
                 
                 <button onclick="addReaction('😊')" style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 50px; padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 24px;">😊</span>
                     <span style="color: #f59e0b;">اچھا</span>
-                    <span id="count-😊" style="background: #f59e0b; color: white; padding: 2px 12px; border-radius: 20px;">${reactions['😊']}</span>
+                    <span id="count-😊" style="background: #f59e0b; color: white; padding: 2px 12px; border-radius: 20px;">${reactionsData['😊']}</span>
                 </button>
                 
                 <button onclick="addReaction('😢')" style="background: #f3f4f6; border: 2px solid #6b7280; border-radius: 50px; padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 24px;">😢</span>
                     <span style="color: #6b7280;">غم</span>
-                    <span id="count-😢" style="background: #6b7280; color: white; padding: 2px 12px; border-radius: 20px;">${reactions['😢']}</span>
+                    <span id="count-😢" style="background: #6b7280; color: white; padding: 2px 12px; border-radius: 20px;">${reactionsData['😢']}</span>
                 </button>
                 
                 <button onclick="addReaction('👏')" style="background: #ede9fe; border: 2px solid #8b5cf6; border-radius: 50px; padding: 10px 20px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 24px;">👏</span>
                     <span style="color: #8b5cf6;">واہ</span>
-                    <span id="count-👏" style="background: #8b5cf6; color: white; padding: 2px 12px; border-radius: 20px;">${reactions['👏']}</span>
+                    <span id="count-👏" style="background: #8b5cf6; color: white; padding: 2px 12px; border-radius: 20px;">${reactionsData['👏']}</span>
                 </button>
             </div>
             
-            <!-- سوشل میڈیا -->
+            <!-- Social Media -->
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 25px;">
                 <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" style="background: #1877f2; color: white; width: 45px; height: 45px; border-radius: 25px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px;">📘</a>
                 
@@ -129,13 +169,14 @@
                 <button onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('✅ لنک کاپی ہو گیا'))" style="background: #6c757d; color: white; width: 45px; height: 45px; border-radius: 25px; border: none; cursor: pointer; font-size: 24px;">🔗</button>
             </div>
             
-            <p style="text-align: center; color: #64748b; margin-top: 15px; font-size: 14px;">
-                💡 آپ کا ردعمل آپ کے براؤزر میں محفوظ ہو گا
+            <!-- Firebase Status -->
+            <p style="text-align: center; color: #059669; margin-top: 15px; font-size: 14px; font-weight: bold;">
+                🔥 Firebase سے منسلک - ڈیٹا محفوظ ہو رہا ہے
             </p>
         </div>
     `;
     
-    // ========== صفحہ میں شامل کریں ==========
+    // ========== ADD TO PAGE ==========
     const target = document.querySelector('article') || 
                    document.querySelector('.post-content') || 
                    document.querySelector('.entry-content') ||
@@ -146,7 +187,7 @@
         const div = document.createElement('div');
         div.innerHTML = html;
         target.appendChild(div.firstElementChild);
-        console.log("✅ Reactions added");
+        console.log("✅ Reactions added with Firebase");
     }
     
 })();
