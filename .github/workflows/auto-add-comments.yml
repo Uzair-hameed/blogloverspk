@@ -17,6 +17,8 @@ jobs:
             if ! grep -q "comments.js" "$1"; then
               sed -i "s|</body>|<script src=\"/comments.js\"></script></body>|" "$1"
               echo "✅ شامل کر دیا: $1"
+            else
+              echo "⏭️ پہلے سے موجود: $1"
             fi
           ' sh {} \;
           
@@ -27,3 +29,10 @@ jobs:
           git add .
           git commit -m "خودکار: comments.js تمام پوسٹس میں شامل" || exit 0
           git push
+          
+      - name: GitHub Pages rebuild
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/Uzair-hameed/blogloverspk/pages/builds
