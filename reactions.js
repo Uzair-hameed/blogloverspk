@@ -99,7 +99,7 @@
     // Navigation Buttons - ڈائنامک لنکس کے ساتھ
     const navButtonsRow1 = [
         { icon: '🏠', text: 'مرکزی صفحہ', url: 'https://bloglovers.pk/', color: '#4f46e5' },
-        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages', color: '#7c3aed' },
+        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages/alamaat-kubra.html', color: '#7c3aed' },
         { 
             icon: '📂', 
             text: currentCategory ? getCategoryName(currentCategory) : 'مرکزی صفحہ', 
