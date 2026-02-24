@@ -5,18 +5,21 @@
     if (document.getElementById('bloglovers-reactions')) return;
     
     // ** Firebase Configuration **
-    // یہاں اپنی Firebase config ڈالیں جو آپ کو ملا تھا
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        databaseURL: "YOUR_DATABASE_URL",
-        projectId: "YOUR_PROJECT_ID",
-        appId: "YOUR_APP_ID"
+        apiKey: "AIzaSyDkB7FCubEwLko8-M0E_XbYcc52RjCbq4Y",
+        authDomain: "bloglovers-reactions.firebaseapp.com",
+        databaseURL: "https://bloglovers-reactions-default-rtdb.firebaseio.com",
+        projectId: "bloglovers-reactions",
+        storageBucket: "bloglovers-reactions.firebasestorage.app",
+        messagingSenderId: "234362795204",
+        appId: "1:234362795204:web:da28aef4c7e06bc13f8591",
+        measurementId: "G-719BWL84NW"
     };
     
     // Firebase Initialize
-    if (!firebase.apps.length) {
+    if (!firebase.apps || !firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
+        firebase.analytics(); // Google Analytics فعال
     }
     
     const database = firebase.database();
@@ -38,6 +41,14 @@
     });
     
     window.addReaction = function(emoji, btn) {
+        // Google Analytics event
+        try {
+            firebase.analytics().logEvent('reaction_click', {
+                emoji: emoji,
+                page: pageId
+            });
+        } catch(e) {}
+        
         // Firebase میں اپ ڈیٹ کریں
         const currentCount = reactionsData[emoji] || 0;
         reactionsData[emoji] = currentCount + 1;
@@ -105,7 +116,7 @@
     // Navigation Buttons
     const navButtonsRow1 = [
         { icon: '🏠', text: 'مرکزی صفحہ', url: 'https://bloglovers.pk/', color: '#4f46e5' },
-        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages', color: '#7c3aed' },
+        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages/alamaat-kubra.html', color: '#7c3aed' },
         { 
             icon: '📂', 
             text: currentCategory ? getCategoryName(currentCategory) : 'مرکزی صفحہ', 
@@ -211,9 +222,10 @@
     
     const html = `
         <div class="reactions-wrapper">
-            <!-- Firebase CDN -->
+            <!-- Firebase Scripts -->
             <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
             <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
             
             <!-- Reactions Section -->
             <div class="reactions-section">
