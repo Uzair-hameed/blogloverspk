@@ -1,37 +1,63 @@
-// reactions.js - Bloglovers.pk ڈائنامک ورژن
+// reactions.js - Bloglovers.pk Firebase ورژن
 (function() {
     'use strict';
     
     if (document.getElementById('bloglovers-reactions')) return;
     
-    const pageId = window.location.pathname.replace(/\//g, '-') || 'homepage';
+    // ** Firebase Configuration **
+    // یہاں اپنی Firebase config ڈالیں جو آپ کو ملا تھا
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        databaseURL: "YOUR_DATABASE_URL",
+        projectId: "YOUR_PROJECT_ID",
+        appId: "YOUR_APP_ID"
+    };
     
-    // Reactions ڈیٹا
-    let reactionsData = {};
-    try {
-        const saved = localStorage.getItem(`reactions_${pageId}`);
-        reactionsData = saved ? JSON.parse(saved) : {
-            '👍': 0, '❤️': 0, '😊': 0, '😢': 0, '👏': 0, '🤔': 0
-        };
-    } catch (e) {
-        reactionsData = {'👍': 0, '❤️': 0, '😊': 0, '😢': 0, '👏': 0, '🤔': 0};
+    // Firebase Initialize
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
     }
     
+    const database = firebase.database();
+    const pageId = window.location.pathname.replace(/\//g, '-') || 'homepage';
+    
+    // Reactions Data
+    let reactionsData = {
+        '👍': 0, '❤️': 0, '😊': 0, '😢': 0, '👏': 0, '🤔': 0
+    };
+    
+    // Firebase سے ڈیٹا لوڈ کریں
+    const reactionsRef = database.ref(`reactions/${pageId}`);
+    reactionsRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            reactionsData = data;
+            updateDisplay();
+        }
+    });
+    
     window.addReaction = function(emoji, btn) {
-        const countSpan = btn.querySelector('.reaction-count');
-        const currentCount = parseInt(countSpan.textContent) || 0;
-        countSpan.textContent = currentCount + 1;
+        // Firebase میں اپ ڈیٹ کریں
+        const currentCount = reactionsData[emoji] || 0;
+        reactionsData[emoji] = currentCount + 1;
         
-        reactionsData[emoji] = (reactionsData[emoji] || 0) + 1;
-        localStorage.setItem(`reactions_${pageId}`, JSON.stringify(reactionsData));
+        reactionsRef.set(reactionsData);
         
         btn.style.transform = 'scale(1.2) rotate(5deg)';
         setTimeout(() => { btn.style.transform = 'scale(1) rotate(0deg)'; }, 200);
     };
     
-    window.printPage = function() {
-        window.print();
-    };
+    function updateDisplay() {
+        const buttons = document.querySelectorAll('.reaction-btn');
+        buttons.forEach(btn => {
+            const emoji = btn.getAttribute('data-emoji');
+            const countSpan = btn.querySelector('.reaction-count');
+            if (countSpan) {
+                countSpan.textContent = reactionsData[emoji] || 0;
+            }
+        });
+    }
     
     // Reactions Array
     const reactions = [
@@ -47,7 +73,7 @@
     reactions.forEach(r => {
         reactionsHTML += `
             <div class="reaction-item">
-                <button class="reaction-btn" onclick="addReaction('${r.emoji}', this)" 
+                <button class="reaction-btn" data-emoji="${r.emoji}" onclick="addReaction('${r.emoji}', this)" 
                         style="background-color: ${r.bgColor}; border-color: ${r.border};">
                     <span class="reaction-emoji">${r.emoji}</span>
                     <span class="reaction-text" style="color: ${r.color};">${r.text}</span>
@@ -57,12 +83,10 @@
         `;
     });
     
-    // **ڈائنامک کیٹگری لنک**
     const currentPath = window.location.pathname;
     const pathParts = currentPath.split('/').filter(p => p);
-    const currentCategory = pathParts[0] || ''; // مثلاً: alamaat-kubra, aqwal, etc.
+    const currentCategory = pathParts[0] || '';
     
-    // **کیٹگری کا نام صاف کریں (مثلاً: alamaat-kubra → علامات کبری)**
     function getCategoryName(category) {
         const categoryNames = {
             'alamaat-kubra': 'علامات کبری',
@@ -78,54 +102,34 @@
         return categoryNames[category] || category.replace(/-/g, ' ');
     }
     
-    // **پاپولر پوسٹس کا لنک (اسی کیٹگری میں)**
-    const popularPosts = {
-        'alamaat-kubra': 'https://bloglovers.pk/alamaat-kubra/mashoor-post',
-        'aqwal': 'https://bloglovers.pk/aqwal/mashoor-aqwal',
-        'default': 'https://bloglovers.pk/popular'
-    };
-    
-    const popularLink = popularPosts[currentCategory] || popularPosts.default;
-    
-    // **نئی پوسٹس کا لنک (اسی کیٹگری میں)**
-    const newPosts = {
-        'alamaat-kubra': 'https://bloglovers.pk/alamaat-kubra/nayi-post',
-        'aqwal': 'https://bloglovers.pk/aqwal/naye-aqwal',
-        'default': 'https://bloglovers.pk/new'
-    };
-    
-    const newLink = newPosts[currentCategory] || newPosts.default;
-    
-    // Navigation Buttons - ڈائنامک لنکس کے ساتھ
+    // Navigation Buttons
     const navButtonsRow1 = [
         { icon: '🏠', text: 'مرکزی صفحہ', url: 'https://bloglovers.pk/', color: '#4f46e5' },
-        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages/alamaat-kubra.html', color: '#7c3aed' },
+        { icon: '📚', text: 'تمام اقسام', url: 'https://bloglovers.pk/category-pages', color: '#7c3aed' },
         { 
             icon: '📂', 
             text: currentCategory ? getCategoryName(currentCategory) : 'مرکزی صفحہ', 
             url: currentCategory ? `https://bloglovers.pk/${currentCategory}` : 'https://bloglovers.pk/', 
             color: '#059669' 
         },
-        { icon: '⭐', text: 'مشہور پوسٹ', url: popularLink, color: '#d97706' }
+        { icon: '📞', text: 'رابطہ', url: 'https://bloglovers.pk/contact', color: '#0891b2' }
     ];
     
     const navButtonsRow2 = [
-        { icon: '🆕', text: 'نئی پوسٹ', url: newLink, color: '#dc2626' },
-        { icon: '📞', text: 'رابطہ', url: 'https://bloglovers.pk/contact-us.html', color: '#0891b2' },
+        { icon: '⭐', text: 'مقبول پوسٹس', url: `https://bloglovers.pk/${currentCategory ? currentCategory + '/popular' : 'popular'}`, color: '#d97706' },
+        { icon: '🆕', text: 'نئی پوسٹس', url: `https://bloglovers.pk/${currentCategory ? currentCategory + '/new' : 'new'}`, color: '#dc2626' },
         { icon: '⬆️', text: 'اوپر جائیں', action: 'scrollToTop', color: '#b45309' },
         { icon: '⬇️', text: 'نیچے جائیں', action: 'scrollToBottom', color: '#6b7280' }
     ];
     
     let navHTMLRow1 = '';
     navButtonsRow1.forEach(btn => {
-        if (btn.url) {
-            navHTMLRow1 += `
-                <a href="${btn.url}" class="nav-btn" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd);">
-                    <span class="nav-icon">${btn.icon}</span>
-                    <span class="nav-text">${btn.text}</span>
-                </a>
-            `;
-        }
+        navHTMLRow1 += `
+            <a href="${btn.url}" class="nav-btn" style="background: linear-gradient(135deg, ${btn.color}, ${btn.color}dd);">
+                <span class="nav-icon">${btn.icon}</span>
+                <span class="nav-text">${btn.text}</span>
+            </a>
+        `;
     });
     
     let navHTMLRow2 = '';
@@ -154,7 +158,7 @@
         }
     });
     
-    // Social Media Icons
+    // Social Icons
     const socialIconsRow1 = [
         { icon: '📘', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, color: '#1877f2', name: 'Facebook' },
         { icon: '📱', url: `https://wa.me/?text=${encodeURIComponent(document.title + ' ' + window.location.href)}`, color: '#25D366', name: 'WhatsApp' },
@@ -207,7 +211,11 @@
     
     const html = `
         <div class="reactions-wrapper">
-            <!-- Reactions سیکشن -->
+            <!-- Firebase CDN -->
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+            
+            <!-- Reactions Section -->
             <div class="reactions-section">
                 <div class="section-title">
                     <span class="title-icon">💭</span>
@@ -219,7 +227,7 @@
                 </div>
             </div>
             
-            <!-- نیویگیشن سیکشن - ڈائنامک -->
+            <!-- Navigation Section -->
             <div class="nav-section">
                 <div class="section-title">
                     <span class="title-icon">🧭</span>
@@ -235,7 +243,7 @@
                 </div>
             </div>
             
-            <!-- سوشل میڈیا سیکشن -->
+            <!-- Social Section -->
             <div class="social-section">
                 <div class="section-title">
                     <span class="title-icon">📱</span>
