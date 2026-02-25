@@ -1,11 +1,11 @@
-// reactions.js - بلوگرز ڈاٹ پی کے (Cloudflare D1)
+// reactions.js - بلوگرز ڈاٹ پی کے (مکمل ورژن)
 (function() {
     'use strict';
     
     if (document.getElementById('cf-reactions')) return;
     
     const pageId = window.location.pathname.replace(/\//g, '-');
-    // 🔁 آپ کا Cloudflare Worker URL
+    // 🔁 آپ کا Cloudflare Worker URL (یہ صحیح ہے)
     const API_URL = 'https://aged-unit-8ce7.uzairhameed01.workers.dev';
     
     let reactions = { 
