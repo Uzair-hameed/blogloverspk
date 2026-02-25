@@ -1,19 +1,51 @@
-// reactions.js - بلوگرز ڈاٹ پی کے (انتہائی سادہ)
+// reactions.js - بلوگرز ڈاٹ پی کے (صرف API)
 (function() {
     'use strict';
     
-    // سیدھا باکس بنا دو
-    const box = document.createElement('div');
-    box.style.cssText = 'margin:40px auto; padding:30px; background:white; border-radius:30px; direction:rtl; max-width:800px; box-shadow:0 10px 30px rgba(0,0,0,0.1);';
-    box.innerHTML = `
-        <h3 style="text-align:center;">😊 ردعمل دیں</h3>
-        <div style="display:flex; gap:10px; justify-content:center;">
-            <button onclick="alert('👍')" style="padding:10px 20px;">👍 عمدہ</button>
-            <button onclick="alert('❤️')" style="padding:10px 20px;">❤️ دلچسپ</button>
-            <button onclick="alert('😊')" style="padding:10px 20px;">😊 مفید</button>
-        </div>
-    `;
+    // Cloudflare Worker URL (پروٹوکول-ریلیٹیو)
+    const API_URL = '//aged-unit-8ce7.uzairhameed01.workers.dev';
+    const pageId = window.location.pathname.replace(/\//g, '-');
     
-    // پوسٹ کے آخر میں شامل کریں
-    document.body.appendChild(box);
+    // ========== CLOUDFLARE سے ڈیٹا لوڈ کریں ==========
+    async function loadReactions() {
+        try {
+            const response = await fetch(`${API_URL}?pageId=${pageId}`);
+            if (response.ok) {
+                const counts = await response.json();
+                // counts کو اپ ڈیٹ کریں
+                Object.keys(counts).forEach(emoji => {
+                    const el = document.getElementById(`count-${emoji}`);
+                    if (el) el.innerText = counts[emoji];
+                });
+            }
+        } catch (e) {
+            console.log('Load error:', e);
+        }
+    }
+    
+    // ========== ری ایکشن کلک کرنے پر ==========
+    window.reactionClick = async function(emoji) {
+        // count اپ ڈیٹ کریں
+        const el = document.getElementById(`count-${emoji}`);
+        if (el) {
+            const newCount = parseInt(el.innerText) + 1;
+            el.innerText = newCount;
+            
+            // Cloudflare میں محفوظ کریں
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pageId, emoji })
+            });
+        }
+    };
+    
+    // ========== شروع کریں ==========
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadReactions);
+    } else {
+        loadReactions();
+    }
+    
+    console.log('✅ reactions.js loaded - API only');
 })();
