@@ -5,7 +5,7 @@
     if (document.getElementById('reactions-transparent')) return;
     
     // ========== CONFIG ==========
-    const API_URL = 'https://aged-unit-8ce7.uzairhameed01.workers.dev';
+   const API_URL = '//aged-unit-8ce7.uzairhameed01.workers.dev';
     const pageId = window.location.pathname.replace(/\//g, '-');
     
     let reactions = { 
