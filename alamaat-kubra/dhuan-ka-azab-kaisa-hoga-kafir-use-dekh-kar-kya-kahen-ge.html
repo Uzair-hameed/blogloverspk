@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 5 (CDN) for social icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <style>
         @font-face { 
             font-family: 'Jameel Noori Nastaleeq'; 
@@ -110,13 +112,128 @@
             100% { transform: translateY(0) translateX(0); }
         }
         
-        /* Main Container */
+        /* Main Container - Two Column Layout */
         .main-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 30px 20px;
             position: relative;
             z-index: 1;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        /* Content Area (Left Column - Post) */
+        .content-area {
+            flex: 1 1 65%;
+            min-width: 300px;
+        }
+        
+        /* Sidebar (Right Column) */
+        .sidebar-area {
+            flex: 0 0 300px;
+            width: 300px;
+            position: sticky;
+            top: 30px;
+            align-self: flex-start;
+        }
+        
+        /* Internal Linking Sidebar */
+        .internal-links-sidebar {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 20px 15px;
+            box-shadow: 0 20px 50px var(--shadow-heavy), inset 0 0 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,215,0,0.2);
+            backdrop-filter: blur(10px);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-title {
+            color: var(--gold);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-red);
+            position: relative;
+        }
+        
+        .sidebar-title i {
+            margin-left: 10px;
+            color: var(--green);
+        }
+        
+        .sidebar-scroll-container {
+            overflow-y: auto;
+            flex: 1;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-red) rgba(0,0,0,0.3);
+            position: relative;
+            animation: scrollUp 30s linear infinite;
+        }
+        
+        /* Pause on hover */
+        .sidebar-scroll-container:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 440px)); } /* 500px height - approx 60px per item*10 = 600, but fine */
+        }
+        
+        .sidebar-scroll-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-scroll-container::-webkit-scrollbar-track {
+            background: rgba(20,20,20,0.8);
+        }
+        .sidebar-scroll-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-red), var(--gold));
+            border-radius: 10px;
+        }
+        
+        .sidebar-post-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            margin-bottom: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            border-right: 3px solid transparent;
+            transition: 0.3s;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+        
+        .sidebar-post-item:hover {
+            border-right-color: var(--gold);
+            background: rgba(139,0,0,0.2);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-post-item.current-post {
+            border-right-color: var(--green);
+            background: rgba(50,205,50,0.1);
+        }
+        
+        .sidebar-post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(255,215,0,0.2);
+        }
+        
+        .sidebar-post-title {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            flex: 1;
         }
         
         /* Header */
@@ -375,6 +492,161 @@
             opacity: 1;
         }
         
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0;
+            padding: 30px 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50px;
+            text-align: center;
+        }
+        
+        .reactions-title {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px 25px;
+        }
+        
+        .reaction-btn {
+            background: rgba(30,30,30,0.8);
+            border: 2px solid var(--primary-red);
+            color: var(--text-lighter);
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        .reaction-btn:hover {
+            background: var(--primary-red);
+            transform: scale(1.1);
+            border-color: var(--gold);
+        }
+        
+        .reaction-count {
+            font-size: 1.3rem;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 12px;
+            border-radius: 30px;
+            min-width: 45px;
+            display: inline-block;
+        }
+        
+        /* Navigation Buttons */
+        .post-navigation {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid var(--gold);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+            background: linear-gradient(135deg, var(--light-red), var(--primary-red));
+        }
+        
+        /* Floating Scroll Button */
+        .floating-scroll {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .scroll-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            border: 2px solid var(--gold);
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .scroll-btn:hover {
+            transform: scale(1.2);
+            background: var(--gold);
+            color: black;
+        }
+        
+        /* Social Icons (7) */
+        .social-share {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(30,30,30,0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.15);
+            border-color: var(--gold);
+        }
+        
+        /* Individual Colors */
+        .social-icon.fb { background: #1877f2; }
+        .social-icon.ws { background: #25D366; }
+        .social-icon.tw { background: #1DA1F2; }
+        .social-icon.li { background: #0077b5; }
+        .social-icon.tg { background: #0088cc; }
+        .social-icon.pt { background: #bd081c; }
+        .social-icon.cl { background: #6c757d; }
+        
         /* Color Fill Mode */
         .color-fill-container {
             position: fixed;
@@ -498,167 +770,6 @@
             font-size: 1.8rem;
         }
         
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2.4rem; }
-            h3 { font-size: 2rem; }
-            p { font-size: 1.6rem; }
-            .post-content { padding: 40px; }
-        }
-        
-        @media (max-width: 768px) {
-            .main-container { padding: 20px 15px; }
-            .page-header { padding: 25px 20px; margin-bottom: 40px; }
-            .post-content { padding: 30px 25px; }
-            
-            h1 { 
-                font-size: 2.4rem; 
-                margin-bottom: 30px;
-                padding-bottom: 20px;
-            }
-            
-            h2 { 
-                font-size: 2rem; 
-                margin: 40px 0 25px;
-                padding-bottom: 12px;
-            }
-            
-            h3 { 
-                font-size: 1.7rem; 
-                margin: 30px 0 20px;
-            }
-            
-            p { 
-                font-size: 1.4rem; 
-                line-height: 2.2;
-                padding: 12px;
-                margin-bottom: 25px;
-            }
-            
-            .trigger-btn {
-                font-size: 1.3rem;
-                padding: 18px 35px;
-                margin: 30px auto 50px;
-            }
-            
-            .post-content-overlay {
-                padding: 35px 25px;
-                width: 96%;
-                max-height: 90vh;
-            }
-            
-            .close-btn, .back-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 28px;
-            }
-            
-            .back-btn {
-                padding: 15px 25px;
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 { font-size: 1.9rem; }
-            h2 { font-size: 1.6rem; }
-            h3 { font-size: 1.4rem; }
-            p { font-size: 1.2rem; }
-            
-            .trigger-btn {
-                font-size: 1.1rem;
-                padding: 15px 30px;
-                margin: 25px auto 40px;
-            }
-            
-            .post-content {
-                padding: 25px 20px;
-            }
-            
-            .close-btn, .back-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 24px;
-                top: 20px;
-                left: 20px;
-            }
-            
-            .back-btn {
-                top: 20px;
-                right: 20px;
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
-            
-            .page-header {
-                padding: 20px 15px;
-                margin-bottom: 30px;
-            }
-        }
-        
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(20, 20, 20, 0.8);
-            border-radius: 10px;
-            margin: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, 
-                var(--primary-red), 
-                var(--gold), 
-                var(--green));
-            border-radius: 10px;
-            border: 2px solid rgba(20, 20, 20, 0.8);
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, 
-                var(--light-red), 
-                var(--gold), 
-                var(--dark-green));
-        }
-        
-        /* Selection Color */
-        ::selection {
-            background: rgba(139, 0, 0, 0.5);
-            color: var(--gold);
-            text-shadow: none;
-        }
-        
-        /* Loading Animation */
-        .loading {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10001;
-        }
-        
-        .loading.active {
-            display: block;
-        }
-        
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(139, 0, 0, 0.3);
-            border-top: 5px solid var(--gold);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         /* Footer */
         .footer {
             text-align: center;
@@ -670,59 +781,158 @@
             color: var(--text-gray);
             font-size: 1.3rem;
         }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.4rem; }
+            .main-container { flex-direction: column; }
+            .sidebar-area { width: 100%; position: static; }
+        }
+        
+        @media (max-width: 768px) {
+            .post-content { padding: 30px; }
+            h1 { font-size: 2.4rem; }
+            .reaction-btn { font-size: 1.3rem; }
+            .social-share { left: 5px; gap: 8px; }
+            .social-icon { width: 45px; height: 45px; font-size: 22px; }
+        }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="animated-bg"></div>
-    
-    <!-- Floating Particles -->
     <div class="particles" id="particlesContainer"></div>
-    
-    <!-- Loading Spinner -->
-    <div class="loading" id="loadingSpinner">
-        <div class="spinner"></div>
+    <div class="loading" id="loadingSpinner"><div class="spinner"></div></div>
+
+    <!-- Floating Social Icons (7) -->
+    <div class="social-share">
+        <a href="#" onclick="shareOnSocial('fb')" class="social-icon fb" title="فیس بک"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" onclick="shareOnSocial('wa')" class="social-icon ws" title="واٹس ایپ"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" onclick="shareOnSocial('tw')" class="social-icon tw" title="ٹویٹر"><i class="fab fa-twitter"></i></a>
+        <a href="#" onclick="shareOnSocial('li')" class="social-icon li" title="لنکڈ ان"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" onclick="shareOnSocial('tg')" class="social-icon tg" title="ٹیلی گرام"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" onclick="shareOnSocial('pt')" class="social-icon pt" title="پنٹیرسٹ"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#" onclick="copyPageLink()" class="social-icon cl" title="کاپی لنک"><i class="fas fa-link"></i></a>
     </div>
-    
+
+    <!-- Floating Scroll Buttons -->
+    <div class="floating-scroll">
+        <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+        <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</button>
+    </div>
+
     <div class="main-container">
-        <div class="page-header">
-            <button class="trigger-btn" onclick="openColorFillPost()">
-                اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-            </button>
+        <!-- Left Column: Post Content -->
+        <div class="content-area">
+            <div class="page-header">
+                <button class="trigger-btn" onclick="openColorFillPost()">
+                    اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+                </button>
+            </div>
+
+            <div class="post-content">
+                <h1>دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟</h1>
+                
+                <img src="https://bloglovers.pk/images/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge.png" 
+                     alt="دھواں کا عذاب - قیامت کی نشانی" 
+                     class="featured-image"
+                     loading="lazy">
+                
+                <!-- Reactions Section (Exactly as required) -->
+                <div class="reactions-section">
+                    <h3 class="reactions-title">اس پوسٹ پر اپنا ردعمل دیں</h3>
+                    <div class="reactions-container">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+
+                <p>دوستو! اللہ رب العزت نے ہر قوم کو اس کے اعمال کے مطابق جزا وسزا دی ہے۔ عذاب کی نوعیت مختلف ہو سکتی ہے، اللہ نے بعض قوموں کو زمین سے تعلق رکھنے والے عذاب میں مبتلا کیا جیسے زمین کا دھنس جانا، خشک سالی وغیرہ، بعض کا تعلق لوگوں کی ذات سے ہے جیسے عورتوں کی کثرت اور مردوں کی قلت کا ہونا، جھوٹ کا پھیلنا، مختلف بیماریوں کا پھیلنا وغیرہ، کچھ کا تعلق انسانی اخلاقیات اور دائرہ اسلام سے ہے جیسے کہ زنا، سود، جوا، شراب اور قتل وغیرہ، جبکہ بعض کا تعلق آسمانی عذاب سے ہے آسمان سے بجلی کا کثرت سے گرنا، بارشوں کی کمی یا زیادتی ہونا، سردی اور گرمی کا بڑھنا، زلزلہ اور سرخ آندھیوں کا چلنا، انہی بہت ساری نشانیوں میں سے ایک آسمانی نشانی دھواں (دخان) کا اٹھنا بھی ہے جس کا ذکر اللہ رب العزت نے قرآن میں بیان فرمایا "تو آپ اس دن کا انتظار کیجئے جب آسمان صاف دھواں لائے گا، جو لوگوں کو ڈھانپ لے گا (کہا جائے گا) یہ دردناک عذاب ہے۔ (کافر کہیں گے) اے ہمارے رب! ہم سے یہ عذاب ہٹا دے، بلاشبہ ہم ایمان لانے والے ہیں۔ ان کے لئے نصیحت کیونکر ہوگی جبکہ ان کے پاس ایک کھول کھول کر بیان کرنے والا رسول آگیا"۔</p>
+                
+                <h2>دھواں (دخان) کی تشریح</h2>
+                <p>دھواں (دخان) سے متعلق اہل علم کے مختلف مؤقف ہیں بعض کے نزدیک اس دھواں سے مراد وہ دھواں ہے جو قریش کو شدت بھوک کی شکل میں اس وقت پہنچا جب اللہ کے نبی حضرت محمد ﷺ نے ان کے لئے دعوت کو قبول نہ کرنے کی وجہ سے بددعا فرمائی تھی۔ وہ اپنی آنکھوں کو آسمان کی طرف اٹھا کر دیکھتے تو انھیں بھوک اور قحط کی وجہ سے دھوئیں کے سوا کچھ نظر نہ آتا تھا۔ (رسول اللہ نے جب بددعا فرمائی کہ اللہ تعالیٰ انھیں اسی طرح مصیبت میں ڈالے جس طرح اہل مصر کو مصیبت میں ڈالا گیا تھا، ان کے سات برس خشک سالی اور قحط میں گزرے حتی کہ بھوک اور افلاس کی شدت کے باعث وہ چمڑے اور مردار کھانے پر مجبور ہو گئے۔ ان میں سے جب کوئی شخص آسمان کی طرف دیکھتا تو بھوک کے باعث اسے دھواں ہی دھواں نظر آتا)۔ جبکہ بعض کے نزدیک دھواں کی علامت گزر چکی ہے لیکن اکثریت کی رائے یہ ہے کہ دخان (دھواں) دو قسم کا ہے ایک آپ ﷺ کے زمانے میں ظاہر ہو چکا ہے اور دوسرا قرب قیامت ظاہر ہو گا۔ اور یقیناً شدید ہوگا۔</p>
+                
+                <h2>احادیث کی روشنی میں</h2>
+                <p>ایک حدیث کے مطابق "جب دھوئیں کی علامت ظاہر ہوگی تو کفار کی سانسیں بند ہو جائیں گی جبکہ مومنوں پر اس سے صرف زکام جیسی کیفیت طاری ہوگی۔ یہ سن کر حضرت ابن مسعود غصے کی حالت میں سیدھے ہو کر بیٹھ گئے اور فرمایا لوگو! اللہ سے ڈرو، تم میں سے جسے کسی چیز کا علم ہو تو صرف اسے اپنے علم کے مطابق بیان کرے اور جسے کسی چیز کا علم نہ ہو وہ "اللہ اعلم" کہے۔</p>
+                
+                <p>ایک روایت کے مطابق پانچ چیزیں گزر چکی ہیں "اللزام" وہ عذاب ہے جو تکذیب کی صورت میں دیاگیا ہو۔ "الروم" رومی مغلوب ہوگئے، قریب ترین سرزمین (شام و فلسطین) میں اور وہ اپنے مغلوب ہونے کے بعد جلد غالب ہوں گے۔ "البطشۃ الکبری" سے مراد غزوہ بدر ہے جبکہ "القمر" چاند کے دو ٹکڑے ہونے کی بات علامات صغریٰ جو پہلے میں اپنے آرٹیکل میں تفصیل سے بیان کر چکا ہوں اور "الدخان" وہ دھواں جو قریش نے دیکھا تھا۔</p>
+                
+                <h2>قیامت کی نشانیاں</h2>
+                <p>ارشاد ربانی ہے "آپ اس دن کے منتظر رہیں جب آسمان ظاہر دھواں لائے گا" یعنی اتنا نمایاں ہوگا کہ ہر کوئی اپنی آنکھوں سے دیکھے گا۔ اہل قریش کو بھوک اور افلاس کی شدت کے باعث مخصوص خیال ہوتا تھا کہ آسمان میں دھواں ہے لیکن وہ ان کا وہم تھا جبکہ یہ دھواں حقیقی ہوگا۔ یعنی وہ دھواں حقیقت میں لوگوں کو اپنی لپیٹ میں لے لے گا۔ جب یہ دھواں انھیں پریشان کرے گا تو لوگوں سے کہا جائے گا کہ یہ درد ناک عذاب ہے۔</p>
+                
+                <p>ایک دوسری روایت کے مطابق "آپ ﷺ نے فرمایا "بلاشبہ وہ (قیامت) ہرگز قائم نہ ہوگی حتی کہ تم اس سے پہلے دس نشانیاں دیکھ لو...... اور آپ نے دھوئیں اور دجال کا ذکر کیا۔</p>
+                
+                <p>ایک اور مقام پر کچھ یوں بیان فرمایا "چھ چیزوں کے واقع ہونے سے پہلے پہلے نیک اعمال میں جلدی کر لو: سورج کا مغرب سے طلوع ہونا، یا دھوئیں کا ظاہر ہونا، یا دجال کا ظاہر ہونا، یا خروج دابہ یا تم میں کسی کا خاص وقت (موت) آجانا، یا سب کے لئے واقع ہونے والا معاملہ (قیامت) کا قائم ہو جانا"۔</p>
+                
+                <h2>صحابہ کرام کا خوف</h2>
+                <p>ایک اور حدیث کے الفاظ حضرت عبداللہ بن ابی سے ہیں وہ کہتے ہیں کہ میں ایک دن حضرت ابن عباس کے پاس گیا تو انھوں نے کہا: میں رات بھر سو نہیں سکا حتی کہ صبح ہوگئی میں نے پوچھا کس لئے؟ کہنے لگے: لوگوں نے بتلایا ہے کہ دم دار ستارہ طلوع ہو چکا ہے، مجھے خدشہ ہوا کہ کہیں دھواں نہ آپہنچا ہو، اسی خیال سے میں پوری رات نہ سو سکا"۔</p>
+                
+                <p>اس حدیث سے واضح ہے کہ صحابہ کرام کو کس قدر خوف تھا قیامت کا، کہ وہ ساری ساری رات موت کے خوف سے ڈر کے زندگی گزارتے تھے اور ایک ہم ہیں کہ جسے موت تو دور کی بات ہے قیامت کی یہ نشانیاں محض قصے اور کہانیاں معلوم ہوتی ہیں۔ تبھی تو سوشل میڈیا پر دین کا مذاق اڑاتے ہوئے لوگ دکھائی دیتے ہیں، چند دن پہلے 12 ربیع الاول کے دن لوگوں نے بدعت کے نام سے اتنی تبدیلیاں شروع کردی۔ کہ خدا خوفی تو درکنار شریعت محمدیہ سے ہی انکار کرتے دکھائی دیتے ہیں۔ گویا نعوذ باللہ اللہ نے دین مکمل ہی نہیں بھیجا یہ لوگ دین کو پورا کرنے میں لگے۔ اللہ رب العزت سے استدعا ہے کہ وہ ہمارے گناہوں اور خطاؤں کو معاف فرما دے۔ اور ہمیں ہدایت نصیب فرما دے۔ ہمارے جو کام ہیں وہ معافی کے لائق تو نہیں لیکن پھر بھی اللہ سے معافی مانگتے ہیں کہ وہ دین پر چلنے اور درست طریقے سے عمل کرنے کی توفیق عطا فرمائے۔ آمین</p>
+
+                <!-- Navigation Buttons (Bottom) -->
+                <div class="post-navigation">
+                    <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-kubra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+                
+                <div class="footer">
+                    <p>© 2024 دینی معلومات - تمام حقوق محفوظ ہیں</p>
+                </div>
+            </div>
         </div>
 
-        <div class="post-content">
-            <h1>دھواں کا عذاب کیسا ہوگا؟ کافر اسے دیکھ کر کیا کہیں گے؟</h1>
-            
-            <img src="https://bloglovers.pk/images/alamaat-kubra/dhuan-ka-azab-kaisa-hoga-kafir-use-dekh-kar-kya-kahen-ge.png" 
-                 alt="دھواں کا عذاب - قیامت کی نشانی" 
-                 class="featured-image"
-                 loading="lazy">
-            
-            <p>دوستو! اللہ رب العزت نے ہر قوم کو اس کے اعمال کے مطابق جزا وسزا دی ہے۔ عذاب کی نوعیت مختلف ہو سکتی ہے، اللہ نے بعض قوموں کو زمین سے تعلق رکھنے والے عذاب میں مبتلا کیا جیسے زمین کا دھنس جانا، خشک سالی وغیرہ، بعض کا تعلق لوگوں کی ذات سے ہے جیسے عورتوں کی کثرت اور مردوں کی قلت کا ہونا، جھوٹ کا پھیلنا، مختلف بیماریوں کا پھیلنا وغیرہ، کچھ کا تعلق انسانی اخلاقیات اور دائرہ اسلام سے ہے جیسے کہ زنا، سود، جوا، شراب اور قتل وغیرہ، جبکہ بعض کا تعلق آسمانی عذاب سے ہے آسمان سے بجلی کا کثرت سے گرنا، بارشوں کی کمی یا زیادتی ہونا، سردی اور گرمی کا بڑھنا، زلزلہ اور سرخ آندھیوں کا چلنا، انہی بہت ساری نشانیوں میں سے ایک آسمانی نشانی دھواں (دخان) کا اٹھنا بھی ہے جس کا ذکر اللہ رب العزت نے قرآن میں بیان فرمایا "تو آپ اس دن کا انتظار کیجئے جب آسمان صاف دھواں لائے گا، جو لوگوں کو ڈھانپ لے گا (کہا جائے گا) یہ دردناک عذاب ہے۔ (کافر کہیں گے) اے ہمارے رب! ہم سے یہ عذاب ہٹا دے، بلاشبہ ہم ایمان لانے والے ہیں۔ ان کے لئے نصیحت کیونکر ہوگی جبکہ ان کے پاس ایک کھول کھول کر بیان کرنے والا رسول آگیا"۔</p>
-            
-            <h2>دھواں (دخان) کی تشریح</h2>
-            <p>دھواں (دخان) سے متعلق اہل علم کے مختلف مؤقف ہیں بعض کے نزدیک اس دھواں سے مراد وہ دھواں ہے جو قریش کو شدت بھوک کی شکل میں اس وقت پہنچا جب اللہ کے نبی حضرت محمد ﷺ نے ان کے لئے دعوت کو قبول نہ کرنے کی وجہ سے بددعا فرمائی تھی۔ وہ اپنی آنکھوں کو آسمان کی طرف اٹھا کر دیکھتے تو انھیں بھوک اور قحط کی وجہ سے دھوئیں کے سوا کچھ نظر نہ آتا تھا۔ (رسول اللہ نے جب بددعا فرمائی کہ اللہ تعالیٰ انھیں اسی طرح مصیبت میں ڈالے جس طرح اہل مصر کو مصیبت میں ڈالا گیا تھا، ان کے سات برس خشک سالی اور قحط میں گزرے حتی کہ بھوک اور افلاس کی شدت کے باعث وہ چمڑے اور مردار کھانے پر مجبور ہو گئے۔ ان میں سے جب کوئی شخص آسمان کی طرف دیکھتا تو بھوک کے باعث اسے دھواں ہی دھواں نظر آتا)۔ جبکہ بعض کے نزدیک دھواں کی علامت گزر چکی ہے لیکن اکثریت کی رائے یہ ہے کہ دخان (دھواں) دو قسم کا ہے ایک آپ ﷺ کے زمانے میں ظاہر ہو چکا ہے اور دوسرا قرب قیامت ظاہر ہو گا۔ اور یقیناً شدید ہوگا۔</p>
-            
-            <h2>احادیث کی روشنی میں</h2>
-            <p>ایک حدیث کے مطابق "جب دھوئیں کی علامت ظاہر ہوگی تو کفار کی سانسیں بند ہو جائیں گی جبکہ مومنوں پر اس سے صرف زکام جیسی کیفیت طاری ہوگی۔ یہ سن کر حضرت ابن مسعود غصے کی حالت میں سیدھے ہو کر بیٹھ گئے اور فرمایا لوگو! اللہ سے ڈرو، تم میں سے جسے کسی چیز کا علم ہو تو صرف اسے اپنے علم کے مطابق بیان کرے اور جسے کسی چیز کا علم نہ ہو وہ "اللہ اعلم" کہے۔</p>
-            
-            <p>ایک روایت کے مطابق پانچ چیزیں گزر چکی ہیں "اللزام" وہ عذاب ہے جو تکذیب کی صورت میں دیاگیا ہو۔ "الروم" رومی مغلوب ہوگئے، قریب ترین سرزمین (شام و فلسطین) میں اور وہ اپنے مغلوب ہونے کے بعد جلد غالب ہوں گے۔ "البطشۃ الکبری" سے مراد غزوہ بدر ہے جبکہ "القمر" چاند کے دو ٹکڑے ہونے کی بات علامات صغریٰ جو پہلے میں اپنے آرٹیکل میں تفصیل سے بیان کر چکا ہوں اور "الدخان" وہ دھواں جو قریش نے دیکھا تھا۔</p>
-            
-            <h2>قیامت کی نشانیاں</h2>
-            <p>ارشاد ربانی ہے "آپ اس دن کے منتظر رہیں جب آسمان ظاہر دھواں لائے گا" یعنی اتنا نمایاں ہوگا کہ ہر کوئی اپنی آنکھوں سے دیکھے گا۔ اہل قریش کو بھوک اور افلاس کی شدت کے باعث مخصوص خیال ہوتا تھا کہ آسمان میں دھواں ہے لیکن وہ ان کا وہم تھا جبکہ یہ دھواں حقیقی ہوگا۔ یعنی وہ دھواں حقیقت میں لوگوں کو اپنی لپیٹ میں لے لے گا۔ جب یہ دھواں انھیں پریشان کرے گا تو لوگوں سے کہا جائے گا کہ یہ درد ناک عذاب ہے۔</p>
-            
-            <p>ایک دوسری روایت کے مطابق "آپ ﷺ نے فرمایا "بلاشبہ وہ (قیامت) ہرگز قائم نہ ہوگی حتی کہ تم اس سے پہلے دس نشانیاں دیکھ لو...... اور آپ نے دھوئیں اور دجال کا ذکر کیا۔</p>
-            
-            <p>ایک اور مقام پر کچھ یوں بیان فرمایا "چھ چیزوں کے واقع ہونے سے پہلے پہلے نیک اعمال میں جلدی کر لو: سورج کا مغرب سے طلوع ہونا، یا دھوئیں کا ظاہر ہونا، یا دجال کا ظاہر ہونا، یا خروج دابہ یا تم میں کسی کا خاص وقت (موت) آجانا، یا سب کے لئے واقع ہونے والا معاملہ (قیامت) کا قائم ہو جانا"۔</p>
-            
-            <h2>صحابہ کرام کا خوف</h2>
-            <p>ایک اور حدیث کے الفاظ حضرت عبداللہ بن ابی سے ہیں وہ کہتے ہیں کہ میں ایک دن حضرت ابن عباس کے پاس گیا تو انھوں نے کہا: میں رات بھر سو نہیں سکا حتی کہ صبح ہوگئی میں نے پوچھا کس لئے؟ کہنے لگے: لوگوں نے بتلایا ہے کہ دم دار ستارہ طلوع ہو چکا ہے، مجھے خدشہ ہوا کہ کہیں دھواں نہ آپہنچا ہو، اسی خیال سے میں پوری رات نہ سو سکا"۔</p>
-            
-            <p>اس حدیث سے واضح ہے کہ صحابہ کرام کو کس قدر خوف تھا قیامت کا، کہ وہ ساری ساری رات موت کے خوف سے ڈر کے زندگی گزارتے تھے اور ایک ہم ہیں کہ جسے موت تو دور کی بات ہے قیامت کی یہ نشانیاں محض قصے اور کہانیاں معلوم ہوتی ہیں۔ تبھی تو سوشل میڈیا پر دین کا مذاق اڑاتے ہوئے لوگ دکھائی دیتے ہیں، چند دن پہلے 12 ربیع الاول کے دن لوگوں نے بدعت کے نام سے اتنی تبدیلیاں شروع کردی۔ کہ خدا خوفی تو درکنار شریعت محمدیہ سے ہی انکار کرتے دکھائی دیتے ہیں۔ گویا نعوذ باللہ اللہ نے دین مکمل ہی نہیں بھیجا یہ لوگ دین کو پورا کرنے میں لگے۔ اللہ رب العزت سے استدعا ہے کہ وہ ہمارے گناہوں اور خطاؤں کو معاف فرما دے۔ اور ہمیں ہدایت نصیب فرما دے۔ ہمارے جو کام ہیں وہ معافی کے لائق تو نہیں لیکن پھر بھی اللہ سے معافی مانگتے ہیں کہ وہ دین پر چلنے اور درست طریقے سے عمل کرنے کی توفیق عطا فرمائے۔ آمین</p>
-            
-            <div class="footer">
-                <p>© 2024 دینی معلومات - تمام حقوق محفوظ ہیں</p>
+        <!-- Right Column: Sidebar with Internal Links -->
+        <div class="sidebar-area">
+            <div class="internal-links-sidebar">
+                <h3 class="sidebar-title"><i class="fas fa-bookmark"></i> مزید پڑھیں</h3>
+                <div class="sidebar-scroll-container">
+                    <!-- Sidebar Posts (10 items) -->
+                    <a href="https://bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl" class="sidebar-post-item current-post">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.png" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.png" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">مصائبِ دجال (حصہ اول)</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom.png" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">مصائبِ دجال (حصہ دوم)</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-som" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som.jpg" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">مصائبِ دجال (حصہ سوم)</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi.png" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">دجال کو کون کون سے طاقتیں دی گئی ہونگی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay.png" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">دجال کے ساتھی کون لوگ ہونگے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain.png" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">دجال سے نجات کے لیے ہمیں کیا تعلیمات دی گئی ہیں؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol.jpg" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ اول)</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom.jpg" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ دوم)</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai.png" alt="پوسٹ" class="sidebar-post-img" loading="lazy">
+                        <span class="sidebar-post-title">تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -734,192 +944,84 @@
     
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <button class="back-btn" onclick="closeColorFillPost()">
-            واپس جائیں
-        </button>
+        <button class="back-btn" onclick="closeColorFillPost()">واپس جائیں</button>
         <div id="postContent"></div>
     </div>
 
+    <!-- Reactions.js (External) - Already present on server -->
+    <script src="/reactions.js"></script>
+
+    <!-- Custom Script (only social share, color fill, particles, etc.) -->
     <script>
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particlesContainer');
-            const particleCount = 20;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random properties
-                const size = Math.random() * 8 + 2;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const delay = Math.random() * 15;
-                const duration = Math.random() * 10 + 10;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.right = `${posX}%`;
-                particle.style.top = `${posY}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.opacity = Math.random() * 0.3 + 0.1;
-                
-                // Random color
-                const colors = ['#FFD700', '#8B0000', '#32CD32'];
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
-                container.appendChild(particle);
-            }
+        // Social share functions (keep these)
+        function shareOnSocial(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let text = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'fb') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'wa') shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+            else if (platform === 'tw') shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            else if (platform === 'li') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'tg') shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+            else if (platform === 'pt') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
         }
-        
-        // Open color fill post
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+
+        // Color fill functions (keep)
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            
-            loadingSpinner.classList.add('active');
-            
+            document.getElementById('loadingSpinner').classList.add('active');
             setTimeout(() => {
                 document.getElementById('postContent').innerHTML = originalContent;
                 document.getElementById('colorFillBg').classList.add('active');
                 document.getElementById('postOverlay').classList.add('active');
                 document.body.style.overflow = 'hidden';
-                loadingSpinner.classList.remove('active');
-                
-                // Add scroll event listener to overlay
-                const overlay = document.getElementById('postOverlay');
-                overlay.scrollTop = 0;
+                document.getElementById('loadingSpinner').classList.remove('active');
             }, 500);
         }
-        
-        // Close color fill post
         function closeColorFillPost() {
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            loadingSpinner.classList.add('active');
-            
+            document.getElementById('loadingSpinner').classList.add('active');
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            
             setTimeout(() => {
                 document.getElementById('postContent').innerHTML = '';
-                loadingSpinner.classList.remove('active');
+                document.getElementById('loadingSpinner').classList.remove('active');
             }, 300);
         }
-        
-        // Keyboard controls
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeColorFillPost();
-            }
-            if (e.key === ' ' || e.key === 'Enter') {
-                if (!document.getElementById('postOverlay').classList.contains('active')) {
-                    openColorFillPost();
-                }
-            }
-        });
-        
-        // Close when clicking on background
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-        
-        // Prevent overlay from closing when clicking inside
-        document.getElementById('postOverlay').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-        
-        // Touch gestures for mobile
-        let touchStartY = 0;
-        let touchStartTime = 0;
-        
-        document.addEventListener('touchstart', function(e) {
-            touchStartY = e.changedTouches[0].screenY;
-            touchStartTime = Date.now();
-        }, { passive: true });
-        
-        document.addEventListener('touchend', function(e) {
-            const touchEndY = e.changedTouches[0].screenY;
-            const touchEndTime = Date.now();
-            const timeDiff = touchEndTime - touchStartTime;
-            const distance = Math.abs(touchEndY - touchStartY);
-            
-            // If quick swipe down on overlay, close it
-            if (document.getElementById('postOverlay').classList.contains('active') && 
-                touchEndY > touchStartY + 80 && 
-                timeDiff < 300 && 
-                distance > 100) {
-                closeColorFillPost();
-            }
-        }, { passive: true });
-        
-        // Lazy load and animate image
-        function loadImage() {
-            const img = document.querySelector('.featured-image');
-            if (img) {
-                const tempImg = new Image();
-                tempImg.src = img.src;
-                
-                tempImg.onload = function() {
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 1s ease, transform 0.5s ease';
-                    
-                    setTimeout(() => {
-                        img.style.opacity = '1';
-                    }, 300);
-                };
+
+        // Particles, image load, etc.
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 8 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.right = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.background = ['#FFD700', '#8B0000', '#32CD32'][Math.floor(Math.random() * 3)];
+                container.appendChild(particle);
             }
         }
-        
-        // Initialize everything when page loads
-        window.addEventListener('load', function() {
+
+        window.addEventListener('load', () => {
             createParticles();
-            loadImage();
-            
-            // Add click animation to paragraphs
-            const paragraphs = document.querySelectorAll('p');
-            paragraphs.forEach(p => {
-                p.addEventListener('click', function() {
-                    this.style.transform = 'translateX(-10px)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateX(-5px)';
-                    }, 300);
-                });
-            });
-            
-            // Smooth scroll for internal links (if any)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId !== '#') {
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 100,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-                });
-            });
+            document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+            document.getElementById('postOverlay').addEventListener('click', (e) => e.stopPropagation());
         });
-        
-        // Performance optimization for scroll
-        let ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    // Add parallax effect to background
-                    const scrolled = window.pageYOffset;
-                    const animatedBg = document.querySelector('.animated-bg');
-                    if (animatedBg) {
-                        animatedBg.style.transform = `translateY(${scrolled * 0.05}px)`;
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
+
+        // Keyboard Escape
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeColorFillPost(); });
     </script>
 </body>
 </html>
