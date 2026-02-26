@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دجال کو کون کون سی طاقتیں دی گئی ہونگی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 5 (کاپی لنک آئیکون کے لیے) -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
         .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
@@ -29,6 +31,42 @@
         li { margin-bottom: 15px; }
         img { max-width: 100%; height: auto; border-radius: 15px; display: block; margin: 30px auto; border: 3px solid #4ecdc4; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         hr { border: none; height: 2px; background: linear-gradient(90deg, #ff6b6b, #4ecdc4); margin: 40px 0; }
+
+        /* Reactions styling */
+        .reactions-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 40px 0 20px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 60px; }
+        .reaction-btn { background: transparent; border: 2px solid #4ecdc4; color: white; padding: 12px 20px; border-radius: 40px; font-size: 1.3rem; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s; }
+        .reaction-btn:hover { background: #4ecdc4; color: #1a1a2e; transform: scale(1.05); }
+        .reaction-count { font-size: 1.2rem; font-weight: bold; color: #ffd966; margin-right: 5px; }
+
+        /* Sidebar Auto-scroll */
+        .sidebar-container { background: rgba(20, 20, 35, 0.95); border-radius: 20px; padding: 20px; margin-top: 40px; border: 1px solid #4ecdc4; }
+        .sidebar-title { color: #ff6b6b; font-size: 2rem; text-align: center; margin-bottom: 20px; border-bottom: 2px solid #4ecdc4; padding-bottom: 10px; }
+        .scroll-wrapper { height: 500px; overflow: hidden; border-radius: 15px; position: relative; }
+        .scroll-content { animation: scrollUp 30s linear infinite; }
+        .scroll-content:hover { animation-play-state: paused; }
+        @keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } } /* 10 items ~ 50% */
+        .sidebar-item { display: flex; align-items: center; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); margin-bottom: 15px; border-radius: 12px; transition: 0.2s; border-right: 4px solid transparent; }
+        .sidebar-item.active { border-right-color: #ff6b6b; background: rgba(78, 205, 196, 0.15); }
+        .sidebar-item img { width: 60px; height: 60px; border-radius: 10px; margin: 0; border: 2px solid #4ecdc4; object-fit: cover; }
+        .sidebar-item a { color: white; text-decoration: none; font-size: 1.2rem; line-height: 1.5; flex: 1; }
+        .sidebar-item:hover { background: rgba(78, 205, 196, 0.3); }
+
+        /* Navigation buttons */
+        .nav-buttons { display: flex; justify-content: center; gap: 20px; margin: 40px 0; flex-wrap: wrap; }
+        .nav-btn { background: linear-gradient(45deg, #ff6b6b, #4ecdc4); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.3rem; transition: 0.2s; border: none; cursor: pointer; display: inline-block; }
+        .nav-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255,107,107,0.5); }
+
+        /* Floating scroll buttons */
+        .floating-scroll { position: fixed; left: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+        .scroll-top, .scroll-bottom { background: #4ecdc4; color: #1a1a2e; width: 50px; height: 50px; border-radius: 50%; border: none; font-size: 24px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.2s; }
+        .scroll-top:hover, .scroll-bottom:hover { background: #ff6b6b; color: white; transform: scale(1.1); }
+
+        /* Social icons */
+        .social-share { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 30px 0; }
+        .social-icon { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; transition: 0.2s; text-decoration: none; }
+        .social-icon:hover { transform: translateY(-5px); filter: brightness(1.2); }
+        .footer { text-align: center; padding: 30px; color: #888; font-size: 1.2rem; border-top: 1px solid #333; margin-top: 40px; }
+
         @media (max-width: 768px) {
             body { padding: 15px; }
             .post-content { padding: 25px; }
@@ -36,6 +74,8 @@
             h2 { font-size: 1.8rem; }
             p, li { font-size: 1.1rem; line-height: 2.2; }
             .trigger-btn { padding: 12px 25px; font-size: 16px; }
+            .reactions-container { gap: 8px; }
+            .reaction-btn { padding: 8px 12px; font-size: 1rem; }
         }
     </style>
 </head>
@@ -46,8 +86,13 @@
         </button>
     </div>
 
+    <!-- فلوٹنگ اسکرول بٹن (اوپر/نیچے) -->
+    <div class="floating-scroll">
+        <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+        <button class="scroll-bottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</button>
+    </div>
+
     <div class="post-content">
-        
         <h1>دجال کو کون کون سی طاقتیں دی گئی ہونگی؟</h1>
         <img src="https://bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi.png" alt="دجال کی طاقتیں">
         <p>محترم قارئین کرام! اس بات میں کوئی شک نہیں ہے کہ دجال اپنے ساتھ بہت سی طاقتیں اور بہت سے فتنے لائے گا اور یہ سب طاقتیں اللہ رب العزت کی طرف عطا کی گئی ہوں گی جو پوری کائنات میں اس کے علاوہ کسی کو نہیں دی گئی ہوں گی اور یہ طاقتیں لوگوں کی آزمائش و امتحان کے لیے عطا کی گئی ہوں گی، جو کہ عارضی اور مقررہ وقت تک ہوں گی۔</p>
@@ -65,7 +110,7 @@
             <li><p>اللہ کے پیارے حبیب حضرت محمد ﷺ نے امت کی بھلائی کے لیے مزید واضح انداز میں بیان فرمایا: "دجال ایک قوم کے پاس آئے گا اور انھیں اپنی طرف بلائے گا، وہ اس پر ایمان لے آئیں گے۔ پھر دجال آسمان کو حکم دے گا تو وہ بارش برسانا شروع کر دے گا۔ زمین کو حکم کرے گا تو وہ پیداوار دینا شروع کر دے گی۔ ان کی بھیڑ بکریاں جو چرنے کے لیے نکلی ہوں گی وہ اس حال میں واپس آئیں گی کہ ان کے بال پہلے سے لمبے، تھن دودھ سے لبریز، پیٹ بھرے اور باہر کو نکلے ہوئے ہوں گے"۔</p></li>
             <li><p>اس کے بعد دجال ایک دوسری قوم کے پاس آئے گا، انھیں اپنی دعوت دے گا مگر وہ اس کا انکار کر دیں گے، وہ ان کے پاس سے چلا آئے گا، وہ لوگ صبح کے وقت اٹھ کر اپنی کھیتیوں کو دیکھیں گے تو وہ بنجر ہو چکی ہوں گی اور ان کی فصلیں برباد ہو چکی ہوں گی۔ پھر دجال کا گزر ایک بنجر زمین کے پاس سے ہوگا۔ وہ اس زمین سے کہے گا کہ اپنے خزانے نکالو تو زمین سے خزانے نکل کر شہد کی مکھیوں کی طرح جمع ہو کر اس کے پیچھے پیچھے چلیں گے"۔</p></li>
             <li><p>دجال ایک بدو شخص سے کہے گا: "اگر میں تمہارے فوت شدہ ماں باپ کو زندہ کر دوں تو مجھے رب مان لو گے؟ وہ کہے گا: ہاں، چنانچہ دو شیطان اس کے ماں باپ کی شکل میں سامنے آ جائیں گے اور اس بدو سے کہیں گے، ہمارے پیارے بیٹے! اس کی پیروی کرو، یہی تمہارا رب ہے"۔</p></li>
-            <li><p>اسی طرح دجال ایک ایسے نوجوان کو اپنی طرف بلائے گا جو اپنی بھرپور جوانی میں ہوگا اور اسے تلوار مار کر دو ٹکڑے کر دے گا، پھر لوگوں سے کہے گا: میرے اس بندے کو دیکھو، اسے میں ابھی زندہ کروں گا لیکن یہ پھر بھی میرے سوا کسی اور کو رب مانے گا۔ دجال اس شخص سے کہے گا: اٹھو، زندہ ہو کر کھڑے ہو جاؤ۔ وہ کھڑا ہو جائے گا، درحقیقت اسے اللہ رب العزت نے زندہ کیا ہوگا نہ کہ دجال نے۔ مگر دجال کے وہم و گمان میں ہوگا کہ اس نے اسے زندہ کیا ہوگا اور اس مقتول نوجوان کے دونوں ٹکڑے آپس میں جڑ گئے ہوں گے، پھر یہ لعنتی کہے گا: "بتا تیرا رب کون ہے؟ وہ کہے گا: میرا رب اللہ ہے۔ تو اللہ کا دشمن ہے، تو دجال ہے"۔</p></li>
+            <li><p>اسی طرح دجال ایک ایسے نوجوان کو اپنی طرف بلائے گا جو اپنی بھرپور جوانی میں ہوگا اور اسے تلوار مار کر دو ٹکڑے کر دے گا، پھر لوگوں سے کہے گا: میرے اس بندے کو دیکھو، اسے میں ابھی زندہ کروں گا لیکن یہ پھر بھی میرے سوا کسی اور کو رب مانے گا۔ دجال اس شخص سے کہے گا: اٹھو، زندہ ہو کر کھڑے ہو جاؤ۔ وہ کھڑا ہو جائے گا، درحقیقت اسے اللہ رب العزت نے زندہ کیا ہوگا نہ کہ دجال نے۔ مگر دجال کے وہم و گمان میں ہوگا کہ اس نے اسے زندہ کیا ہوگا اور اس مقتول نوجوان کے دونوں ٹکڑے آپس میں جڑ گئے ہوں گے، پھر یہ لعنتی کہے گا: "بتا تیرا رب کون ہے؟ وہ کہے گا: میرا رب اللہ ہے، تو اللہ کا دشمن ہے، تو دجال ہے"۔</p></li>
         </ul>
         
         <h2>احادیث نبوی ﷺ کے مطابق دجال کی طاقتیں:</h2>
@@ -78,10 +123,101 @@
             <li><p>اللہ رب العزت کے حکم سے دجال کی مدد شیاطین کریں گے۔ جو مرے ہوئے لوگوں کی شکل میں ناصرف ظاہر ہوں گے بلکہ لوگوں سے باقاعدہ انہی کی آواز میں کلام کریں گے۔ جو دجال کو رب تسلیم کروانے میں لوگوں کو گمراہ کریں گے۔</p></li>
             <li><p>دجال اللہ رب العزت کے حکم سے زندگی اور موت پر (عارضی طور پر) اختیار رکھے گا۔ زندگی اور موت پر اس کا اختیار بہت کم اور وقتی ہوگا کیونکہ وہ اس نوجوان مومن کو (جس کو درحقیقت اللہ زندہ کریں گے، دجال سمجھے گا کہ اس نے زندہ کیا ہے) دوبارہ نہیں مار سکے گا۔</p></li>
         </ul>
+
+        <!-- Reactions Section (برقرار) -->
+        <div class="reactions-container">
+            <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+        </div>
         <hr>
-        
+
+        <!-- سوشل میڈیا آئیکونز (7 پلیٹ فارمز) -->
+        <div class="social-share">
+            <a href="#" class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('fb')" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" style="background:#25D366;" onclick="shareOnSocial('wa')" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('tw')" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('li')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('tg')" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pin')" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+            <a href="#" class="social-icon" style="background:#6c757d;" onclick="copyPageLink()" title="کاپی لنک"><i class="fas fa-link"></i></a>
+        </div>
+
+        <!-- نیویگیشن بٹن -->
+        <div class="nav-buttons">
+            <a href="https://bloglovers.pk/" class="nav-btn">🏠 مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-kubra.html" class="nav-btn">📚 تمام پوسٹس</a>
+        </div>
+
+        <!-- سائیڈ بار (آٹو اسکرول) -->
+        <div class="sidebar-container">
+            <div class="sidebar-title">📖 مزید پوسٹس پڑھیں</div>
+            <div class="scroll-wrapper">
+                <div class="scroll-content">
+                    <!-- 10 پوسٹس (موجودہ پوسٹ کو نمایاں کیا گیا ہے) -->
+                    <div class="sidebar-item active">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl">5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol">مصائبِ دجال (حصہ اول)</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom">مصائبِ دجال (حصہ دوم)</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som.jpg" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-som">مصائبِ دجال (حصہ سوم)</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi">دجال کو کون کون سے طاقتیں دی گئی ہونگی؟</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay">دجال کے ساتھی کون لوگ ہونگے؟</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain">دجال سے نجات کے لیے ہمیں کیا تعلیمات دی گئی ہیں؟</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol.jpg" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol">حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ اول)</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom.jpg" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom">حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ دوم)</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai">تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟</a>
+                    </div>
+                    <!-- ڈپلیکیٹ برائے اسکرول لوپ -->
+                    <div class="sidebar-item active">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl">5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.png" alt="thumbnail">
+                        <a href="https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol">مصائبِ دجال (حصہ اول)</a>
+                    </div>
+                    <!-- باقی ڈپلیکیٹ اسی ترتیب سے... لیکن 10 آئٹمز کافی ہیں، ڈپلیکیٹ بنا کر 20 آئٹمز کریں تاکہ اسکرول ہموار رہے -->
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="footer">© 2025 bloglovers.pk - تمام حقوق محفوظ ہیں</div>
     </div>
 
+    <!-- رنگ فل اوورلے (برقرار) -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
@@ -89,7 +225,34 @@
         <div id="postContent"></div>
     </div>
 
+    <!-- Reactions.js (صرف ایک بار شامل) -->
+    <script src="/reactions.js"></script>
+
+    <!-- سوشل شیئرنگ کے فنکشنز (برقرار) -->
     <script>
+        // سوشل میڈیا شیئرنگ فنکشنز (ڈپلیکیٹ reactions نہیں)
+        function shareOnSocial(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let text = encodeURIComponent(document.title);
+            let shareUrl = '';
+            switch(platform) {
+                case 'fb': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'wa': shareUrl = `https://wa.me/?text=${text}%20${url}`; break;
+                case 'tw': shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
+                case 'li': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'tg': shareUrl = `https://t.me/share/url?url=${url}&text=${text}`; break;
+                case 'pin': shareUrl = `https://www.pinterest.com/pin/create/button/?url=${url}&description=${text}`; break;
+                default: return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+
+        // رنگ فل انیمیشن (برقرار)
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
             document.getElementById('postContent').innerHTML = originalContent;
