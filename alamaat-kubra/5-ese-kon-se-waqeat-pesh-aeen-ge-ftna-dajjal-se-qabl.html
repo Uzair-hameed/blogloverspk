@@ -958,9 +958,43 @@
                 </a>
             </div>
 
-            <!-- Reactions Container with dynamic IDs -->
+            <!-- Reactions Container with dynamic IDs and onclick as per prompt -->
             <div class="reactions-container" id="reactions-container">
-                <!-- Reactions will be loaded dynamically -->
+                <div class="reaction-item" onclick="reactionClick('عمدہ')">
+                    <span class="reaction-emoji">👍</span>
+                    <span class="reaction-text" style="color: #2563eb">عمدہ</span>
+                    <span class="reaction-count" id="count-عمدہ">0</span>
+                </div>
+                <div class="reaction-item" onclick="reactionClick('دلچسپ')">
+                    <span class="reaction-emoji">❤️</span>
+                    <span class="reaction-text" style="color: #dc2626">دلچسپ</span>
+                    <span class="reaction-count" id="count-دلچسپ">0</span>
+                </div>
+                <div class="reaction-item" onclick="reactionClick('مفید')">
+                    <span class="reaction-emoji">😊</span>
+                    <span class="reaction-text" style="color: #f59e0b">مفید</span>
+                    <span class="reaction-count" id="count-مفید">0</span>
+                </div>
+                <div class="reaction-item" onclick="reactionClick('قابل غور')">
+                    <span class="reaction-emoji">😢</span>
+                    <span class="reaction-text" style="color: #6b7280">قابل غور</span>
+                    <span class="reaction-count" id="count-قابل غور">0</span>
+                </div>
+                <div class="reaction-item" onclick="reactionClick('سوچ بچار')">
+                    <span class="reaction-emoji">🤔</span>
+                    <span class="reaction-text" style="color: #8b5cf6">سوچ بچار</span>
+                    <span class="reaction-count" id="count-سوچ بچار">0</span>
+                </div>
+                <div class="reaction-item" onclick="reactionClick('شاندار')">
+                    <span class="reaction-emoji">👏</span>
+                    <span class="reaction-text" style="color: #059669">شاندار</span>
+                    <span class="reaction-count" id="count-شاندار">0</span>
+                </div>
+                <div class="reaction-item" onclick="reactionClick('زبردست')">
+                    <span class="reaction-emoji">🔥</span>
+                    <span class="reaction-text" style="color: #b45309">زبردست</span>
+                    <span class="reaction-count" id="count-زبردست">0</span>
+                </div>
             </div>
 
             <!-- Social Media Icons -->
@@ -1001,17 +1035,6 @@
 
     <!-- reactions.js will be auto-included below -->
     <script>
-        // Reactions data with keys matching API expectations
-        const reactions = [
-            { emoji: '👍', text: 'عمدہ', color: '#2563eb', key: 'excellent' },
-            { emoji: '❤️', text: 'دلچسپ', color: '#dc2626', key: 'interesting' },
-            { emoji: '😊', text: 'مفید', color: '#f59e0b', key: 'useful' },
-            { emoji: '😢', text: 'قابل غور', color: '#6b7280', key: 'thoughtful' },
-            { emoji: '🤔', text: 'سوچ بچار', color: '#8b5cf6', key: 'thinking' },
-            { emoji: '👏', text: 'شاندار', color: '#059669', key: 'amazing' },
-            { emoji: '🔥', text: 'زبردست', color: '#b45309', key: 'awesome' }
-        ];
-
         // Related posts data for sidebar (exact list from prompt)
         const sidebarPosts = [
             { 
@@ -1021,13 +1044,13 @@
                 current: true
             },
             { 
-                title: 'مصائب ِ دجال (حصہ اول)', 
+                title: 'مصائبِ دجال (حصہ اول)', 
                 url: 'https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol', 
                 img: 'https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.png',
                 current: false
             },
             { 
-                title: 'مصائب ِ دجال (حصہ دوم)', 
+                title: 'مصائبِ دجال (حصہ دوم)', 
                 url: 'https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom', 
                 img: 'https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom.png',
                 current: false
@@ -1051,7 +1074,7 @@
                 current: false
             },
             { 
-                title: 'دجال سے نجات کے لئے ہمیں کیا تعلیمات دی گئی ہیں؟', 
+                title: 'دجال سے نجات کے لیے ہمیں کیا تعلیمات دی گئی ہیں؟', 
                 url: 'https://bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain', 
                 img: 'https://bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain.png',
                 current: false
@@ -1076,78 +1099,7 @@
             }
         ];
 
-        // API URL
-        const API_URL = '//aged-unit-8ce7.uzairhameed01.workers.dev';
-
-        // Load reactions from API
-        async function loadReactions() {
-            try {
-                const response = await fetch(`${API_URL}/reactions?post=${encodeURIComponent(window.location.pathname)}`);
-                const data = await response.json();
-                updateReactionsUI(data);
-            } catch (error) {
-                console.error('Error loading reactions:', error);
-                // Load default UI with zero counts
-                updateReactionsUI({});
-            }
-        }
-
-        // Update reactions UI
-        function updateReactionsUI(counts) {
-            const container = document.getElementById('reactions-container');
-            container.innerHTML = '';
-            
-            reactions.forEach(reaction => {
-                const count = counts[reaction.key] || 0;
-                const item = document.createElement('div');
-                item.className = 'reaction-item';
-                item.onclick = () => addReaction(reaction.key);
-                item.innerHTML = `
-                    <span class="reaction-emoji">${reaction.emoji}</span>
-                    <span class="reaction-text" style="color: ${reaction.color}">${reaction.text}</span>
-                    <span class="reaction-count" id="count-${reaction.key}">${count}</span>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        // Add reaction
-        async function addReaction(key) {
-            try {
-                const response = await fetch(`${API_URL}/reactions`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        post: window.location.pathname,
-                        reaction: key
-                    })
-                });
-                const data = await response.json();
-                updateReactionsUI(data);
-            } catch (error) {
-                console.error('Error adding reaction:', error);
-            }
-        }
-
-        // Load sidebar posts
-        function loadSidebarPosts() {
-            const container = document.getElementById('sidebar-posts');
-            container.innerHTML = '';
-            
-            sidebarPosts.forEach(post => {
-                const item = document.createElement('a');
-                item.href = post.url;
-                item.className = 'sidebar-post' + (post.current ? ' current-post' : '');
-                item.target = '_blank';
-                item.innerHTML = `
-                    <img src="${post.img}" alt="${post.title}" class="sidebar-post-img" loading="lazy" onerror="this.src='https://via.placeholder.com/70x70?text=Post'">
-                    <span class="sidebar-post-title">${post.title}</span>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        // Social sharing functions
+        // Social sharing functions (keep as is)
         function shareOnSocial(platform) {
             const url = encodeURIComponent(window.location.href);
             const title = encodeURIComponent(document.title);
@@ -1216,6 +1168,24 @@
         // Close on background click
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
         
+        // Load sidebar posts
+        function loadSidebarPosts() {
+            const container = document.getElementById('sidebar-posts');
+            container.innerHTML = '';
+            
+            sidebarPosts.forEach(post => {
+                const item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'sidebar-post' + (post.current ? ' current-post' : '');
+                item.target = '_blank';
+                item.innerHTML = `
+                    <img src="${post.img}" alt="${post.title}" class="sidebar-post-img" loading="lazy" onerror="this.src='https://via.placeholder.com/70x70?text=Post'">
+                    <span class="sidebar-post-title">${post.title}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
         // Auto-theme for sections based on content
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('p, div');
@@ -1264,8 +1234,7 @@
                 }
             });
 
-            // Load reactions and sidebar posts
-            loadReactions();
+            // Load sidebar posts
             loadSidebarPosts();
         });
         
