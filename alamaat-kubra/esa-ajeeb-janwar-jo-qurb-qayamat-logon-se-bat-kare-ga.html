@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face { 
             font-family: 'Jameel Noori Nastaleeq'; 
@@ -106,17 +108,126 @@
         
         /* Main Container */
         .main-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 30px 20px;
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        /* Content Area */
+        .content-area {
+            min-width: 0; /* Prevents overflow */
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 100%;
+        }
+        
+        .sidebar-widget {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 25px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 0 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(205, 133, 63, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .sidebar-title {
+            color: var(--gold);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .sidebar-title::after {
+            content: '🔗';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-darker);
+            padding: 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Auto-scrolling Posts List */
+        .posts-scroll {
+            max-height: 500px;
+            overflow-y: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+        
+        .posts-scroll:hover {
+            overflow-y: auto;
+        }
+        
+        .posts-scroll:hover .scroll-content {
+            animation-play-state: paused;
+        }
+        
+        .scroll-content {
+            animation: scrollUp 30s linear infinite;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); } /* Scroll half to create seamless loop */
+        }
+        
+        .post-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(60, 45, 30, 0.5);
+            border-radius: 15px;
+            border-right: 3px solid var(--bronze);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+        
+        .post-item:hover {
+            background: rgba(80, 65, 50, 0.7);
+            transform: translateX(-5px);
+            border-right-color: var(--gold);
+        }
+        
+        .post-item.current-post {
+            border-right-color: var(--gold);
+            background: rgba(139, 69, 19, 0.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+        
+        .post-item img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .post-item-title {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            flex: 1;
         }
         
         /* Header */
         .page-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             padding: 30px;
             background: linear-gradient(135deg, 
                 rgba(139, 69, 19, 0.25), 
@@ -154,7 +265,7 @@
             display: block;
             width: 100%;
             max-width: 450px;
-            margin: 40px auto 60px;
+            margin: 0 auto;
             padding: 22px 50px;
             background: linear-gradient(135deg, 
                 var(--primary-color) 0%, 
@@ -220,11 +331,11 @@
         /* Post Content */
         .post-content {
             background: var(--card-bg);
-            padding: 50px;
+            padding: 40px;
             border-radius: 30px;
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8),
                         inset 0 0 100px rgba(0, 0, 0, 0.5);
-            margin-bottom: 60px;
+            margin-bottom: 30px;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(205, 133, 63, 0.2);
             position: relative;
@@ -241,6 +352,59 @@
             background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
             border-radius: 0 30px 0 150px;
             opacity: 0.1;
+        }
+        
+        /* Reactions Section */
+        .reactions-section {
+            background: rgba(60, 45, 30, 0.6);
+            border-radius: 50px;
+            padding: 30px 25px;
+            margin: 50px 0 30px;
+            text-align: center;
+            border: 2px solid rgba(205, 133, 63, 0.3);
+        }
+        
+        .reactions-title {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+        
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: rgba(30, 20, 10, 0.8);
+            border: 2px solid var(--bronze);
+            border-radius: 60px;
+            padding: 12px 20px;
+            font-size: 1.4rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 110px;
+            justify-content: center;
+        }
+        
+        .reaction-btn:hover {
+            background: var(--primary-color);
+            border-color: var(--gold);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+        
+        .reaction-count {
+            font-weight: bold;
+            color: var(--gold);
+            min-width: 25px;
+            display: inline-block;
         }
         
         /* Headings */
@@ -377,30 +541,11 @@
             overflow: hidden;
         }
         
-        .featured-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, 
-                rgba(139, 69, 19, 0.1), 
-                rgba(205, 133, 63, 0.05));
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
         .featured-image:hover {
             transform: scale(1.02) rotate(-0.5deg);
             box-shadow: 0 30px 80px rgba(139, 69, 19, 0.6),
                         0 0 60px rgba(205, 133, 63, 0.5);
             border-color: var(--bronze);
-        }
-        
-        .featured-image:hover::before {
-            opacity: 1;
         }
         
         /* Color Fill Mode */
@@ -526,160 +671,122 @@
             font-size: 1.8rem;
         }
         
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2.4rem; }
-            h3 { font-size: 2rem; }
-            p { font-size: 1.6rem; }
-            li { font-size: 1.5rem; }
-            .post-content { padding: 40px; }
+        /* Navigation Buttons */
+        .post-navigation {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 50px 0 30px;
         }
         
-        @media (max-width: 768px) {
-            .main-container { padding: 20px 15px; }
-            .page-header { padding: 25px 20px; margin-bottom: 40px; }
-            .post-content { padding: 30px 25px; }
-            
-            h1 { 
-                font-size: 2.4rem; 
-                margin-bottom: 30px;
-                padding-bottom: 20px;
-            }
-            
-            h2 { 
-                font-size: 2rem; 
-                margin: 40px 0 25px;
-                padding-bottom: 12px;
-            }
-            
-            h3 { 
-                font-size: 1.7rem; 
-                margin: 30px 0 20px;
-            }
-            
-            p { 
-                font-size: 1.4rem; 
-                line-height: 2.2;
-                padding: 15px;
-                margin-bottom: 25px;
-            }
-            
-            li {
-                font-size: 1.3rem;
-                padding: 12px;
-                margin-bottom: 15px;
-            }
-            
-            .trigger-btn {
-                font-size: 1.3rem;
-                padding: 18px 35px;
-                margin: 30px auto 50px;
-            }
-            
-            .post-content-overlay {
-                padding: 35px 25px;
-                width: 96%;
-                max-height: 90vh;
-            }
-            
-            .close-btn, .back-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 28px;
-            }
-            
-            .back-btn {
-                padding: 15px 25px;
-                font-size: 1.2rem;
-            }
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 60px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.4);
         }
         
-        @media (max-width: 480px) {
-            h1 { font-size: 1.9rem; }
-            h2 { font-size: 1.6rem; }
-            h3 { font-size: 1.4rem; }
-            p { font-size: 1.2rem; }
-            li { font-size: 1.1rem; }
-            
-            .trigger-btn {
-                font-size: 1.1rem;
-                padding: 15px 30px;
-                margin: 25px auto 40px;
-            }
-            
-            .post-content {
-                padding: 25px 20px;
-            }
-            
-            .close-btn, .back-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 24px;
-                top: 20px;
-                left: 20px;
-            }
-            
-            .back-btn {
-                top: 20px;
-                right: 20px;
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
-            
-            .page-header {
-                padding: 20px 15px;
-                margin-bottom: 30px;
-            }
+        .nav-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
         }
         
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 12px;
+        .nav-btn:first-child::before {
+            content: '🏠';
+            font-size: 1.8rem;
         }
         
-        ::-webkit-scrollbar-track {
+        .nav-btn:last-child::after {
+            content: '📚';
+            font-size: 1.8rem;
+        }
+        
+        /* Floating Scroll Buttons */
+        .scroll-buttons {
+            position: fixed;
+            left: 30px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .scroll-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(205, 133, 63, 0.3);
+        }
+        
+        .scroll-btn:hover {
+            transform: scale(1.15);
+            background: linear-gradient(135deg, var(--secondary-color), var(--gold));
+        }
+        
+        /* Social Icons */
+        .social-share {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
             background: rgba(40, 30, 20, 0.8);
-            border-radius: 10px;
-            margin: 5px;
+            border: 2px solid var(--bronze);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
         }
         
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, 
-                var(--primary-color), 
-                var(--bronze), 
-                var(--accent-color));
-            border-radius: 10px;
-            border: 2px solid rgba(40, 30, 20, 0.8);
+        .social-icon:hover {
+            transform: scale(1.15) translateX(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, 
-                var(--secondary-color), 
-                var(--bronze), 
-                #DEB887);
-        }
+        .fa-facebook-f { color: #1877f2; }
+        .fa-whatsapp { color: #25D366; }
+        .fa-x-twitter { color: #1DA1F2; }
+        .fa-linkedin-in { color: #0077b5; }
+        .fa-telegram-plane { color: #0088cc; }
+        .fa-pinterest-p { color: #bd081c; }
+        .fa-link { color: #6c757d; }
         
-        /* Selection Color */
-        ::selection {
-            background: rgba(139, 69, 19, 0.5);
-            color: var(--gold);
-            text-shadow: none;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            background: rgba(40, 30, 20, 0.7);
-            border-radius: 20px;
-            border-top: 2px solid rgba(139, 69, 19, 0.3);
-            color: #D2B48C;
-            font-size: 1.3rem;
-        }
-        
-        /* Quote Styling */
+        /* Quranic Verse */
         .quranic-verse {
             font-size: 1.8rem;
             text-align: center;
@@ -714,6 +821,73 @@
         .quranic-verse::after {
             left: 20px;
         }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background: rgba(40, 30, 20, 0.7);
+            border-radius: 20px;
+            border-top: 2px solid rgba(139, 69, 19, 0.3);
+            color: #D2B48C;
+            font-size: 1.3rem;
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(40, 30, 20, 0.8);
+            border-radius: 10px;
+            margin: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, 
+                var(--primary-color), 
+                var(--bronze), 
+                var(--accent-color));
+            border-radius: 10px;
+            border: 2px solid rgba(40, 30, 20, 0.8);
+        }
+        
+        /* Selection Color */
+        ::selection {
+            background: rgba(139, 69, 19, 0.5);
+            color: var(--gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                order: 2;
+            }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.4rem; }
+            .reaction-btn { min-width: 90px; font-size: 1.2rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container { padding: 20px; }
+            .post-content { padding: 30px; }
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 2rem; }
+            p { font-size: 1.4rem; }
+            .reactions-grid { gap: 10px; }
+            .reaction-btn { min-width: 70px; padding: 10px 12px; font-size: 1rem; }
+            .social-share { right: 15px; }
+            .social-icon { width: 45px; height: 45px; font-size: 20px; }
+            .scroll-buttons { left: 15px; }
+            .scroll-btn { width: 45px; height: 45px; font-size: 20px; }
+            .post-navigation { flex-direction: column; align-items: center; }
+            .nav-btn { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -724,56 +898,112 @@
     <div class="floating-elements" id="floatingContainer"></div>
     
     <div class="main-container">
-        <div class="page-header">
-            <button class="trigger-btn" onclick="openColorFillPost()">
-                اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-            </button>
-        </div>
-
-        <div class="post-content">
-            <h1>ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا</h1>
-            
-            <img src="https://bloglovers.pk/images/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga.jpg" 
-                 alt="دابۃ الارض - قیامت کی نشانی" 
-                 class="featured-image"
-                 loading="lazy">
-            
-            <p>محترم قارئین کرام! قیامت کی بڑی نشانیوں میں سے ایک نشانی دابۃ الارض کا ظاہر ہونا ہے۔ گزرتے وقت کے ساتھ ساتھ اچھے اور نیک لوگ اس دنیا سے رخصت ہوتے چلے جائیں گے۔ اور زمانہ آخر میں صرف فسادی، برُی عادات کے لوگ اس قدر مکس ہو جائیں گے کہ مسلم و کافر، منافق اور مومن کی پہچان کرنا مشکل ہو جائے گا۔ زمین میں ہر طرف فساد ہی فساد برپا ہو چکا ہوگا۔</p>
-            
-            <p>ایسے حالات میں اللہ رب العزت لوگوں کے درمیان ایک جانور ظاہر فرمائیں گے۔ یوں تو کئی سوالات انسانی ذہن میں جنم لیتے ہیں مثلاً: دابہ کیا چیز ہے؟ اس کے ذمے کیا کیا کام ہوں گے؟ وہ کہاں ہے اور کب ظاہر ہوگا وغیرہ وغیرہ۔</p>
-            
-            <div class="quranic-verse">
-                "اور جب ان پر (قرب ِ قیامت کے وعدے کی) بات پوری ہو جائے گی، تو ہم ان کے لئے زمین سے ایک جانور نکالیں گے، وہ ان سے کلام کرے گا، بے شک یہ لوگ ہماری آیات پر یقین نہیں رکھتے تھے"
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <div class="page-header">
+                <button class="trigger-btn" onclick="openColorFillPost()">
+                    اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+                </button>
             </div>
-            
-            <p>کلام سے مراد "ان سے مخاطب ہوگا" اور دوسرے معنی یہ ہیں کہ "وہ انھیں زخمی کرےگا"۔ ایک روایت کے مطابق "کہ وہ انھیں زخمی کرےگا"۔ یوں تو دابۃ الارض کے اوصاف کے بارے میں کوئی واضح اور صحیح حدیث ثابت نہیں ہے۔ بعض علماء کرام نے اس کے اوصاف کچھ یوں بیان فرمائے ہیں کہ اس کا سر بیل کے سر کی طرح ہوگا اور اس کے کان ہاتھی کے کانوں جیسے ہوں گے وغیرہ جن کی کوئی دلیل موجود نہیں ہے۔</p>
-            
-            <p>لیکن جو صفات حدیث سے ثابت ہیں وہ یہ ہیں کہ:</p>
-            
-            <ul>
-                <li>وہ حقیقت میں ایک جانور ہی ہوگا۔</li>
-                <li>اور وہ لوگوں سے باتیں کرے گا۔</li>
-                <li>وہ زمین سے نکلے گا۔</li>
-            </ul>
-            
-            <h2>دابہ کہاں سے نکلے گا؟</h2>
-            <p>تاہم اس کے نکلنے کی جگہ کے بارے میں کوئی درست حدیث ثابت نہیں ہے۔ بس ہماری اور آپ کی یہی ذمہ داری ہے کہ ہم اس بات پر ایمان رکھتے ہیں کہ وہ اسی طرح نکلے گا جس طرح اللہ رب العزت نے ہمیں خبر دی ہے۔ تاہم یہ ہرگز نہیں جانتے کہ اس کے نکلنے کا کون سا مقام ہوگا۔</p>
-            
-            <h2>دابہ کیا کرے گا؟</h2>
-            <p>یہ عجیب الخلقت جانور لوگوں سے کہے گا کہ "لوگ اللہ رب العزت کی آیات پر ایمان نہیں لاتے" جیسے کہ اوپر بیان کی گئی آیت مبارکہ میں بتایا گیا ہے۔</p>
-            
-            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "وہ جانور نکلے گا اور لوگوں کی ناکوں کو داغے گا، پھر وہ سب تم میں گھل مل جائیں گے حتی کہ ایک شخص اونٹ خریدے گا اور کوئی اس سے پوچھے گا کہ یہ اونٹ تم نے کس سے خریدا ہے؟ وہ کہے گا ایک ایسے شخص سے جس کی ناک کو آگ سے داغ لگا ہوا تھا"۔</p>
-            
-            <p>جب دابہ لوگوں کا داغےگا تو حق باطل کے مقابلے میں واضح ہو جائے گا اور مومن کافر سے ممتاز ہو جائےگا، اس کے بعد شاید لوگ ایک دوسرے کو کچھ اس طرح پکارنے لگیں گے اے مومن یا اے کافر۔ واللہ اعلم۔</p>
-            
-            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "دجال میری امت میں ظاہر ہو گا اور چالیس کی مدت پوری کرے گا (دجال کے بارےمیں میں تفصیلاً ذکر کر چکا ہوں) میں نہیں جانتا کہ یہ چالیس دن ہوں گے، چالیس ماہ ہوں گے یا چالیس برس ہوں گے پھر اللہ رب العزت حضرت عیسیٰ کو بھیجے گا، ان کی شکل و شباہت عروہ بن مسعود ثقفی سے ملتی جلتی ہوگی۔ حضرت عیسیٰ دجال کو ہلاک کر ڈالیں گے پھر لوگ سات برس اس طرح گزاریں گے کہ کہیں بھی دو شخصوں کے درمیان کوئی دشمنی نہیں ہوگی، پھر اللہ رب العزت شام کی جانب سے ایک ٹھنڈی ہوا بھیجے گا جو ہر اس شخص کی روح قبض کر لے گی جس کے دل میں ذرہ برابر ایمان یا بھلائی موجود ہوگی۔ اگر تم میں سے کوئی کسی پہاڑ کی کھوہ میں بھی داخل ہو جائے گا تو یہ ہوا وہاں بھی اس کی روح قبض کر لے گی۔ اس کے بعد زمین پر صرف وہ لوگ رہ جائیں گے جن کی شر انگیزی میں پرندوں کی سی تیزی ہوگی، انھیں نہ نیکی کا پتا ہوگا اور نہ ہی برائی کا۔ ان کے پاس شیطان انسانی شکل میں آئے گا اور کہے گا کیا تم میری بات مانو گے؟ وہ کہیں گے تم کیا کہتے ہو؟ شیطان انھیں بتوں کی پوجا کی دعوت دے گا، وہ اس کی بات مان لیں گے۔ ان کے پاس رزق کی خوب فراوانی ہوگی۔ زندگی خوب مزے سے گزررہی ہوگی کہ اچانک صور پھونک دیا جائےگا۔ جسے بھی یہ آواز پہنچے گی وہ گردن ایک جانب جھکا کر آواز سننے کی کوشش کرے گا تو دوسری طرف کو اوپر اٹھا لے گا سب سے پہلے یہ آواز وہ شخص سنے گا جو اپنے اونٹوں کے حوض کی لپائی کررہا ہوگا۔ وہ سنتے ہی بے ہوش ہو کر گر جائے گا اور دوسرے لوگ بھی بے ہوش ہو جائیں گے۔</p>
-            
-            <p>ایک دوسری روایت کے مطابق آپ نے کچھ یوں رہنمائی فرمائی: اللہ پاک یمن کی جانب سے ایک ہوا چلائے گا جو ریشم سے زیادہ نرم ہوگی۔ جس کے دل میں ایک دانے کے برابر بھی ایمان ہوگا یہ اس کی روح قبض کر لے گی۔ اس ہوا کے چلنے کے بعد نیک لوگ اس دنیا سے اٹھا لئے جائیں گے زمین پر صرف شیریر رہ جائیں گے اور انھی پر قیامت قائم ہو گی۔</p>
-            
-            <p>اللہ رب العزت سے استدعا ہے کہ جب تک زندہ ہیں ایمان کی حالت میں زندہ رکھے اور خاتمہ بالایمان ہو۔ اللہ پاک ہمارے صغیرہ کبیرہ گناہ معاف فرمائے۔ آمین۔</p>
-            
-            <div class="footer">
-                <p>© 2024 دینی معلومات - دابۃ الارض کے بارے میں | تمام حقوق محفوظ ہیں</p>
+
+            <div class="post-content">
+                <h1>ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرےگا</h1>
+                
+                <img src="https://bloglovers.pk/images/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga.jpg" 
+                     alt="دابۃ الارض - قیامت کی نشانی" 
+                     class="featured-image"
+                     loading="lazy">
+                
+                <p>محترم قارئین کرام! قیامت کی بڑی نشانیوں میں سے ایک نشانی دابۃ الارض کا ظاہر ہونا ہے۔ گزرتے وقت کے ساتھ ساتھ اچھے اور نیک لوگ اس دنیا سے رخصت ہوتے چلے جائیں گے۔ اور زمانہ آخر میں صرف فسادی، برُی عادات کے لوگ اس قدر مکس ہو جائیں گے کہ مسلم و کافر، منافق اور مومن کی پہچان کرنا مشکل ہو جائے گا۔ زمین میں ہر طرف فساد ہی فساد برپا ہو چکا ہوگا۔</p>
+                
+                <p>ایسے حالات میں اللہ رب العزت لوگوں کے درمیان ایک جانور ظاہر فرمائیں گے۔ یوں تو کئی سوالات انسانی ذہن میں جنم لیتے ہیں مثلاً: دابہ کیا چیز ہے؟ اس کے ذمے کیا کیا کام ہوں گے؟ وہ کہاں ہے اور کب ظاہر ہوگا وغیرہ وغیرہ۔</p>
+                
+                <div class="quranic-verse">
+                    "اور جب ان پر (قرب ِ قیامت کے وعدے کی) بات پوری ہو جائے گی، تو ہم ان کے لئے زمین سے ایک جانور نکالیں گے، وہ ان سے کلام کرے گا، بے شک یہ لوگ ہماری آیات پر یقین نہیں رکھتے تھے"
+                </div>
+                
+                <p>کلام سے مراد "ان سے مخاطب ہوگا" اور دوسرے معنی یہ ہیں کہ "وہ انھیں زخمی کرےگا"۔ ایک روایت کے مطابق "کہ وہ انھیں زخمی کرےگا"۔ یوں تو دابۃ الارض کے اوصاف کے بارے میں کوئی واضح اور صحیح حدیث ثابت نہیں ہے۔ بعض علماء کرام نے اس کے اوصاف کچھ یوں بیان فرمائے ہیں کہ اس کا سر بیل کے سر کی طرح ہوگا اور اس کے کان ہاتھی کے کانوں جیسے ہوں گے وغیرہ جن کی کوئی دلیل موجود نہیں ہے۔</p>
+                
+                <p>لیکن جو صفات حدیث سے ثابت ہیں وہ یہ ہیں کہ:</p>
+                
+                <ul>
+                    <li>وہ حقیقت میں ایک جانور ہی ہوگا۔</li>
+                    <li>اور وہ لوگوں سے باتیں کرے گا۔</li>
+                    <li>وہ زمین سے نکلے گا۔</li>
+                </ul>
+                
+                <h2>دابہ کہاں سے نکلے گا؟</h2>
+                <p>تاہم اس کے نکلنے کی جگہ کے بارے میں کوئی درست حدیث ثابت نہیں ہے۔ بس ہماری اور آپ کی یہی ذمہ داری ہے کہ ہم اس بات پر ایمان رکھتے ہیں کہ وہ اسی طرح نکلے گا جس طرح اللہ رب العزت نے ہمیں خبر دی ہے۔ تاہم یہ ہرگز نہیں جانتے کہ اس کے نکلنے کا کون سا مقام ہوگا۔</p>
+                
+                <h2>دابہ کیا کرے گا؟</h2>
+                <p>یہ عجیب الخلقت جانور لوگوں سے کہے گا کہ "لوگ اللہ رب العزت کی آیات پر ایمان نہیں لاتے" جیسے کہ اوپر بیان کی گئی آیت مبارکہ میں بتایا گیا ہے۔</p>
+                
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "وہ جانور نکلے گا اور لوگوں کی ناکوں کو داغے گا، پھر وہ سب تم میں گھل مل جائیں گے حتی کہ ایک شخص اونٹ خریدے گا اور کوئی اس سے پوچھے گا کہ یہ اونٹ تم نے کس سے خریدا ہے؟ وہ کہے گا ایک ایسے شخص سے جس کی ناک کو آگ سے داغ لگا ہوا تھا"۔</p>
+                
+                <p>جب دابہ لوگوں کا داغےگا تو حق باطل کے مقابلے میں واضح ہو جائے گا اور مومن کافر سے ممتاز ہو جائےگا، اس کے بعد شاید لوگ ایک دوسرے کو کچھ اس طرح پکارنے لگیں گے اے مومن یا اے کافر۔ واللہ اعلم۔</p>
+                
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "دجال میری امت میں ظاہر ہو گا اور چالیس کی مدت پوری کرے گا (دجال کے بارےمیں میں تفصیلاً ذکر کر چکا ہوں) میں نہیں جانتا کہ یہ چالیس دن ہوں گے، چالیس ماہ ہوں گے یا چالیس برس ہوں گے پھر اللہ رب العزت حضرت عیسیٰ کو بھیجے گا، ان کی شکل و شباہت عروہ بن مسعود ثقفی سے ملتی جلتی ہوگی۔ حضرت عیسیٰ دجال کو ہلاک کر ڈالیں گے پھر لوگ سات برس اس طرح گزاریں گے کہ کہیں بھی دو شخصوں کے درمیان کوئی دشمنی نہیں ہوگی، پھر اللہ رب العزت شام کی جانب سے ایک ٹھنڈی ہوا بھیجے گا جو ہر اس شخص کی روح قبض کر لے گی جس کے دل میں ذرہ برابر ایمان یا بھلائی موجود ہوگی۔ اگر تم میں سے کوئی کسی پہاڑ کی کھوہ میں بھی داخل ہو جائے گا تو یہ ہوا وہاں بھی اس کی روح قبض کر لے گی۔ اس کے بعد زمین پر صرف وہ لوگ رہ جائیں گے جن کی شر انگیزی میں پرندوں کی سی تیزی ہوگی، انھیں نہ نیکی کا پتا ہوگا اور نہ ہی برائی کا۔ ان کے پاس شیطان انسانی شکل میں آئے گا اور کہے گا کیا تم میری بات مانو گے؟ وہ کہیں گے تم کیا کہتے ہو؟ شیطان انھیں بتوں کی پوجا کی دعوت دے گا، وہ اس کی بات مان لیں گے۔ ان کے پاس رزق کی خوب فراوانی ہوگی۔ زندگی خوب مزے سے گزررہی ہوگی کہ اچانک صور پھونک دیا جائےگا۔ جسے بھی یہ آواز پہنچے گی وہ گردن ایک جانب جھکا کر آواز سننے کی کوشش کرے گا تو دوسری طرف کو اوپر اٹھا لے گا سب سے پہلے یہ آواز وہ شخص سنے گا جو اپنے اونٹوں کے حوض کی لپائی کررہا ہوگا۔ وہ سنتے ہی بے ہوش ہو کر گر جائے گا اور دوسرے لوگ بھی بے ہوش ہو جائیں گے۔</p>
+                
+                <p>ایک دوسری روایت کے مطابق آپ نے کچھ یوں رہنمائی فرمائی: اللہ پاک یمن کی جانب سے ایک ہوا چلائے گا جو ریشم سے زیادہ نرم ہوگی۔ جس کے دل میں ایک دانے کے برابر بھی ایمان ہوگا یہ اس کی روح قبض کر لے گی۔ اس ہوا کے چلنے کے بعد نیک لوگ اس دنیا سے اٹھا لئے جائیں گے زمین پر صرف شیریر رہ جائیں گے اور انھی پر قیامت قائم ہو گی۔</p>
+                
+                <p>اللہ رب العزت سے استدعا ہے کہ جب تک زندہ ہیں ایمان کی حالت میں زندہ رکھے اور خاتمہ بالایمان ہو۔ اللہ پاک ہمارے صغیرہ کبیرہ گناہ معاف فرمائے۔ آمین۔</p>
+                
+                <!-- Reactions Section (Exactly as requested) -->
+                <div class="reactions-section">
+                    <h3 class="reactions-title">اس پوسٹ پر اپنا ردعمل دیں</h3>
+                    <div class="reactions-grid">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">
+                            <span>👍</span> عمدہ 
+                            <span class="reaction-count" id="count-عمدہ">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">
+                            <span>❤️</span> دلچسپ 
+                            <span class="reaction-count" id="count-دلچسپ">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">
+                            <span>😊</span> مفید 
+                            <span class="reaction-count" id="count-مفید">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">
+                            <span>😢</span> قابل غور 
+                            <span class="reaction-count" id="count-قابل غور">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">
+                            <span>🤔</span> سوچ بچار 
+                            <span class="reaction-count" id="count-سوچ بچار">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">
+                            <span>👏</span> شاندار 
+                            <span class="reaction-count" id="count-شاندار">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">
+                            <span>🔥</span> زبردست 
+                            <span class="reaction-count" id="count-زبردست">0</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="post-navigation">
+                    <a href="https://bloglovers.pk/" class="nav-btn">مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-kubra.html" class="nav-btn">تمام پوسٹس</a>
+                </div>
+                
+                <div class="footer">
+                    <p>© 2024 دینی معلومات - دابۃ الارض کے بارے میں | تمام حقوق محفوظ ہیں</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="sidebar-title">مزید پڑھیں</h3>
+                <div class="posts-scroll">
+                    <div class="scroll-content" id="scrollContent">
+                        <!-- Posts will be duplicated for seamless scrolling via JS -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -791,7 +1021,67 @@
         <div id="postContent"></div>
     </div>
 
+    <!-- Floating Scroll Buttons -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+        <button class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">↓</button>
+    </div>
+
+    <!-- Social Share Icons -->
+    <div class="social-share">
+        <a href="#" class="social-icon" onclick="shareOnSocial('facebook')" title="Facebook پر شیئر کریں"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon" onclick="shareOnSocial('whatsapp')" title="WhatsApp پر شیئر کریں"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-icon" onclick="shareOnSocial('twitter')" title="Twitter پر شیئر کریں"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-icon" onclick="shareOnSocial('linkedin')" title="LinkedIn پر شیئر کریں"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon" onclick="shareOnSocial('telegram')" title="Telegram پر شیئر کریں"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" class="social-icon" onclick="shareOnSocial('pinterest')" title="Pinterest پر شیئر کریں"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#" class="social-icon" onclick="copyPageLink()" title="لنک کاپی کریں"><i class="fas fa-link"></i></a>
+    </div>
+
+    <!-- reactions.js (External) -->
+    <script src="/reactions.js"></script>
+
     <script>
+        // Sidebar posts data
+        const sidebarPosts = [
+            { title: "5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل", link: "https://bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl", img: "https://bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.png", current: false },
+            { title: "مصائبِ دجال (حصہ اول)", link: "https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-aol", img: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.png", current: false },
+            { title: "مصائبِ دجال (حصہ دوم)", link: "https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-dom", img: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom.png", current: false },
+            { title: "مصائبِ دجال (حصہ سوم)", link: "https://bloglovers.pk/alamaat-kubra/msab-djal-hsh-som", img: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som.jpg", current: false },
+            { title: "دجال کو کون کون سے طاقتیں دی گئی ہونگی؟", link: "https://bloglovers.pk/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi", img: "https://bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi.png", current: false },
+            { title: "دجال کے ساتھی کون لوگ ہونگے؟", link: "https://bloglovers.pk/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay", img: "https://bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay.png", current: false },
+            { title: "دجال سے نجات کے لیے ہمیں کیا تعلیمات دی گئی ہیں؟", link: "https://bloglovers.pk/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain", img: "https://bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain.png", current: false },
+            { title: "حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ اول)", link: "https://bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol", img: "https://bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-aol.jpg", current: false },
+            { title: "حضرت عیسیٰ دوبارہ زمین پر کیوں تشریف لائیں گے (حصہ دوم)", link: "https://bloglovers.pk/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom", img: "https://bloglovers.pk/images/alamaat-kubra/hzrt-aysi-dobarh-zmyn-par-kyun-tshryf-layn-ge-hsh-dom.jpg", current: false },
+            { title: "تمام آسمانی مذاہب میں خنزیر حرام کیوں ہے؟", link: "https://bloglovers.pk/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai", img: "https://bloglovers.pk/images/alamaat-kubra/tamam-asmani-mazahib-mein-khanzeer-haraam-kyun-hai.png", current: false }
+        ];
+
+        // Mark current post
+        const currentPostUrl = window.location.href;
+        // For demo, we'll mark the first as current since this is the current page context
+        // In production, you might compare with actual URL
+        sidebarPosts[0].current = true; // Mark first as current for this page
+
+        // Render sidebar posts
+        function renderSidebar() {
+            const scrollContent = document.getElementById('scrollContent');
+            let html = '';
+            
+            // Create two copies for seamless scrolling
+            for (let copy = 0; copy < 2; copy++) {
+                sidebarPosts.forEach(post => {
+                    html += `
+                        <a href="${post.link}" class="post-item ${post.current ? 'current-post' : ''}">
+                            <img src="${post.img}" alt="${post.title}" loading="lazy">
+                            <span class="post-item-title">${post.title}</span>
+                        </a>
+                    `;
+                });
+            }
+            
+            scrollContent.innerHTML = html;
+        }
+
         // Create floating elements
         function createFloatingElements() {
             const container = document.getElementById('floatingContainer');
@@ -803,7 +1093,6 @@
                 const element = document.createElement('div');
                 element.classList.add('floating-element');
                 
-                // Random properties
                 const size = Math.random() * 20 + 10;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
@@ -832,7 +1121,6 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            // Scroll to top of overlay
             setTimeout(() => {
                 document.getElementById('postOverlay').scrollTop = 0;
             }, 100);
@@ -847,6 +1135,44 @@
             setTimeout(() => {
                 document.getElementById('postContent').innerHTML = '';
             }, 300);
+        }
+        
+        // Social share functions (keep existing)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+                default:
+                    return;
+            }
+            
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
         }
         
         // Keyboard controls
@@ -869,7 +1195,7 @@
             e.stopPropagation();
         });
         
-        // Lazy load and animate image
+        // Load image with animation
         function loadImage() {
             const img = document.querySelector('.featured-image');
             if (img) {
@@ -889,6 +1215,7 @@
         
         // Initialize everything when page loads
         window.addEventListener('load', function() {
+            renderSidebar();
             createFloatingElements();
             loadImage();
             
@@ -921,7 +1248,6 @@
         window.addEventListener('scroll', function() {
             if (!ticking) {
                 window.requestAnimationFrame(function() {
-                    // Add parallax effect to background
                     const scrolled = window.pageYOffset;
                     const animatedBg = document.querySelector('.animated-bg');
                     if (animatedBg) {
