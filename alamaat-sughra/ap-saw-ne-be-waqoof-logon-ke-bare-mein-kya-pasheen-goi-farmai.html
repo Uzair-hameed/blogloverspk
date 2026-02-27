@@ -66,12 +66,28 @@
             100% { transform: translateY(0px) rotate(360deg); }
         }
         
-        /* Main Content Container */
+        /* Main Container - Two Column Layout */
         .main-container {
-            max-width: 1000px;
+            max-width: 1300px;
             margin: 30px auto;
             position: relative;
             z-index: 1;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .content-column {
+            flex: 1 1 650px;
+            min-width: 0;
+        }
+        
+        .sidebar-column {
+            flex: 0 0 350px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            height: fit-content;
         }
         
         /* Header */
@@ -148,6 +164,199 @@
         
         .post-content p:last-child {
             margin-bottom: 0;
+        }
+        
+        /* Reactions Section */
+        .reactions-section {
+            background: rgba(16, 22, 36, 0.85);
+            padding: 30px 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px;
+            margin-top: 20px;
+        }
+        
+        .reaction-btn {
+            background: none;
+            border: none;
+            color: #e6e6e6;
+            font-size: 1.6rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 15px;
+            min-width: 90px;
+        }
+        
+        .reaction-btn:hover {
+            background: rgba(74, 144, 226, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .reaction-emoji {
+            font-size: 2.2rem;
+        }
+        
+        .reaction-count {
+            font-size: 1.2rem;
+            color: #4a90e2;
+            font-weight: bold;
+        }
+        
+        /* Social Icons */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 20px;
+        }
+        
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .facebook { background: #1877f2; }
+        .whatsapp { background: #25D366; }
+        .twitter { background: #1DA1F2; }
+        .linkedin { background: #0077b5; }
+        .telegram { background: #0088cc; }
+        .pinterest { background: #bd081c; }
+        .copy-link { background: #6c757d; }
+        
+        /* Sidebar - Auto Scroll */
+        .sidebar {
+            background: rgba(16, 22, 36, 0.9);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            padding: 20px 15px;
+            box-shadow: 0 15px 35px rgba(0, 10, 30, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .sidebar-title {
+            font-size: 1.8rem;
+            color: #4a90e2;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a90e2;
+        }
+        
+        .posts-container {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+        }
+        
+        .auto-scroll-content {
+            animation: scrollUp 30s linear infinite;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .auto-scroll-content:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .sidebar-post {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: #e6e6e6;
+        }
+        
+        .sidebar-post:hover {
+            border-color: #4a90e2;
+            background: rgba(74, 144, 226, 0.15);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-post.active {
+            border-right: 4px solid #4a90e2;
+            background: rgba(74, 144, 226, 0.1);
+        }
+        
+        .sidebar-post img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(74, 144, 226, 0.3);
+        }
+        
+        .sidebar-post span {
+            font-size: 1rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: rgba(16, 22, 36, 0.9);
+            border: 1px solid #4a90e2;
+            color: #4a90e2;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: #4a90e2;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(74, 144, 226, 0.4);
         }
         
         /* Controls */
@@ -227,77 +436,58 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
         
-        /* Gradient Animation */
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
         
-        /* Responsive Design */
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            border-top: 1px solid #2a2f3a;
+            margin-top: 40px;
+        }
+        
+        /* Responsive */
         @media (max-width: 1100px) {
+            .sidebar-column {
+                flex: 0 0 300px;
+            }
+        }
+        
+        @media (max-width: 900px) {
             .main-container {
-                max-width: 90%;
+                flex-direction: column;
+            }
+            .sidebar-column {
+                flex: 1 1 auto;
+                width: 100%;
+                position: relative;
+                top: 0;
             }
         }
         
         @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .post-content {
-                padding: 25px;
-                font-size: 1.2rem;
-            }
-            
-            .control-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-            
-            .controls {
-                left: 15px;
-                bottom: 15px;
-            }
-            
-            .back-btn {
-                top: 15px;
-                right: 15px;
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
+            body { padding: 15px; }
+            h1 { font-size: 2.2rem; }
+            .post-content { padding: 25px; font-size: 1.2rem; }
+            .reactions-section { padding: 20px; }
+            .reaction-btn { font-size: 1.4rem; min-width: 70px; }
+            .reaction-emoji { font-size: 2rem; }
+            .control-btn { width: 50px; height: 50px; font-size: 1.3rem; }
+            .controls { left: 15px; bottom: 15px; }
+            .back-btn { top: 15px; right: 15px; padding: 10px 20px; font-size: 1rem; }
         }
         
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .post-content {
-                padding: 20px;
-                font-size: 1.1rem;
-            }
-            
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-            
-            .controls {
-                left: 10px;
-                bottom: 10px;
-            }
-            
-            .featured-image {
-                max-height: 300px;
-            }
+            h1 { font-size: 1.8rem; }
+            .post-content { padding: 20px; font-size: 1.1rem; }
+            .featured-image { max-height: 300px; }
+            .reactions-grid { gap: 10px; }
+            .reaction-btn { min-width: 55px; font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -310,35 +500,184 @@
         <i class="fas fa-arrow-right"></i> واپس جائیں
     </a>
     
-    <!-- Main Container -->
+    <!-- Main Container with Two Columns -->
     <div class="main-container">
-        <header class="post-header">
-            <h1>آپ ﷺ نے بے وقوف لوگوں کےبارے میں کیا پیشن گوئی فرمائی؟</h1>
-        </header>
+        <!-- Left Column - Content -->
+        <div class="content-column">
+            <header class="post-header">
+                <h1>آپ ﷺ نے بے وقوف لوگوں کےبارے میں کیا پیشن گوئی فرمائی؟</h1>
+            </header>
+            
+            <!-- Featured Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-be-waqoof-logon-ke-bare-mein-kya-pasheen-goi-farmai.png" 
+                 alt="آپ ﷺ نے بے وقوف لوگوں کےبارے میں کیا پیشن گوئی فرمائی؟" 
+                 class="featured-image">
+            
+            <!-- Post Content -->
+            <div class="post-content">
+                <p>دوستو! عمومی طور پر دیکھا جاتا ہے کہ ہمارے گھر کے معاملات جب بگڑ جائیں، تو اس خاندان کے بڑے بزرگ، ذمہ دار، عقل مند یا دانا لوگ اس مسئلے کو احسن طریقے سے سلجھاتے ہیں۔ تاکہ معاملات خوش اسلوبی سے طے پا جائیں۔ یوں صدیوں سے یہ سلسلہ چلا آرہا ہے۔ خواہ کسی بھی قسم کا مسئلہ درپیش ہو آپس میں سر جوڑ کر اس مسئلہ کو حل کیا جاتا رہا۔</p>
+                <p>ذرا سوچیئے! جو معاملات اب تک گھر کے بڑے بزرگ طے کرتے آئے ہوں، اگر وہ معاملات دانا لوگوں کی بجائے کوئی بے وقوف، کم عقل، ناسمجھ سلجھانا شروع کر دے تو معاشرے میں تو درکنار اس گھر کی یا خاندان کی حالت کیا ہوگی۔</p>
+                <p>کہا جاتا ہے کہ جب کہیں بربادی آتی ہے تو اس کے ہزاروں نقطہ نظر ہو سکتے ہیں لیکن سب سے بڑا نقطہ اس معاشرے میں پڑھے لکھے، عقل مند یا اہل ایمان لوگوں کا خاموش رہنا ہوتا ہے۔ کیوں کہ برائی ہمیشہ اچھائی پر اسی وقت غالب آتی ہے جب اس معاشرے کے اہل علم یا تو خاموش ہوجاتے ہیں یا خاموش کرائے جاتے ہیں۔ غرض یہ کہ برائی اس وقت تک نہیں آتی جب تک اسے راستہ نہ دیا جائے۔</p>
+                <p>میرا آج کا آرٹیکل بھی قیامت کی چھوٹی نشانیوں میں سے ایک ہے جیساکہ قرب قیامت ایسا زمانہ آجائے گا جس میں لوگ اس قدر خوار یا بیزار ہو جائیں گے اور ان کا ترجمان ایک ایسا شخص ہوگا جو بے عقل، کم ذات، گھٹیا آدمی ہوگا۔</p>
+                <p>ایک روایت کے مطابق آپ ﷺ نے ارشاد فرمایا: "لوگوں پر کچھ دھوکہ دہی والے سال آئیں گے۔ ان میں جھوٹے کو سچا سمجھا جائےگا، سچے کو جھوٹا سمجھا جائے گا، خائن کو امانت دار خیال کیا جائے گا، امانت دار پر خائن ہونے کا شک کیا جائے گا اور لوگوں کے معاملات کے بارے میں روبیضۃ بات کرے گا۔ عرض کیا گیا: اللہ کے رسولﷺ! روبیضۃ کیا ہے؟ فرمایا: بے وقوف انسان جو عام لوگوں کے معاملات میں بات کرےگا۔"</p>
+                <p>اس حدیث کے مطابق یہ نشانی ہمارے دور میں ظاہر ہو چکی ہےکہ معاشرے کے گھٹیا ترین لوگ بہترین لوگوں سے زیادہ معزز جانے جاتے ہیں۔ اگر ہم اپنے معاشرے میں اردگرد نظر ڈالیں تو ہمیں کم عقل لوگ نصیحت کرتے دکھائی دیتے ہیں۔</p>
+                <p>حق دار کا حق مارا جاتا ہے، منصف انصاف نہیں کرتا، حکومتی عہدیدار 90 فی صد جاہل لوگ ہیں اور افسوس کی بات یہ ہے کہ یہ نوے فی صد لوگ اعلیٰ تعلیم یافتہ لوگوں کو مشورے دے رہے ہوتے ہیں اور اپنی من پسند کے فیصلے لاگو کروائے جاتے ہیں۔</p>
+                <p>جوں جوں وقت گزرتا چلا جاتا ہے ان لوگوں کی تعداد میں تیزی سے اضافہ ہوتا جا رہا ہے۔ یہی لوگ جیسے کیسے سرکاری عہدوں تک پہنچ جاتے ہیں اور طاقت کے نشے میں باقی لوگوں کو نقصان پہنچاتے ہیں۔ کیونکہ یہ لوگ دین سے دور ہوتے ہیں اور شدید گمراہی کا شکار ہوتے ہیں اس لئے یہ لوگ اہل علم پر بھی زور زبردستی کرتے دکھائی دیتے ہیں۔</p>
+                <p>اس طرح آہستہ آہستہ لوگوں کے معاملات کی باگ ڈور گھٹیا اور کم عقل لوگوں کے ہاتھوں میں آتی چلی جارہی ہے۔ اصولاً تو اہل علم، فہم وفراست اور تجربہ کار لوگوں کو آگے لایاجائے تاکہ لوگوں کے معاملات اور سیاسیات کے بارے میں انھی کو مقدم کیا جائے۔</p>
+                <p>آج کی صورت حال کوئی ڈھکی چھپی نہیں ہے لوگ اپنی خواہشوں اور مصلحتوں ہی کی طرف مائل ہوتے ہیں، خواہ اس میں ان کا دین اور ایمان ہی کیوں نہ ضائع ہو جائے۔ یہی وجہ ہے کہ انھوں نے فساق وفجار کو اپنا قائد و رہنما بنا رکھا ہے۔</p>
+                <p>اسی طرح ہمارا آزاد میڈیا جو جھوٹ کو سچ اور سچ کو جھوٹ کرنے ہمت، جسارت اور طاقت رکھتا ہے۔ صبح سے شام تک اسے جھوٹ بولنے کا معاوضہ دیا جاتا ہے گویا جو جتنا ڈھٹائی اور خوداعتمادی سے جھوٹ بول سکتا ہے اتنا ہی بڑا اینکر ہوتا ہے۔ آپ ﷺ کا فرمان ہم سب پر واضح ہے کوئی بات چھپی نہیں ہے۔</p>
+                <p>اللہ پاک سے دعا ہے کہ اللہ ہم سب کو ہدایت نصیب فرمائے۔ آمین۔</p>
+            </div>
+            
+            <!-- Reactions Section -->
+            <div class="reactions-section">
+                <h2 style="color:#4a90e2; margin-bottom:20px;">اس پوسٹ پر اپنا ردعمل دیں</h2>
+                <div class="reactions-grid">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">
+                        <span class="reaction-emoji">👍</span>
+                        <span>عمدہ</span>
+                        <span class="reaction-count" id="count-عمدہ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">
+                        <span class="reaction-emoji">❤️</span>
+                        <span>دلچسپ</span>
+                        <span class="reaction-count" id="count-دلچسپ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">
+                        <span class="reaction-emoji">😊</span>
+                        <span>مفید</span>
+                        <span class="reaction-count" id="count-مفید">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">
+                        <span class="reaction-emoji">😢</span>
+                        <span>قابل غور</span>
+                        <span class="reaction-count" id="count-قابل غور">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">
+                        <span class="reaction-emoji">🤔</span>
+                        <span>سوچ بچار</span>
+                        <span class="reaction-count" id="count-سوچ بچار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">
+                        <span class="reaction-emoji">👏</span>
+                        <span>شاندار</span>
+                        <span class="reaction-count" id="count-شاندار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">
+                        <span class="reaction-emoji">🔥</span>
+                        <span>زبردست</span>
+                        <span class="reaction-count" id="count-زبردست">0</span>
+                    </button>
+                </div>
+                
+                <!-- Social Media Icons (7 platforms) -->
+                <div class="social-share">
+                    <a href="#" class="social-icon facebook" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon whatsapp" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon twitter" onclick="shareOnSocial('twitter')"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="social-icon linkedin" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon telegram" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="social-icon pinterest" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" class="social-icon copy-link" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+            </div>
+        </div>
         
-        <!-- Featured Image -->
-        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-be-waqoof-logon-ke-bare-mein-kya-pasheen-goi-farmai.png" 
-             alt="آپ ﷺ نے بے وقوف لوگوں کےبارے میں کیا پیشن گوئی فرمائی؟" 
-             class="featured-image">
-        
-        <!-- Post Content -->
-        <div class="post-content">
-            <p>دوستو! عمومی طور پر دیکھا جاتا ہے کہ ہمارے گھر کے معاملات جب بگڑ جائیں، تو اس خاندان کے بڑے بزرگ، ذمہ دار، عقل مند یا دانا لوگ اس مسئلے کو احسن طریقے سے سلجھاتے ہیں۔ تاکہ معاملات خوش اسلوبی سے طے پا جائیں۔ یوں صدیوں سے یہ سلسلہ چلا آرہا ہے۔ خواہ کسی بھی قسم کا مسئلہ درپیش ہو آپس میں سر جوڑ کر اس مسئلہ کو حل کیا جاتا رہا۔</p>
-            <p>ذرا سوچیئے! جو معاملات اب تک گھر کے بڑے بزرگ طے کرتے آئے ہوں، اگر وہ معاملات دانا لوگوں کی بجائے کوئی بے وقوف، کم عقل، ناسمجھ سلجھانا شروع کر دے تو معاشرے میں تو درکنار اس گھر کی یا خاندان کی حالت کیا ہوگی۔</p>
-            <p>کہا جاتا ہے کہ جب کہیں بربادی آتی ہے تو اس کے ہزاروں نقطہ نظر ہو سکتے ہیں لیکن سب سے بڑا نقطہ اس معاشرے میں پڑھے لکھے، عقل مند یا اہل ایمان لوگوں کا خاموش رہنا ہوتا ہے۔ کیوں کہ برائی ہمیشہ اچھائی پر اسی وقت غالب آتی ہے جب اس معاشرے کے اہل علم یا تو خاموش ہوجاتے ہیں یا خاموش کرائے جاتے ہیں۔ غرض یہ کہ برائی اس وقت تک نہیں آتی جب تک اسے راستہ نہ دیا جائے۔</p>
-            <p>میرا آج کا آرٹیکل بھی قیامت کی چھوٹی نشانیوں میں سے ایک ہے جیساکہ قرب قیامت ایسا زمانہ آجائے گا جس میں لوگ اس قدر خوار یا بیزار ہو جائیں گے اور ان کا ترجمان ایک ایسا شخص ہوگا جو بے عقل، کم ذات، گھٹیا آدمی ہوگا۔</p>
-            <p>ایک روایت کے مطابق آپ ﷺ نے ارشاد فرمایا: "لوگوں پر کچھ دھوکہ دہی والے سال آئیں گے۔ ان میں جھوٹے کو سچا سمجھا جائےگا، سچے کو جھوٹا سمجھا جائے گا، خائن کو امانت دار خیال کیا جائے گا، امانت دار پر خائن ہونے کا شک کیا جائے گا اور لوگوں کے معاملات کے بارے میں روبیضۃ بات کرے گا۔ عرض کیا گیا: اللہ کے رسولﷺ! روبیضۃ کیا ہے؟ فرمایا: بے وقوف انسان جو عام لوگوں کے معاملات میں بات کرےگا۔"</p>
-            <p>اس حدیث کے مطابق یہ نشانی ہمارے دور میں ظاہر ہو چکی ہےکہ معاشرے کے گھٹیا ترین لوگ بہترین لوگوں سے زیادہ معزز جانے جاتے ہیں۔ اگر ہم اپنے معاشرے میں اردگرد نظر ڈالیں تو ہمیں کم عقل لوگ نصیحت کرتے دکھائی دیتے ہیں۔</p>
-            <p>حق دار کا حق مارا جاتا ہے، منصف انصاف نہیں کرتا، حکومتی عہدیدار 90 فی صد جاہل لوگ ہیں اور افسوس کی بات یہ ہے کہ یہ نوے فی صد لوگ اعلیٰ تعلیم یافتہ لوگوں کو مشورے دے رہے ہوتے ہیں اور اپنی من پسند کے فیصلے لاگو کروائے جاتے ہیں۔</p>
-            <p>جوں جوں وقت گزرتا چلا جاتا ہے ان لوگوں کی تعداد میں تیزی سے اضافہ ہوتا جا رہا ہے۔ یہی لوگ جیسے کیسے سرکاری عہدوں تک پہنچ جاتے ہیں اور طاقت کے نشے میں باقی لوگوں کو نقصان پہنچاتے ہیں۔ کیونکہ یہ لوگ دین سے دور ہوتے ہیں اور شدید گمراہی کا شکار ہوتے ہیں اس لئے یہ لوگ اہل علم پر بھی زور زبردستی کرتے دکھائی دیتے ہیں۔</p>
-            <p>اس طرح آہستہ آہستہ لوگوں کے معاملات کی باگ ڈور گھٹیا اور کم عقل لوگوں کے ہاتھوں میں آتی چلی جارہی ہے۔ اصولاً تو اہل علم، فہم وفراست اور تجربہ کار لوگوں کو آگے لایاجائے تاکہ لوگوں کے معاملات اور سیاسیات کے بارے میں انھی کو مقدم کیا جائے۔</p>
-            <p>آج کی صورت حال کوئی ڈھکی چھپی نہیں ہے لوگ اپنی خواہشوں اور مصلحتوں ہی کی طرف مائل ہوتے ہیں، خواہ اس میں ان کا دین اور ایمان ہی کیوں نہ ضائع ہو جائے۔ یہی وجہ ہے کہ انھوں نے فساق وفجار کو اپنا قائد و رہنما بنا رکھا ہے۔</p>
-            <p>اسی طرح ہمارا آزاد میڈیا جو جھوٹ کو سچ اور سچ کو جھوٹ کرنے ہمت، جسارت اور طاقت رکھتا ہے۔ صبح سے شام تک اسے جھوٹ بولنے کا معاوضہ دیا جاتا ہے گویا جو جتنا ڈھٹائی اور خوداعتمادی سے جھوٹ بول سکتا ہے اتنا ہی بڑا اینکر ہوتا ہے۔ آپ ﷺ کا فرمان ہم سب پر واضح ہے کوئی بات چھپی نہیں ہے۔</p>
-            <p>اللہ پاک سے دعا ہے کہ اللہ ہم سب کو ہدایت نصیب فرمائے۔ آمین۔</p>
+        <!-- Right Column - Sidebar with Auto Scroll -->
+        <div class="sidebar-column">
+            <div class="sidebar">
+                <h3 class="sidebar-title"><i class="fas fa-fire" style="margin-left:10px;"></i> مزید پوسٹس</h3>
+                <div class="posts-container">
+                    <div class="auto-scroll-content" id="autoScrollContent">
+                        <!-- پوسٹ 1 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                            <span>5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                        </a>
+                        <!-- پوسٹ 2 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنے">
+                            <span>ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                        </a>
+                        <!-- پوسٹ 3 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                            <span>تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                        </a>
+                        <!-- پوسٹ 4 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم اٹھ جانا">
+                            <span>آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                        </a>
+                        <!-- پوسٹ 5 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں">
+                            <span>آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                        </a>
+                        <!-- پوسٹ 6 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                            <span>وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                        </a>
+                        <!-- پوسٹ 7 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دور جدید کے فتنے">
+                            <span>دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</span>
+                        </a>
+                        <!-- پوسٹ 8 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="غافل کرنے والا فتنہ">
+                            <span>للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                        </a>
+                        <!-- پوسٹ 9 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل خوں ریزی">
+                            <span>قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                        </a>
+                        <!-- پوسٹ 10 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="جلدی پکڑ">
+                            <span>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                        </a>
+                        <!-- پوسٹ 11 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                            <span>لوگ  اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                        </a>
+                        <!-- پوسٹ 12 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                            <span>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                        </a>
+                        <!-- پوسٹ 13 -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                            <span>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                        </a>
+                        <!-- ڈپلیکیٹ پوسٹس تاکہ اسکرول ہموار رہے (اضافی) -->
+                        <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post">
+                            <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                            <span>5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                        </a>
+                    </div>
+                </div>
+                <p style="text-align:center; color:#888; margin-top:10px; font-size:0.9rem;">اسکرول خودکار · ہور کریں رکنے کے لیے</p>
+            </div>
         </div>
     </div>
     
-    <!-- Control Buttons -->
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 bloglovers.pk - تمام حقوق محفوظ ہیں</p>
+    </div>
+    
+    <!-- Floating Control Buttons -->
     <div class="controls">
         <button class="control-btn" id="pageUpBtn" title="اوپر جائیں">
             <i class="fas fa-chevron-up"></i>
@@ -347,6 +686,9 @@
             <i class="fas fa-chevron-down"></i>
         </button>
     </div>
+    
+    <!-- Reactions.js (external) - کو ڈپلیکیٹ فنکشنز نہیں ہیں -->
+    <script src="/reactions.js"></script>
     
     <script>
         // Create galaxy background with stars and planets
@@ -406,6 +748,30 @@
                 window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
             }
         });
+        
+        // Social Share Functions (defined here as they are not in reactions.js)
+        window.shareOnSocial = function(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+                case 'copy-link': return;
+            }
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        };
+        
+        window.copyPageLink = function() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        };
         
         // Initialize galaxy on load
         window.addEventListener('load', function() {
