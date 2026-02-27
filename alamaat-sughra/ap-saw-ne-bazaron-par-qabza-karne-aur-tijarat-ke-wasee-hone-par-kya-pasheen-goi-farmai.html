@@ -16,6 +16,8 @@
             --accent-color: #38bdf8;
             --text-color: #e2e8f0;
             --card-bg: rgba(30, 41, 59, 0.7);
+            --sidebar-bg: rgba(15, 23, 42, 0.8);
+            --reaction-hover: #4b5563;
         }
 
         body {
@@ -29,6 +31,7 @@
             text-align: justify;
             background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
+            position: relative;
         }
 
         /* --- Rainy Season Animation --- */
@@ -56,18 +59,31 @@
         }
 
         /* --- Layout & Container --- */
+        .main-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-area {
+            flex: 1;
+            min-width: 0; /* Prevents overflow */
+        }
+
         .main-container {
-            max-width: 900px;
-            margin: 40px auto;
+            width: 100%;
             padding: 40px;
             background: var(--card-bg);
             backdrop-filter: blur(10px);
             border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s;
+            box-sizing: border-box;
         }
 
         .main-container:hover {
@@ -75,44 +91,213 @@
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
         }
 
-        /* --- Typography --- */
-        h1 {
-            font-size: 3.5rem;
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 350px;
+            flex-shrink: 0;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 25px;
+            padding: 20px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 10px 30px -10px black;
+        }
+
+        .sidebar-title {
+            font-size: 2rem;
             color: var(--accent-color);
             text-align: center;
-            line-height: 1.4;
-            margin-bottom: 30px;
-            text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
         }
 
-        p {
-            font-size: 1.6rem;
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
-        }
-
-        p:hover {
-            color: #ffffff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.2);
-            transform: scale(1.01);
-        }
-
-        /* --- Image Styling --- */
-        .post-image {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
+        .posts-scroll-container {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
             border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 2px solid rgba(56, 189, 248, 0.3);
+            mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
         }
+
+        .posts-scroll-content {
+            animation: scrollUp 30s linear infinite;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px 5px;
+        }
+
+        .posts-scroll-container:hover .posts-scroll-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+
+        .sidebar-post-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .sidebar-post-card:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
+        .sidebar-post-card.active {
+            border-right: 4px solid var(--accent-color);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .sidebar-post-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .sidebar-post-title {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        /* --- Reactions Section --- */
+        .reactions-section {
+            margin: 40px 0 20px;
+            padding: 25px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px 25px;
+        }
+
+        .reaction-btn {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.1);
+            color: white;
+            font-size: 2rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1;
+            font-family: inherit;
+        }
+
+        .reaction-btn:hover {
+            background: var(--reaction-hover);
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .reaction-count {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* --- Social Icons --- */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 60px;
+        }
+
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+            border-color: white;
+        }
+
+        .fb { background: #1877f2; }
+        .wa { background: #25D366; }
+        .tw { background: #1DA1F2; }
+        .li { background: #0077b5; }
+        .tg { background: #0088cc; }
+        .pi { background: #bd081c; }
+        .copy { background: #6c757d; }
 
         /* --- Navigation Buttons --- */
+        .post-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 10px;
+        }
+
+        .nav-btn-large {
+            background: var(--accent-color);
+            color: #0f172a;
+            padding: 15px 35px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-btn-large:hover {
+            background: transparent;
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* --- Floating Scroll Buttons --- */
         .nav-controls {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+            left: 30px; /* Moved to left to avoid overlap with sidebar on small screens */
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -143,7 +328,7 @@
         .back-btn-top {
             position: fixed;
             top: 20px;
-            left: 20px;
+            right: 20px;
             background: rgba(255,255,255,0.1);
             color: white;
             padding: 10px 20px;
@@ -160,15 +345,71 @@
             color: #0f172a;
         }
 
+        /* --- Typography --- */
+        h1 {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        p {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        p:hover {
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.2);
+            transform: scale(1.01);
+        }
+
+        .post-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 1.4rem;
+            color: #94a3b8;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
         /* Mobile Optimization */
+        @media (max-width: 1000px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+            .nav-controls {
+                left: 15px;
+                bottom: 15px;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-container {
-                margin: 15px;
                 padding: 20px;
             }
             h1 { font-size: 2.2rem; }
             p { font-size: 1.3rem; }
-            .nav-controls { right: 15px; bottom: 15px; }
+            .reactions-grid { gap: 10px; }
+            .reaction-btn { font-size: 1.5rem; padding: 8px 12px; }
         }
     </style>
 </head>
@@ -178,50 +419,151 @@
 
     <a href="javascript:history.back()" class="back-btn-top">🔙 واپس جائیں</a>
 
-    <div class="main-container">
-        <h1>آپ ﷺ نے بازاروں پر قبضہ کرنے اور تجارت کے وسیع ہونے پر کیا پیشنگوئی فرمائی؟</h1>
-        
-        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-bazaron-par-qabza-karne-aur-tijarat-ke-wasee-hone-par-kya-pasheen-goi-farmai.jpg" alt="Prophecy Image" class="post-image">
+    <div class="main-wrapper">
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <div class="main-container">
+                <h1>آپ ﷺ نے بازاروں پر قبضہ کرنے اور تجارت کے وسیع ہونے پر کیا پیشنگوئی فرمائی؟</h1>
+                
+                <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-bazaron-par-qabza-karne-aur-tijarat-ke-wasee-hone-par-kya-pasheen-goi-farmai.jpg" alt="Prophecy Image" class="post-image">
 
-        <p>آپ ﷺ نے بازاروں پر قبضہ کرنے اور تجارت کے وسیع ہونے پر کیا پیشنگوئی فرمائی؟</p>
+                <p>آپ ﷺ نے بازاروں پر قبضہ کرنے اور تجارت کے وسیع ہونے پر کیا پیشنگوئی فرمائی؟</p>
+                <p>دوستو! آپ نے وہ حدیث تو سنی ہو گی جس میں آپ ﷺ نے فرمایا "کہ روئے زمین پر سب سے خوبصورت جگہ مسجد ہے اور سب سے بدترین جگہ بازار ہے"۔</p>
+                <p>آج کے اس آرٹیکل میں ہم بات کریں گے قیامت کی ان بے شمار نشانیوں میں سے ایک نشانی جس کا ذکر آپ ﷺ نے فرمایا کہ قرب قیامت خاوند کے کاروبار میں بیوی حصہ دار ہوگی، تجارت کا عروج اور دائرہ کار بہت وسیع ہو جائے گا اور اس کے ساتھ ساتھ بازار تنگ ہوتے جائیں گے، اور سرغنہ لوگ قابض ہوتے جائیں گے۔</p>
+                <p>خاوند کے کاروبار میں بیوی کی شراکت کوئی بُری بات نہیں اگر اللہ نے مال ودولت سے نوازا ہے اور وہ اچھے مقاصد کے تحت ایمانداری سے کام کریں تو کوئی بری بات نہیں۔ تاریخ اسلام میں جھانک کر دیکھیں تو حضرت خدیجہ سمیت کئی دیگر صحابیہ کاروبار کیا کرتی تھیں لیکن اللہ کی بتائی ہوئی حدود میں رہتے ہوئے وہ یہ کام سرانجام دیتی تھیں۔</p>
+                <p>یہی بات اللہ نے قرآن مجید کی سورۃ نساء میں کچھ اس طرح سے فرمائی: "مردوں کے لیے اس میں سے حصہ ہے جو انہوں نے کمایا اور عورتوں کے لیے اس میں سے حصہ ہے جو انہوں نے کمایا"۔</p>
+                <p>آج کے اس بے ہنگم دور میں جس طریقے سے عورت کا استعمال کیا جا رہا ہے قابل افسوس ہے جس کا ہمارا دین قطعی اجازت نہیں دیتا۔ حرام حلال کی پرواہ کیے بغیر آج کے ادارے، کمپنیاں، فیکٹریاں عورت کی آڑ میں دھوکے اور فریب کا سامان بیچتے اور خریدتے ہیں۔</p>
+                <p>ہائے افسوس کہ آج کی عورت بھی جہالت کے عوض اسے ماڈرن ازم سمجھتی ہوئی نیم عریاں لباس زیب تن کیے ہوئے لوگوں کے سامنے اشیاء کی خریدوفروخت میں ملوث نظر آتی ہے۔ یہ غلط ہے جس کا ہمیں اشارہ دیا گیا ہے۔</p>
+                <p>اس میں کوئی شک نہیں کہ آج کے دور میں تجارت کے کام میں آسانیاں پیدا ہونے کے باعث اکثر لوگ اس پیشے کو اختیار کر رہے ہیں، حتی کہ بیوی اپنے شوہر کی تجارت کے انتظام میں شریک ہوتی ہی نظر آتی ہے۔ ان دونوں علامتوں کا ذکر حدیث میں ایک ساتھ آیا ہے۔</p>
+                <p>نبی کریم ﷺ نے فرمایا: "قیامت کے قریب خاص خاص لوگوں کو سلام کیا جائے گا، تجارت بہت پھیل جائے گی حتیٰ کہ عورت اپنے خاوند کی تجارت میں مددگار بنے گی۔ قطع رحمی کی جائے گی، جھوٹی گواہی دی جائے گی، سچی گواہی چھپائی جائے گی اور قلمی تحریروں کا دور دورہ ہو گا"۔</p>
+                <p>اگر اس حدیث کو دیکھتے ہیں تو بالکل ایک ایک بات سچی ہو چکی ہے کوئی شک باقی نہیں رہ گیا کیونکہ آج لوگ کہیں بھی بیٹھ کر کاروبار کر رہے ہیں، نت نئے طریقے ایجاد ہوتے جا رہے ہیں، لوگ گھر بیٹھے چیزیں منگوا رہے ہیں، تجارتی لین دین روز بروز نئی شکل اختیار کرتا جا رہا ہے، اشیاء کی خریدوفروخت میں جس قدر جھوٹ، جعلسازی، مکاری، عیاری اور فریب کا استعمال کیا جا رہا ہے ہم میں سے ہر ایک جانتا ہے۔</p>
+                <p>ایک دوسرے پر بھروسہ ہی ختم ہو گیا ہے، زبان کی کوئی قدر وقیمت نہیں ہے، رشوت کا بازار گرم ہے، پیسہ پھینک کر ایمان بیچا اور خریدا جاتا ہے۔</p>
+                <p>رسول اللہ ﷺ نے فرمایا: "قیامت سے پہلے ایسے ایسے فتنے ہوں گے جیسے سیاہ (تاریک) رات کے حصے۔ اس وقت آدمی صبح کے وقت مومن ہوگا اور شام کے وقت کافر ہوگا اور اگر شام کو مومن ہوگا تو صبح کو کافر ہوگا۔ ایسے وقت میں جو بیٹھا ہے وہ کھڑے ہوئے شخص سے بہتر ہوگا اور جو چل رہا ہے وہ دوڑنے والے سے بہتر ہوگا۔ پس تم اپنی کمانیں توڑ دینا اور کمان کی تانت کاٹ دینا اور اپنی تلواریں پتھروں پر مار دینا (تاکہ یہ چیزیں کسی فتنہ میں استعمال نہ ہو سکیں) پس اگر کسی شخص کو تمہارے پاس بھیجا جائے تو پھر ابن آدم کے اچھے بیٹے کی طرح ہونا (یعنی ہاتھ نہ اٹھانا)"۔</p>
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "قیامت کی نشانیوں میں سے ہے کہ مال کی بہت کثرت ہو جائے گی، تجارت عام ہو جائے گی۔ جہالت کا دور دورہ ہو گا، ایک آدمی مال فروخت کرے گا مگر کہے گا: ٹھہرو! میں فلاں قبیلے کے تاجر سے مشورہ کر لوں اور پھر ایک بڑی آبادی میں لکھنے والے کاتب کو تلاش کیا جائے گا مگر وہ نہیں مل سکے گا"۔</p>
+                <p>نبی کریم ﷺ نے فرمایا کہ "آدمی مال بیچے گا مگر کہے گا: ٹھہرو! مجھے بنو فلاں کے تاجر سے مشورہ کر لینے دو اور ایک عظیم آبادی میں ایک بھی کاتب نہ ہو گا"۔</p>
+                <p>اس کا معنی ومفہوم یہ ہے کہ بڑے بڑے تاجر جو غالباً راس المال کے مالک ہوں گے، یا پھر ایجنٹ ہوں گے جن پر سامان کی درآمد و برآمد کے لیے انحصار کیا جائے گا، شاید انھی لوگوں کا بازار پر کنٹرول ہو گا اور یہی لوگ اپنی مرضی کے نرخ مقرر کریں گے۔ چھوٹے تاجر، ان بڑوں کی مرضی اور اجازت کے بغیر خریدوفروخت نہیں کر سکیں گے یا پھر مطلب یہ ہے کہ سودا کرتے وقت بیع کے انعقاد کو کسی دوسرے تاجر کی رضامندی سے مشروط کر دیا جائے گا۔</p>
+                <p>آپ ﷺ کے فرمان کے مطابق "ایک آدمی بڑی آبادی میں ایک بھی کاتب نہ ہوگا" جبکہ آپ ﷺ نے دوسری جگہ یہ بھی ارشاد فرمایا ہے کہ قرب قیامت میں کتابت عام ہو جائے گی، کا مفہوم یہ ہے کہ جدید آلات کتابت عام ہو جائیں گے۔ مثلاً کمپیوٹر، موبائل فونز، ایسے آلات جو آواز سن کر اس کو تحریر میں بدل دیں گے اور اسی طرح کے دیگر الیکٹرانک ایپلی کیشنز یا جدید ترین (جیسے آج ہم موبائل فونز میں بولو ایس ایم ایس/میسنجرز کا استعمال کر رہے ہیں) آلات کی کثرت ہو جائے گی۔</p>
+                <p>اس کے نتیجے میں ایک ایسی نسل پروان چڑھے گی جو ہاتھ سے لکھنا جانتی ہی نہ ہو گی یا پھر لکھنا تو جانتی ہو گی مگر ان کی لکھائی اچھی نہ ہوگی۔ (ہمارا تعلیمی نظام ویسے ہی بدترین حالات کا شکار ہے اور رہی سہی کسر کرونا کی وجہ سے پوری ہوگی یہ موجودہ سال 2020 ایک لمبی چھٹی کی نظر ہو گیا اور ہمارے لوگ افسوس کرنے کی بجائے خوشیاں منا رہے ہیں۔ سکولوں کی کارکردگی سے لے کر یونیورسٹی تک تعلیمی حالت انتہائی افسوس ناک ہے اور یہی وجہ ہے کہ لوگ لکھنے اور سمجھنے کی بجائے کالز کر کے اور مشینوں کا استعمال کر کے کام چلا رہے ہیں)۔</p>
+                <p>یہ مطلب بھی ہو سکتا ہے کہ یہاں کاتب سے مراد ایسا شخص ہے جو تجارت کا معاہدہ قلم بند کر سکے اور جسے خریدوفروخت کے قوانین و احکام کا ٹھیک سے علم ہو اور وہ لوگوں کے درمیان ان کے تجارتی معاملات کو بغیر کسی معاوضے کے ضبط تحریر میں لائے۔</p>
+                <p>اس ٹاپک کا آخری حصہ جس میں لوگوں کا بازاروں پر قابض ہو جانا آج کے دور میں کوئی بڑی بات نہیں۔ ہم دیکھ رہے ہیں کہ مارکیٹیں چند لوگوں کے رحم و کرم اور ان کے ہاتھوں مفلوج ہو کر رہ گئی ہیں۔ جو بڑا تاجر ہے وہ چھوٹے تاجر کو جینے نہیں دیتا، حسد، کینہ، بغض، عداوت جیسی بیماریوں میں مبتلا ہیں آج کے کاروباری حضرات اور یہ محض پیسہ کمانے کی ہوس نہیں بلکہ اللہ کی بنائی ہوئی حدود کو توڑنا، اللہ پر کامل یقین کا نہ ہونا اور آپ ﷺ کے بتائے ہوئے راستے کو چھوڑ دینے کے عوض ہے۔ (اللہ تعالیٰ ہم سب کو اپنی حفظ وامان میں رکھے۔ آمین)</p>
 
-        <p>دوستو! آپ نے وہ حدیث تو سنی ہو گی جس میں آپ ﷺ نے فرمایا "کہ روئے زمین پر سب سے خوبصورت جگہ مسجد ہے اور سب سے بدترین جگہ بازار ہے"۔</p>
+                <!-- Reactions Section (Exact as required) -->
+                <div class="reactions-section">
+                    <div class="reactions-grid">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
 
-        <p>آج کے اس آرٹیکل میں ہم بات کریں گے قیامت کی ان بے شمار نشانیوں میں سے ایک نشانی جس کا ذکر آپ ﷺ نے فرمایا کہ قرب قیامت خاوند کے کاروبار میں بیوی حصہ دار ہوگی، تجارت کا عروج اور دائرہ کار بہت وسیع ہو جائے گا اور اس کے ساتھ ساتھ بازار تنگ ہوتے جائیں گے، اور سرغنہ لوگ قابض ہوتے جائیں گے۔</p>
+                <!-- Social Media Icons (7 platforms) -->
+                <div class="social-share">
+                    <a href="#" class="social-icon fb" onclick="shareOnSocial('facebook')" title="Facebook">📘</a>
+                    <a href="#" class="social-icon wa" onclick="shareOnSocial('whatsapp')" title="WhatsApp">📱</a>
+                    <a href="#" class="social-icon tw" onclick="shareOnSocial('twitter')" title="Twitter">🐦</a>
+                    <a href="#" class="social-icon li" onclick="shareOnSocial('linkedin')" title="LinkedIn">💼</a>
+                    <a href="#" class="social-icon tg" onclick="shareOnSocial('telegram')" title="Telegram">📎</a>
+                    <a href="#" class="social-icon pi" onclick="shareOnSocial('pinterest')" title="Pinterest">📌</a>
+                    <a href="#" class="social-icon copy" onclick="copyPageLink()" title="کاپی لنک">🔗</a>
+                </div>
 
-        <p>خاوند کے کاروبار میں بیوی کی شراکت کوئی بُری بات نہیں اگر اللہ نے مال ودولت سے نوازا ہے اور وہ اچھے مقاصد کے تحت ایمانداری سے کام کریں تو کوئی بری بات نہیں۔ تاریخ اسلام میں جھانک کر دیکھیں تو حضرت خدیجہ سمیت کئی دیگر صحابیہ کاروبار کیا کرتی تھیں لیکن اللہ کی بتائی ہوئی حدود میں رہتے ہوئے وہ یہ کام سرانجام دیتی تھیں۔</p>
+                <!-- Navigation Buttons -->
+                <div class="post-nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-btn-large">🏠 مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn-large">📚 تمام پوسٹس</a>
+                </div>
 
-        <p>یہی بات اللہ نے قرآن مجید کی سورۃ نساء میں کچھ اس طرح سے فرمائی: "مردوں کے لیے اس میں سے حصہ ہے جو انہوں نے کمایا اور عورتوں کے لیے اس میں سے حصہ ہے جو انہوں نے کمایا"۔</p>
+                <footer>
+                    © 2025 bloglovers.pk - تمام حقوق محفوظ ہیں
+                </footer>
+            </div>
+        </div>
 
-        <p>آج کے اس بے ہنگم دور میں جس طریقے سے عورت کا استعمال کیا جا رہا ہے قابل افسوس ہے جس کا ہمارا دین قطعی اجازت نہیں دیتا۔ حرام حلال کی پرواہ کیے بغیر آج کے ادارے، کمپنیاں، فیکٹریاں عورت کی آڑ میں دھوکے اور فریب کا سامان بیچتے اور خریدتے ہیں۔</p>
-
-        <p>ہائے افسوس کہ آج کی عورت بھی جہالت کے عوض اسے ماڈرن ازم سمجھتی ہوئی نیم عریاں لباس زیب تن کیے ہوئے لوگوں کے سامنے اشیاء کی خریدوفروخت میں ملوث نظر آتی ہے۔ یہ غلط ہے جس کا ہمیں اشارہ دیا گیا ہے۔</p>
-
-        <p>اس میں کوئی شک نہیں کہ آج کے دور میں تجارت کے کام میں آسانیاں پیدا ہونے کے باعث اکثر لوگ اس پیشے کو اختیار کر رہے ہیں، حتی کہ بیوی اپنے شوہر کی تجارت کے انتظام میں شریک ہوتی ہی نظر آتی ہے۔ ان دونوں علامتوں کا ذکر حدیث میں ایک ساتھ آیا ہے۔</p>
-
-        <p>نبی کریم ﷺ نے فرمایا: "قیامت کے قریب خاص خاص لوگوں کو سلام کیا جائے گا، تجارت بہت پھیل جائے گی حتیٰ کہ عورت اپنے خاوند کی تجارت میں مددگار بنے گی۔ قطع رحمی کی جائے گی، جھوٹی گواہی دی جائے گی، سچی گواہی چھپائی جائے گی اور قلمی تحریروں کا دور دورہ ہو گا"۔</p>
-
-        <p>اگر اس حدیث کو دیکھتے ہیں تو بالکل ایک ایک بات سچی ہو چکی ہے کوئی شک باقی نہیں رہ گیا کیونکہ آج لوگ کہیں بھی بیٹھ کر کاروبار کر رہے ہیں، نت نئے طریقے ایجاد ہوتے جا رہے ہیں، لوگ گھر بیٹھے چیزیں منگوا رہے ہیں، تجارتی لین دین روز بروز نئی شکل اختیار کرتا جا رہا ہے، اشیاء کی خریدوفروخت میں جس قدر جھوٹ، جعلسازی، مکاری، عیاری اور فریب کا استعمال کیا جا رہا ہے ہم میں سے ہر ایک جانتا ہے۔</p>
-
-        <p>ایک دوسرے پر بھروسہ ہی ختم ہو گیا ہے، زبان کی کوئی قدر وقیمت نہیں ہے، رشوت کا بازار گرم ہے، پیسہ پھینک کر ایمان بیچا اور خریدا جاتا ہے۔</p>
-
-        <p>رسول اللہ ﷺ نے فرمایا: "قیامت سے پہلے ایسے ایسے فتنے ہوں گے جیسے سیاہ (تاریک) رات کے حصے۔ اس وقت آدمی صبح کے وقت مومن ہوگا اور شام کے وقت کافر ہوگا اور اگر شام کو مومن ہوگا تو صبح کو کافر ہوگا۔ ایسے وقت میں جو بیٹھا ہے وہ کھڑے ہوئے شخص سے بہتر ہوگا اور جو چل رہا ہے وہ دوڑنے والے سے بہتر ہوگا۔ پس تم اپنی کمانیں توڑ دینا اور کمان کی تانت کاٹ دینا اور اپنی تلواریں پتھروں پر مار دینا (تاکہ یہ چیزیں کسی فتنہ میں استعمال نہ ہو سکیں) پس اگر کسی شخص کو تمہارے پاس بھیجا جائے تو پھر ابن آدم کے اچھے بیٹے کی طرح ہونا (یعنی ہاتھ نہ اٹھانا)"۔</p>
-
-        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "قیامت کی نشانیوں میں سے ہے کہ مال کی بہت کثرت ہو جائے گی، تجارت عام ہو جائے گی۔ جہالت کا دور دورہ ہو گا، ایک آدمی مال فروخت کرے گا مگر کہے گا: ٹھہرو! میں فلاں قبیلے کے تاجر سے مشورہ کر لوں اور پھر ایک بڑی آبادی میں لکھنے والے کاتب کو تلاش کیا جائے گا مگر وہ نہیں مل سکے گا"۔</p>
-
-        <p>نبی کریم ﷺ نے فرمایا کہ "آدمی مال بیچے گا مگر کہے گا: ٹھہرو! مجھے بنو فلاں کے تاجر سے مشورہ کر لینے دو اور ایک عظیم آبادی میں ایک بھی کاتب نہ ہو گا"۔</p>
-
-        <p>اس کا معنی ومفہوم یہ ہے کہ بڑے بڑے تاجر جو غالباً راس المال کے مالک ہوں گے، یا پھر ایجنٹ ہوں گے جن پر سامان کی درآمد و برآمد کے لیے انحصار کیا جائے گا، شاید انھی لوگوں کا بازار پر کنٹرول ہو گا اور یہی لوگ اپنی مرضی کے نرخ مقرر کریں گے۔ چھوٹے تاجر، ان بڑوں کی مرضی اور اجازت کے بغیر خریدوفروخت نہیں کر سکیں گے یا پھر مطلب یہ ہے کہ سودا کرتے وقت بیع کے انعقاد کو کسی دوسرے تاجر کی رضامندی سے مشروط کر دیا جائے گا۔</p>
-
-        <p>آپ ﷺ کے فرمان کے مطابق "ایک آدمی بڑی آبادی میں ایک بھی کاتب نہ ہوگا" جبکہ آپ ﷺ نے دوسری جگہ یہ بھی ارشاد فرمایا ہے کہ قرب قیامت میں کتابت عام ہو جائے گی، کا مفہوم یہ ہے کہ جدید آلات کتابت عام ہو جائیں گے۔ مثلاً کمپیوٹر، موبائل فونز، ایسے آلات جو آواز سن کر اس کو تحریر میں بدل دیں گے اور اسی طرح کے دیگر الیکٹرانک ایپلی کیشنز یا جدید ترین (جیسے آج ہم موبائل فونز میں بولو ایس ایم ایس/میسنجرز کا استعمال کر رہے ہیں) آلات کی کثرت ہو جائے گی۔</p>
-
-        <p>اس کے نتیجے میں ایک ایسی نسل پروان چڑھے گی جو ہاتھ سے لکھنا جانتی ہی نہ ہو گی یا پھر لکھنا تو جانتی ہو گی مگر ان کی لکھائی اچھی نہ ہوگی۔ (ہمارا تعلیمی نظام ویسے ہی بدترین حالات کا شکار ہے اور رہی سہی کسر کرونا کی وجہ سے پوری ہوگی یہ موجودہ سال 2020 ایک لمبی چھٹی کی نظر ہو گیا اور ہمارے لوگ افسوس کرنے کی بجائے خوشیاں منا رہے ہیں۔ سکولوں کی کارکردگی سے لے کر یونیورسٹی تک تعلیمی حالت انتہائی افسوس ناک ہے اور یہی وجہ ہے کہ لوگ لکھنے اور سمجھنے کی بجائے کالز کر کے اور مشینوں کا استعمال کر کے کام چلا رہے ہیں)۔</p>
-
-        <p>یہ مطلب بھی ہو سکتا ہے کہ یہاں کاتب سے مراد ایسا شخص ہے جو تجارت کا معاہدہ قلم بند کر سکے اور جسے خریدوفروخت کے قوانین و احکام کا ٹھیک سے علم ہو اور وہ لوگوں کے درمیان ان کے تجارتی معاملات کو بغیر کسی معاوضے کے ضبط تحریر میں لائے۔</p>
-
-        <p>اس ٹاپک کا آخری حصہ جس میں لوگوں کا بازاروں پر قابض ہو جانا آج کے دور میں کوئی بڑی بات نہیں۔ ہم دیکھ رہے ہیں کہ مارکیٹیں چند لوگوں کے رحم و کرم اور ان کے ہاتھوں مفلوج ہو کر رہ گئی ہیں۔ جو بڑا تاجر ہے وہ چھوٹے تاجر کو جینے نہیں دیتا، حسد، کینہ، بغض، عداوت جیسی بیماریوں میں مبتلا ہیں آج کے کاروباری حضرات اور یہ محض پیسہ کمانے کی ہوس نہیں بلکہ اللہ کی بنائی ہوئی حدود کو توڑنا، اللہ پر کامل یقین کا نہ ہونا اور آپ ﷺ کے بتائے ہوئے راستے کو چھوڑ دینے کے عوض ہے۔ (اللہ تعالیٰ ہم سب کو اپنی حفظ وامان میں رکھے۔ آمین)</p>
+        <!-- Sidebar with Auto-scroll -->
+        <div class="sidebar">
+            <h3 class="sidebar-title">📖 مزید پوسٹس</h3>
+            <div class="posts-scroll-container">
+                <div class="posts-scroll-content">
+                    <!-- Post 1 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <!-- Post 2 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <!-- Post 3 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    <!-- Post 4 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- Post 5 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    <!-- Post 6 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    <!-- Post 7 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</span>
+                    </a>
+                    <!-- Post 8 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    <!-- Post 9 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <!-- Post 10 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    <!-- Post 11 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <!-- Post 12 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- Post 13 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                    <!-- Duplicate first few to make scroll seamless (optional but good for infinite loop illusion) -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="Post image" class="sidebar-post-img" onerror="this.src='https://via.placeholder.com/70x70?text=Img'">
+                        <span class="sidebar-post-title">قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Floating Scroll Buttons -->
     <div class="nav-controls">
         <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">↑</button>
         <button class="nav-btn" onclick="window.scrollBy({top: 500, behavior: 'smooth'})" title="نیچے جائیں">↓</button>
@@ -240,6 +582,59 @@
             drop.style.animationDelay = Math.random() * 2 + 's';
             rainContainer.appendChild(drop);
         }
+
+        // Social share functions (keep these)
+        function shareOnSocial(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let text = encodeURIComponent(document.title);
+            let shareUrl = '';
+
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${text}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
+                    break;
+                default:
+                    return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => {
+                alert('کاپی کرنے میں مسئلہ ہوا');
+            });
+        }
+
+        // Highlight current post in sidebar (assuming current URL matches one of the links)
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.href;
+            const sidebarCards = document.querySelectorAll('.sidebar-post-card');
+            sidebarCards.forEach(card => {
+                if (card.href === currentUrl) {
+                    card.classList.add('active');
+                }
+            });
+        });
     </script>
+
+    <!-- reactions.js will be loaded automatically - make sure it's present in root -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
