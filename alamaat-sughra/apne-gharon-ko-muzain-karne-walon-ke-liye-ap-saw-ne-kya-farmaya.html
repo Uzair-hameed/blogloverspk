@@ -77,17 +77,25 @@
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
+        }
+        
+        .main-content {
+            width: 100%;
         }
         
         .header {
             text-align: center;
             margin-bottom: 40px;
             padding-top: 30px;
+            grid-column: 1 / -1;
         }
         
         .back-btn {
@@ -118,6 +126,7 @@
             background: linear-gradient(45deg, #7c3aed, #4f46e5);
         }
         
+        /* فلوٹنگ اسکرول بٹن */
         .nav-buttons {
             position: fixed;
             left: 20px;
@@ -194,7 +203,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 60px;
+            margin-bottom: 30px;
         }
         
         .post-content p {
@@ -268,6 +277,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #94a3b8;
             font-size: 1.1rem;
+            grid-column: 1 / -1;
         }
         
         .colorful-border {
@@ -284,7 +294,221 @@
             100% { background-position: 400% 50%; }
         }
         
-        /* موبائل ریسپانسیو */
+        /* سائیڈ بار اسٹائل */
+        .sidebar {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .sidebar-title {
+            color: #fbbf24;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4f46e5;
+            padding-bottom: 10px;
+        }
+        
+        .sidebar-scroll {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+        }
+        
+        .sidebar-scroll:hover {
+            overflow-y: hidden;
+        }
+        
+        .sidebar-scroll:hover .sidebar-content {
+            animation-play-state: paused;
+        }
+        
+        .sidebar-content {
+            animation: scrollUp 30s linear infinite;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .sidebar-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #e2e8f0;
+            align-items: center;
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(251, 191, 36, 0.1);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        .sidebar-item span {
+            font-size: 1rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .current-post {
+            background: rgba(251, 191, 36, 0.2);
+            border-right: 3px solid #fbbf24;
+        }
+        
+        /* Reactions کا سیکشن */
+        .reactions-section {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .reactions-title {
+            color: #fbbf24;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #e2e8f0;
+            font-size: 1.2rem;
+        }
+        
+        .reaction-btn:hover {
+            background: rgba(251, 191, 36, 0.2);
+            transform: translateY(-3px);
+            border-color: #fbbf24;
+        }
+        
+        .reaction-count {
+            background: #4f46e5;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 1rem;
+            color: white;
+        }
+        
+        /* نیویگیشن بٹن (پوسٹ کے نیچے) */
+        .post-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .post-nav-btn {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .post-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.5);
+            background: linear-gradient(45deg, #7c3aed, #4f46e5);
+        }
+        
+        .post-nav-btn.secondary {
+            background: linear-gradient(45deg, #10b981, #34d399);
+        }
+        
+        .post-nav-btn.secondary:hover {
+            background: linear-gradient(45deg, #34d399, #10b981);
+        }
+        
+        /* سوشل میڈیا آئیکونز */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .facebook { background: #1877f2; }
+        .whatsapp { background: #25D366; }
+        .twitter { background: #1DA1F2; }
+        .linkedin { background: #0077b5; }
+        .telegram { background: #0088cc; }
+        .pinterest { background: #bd081c; }
+        .copy-link { background: #6c757d; }
+        
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-top: 30px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -332,6 +556,15 @@
                 font-size: 1.3rem;
                 padding: 15px;
             }
+            
+            .reactions-grid {
+                gap: 10px;
+            }
+            
+            .reaction-btn {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -364,6 +597,26 @@
                 height: 40px;
                 font-size: 16px;
             }
+            
+            .post-nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .post-nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .social-share {
+                gap: 10px;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -376,7 +629,7 @@
         <i class="fas fa-arrow-right"></i> واپس جائیں
     </button>
     
-    <!-- نیویگیشن بٹن -->
+    <!-- فلوٹنگ اسکرول بٹن -->
     <div class="nav-buttons">
         <button class="nav-btn" onclick="scrollToTop()">
             <i class="fas fa-chevron-up"></i>
@@ -387,43 +640,175 @@
     </div>
     
     <div class="container">
-        <div class="header">
-            <div class="colorful-border"></div>
-            <h1>اپنے گھروں کو مزین کرنے والوں کے لئے آپ ﷺ نے کیا فرمایا؟</h1>
-            <div class="colorful-border"></div>
-        </div>
-        
-        <!-- تصویر شامل کی گئی ہے -->
-        <img src="https://bloglovers.pk/images/alamaat-sughra/apne-gharon-ko-muzain-karne-walon-ke-liye-ap-saw-ne-kya-farmaya.jpg" 
-             alt="گھر کی تعمیر اور زینت کے بارے میں حدیث" 
-             class="post-image">
-        
-        <div class="post-content">
-            <p>قارئین کرام! ہر انسان کی خواہش ہوتی ہے کہ اس کو آرام کرنے، فیملی ممبرز کی حفاظت کے لئے چھت کا ہونا بے حد ضروری ہے۔ جس طرح کھانا کھانا ہماری زندگی کا ایک لازمی جزو ہے اسی طرح گھر کا ہونا بھی لازمی حصہ ہے۔ انسان جتنا بھی روزی روٹی کے باہر وقت گزارتا ہے آخر تک ہار کر شام کو واپس اپنے گھر ہی لوٹتا ہے، اس کی مثال پرندوں میں ہمیں واضح دکھائی دیتی ہے۔</p>
-            
-            <p>اپنا گھر ہونا کسی بڑی نعمت سے کم نہیں، ہمارے ملک میں لاکھوں لوگ ایسے موجود ہیں جن کا اپنا گھر نہیں ہوتا یا وہ اللہ کی اس عظیم نعمت سے محروم دکھائی دیتے ہیں۔ گھر کی رونقیں، گھر کی خوشیاں، گھر کے عظیم لوگوں سے مل کر بنتی ہیں، جس گھر سے یہ رونقیں، خوشیاں، محبتیں روٹھ جاتی ہیں اس گھر کی حالت قبرستان جیسی ہوتی ہے، آج ہمارے معاشرے میں الگ گھر ہونا ایک فیشن بنتا جا رہا ہے، لوگوں کی عمریں لگ جاتی ہیں گھر بنانے میں مگر گھر تو کیا بنتا لوگ مٹی کے ڈھیروں تلے مٹی ہو جاتے ہیں۔</p>
-            
-            <p>دوسری طرف اگر ہم نظر دوڑائیں تو پتہ چلتا ہے کہ ایک سے بڑھ کر ایک خوبصورت گھر بنتا دکھائی دیتا ہے لیکن افسوس گھر تو بن جاتے ہیں مگر اس گھر میں انسان نہیں ہوتے اگر انسان رہتے ہیں تو انسانیت نہیں ہوتی۔</p>
-            
-            <div class="quote">
-                <p>آپ ﷺ نے فرمایا: &quot;آخری زمانے میں لوگ اپنے گھروں کی دیواروں پر بہت قیمتی اور زیب و زینت والے پردے لٹکانے میں فخر و مباہات کا اظہار کریں گے۔&quot;</p>
+        <div class="main-content">
+            <div class="header">
+                <div class="colorful-border"></div>
+                <h1>اپنے گھروں کو مزین کرنے والوں کے لئے آپ ﷺ نے کیا فرمایا؟</h1>
+                <div class="colorful-border"></div>
             </div>
             
-            <p>آج سڑک کے اردگرد کالونی بنتی دکھائی دیتی ہیں۔ اعلیٰ ترین نقشہ جات کی مدد سے گھروں کی تعمیرات کی جاتی ہیں، گھر بنانا کوئی بری بات نہیں مگر گھر صرف دوسروں کو دکھانے، یا دوسروں کو تکلیف پہنچانے، دوسروں کو نیچا دکھانے، کی غرض سے تعمیر کرنے پر شدید اعتراض ہوتا ہے۔ کیونکہ تعیش، اسراف اور فخر و تکبر قابل مذمت ہے۔ ارشاد باری تعالیٰ ہے: <span class="highlight">&quot;اسراف نہ کرو، اللہ اسراف کرنے والوں کو پسند نہیں کرتا&quot;</span>۔</p>
+            <!-- تصویر -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/apne-gharon-ko-muzain-karne-walon-ke-liye-ap-saw-ne-kya-farmaya.jpg" 
+                 alt="گھر کی تعمیر اور زینت کے بارے میں حدیث" 
+                 class="post-image">
             
-            <p>ہم یہ سب جانتے ہوئے بھی کہ اللہ فضول خرچ کرنے والوں کو ناپسند کرتے ہیں پھر بھی فضول کاموں پر خرچ کرتے ہیں، شادی بیاہ کی بیہودہ رسومات ہوں یا پھر گھریلو پارٹیز، فنکشنز، عرس ہوں یا چہلم، چڑھاوے، یا بدعات کی رسومات، غرض یہ کہ ہم لوگ رحمن کے بندے ہوتے ہوئے بھی رحمٰن کو ناراض کرتے ہیں اور شیطان کو خوش کرتے ہیں۔ ہونا تو یہ چاہیے تھا کہ ہم جو اسراف اور فضول کاموں میں دولت خرچ کرتے ہیں محض یہ سوچ کر کہ لوگ کیا کہیں گے، کبھی ہم نے یہ نہیں سوچا کہ یہ سب کرنے کے لئے اللہ رب العزت کیا کہتے ہیں کہ ہمیں کیسے خرچ کرنا ہے؟ کن لوگوں پر خرچ کرنا ہے؟ کتنا خرچ کرنا ہے؟ کیوں خرچ کرنا ہے؟</p>
+            <div class="post-content">
+                <p>قارئین کرام! ہر انسان کی خواہش ہوتی ہے کہ اس کو آرام کرنے، فیملی ممبرز کی حفاظت کے لئے چھت کا ہونا بے حد ضروری ہے۔ جس طرح کھانا کھانا ہماری زندگی کا ایک لازمی جزو ہے اسی طرح گھر کا ہونا بھی لازمی حصہ ہے۔ انسان جتنا بھی روزی روٹی کے باہر وقت گزارتا ہے آخر تک ہار کر شام کو واپس اپنے گھر ہی لوٹتا ہے، اس کی مثال پرندوں میں ہمیں واضح دکھائی دیتی ہے۔</p>
+                
+                <p>اپنا گھر ہونا کسی بڑی نعمت سے کم نہیں، ہمارے ملک میں لاکھوں لوگ ایسے موجود ہیں جن کا اپنا گھر نہیں ہوتا یا وہ اللہ کی اس عظیم نعمت سے محروم دکھائی دیتے ہیں۔ گھر کی رونقیں، گھر کی خوشیاں، گھر کے عظیم لوگوں سے مل کر بنتی ہیں، جس گھر سے یہ رونقیں، خوشیاں، محبتیں روٹھ جاتی ہیں اس گھر کی حالت قبرستان جیسی ہوتی ہے، آج ہمارے معاشرے میں الگ گھر ہونا ایک فیشن بنتا جا رہا ہے، لوگوں کی عمریں لگ جاتی ہیں گھر بنانے میں مگر گھر تو کیا بنتا لوگ مٹی کے ڈھیروں تلے مٹی ہو جاتے ہیں۔</p>
+                
+                <p>دوسری طرف اگر ہم نظر دوڑائیں تو پتہ چلتا ہے کہ ایک سے بڑھ کر ایک خوبصورت گھر بنتا دکھائی دیتا ہے لیکن افسوس گھر تو بن جاتے ہیں مگر اس گھر میں انسان نہیں ہوتے اگر انسان رہتے ہیں تو انسانیت نہیں ہوتی۔</p>
+                
+                <div class="quote">
+                    <p>آپ ﷺ نے فرمایا: "آخری زمانے میں لوگ اپنے گھروں کی دیواروں پر بہت قیمتی اور زیب و زینت والے پردے لٹکانے میں فخر و مباہات کا اظہار کریں گے۔"</p>
+                </div>
+                
+                <p>آج سڑک کے اردگرد کالونی بنتی دکھائی دیتی ہیں۔ اعلیٰ ترین نقشہ جات کی مدد سے گھروں کی تعمیرات کی جاتی ہیں، گھر بنانا کوئی بری بات نہیں مگر گھر صرف دوسروں کو دکھانے، یا دوسروں کو تکلیف پہنچانے، دوسروں کو نیچا دکھانے، کی غرض سے تعمیر کرنے پر شدید اعتراض ہوتا ہے۔ کیونکہ تعیش، اسراف اور فخر و تکبر قابل مذمت ہے۔ ارشاد باری تعالیٰ ہے: <span class="highlight">"اسراف نہ کرو، اللہ اسراف کرنے والوں کو پسند نہیں کرتا"</span>۔</p>
+                
+                <p>ہم یہ سب جانتے ہوئے بھی کہ اللہ فضول خرچ کرنے والوں کو ناپسند کرتے ہیں پھر بھی فضول کاموں پر خرچ کرتے ہیں، شادی بیاہ کی بیہودہ رسومات ہوں یا پھر گھریلو پارٹیز، فنکشنز، عرس ہوں یا چہلم، چڑھاوے، یا بدعات کی رسومات، غرض یہ کہ ہم لوگ رحمن کے بندے ہوتے ہوئے بھی رحمٰن کو ناراض کرتے ہیں اور شیطان کو خوش کرتے ہیں۔ ہونا تو یہ چاہیے تھا کہ ہم جو اسراف اور فضول کاموں میں دولت خرچ کرتے ہیں محض یہ سوچ کر کہ لوگ کیا کہیں گے، کبھی ہم نے یہ نہیں سوچا کہ یہ سب کرنے کے لئے اللہ رب العزت کیا کہتے ہیں کہ ہمیں کیسے خرچ کرنا ہے؟ کن لوگوں پر خرچ کرنا ہے؟ کتنا خرچ کرنا ہے؟ کیوں خرچ کرنا ہے؟</p>
+                
+                <p>آپ ﷺ نے امت کی بھلائی کے لئے جو نشانیاں بیان فرمائی ان سب نشانیوں میں سے ایک نشانی یہ بتلائی کہ لوگ قرب قیامت <span class="highlight">"اپنے گھروں کی بناوٹ، سجاوٹ اور مزین کریں گے"</span> ارشاد نبوی ﷺ ہے: <span class="highlight">"قیامت اس وقت تک قائم نہ ہوگی جب تک لوگ منقش و مزین چادورں جیسے گھر تعمیر نہ کرنے لگیں"</span>۔</p>
+                
+                <p>یہ نشانی بھی دور حاضر میں موجود ہے اور وقت گزرنے کے ساتھ ساتھ پورے عروج کی طرف رواں دواں ہے لوگ ایک دوسرے کو نیچا دکھانے کے دوڑ میں اصل مقصد سے ہی پرے ہٹ گئے ہیں، گھر کیا ہوتا ہے؟ کس لئے بنایا جاتا ہے؟ شاید آج کی تعمیرات اس نیت سے ہو ہی نہیں رہی ہے۔ کیونکہ جائز و ناجائز، اور حرام کاری، دھوکہ، فریب سے کمائے گئے پیسوں سے بننے والا گھر انسان کے لیے نعمت کی بجائے زحمت بن جاتا ہے۔</p>
+                
+                <p>اگر انسان چاہے تو اللہ رب العزت کو ناراض کرنے کی بجائے راضی کر سکتا ہے اگر اردگرد نگاہ دوڑائی جائے تو بہت سے گھر ایسے ہیں جہاں ایک وقت کی روٹی بہت مشکل سے پوری ہوتی ہے وہاں راشن دے کر نیکی کمائی جا سکتی ہے، محلے کی مساجد ہمیشہ محلے داروں کے تعاون سے چلتی ہیں اگر وہاں کے مسائل حل کئے جائیں تو کیا اللہ راضی نہ ہو گا ایسے شخص سے جو دوسروں کا سوچتا ہے۔ یتیموں، مسکینوں کو کھانا کھلانا، ان کی گھر بسانا وغیرہ غرض ایسے ہزاروں ان گنت نیکیاں موجود ہوتی ہیں جن کو ہم جانتے ہوئے بھی انجان بنتے ہیں اور غلط جگہوں پر خرچ کر دیتے ہیں اور اللہ کی ناراضگی مول لیتے ہیں۔</p>
+                
+                <p>حدیث کے معنی یہ ہیں کہ گھروں کو کپڑوں کی طرح دھاری دار اور منقش بنائیں گے۔ اس کے یہ معنی ہرگز نہیں کہ گھروں میں پردے لٹکانا یا انھیں سجانا حرام ہے۔ بلکہ حرام اور ناپسندیدہ عمل یہ ہے کہ اس کام میں اسراف و تبذیر اور فخر و مباہات سے کام لیا جائے۔</p>
+                
+                <p>آج لوگ اپنے پہناوے سے لے کر گھر کی چھوٹی سے چھوٹی چیز بھی دوسرے ملکوں سے منگواتے ہیں اور لوگوں کے سامنے بڑے فخر سے بتاتے ہیں کہ یہ چیز انھوں نے کتنے کی اور کہاں سے منگوائی، دوستو! اللہ نے جس انسان کو جتنی طاقت دی ہے وہ ضرور پہنے اور پہنائے لیکن اس میں دکھاوا نہیں ہونا چاہیے تاکہ دوسرے سننے اور دیکھنے والوں کو تکلیف و اذیت نہ پہنچے۔</p>
+                
+                <p>کہیں ایسا نہ ہو کہ اس کے گھر میں اعلیٰ اقسام کے پکوان پک رہے ہوں اور ساتھ والا ہمسایہ بھوک، پیاس میں مبتلا ہو، کہیں ایسا نہ ہو خود تو بہت اچھا پہنے اور اترائے جبکہ ہمسایے کے پاس پہننے کے لئے جسم پر کپڑا تک نہ ہو، خود کے پاس عالیشان بنگلہ ہو جب ہمسائے کے پاس چھت تک نہ ہو، اس کا یہ پیسہ کس کام کا ہے جو کسی ضرورت مند کی ضرورت پوری نہ کر سکے، مال و متاع کی زکوۃ نہ دے سکے، حقدار کا حق نہ ادا کر سکے، کسی کے دل سے دعا کی بجائے اس انسان کے لئے بددعا نکل جائے اور وہ غرور اور تکبر کی حالت میں مٹی میں دفن ہو جائے۔ اللہ ایسی جھوٹی شان و شوکت سے بچائے۔</p>
+            </div>
             
-            <p>آپ ﷺ نے امت کی بھلائی کے لئے جو نشانیاں بیان فرمائی ان سب نشانیوں میں سے ایک نشانی یہ بتلائی کہ لوگ قرب قیامت <span class="highlight">&quot;اپنے گھروں کی بناوٹ، سجاوٹ اور مزین کریں گے&quot;</span> ارشاد نبوی ﷺ ہے: <span class="highlight">&quot;قیامت اس وقت تک قائم نہ ہوگی جب تک لوگ منقش و مزین چادورں جیسے گھر تعمیر نہ کرنے لگیں&quot;</span>۔</p>
+            <!-- Reactions سیکشن -->
+            <div class="reactions-section">
+                <div class="reactions-title">اس پوسٹ پر اپنا ردعمل ظاہر کریں</div>
+                <div class="reactions-grid">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">
+                        <span>👍 عمدہ</span>
+                        <span class="reaction-count" id="count-عمدہ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">
+                        <span>❤️ دلچسپ</span>
+                        <span class="reaction-count" id="count-دلچسپ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">
+                        <span>😊 مفید</span>
+                        <span class="reaction-count" id="count-مفید">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">
+                        <span>😢 قابل غور</span>
+                        <span class="reaction-count" id="count-قابل غور">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">
+                        <span>🤔 سوچ بچار</span>
+                        <span class="reaction-count" id="count-سوچ بچار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">
+                        <span>👏 شاندار</span>
+                        <span class="reaction-count" id="count-شاندار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">
+                        <span>🔥 زبردست</span>
+                        <span class="reaction-count" id="count-زبردست">0</span>
+                    </button>
+                </div>
+            </div>
             
-            <p>یہ نشانی بھی دور حاضر میں موجود ہے اور وقت گزرنے کے ساتھ ساتھ پورے عروج کی طرف رواں دواں ہے لوگ ایک دوسرے کو نیچا دکھانے کے دوڑ میں اصل مقصد سے ہی پرے ہٹ گئے ہیں، گھر کیا ہوتا ہے؟ کس لئے بنایا جاتا ہے؟ شاید آج کی تعمیرات اس نیت سے ہو ہی نہیں رہی ہے۔ کیونکہ جائز و ناجائز، اور حرام کاری، دھوکہ، فریب سے کمائے گئے پیسوں سے بننے والا گھر انسان کے لیے نعمت کی بجائے زحمت بن جاتا ہے۔</p>
+            <!-- سوشل میڈیا آئیکونز -->
+            <div class="social-share">
+                <a href="#" class="social-icon facebook" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon whatsapp" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon twitter" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon linkedin" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon telegram" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-icon pinterest" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                <button class="social-icon copy-link" onclick="copyPageLink()"><i class="fas fa-link"></i></button>
+            </div>
             
-            <p>اگر انسان چاہے تو اللہ رب العزت کو ناراض کرنے کی بجائے راضی کر سکتا ہے اگر اردگرد نگاہ دوڑائی جائے تو بہت سے گھر ایسے ہیں جہاں ایک وقت کی روٹی بہت مشکل سے پوری ہوتی ہے وہاں راشن دے کر نیکی کمائی جا سکتی ہے، محلے کی مساجد ہمیشہ محلے داروں کے تعاون سے چلتی ہیں اگر وہاں کے مسائل حل کئے جائیں تو کیا اللہ راضی نہ ہو گا ایسے شخص سے جو دوسروں کا سوچتا ہے۔ یتیموں، مسکینوں کو کھانا کھلانا، ان کی گھر بسانا وغیرہ غرض ایسے ہزاروں ان گنت نیکیاں موجود ہوتی ہیں جن کو ہم جانتے ہوئے بھی انجان بنتے ہیں اور غلط جگہوں پر خرچ کر دیتے ہیں اور اللہ کی ناراضگی مول لیتے ہیں۔</p>
-            
-            <p>حدیث کے معنی یہ ہیں کہ گھروں کو کپڑوں کی طرح دھاری دار اور منقش بنائیں گے۔ اس کے یہ معنی ہرگز نہیں کہ گھروں میں پردے لٹکانا یا انھیں سجانا حرام ہے۔ بلکہ حرام اور ناپسندیدہ عمل یہ ہے کہ اس کام میں اسراف و تبذیر اور فخر و مباہات سے کام لیا جائے۔</p>
-            
-            <p>آج لوگ اپنے پہناوے سے لے کر گھر کی چھوٹی سے چھوٹی چیز بھی دوسرے ملکوں سے منگواتے ہیں اور لوگوں کے سامنے بڑے فخر سے بتاتے ہیں کہ یہ چیز انھوں نے کتنے کی اور کہاں سے منگوائی، دوستو! اللہ نے جس انسان کو جتنی طاقت دی ہے وہ ضرور پہنے اور پہنائے لیکن اس میں دکھاوا نہیں ہونا چاہیے تاکہ دوسرے سننے اور دیکھنے والوں کو تکلیف و اذیت نہ پہنچے۔</p>
-            
-            <p>کہیں ایسا نہ ہو کہ اس کے گھر میں اعلیٰ اقسام کے پکوان پک رہے ہوں اور ساتھ والا ہمسایہ بھوک، پیاس میں مبتلا ہو، کہیں ایسا نہ ہو خود تو بہت اچھا پہنے اور اترائے جبکہ ہمسایے کے پاس پہننے کے لئے جسم پر کپڑا تک نہ ہو، خود کے پاس عالیشان بنگلہ ہو جب ہمسائے کے پاس چھت تک نہ ہو، اس کا یہ پیسہ کس کام کا ہے جو کسی ضرورت مند کی ضرورت پوری نہ کر سکے، مال و متاع کی زکوۃ نہ دے سکے، حقدار کا حق نہ ادا کر سکے، کسی کے دل سے دعا کی بجائے اس انسان کے لئے بددعا نکل جائے اور وہ غرور اور تکبر کی حالت میں مٹی میں دفن ہو جائے۔ اللہ ایسی جھوٹی شان و شوکت سے بچائے۔</p>
+            <!-- نیویگیشن بٹن (پوسٹ کے نیچے) -->
+            <div class="post-nav-buttons">
+                <a href="https://bloglovers.pk/" class="post-nav-btn">
+                    <i class="fas fa-home"></i> مرکزی صفحہ
+                </a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="post-nav-btn secondary">
+                    <i class="fas fa-list"></i> تمام پوسٹس
+                </a>
+            </div>
+        </div>
+        
+        <!-- سائیڈ بار -->
+        <div class="sidebar">
+            <div class="sidebar-title">مزید پوسٹس</div>
+            <div class="sidebar-scroll">
+                <div class="sidebar-content" id="sidebarContent">
+                    <!-- پوسٹ 1 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                        <span>5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <!-- پوسٹ 2 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنے">
+                        <span>ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <!-- پوسٹ 3 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                        <span>تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    <!-- پوسٹ 4 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم کا اٹھ جانا">
+                        <span>آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- پوسٹ 5 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں حلال">
+                        <span>آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    <!-- پوسٹ 6 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                        <span>وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    <!-- پوسٹ 7 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دور جدید کے فتنے">
+                        <span>دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</span>
+                    </a>
+                    <!-- پوسٹ 8 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="عظیم ترین فتنہ">
+                        <span>للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    <!-- پوسٹ 9 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                        <span>قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <!-- پوسٹ 10 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="بدترین گناہ">
+                        <span>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    <!-- پوسٹ 11 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                        <span>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <!-- پوسٹ 12 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                        <span>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- پوسٹ 13 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                        <span>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                </div>
+            </div>
         </div>
         
         <div class="colorful-border"></div>
@@ -433,6 +818,9 @@
         </div>
     </div>
 
+    <!-- reactions.js فائل -->
+    <script src="/reactions.js"></script>
+    
     <script>
         // ستارے بنانے کا فنکشن
         function createStars() {
@@ -486,6 +874,46 @@
             });
         }
         
+        // سوشل میڈیا شیئرنگ کے فنکشنز
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+                default:
+                    return;
+            }
+            
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => {
+                alert('کاپی کرنے میں مسئلہ ہوا');
+            });
+        }
+        
         // صفحہ لوڈ ہونے پر ستارے بنانا
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
@@ -511,6 +939,14 @@
                 } else {
                     this.style.transform = 'scale(1.5)';
                     this.style.zIndex = '100';
+                }
+            });
+            
+            // موجودہ پوسٹ کو نمایاں کریں (سائیڈ بار میں)
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
+                if (item.href === window.location.href) {
+                    item.classList.add('current-post');
                 }
             });
         });
