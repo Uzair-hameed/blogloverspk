@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2020-07-28-آپ-کی-وفات-کے-سات-سال-بعدعمواس-کے-لوگوں-پر-کیسا-عذاب-نازل-ہوا؟</title>
+    <title>آپ ﷺ کی وفات کے سات سال بعد عمواس کے لوگوں پر کیسا عذاب نازل ہوا؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Free) for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
         
@@ -79,20 +81,191 @@
             text-align: justify;
         }
 
+        /* Main Layout with Sidebar */
+        .main-container {
+            display: flex;
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
         /* Post Content */
         .post-content {
-            max-width: 900px;
-            margin: 0 auto;
+            flex: 2;
             background: rgba(30, 30, 60, 0.85);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 1;
             border: 2px solid #ffcc00;
         }
 
-        /* Image Styling */
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            background: rgba(20, 20, 45, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid #ffaa00;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h3 {
+            color: #ffcc00;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ffaa00;
+            padding-bottom: 10px;
+        }
+
+        /* Auto-scrolling posts container */
+        .sidebar-posts {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+
+        .posts-scroll {
+            animation: scrollUp 30s linear infinite;
+        }
+
+        .sidebar-posts:hover .posts-scroll {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+
+        .sidebar-post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border-right: 4px solid #ffaa00;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #f0f0f0;
+        }
+
+        .sidebar-post-item:hover {
+            background: rgba(255, 170, 0, 0.2);
+            transform: translateX(-5px);
+            border-right-color: #ffcc00;
+        }
+
+        .sidebar-post-item.active {
+            background: rgba(255, 204, 0, 0.25);
+            border-right-color: #ffcc00;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+
+        .sidebar-post-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #ffaa00;
+        }
+
+        .sidebar-post-title {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            font-weight: normal;
+        }
+
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            text-align: center;
+        }
+
+        .reaction-btn {
+            background: transparent;
+            border: 2px solid #ffcc00;
+            color: white;
+            padding: 12px 20px;
+            margin: 8px;
+            border-radius: 40px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .reaction-btn:hover {
+            background: #ffcc00;
+            color: #1a1a2e;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.5);
+        }
+
+        .reaction-count {
+            font-size: 1.2rem;
+            min-width: 30px;
+            display: inline-block;
+            color: #ffcc00;
+        }
+
+        .reaction-btn:hover .reaction-count {
+            color: #1a1a2e;
+        }
+
+        /* Social Share Icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0 20px;
+        }
+
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-8px) scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .fb { background: #1877f2; }
+        .wa { background: #25D366; }
+        .tw { background: #1DA1F2; }
+        .li { background: #0077b5; }
+        .tg { background: #0088cc; }
+        .pin { background: #bd081c; }
+        .copy { background: #6c757d; }
+
+        /* Post Image */
         .post-image {
             width: 100%;
             max-height: 500px;
@@ -105,7 +278,7 @@
         }
 
         /* Buttons */
-        .back-btn {
+        .back-btn, .nav-btn {
             display: inline-block;
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
             color: white;
@@ -113,7 +286,7 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            margin: 30px auto;
+            margin: 15px;
             box-shadow: 0 8px 20px rgba(255, 65, 108, 0.5);
             transition: all 0.3s;
             font-size: 1.2rem;
@@ -122,11 +295,17 @@
             cursor: pointer;
         }
 
-        .back-btn:hover {
+        .back-btn:hover, .nav-btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 25px rgba(255, 65, 108, 0.8);
         }
 
+        .nav-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        /* Page Up/Down Buttons */
         .page-btn {
             position: fixed;
             right: 25px;
@@ -151,13 +330,8 @@
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
         }
 
-        .page-up {
-            bottom: 100px;
-        }
-
-        .page-down {
-            bottom: 25px;
-        }
+        .page-up { bottom: 100px; }
+        .page-down { bottom: 25px; }
 
         /* Color Fill Post Effect */
         .color-fill-btn {
@@ -265,51 +439,36 @@
             background: #ff4757;
         }
 
-        /* Mobile Responsive */
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 2px solid #ffcc00;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: static;
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.8rem;
-            }
-
-            h3 {
-                font-size: 1.5rem;
-            }
-
-            p, li {
-                font-size: 1.2rem;
-            }
-
-            .post-content {
-                padding: 25px;
-            }
-
-            .page-btn {
-                right: 15px;
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-            }
-
-            .page-up {
-                bottom: 90px;
-            }
-
-            .page-down {
-                bottom: 20px;
-            }
-
-            .color-fill-btn {
-                font-size: 1.2rem;
-                padding: 15px 30px;
-            }
+            body { padding: 10px; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.8rem; }
+            p, li { font-size: 1.2rem; }
+            .post-content { padding: 25px; }
+            .reaction-btn { padding: 8px 12px; font-size: 1rem; }
+            .page-btn { width: 50px; height: 50px; font-size: 24px; }
+            .page-up { bottom: 90px; }
+            .page-down { bottom: 20px; }
         }
     </style>
 </head>
@@ -326,62 +485,177 @@
         🕌 اس پوسٹ کو خصوصی موڈ میں پڑھیں
     </button>
 
-    <!-- Main Post Content -->
-    <div class="post-content">
-        <h1>آپ ﷺ کی وفات کے سات سال بعد عمواس کے لوگوں پر کیسا عذاب نازل ہوا؟</h1>
-        
-        <!-- Post Image -->
-        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ki-wafat-ke-saat-saal-baad-amwas-ke-logon-par-kaisa-azab-nazil-hua.png" alt="طاعون عمواس" class="post-image">
+    <!-- Main Container with Sidebar -->
+    <div class="main-container">
+        <!-- Main Post Content -->
+        <div class="post-content">
+            <h1>آپ ﷺ کی وفات کے سات سال بعد عمواس کے لوگوں پر کیسا عذاب نازل ہوا؟</h1>
+            
+            <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ki-wafat-ke-saat-saal-baad-amwas-ke-logon-par-kaisa-azab-nazil-hua.png" alt="طاعون عمواس" class="post-image">
 
-        <p>یہ واقعہ قیامت کی چھوٹی نشانیوں میں سے ایک ہے جس کی نبی کریم ﷺ نے اپنی حدیث مبارکہ میں نشاندہی فرمائی تھی۔ یہ واقعہ حضرت عمر فاروق رضی اللہ عنہ کے دور خلافت میں پیش آیا۔ اس حدیث میں استعمال ہونے والا لفظ <strong>&quot;مُوتَانُ&quot;</strong> مبالغے کا صیغہ ہے، جس کے معنی ہیں کہ بہت بڑی تعداد میں لوگوں کی موت واقع ہوگی — جیسا کہ آج کل وبائی امراض کی وجہ سے ہزاروں اور لاکھوں افراد ایک ساتھ لقمہ اجل بن جاتے ہیں۔</p>
-        <p>روایات کے مطابق، اس وباء سے تقریباً <strong>پچیس ہزار مسلمان</strong> متاثر ہو کر دار فانی سے کوچ کر گئے۔</p>
-        
-        <h2>عمواس کہاں تھا؟</h2>
-        <p>عمواس، بیت المقدس (قبلہ اول) کے قریب فلسطین میں واقع ایک چھوٹی سی بستی تھی۔ عام طور پر اسے &quot;ایمواس&quot; کہا جاتا ہے، جبکہ عربی میں اسے &quot;ایموس&quot; بھی کہا جاتا تھا۔ تاریخی طور پر، یہ جگہ پہلی صدی عیسوی سے رومی فوج کے تسلط میں رہی اور ایک مضبوط فوجی کیمپ کے طور پر استعمال ہوتی رہی۔ رومیوں کے ہاں اسے <strong>&quot;نِک پولِس&quot;</strong> کے نام سے جانا جاتا تھا۔ وقت گزرنے کے ساتھ، شاید تیسری صدی عیسوی کے آغاز تک، یہ بستی ایک چھوٹے سے شہر میں تبدیل ہو چکی تھی۔ جنگِ یرموک کے بعد مسلمانوں نے بازنطینیوں سے اس علاقے پر قبضہ کر لیا تھا۔</p>
-        
-        <h2>طاعونِ عمواس کیسے پھیلا؟</h2>
-        <p>جب مسلمان فوجیں شام پر قبضہ کر کے واپس لوٹیں، تو انہوں نے عمواس کو اپنا کیمپ بنایا، جہاں مالِ غنیمت کی تقسیم سے لے کر فوجیوں کی تنخواہوں تک کا انتظام کیا جاتا تھا۔ اسی دوران وہاں <strong>طاعون</strong> کی وبا پھوٹ پڑی۔</p>
-        <p>طاعون ایک بہت ہی خطرناک اور مہلک وبائی بیماری ہے۔ اس کی علامت عام طور پر جسم کے کسی حصے میں ایک پھوڑا یا سوزش ظاہر ہونا ہوتی ہے، جس کے ساتھ شدید درد اور بے چینی بھی ہوتی ہے۔ اس پھوڑے سے خارج ہونے والا زہریلا مادہ جسم میں تیزی سے پھیلتا ہے، جس کے نتیجے میں مریض کی موت واقع ہو جاتی ہے۔</p>
-        <p>نبی کریم ﷺ نے اس طرح کی کثرتِ موت کو <strong>&quot;قُعَاصُ الْغَنَم&quot;</strong> (بکریوں کا طاعون) سے تشبیہ دی تھی، کیونکہ اس مرض میں بھی ایک ایسا ہی زخم/پھوڑا بنتا ہے، جس سے ایک گاڑا زہریلا مادہ خارج ہوتا ہے اور مریض موت کا شکار ہو جاتا ہے۔</p>
-        
-        <h2>قیامت کی نشانی</h2>
-        <p>ایک روایت کے مطابق، رسول اللہ ﷺ نے فرمایا:<br><strong>&quot;قیامت سے پہلے چھ چیزیں واقع ہوں گی...&quot;</strong><br>اور ان چھ میں سے ایک، <strong>وبائی امراض کی وجہ سے کثرتِ اموات</strong> تھی، جس کی تشبیہ آپ ﷺ نے بکریوں کے ریوڑ سے دی — جیسے ریوڑ بھر کی بکریاں ایک ہی بیماری سے ایک کے بعد ایک مرتی جاتی ہیں، اسی طرح لوگوں کی موتیں ہوں گی۔</p>
-        
-        <h2>متاثر ہونے والے صحابہ کرام</h2>
-        <p>طاعونِ عمواس میں بہت سے نامور صحابہ کرام رضی اللہ عنہم بھی اس وباء کی لپیٹ میں آ کر اس دارِ فانی سے کوچ کر گئے، جن میں شامل ہیں:</p>
-        <ul>
-            <li>حضرت معاذ بن جبل رضی اللہ عنہ (ان کی دو بیویاں اور ایک بیٹا بھی متاثر ہوئے)</li>
-            <li>حضرت ابو عبیدہ بن الجراح رضی اللہ عنہ</li>
-            <li>حضرت یزید بن ابی سفیان رضی اللہ عنہ (معاذ رضی اللہ عنہ کے جانشین)</li>
-            <li>حضرت شرحبیل بن حسنہ رضی اللہ عنہ</li>
-            <li>حضرت فضل بن عباس رضی اللہ عنہ</li>
-            <li>حضرت سہیل بن ہشام رضی اللہ عنہ</li>
-            <li>حضرت حرث بن ہشام رضی اللہ عنہ (اور ان کے خاندان کے ستر افراد جو شام میں رہائش پذیر تھے)</li>
-            <li>حضرت ابو جندل رضی اللہ عنہ (حضرت سہیل رضی اللہ عنہ کے بیٹے)</li>
-        </ul>
-        
-        <h2>معاشرتی اور معاشی حالات</h2>
-        <p>اس وباء نے نہ صرف مسلمان فوجیوں کو بلکہ علاقے کے مقامی باشندوں — عیسائیوں اور یہودیوں — کو بھی شدید متاثر کیا۔ ہر طرف موت ہی موت نظر آ رہی تھی۔ لوگ بے سروسامانی کے عالم میں جان بچانے کے لیے ادھر ادھر بھاگ رہے تھے۔</p>
-        <p>اس وبا کے دوران، غلّے اور دیگر اشیائے خوردونوش کی <strong>ذخیرہ اندوزی</strong> بھی جاری رہی، جس کی وجہ سے قیمتوں میں اضافہ ہوا۔ ذخائر میں چوہوں کی کثرت ہو گئی، جن سے طاعون مزید پھیلا۔ اس کے جواب میں، حضرت عمر رضی اللہ عنہ نے <strong>ذخیرہ اندوزی پر مکمل پابندی</strong> عائد کر دی۔</p>
-        
-        <h2>جغرافیائی پھیلاؤ</h2>
-        <p>آپ ﷺ کی وفات کے تقریباً <strong>سات سال بعد</strong>، یہ پہلی بڑی قدرتی آفت &quot;عمواس&quot; میں پھوٹی۔ اس کے بعد سخت قحط پڑا، جس سے مسلمانوں کو شدید مشکلات کا سامنا کرنا پڑا۔</p>
-        <p>یہ مرض سویز کے نزدیک سے شروع ہو کر قسطنطنیہ تک پہنچ گیا۔ یہ فلسطین کے مشرقی علاقوں سے لے کر اسکندریہ (مصر) کے مغربی حصوں تک تیزی سے پھیل چکا تھا۔<br>صرف وہ عرب قبائل بچ سکے جو تیزی سے مشرق کی طرف — خراسان کی سمت — نقل مکانی کر چکے تھے۔</p>
-        
-        <h2>نتیجہ</h2>
-        <p>آج کی دنیا میں طبی سائنس نے وبا جیسی بیماریوں کے علاج میں کافی پیش رفت کی ہے، لیکن یہ بات یقینی ہے کہ جب اللہ تعالیٰ کی ناراضگی نازل ہو، تو تمام انسانی کوششیں بے اثر ہو جاتی ہیں۔ جو اللہ چاہتا ہے، وہی ہوتا ہے۔</p>
-        <p>اللہ رب العزت سے ہم سب کی دعا ہے کہ وہ ہمیں ایسی مہلک وباﺅں اور آفتوں سے محفوظ رکھے۔<br><strong>آمین۔</strong></p>
-        
-        <!-- Back Button -->
-        <a href="javascript:history.back()" class="back-btn">← واپس جائیں</a>
+            <p>یہ واقعہ قیامت کی چھوٹی نشانیوں میں سے ایک ہے جس کی نبی کریم ﷺ نے اپنی حدیث مبارکہ میں نشاندہی فرمائی تھی۔ یہ واقعہ حضرت عمر فاروق رضی اللہ عنہ کے دور خلافت میں پیش آیا۔ اس حدیث میں استعمال ہونے والا لفظ <strong>&quot;مُوتَانُ&quot;</strong> مبالغے کا صیغہ ہے، جس کے معنی ہیں کہ بہت بڑی تعداد میں لوگوں کی موت واقع ہوگی — جیسا کہ آج کل وبائی امراض کی وجہ سے ہزاروں اور لاکھوں افراد ایک ساتھ لقمہ اجل بن جاتے ہیں۔</p>
+            <p>روایات کے مطابق، اس وباء سے تقریباً <strong>پچیس ہزار مسلمان</strong> متاثر ہو کر دار فانی سے کوچ کر گئے۔</p>
+            
+            <h2>عمواس کہاں تھا؟</h2>
+            <p>عمواس، بیت المقدس (قبلہ اول) کے قریب فلسطین میں واقع ایک چھوٹی سی بستی تھی۔ عام طور پر اسے &quot;ایمواس&quot; کہا جاتا ہے، جبکہ عربی میں اسے &quot;ایموس&quot; بھی کہا جاتا تھا۔ تاریخی طور پر، یہ جگہ پہلی صدی عیسوی سے رومی فوج کے تسلط میں رہی اور ایک مضبوط فوجی کیمپ کے طور پر استعمال ہوتی رہی۔ رومیوں کے ہاں اسے <strong>&quot;نِک پولِس&quot;</strong> کے نام سے جانا جاتا تھا۔ وقت گزرنے کے ساتھ، شاید تیسری صدی عیسوی کے آغاز تک، یہ بستی ایک چھوٹے سے شہر میں تبدیل ہو چکی تھی۔ جنگِ یرموک کے بعد مسلمانوں نے بازنطینیوں سے اس علاقے پر قبضہ کر لیا تھا۔</p>
+            
+            <h2>طاعونِ عمواس کیسے پھیلا؟</h2>
+            <p>جب مسلمان فوجیں شام پر قبضہ کر کے واپس لوٹیں، تو انہوں نے عمواس کو اپنا کیمپ بنایا، جہاں مالِ غنیمت کی تقسیم سے لے کر فوجیوں کی تنخواہوں تک کا انتظام کیا جاتا تھا۔ اسی دوران وہاں <strong>طاعون</strong> کی وبا پھوٹ پڑی۔</p>
+            <p>طاعون ایک بہت ہی خطرناک اور مہلک وبائی بیماری ہے۔ اس کی علامت عام طور پر جسم کے کسی حصے میں ایک پھوڑا یا سوزش ظاہر ہونا ہوتی ہے، جس کے ساتھ شدید درد اور بے چینی بھی ہوتی ہے۔ اس پھوڑے سے خارج ہونے والا زہریلا مادہ جسم میں تیزی سے پھیلتا ہے، جس کے نتیجے میں مریض کی موت واقع ہو جاتی ہے۔</p>
+            <p>نبی کریم ﷺ نے اس طرح کی کثرتِ موت کو <strong>&quot;قُعَاصُ الْغَنَم&quot;</strong> (بکریوں کا طاعون) سے تشبیہ دی تھی، کیونکہ اس مرض میں بھی ایک ایسا ہی زخم/پھوڑا بنتا ہے، جس سے ایک گاڑا زہریلا مادہ خارج ہوتا ہے اور مریض موت کا شکار ہو جاتا ہے۔</p>
+            
+            <h2>قیامت کی نشانی</h2>
+            <p>ایک روایت کے مطابق، رسول اللہ ﷺ نے فرمایا:<br><strong>&quot;قیامت سے پہلے چھ چیزیں واقع ہوں گی...&quot;</strong><br>اور ان چھ میں سے ایک، <strong>وبائی امراض کی وجہ سے کثرتِ اموات</strong> تھی، جس کی تشبیہ آپ ﷺ نے بکریوں کے ریوڑ سے دی — جیسے ریوڑ بھر کی بکریاں ایک ہی بیماری سے ایک کے بعد ایک مرتی جاتی ہیں، اسی طرح لوگوں کی موتیں ہوں گی۔</p>
+            
+            <h2>متاثر ہونے والے صحابہ کرام</h2>
+            <p>طاعونِ عمواس میں بہت سے نامور صحابہ کرام رضی اللہ عنہم بھی اس وباء کی لپیٹ میں آ کر اس دارِ فانی سے کوچ کر گئے، جن میں شامل ہیں:</p>
+            <ul>
+                <li>حضرت معاذ بن جبل رضی اللہ عنہ (ان کی دو بیویاں اور ایک بیٹا بھی متاثر ہوئے)</li>
+                <li>حضرت ابو عبیدہ بن الجراح رضی اللہ عنہ</li>
+                <li>حضرت یزید بن ابی سفیان رضی اللہ عنہ (معاذ رضی اللہ عنہ کے جانشین)</li>
+                <li>حضرت شرحبیل بن حسنہ رضی اللہ عنہ</li>
+                <li>حضرت فضل بن عباس رضی اللہ عنہ</li>
+                <li>حضرت سہیل بن ہشام رضی اللہ عنہ</li>
+                <li>حضرت حرث بن ہشام رضی اللہ عنہ (اور ان کے خاندان کے ستر افراد جو شام میں رہائش پذیر تھے)</li>
+                <li>حضرت ابو جندل رضی اللہ عنہ (حضرت سہیل رضی اللہ عنہ کے بیٹے)</li>
+            </ul>
+            
+            <h2>معاشرتی اور معاشی حالات</h2>
+            <p>اس وباء نے نہ صرف مسلمان فوجیوں کو بلکہ علاقے کے مقامی باشندوں — عیسائیوں اور یہودیوں — کو بھی شدید متاثر کیا۔ ہر طرف موت ہی موت نظر آ رہی تھی۔ لوگ بے سروسامانی کے عالم میں جان بچانے کے لیے ادھر ادھر بھاگ رہے تھے۔</p>
+            <p>اس وبا کے دوران، غلّے اور دیگر اشیائے خوردونوش کی <strong>ذخیرہ اندوزی</strong> بھی جاری رہی، جس کی وجہ سے قیمتوں میں اضافہ ہوا۔ ذخائر میں چوہوں کی کثرت ہو گئی، جن سے طاعون مزید پھیلا۔ اس کے جواب میں، حضرت عمر رضی اللہ عنہ نے <strong>ذخیرہ اندوزی پر مکمل پابندی</strong> عائد کر دی۔</p>
+            
+            <h2>جغرافیائی پھیلاؤ</h2>
+            <p>آپ ﷺ کی وفات کے تقریباً <strong>سات سال بعد</strong>، یہ پہلی بڑی قدرتی آفت &quot;عمواس&quot; میں پھوٹی۔ اس کے بعد سخت قحط پڑا، جس سے مسلمانوں کو شدید مشکلات کا سامنا کرنا پڑا۔</p>
+            <p>یہ مرض سویز کے نزدیک سے شروع ہو کر قسطنطنیہ تک پہنچ گیا۔ یہ فلسطین کے مشرقی علاقوں سے لے کر اسکندریہ (مصر) کے مغربی حصوں تک تیزی سے پھیل چکا تھا۔<br>صرف وہ عرب قبائل بچ سکے جو تیزی سے مشرق کی طرف — خراسان کی سمت — نقل مکانی کر چکے تھے۔</p>
+            
+            <h2>نتیجہ</h2>
+            <p>آج کی دنیا میں طبی سائنس نے وبا جیسی بیماریوں کے علاج میں کافی پیش رفت کی ہے، لیکن یہ بات یقینی ہے کہ جب اللہ تعالیٰ کی ناراضگی نازل ہو، تو تمام انسانی کوششیں بے اثر ہو جاتی ہیں۔ جو اللہ چاہتا ہے، وہی ہوتا ہے۔</p>
+            <p>اللہ رب العزت سے ہم سب کی دعا ہے کہ وہ ہمیں ایسی مہلک وباﺅں اور آفتوں سے محفوظ رکھے۔<br><strong>آمین۔</strong></p>
+
+            <!-- Reactions Section (Exactly as required) -->
+            <div class="reactions-section">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+
+            <!-- Social Media Icons (7 Platforms) -->
+            <div class="social-share">
+                <a href="#" class="social-icon fb" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon wa" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon tw" onclick="shareOnSocial('twitter')"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="social-icon li" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon tg" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-icon pin" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" class="social-icon copy" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-btn">🏠 مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn">📚 تمام پوسٹس</a>
+                <a href="javascript:history.back()" class="back-btn">← واپس جائیں</a>
+            </div>
+        </div>
+
+        <!-- Sidebar with Auto-scroll Posts -->
+        <div class="sidebar">
+            <h3>📌 مزید پوسٹس</h3>
+            <div class="sidebar-posts">
+                <div class="posts-scroll">
+                    <!-- Post 1 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                        <span class="sidebar-post-title">قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <!-- Post 2 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنے">
+                        <span class="sidebar-post-title">ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <!-- Post 3 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                        <span class="sidebar-post-title">تنگ لباس پہننے والی ننگی عورتوں کے بارے میں وعید</span>
+                    </a>
+                    <!-- Post 4 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم اٹھ جانا">
+                        <span class="sidebar-post-title">آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- Post 5 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ حلال چیزیں">
+                        <span class="sidebar-post-title">آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر عذاب کی وعید سنائی؟</span>
+                    </a>
+                    <!-- Post 6 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                        <span class="sidebar-post-title">وہ کون سے چار حرام کام ہیں جو امت حلال سمجھ لے گی؟</span>
+                    </a>
+                    <!-- Post 7 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دورجدید کے فتنے">
+                        <span class="sidebar-post-title">دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟</span>
+                    </a>
+                    <!-- Post 8 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="غافل کرنے والا فتنہ">
+                        <span class="sidebar-post-title">اللہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ</span>
+                    </a>
+                    <!-- Post 9 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                        <span class="sidebar-post-title">قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <!-- Post 10 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="جلدی پکڑ">
+                        <span class="sidebar-post-title">انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ</span>
+                    </a>
+                    <!-- Post 11 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                        <span class="sidebar-post-title">لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <!-- Post 12 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                        <span class="sidebar-post-title">آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- Post 13 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                        <span class="sidebar-post-title">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                    <!-- Duplicate first items to ensure smooth infinite scroll (will be hidden via mask) -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                        <span class="sidebar-post-title">قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Color Fill Overlay -->
+    <!-- Footer -->
+    <div class="footer">
+        © 2025 bloglovers.pk - تمام حقوق محفوظ ہیں
+    </div>
+
+    <!-- Color Fill Overlay (unchanged) -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
         <div id="postContent"></div>
     </div>
+
+    <!-- reactions.js (external, handles reactionClick and counts) -->
+    <script src="/reactions.js"></script>
 
     <script>
         // Generate Dark Clouds
@@ -399,10 +673,11 @@
             }
         }
 
-        // Color Fill Post Functions
+        // Color Fill Post Functions (keep)
         function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
+            const originalContent = document.querySelector('.post-content').cloneNode(true);
+            // Remove sidebar from cloned content if present (though we take only post-content)
+            document.getElementById('postContent').innerHTML = originalContent.innerHTML;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -424,6 +699,43 @@
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
+        // Social Share Functions (keep as requested)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+                default: return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+
+        // Mark current post as active in sidebar (optional, but matches requirement)
+        function setActivePost() {
+            // This post's URL slug (assuming current page is this post)
+            const currentSlug = 'ap-saw-ki-wafat-ke-saat-saal-baad-amwas-ke-logon-par-kaisa-azab-nazil-hua';
+            const sidebarLinks = document.querySelectorAll('.sidebar-post-item');
+            sidebarLinks.forEach(link => {
+                if (link.href.includes(currentSlug)) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
         // Event Listeners
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeColorFillPost();
@@ -434,6 +746,7 @@
         // Initialize
         window.onload = function() {
             createClouds();
+            setActivePost();
         };
     </script>
 </body>
