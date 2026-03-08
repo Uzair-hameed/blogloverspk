@@ -80,11 +80,14 @@
 
         /* Main Content Container */
         .main-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 20px;
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
         }
 
         /* Post Container */
@@ -217,7 +220,209 @@
             font-weight: 700;
         }
 
-        /* Navigation Buttons */
+        /* Sidebar Styles */
+        .sidebar {
+            background: rgba(20, 20, 35, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h3 {
+            color: var(--secondary);
+            font-size: 1.8rem;
+            border-bottom: 2px solid rgba(46, 204, 113, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .related-posts {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+        }
+
+        .posts-scroll {
+            animation: scrollUp 30s linear infinite;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .posts-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+
+        .related-post-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: #e0e0e0;
+        }
+
+        .related-post-item:hover {
+            background: rgba(74, 144, 226, 0.15);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        .related-post-item.active {
+            background: rgba(46, 204, 113, 0.15);
+            border-color: var(--secondary);
+        }
+
+        .related-post-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(74, 144, 226, 0.3);
+        }
+
+        .related-post-item span {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reactions-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .reaction-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1.4rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reaction-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .reaction-count {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Navigation Buttons (Bottom) */
+        .post-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn-bottom {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-btn-bottom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+        }
+
+        /* Social Icons */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 20px;
+        }
+
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .fa-facebook-f { background: #1877f2; }
+        .fa-whatsapp { background: #25D366; }
+        .fa-twitter { background: #1DA1F2; }
+        .fa-linkedin-in { background: #0077b5; }
+        .fa-telegram-plane { background: #0088cc; }
+        .fa-pinterest-p { background: #bd081c; }
+        .fa-copy { background: #6c757d; }
+
+        /* Floating Scroll Buttons */
         .nav-buttons {
             position: fixed;
             left: 30px;
@@ -247,32 +452,6 @@
             overflow: hidden;
         }
 
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        .nav-btn:hover::before {
-            opacity: 1;
-        }
-
-        .nav-btn i {
-            position: relative;
-            z-index: 2;
-        }
-
         .nav-btn span {
             position: absolute;
             right: 60px;
@@ -289,6 +468,11 @@
 
         .nav-btn:hover span {
             opacity: 1;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
 
         /* Back Button */
@@ -353,11 +537,11 @@
             .nav-buttons {
                 left: 15px;
             }
-            
-            .nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
             }
         }
 
@@ -411,6 +595,15 @@
             .featured-image {
                 max-height: 350px;
             }
+
+            .reactions-grid {
+                gap: 10px;
+            }
+
+            .reaction-btn {
+                padding: 8px 15px;
+                font-size: 1.2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -444,7 +637,7 @@
         واپس جائیں
     </a>
     
-    <!-- Navigation Buttons -->
+    <!-- Floating Navigation Buttons -->
     <div class="nav-buttons">
         <button class="nav-btn" onclick="scrollToTop()">
             <i class="fas fa-arrow-up"></i>
@@ -461,6 +654,7 @@
         <div class="decoration decoration-1"></div>
         <div class="decoration decoration-2"></div>
         
+        <!-- Post Content -->
         <div class="post-container">
             <h1>فرقہ خوارج نے حضرت علی رضی اللہ عنہ کی اطاعت سے پیٹھ کیوں پھیر لی؟</h1>
             
@@ -535,9 +729,101 @@
             <h2>نتیجہ</h2>
             <p>خوارج کا فتنہ ہمیں یہ سبق دیتا ہے کہ <strong>دین کی ظاہری عبادتیں اور انتہا پسندی، بغیر علم اور رحمت کے، انسان کو گمراہی کے راستے پر لے جاتی ہے</strong>۔</p>
             <p>اللہ تعالیٰ ہمیں خوارج جیسی گمراہیوں اور فتنوں سے محفوظ رکھے اور ہمیں قرآن و سنت کی روشنی میں چلنے کی توفیق عطا فرمائے۔<br><strong>آمین۔</strong></p>
+
+            <!-- Reactions Section -->
+            <div class="reactions-section">
+                <h3 class="reactions-title">اس پوسٹ پر اپنا ردعمل دیں</h3>
+                <div class="reactions-grid">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+
+            <!-- Social Share Icons -->
+            <div class="social-share">
+                <button class="social-icon" onclick="shareOnSocial('facebook')" style="background:#1877f2;"><i class="fab fa-facebook-f"></i></button>
+                <button class="social-icon" onclick="shareOnSocial('whatsapp')" style="background:#25D366;"><i class="fab fa-whatsapp"></i></button>
+                <button class="social-icon" onclick="shareOnSocial('twitter')" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></button>
+                <button class="social-icon" onclick="shareOnSocial('linkedin')" style="background:#0077b5;"><i class="fab fa-linkedin-in"></i></button>
+                <button class="social-icon" onclick="shareOnSocial('telegram')" style="background:#0088cc;"><i class="fab fa-telegram-plane"></i></button>
+                <button class="social-icon" onclick="shareOnSocial('pinterest')" style="background:#bd081c;"><i class="fab fa-pinterest-p"></i></button>
+                <button class="social-icon" onclick="copyPageLink()" style="background:#6c757d;"><i class="fas fa-copy"></i></button>
+            </div>
+
+            <!-- Post Navigation -->
+            <div class="post-navigation">
+                <a href="https://bloglovers.pk/" class="nav-btn-bottom"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn-bottom"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
             
             <div class="footer-note">
                 <p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk" style="color: #4ecdc4;">ویب سائٹ</a> وزٹ کریں۔</p>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>مزید پوسٹس</h3>
+            <div class="related-posts">
+                <div class="posts-scroll" id="postsScroll">
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                        <span>5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنے">
+                        <span>ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                        <span>تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم کا اٹھ جانا">
+                        <span>آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ حلال چیزیں">
+                        <span>آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                        <span>وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دور جدید کے فتنے">
+                        <span>دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="عظیم ترین فتنہ">
+                        <span>للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خون ریزی">
+                        <span>قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="بدترین گناہ">
+                        <span>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                        <span>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                        <span>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="related-post-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                        <span>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -584,6 +870,44 @@
             });
         }
         
+        // Social Share Functions
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+        
         // Hover effects for post container
         const postContainer = document.querySelector('.post-container');
         postContainer.addEventListener('mouseenter', () => {
@@ -623,5 +947,7 @@
             });
         });
     </script>
+    <!-- Reactions.js -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
