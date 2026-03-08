@@ -142,9 +142,102 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 30px;
+        }
+        
+        .main-content {
+            width: 100%;
+        }
+        
+        .sidebar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .sidebar h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .sidebar-scroll-container {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+            border-radius: 15px;
+            padding: 5px 3px;
+            background: rgba(0,0,0,0.02);
+        }
+        
+        .sidebar-scroll-content {
+            animation: scrollUp 30s linear infinite;
+        }
+        
+        .sidebar-scroll-container:hover .sidebar-scroll-content {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding: 8px 10px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #2c3e50;
+            border-right: 4px solid transparent;
+        }
+        
+        .sidebar-item:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-right-color: #4a90e2;
+        }
+        
+        .sidebar-item.active {
+            border-right-color: #e74c3c;
+            background: #fef5f4;
+        }
+        
+        .sidebar-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-item span {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex: 1;
+            font-weight: 500;
         }
         
         .control-buttons {
@@ -285,11 +378,146 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
+            grid-column: 1 / -1;
         }
         
         .buttons-group {
             display: flex;
             gap: 10px;
+        }
+        
+        /* Reactions section */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 30px;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 60px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .reaction-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 90px;
+            font-family: inherit;
+            border: 1px solid rgba(74,144,226,0.3);
+        }
+        
+        .reaction-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(74,144,226,0.4);
+            background: #4a90e2;
+            color: white;
+        }
+        
+        .reaction-count {
+            font-size: 0.9rem;
+            background: #4a90e2;
+            color: white;
+            border-radius: 50px;
+            padding: 2px 10px;
+            margin-top: 5px;
+        }
+        
+        /* Social share */
+        .share-section {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .share-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .share-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .share-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+        
+        .share-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            margin-top: 20px;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                margin-top: 30px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -325,14 +553,15 @@
                 font-size: 18px;
             }
             
-            .header-controls {
-                flex-direction: column;
-                align-items: flex-start;
+            .reactions-container {
+                border-radius: 30px;
+                gap: 10px;
             }
             
-            .buttons-group {
-                width: 100%;
-                justify-content: center;
+            .reaction-btn {
+                min-width: 70px;
+                padding: 8px 12px;
+                font-size: 1rem;
             }
         }
         
@@ -353,15 +582,10 @@
                 font-size: 1rem;
             }
             
-            .control-buttons {
-                bottom: 15px;
-                left: 15px;
-            }
-            
-            .control-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+            .reaction-btn {
+                min-width: 60px;
+                padding: 6px 8px;
+                font-size: 0.9rem;
             }
         }
         
@@ -380,13 +604,8 @@
 </head>
 <body>
     <div class="solar-background" id="solarBackground">
-        <!-- Stars -->
         <div id="stars"></div>
-        
-        <!-- Sun -->
         <div class="sun"></div>
-        
-        <!-- Orbits and Planets -->
         <div class="orbit orbit-1"><div class="planet planet-1"></div></div>
         <div class="orbit orbit-2"><div class="planet planet-2"></div></div>
         <div class="orbit orbit-3"><div class="planet planet-3"></div></div>
@@ -407,46 +626,161 @@
             </div>
         </div>
 
-        <div class="post-content">
-            <h1>بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی</h1>
-            
-            <img src="https://bloglovers.pk/images/alamaat-sughra/bad-kirdar-aur-fasadi-logon-ke-dar-se-unki-izzat-ki-jae-gi.jpg" alt="بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی" class="post-image">
-            
-            <p>قارئین کرام! انسان کا کردار، عادات اطوار، قول و فعل ہی کسی شخصیت کا آئینہ ہوتی ہے۔ حضرت عمر ﷺ کا فرمان ہے کہ اگر کسی انسان کے کردار کو پرکھنا ہو تو اس کے ساتھ کھانا کھا کر دیکھ لو، سفر کر کے دیکھو یا پھر کوئی لین دین کر کے دیکھ لو۔ ایک انسان فطری طور پر یا نفسیاتی طور پر اسی شخص کو اپنا دوست، رفیق بناتا ہے جس کے ساتھ اس کو سکون ملتا ہو، اس کی سوچ ملتی ہو، اس کی عادتیں اچھی لگتی ہوں، اس کے ساتھ ہم آہنگی ہو، غرض یہ کہ اس کی کمپنی اچھی لگتی ہو۔</p>
-            
-            <p>آپ ﷺ نے فرمایا "اچھے دوست کی مثال اس خوشبو بیچنے والے کی سی ہے کہ جس کے پاس جاؤ تو وہ خوشبو ہی دے گا اور بُرے دوست کی مثال ایک بھٹی پھونکنے والے کی سی ہے کہ جس کے پاس جاؤ تو بدبو ہی دے گا"۔ بالکل اس حدیث کو سامنے رکھ کر اپنی بات کو آگے بڑھاتا ہوں۔</p>
-            
-            <p>فطری طور پر انسان انتہائی خودغرض اور حریص ہے اگر اس کا دوست مال ودولت والا ہے اور وہ خود غریب ہے تو ایک عرصہ کے بعد دونوں کی دوستی اونچ نیچ کی دیوار میں چُنوا دی جاتی ہے کہ حیثیت نہیں ہے اور برابری کرنے چلے ہو وغیرہ۔</p>
-            
-            <p>ایسی ہی ہزاروں مثالیں آپ کو معاشرے میں بھیس بدلتی، چہروں پہ چہرے لگائے، زبان کے نشتر چلائے، آنکھوں میں غضب کا قہر لئے، گھمنڈ اور تکبر سے بھری زندہ لاشیں چلتی پھرتی نظر آئیں گی خواہ وہ حرام کماتے ہوں یا حلال، وہ بیورو کریٹ ہوں، یا کسی بھی کمیونٹی کا سربراہ، کوئی ہمسایہ ہو، نواب ہو یا جاگیردار، ریاست کے اعلیٰ عہدیدار ہوں یا پھر کسی محکمہ کے لوگ، پولیس کے نمائندے ہوں یا قانون کے رکھوالے وغیرہ ایسے لوگوں کا بس نہیں چلتا کہ یہ غریب، مفلس، ضرورت مند کو جان سے ہی ماردیں۔</p>
-            
-            <p>ارشاد ربانی ہے "لوگو زمین میں فتنہ اور فساد نہ کرو اس کے سنور جانے کے بعد" گویا حق بات پہنچ جانے کے بعد، یعنی انبیاء و رسل، صحابہ کے سمجھانے اور اصلاح کرنے کے بعد بھی زمین میں فتنہ اور فساد نہ پھیلاؤ۔</p>
-            
-            <p>نبی کریم ﷺ نے ارشاد فرمایا: ’’مومن محبت اور الفت کا حامل ہوتا ہے اور اُس شخص میں کوئی خوبی اور بھلائی نہیں جو نہ خود محبت کرے اور نہ لوگوں کو اس سے الفت ہو۔‘‘</p>
-            
-            <p>نبی کریم ﷺ کا فرمان ہے: ’’تم میں بدترین شخص وہ ہے جس سے دوسرے لوگوں کو نہ خیر کی امید ہو نہ اس کے شر سے لوگ محفوظ ہوں۔‘‘</p>
-            
-            <p>حضرت عائشہ ؓ سے نبی کریم ﷺ نے ارشاد فرمایا: ’’اے عائشہ! اللہ تعالیٰ کے نزدیک قدر و منزلت میں سب سے برا انسان وہ ہے جس کے شر اور فحش کی وجہ سے لوگ اسے چھوڑ دیں یا اس سے دوری بنالیں۔‘‘</p>
-            
-            <p>حضرت ابوہریرہ رضی اللہ عنہ نے بیان کیا ہے کہ رسول اللہ ﷺ نے فرمایا: "جب مال فے کی بندربانٹ ہونے لگے، امانت کو مال غنیمت سمجھا جائے، زکاۃ کو جرمانہ خیال کیا جائے، علم غیر دینی مقاصد کے لئے حاصل کیا جائے، آدمی اپنی بیوی کی اطاعت اور ماں کی نافرمانی کرے، دوست کو قریب کرے اور باپ کو دور کرے، مساجد میں آوازیں بلند ہونے لگیں، فاسق وفاجر شخص قبیلے کا سربراہ ہو، گھٹیا ترین انسان قوم کا سردار ہو، آدمی کی عزت اس کے شر کے خوف سے کی جائے، ناچنے گانے والیاں اور آلات موسیقی عام ہوجائیں، شرابیں پی جائیں اور امت کے آخری زمانے کے لوگ پہلے لوگوں پر لعنت کرنے لگیں تو اس وقت لوگ سرخ ہواؤں، زلزلوں، زمین میں دھنسنے، شکلیں مسخ ہونے، پتھروں کی بارش اور ایسی نشانیوں کا انتظار کریں گی جو اس طرح پے در پے آئیں گی جیسے کسی پرانے ہار کے ٹوٹنے پر اس کے منکے لگا تار گرتے ہیں۔"</p>
-            
-            <p>ہمیشہ کی طرح یہ آرٹیکل بھی قرب قیامت کی ایک نشانی "بد کردار اور فسادی لوگوں کے ڈر سے اس کی عزت کی جائے گی" پر لکھ رہا ہوں جس میں آج میں بات کرنے جا رہا ہوں کہ بدکردار لوگ کیسے زمین میں فساد پھیلاتے ہیں اور کس طرح تنگ کرتے ہیں۔ قرب قیامت کی یہ نشانی بھی دور حاضر میں اپنے پورے جوبن کے ساتھ ہماری آنکھوں کے سامنے گزر رہی ہے اور وقت کے ساتھ ساتھ اس میں مزید شدت آتی جا رہی ہے۔ نہ جانے مزید کون سی شکل اختیار کرے گی۔ (اللہ رب العزت ایسے فتنوں سے ہر مسلمان مرد و عورت کو بچائے۔۔۔۔۔ آمین)</p>
-            
-            <p>یہ فتنوں کا دور ہے اور مسلسل بڑھتے چلے جا رہے ہیں اگر کسی شخص کی بیوی ہے تو وہ بھی ایک فتنہ ہے، شادی نہیں ہوئی تو شہوتوں کا فتنہ، شادی ہوگئی ہے بیوی نماز نہیں پڑھتی، بیوی بداخلاق ہے پھر بھی فتنہ، اپنا آپ فتنہ، جوانی ہے پر دین پر نہیں تب بھی فتنہ، انسان کے پاس مال ہے تب بھی فتنہ، مال نہیں ہے تب فقیری کا فتنہ، مال ہے مگر حرام کا ہے اس بھی بڑا فتنہ اور شرمندگی، اولاد کا فتنہ، اولاد نہیں ہے تو محرومی کا فتنہ، اولاد ہے پر دین پر نہیں ہے تب بھی فتنہ، پڑوسی نہیں ہے تو خوف کا فتنہ، پڑوسی ہے مگر دیندار نہیں ہے اس سے بھی بڑا فتنہ ہر وقت بے چینی سی کیفیت میں مبتلا ہے۔</p>
-            
-            <p>ان سب سے کیسے بچا جا سکتا ہے صرف نماز کی پابندی سے، روزے رکھنے سے، صدقات دینے سے، نیکی کے کام کرنے اور برائی سے روکنے سے فتنے ختم کیے جا سکتے ہیں اور بدترین لوگوں کے کرداروں کو تبدیل کیا جا سکتا ہے۔</p>
-            
-            <p>قرب قیامت ایسا اس لئے ہو گا کیونکہ:</p>
-            
-            <ul>
-                <li>قیادت برے، جاہل، اور نااہل لوگوں کے ہاتھ میں آ جائے گی۔ علم و تربیت وقت کے ساتھ ساتھ ختم ہو چکی ہوگی جن سے معاشرے میں انہی لوگوں کا غلبہ ہوگا۔</li>
-                <li>مجبور، بے بس، کمزور لوگوں کے لئے لازم ہو جائے گا کہ وہ ایسے بدکردار، جھوٹے، بد اخلاق لوگوں کی عزت کریں، ان کے لئے احتراماً کھڑے ہو جائیں۔</li>
-                <li>یہ سب کچھ ان کے ظلم و زیادتی، ایذارسانی اور شر سے بچنے کی وجہ سے کیا جائے گا۔</li>
-                <li>آج اگر ہم اپنے معاشرے میں دیکھیں تو اسی طرح کے لوگ ہمارے سامنے آتے ہیں، ماڈل ٹاؤن کا واقعہ، واقعہ ساہیوال، واقعہ کوئٹہ، سانحہ پشاور، اور دیگر ایسے ان گنت واقعات جو ماضی کی نظر ہو چکے ہیں۔ حقدار لوگ حق کے لئے اپنی جان گنوا بیٹھتے ہیں، مگر نہ تو انصاف ملتا ہے اور نہ ہی سنوائی ہوتی ہے۔</li>
-            </ul>
+        <!-- Main content -->
+        <div class="main-content">
+            <div class="post-content">
+                <h1>بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی</h1>
+                
+                <img src="https://bloglovers.pk/images/alamaat-sughra/bad-kirdar-aur-fasadi-logon-ke-dar-se-unki-izzat-ki-jae-gi.jpg" alt="بد کردار اور فسادی لوگوں کے ڈر سے ان کی عزت کی جائے گی" class="post-image">
+                
+                <p>قارئین کرام! انسان کا کردار، عادات اطوار، قول و فعل ہی کسی شخصیت کا آئینہ ہوتی ہے۔ حضرت عمر ﷺ کا فرمان ہے کہ اگر کسی انسان کے کردار کو پرکھنا ہو تو اس کے ساتھ کھانا کھا کر دیکھ لو، سفر کر کے دیکھو یا پھر کوئی لین دین کر کے دیکھ لو۔ ایک انسان فطری طور پر یا نفسیاتی طور پر اسی شخص کو اپنا دوست، رفیق بناتا ہے جس کے ساتھ اس کو سکون ملتا ہو، اس کی سوچ ملتی ہو، اس کی عادتیں اچھی لگتی ہوں، اس کے ساتھ ہم آہنگی ہو، غرض یہ کہ اس کی کمپنی اچھی لگتی ہو۔</p>
+                
+                <p>آپ ﷺ نے فرمایا "اچھے دوست کی مثال اس خوشبو بیچنے والے کی سی ہے کہ جس کے پاس جاؤ تو وہ خوشبو ہی دے گا اور بُرے دوست کی مثال ایک بھٹی پھونکنے والے کی سی ہے کہ جس کے پاس جاؤ تو بدبو ہی دے گا"۔ بالکل اس حدیث کو سامنے رکھ کر اپنی بات کو آگے بڑھاتا ہوں۔</p>
+                
+                <p>فطری طور پر انسان انتہائی خودغرض اور حریص ہے اگر اس کا دوست مال ودولت والا ہے اور وہ خود غریب ہے تو ایک عرصہ کے بعد دونوں کی دوستی اونچ نیچ کی دیوار میں چُنوا دی جاتی ہے کہ حیثیت نہیں ہے اور برابری کرنے چلے ہو وغیرہ۔</p>
+                
+                <p>ایسی ہی ہزاروں مثالیں آپ کو معاشرے میں بھیس بدلتی، چہروں پہ چہرے لگائے، زبان کے نشتر چلائے، آنکھوں میں غضب کا قہر لئے، گھمنڈ اور تکبر سے بھری زندہ لاشیں چلتی پھرتی نظر آئیں گی خواہ وہ حرام کماتے ہوں یا حلال، وہ بیورو کریٹ ہوں، یا کسی بھی کمیونٹی کا سربراہ، کوئی ہمسایہ ہو، نواب ہو یا جاگیردار، ریاست کے اعلیٰ عہدیدار ہوں یا پھر کسی محکمہ کے لوگ، پولیس کے نمائندے ہوں یا قانون کے رکھوالے وغیرہ ایسے لوگوں کا بس نہیں چلتا کہ یہ غریب، مفلس، ضرورت مند کو جان سے ہی ماردیں۔</p>
+                
+                <p>ارشاد ربانی ہے "لوگو زمین میں فتنہ اور فساد نہ کرو اس کے سنور جانے کے بعد" گویا حق بات پہنچ جانے کے بعد، یعنی انبیاء و رسل، صحابہ کے سمجھانے اور اصلاح کرنے کے بعد بھی زمین میں فتنہ اور فساد نہ پھیلاؤ۔</p>
+                
+                <p>نبی کریم ﷺ نے ارشاد فرمایا: ’’مومن محبت اور الفت کا حامل ہوتا ہے اور اُس شخص میں کوئی خوبی اور بھلائی نہیں جو نہ خود محبت کرے اور نہ لوگوں کو اس سے الفت ہو۔‘‘</p>
+                
+                <p>نبی کریم ﷺ کا فرمان ہے: ’’تم میں بدترین شخص وہ ہے جس سے دوسرے لوگوں کو نہ خیر کی امید ہو نہ اس کے شر سے لوگ محفوظ ہوں۔‘‘</p>
+                
+                <p>حضرت عائشہ ؓ سے نبی کریم ﷺ نے ارشاد فرمایا: ’’اے عائشہ! اللہ تعالیٰ کے نزدیک قدر و منزلت میں سب سے برا انسان وہ ہے جس کے شر اور فحش کی وجہ سے لوگ اسے چھوڑ دیں یا اس سے دوری بنالیں۔‘‘</p>
+                
+                <p>حضرت ابوہریرہ رضی اللہ عنہ نے بیان کیا ہے کہ رسول اللہ ﷺ نے فرمایا: "جب مال فے کی بندربانٹ ہونے لگے، امانت کو مال غنیمت سمجھا جائے، زکاۃ کو جرمانہ خیال کیا جائے، علم غیر دینی مقاصد کے لئے حاصل کیا جائے، آدمی اپنی بیوی کی اطاعت اور ماں کی نافرمانی کرے، دوست کو قریب کرے اور باپ کو دور کرے، مساجد میں آوازیں بلند ہونے لگیں، فاسق وفاجر شخص قبیلے کا سربراہ ہو، گھٹیا ترین انسان قوم کا سردار ہو، آدمی کی عزت اس کے شر کے خوف سے کی جائے، ناچنے گانے والیاں اور آلات موسیقی عام ہوجائیں، شرابیں پی جائیں اور امت کے آخری زمانے کے لوگ پہلے لوگوں پر لعنت کرنے لگیں تو اس وقت لوگ سرخ ہواؤں، زلزلوں، زمین میں دھنسنے، شکلیں مسخ ہونے، پتھروں کی بارش اور ایسی نشانیوں کا انتظار کریں گی جو اس طرح پے در پے آئیں گی جیسے کسی پرانے ہار کے ٹوٹنے پر اس کے منکے لگا تار گرتے ہیں۔"</p>
+                
+                <p>ہمیشہ کی طرح یہ آرٹیکل بھی قرب قیامت کی ایک نشانی "بد کردار اور فسادی لوگوں کے ڈر سے اس کی عزت کی جائے گی" پر لکھ رہا ہوں جس میں آج میں بات کرنے جا رہا ہوں کہ بدکردار لوگ کیسے زمین میں فساد پھیلاتے ہیں اور کس طرح تنگ کرتے ہیں۔ قرب قیامت کی یہ نشانی بھی دور حاضر میں اپنے پورے جوبن کے ساتھ ہماری آنکھوں کے سامنے گزر رہی ہے اور وقت کے ساتھ ساتھ اس میں مزید شدت آتی جا رہی ہے۔ نہ جانے مزید کون سی شکل اختیار کرے گی۔ (اللہ رب العزت ایسے فتنوں سے ہر مسلمان مرد و عورت کو بچائے۔۔۔۔۔ آمین)</p>
+                
+                <p>یہ فتنوں کا دور ہے اور مسلسل بڑھتے چلے جا رہے ہیں اگر کسی شخص کی بیوی ہے تو وہ بھی ایک فتنہ ہے، شادی نہیں ہوئی تو شہوتوں کا فتنہ، شادی ہوگئی ہے بیوی نماز نہیں پڑھتی، بیوی بداخلاق ہے پھر بھی فتنہ، اپنا آپ فتنہ، جوانی ہے پر دین پر نہیں تب بھی فتنہ، انسان کے پاس مال ہے تب بھی فتنہ، مال نہیں ہے تب فقیری کا فتنہ، مال ہے مگر حرام کا ہے اس بھی بڑا فتنہ اور شرمندگی، اولاد کا فتنہ، اولاد نہیں ہے تو محرومی کا فتنہ، اولاد ہے پر دین پر نہیں ہے تب بھی فتنہ، پڑوسی نہیں ہے تو خوف کا فتنہ، پڑوسی ہے مگر دیندار نہیں ہے اس سے بھی بڑا فتنہ ہر وقت بے چینی سی کیفیت میں مبتلا ہے۔</p>
+                
+                <p>ان سب سے کیسے بچا جا سکتا ہے صرف نماز کی پابندی سے، روزے رکھنے سے، صدقات دینے سے، نیکی کے کام کرنے اور برائی سے روکنے سے فتنے ختم کیے جا سکتے ہیں اور بدترین لوگوں کے کرداروں کو تبدیل کیا جا سکتا ہے۔</p>
+                
+                <p>قرب قیامت ایسا اس لئے ہو گا کیونکہ:</p>
+                
+                <ul>
+                    <li>قیادت برے، جاہل، اور نااہل لوگوں کے ہاتھ میں آ جائے گی۔ علم و تربیت وقت کے ساتھ ساتھ ختم ہو چکی ہوگی جن سے معاشرے میں انہی لوگوں کا غلبہ ہوگا۔</li>
+                    <li>مجبور، بے بس، کمزور لوگوں کے لئے لازم ہو جائے گا کہ وہ ایسے بدکردار، جھوٹے، بد اخلاق لوگوں کی عزت کریں، ان کے لئے احتراماً کھڑے ہو جائیں۔</li>
+                    <li>یہ سب کچھ ان کے ظلم و زیادتی، ایذارسانی اور شر سے بچنے کی وجہ سے کیا جائے گا۔</li>
+                    <li>آج اگر ہم اپنے معاشرے میں دیکھیں تو اسی طرح کے لوگ ہمارے سامنے آتے ہیں، ماڈل ٹاؤن کا واقعہ، واقعہ ساہیوال، واقعہ کوئٹہ، سانحہ پشاور، اور دیگر ایسے ان گنت واقعات جو ماضی کی نظر ہو چکے ہیں۔ حقدار لوگ حق کے لئے اپنی جان گنوا بیٹھتے ہیں، مگر نہ تو انصاف ملتا ہے اور نہ ہی سنوائی ہوتی ہے۔</li>
+                </ul>
+
+                <!-- Reactions Section -->
+                <div class="reactions-container" id="reactionsContainer">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">
+                        👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">
+                        ❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">
+                        😊 مفید <span class="reaction-count" id="count-مفید">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">
+                        😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">
+                        🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">
+                        👏 شاندار <span class="reaction-count" id="count-شاندار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">
+                        🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span>
+                    </button>
+                </div>
+
+                <!-- Social Share Icons -->
+                <div class="share-section">
+                    <div class="share-title">اس تحریر کو شیئر کریں</div>
+                    <div class="share-icons">
+                        <div class="share-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                        <div class="share-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                        <div class="share-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-x-twitter"></i></div>
+                        <div class="share-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="share-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></div>
+                        <div class="share-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                        <div class="share-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar with internal links -->
+        <div class="sidebar">
+            <h3>🔗 مزید پوسٹس</h3>
+            <div class="sidebar-scroll-container">
+                <div class="sidebar-scroll-content">
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                        <span>قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="فتنوں کا ظہور">
+                        <span>ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                        <span>تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم کا اٹھ جانا">
+                        <span>آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں">
+                        <span>آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                        <span>وہ کون سے چار حرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دور جدید کے فتنے">
+                        <span>دور جدید کے فتنوں کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="عظیم ترین فتنہ">
+                        <span>للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                        <span>قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="بدترین گناہ">
+                        <span>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                        <span>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                        <span>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                        <span>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2025 bloglovers.pk - تمام حقوق محفوظ ہیں</p>
         </div>
     </div>
 
+    <!-- Floating scroll buttons -->
     <div class="control-buttons">
         <button class="control-btn" onclick="scrollToTop()">
             <i class="fas fa-arrow-up"></i>
@@ -461,37 +795,21 @@
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 150;
-            
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
-                // Random position
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                
-                // Random size (1-3px)
-                const size = Math.random() * 2 + 1;
-                
-                // Random twinkle delay
-                const delay = Math.random() * 3;
-                
-                star.style.left = left + '%';
-                star.style.top = top + '%';
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.animationDelay = delay + 's';
-                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = (Math.random() * 2 + 1) + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
                 starsContainer.appendChild(star);
             }
         }
         
-        // Toggle solar background
         function toggleSolarBackground() {
             const solarBg = document.getElementById('solarBackground');
             solarBg.classList.toggle('active');
-            
-            // Toggle body background
             if (solarBg.classList.contains('active')) {
                 document.body.style.background = 'transparent';
                 document.body.style.color = '#fff';
@@ -501,50 +819,64 @@
             }
         }
         
-        // Scroll to top
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // Scroll to bottom
         function scrollToBottom() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        window.addEventListener('load', createStars);
+        
+        // Simple share functions (copy/paste from original)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+                default: return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
             });
         }
         
-        // Initialize stars on load
-        window.addEventListener('load', function() {
-            createStars();
-        });
-        
-        // Mobile touch support for solar background
-        let touchStartY = 0;
-        let touchEndY = 0;
-        
-        document.addEventListener('touchstart', function(e) {
-            touchStartY = e.changedTouches[0].screenY;
-        }, false);
-        
-        document.addEventListener('touchend', function(e) {
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-        }, false);
-        
-        function handleSwipe() {
-            // If swipe up from bottom
-            if (touchStartY - touchEndY > 100) {
-                // Show solar background on swipe up
-                const solarBg = document.getElementById('solarBackground');
-                if (!solarBg.classList.contains('active')) {
-                    toggleSolarBackground();
+        // Highlight current post in sidebar (optional: based on URL slug)
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentSlug = window.location.pathname.split('/').pop() || '';
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                const href = item.getAttribute('href');
+                if (href && href.includes(currentSlug) && currentSlug.length > 5) {
+                    item.classList.add('active');
                 }
-            }
-        }
+            });
+        });
     </script>
+    <!-- reactions.js is included automatically (do not remove) -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
