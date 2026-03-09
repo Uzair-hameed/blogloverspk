@@ -5,352 +5,326 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025-09-03-کیا-واقعی-وقت-میں-برکت-ختم-ہو-رہی-ہے؟-ایک-ایسا-سوال-جس-نے-سب-کو-پریشان-کر-رکھا-ہے</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome for Icons (reactions, social, scroll) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body { 
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
-            line-height: 2.2; 
-            direction: rtl; 
-            text-align: right; 
-            margin: 0; 
-            padding: 0;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
+        .color-fill-container.active { opacity: 1; z-index: 9998; }
+        .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
+        @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
+        .close-btn:hover { transform: rotate(90deg); }
+        body { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; text-align: right; margin: 0; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; position: relative; }
+        .trigger-btn { display: inline-block; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; font-family: inherit; }
+        .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
+        .post-content { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h1 { text-align: center; border-bottom: 3px solid #4a90e2; }
+        img { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 20px auto; }
+        a { color: #e74c3c; text-decoration: none; }
+
+        /* Reactions styling */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
             padding: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #ff6b6b;
-            position: relative;
-        }
-        
-        .back-btn {
-            position: absolute;
-            right: 0;
-            top: 0;
-            background: linear-gradient(45deg, #ff6b6b, #ff9a9e);
-            color: white;
-            padding: 10px 20px;
+            background: #f8f9fa;
             border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-            transition: all 0.3s ease;
-            border: none;
+        }
+        .reaction-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 1.2rem;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 16px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        
-        .back-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
-            background: linear-gradient(45deg, #ff9a9e, #ff6b6b);
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            border-color: #4a90e2;
+            background: #f0f7ff;
         }
-        
-        .back-btn i {
-            margin-left: 8px;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            padding: 20px 0 15px;
-            margin-top: 10px;
-            font-size: 2.5rem;
-            text-align: center;
-            position: relative;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        h1:hover {
-            color: #e74c3c;
-            text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        h2, h3 {
-            color: #2c3e50;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 30px;
-            font-size: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        h2:hover, h3:hover {
-            color: #3498db;
-            border-bottom-color: #3498db;
-            padding-right: 10px;
-        }
-        
-        .post-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            display: block;
-            margin: 20px auto 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: 5px solid white;
-            transition: all 0.5s ease;
-        }
-        
-        .post-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-        
-        .post-content {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
+        .reaction-count {
+            font-size: 1rem;
+            background: #e9ecef;
+            padding: 2px 8px;
             border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            text-align: justify;
-            font-size: 1.4rem;
-            line-height: 2.4;
+            min-width: 30px;
+            text-align: center;
         }
-        
-        p, li {
-            margin-bottom: 20px;
-            text-align: justify;
-            font-size: 1.4rem;
+
+        /* Sidebar styling */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            float: left;
+            width: 280px;
+            margin-left: 20px;
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 500px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
         }
-        
-        ul, ol {
-            padding-right: 25px;
-            margin-bottom: 25px;
+        .sidebar h3 {
+            text-align: center;
+            color: #4a90e2;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 10px;
+            margin-top: 0;
         }
-        
-        li {
-            margin-bottom: 12px;
+        .sidebar-content {
+            height: calc(100% - 50px);
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
         }
-        
-        strong {
+        .sidebar-content.reverse-scroll {
+            animation: scrollUp 30s linear infinite;
+        }
+        .sidebar-content:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+        .sidebar-item:hover {
+            background: #f5f5f5;
+        }
+        .sidebar-item.active {
+            background: #e3f2fd;
+            border-right: 4px solid #4a90e2;
+        }
+        .sidebar-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 0;
+        }
+        .sidebar-item a {
             color: #2c3e50;
-            font-weight: bold;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-decoration: none;
+            flex: 1;
         }
-        
-        .fire-hover {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .fire-hover:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            bottom: -5px;
-            right: 0;
-            background: linear-gradient(90deg, #ff6b6b, #ff9a9e, #ff6b6b);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
-        }
-        
-        .fire-hover:hover:after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-        
+
+        /* Floating scroll button */
         .scroll-buttons {
             position: fixed;
             left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             z-index: 1000;
         }
-        
         .scroll-btn {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            background: #4a90e2;
             color: white;
             border: none;
-            font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(74,144,226,0.4);
+            font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.2s;
         }
-        
         .scroll-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.7);
-            background: linear-gradient(45deg, #2ecc71, #4a90e2);
+            transform: scale(1.1);
         }
-        
-        .quote-box {
-            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
-            border-right: 5px solid #e74c3c;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 25px 0;
-            font-style: italic;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            font-size: 1.3rem;
+
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
         }
-        
+        .nav-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6);
+        }
+
+        /* Social icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .social-icon:hover {
+            transform: scale(1.15);
+        }
         .footer {
             text-align: center;
             padding: 20px;
-            margin-top: 40px;
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            border-top: 1px solid #eee;
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            margin-top: 30px;
         }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-                padding-top: 15px;
-            }
-            
-            h2 {
-                font-size: 1.7rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            .post-content {
-                padding: 25px;
-                font-size: 1.3rem;
-                line-height: 2.2;
-            }
-            
-            p, li {
-                font-size: 1.3rem;
-                line-height: 2.2;
-            }
-            
-            .scroll-buttons {
-                left: 10px;
-                bottom: 20px;
-                top: auto;
-                transform: none;
-                flex-direction: row;
-            }
-            
-            .scroll-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
-            
-            .back-btn {
-                position: relative;
-                margin-bottom: 20px;
-                display: inline-block;
-                right: auto;
-                top: auto;
-            }
-            
-            .header {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
+
+        /* Clear floats */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
         }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .post-content {
-                padding: 20px;
-                font-size: 1.2rem;
-            }
-            
-            p, li {
-                font-size: 1.2rem;
-            }
-        }
-        
-        /* Animation for headings */
-        @keyframes fireGlow {
-            0% { text-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
-            50% { text-shadow: 0 0 15px rgba(255, 107, 107, 0.8), 0 0 20px rgba(255, 154, 158, 0.6); }
-            100% { text-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
-        }
-        
-        h1:hover, h2:hover, h3:hover {
-            animation: fireGlow 1.5s infinite;
+        @media (max-width: 1200px) {
+            .sidebar { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="scroll-buttons">
-        <button class="scroll-btn" id="pageUpBtn"><i class="fas fa-chevron-up"></i></button>
-        <button class="scroll-btn" id="pageDownBtn"><i class="fas fa-chevron-down"></i></button>
+    <div style="text-align: center; margin: 40px 0;">
+        <button class="trigger-btn" onclick="openColorFillPost()">
+            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+        </button>
     </div>
-    
-    <div class="container">
-        <div class="header">
-            <button class="back-btn" onclick="window.history.back()"><i class="fas fa-arrow-right"></i> واپس جائیں</button>
-            <h1 class="fire-hover">کیا واقعی وقت میں برکت ختم ہو رہی ہے؟ ایک ایسا سوال جس نے سب کو پریشان کر رکھا ہے</h1>
+
+    <!-- Sidebar - internal linking with auto scroll -->
+    <aside class="sidebar">
+        <h3>🔗 مزید پوسٹس</h3>
+        <div class="sidebar-content reverse-scroll" id="sidebarContent">
+            <div class="sidebar-item active">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt">قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنے">
+                <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat">ان گنت فتنوں کا ظہور اور ان کے نقصانات</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai">تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم اٹھ جانا">
+                <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya">آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں حلال">
+                <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai">آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi">وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دورجدید کے فتنے">
+                <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya">دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="اللہ کی یاد سے غافل">
+                <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai">للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi">قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="بدترین گناہ">
+                <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai">انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge">لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya">آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</a>
+            </div>
+            <div class="sidebar-item">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</a>
+            </div>
         </div>
-        
-        <img src="https://bloglovers.pk/images/alamaat-sughra/kya-waqai-waqt-mein-barkat-khatam-ho-rahi-hai-ek-esa-sawal-jis-ne-sab-ko-pareshan-kar-rakha-hai.png" alt="وقت میں برکت" class="post-image">
-        
+    </aside>
+
+    <!-- Main post content -->
+    <div class="main-content">
         <div class="post-content">
+            <h1>کیا واقعی وقت میں برکت ختم ہو رہی ہے؟ ایک ایسا سوال جس نے سب کو پریشان کر رکھا ہے</h1>
+            
+            <!-- New image added after title as requested -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/kya-waqai-waqt-mein-barkat-khatam-ho-rahi-hai-ek-esa-sawal-jis-ne-sab-ko-pareshan-kar-rakha-hai.png" alt="کیا واقعی وقت میں برکت ختم ہو رہی ہے؟" style="max-width:100%; border-radius:10px; margin:20px auto;">
+
             <p>وقت ایک عظیم نعمت اور اللہ تعالیٰ کی دی ہوئی بنیادی سرمائے میں سے ہے۔ یہ زندگی کا وہ حصہ ہے جو ایک بار گزر جائے تو کبھی واپس نہیں آتا۔ اس کی قدر و قیمت کا اندازہ اس بات سے لگایا جا سکتا ہے کہ قرآن کریم نے مختلف مقامات پر وقت کی اہمیت پر زور دیا ہے اور نبی اکرم ﷺ نے اپنی احادیث میں اسے غنیمت جاننے کا حکم دیا ہے۔</p>
             <p>دورِ جدید میں یہ عمومی شکایت عام ہے کہ وقت میں "برکت" ختم ہوتی جا رہی ہے۔ کام پورے نہیں ہوتے، دن، مہینے اور سال تیزی سے گزر جاتے ہیں، لیکن حاصلِ عمل بہت کم ہوتا ہے۔ لوگ اکثر کہتے سنائی دیتے ہیں کہ دن کا آغاز ہوتا ہے اور پلک جھپکتے شام ہو جاتی ہے، مگر اہم کام تشنہ تکمیل رہتے ہیں۔</p>
             <p>کیا واقعی وقت کی برکت ختم ہو رہی ہے؟ یا یہ ہمارے اپنے اعمال، نفسیات اور معاشرتی تبدیلیوں کا نتیجہ ہے؟ یہ ایک ایسا سوال ہے جو غور و فکر کا متقاضی ہے۔ اس مضمون میں ہم قرآن و حدیث کی روشنی میں اس تصور کا جائزہ لیں گے اور ائمہ اربعہ اور دیگر علماء کرام کی آراء کی روشنی میں اس کے اسباب اور تدارک پر بات کریں گے۔</p>
             
-            <h2 class="fire-hover">برکت کے تصور کا فہم</h2>
+            <h2>برکت کے تصور کا فہم</h2>
             <p>لغوی اعتبار سے "برکت" کا معنی ہے "افزونی، ثبوت، بڑھنا، پائیداری، مستقل نیکی اور خیر کثیر"۔ شرعی اصطلاح میں برکت سے مراد اللہ تعالیٰ کی طرف سے کسی چیز میں غیر معمولی خیر، اضافہ اور پائیداری کا امتزاج ہے۔ یہ صرف مادی اضافہ نہیں ہوتا بلکہ کیفیت اور اثرات میں بھی غیر معمولی مثبت تبدیلی لاتی ہے۔</p>
             
-            <h3 class="fire-hover">قرآن مجید میں برکت کا ذکر:</h3>
+            <h3>قرآن مجید میں برکت کا ذکر:</h3>
             <p>قرآن مجید میں برکت کا ذکر ایک حقیقت کے طور پر کیا گیا ہے جو اللہ کے فضل سے نازل ہوتی ہے۔</p>
             <ul>
                 <li>ارشاد باری تعالیٰ ہے: <strong>"اگر اہلِ قریہ ایمان لاتے اور تقویٰ اختیار کرتے تو ہم ان پر آسمان اور زمین کی برکتیں کھول دیتے لیکن انہوں نے تکذیب کی تو ہم نے ان کو ان کے کرتوتوں کی پاداش میں پکڑ لیا۔"</strong> (سورۃ الاعراف: 96) یہ آیت واضح کرتی ہے کہ برکت کا تعلق ایمان اور تقویٰ سے ہے۔</li>
                 <li>اسی طرح، رزق میں برکت کے حوالے سے فرمایا: <strong>"اللہ رزق کو جس کے لیے چاہتا ہے کشادہ کر دیتا ہے اور تنگ بھی کرتا ہے اور وہ ہر چیز کو جاننے والا ہے۔"</strong> (سورۃ الرعد: 26) یعنی کشادگی اور تنگی دونوں اللہ کے حکم سے ہوتی ہیں۔</li>
             </ul>
             
-            <h3 class="fire-hover">احادیث مبارکہ میں وقت کی برکت:</h3>
+            <h3>احادیث مبارکہ میں وقت کی برکت:</h3>
             <p>نبی کریم ﷺ نے وقت میں برکت کے حصول کے لیے دعا فرمائی: <strong>"اَللَّهُمَّ بَارِكْ لِي فِي وَقْتِي"</strong> (اے اللہ! میرے وقت میں برکت عطا فرما)۔ یہ دعا اس بات کی دلیل ہے کہ وقت میں برکت ایک ایسی چیز ہے جو اللہ تعالیٰ سے طلب کی جانی چاہیے۔</p>
             <p>ابتدائی امت میں تھوڑے عمل پر زیادہ ثواب ملنا برکت کی نشانی تھی، جسے "خیرالقرون" (بہترین زمانے) سے تعبیر کیا گیا۔</p>
             <p>زمانہ کے قریب ہونے کی پیشگوئی بھی احادیث میں موجود ہے، جسے بعض لوگ وقت کی تیزی سے تعبیر کرتے ہیں۔ آپ ﷺ نے فرمایا: <strong>"قریب ہے کہ زمانہ (ایسے) گزرے گا جیسے ایک دن گزرتا ہے۔"</strong> (صحیح بخاری و مسلم)۔</p>
             <p>یہ حدیث وقت کی تیزی کی ایک علامت بیان کرتی ہے جو قیامت کی نشانیوں میں سے ہے نہ کہ برکت کے خاتمے کی۔ برکت کے خاتمے اور وقت کے تیز گزرنے میں فرق ہے؛ برکت کے خاتمے سے مراد اعمال کا بے ثمر ہونا ہے جبکہ وقت کی تیزی فطری یا علامتی ہو سکتی ہے۔</p>
             
-            <h2 class="fire-hover">وقت میں برکت ختم ہونے کے اسباب</h2>
+            <h2>وقت میں برکت ختم ہونے کے اسباب</h2>
             <p>علماء اسلام نے وقت میں برکت کی کمی کے کئی اسباب بیان کیے ہیں جن کا تعلق فرد کے اعمال اور معاشرتی رویوں سے ہے۔</p>
             <ol>
                 <li><p><strong>گناہوں اور معاصی کا کثرت سے ارتکاب:</strong> گناہ اور نافرمانی برکت کے سلب ہونے کا سب سے بڑا سبب ہیں۔ امام احمد بن حنبل رحمہ اللہ گناہوں کو رزق اور برکت میں کمی کا بنیادی سبب قرار دیتے ہیں۔ ان کے نزدیک جب انسان اللہ کی حدود سے تجاوز کرتا ہے تو اللہ اس کی زندگی سے خیر و برکت اٹھا لیتا ہے۔ امام مالک رحمہ اللہ فرماتے ہیں کہ معاشرے میں ظلم و ناانصافی کے پھیلاؤ سے عام برکات اٹھا لی جاتی ہیں۔ جب معاشرہ حقوق اللہ اور حقوق العباد کی پامالی کا شکار ہو جائے تو انفرادی اور اجتماعی زندگی سے سکون اور اطمینان چھن جاتا ہے۔ ارشاد باری تعالیٰ ہے: <strong>"اور تمہیں جو کوئی مصیبت پہنچتی ہے تو وہ تمہارے اپنے ہاتھوں کے کیے ہوئے کاموں کے سبب سے ہے، اور وہ بہت سی باتوں کو تو معاف بھی فرمادیتا ہے۔"</strong> (سورۃ الشوریٰ: 30)</p></li>
@@ -359,11 +333,7 @@
                 <li><p><strong>فتنوں اور اختلافات کا پھیلاؤ:</strong> علماء کرام اس بات پر متفق ہیں کہ جب امت میں فتنے، خانہ جنگیاں، باہمی اختلافات اور انتشار بڑھ جاتے ہیں تو اجتماعی برکت بھی چلی جاتی ہے۔ امام ابن قیم رحمہ اللہ نے اپنی کتاب میں اس بات پر زور دیا ہے کہ وحدت و اتفاق میں اللہ کی رحمت اور برکت ہوتی ہے، جبکہ تفرقہ اور اختلاف اللہ کی ناراضگی اور بے برکتی کا باعث بنتا ہے۔ اختلافات وقت اور توانائی کو منفی مقاصد میں ضائع کرتے ہیں، جس سے حقیقی ترقی اور فلاح معدوم ہو جاتی ہے۔</p></li>
             </ol>
             
-            <div class="quote-box">
-                <p>حقیقی کامیابی آخرت کی کامیابی ہے، اور وقت میں برکت درحقیقت وہ وقت ہے جو اللہ کی رضا کے حصول میں گزارا جائے۔ جس وقت میں اللہ کی رضا شامل ہو، وہی وقت با معنی اور با برکت ہے۔</p>
-            </div>
-            
-            <h2 class="fire-hover">دورِ جدید کے چیلنجز اور وقت کی "برکت" کے حوالے سے غلط فہمیاں</h2>
+            <h2>دورِ جدید کے چیلنجز اور وقت کی "برکت" کے حوالے سے غلط فہمیاں</h2>
             <p>دورِ حاضر میں وقت کی برکت کے حوالے سے کچھ غلط فہمیاں بھی پیدا ہو گئی ہیں، جنہیں سمجھنا ضروری ہے۔</p>
             <ul>
                 <li><strong>مادی نظریۂ زندگی:</strong> جدید دور کا سب سے بڑا چیلنج مادی نظریۂ زندگی ہے۔ زندگی کے مقصد کو صرف مادی کامیابی، دولت کے حصول، اور دنیاوی آسائشوں تک محدود سمجھ لینا انسان کو روحانیت اور اس کے حقیقی مقصد سے دور کر دیتا ہے۔ جب وقت صرف دنیاوی مقاصد کے حصول کے لیے استعمال ہو تو اس میں روحانی برکت ختم ہو جاتی ہے۔</li>
@@ -372,7 +342,7 @@
                 <li><strong>نفسیاتی پہلو:</strong> جدید نفسیات کے مطابق، عمر بڑھنے کے ساتھ، نئے تجربات کم ہوتے جاتے ہیں، جس سے وقت تیزی سے گزرتا <em>محسوس</em> ہوتا ہے۔ جب انسان کی زندگی ایک روٹین میں ڈھل جاتی ہے اور نئی چیزیں سیکھنے یا تجربہ کرنے کا عمل کم ہو جاتا ہے، تو دماغ وقت کی پیمائش مختلف انداز میں کرتا ہے۔ یہ ایک فطری عمل ہے جسے برکت کے ختم ہونے سے تعبیر کرنا درست نہیں۔ اگرچہ یہ ایک نفسیاتی حقیقت ہے، تاہم اس کا روحانی برکت سے براہ راست تعلق نہیں ہے۔</li>
             </ul>
             
-            <h2 class="fire-hover">وقت میں برکت کو واپس لانے کے شرعی اور عملی طریقے</h2>
+            <h2>وقت میں برکت کو واپس لانے کے شرعی اور عملی طریقے</h2>
             <p>وقت میں برکت کو واپس لانے کے لیے شرعی تعلیمات اور عملی اقدامات پر غور کرنا ضروری ہے۔</p>
             <ol>
                 <li><strong>تقویٰ اور اخلاص نیت اختیار کرنا:</strong> ہر کام اللہ کی رضا کے لیے شروع کیا جائے۔ امام شافعی رحمہ اللہ فرماتے ہیں کہ ہر عمل کی قبولیت کا دارومدار نیت کی پاکیزگی پر ہے۔ جب نیت خالص ہو اور اللہ کا خوف دل میں ہو تو وقت میں خودبخود برکت پیدا ہو جاتی ہے۔</li>
@@ -384,60 +354,118 @@
                 <li><strong>تلاوتِ قرآن اور ذکرِ الٰہی:</strong> تلاوتِ قرآن اور ذکرِ الٰہی گھروں اور زندگیوں میں برکت کا ذریعہ ہیں۔ نبی اکرم ﷺ نے فرمایا کہ جس گھر میں قرآن کی تلاوت ہوتی ہے وہاں برکت نازل ہوتی ہے۔</li>
                 <li><strong>والدین کی خدمت، صلہ رحمی، اور صدقہ و خیرات:</strong> یہ اعمال رزق و عمر میں برکت کا باعث بنتے ہیں۔ صلہ رحمی سے رشتوں میں مضبوطی اور زندگی میں وسعت پیدا ہوتی ہے۔ صدقہ و خیرات سے مال پاک ہوتا ہے اور اس میں برکت آتی ہے۔</li>
             </ol>
+            
             <p>وقت میں "برکت" کا ختم ہونا محض ایک احساس نہیں بلکہ ایک حقیقت ہے جس کی جڑیں ہمارے اجتماعی اور انفرادی اعمال میں ہیں۔ یہ اللہ کے سنتی قانون (Sunnatullah) کا حصہ ہے کہ نیکی اور تقویٰ میں برکت ہوتی ہے اور گناہ و نافرمانی میں تنگی۔ جب ہم اللہ کے احکامات سے روگردانی کرتے ہیں، گناہوں میں ملوث ہوتے ہیں، اور ناشکری کرتے ہیں تو ہماری زندگیوں سے برکت اٹھا لی جاتی ہے۔</p>
             <p>دورِ جدید کی مصروفیات دراصل وقت کے ضیاع کا سبب ہیں، برکت کے ختم ہونے کا نہیں۔ جدید ٹیکنالوجی، سوشل میڈیا اور بے مقصد تفریح نے انسان کو اس قدر الجھا دیا ہے کہ وہ اپنے بنیادی فرائض سے بھی غافل ہو گیا ہے۔ برکت اللہ کی طرف سے عطا ہوتی ہے، جو اس کے احکامات پر عمل کرنے اور اس کی رضا کے حصول کی کوشش سے ملتی ہے۔</p>
             <p>وقت کی برکت کو واپس لانے کے لیے ضروری ہے کہ ہم اپنے اعمال کا محاسبہ کریں، اپنی زندگیوں میں شرعی احکامات کو مرکزی حیثیت دیں اور جدید چیلنجز کا مقابلہ سنتِ نبوی ﷺ کی روشنی میں کریں۔ ہمیں اپنے اوقات کو منظم کرنا ہو گا، حلال رزق پر توجہ دینی ہو گی، اور گناہوں سے اجتناب کرنا ہو گا۔</p>
             
-            <h3 class="fire-hover">آخری کلمہ:</h3>
+            <h3>آخری کلمہ:</h3>
             <p>حقیقی کامیابی آخرت کی کامیابی ہے، اور وقت میں برکت درحقیقت وہ وقت ہے جو اللہ کی رضا کے حصول میں گزارا جائے۔ جس وقت میں اللہ کی رضا شامل ہو، وہی وقت با معنی اور با برکت ہے۔</p>
-        </div>
-        
-        <div class="footer">
-            <p>© 2025 - وقت میں برکت کے موضوع پر خصوصی مضمون</p>
+
+            <!-- Reactions Section -->
+            <div class="reactions-container">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')"><span>👍</span> عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')"><span>❤️</span> دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')"><span>😊</span> مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')"><span>😢</span> قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')"><span>🤔</span> سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')"><span>👏</span> شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')"><span>🔥</span> زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="social-share">
+                <a href="#" onclick="shareOnSocial('facebook')" class="social-icon" style="background:#1877f2;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" onclick="shareOnSocial('whatsapp')" class="social-icon" style="background:#25D366;"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" onclick="shareOnSocial('twitter')" class="social-icon" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+                <a href="#" onclick="shareOnSocial('linkedin')" class="social-icon" style="background:#0077b5;"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" onclick="shareOnSocial('telegram')" class="social-icon" style="background:#0088cc;"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" onclick="shareOnSocial('pinterest')" class="social-icon" style="background:#bd081c;"><i class="fab fa-pinterest"></i></a>
+                <a href="#" onclick="copyPageLink()" class="social-icon" style="background:#6c757d;"><i class="fas fa-link"></i></a>
+            </div>
         </div>
     </div>
 
+    <!-- Floating Scroll Buttons -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+        <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"><i class="fas fa-arrow-down"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 bloglovers.pk - تمام حقوق محفوظ ہیں</p>
+    </footer>
+
+    <!-- Color fill overlay elements (unchanged) -->
+    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+    <div class="post-content-overlay" id="postOverlay">
+        <button class="close-btn" onclick="closeColorFillPost()">×</button>
+        <div id="postContent"></div>
+    </div>
+
+    <!-- JavaScript: Only share functions kept, reactions handled by external reactions.js -->
     <script>
-        // Page Up and Down functionality
-        document.getElementById('pageUpBtn').addEventListener('click', function() {
-            window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
-        });
-        
-        document.getElementById('pageDownBtn').addEventListener('click', function() {
-            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-        });
-        
-        // Keyboard shortcuts for page up/down
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+        // Color fill functions (unchanged)
+        function openColorFillPost() {
+            const originalContent = document.querySelector('.post-content').innerHTML;
+            document.getElementById('postContent').innerHTML = originalContent;
+            document.getElementById('colorFillBg').classList.add('active');
+            document.getElementById('postOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeColorFillPost() {
+            document.getElementById('colorFillBg').classList.remove('active');
+            document.getElementById('postOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+        }
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+
+        // Social share functions (kept)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+                default: return;
             }
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-                window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-            }
-        });
-        
-        // Add hover effect to all fire-hover elements
-        document.querySelectorAll('.fire-hover').forEach(element => {
-            element.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => {
+                prompt('براہ کرم لنک کاپی کریں:', window.location.href);
             });
-            
-            element.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
+        }
+
+        // Auto-scroll sidebar: pause on hover
+        const sidebarContent = document.getElementById('sidebarContent');
+        if (sidebarContent) {
+            sidebarContent.addEventListener('mouseenter', () => {
+                sidebarContent.style.animationPlayState = 'paused';
             });
-        });
-        
-        // Add scroll to top button when scrolling down
-        window.addEventListener('scroll', function() {
-            const scrollButtons = document.querySelector('.scroll-buttons');
-            if (window.scrollY > 500) {
-                scrollButtons.style.opacity = '1';
-                scrollButtons.style.visibility = 'visible';
-            } else {
-                scrollButtons.style.opacity = '0.8';
-            }
-        });
+            sidebarContent.addEventListener('mouseleave', () => {
+                sidebarContent.style.animationPlayState = 'running';
+            });
+        }
     </script>
+
+    <!-- reactions.js external file (should be present at /reactions.js) -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
