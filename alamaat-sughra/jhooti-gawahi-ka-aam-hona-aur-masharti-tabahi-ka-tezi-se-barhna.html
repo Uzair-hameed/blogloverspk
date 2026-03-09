@@ -70,10 +70,13 @@
         
         /* Main Container */
         .main-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 25px;
         }
         
         /* Header */
@@ -163,8 +166,60 @@
         .post-text p {
             margin-bottom: 25px;
         }
+
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reactions-title {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .reaction-btn {
+            background: rgba(30, 40, 60, 0.8);
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1.3rem;
+            color: #e0e0ff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .reaction-btn:hover {
+            background: rgba(74, 144, 226, 0.3);
+            transform: translateY(-3px);
+            border-color: #4a90e2;
+        }
+
+        .reaction-count {
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: #a0a0ff;
+        }
         
-        /* Control Buttons */
+        /* Control Buttons (Floating) */
         .control-buttons {
             position: fixed;
             left: 25px;
@@ -219,8 +274,136 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
         }
-        
-        /* Footer */
+
+        /* Sidebar */
+        .sidebar {
+            background: rgba(16, 24, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 10, 30, 0.6);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar-title {
+            color: #fff;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar-scroll {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+        }
+
+        .sidebar-content {
+            animation: scrollUp 30s linear infinite;
+        }
+
+        .sidebar-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+
+        .sidebar-item {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .sidebar-item:hover {
+            transform: translateX(-5px);
+            border-color: #4a90e2;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .sidebar-item img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.3);
+        }
+
+        .sidebar-item span {
+            display: block;
+            padding: 10px;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navigation Buttons (Bottom) */
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            background: linear-gradient(135deg, #4a90e2, #2ecc71);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.7);
+        }
+
+        /* Social Media Icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
         .footer {
             text-align: center;
             padding: 20px;
@@ -228,9 +411,20 @@
             color: #a0a0d0;
             font-size: 1rem;
             border-top: 1px solid rgba(100, 150, 255, 0.2);
+            grid-column: 1 / -1;
         }
         
         /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
@@ -255,9 +449,18 @@
                 font-size: 18px;
             }
             
-            .back-btn {
+            .back-btn, .nav-link {
                 padding: 10px 25px;
                 font-size: 1rem;
+            }
+
+            .reactions-grid {
+                gap: 10px;
+            }
+
+            .reaction-btn {
+                padding: 8px 15px;
+                font-size: 1.1rem;
             }
         }
         
@@ -283,6 +486,11 @@
             body {
                 padding-bottom: 100px;
             }
+
+            .reaction-btn {
+                padding: 5px 10px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -290,7 +498,7 @@
     <!-- Space Galaxy Background -->
     <div class="galaxy-bg" id="galaxyBg"></div>
     
-    <!-- Control Buttons -->
+    <!-- Floating Control Buttons -->
     <div class="control-buttons">
         <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
         <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
@@ -298,31 +506,167 @@
     </div>
     
     <div class="main-container">
-        <!-- Header -->
-        <div class="header">
-            <h1>جھوٹی گواہی کا عام ہونا اور معاشرتی تباہی کا تیزی سے بڑھنا</h1>
-            <button class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-right"></i> واپس جائیں
-            </button>
-        </div>
-        
-        <!-- Content Box -->
-        <div class="content-box">
-            <!-- Post Image -->
-            <img src="https://bloglovers.pk/images/alamaat-sughra/jhooti-gawahi-ka-aam-hona-aur-masharti-tabahi-ka-tezi-se-barhna.png" alt="جھوٹی گواہی" class="post-image">
+        <!-- Main Content Column -->
+        <div class="content-column">
+            <!-- Header -->
+            <div class="header">
+                <h1>جھوٹی گواہی کا عام ہونا اور معاشرتی تباہی کا تیزی سے بڑھنا</h1>
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-right"></i> واپس جائیں
+                </button>
+            </div>
             
-            <!-- Post Content -->
-            <div class="post-text">
-                <p>محترم قارئین کرام! جھوٹ ایک بدترین غلاظت ہے اور کبیرہ گناہوں میں سے ایک ہے۔ بندہ جب جھوٹ بولتا ہے تو ملائکہ اس سے دور بھاگ جاتے ہیں کیونکہ جھوٹ بولنے کی وجہ سے اس کے منہ میں بدبو پیدا ہو جاتی ہے۔ بالکل سچائی انسان کو ہمیشہ نجات دلاتی ہے جبکہ جھوٹ کے پاؤں نہیں ہوتے اور وہ انسان کو ہلاکت کی طرف لے جاتا ہے۔</p>
-                <p>آدمی جب ایک بار جھوٹ بولتا ہے تو اس جھوٹ کو چھپانے کے لیے پھر سو جھوٹ بولتا ہے اور یوں وہ جھوٹ بول بول کر ایک ایسی عمارت کھڑی کر لیتا ہے جو زیادہ دیر تک ٹک نہیں پاتی بہت جلد اس انسان کا جھوٹا پن ظاہر ہو جاتا ہے اور وہ بے نقاب اور بے آبرو ہو جاتا ہے۔ جھوٹ تو خود ایک کبیرہ گناہ ہے لیکن اس کے اندر پھر جھوٹی گواہی ایک اور بدترین گناہ ہے۔</p>
-                <p>آپ ﷺ نے فرمایا: "کیا میں تمہیں بڑے بڑے گناہوں کے بارے میں نہ بتاؤں؟ صحابہ نے کہا کیوں نہیں اللہ کے رسول ﷺ! فرمایا: (اللہ بے نیاز، رکوع اور سجود اسی کے لیے ہیں، اسی کے گھر کا طواف مشروط ہے، وہی دیتا اور وہی لیتا ہے، کائنات کا ذرہ ذرہ اسی کا محتاج اور قبضہ قدرت میں ہے)۔ اس کی ذات میں کسی کو شریک کرنا یہ سب سے بڑا گناہ ہے۔ دوسرا والدین کی نافرمانی کرنا (قرآن میں متعدد جگہ پر اپنی واحدانیت کے ساتھ ساتھ والدین کی اطاعت کا بھی تذکرہ فرمایا۔ اسی حدیث میں اللہ نے اپنے حق کے ساتھ والدین کے حق کا تذکرہ بھی فرمایا۔ اللہ ہمارے حقیقی مالک و خالق ہیں اور والدین ہمارے اس دنیا میں ہمیں لانے کا ایک سبب ہیں اس لیے یہ تذکرہ ہمیشہ ساتھ ساتھ فرمایا ہے۔ والدین کی نافرمانی کرنا، انہیں رنجیدہ کرنا، بے بس کر دینا یہ بھی بدترین گناہ ہے) اور اس کے بعد آپ ﷺ ایک دم سیدھے ہو کر بیٹھ گئے اور بار بار فرمایا جھوٹی گواہی دینا، جھوٹی گواہی دینا، اس فقرے کو اتنی تاکید اور جلالی میں فرمایا کہ صحابہ کہتے ہیں کہ ان فقروں کی تاکید اور سختی اتنی زیادہ تھی گویا انتہائی پریشانی اور اضطرابی کیفیت تھی کہ کاش آپ ﷺ تھوڑی دیر خاموش ہو جائیں۔</p>
-                <p>جھوٹی گواہی دینا ایسا ہے گویا حقدار کو زندہ دفن کرنے کے مترادف ہے اور جس کا حق نہیں ہے اس کو جھوٹ کے ذریعے وہ حق دلانا جو اس کا حقیقتاً ہے ہی نہیں، یہ بدترین گناہ ہے۔ اور رحمٰن کے بندے ہرگز ایسے نہیں ہیں نہ وہ جھوٹی گواہی دیتے ہیں اور نہ ہی باطل اور ناحق محفلوں میں شرکت کرتے ہیں۔ (کفار کی عیدیں اور میلے، گانے اور بجانے کی محفلیں، شراب اور رقص و سرود کی محفلیں، الغرض ساری بری محفلیں ہیں) جہاں حق تلفی ہوتی وہاں رحمٰن کے بندے ہرگز نہیں جاتے، اگر ہم اپنے معاشرے میں ایک جھلک دیکھ لیں، ولیمہ، برتھ ڈے، عرس و میلہ وغیرہ اگر ایسی محفل سے گزر ہو جائے تو وہاں سے بڑے معتبر طریقے سے اٹھ جاتے ہیں۔</p>
-                <p>لوگوں میں جھوٹی گواہی کا عام ہو جانا اور لوگوں کا اس بارے میں سستی کرنا قیامت کی علامات میں سے ہے، جیسا کہ حدیث سابق میں آپ ﷺ نے فرمایا کہ "قیامت سے پہلے جھوٹی گواہی عام ہو جائے گی"۔</p>
-                <p>جھوٹی گواہی صرف عدالتوں میں قاضی اور حاکم کے سامنے ہی نہیں ہوتی بلکہ یہ زندگی کے تمام شعبہ جات اور معاملات کو محیط ہے، جیسا کہ لوگوں کا آپس کے روزمرہ کے معاملات میں غلط بیانی، جھوٹی گواہی دینا، بعض کمپنیوں اور اداروں کے ملازمین کا اپنی ذمہ داری کے حوالے سے مدارس اور جامعات میں طالب علموں کی جھوٹی گواہی اور بچوں کی اپنے والدین کے سامنے جھوٹی گواہی بھی اسی زمرے میں شامل ہے۔</p>
-                <p>آپ ﷺ نے جھوٹی گواہی اور جھوٹی قسم یا غلط بیانی کے ذریعے دوسروں کا حق مارنے سے اپنی امت کو بہت ڈرایا ہے۔ آپ ﷺ نے فرمایا: "جو شخص جھوٹی قسم کے ذریعے کسی مسلم بھائی کا مال ہڑپ کر لے گا، وہ کل اللہ کی عدالت میں اس حال میں پیش ہو گا کہ اللہ اس پر سخت ناراض ہو گا"۔</p>
-                <p>پھر آپ ﷺ نے اس آیت کریمہ کی تلاوت فرمائی: "بے شک جو لوگ اللہ کے عہد اور اپنی قسموں کو تھوڑے سے دنیاوی فائدے کی خاطر فروخت کر دیتے ہیں ان کا آخرت میں کوئی حصہ نہیں، اللہ تعالیٰ روز قیامت نہ تو ان سے کلام کرے گا، نہ ان کی طرف (نظر رحمت سے) دیکھے گا اور نہ انھیں پاک کرے گا، ان کے لیے نہایت تکلیف دہ عذاب ہے"۔</p>
-                <p>حضرت ابو امامہ باہلی رضی اللہ عنہ سے روایت ہے کہ نبی کریم ﷺ نے فرمایا: "جس کسی نے جھوٹی قسم کھا کر اپنے مسلم بھائی کا حق مارا، اللہ نے اس پر جہنم واجب اور جنت حرام کر دی۔ ایک شخص نے عرض کیا: اللہ کے رسول! اگر وہ کوئی معمولی چیز ہو تو؟ آپ ﷺ نے فرمایا: خواہ وہ پیلو کی ایک مسواک ہی کیوں نہ ہو"۔</p>
-                <p>گناہ چھوٹا ہو یا بڑا گناہ ذلت و رسوائی کا سبب ہے دنیا میں بھی جھوٹے انسان کے کردار کو اچھا نہیں سمجھا جاتا لیکن گناہ کے سبب دنیا و آخرت دونوں جہتوں پر انسان کے ہلاکت ہے۔ آج ہم اتنی ڈھٹائی سے جھوٹ بولتے ہیں اور اس قدر جھوٹ بولنے کے عادی ہو چکے ہیں کہ گناہ گناہ نہیں لگتا۔ اللہ پاک ہم سب کو معاف کرے اور ہمیں ہمیشہ سچ بولنے کی توفیق عطا فرمائے۔ آمین۔</p>
+            <!-- Content Box -->
+            <div class="content-box">
+                <!-- Post Image -->
+                <img src="https://bloglovers.pk/images/alamaat-sughra/jhooti-gawahi-ka-aam-hona-aur-masharti-tabahi-ka-tezi-se-barhna.png" alt="جھوٹی گواہی" class="post-image">
+                
+                <!-- Post Content -->
+                <div class="post-text">
+                    <p>محترم قارئین کرام! جھوٹ ایک بدترین غلاظت ہے اور کبیرہ گناہوں میں سے ایک ہے۔ بندہ جب جھوٹ بولتا ہے تو ملائکہ اس سے دور بھاگ جاتے ہیں کیونکہ جھوٹ بولنے کی وجہ سے اس کے منہ میں بدبو پیدا ہو جاتی ہے۔ بالکل سچائی انسان کو ہمیشہ نجات دلاتی ہے جبکہ جھوٹ کے پاؤں نہیں ہوتے اور وہ انسان کو ہلاکت کی طرف لے جاتا ہے۔</p>
+                    <p>آدمی جب ایک بار جھوٹ بولتا ہے تو اس جھوٹ کو چھپانے کے لیے پھر سو جھوٹ بولتا ہے اور یوں وہ جھوٹ بول بول کر ایک ایسی عمارت کھڑی کر لیتا ہے جو زیادہ دیر تک ٹک نہیں پاتی بہت جلد اس انسان کا جھوٹا پن ظاہر ہو جاتا ہے اور وہ بے نقاب اور بے آبرو ہو جاتا ہے۔ جھوٹ تو خود ایک کبیرہ گناہ ہے لیکن اس کے اندر پھر جھوٹی گواہی ایک اور بدترین گناہ ہے۔</p>
+                    <p>آپ ﷺ نے فرمایا: "کیا میں تمہیں بڑے بڑے گناہوں کے بارے میں نہ بتاؤں؟ صحابہ نے کہا کیوں نہیں اللہ کے رسول ﷺ! فرمایا: (اللہ بے نیاز، رکوع اور سجود اسی کے لیے ہیں، اسی کے گھر کا طواف مشروط ہے، وہی دیتا اور وہی لیتا ہے، کائنات کا ذرہ ذرہ اسی کا محتاج اور قبضہ قدرت میں ہے)۔ اس کی ذات میں کسی کو شریک کرنا یہ سب سے بڑا گناہ ہے۔ دوسرا والدین کی نافرمانی کرنا (قرآن میں متعدد جگہ پر اپنی واحدانیت کے ساتھ ساتھ والدین کی اطاعت کا بھی تذکرہ فرمایا۔ اسی حدیث میں اللہ نے اپنے حق کے ساتھ والدین کے حق کا تذکرہ بھی فرمایا۔ اللہ ہمارے حقیقی مالک و خالق ہیں اور والدین ہمارے اس دنیا میں ہمیں لانے کا ایک سبب ہیں اس لیے یہ تذکرہ ہمیشہ ساتھ ساتھ فرمایا ہے۔ والدین کی نافرمانی کرنا، انہیں رنجیدہ کرنا، بے بس کر دینا یہ بھی بدترین گناہ ہے) اور اس کے بعد آپ ﷺ ایک دم سیدھے ہو کر بیٹھ گئے اور بار بار فرمایا جھوٹی گواہی دینا، جھوٹی گواہی دینا، اس فقرے کو اتنی تاکید اور جلالی میں فرمایا کہ صحابہ کہتے ہیں کہ ان فقروں کی تاکید اور سختی اتنی زیادہ تھی گویا انتہائی پریشانی اور اضطرابی کیفیت تھی کہ کاش آپ ﷺ تھوڑی دیر خاموش ہو جائیں۔</p>
+                    <p>جھوٹی گواہی دینا ایسا ہے گویا حقدار کو زندہ دفن کرنے کے مترادف ہے اور جس کا حق نہیں ہے اس کو جھوٹ کے ذریعے وہ حق دلانا جو اس کا حقیقتاً ہے ہی نہیں، یہ بدترین گناہ ہے۔ اور رحمٰن کے بندے ہرگز ایسے نہیں ہیں نہ وہ جھوٹی گواہی دیتے ہیں اور نہ ہی باطل اور ناحق محفلوں میں شرکت کرتے ہیں۔ (کفار کی عیدیں اور میلے، گانے اور بجانے کی محفلیں، شراب اور رقص و سرود کی محفلیں، الغرض ساری بری محفلیں ہیں) جہاں حق تلفی ہوتی وہاں رحمٰن کے بندے ہرگز نہیں جاتے، اگر ہم اپنے معاشرے میں ایک جھلک دیکھ لیں، ولیمہ، برتھ ڈے، عرس و میلہ وغیرہ اگر ایسی محفل سے گزر ہو جائے تو وہاں سے بڑے معتبر طریقے سے اٹھ جاتے ہیں۔</p>
+                    <p>لوگوں میں جھوٹی گواہی کا عام ہو جانا اور لوگوں کا اس بارے میں سستی کرنا قیامت کی علامات میں سے ہے، جیسا کہ حدیث سابق میں آپ ﷺ نے فرمایا کہ "قیامت سے پہلے جھوٹی گواہی عام ہو جائے گی"۔</p>
+                    <p>جھوٹی گواہی صرف عدالتوں میں قاضی اور حاکم کے سامنے ہی نہیں ہوتی بلکہ یہ زندگی کے تمام شعبہ جات اور معاملات کو محیط ہے، جیسا کہ لوگوں کا آپس کے روزمرہ کے معاملات میں غلط بیانی، جھوٹی گواہی دینا، بعض کمپنیوں اور اداروں کے ملازمین کا اپنی ذمہ داری کے حوالے سے مدارس اور جامعات میں طالب علموں کی جھوٹی گواہی اور بچوں کی اپنے والدین کے سامنے جھوٹی گواہی بھی اسی زمرے میں شامل ہے۔</p>
+                    <p>آپ ﷺ نے جھوٹی گواہی اور جھوٹی قسم یا غلط بیانی کے ذریعے دوسروں کا حق مارنے سے اپنی امت کو بہت ڈرایا ہے۔ آپ ﷺ نے فرمایا: "جو شخص جھوٹی قسم کے ذریعے کسی مسلم بھائی کا مال ہڑپ کر لے گا، وہ کل اللہ کی عدالت میں اس حال میں پیش ہو گا کہ اللہ اس پر سخت ناراض ہو گا"۔</p>
+                    <p>پھر آپ ﷺ نے اس آیت کریمہ کی تلاوت فرمائی: "بے شک جو لوگ اللہ کے عہد اور اپنی قسموں کو تھوڑے سے دنیاوی فائدے کی خاطر فروخت کر دیتے ہیں ان کا آخرت میں کوئی حصہ نہیں، اللہ تعالیٰ روز قیامت نہ تو ان سے کلام کرے گا، نہ ان کی طرف (نظر رحمت سے) دیکھے گا اور نہ انھیں پاک کرے گا، ان کے لیے نہایت تکلیف دہ عذاب ہے"۔</p>
+                    <p>حضرت ابو امامہ باہلی رضی اللہ عنہ سے روایت ہے کہ نبی کریم ﷺ نے فرمایا: "جس کسی نے جھوٹی قسم کھا کر اپنے مسلم بھائی کا حق مارا، اللہ نے اس پر جہنم واجب اور جنت حرام کر دی۔ ایک شخص نے عرض کیا: اللہ کے رسول! اگر وہ کوئی معمولی چیز ہو تو؟ آپ ﷺ نے فرمایا: خواہ وہ پیلو کی ایک مسواک ہی کیوں نہ ہو"۔</p>
+                    <p>گناہ چھوٹا ہو یا بڑا گناہ ذلت و رسوائی کا سبب ہے دنیا میں بھی جھوٹے انسان کے کردار کو اچھا نہیں سمجھا جاتا لیکن گناہ کے سبب دنیا و آخرت دونوں جہتوں پر انسان کے ہلاکت ہے۔ آج ہم اتنی ڈھٹائی سے جھوٹ بولتے ہیں اور اس قدر جھوٹ بولنے کے عادی ہو چکے ہیں کہ گناہ گناہ نہیں لگتا۔ اللہ پاک ہم سب کو معاف کرے اور ہمیں ہمیشہ سچ بولنے کی توفیق عطا فرمائے۔ آمین۔</p>
+                </div>
+
+                <!-- Reactions Section (Exactly as requested) -->
+                <div class="reactions-section">
+                    <h3 class="reactions-title">اس مضمون پر آپ کے تاثرات</h3>
+                    <div class="reactions-grid">
+                        <!-- 👍 عمدہ -->
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">
+                            <span>👍</span> عمدہ
+                            <span class="reaction-count" id="count-عمدہ">0</span>
+                        </button>
+                        <!-- ❤️ دلچسپ -->
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">
+                            <span>❤️</span> دلچسپ
+                            <span class="reaction-count" id="count-دلچسپ">0</span>
+                        </button>
+                        <!-- 😊 مفید -->
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">
+                            <span>😊</span> مفید
+                            <span class="reaction-count" id="count-مفید">0</span>
+                        </button>
+                        <!-- 😢 قابل غور -->
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">
+                            <span>😢</span> قابل غور
+                            <span class="reaction-count" id="count-قابل غور">0</span>
+                        </button>
+                        <!-- 🤔 سوچ بچار -->
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">
+                            <span>🤔</span> سوچ بچار
+                            <span class="reaction-count" id="count-سوچ بچار">0</span>
+                        </button>
+                        <!-- 👏 شاندار -->
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">
+                            <span>👏</span> شاندار
+                            <span class="reaction-count" id="count-شاندار">0</span>
+                        </button>
+                        <!-- 🔥 زبردست -->
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">
+                            <span>🔥</span> زبردست
+                            <span class="reaction-count" id="count-زبردست">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Icons (7 Platforms) -->
+            <div class="social-share">
+                <a href="#" class="social-icon" style="background: #1877f2;" onclick="shareOnSocial('facebook'); return false;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon" style="background: #25D366;" onclick="shareOnSocial('whatsapp'); return false;"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon" style="background: #1DA1F2;" onclick="shareOnSocial('twitter'); return false;"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon" style="background: #0077b5;" onclick="shareOnSocial('linkedin'); return false;"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon" style="background: #0088cc;" onclick="shareOnSocial('telegram'); return false;"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-icon" style="background: #bd081c;" onclick="shareOnSocial('pinterest'); return false;"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" class="social-icon" style="background: #6c757d;" onclick="copyPageLink(); return false;"><i class="fas fa-link"></i></a>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation-buttons">
+                <a href="https://bloglovers.pk/" class="nav-link"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+        </div>
+
+        <!-- Sidebar with Auto-scroll -->
+        <div class="sidebar">
+            <h3 class="sidebar-title">مزید پوسٹس</h3>
+            <div class="sidebar-scroll">
+                <div class="sidebar-content">
+                    <!-- 1. قبلہ اول (بیت المقدس) کی فتح -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول (بیت المقدس) کی فتح">
+                        <span>قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <!-- 2. ان گنت فتنوں کا ظہور -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنوں کا ظہور">
+                        <span>ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <!-- 3. تنگ لباس پہننے والی ننگی عورتیں -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس پہننے والی ننگی عورتیں">
+                        <span>تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    <!-- 4. علم کے اٹھ جانے -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم کے اٹھ جانے">
+                        <span>آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- 5. چھ چیزوں کو حلال سمجھنا -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزوں کو حلال سمجھنا">
+                        <span>آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    <!-- 6. چار حرام کام -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                        <span>وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    <!-- 7. دورجدید کے فتنے -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دورجدید کے فتنے">
+                        <span>دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</span>
+                    </a>
+                    <!-- 8. للہ کی یاد سے غافل کرنے والا فتنہ -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="للہ کی یاد سے غافل کرنے والا فتنہ">
+                        <span>للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    <!-- 9. قرب قیامت قتل و خوں ریزی -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قرب قیامت قتل و خوں ریزی">
+                        <span>قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <!-- 10. انسان کی جلدی پکڑ کروا دینے والا گناہ -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="انسان کی جلدی پکڑ کروا دینے والا گناہ">
+                        <span>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    <!-- 11. لوگ اپنی موت کی تمنا کیوں کریں گے -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="لوگ اپنی موت کی تمنا کیوں کریں گے">
+                        <span>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <!-- 12. آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                        <span>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- 13. فرات کا خشک ہونا -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                        <span>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                </div>
             </div>
         </div>
         
@@ -384,6 +728,44 @@
             window.history.back();
         }
         
+        // Social Share Functions (to be kept)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+        
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowUp' || e.key === 'PageUp') {
@@ -400,5 +782,7 @@
             createStars();
         };
     </script>
+    <!-- reactions.js will be auto-loaded by the browser (already present at /reactions.js) -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
