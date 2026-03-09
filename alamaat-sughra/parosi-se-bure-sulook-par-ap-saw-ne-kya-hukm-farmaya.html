@@ -79,16 +79,24 @@
         
         /* Container */
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             padding-bottom: 80px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            width: 100%;
         }
         
         /* Header Styling */
         .post-header {
             text-align: center;
-            margin: 30px 0 40px;
+            margin: 0 0 30px;
             padding: 25px;
             border-radius: 20px;
             background: linear-gradient(45deg, var(--spring-green), var(--spring-blue));
@@ -125,7 +133,7 @@
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             transition: transform 0.3s ease;
         }
         
@@ -156,7 +164,7 @@
             max-height: 500px;
             object-fit: cover;
             border-radius: 15px;
-            margin: 30px 0;
+            margin: 20px 0 30px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             transition: transform 0.5s ease, box-shadow 0.5s ease;
             display: block;
@@ -165,6 +173,58 @@
         .post-image:hover {
             transform: scale(1.02);
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        /* Reaction Section */
+        .reactions-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .reactions-title {
+            font-size: 1.8rem;
+            color: var(--spring-green);
+            margin-bottom: 20px;
+        }
+        
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #495057;
+        }
+        
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.2);
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+        }
+        
+        .reaction-count {
+            font-weight: bold;
+            color: var(--spring-green);
+            min-width: 30px;
+            display: inline-block;
         }
         
         /* Control Buttons */
@@ -230,11 +290,11 @@
         
         /* Spring Theme Button */
         .spring-btn {
-            display: block;
-            margin: 30px auto;
+            display: inline-block;
+            margin: 0 0 20px;
             background: linear-gradient(45deg, var(--spring-yellow), var(--spring-flower));
             color: white;
-            padding: 15px 40px;
+            padding: 12px 30px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
@@ -242,7 +302,7 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-family: inherit;
             position: relative;
             overflow: hidden;
@@ -284,7 +344,184 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
+        /* Sidebar Styles */
+        .sidebar {
+            width: 100%;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.6rem;
+            color: var(--spring-green);
+            border-bottom: 3px solid var(--spring-light-green);
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .auto-scroll-container {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            background: #f8f9fa;
+            padding: 5px;
+        }
+        
+        .posts-scroll {
+            height: 100%;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        /* Auto scroll animation - controlled by JS */
+        .posts-scroll.auto-scroll {
+            animation: scrollUp 30s linear infinite;
+        }
+        
+        .posts-scroll.auto-scroll:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .sidebar-post-card {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #eee;
+        }
+        
+        .sidebar-post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.2);
+            border-color: var(--spring-light-green);
+        }
+        
+        .sidebar-post-card.active-post {
+            border-right: 5px solid var(--spring-green);
+            background: linear-gradient(45deg, rgba(46, 204, 113, 0.05), rgba(69, 183, 209, 0.05));
+        }
+        
+        .sidebar-post-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .sidebar-post-title {
+            padding: 10px;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, var(--spring-green), var(--spring-blue));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.5);
+        }
+        
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            background: white;
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50px;
+        }
+        
         /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -322,8 +559,17 @@
             }
             
             .spring-btn {
-                padding: 12px 30px;
+                padding: 10px 25px;
                 font-size: 1.1rem;
+            }
+            
+            .reactions-grid {
+                gap: 10px;
+            }
+            
+            .reaction-btn {
+                font-size: 1.1rem;
+                padding: 8px 15px;
             }
         }
         
@@ -346,6 +592,11 @@
                 font-size: 1.3rem;
                 padding: 20px;
             }
+            
+            .reaction-btn {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
@@ -362,53 +613,99 @@
     
     <!-- Main Container -->
     <div class="container">
-        <!-- Post Header -->
-        <div class="post-header">
-            <h1 class="post-title">پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟</h1>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Post Header -->
+            <div class="post-header">
+                <h1 class="post-title">پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟</h1>
+            </div>
+            
+            <!-- Post Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/parosi-se-bure-sulook-par-ap-saw-ne-kya-hukm-farmaya.png" alt="پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟" class="post-image">
+            
+            <!-- Spring Theme Button -->
+            <button class="spring-btn" id="springThemeBtn">
+                <i class="fas fa-seedling"></i> بہار کے موسم کا تھیم چالو کریں
+            </button>
+            
+            <!-- Post Content -->
+            <div class="post-content">
+                <p>محترم قارئین کرام! ایک وقت تھا جب لوگ آپس میں بیٹھ کر ایک دوسرے کے دکھ درد بانٹتے تھے، ایک دوسرے سے مشورہ کر لیا کرتے تھے، ہر طرف خوبصورتی، برکت، محبت اور سکون تھا، کوئی مسئلہ درپیش ہوتا بھی تو گھر کے بڑے سربراہان آپس میں مل کر انصاف کیا کرتے تھے، ایک دوسرے کو دعوت دینا، خوشی اور غمی میں ایک دوسرے کے ساتھ کھڑے ہونا وغیرہ۔</p>
+                
+                <p>لیکن اب وقت گزر چکا ہے اور یہ سب ایک خواب و خیال تصور ہوتا ہے، ہمارے دین اسلام میں جہاں چھوٹی سے چھوٹی بات کو واضح کیا گیا وہیں پر آپ ﷺ نے اپنی امت کو حقوق العباد اور حقوق اللہ سے بھی آگاہ کیا۔ انھی حقوق میں سے پڑوسیوں کے حقوق بھی واضح کیے گئے۔ آپ ﷺ نے پڑوسیوں کے حقوق کی بہت زیادہ تاکید کی، صحابہ کہتے ہیں کہ اتنی زیادہ تاکید کی گئی کہ ایسے لگنے لگا کہ کہیں وراثت میں حصہ دار نہ بنا دیا جائے۔</p>
+                
+                <div class="hadith-quote">
+                    <p>نبی کریم ﷺ کا فرمان ہے: "قیامت اس وقت تک قائم نہ ہوگی۔ جب تک فحش (بدکلامی)، بے حیائی، قطع رحمی اور پڑوسی سے برا سلوک ظاہر نہ ہو جائے"۔</p>
+                </div>
+                
+                <p>آپ ﷺ نے فرمایا: "خدا کی قسم! وہ ایمان نہیں رکھتا، پوچھا گیا، کون ایمان نہیں رکھتا؟ فرمایا "کہ وہ شخص جس کا پڑوسی اس کی تکلیفوں سے محفوظ نہ رہے"۔</p>
+                
+                <p>اسی طرح مشکوۃ کی ایک حدیث میں حضرت ابن عباس رضی اللہ عنہ سے روایت ہے کہ آپ ﷺ نے فرمایا: "کہ وہ شخص مومن نہیں ہے جو خود تو پیٹ بھر کر کھائے اور اس کا پڑوسی جو اس کے پہلو میں رہے بھوکا رہے"۔</p>
+                
+                <p>اسی طرح ایک جگہ ارشاد فرمایا، اے ابوذر رضی اللہ عنہ "جب تو شوربہ پکائے تو کچھ پانی زیادہ کر دے اور اپنے پڑوسیوں کی خبر گیری کر"۔</p>
+                
+                <div class="hadith-quote">
+                    <p>رسول اللہ ﷺ نے فرمایا: "اے مسلمان عورتوں! کوئی پڑوسن اپنی پڑوسن کو ہدیہ دینے میں حقیر نہ سمجھے اگرچہ ایک بکری کی کیری ہی کیوں نہ ہو"۔ (عام طور پر عورتوں کی فطرت ہوتی ہے کہ کوئی معمولی چیز وہ پڑوسن کے گھر بھیجنا پسند نہیں کرتی۔ ان کی خواہش یہ ہوتی ہے کہ وہ اچھی چیز ہی بھیجیں)۔</p>
+                </div>
+                
+                <p>حضرت عائشہ رضی اللہ تعالی عنہا سے روایت ہے کہ انہوں نے رسول کریم ﷺ سے پوچھا کہ میرے دو پڑوسی ہیں تو ان میں سے کس کے ہاں ہدیہ بھیجو، آپ ﷺ نے فرمایا: "اس پڑوسی کے ہاں جس کا گھر تمہارے گھر سے زیادہ قریب ہو"۔</p>
+                
+                <p>ایک اور جگہ آپ ﷺ نے فرمایا: "جس شخص کو یہ پسند ہو کہ اللہ اور اس کا رسول ﷺ اس سے محبت کریں۔ تو اس کو چاہیے کہ جب وہ گفتگو کرے تو ہمیشہ سچ بولے اور اس کے پاس جب امانت رکھی جائے تو مالک کے پاس اس کی امانت لوٹائے اور اپنے پڑوسیوں کے ساتھ اچھا برتاؤ کرے"۔</p>
+                
+                <p>ان احادیث کی روشنی میں یہ بات کتنی واضح ہے کہ ہمسایوں کا خیال بھی ویسے ہی کرنے کی تاکید کی گئی ہے جیسے ہم اپنے والدین کے ساتھ ساتھ قریبی رشتہ داروں کی کرتے ہیں، لیکن افسوس! آپ ﷺ کی بتائی ہوئی یہ نشانی آج ہم اپنی ان گنہگار آنکھوں سے پورا ہوتا دیکھ رہے ہیں، اور جوں جوں وقت گزرتا جا رہا ہے یہ نشانی اور واضح ہوتی جا رہی ہے۔</p>
+                
+                <p>ہائے افسوس کہ ہم اپنی آنے والی نسلوں کی تربیت ویسے نہیں کر پارہے جیسے کرنے کا حکم صادر ہوا، آج ہمارے خون اس قدر سفید ہو رہے ہیں کہ ہم سرِ بازار اپنے بزرگوں بشمولیت بوڑھے والدین کو بھیک مانگتے دیکھ رہے ہیں نہ ان کا خیال رکھنے والا کوئی موجود ہوتا ہے نہ ان کی خبر گیری کرنے والا، اکثر دیکھنے میں آیا ہے کہ بچے شادی کر کے دوسرے ملک شفٹ ہو جاتے ہیں اور پیچھے بوڑھے والدین کا کوئی دیکھ بھال کرنے والا نہیں ہوتا، صرف افسوس کا مقام ہے!</p>
+                
+                <p>وقت گزرنے کے ساتھ ہمارے رشتے کھوکھلے، مطلبی، اور خودغرضی، دکھلاوئے پر مبنی نظر آتے ہیں، صلح رحمی کرنے کی بجائے معاشرے میں قطع رحمی عروج پر ہے، بھائی بھائی کے خون کا پیاسا ہے، ماں بیٹی، باپ بیٹا، خونی رشتے پامال ہو کر بکھر رہے ہیں، ایسے میں پڑوسی کا حقوق کہاں ادا ہو رہے ہیں، اچھا پڑوسی کسی بھی نعمت سے کم نہیں ہوتا وہ قریبی اور خونی رشتوں سے بڑھ کر ہوتا ہے اگر حقیقتاً اس کے حقوق ادا کیے جائیں۔</p>
+                
+                <p>آج ہم نے تو پڑوسیوں کو صرف اپنے بکرے، گاڑیوں، اور خود نمائی تک محدود کر کے رکھا ہے تاکہ وہ جان لے کہ ہم حیثیت میں ان سے کتنے بڑے ہیں، ان سے زیادہ اچھا روزگار ہے، روز اچھے کھانے پکتے ہیں وغیرہ وغیرہ۔</p>
+                
+                <div class="hadith-quote">
+                    <p>اللہ رب العزت سے دعا ہے کہ جب تک زندہ رکھے تو دین پر زندہ رکھے اور جب موت دے تو ایمان کی حالت میں موت دے۔ اللہ ہمارے گناہ معاف فرما دے اور ہمیں حقوق العباد کو ادا کرنے کا صحیح طریقہ اور توفیق عطا کرے۔ آمین</p>
+                </div>
+            </div>
+            
+            <!-- Reactions Section -->
+            <div class="reactions-section">
+                <h3 class="reactions-title">اس پوسٹ پر اپنا ردعمل دیں</h3>
+                <div class="reactions-grid">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')"><span>👍</span> عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')"><span>❤️</span> دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')"><span>😊</span> مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')"><span>😢</span> قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')"><span>🤔</span> سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')"><span>👏</span> شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')"><span>🔥</span> زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <!-- Social Media Icons (7 platforms) -->
+            <div class="social-icons">
+                <a href="#" class="social-icon" style="background: #1877f2;" onclick="shareOnSocial('facebook'); return false;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon" style="background: #25D366;" onclick="shareOnSocial('whatsapp'); return false;"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon" style="background: #1DA1F2;" onclick="shareOnSocial('twitter'); return false;"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="social-icon" style="background: #0077b5;" onclick="shareOnSocial('linkedin'); return false;"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon" style="background: #0088cc;" onclick="shareOnSocial('telegram'); return false;"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-icon" style="background: #bd081c;" onclick="shareOnSocial('pinterest'); return false;"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" class="social-icon" style="background: #6c757d;" onclick="copyPageLink(); return false;"><i class="fas fa-link"></i></a>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
         </div>
         
-        <!-- Post Image -->
-        <img src="https://bloglovers.pk/images/alamaat-sughra/parosi-se-bure-sulook-par-ap-saw-ne-kya-hukm-farmaya.png" alt="پڑوسی سے بُرے سلوک پر آپ ﷺ نے کیا حکم فرمایا؟" class="post-image">
-        
-        <!-- Spring Theme Button -->
-        <button class="spring-btn" id="springThemeBtn">
-            <i class="fas fa-seedling"></i> بہار کے موسم کا تھیم چالو کریں
-        </button>
-        
-        <!-- Post Content -->
-        <div class="post-content">
-            <p>محترم قارئین کرام! ایک وقت تھا جب لوگ آپس میں بیٹھ کر ایک دوسرے کے دکھ درد بانٹتے تھے، ایک دوسرے سے مشورہ کر لیا کرتے تھے، ہر طرف خوبصورتی، برکت، محبت اور سکون تھا، کوئی مسئلہ درپیش ہوتا بھی تو گھر کے بڑے سربراہان آپس میں مل کر انصاف کیا کرتے تھے، ایک دوسرے کو دعوت دینا، خوشی اور غمی میں ایک دوسرے کے ساتھ کھڑے ہونا وغیرہ۔</p>
-            
-            <p>لیکن اب وقت گزر چکا ہے اور یہ سب ایک خواب و خیال تصور ہوتا ہے، ہمارے دین اسلام میں جہاں چھوٹی سے چھوٹی بات کو واضح کیا گیا وہیں پر آپ ﷺ نے اپنی امت کو حقوق العباد اور حقوق اللہ سے بھی آگاہ کیا۔ انھی حقوق میں سے پڑوسیوں کے حقوق بھی واضح کیے گئے۔ آپ ﷺ نے پڑوسیوں کے حقوق کی بہت زیادہ تاکید کی، صحابہ کہتے ہیں کہ اتنی زیادہ تاکید کی گئی کہ ایسے لگنے لگا کہ کہیں وراثت میں حصہ دار نہ بنا دیا جائے۔</p>
-            
-            <div class="hadith-quote">
-                <p>نبی کریم ﷺ کا فرمان ہے: "قیامت اس وقت تک قائم نہ ہوگی۔ جب تک فحش (بدکلامی)، بے حیائی، قطع رحمی اور پڑوسی سے برا سلوک ظاہر نہ ہو جائے"۔</p>
-            </div>
-            
-            <p>آپ ﷺ نے فرمایا: "خدا کی قسم! وہ ایمان نہیں رکھتا، پوچھا گیا، کون ایمان نہیں رکھتا؟ فرمایا "کہ وہ شخص جس کا پڑوسی اس کی تکلیفوں سے محفوظ نہ رہے"۔</p>
-            
-            <p>اسی طرح مشکوۃ کی ایک حدیث میں حضرت ابن عباس رضی اللہ عنہ سے روایت ہے کہ آپ ﷺ نے فرمایا: "کہ وہ شخص مومن نہیں ہے جو خود تو پیٹ بھر کر کھائے اور اس کا پڑوسی جو اس کے پہلو میں رہے بھوکا رہے"۔</p>
-            
-            <p>اسی طرح ایک جگہ ارشاد فرمایا، اے ابوذر رضی اللہ عنہ "جب تو شوربہ پکائے تو کچھ پانی زیادہ کر دے اور اپنے پڑوسیوں کی خبر گیری کر"۔</p>
-            
-            <div class="hadith-quote">
-                <p>رسول اللہ ﷺ نے فرمایا: "اے مسلمان عورتوں! کوئی پڑوسن اپنی پڑوسن کو ہدیہ دینے میں حقیر نہ سمجھے اگرچہ ایک بکری کی کیری ہی کیوں نہ ہو"۔ (عام طور پر عورتوں کی فطرت ہوتی ہے کہ کوئی معمولی چیز وہ پڑوسن کے گھر بھیجنا پسند نہیں کرتی۔ ان کی خواہش یہ ہوتی ہے کہ وہ اچھی چیز ہی بھیجیں)۔</p>
-            </div>
-            
-            <p>حضرت عائشہ رضی اللہ تعالی عنہا سے روایت ہے کہ انہوں نے رسول کریم ﷺ سے پوچھا کہ میرے دو پڑوسی ہیں تو ان میں سے کس کے ہاں ہدیہ بھیجو، آپ ﷺ نے فرمایا: "اس پڑوسی کے ہاں جس کا گھر تمہارے گھر سے زیادہ قریب ہو"۔</p>
-            
-            <p>ایک اور جگہ آپ ﷺ نے فرمایا: "جس شخص کو یہ پسند ہو کہ اللہ اور اس کا رسول ﷺ اس سے محبت کریں۔ تو اس کو چاہیے کہ جب وہ گفتگو کرے تو ہمیشہ سچ بولے اور اس کے پاس جب امانت رکھی جائے تو مالک کے پاس اس کی امانت لوٹائے اور اپنے پڑوسیوں کے ساتھ اچھا برتاؤ کرے"۔</p>
-            
-            <p>ان احادیث کی روشنی میں یہ بات کتنی واضح ہے کہ ہمسایوں کا خیال بھی ویسے ہی کرنے کی تاکید کی گئی ہے جیسے ہم اپنے والدین کے ساتھ ساتھ قریبی رشتہ داروں کی کرتے ہیں، لیکن افسوس! آپ ﷺ کی بتائی ہوئی یہ نشانی آج ہم اپنی ان گنہگار آنکھوں سے پورا ہوتا دیکھ رہے ہیں، اور جوں جوں وقت گزرتا جا رہا ہے یہ نشانی اور واضح ہوتی جا رہی ہے۔</p>
-            
-            <p>ہائے افسوس کہ ہم اپنی آنے والی نسلوں کی تربیت ویسے نہیں کر پارہے جیسے کرنے کا حکم صادر ہوا، آج ہمارے خون اس قدر سفید ہو رہے ہیں کہ ہم سرِ بازار اپنے بزرگوں بشمولیت بوڑھے والدین کو بھیک مانگتے دیکھ رہے ہیں نہ ان کا خیال رکھنے والا کوئی موجود ہوتا ہے نہ ان کی خبر گیری کرنے والا، اکثر دیکھنے میں آیا ہے کہ بچے شادی کر کے دوسرے ملک شفٹ ہو جاتے ہیں اور پیچھے بوڑھے والدین کا کوئی دیکھ بھال کرنے والا نہیں ہوتا، صرف افسوس کا مقام ہے!</p>
-            
-            <p>وقت گزرنے کے ساتھ ہمارے رشتے کھوکھلے، مطلبی، اور خودغرضی، دکھلاوئے پر مبنی نظر آتے ہیں، صلح رحمی کرنے کی بجائے معاشرے میں قطع رحمی عروج پر ہے، بھائی بھائی کے خون کا پیاسا ہے، ماں بیٹی، باپ بیٹا، خونی رشتے پامال ہو کر بکھر رہے ہیں، ایسے میں پڑوسی کا حقوق کہاں ادا ہو رہے ہیں، اچھا پڑوسی کسی بھی نعمت سے کم نہیں ہوتا وہ قریبی اور خونی رشتوں سے بڑھ کر ہوتا ہے اگر حقیقتاً اس کے حقوق ادا کیے جائیں۔</p>
-            
-            <p>آج ہم نے تو پڑوسیوں کو صرف اپنے بکرے، گاڑیوں، اور خود نمائی تک محدود کر کے رکھا ہے تاکہ وہ جان لے کہ ہم حیثیت میں ان سے کتنے بڑے ہیں، ان سے زیادہ اچھا روزگار ہے، روز اچھے کھانے پکتے ہیں وغیرہ وغیرہ۔</p>
-            
-            <div class="hadith-quote">
-                <p>اللہ رب العزت سے دعا ہے کہ جب تک زندہ رکھے تو دین پر زندہ رکھے اور جب موت دے تو ایمان کی حالت میں موت دے۔ اللہ ہمارے گناہ معاف فرما دے اور ہمیں حقوق العباد کو ادا کرنے کا صحیح طریقہ اور توفیق عطا کرے۔ آمین</p>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="sidebar-title">مزید پوسٹس</h3>
+                <div class="auto-scroll-container">
+                    <div class="posts-scroll auto-scroll" id="sidebarScroll">
+                        <!-- Sidebar posts will be injected by JavaScript -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -417,7 +714,15 @@
     <button class="back-btn" id="backBtn">
         <i class="fas fa-arrow-right"></i> واپس جائیں
     </button>
+    
+    <!-- Footer -->
+    <div class="footer">
+        © 2025 bloglovers.pk - تمام حقوق محفوظ ہیں
+    </div>
 
+    <!-- Reactions JavaScript (External) -->
+    <script src="/reactions.js"></script>
+    
     <script>
         // Spring Theme Animation
         function createSpringElements() {
@@ -425,10 +730,8 @@
             const flowers = ['🌸', '🌺', '🌼', '🌻', '🏵️', '💮', '🪷'];
             const leaves = ['🌿', '🍃', '🍀', '☘️'];
             
-            // Clear existing elements
             springBg.innerHTML = '';
             
-            // Create flowers
             for (let i = 0; i < 15; i++) {
                 const flower = document.createElement('div');
                 flower.className = 'spring-flower';
@@ -440,7 +743,6 @@
                 springBg.appendChild(flower);
             }
             
-            // Create leaves
             for (let i = 0; i < 10; i++) {
                 const leaf = document.createElement('div');
                 leaf.className = 'spring-leaf';
@@ -467,7 +769,6 @@
             const springBtn = document.getElementById('springThemeBtn');
             
             if (!springActive) {
-                // Activate spring theme
                 createSpringElements();
                 body.style.background = 'linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%)';
                 postContent.style.background = 'linear-gradient(45deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98))';
@@ -476,7 +777,6 @@
                 springBtn.style.background = 'linear-gradient(45deg, #4dd0e1, #81c784)';
                 springActive = true;
             } else {
-                // Deactivate spring theme
                 const springBg = document.getElementById('springBg');
                 springBg.innerHTML = '';
                 body.style.background = '';
@@ -489,29 +789,21 @@
         }
         
         // Page Up/Down Buttons
-        const pageUpBtn = document.getElementById('pageUpBtn');
-        const pageDownBtn = document.getElementById('pageDownBtn');
-        
-        pageUpBtn.addEventListener('click', () => {
+        document.getElementById('pageUpBtn').addEventListener('click', () => {
             window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
         });
         
-        pageDownBtn.addEventListener('click', () => {
+        document.getElementById('pageDownBtn').addEventListener('click', () => {
             window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
         });
         
         // Back Button
-        const backBtn = document.getElementById('backBtn');
-        backBtn.addEventListener('click', () => {
-            // In a real scenario, this would navigate back
-            // For demo, we'll just scroll to top
+        document.getElementById('backBtn').addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            alert('واپسی کا بٹن دبایا گیا۔ اصل ویب سائٹ پر یہ آپ کو پیچھے لے جائے گا۔');
         });
         
-        // Hover effects for content
-        const paragraphs = document.querySelectorAll('.post-content p');
-        paragraphs.forEach(p => {
+        // Hover effects for paragraphs
+        document.querySelectorAll('.post-content p').forEach(p => {
             p.addEventListener('mouseenter', function() {
                 this.style.transition = 'all 0.3s ease';
                 this.style.paddingRight = '15px';
@@ -524,10 +816,10 @@
             });
         });
         
-        // Initialize spring theme with a few elements
+        // Initialize spring theme
         createSpringElements();
         
-        // Add keyboard shortcuts
+        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                 window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
@@ -540,26 +832,72 @@
             }
         });
         
-        // Mobile touch improvements
-        let touchStartY = 0;
-        document.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
+        // Sidebar posts data
+        const sidebarPosts = [
+            { title: "قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت", link: "https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt", image: "https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" },
+            { title: "ان گنت فتنوں کا ظہور اور ان کے نقصانات", link: "https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat", image: "https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" },
+            { title: "تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai", image: "https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" },
+            { title: "آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya", image: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" },
+            { title: "آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai", image: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" },
+            { title: "وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟", link: "https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi", image: "https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" },
+            { title: "دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya", image: "https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" },
+            { title: "للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai", image: "https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" },
+            { title: "قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟", link: "https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi", image: "https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" },
+            { title: "انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai", image: "https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" },
+            { title: "لوگ  اپنی موت کی تمنا کیوں کرنے لگیں گے؟", link: "https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge", image: "https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" },
+            { title: "آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya", image: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" },
+            { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", link: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", image: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+        ];
+        
+        // Populate sidebar
+        const sidebarContainer = document.getElementById('sidebarScroll');
+        sidebarPosts.forEach(post => {
+            const card = document.createElement('a');
+            card.href = post.link;
+            card.className = 'sidebar-post-card';
+            // Mark current post as active (if title matches)
+            if (post.title.includes("پڑوسی سے بُرے سلوک")) {
+                card.classList.add('active-post');
+            }
+            card.innerHTML = `
+                <img src="${post.image}" alt="${post.title}" class="sidebar-post-img" loading="lazy">
+                <div class="sidebar-post-title">${post.title}</div>
+            `;
+            sidebarContainer.appendChild(card);
         });
         
-        document.addEventListener('touchend', (e) => {
-            const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchStartY - touchEndY;
-            
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    // Swipe up
-                    window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-                } else {
-                    // Swipe down
-                    window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
-                }
-            }
+        // Auto-scroll control on hover
+        const scrollDiv = document.querySelector('.posts-scroll');
+        scrollDiv.addEventListener('mouseenter', () => {
+            scrollDiv.classList.remove('auto-scroll');
         });
+        scrollDiv.addEventListener('mouseleave', () => {
+            scrollDiv.classList.add('auto-scroll');
+        });
+        
+        // Simple share functions (can be expanded)
+        window.shareOnSocial = function(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${text}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${text}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`; break;
+                default: return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        };
+        
+        window.copyPageLink = function() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        };
     </script>
 </body>
 </html>
