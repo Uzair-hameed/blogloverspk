@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مساجد پر فخر کرنے والوں کے لئے کیا بربادی ہے؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Free) for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
         
@@ -75,10 +77,102 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .main-content {
+            min-width: 0;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(218, 165, 32, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            height: fit-content;
+            max-height: 600px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .sidebar-title {
+            font-size: 1.8rem;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #daa520;
+        }
+        
+        .posts-scroll-container {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+        
+        .posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: scrollUp 30s linear infinite;
+        }
+        
+        .posts-list:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .sidebar-post-card {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(218,165,32,0.3);
+            transition: 0.3s;
+            text-decoration: none;
+            color: #f5f5f5;
+        }
+        
+        .sidebar-post-card:hover {
+            background: rgba(218,165,32,0.2);
+            transform: translateX(-5px);
+            border-color: #daa520;
+        }
+        
+        .sidebar-post-card.active {
+            border-right: 5px solid #ffd700;
+            background: linear-gradient(90deg, rgba(218,165,32,0.3), transparent);
+        }
+        
+        .sidebar-post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #daa520;
+        }
+        
+        .sidebar-post-title {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            flex: 1;
         }
         
         .header {
@@ -90,6 +184,7 @@
             border-radius: 20px;
             border: 2px solid rgba(255, 215, 0, 0.3);
             box-shadow: 0 10px 30px rgba(255, 165, 0, 0.2);
+            grid-column: 1 / -1;
         }
         
         h1 {
@@ -255,66 +350,113 @@
             opacity: 0.7;
         }
         
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            .post-content p {
-                font-size: 1.2rem;
-                line-height: 2;
-            }
-            
-            .post-content {
-                padding: 25px;
-            }
-            
-            .control-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .controls {
-                right: 15px;
-                bottom: 15px;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-            
-            .header {
-                padding: 20px 0;
-            }
+        /* Reactions Section */
+        .reactions-section {
+            margin: 50px 0 30px;
+            padding: 30px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 30px;
+            border: 2px solid #daa520;
         }
         
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .post-content p {
-                font-size: 1.1rem;
-                line-height: 1.8;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            body {
-                padding: 15px;
-            }
+        .reactions-title {
+            text-align: center;
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+        
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .reaction-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #daa520;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 1.4rem;
+            color: white;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            min-width: 100px;
+            justify-content: center;
+        }
+        
+        .reaction-btn:hover {
+            background: #daa520;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px gold;
+        }
+        
+        .reaction-count {
+            background: rgba(0,0,0,0.5);
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            border: 1px solid #ffd700;
+        }
+        
+        /* Social Icons */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+        }
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .social-icon:hover { transform: scale(1.15) rotate(5deg); }
+        .facebook { background: #1877f2; }
+        .whatsapp { background: #25D366; }
+        .twitter { background: #1DA1F2; }
+        .linkedin { background: #0077b5; }
+        .telegram { background: #0088cc; }
+        .pinterest { background: #bd081c; }
+        .copy-link { background: #6c757d; cursor: pointer; }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0 20px;
+        }
+        .nav-btn {
+            background: linear-gradient(45deg, #8b4513, #daa520);
+            border: 2px solid #ffd700;
+            padding: 15px 40px;
+            border-radius: 60px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
+        }
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(45deg, #daa520, #ffd700);
+            box-shadow: 0 10px 30px gold;
         }
         
         .scroll-progress {
@@ -342,6 +484,28 @@
             50% { transform: translateY(-100px) translateX(100px); }
             100% { transform: translateY(0) translateX(0); }
         }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: #aaa;
+            font-size: 1.2rem;
+            border-top: 1px solid #daa520;
+            margin-top: 50px;
+            grid-column: 1 / -1;
+        }
+        
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { position: static; max-height: none; }
+            .posts-scroll-container { height: auto; overflow-y: visible; }
+            .posts-list { animation: none; }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            .post-content p { font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>
@@ -361,61 +525,164 @@
             <h1>مساجد پر فخر کرنے والوں کے لئے کیا بربادی ہے؟</h1>
         </div>
         
-        <div class="featured-image">
-            <img src="https://bloglovers.pk/images/alamaat-sughra/masajid-par-fakhr-karne-walon-ke-liye-kya-barbadi-hai.png" 
-                 alt="مساجد پر فخر کرنے والوں کے لئے کیا بربادی ہے؟">
+        <!-- Main Content Column -->
+        <div class="main-content">
+            <div class="featured-image">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/masajid-par-fakhr-karne-walon-ke-liye-kya-barbadi-hai.png" 
+                     alt="مساجد پر فخر کرنے والوں کے لئے کیا بربادی ہے؟">
+            </div>
+            
+            <div class="post-content">
+                <p>محترم قارئین کرام! آج میں اپنے اس آرٹیکل میں قیامت صغریٰ کی دو نشانیوں کے بارے میں ذکر کرنے جا رہا ہوں۔ ان میں سے ایک تو "مساجد کی زیبائش و آرائش پر فخر کرنا" اور دوسرا پہلو "مساجد میں آوازیں بلند کرنا" ہے۔ اور یہ دونوں نشانیاں دور حاضر میں پوری طرح سے ناصرف وقوع ہو چکی ہیں بلکہ وقت کی بے لگام رفتار کے ساتھ ساتھ ان میں شدت بھی نظر آرہی ہے۔</p>
+                <p>ایک وقت تھا، جب لوگ مساجد کے پاس سے انتہائی خاموشی اور احترام سے گزر جاتے تھے اور ہر وقت مساجد میں قرآن اور فقہ کی تعلیمات کا سلسلہ جاری و ساری رہتا تھا۔ لیکن اب وقت کے ساتھ ساتھ ناصرف روایات بدلیں بلکہ لوگوں کے افکار بھی بدل گئے اور یہ صرف دین اسلام سے اعراض کرنے کی وجہ ہے۔ نا ہم خود تعلیمات سے آشنا ہو سکے اور نا آنے والی نسلوں کو سدھانے کی کوشش کی۔ نتیجہ: ہم خود بھی گمراہ اور بچے بھی گمراہ۔</p>
+                
+                <div class="highlight-box">
+                    <p>یوں تو مساجد کو اللہ کی نشانیاں اور اللہ رب العزت کا گھر کہا جاتا ہے، روئے زمین پر اطمینان کی جگہ مساجد کو ہی حاصل ہے۔ اہل ایمان کے لئے مساجد کی کیا اہمیت ہے وہ ان سے بڑھ کر کوئی اور نہیں جان سکتا۔ دین اسلام میں مساجد کا تقدس اور توقیر پر بہت زور دیا گیا ہے۔ آپ ﷺ نے فرمایا: "مساجد کو گزرگاہ نہ بناؤ" یعنی مساجد کی تعظیم اور تقدس کو پامال نہ کرو۔</p>
+                </div>
+                
+                <p>ہمارے معاشرے میں بہت سی مساجد ہیں جو عبادات کے لئے کم اور لوگوں کی سیلفیاں لینے اور نوجوان لڑکے اور لڑکیوں کی مستیوں کے زیادہ کام آ رہی ہیں۔ ان میں فیصل مسجد، بادشاہی مسجد، مسجد بھونگ، مسجد سکینۃ الصغریٰ (مسجد جتوئی) اور دیگر ایسی بہت سی مساجد ہیں جو بناوٹ اور سجاوٹ میں اپنی مثل آپ ہیں۔</p>
+                
+                <h2>مساجد کی آرائش میں مبالغہ</h2>
+                <p>مساجد کی دیواروں کو مختلف رنگوں اور نقشوں سے مزین کرنا، پھر ان میں مختلف اشیاء کی اشکال بنانا، قیمتی رنگین اور مخملی قالین بچھانا، مساجد کی چھتوں میں کانچ یا شیشے سے نت نئے نقوش بنانا، چکاچوند دمکتی اور مہنگی لائٹوں سے مساجد کو بقعہ نور بنانا، مساجد کے دروازوں پر دیدہ زیب ڈیزائن بنانا، مساجد کے فرش پر اعلی و قیمی پتھر لگانا اور اس پر بھی بیل بوٹے کے نقوش بنوانا وغیرہ۔</p>
+                <p>ہماری سوچ کے برعکس یہ آرائشی و زیبائشی اخراجات تو کبھی کبھار اس حد تک پہنچ جاتے ہیں کہ اگر ہم اس سجاوٹ و آرائش اور رنگ برنگی روشنیوں کے اخراجات جمع کریں، تو اس رقم سے متعدد نئی مساجد کی تعمیر کر سکتے ہیں، لوگوں کے گھروں میں راشن دے سکتے ہیں، ننگے کے جسم کو ڈھانپ سکتے ہیں، بے روزگار انسان کو کاروبار میں فائدہ دے سکتے ہیں، کسی قرض دار کا قرض اتارنے میں مدد کر سکتے ہیں۔</p>
+                
+                <div class="highlight-box">
+                    <p>فضول خرچ کرنے والوں کو ناصرف شیطان کا بھائی کہا گیا ہے بلکہ اسلام میں اس کی سختی سے مذمت کی گئی ہے۔ آپ ﷺ نے فرمایا: "اللہ رب العزت کے نزدیک آبادیوں میں سب سے زیادہ محبوب جگہ مساجد ہیں اور بدترین جگہ بازار ہیں"۔ مسجد کا تقدس اس حدیث سے بھی واضح ہوتا ہے، لیکن افسوس! کہ ہم نے ان کو تفریح مقامات میں استعمال کرنا شروع کر دیا ہے۔</p>
+                </div>
+                
+                <p>درحقیقت مساجد عبادات کے لئے بنائے گئے اللہ کے وہ گھر ہیں، جنھیں اہل ایمان اللہ تعالیٰ سے اجروثواب، عبادات و تعلیمات حاصل کرنے کی نیت سے تعمیر کرتے ہیں۔ مگر قرب قیامت میں کچھ لوگ ایسی مساجد تعمیر کریں گے اور انھیں قیمتی نقش و نگار سے مزین کریں گے کہ وہ عبادات کے لئے بالکل استعمال نہیں ہونگی، صرف دکھلاوا ہوگا اور ہر شخص اپنی بنائی ہوئی مسجد کے نقش و نگار اور بناوٹ سجاوٹ پر تکبر اور فخر کرے گا۔</p>
+                <p>اور بعض اوقات اسے پبلسٹی کرانے کے لئے ذرائع ابلاغ پر نشر بھی کرے گا، مقصد صرف اور صرف دکھلاوا ہوگا۔ نمازیوں کے دل عبادت سے ہٹ کر ان کی ظاہری سجاوٹوں میں لگ جائیں گے اور وہ گمراہی اور بربادی کا ایندھن ہوں گے۔</p>
+                
+                <div class="highlight-box">
+                    <p>رسول اللہ ﷺ نے فرمایا: "قیامت اس وقت تک برپا نہ ہوگی جبل تک لوگ مسجدوں پر فخر نہ کرنے لگیں"۔</p>
+                </div>
+                
+                <p>صحابہ کرام نے بھی امت کی بھلائی اور خیرخواہی کے لئے خبردار کیا ہے کہ وہ کہیں ذکر و عبادت اور اطاعت خداوندی سے توجہ ہٹا کر مساجد کی عمدہ سے عمدہ تعمیرات اور ان کی بناوٹ سجاوٹ میں مشغول نہ ہو جائیں۔</p>
+                <p>آپ ﷺ نے فرمایا: "تم بھی مساجد کی اسی طرح آرائش و زیبائش کروگے جس طرح یہود و نصاریٰ نے (اپنے عبادت گاہوں کی) سجاوٹ کی تھی"۔</p>
+                <p>امام بغوی ؒ ارشاد فرماتے ہیں کہ: "یہود و نصاریٰ نے اس وقت اپنی عبادت گاہوں کو نقش و نگار سے مزین کرنا شروع کیا تھا، جب انھوں نے اپنی کتابوں میں پوری طرح سے ردوبدل کر دی تھی"۔ یعنی ان احکامات کو پس پشت ڈال دیا تھا جو انجیل، زبور، اور تورات میں اللہ نے بیان فرمائے ہیں۔</p>
+                <p>ایک اور مقام پر امام خطابی ؒ کچھ اس طرح رہنمائی فرماتے ہیں کہ: "یہود و نصاریٰ نے اپنے کلیسے اور گرجے کی درودیواروں کو اس وقت نقش و نگار سے مزین کیے، جب انھوں نے آسمانی کتب میں ردوبدل کی، چنانچہ انھوں نے دین کو اپنے ہاتھوں سے ضائع کرکے زیبائش و آرائش کو اپنا مطمع نظر بنالیا"۔</p>
+                
+                <div class="highlight-box">
+                    <p>انھی لوگوں کے لئے اللہ رب العزت نے قرآن میں فرمایا: "یہی لوگ ہیں جو ایمان کے بدلے گمراہی خریدتے ہیں، وہ بھی بہت تھوڑی قیمت پر"۔</p>
+                </div>
+                
+                <h2>اصل مقصد</h2>
+                <p>میرا آج کا آرٹیکل لکھنے کا مقصد یہ ہرگز نہیں کہ مساجد کی دیکھ بھال نہ کی جائے یا ان کا فرش بالکل اچھا نہ بنایا جائے، یا مسجد کی تعمیر میں کاہلی یا سستی کا مظاہرہ کیا جائے اور جان بوجھ کر اس میں نقص رکھا جائے۔ بلکہ آج کی بات اس طرف توجہ طلب ہے کہ جس کام سے آپ ﷺ نے منع فرمایا اور اللہ رب العزت کو ناپسند ہے، وہ صرف یہ ہے کہ مساجد کی زیبائش و آرائش میں مبالغہ آرائی اور اسراف سے کام نہ لیا جائے۔</p>
+                <p>کہیں ایسا نہ ہو کہ ہم نیکی کرتے کرتے گناہ کے مرتکب بن جائیں۔ ایک روایت میں آپ ﷺ نے فرمایا: "جب تم مساجد کے تزئین و آرائش میں مبالغہ کرنے لگو گے اور قرآن مجید کے نسخوں پر نقش و نگار بنانے لگ جاؤ گے، تو تمھاری بربادی کو کوئی نہیں روک سکے گا"۔</p>
+                <p>یہ بات مساجد تک محدود نہیں بلکہ قرآن کے بارے میں بھی ارشاد فرمائی گئی ہے، جیسے ہم قرآن کو پڑھنے کی بجائے خوبصورت اور دیدہ زیب، رنگارنگی کپڑوں کے غلافوں میں لپیٹ کے رکھتے ہیں۔</p>
+                
+                <h2>مساجد میں آوازیں بلند کرنا</h2>
+                <p>بالکل اسی طرح آپ ﷺ نے امت کی خیر خواہی کے لئے یہ بات بھی بہت واضح انداز میں بیان فرمائی: "کہ قرب قیامت مساجد میں آوازیں بلند کی جائیں گی اور ان میں بحث و جدال کیا جائے گا"۔</p>
+                <p>آج اگر ہم اپنی مساجد کا حال دیکھیں تو اس سے مختلف نظر نہیں آتا جس بات کی طرف آپ ﷺ نے اشارہ فرمایا۔ لوگ نماز ادا کرنے سے پہلے بھی کلام کرنے میں مشغول رہتے ہیں اور نماز کی ادائیگی کے بعد میں بحث و مباحثہ میں مشغول نظر آتے ہیں، یہاں تک لوگ گروپس میں بیٹھ کر ٹھٹھہ مذاق کرتے ہوئے دکھائی دیتے ہیں۔</p>
+                <p>یہی وہ تربیت ہے جو ہم اپنے بچوں کو دے رہے ہیں۔ یقین کریں جمعۃ المبارک کے دن مساجد میں بچوں کی اونچی آوازیں اور نماز کی پرسکون ادائیگی میں رکاوٹ کا باعث بنتے ہیں۔</p>
+                
+                <div class="highlight-box">
+                    <p>اللہ رب العزت سے استدعا ہے کہ ایسے گناہوں سے ہم سب کو بچنے کی توفیق عطا فرمائے۔ آمین</p>
+                </div>
+            </div>
+            
+            <!-- Reactions Section (Exactly as required) -->
+            <div class="reactions-section">
+                <h3 class="reactions-title">کیا آپ کو یہ تحریر پسند آئی؟</h3>
+                <div class="reactions-grid">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <!-- Social Share Icons (7 platforms) -->
+            <div class="social-share">
+                <a href="#" class="social-icon facebook" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon whatsapp" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-icon twitter" onclick="shareOnSocial('twitter')"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="social-icon linkedin" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon telegram" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-icon pinterest" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                <div class="social-icon copy-link" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-btn">مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn">تمام پوسٹس</a>
+            </div>
         </div>
         
-        <div class="post-content">
-            <p>محترم قارئین کرام! آج میں اپنے اس آرٹیکل میں قیامت صغریٰ کی دو نشانیوں کے بارے میں ذکر کرنے جا رہا ہوں۔ ان میں سے ایک تو "مساجد کی زیبائش و آرائش پر فخر کرنا" اور دوسرا پہلو "مساجد میں آوازیں بلند کرنا" ہے۔ اور یہ دونوں نشانیاں دور حاضر میں پوری طرح سے ناصرف وقوع ہو چکی ہیں بلکہ وقت کی بے لگام رفتار کے ساتھ ساتھ ان میں شدت بھی نظر آرہی ہے۔</p>
-            <p>ایک وقت تھا، جب لوگ مساجد کے پاس سے انتہائی خاموشی اور احترام سے گزر جاتے تھے اور ہر وقت مساجد میں قرآن اور فقہ کی تعلیمات کا سلسلہ جاری و ساری رہتا تھا۔ لیکن اب وقت کے ساتھ ساتھ ناصرف روایات بدلیں بلکہ لوگوں کے افکار بھی بدل گئے اور یہ صرف دین اسلام سے اعراض کرنے کی وجہ ہے۔ نا ہم خود تعلیمات سے آشنا ہو سکے اور نا آنے والی نسلوں کو سدھانے کی کوشش کی۔ نتیجہ: ہم خود بھی گمراہ اور بچے بھی گمراہ۔</p>
-            
-            <div class="highlight-box">
-                <p>یوں تو مساجد کو اللہ کی نشانیاں اور اللہ رب العزت کا گھر کہا جاتا ہے، روئے زمین پر اطمینان کی جگہ مساجد کو ہی حاصل ہے۔ اہل ایمان کے لئے مساجد کی کیا اہمیت ہے وہ ان سے بڑھ کر کوئی اور نہیں جان سکتا۔ دین اسلام میں مساجد کا تقدس اور توقیر پر بہت زور دیا گیا ہے۔ آپ ﷺ نے فرمایا: "مساجد کو گزرگاہ نہ بناؤ" یعنی مساجد کی تعظیم اور تقدس کو پامال نہ کرو۔</p>
-            </div>
-            
-            <p>ہمارے معاشرے میں بہت سی مساجد ہیں جو عبادات کے لئے کم اور لوگوں کی سیلفیاں لینے اور نوجوان لڑکے اور لڑکیوں کی مستیوں کے زیادہ کام آ رہی ہیں۔ ان میں فیصل مسجد، بادشاہی مسجد، مسجد بھونگ، مسجد سکینۃ الصغریٰ (مسجد جتوئی) اور دیگر ایسی بہت سی مساجد ہیں جو بناوٹ اور سجاوٹ میں اپنی مثل آپ ہیں۔</p>
-            
-            <h2>مساجد کی آرائش میں مبالغہ</h2>
-            <p>مساجد کی دیواروں کو مختلف رنگوں اور نقشوں سے مزین کرنا، پھر ان میں مختلف اشیاء کی اشکال بنانا، قیمتی رنگین اور مخملی قالین بچھانا، مساجد کی چھتوں میں کانچ یا شیشے سے نت نئے نقوش بنانا، چکاچوند دمکتی اور مہنگی لائٹوں سے مساجد کو بقعہ نور بنانا، مساجد کے دروازوں پر دیدہ زیب ڈیزائن بنانا، مساجد کے فرش پر اعلی و قیمی پتھر لگانا اور اس پر بھی بیل بوٹے کے نقوش بنوانا وغیرہ۔</p>
-            <p>ہماری سوچ کے برعکس یہ آرائشی و زیبائشی اخراجات تو کبھی کبھار اس حد تک پہنچ جاتے ہیں کہ اگر ہم اس سجاوٹ و آرائش اور رنگ برنگی روشنیوں کے اخراجات جمع کریں، تو اس رقم سے متعدد نئی مساجد کی تعمیر کر سکتے ہیں، لوگوں کے گھروں میں راشن دے سکتے ہیں، ننگے کے جسم کو ڈھانپ سکتے ہیں، بے روزگار انسان کو کاروبار میں فائدہ دے سکتے ہیں، کسی قرض دار کا قرض اتارنے میں مدد کر سکتے ہیں۔</p>
-            
-            <div class="highlight-box">
-                <p>فضول خرچ کرنے والوں کو ناصرف شیطان کا بھائی کہا گیا ہے بلکہ اسلام میں اس کی سختی سے مذمت کی گئی ہے۔ آپ ﷺ نے فرمایا: "اللہ رب العزت کے نزدیک آبادیوں میں سب سے زیادہ محبوب جگہ مساجد ہیں اور بدترین جگہ بازار ہیں"۔ مسجد کا تقدس اس حدیث سے بھی واضح ہوتا ہے، لیکن افسوس! کہ ہم نے ان کو تفریح مقامات میں استعمال کرنا شروع کر دیا ہے۔</p>
-            </div>
-            
-            <p>درحقیقت مساجد عبادات کے لئے بنائے گئے اللہ کے وہ گھر ہیں، جنھیں اہل ایمان اللہ تعالیٰ سے اجروثواب، عبادات و تعلیمات حاصل کرنے کی نیت سے تعمیر کرتے ہیں۔ مگر قرب قیامت میں کچھ لوگ ایسی مساجد تعمیر کریں گے اور انھیں قیمتی نقش و نگار سے مزین کریں گے کہ وہ عبادات کے لئے بالکل استعمال نہیں ہونگی، صرف دکھلاوا ہوگا اور ہر شخص اپنی بنائی ہوئی مسجد کے نقش و نگار اور بناوٹ سجاوٹ پر تکبر اور فخر کرے گا۔</p>
-            <p>اور بعض اوقات اسے پبلسٹی کرانے کے لئے ذرائع ابلاغ پر نشر بھی کرے گا، مقصد صرف اور صرف دکھلاوا ہوگا۔ نمازیوں کے دل عبادت سے ہٹ کر ان کی ظاہری سجاوٹوں میں لگ جائیں گے اور وہ گمراہی اور بربادی کا ایندھن ہوں گے۔</p>
-            
-            <div class="highlight-box">
-                <p>رسول اللہ ﷺ نے فرمایا: "قیامت اس وقت تک برپا نہ ہوگی جبل تک لوگ مسجدوں پر فخر نہ کرنے لگیں"۔</p>
-            </div>
-            
-            <p>صحابہ کرام نے بھی امت کی بھلائی اور خیرخواہی کے لئے خبردار کیا ہے کہ وہ کہیں ذکر و عبادت اور اطاعت خداوندی سے توجہ ہٹا کر مساجد کی عمدہ سے عمدہ تعمیرات اور ان کی بناوٹ سجاوٹ میں مشغول نہ ہو جائیں۔</p>
-            <p>آپ ﷺ نے فرمایا: "تم بھی مساجد کی اسی طرح آرائش و زیبائش کروگے جس طرح یہود و نصاریٰ نے (اپنے عبادت گاہوں کی) سجاوٹ کی تھی"۔</p>
-            <p>امام بغوی ؒ ارشاد فرماتے ہیں کہ: "یہود و نصاریٰ نے اس وقت اپنی عبادت گاہوں کو نقش و نگار سے مزین کرنا شروع کیا تھا، جب انھوں نے اپنی کتابوں میں پوری طرح سے ردوبدل کر دی تھی"۔ یعنی ان احکامات کو پس پشت ڈال دیا تھا جو انجیل، زبور، اور تورات میں اللہ نے بیان فرمائے ہیں۔</p>
-            <p>ایک اور مقام پر امام خطابی ؒ کچھ اس طرح رہنمائی فرماتے ہیں کہ: "یہود و نصاریٰ نے اپنے کلیسے اور گرجے کی درودیواروں کو اس وقت نقش و نگار سے مزین کیے، جب انھوں نے آسمانی کتب میں ردوبدل کی، چنانچہ انھوں نے دین کو اپنے ہاتھوں سے ضائع کرکے زیبائش و آرائش کو اپنا مطمع نظر بنالیا"۔</p>
-            
-            <div class="highlight-box">
-                <p>انھی لوگوں کے لئے اللہ رب العزت نے قرآن میں فرمایا: "یہی لوگ ہیں جو ایمان کے بدلے گمراہی خریدتے ہیں، وہ بھی بہت تھوڑی قیمت پر"۔</p>
-            </div>
-            
-            <h2>اصل مقصد</h2>
-            <p>میرا آج کا آرٹیکل لکھنے کا مقصد یہ ہرگز نہیں کہ مساجد کی دیکھ بھال نہ کی جائے یا ان کا فرش بالکل اچھا نہ بنایا جائے، یا مسجد کی تعمیر میں کاہلی یا سستی کا مظاہرہ کیا جائے اور جان بوجھ کر اس میں نقص رکھا جائے۔ بلکہ آج کی بات اس طرف توجہ طلب ہے کہ جس کام سے آپ ﷺ نے منع فرمایا اور اللہ رب العزت کو ناپسند ہے، وہ صرف یہ ہے کہ مساجد کی زیبائش و آرائش میں مبالغہ آرائی اور اسراف سے کام نہ لیا جائے۔</p>
-            <p>کہیں ایسا نہ ہو کہ ہم نیکی کرتے کرتے گناہ کے مرتکب بن جائیں۔ ایک روایت میں آپ ﷺ نے فرمایا: "جب تم مساجد کے تزئین و آرائش میں مبالغہ کرنے لگو گے اور قرآن مجید کے نسخوں پر نقش و نگار بنانے لگ جاؤ گے، تو تمھاری بربادی کو کوئی نہیں روک سکے گا"۔</p>
-            <p>یہ بات مساجد تک محدود نہیں بلکہ قرآن کے بارے میں بھی ارشاد فرمائی گئی ہے، جیسے ہم قرآن کو پڑھنے کی بجائے خوبصورت اور دیدہ زیب، رنگارنگی کپڑوں کے غلافوں میں لپیٹ کے رکھتے ہیں۔</p>
-            
-            <h2>مساجد میں آوازیں بلند کرنا</h2>
-            <p>بالکل اسی طرح آپ ﷺ نے امت کی خیر خواہی کے لئے یہ بات بھی بہت واضح انداز میں بیان فرمائی: "کہ قرب قیامت مساجد میں آوازیں بلند کی جائیں گی اور ان میں بحث و جدال کیا جائے گا"۔</p>
-            <p>آج اگر ہم اپنی مساجد کا حال دیکھیں تو اس سے مختلف نظر نہیں آتا جس بات کی طرف آپ ﷺ نے اشارہ فرمایا۔ لوگ نماز ادا کرنے سے پہلے بھی کلام کرنے میں مشغول رہتے ہیں اور نماز کی ادائیگی کے بعد میں بحث و مباحثہ میں مشغول نظر آتے ہیں، یہاں تک لوگ گروپس میں بیٹھ کر ٹھٹھہ مذاق کرتے ہوئے دکھائی دیتے ہیں۔</p>
-            <p>یہی وہ تربیت ہے جو ہم اپنے بچوں کو دے رہے ہیں۔ یقین کریں جمعۃ المبارک کے دن مساجد میں بچوں کی اونچی آوازیں اور نماز کی پرسکون ادائیگی میں رکاوٹ کا باعث بنتے ہیں۔</p>
-            
-            <div class="highlight-box">
-                <p>اللہ رب العزت سے استدعا ہے کہ ایسے گناہوں سے ہم سب کو بچنے کی توفیق عطا فرمائے۔ آمین</p>
+        <!-- Sidebar with Auto-scroll -->
+        <div class="sidebar">
+            <div class="sidebar-title">✨ مزید پوسٹس</div>
+            <div class="posts-scroll-container">
+                <div class="posts-list" id="autoScrollPosts">
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول" class="sidebar-post-img">
+                        <span class="sidebar-post-title">5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="فتنے" class="sidebar-post-img">
+                        <span class="sidebar-post-title">ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="ننگی عورتیں" class="sidebar-post-img">
+                        <span class="sidebar-post-title">تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم اٹھ جانا" class="sidebar-post-img">
+                        <span class="sidebar-post-title">آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں" class="sidebar-post-img">
+                        <span class="sidebar-post-title">آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام" class="sidebar-post-img">
+                        <span class="sidebar-post-title">وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دور جدید کے فتنے" class="sidebar-post-img">
+                        <span class="sidebar-post-title">دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="غافل کرنے والا فتنہ" class="sidebar-post-img">
+                        <span class="sidebar-post-title">للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی" class="sidebar-post-img">
+                        <span class="sidebar-post-title">قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="جلدی پکڑ" class="sidebar-post-img">
+                        <span class="sidebar-post-title">انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا" class="sidebar-post-img">
+                        <span class="sidebar-post-title">لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات" class="sidebar-post-img">
+                        <span class="sidebar-post-title">آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post-card">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا" class="sidebar-post-img">
+                        <span class="sidebar-post-title">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                </div>
             </div>
         </div>
+        
+        <footer>
+            © 2025 bloglovers.pk - تمام حقوق محفوظ ہیں
+        </footer>
     </div>
 
+    <!-- reactions.js will be loaded automatically (already present on server) -->
+    <script src="/reactions.js"></script>
+    
+    <!-- Only social share functions (keep original, no duplicate reaction functions) -->
     <script>
         // Fire particles creation
         function createFireParticles() {
@@ -460,6 +727,29 @@
                 floatingText.style.top = (30 + index * 10) + '%';
                 floatingText.style.animationDelay = (index * 5) + 's';
                 document.body.appendChild(floatingText);
+            });
+        }
+        
+        // Social share functions (keep as original)
+        function shareOnSocial(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+                default: return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
             });
         }
         
