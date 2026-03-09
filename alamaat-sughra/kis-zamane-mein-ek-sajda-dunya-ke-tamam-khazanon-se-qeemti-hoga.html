@@ -91,10 +91,16 @@
             border-radius: 2px;
         }
         
-        /* Main Content */
-        .post-content {
-            max-width: 900px;
+        /* Main Content Layout */
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            max-width: 1300px;
             margin: 0 auto;
+        }
+        
+        .post-main {
+            flex: 2;
             background: white;
             padding: 40px;
             border-radius: 20px;
@@ -104,9 +110,94 @@
             border: 1px solid rgba(76, 175, 80, 0.1);
         }
         
-        .post-content:hover {
+        .post-main:hover {
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             transform: translateY(-5px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .sidebar h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4CAF50;
+            text-align: center;
+        }
+        
+        .sidebar-scroll {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+        
+        .sidebar-scroll:hover {
+            overflow-y: auto;
+        }
+        
+        .sidebar-scroll:hover .sidebar-content {
+            animation-play-state: paused;
+        }
+        
+        .sidebar-content {
+            animation: scrollUp 30s linear infinite;
+        }
+        
+        .sidebar-scroll:hover .sidebar-content {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(76, 175, 80, 0.1);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item.active {
+            background: rgba(76, 175, 80, 0.2);
+            border-right: 4px solid #4CAF50;
+        }
+        
+        .sidebar-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .sidebar-item span {
+            font-size: 1rem;
+            line-height: 1.6;
         }
         
         /* Image */
@@ -206,75 +297,133 @@
             gap: 15px;
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            p {
-                font-size: 1.2rem;
-            }
-            
-            .post-content {
-                padding: 25px;
-            }
-            
-            .nav-buttons {
-                left: 10px;
-            }
-            
-            .nav-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
         
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            p {
-                font-size: 1.1rem;
-                line-height: 2;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            .nav-buttons {
-                position: fixed;
-                bottom: 20px;
-                top: auto;
-                left: 50%;
-                transform: translateX(-50%);
-                flex-direction: row;
-                gap: 10px;
-            }
-            
-            .nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-            
-            body {
-                padding: 10px;
-            }
+        .reactions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
         
-        /* Colorful highlights */
-        .highlight {
-            background: linear-gradient(120deg, #a1ffce 0%, #faffd1 100%);
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-weight: bold;
+        .reaction-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 10px;
+            border: none;
+            border-radius: 15px;
+            background: white;
+            color: #333;
+            font-size: 1.1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
         }
         
-        /* Decorative elements */
+        .reaction-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+        }
+        
+        .reaction-btn i, .reaction-btn span {
+            font-size: 2rem;
+        }
+        
+        .reaction-count {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Social Share */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .facebook { background: #1877f2; }
+        .whatsapp { background: #25D366; }
+        .twitter { background: #1DA1F2; }
+        .linkedin { background: #0077b5; }
+        .telegram { background: #0088cc; }
+        .pinterest { background: #bd081c; }
+        .copy-link { background: #6c757d; }
+        
+        /* Navigation Buttons */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .nav-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #4CAF50, #2E7D32);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .nav-link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* Decoration */
         .decoration {
             position: absolute;
             width: 150px;
@@ -293,6 +442,43 @@
             bottom: -50px;
             left: -50px;
         }
+        
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            h1 { font-size: 2rem; }
+            p { font-size: 1.2rem; }
+            .post-main { padding: 25px; }
+            .nav-buttons { left: 10px; }
+            .nav-btn { width: 45px; height: 45px; font-size: 20px; }
+            .content-wrapper { flex-direction: column; }
+            .sidebar { position: static; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1.1rem; line-height: 2; }
+            .post-main { padding: 20px; }
+            .nav-buttons {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                gap: 10px;
+            }
+            .nav-btn { width: 40px; height: 40px; font-size: 18px; }
+            body { padding: 10px; }
+            .reactions-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        /* Highlight */
+        .highlight {
+            background: linear-gradient(120deg, #a1ffce 0%, #faffd1 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -310,54 +496,135 @@
         <i class="fas fa-leaf"></i>
     </div>
     
-    <!-- Navigation Buttons -->
+    <!-- Floating Navigation Buttons -->
     <div class="nav-buttons">
         <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
         <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
     </div>
     
-    <!-- Main Content Container -->
-    <div class="post-content">
-        <div class="decoration top-left"></div>
-        <div class="decoration bottom-right"></div>
-        
-        <div class="header">
-            <h1>کس زمانے میں ایک سجدہ دنیا کے تمام خزانوں سے قیمتی ہوگا؟</h1>
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Main Post Content -->
+        <div class="post-main">
+            <div class="decoration top-left"></div>
+            <div class="decoration bottom-right"></div>
+            
+            <div class="header">
+                <h1>کس زمانے میں ایک سجدہ دنیا کے تمام خزانوں سے قیمتی ہوگا؟</h1>
+            </div>
+            
+            <!-- Main Image -->
+            <img src="https://bloglovers.pk/images/alamaat-sughra/kis-zamane-mein-ek-sajda-dunya-ke-tamam-khazanon-se-qeemti-hoga.png" alt="کس زمانے میں ایک سجدہ دنیا کے تمام خزانوں سے قیمتی ہوگا" class="post-image">
+            
+            <p>دوستو! فتنوں کے اس دور میں لوگ نماز نہیں پڑھتے ہیں ان کی مصروفیت کا یہ عالم ہے کہ رات گئے سوشل میڈیا، فحاشی کے مرتکب موویز، ڈرامہ، بیہودہ ڈانس اور نہ جانے کیا کیا دیکھ کر وقت گزارتے ہیں، کب اذان ہوتی ہے کہ اب نماز کا وقت ہے یہ تو پتہ ہی نہیں چلتا، آنکھ اس وقت کھلتی ہے جب دن کے گیارہ بجے ہوتے ہیں، ہم میں سے نہ جانے کتنے لوگ ہیں جو مسجد میں عرصہ دراز سے نہیں گئے نا قرآن کی تلاوت کی، نا ہی دیگر معاملات سرانجام دیے گئے۔</p>
+            
+            <p>بے شک نماز دین کا اہم ترین رکن ہے، کہا جاتا ہے جس کی نماز پوری ہو گی اس کے باقی کے اعمال بھی درست ہونگے۔ یوں تو نماز نہ پڑھنے والوں کے لیے سخت وعید کے احکامات بتائے گئے ہیں۔ اللہ رب العزت فرماتے ہیں "تو ان نمازیوں کے لیے خرابی ہے جو اپنی نماز سے بھولے بیٹھے ہیں"۔</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "جہنم میں ایک ایسی وادی ہے جس کا نام "وئیل" ہے اس کی آگ کی تپش سے خود جہنم بھی پناہ مانگتی ہے یہ ایسے انسانوں کا ٹھکانہ ہے جو نماز کو وقت پر نہیں پڑھتا بلکہ جان بوجھ کر وقت گزار کر پڑھتا ہے۔"</p>
+            
+            <p>ایک اور جگہ ارشاد فرمایا: مسلمان اور کافر کے درمیان نماز کو چھوڑنے کا فرق ہے۔ کہیں یوں فرمایا کہ جو شخص نماز کے معاملے میں سستی کرے گا اللہ رب العزت اسے پندرہ سزائیں دے گا جن میں سے چھ دنیا میں (اس کی عمر سے برکت ختم کر دی جائے گی، چہرے سے نیک لوگوں کی علامت ختم ہو جائے گی، کسی عمل پر اجر و ثواب نہ ہو گا، کوئی دعا قابل قبول نہ ہو گی، لوگ اس شخص سے نفرت کریں گے، نیک لوگوں کی دعاؤں میں اس کا کوئی حصہ نہ ہو گا) تین موت کے وقت (وہ شخص ذلیل و رسوا ہو کر مرے گا، بھوکا مرے گا، موت کے وقت شدید پیاس لگے گی سارے دریاؤں کا پانی بھی اس شخص کو پلایا جائے تب بھی پیاس نہ بجھ پائے گی) اور پھر تین قبر میں (اس کی قبر تنگ ہو جائے گی اور قبر اس طرح دبائے گی کے اس دائیں پسلیاں بائیں جانب پیوستہ ہو جائیں گی، قبر میں آگ بھڑکائی جائے گی ان انگاروں میں دن رات جلتا رہے گا، اس شخص پر ایک اژدھا مسلط کر دیا جائے گا جس کی آنکھیں آگ اور ناخن لوہے کے ہوں گے ہر ناخن کی لمبائی ایک دن کی مسافت کے برابر ہو گی وہ گرجا دار بجلی کی مثل آواز میں کہے گا: میں الشجاع الاقرع ہوں مجھے میرے رب نے حکم دیا ہے کہ میں تجھے فجر کی نماز ضائع کرنے کے جرم میں صبح تا عشاء ادا نہ کرنے پر صبح تک مارتا ہوں" اور جب بھی وہ ایک ضرب لگائے گا تو مردہ ستر ہاتھ زمین میں دھنس جائے گا تو وہ اپنے ناخن زمین میں داخل کر کے اسے نکالے گا اور یہ عذاب اس پر قیامت تک مسلسل ہوتا رہے گا) اور تین سزائیں قبر سے نکلنے کے بعد ہوں گی۔ (اللہ رب العزت اس شخص پر ایک فرشتہ مسلط کر دے گا جو اسے منہ کے بل گھسیٹتے ہوئے جہنم کی طرف ہانک کر لے جائے گا، سزا و جزا کے وقت اللہ اس کی طرف ناراضگی والی نظر سے دیکھے گا جس سے اس کے چہرے کا گوشت جھڑ جائے گا، اس کا حساب بہت سختی سے لیا جائے گا اس سے زیادہ سخت و طویل کوئی عذاب نہ ہو گا، اللہ رب العزت اس کو دوزخ میں لے جانے کا حکم فرمائیں گے جو کہ نہایت ہی بُرا ٹھکانہ ہے (اللہ ہم سب کو نماز پڑھنے کی توفیق عطا فرمائے آمین)</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "جو شخص جان بوجھ کر ایک فرض نماز چھوڑ دیتا ہے تو اس کا نام جہنم کے دروازے پر لکھ دیا جاتا ہے کہ فلاں کا جہنم میں داخلہ لازم ہو گیا"۔ ایک اور مقام پر کچھ یوں ارشاد فرمایا "اللہ رب العزت صحت کی حالت میں جان بوجھ کر نماز چھوڑنے والے کی طرف نہ نظرِ رحمت فرمائے گا اور نہ اس کو پاک کرے گا بلکہ اس کے لیے دردناک عذاب ہے مگر یہ کہ وہ اللہ رب العزت کی بارگاہ میں توبہ کرے تو اللہ پاک اس کی تو نہ قبول فرمائیں گے۔</p>
+            
+            <p>دوستو! آپ جانتے ہیں کہ میں مسلسل قیامت کی نشانیوں پر آرٹیکل لکھتا آرہا ہوں، آج کا عنوان بھی قیامت کی ایک نشانی ہے جس کو تفصیل سے ذکر کر چکا ہوں کہ کیسے ہم نماز سے دور ہو گئے ہیں، کیسے ہمیں قرآن سے دور کر دیا گیا ہے،</p>
+            
+            <p>یوں تو یہ علامت حضرت عیسیٰ ابن مریم کے زمانے میں ظاہر ہو گی لیکن اس کے اثرات ابھی سے ظاہر ہو رہے ہیں، اور تیزی سے شدت اختیار کرتے چلے جا رہے ہیں۔ دن بدن مساجد ویران اور سینما، بازار آباد ہو رہے ہیں،</p>
+            
+            <p>حضرت عیسیٰ کا زمانہ بہت ہی فضیلت والا ہو گا۔ عبادات بھی نہایت فضیلت کی حامل ہوں گی کیونکہ وقت اور مقام کے شرف و منزلت کے مطابق عبادات کے اجر و ثواب میں اضافہ ہوتا رہتا ہے۔</p>
+            
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "اس اللہ کی قسم جس کے ہاتھ میں میری جان ہے! قریب ہے کہ تم میں عیسیٰ ابن مریم عادل حکمران بن کر نزول فرمائیں۔ وہ صلیب کو توڑ دیں گے۔ خنزیر کو قتل کر دیں گے اور جزیے کو ختم کر دیں گے۔ اس وقت مال کی کثرت ہو جائے گی کہ اس کوئی قبول کرنے والا نہیں ہو گا، اس زمانے میں ایک سجدہ دنیا اور اس کے تمام خزانوں سے زیادہ قیمتی ہو گا۔ اور کوئی اہل کتاب نہیں ہو گا مگر ان کی موت سے پہلے ان پر ایمان لے آئے گا (مطلب یہ کہ حضرت عیسیٰ کسی کو اسلام کے سوا کسی دوسرے دین پر رہنے ہیں نہ دیں گے۔ اسی طرح عیسائیوں کو ابھی اجازت نہ دیں گے کہ وہ اپنے دین پر قائم رہیں، خواہ وہ اس کے لیے جزیہ بھی ادا کریں) اور وہ قیامت کے دن پر گواہ ہوں گے"۔</p>
+            
+            <p>آپ ﷺ کے فرمان کے مطابق اس زمانے میں کسی مومن شخص کا ایک سجدہ دنیا اور اس کے تمام خزانوں سے زیادہ قیمتی ہو گا کے معنی یہ ہیں کہ لوگوں کی نماز اور دیگر تمام عبادات میں رغبت بہت بڑھ جائے گی۔ کیونکہ وہ دنیا سے بے رغبت ہوں گے ان کی خواہشات بہت کم ہوں گی اور قرب قیامت کا انھیں پختہ یقین ہو گا۔</p>
+            
+            <p>اہل علم فرماتے ہیں اس کے معنی یہ ہیں کہ اس ایک سجدے کا اجر دنیا اور اس کے تمام خزانوں کو صدقہ کرنے سے بھی زیادہ ہو گا۔ اس لیے کہ اس زمانے میں مال کی بہتات ہو جائے گی۔ لوگوں میں حرص اور بخل بہت کم ہو گا۔ لوگ دنیا کے مال کو جہاد میں خرچ کریں گے اور خود اس مال کا لالچ نہیں کریں گے۔ اور سجدے سے مراد یا تو سجدہ ہی ہے یا پھر اس سے مراد نماز ہے۔ اللہ بہتر جانتا ہے</p>
+            
+            <p>اللہ رب العزت سے استدعا ہے کہ ہم سب کو نماز پنجگانہ ادا کرنے کی توفیق عطا فرمائے۔ آمین</p>
+            
+            <!-- Reactions Section -->
+            <div class="reactions-section">
+                <h2 style="text-align: center; margin-bottom: 20px;">اس پوسٹ پر اپنا ردعمل دیں</h2>
+                <div class="reactions-grid">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">
+                        <span>👍</span>
+                        <span>عمدہ</span>
+                        <span class="reaction-count" id="count-عمدہ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">
+                        <span>❤️</span>
+                        <span>دلچسپ</span>
+                        <span class="reaction-count" id="count-دلچسپ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">
+                        <span>😊</span>
+                        <span>مفید</span>
+                        <span class="reaction-count" id="count-مفید">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">
+                        <span>😢</span>
+                        <span>قابل غور</span>
+                        <span class="reaction-count" id="count-قابل غور">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">
+                        <span>🤔</span>
+                        <span>سوچ بچار</span>
+                        <span class="reaction-count" id="count-سوچ بچار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">
+                        <span>👏</span>
+                        <span>شاندار</span>
+                        <span class="reaction-count" id="count-شاندار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">
+                        <span>🔥</span>
+                        <span>زبردست</span>
+                        <span class="reaction-count" id="count-زبردست">0</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Social Share Buttons -->
+            <div class="social-share">
+                <button class="social-btn facebook" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></button>
+                <button class="social-btn whatsapp" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></button>
+                <button class="social-btn twitter" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></button>
+                <button class="social-btn linkedin" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></button>
+                <button class="social-btn telegram" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></button>
+                <button class="social-btn pinterest" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></button>
+                <button class="social-btn copy-link" onclick="copyPageLink()"><i class="fas fa-link"></i></button>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="nav-links">
+                <a href="https://bloglovers.pk/" class="nav-link-btn">
+                    <i class="fas fa-home"></i> مرکزی صفحہ
+                </a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link-btn">
+                    <i class="fas fa-list"></i> تمام پوسٹس
+                </a>
+            </div>
+            
+            <!-- Back Button -->
+            <div class="back-btn-container">
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-right"></i> واپس جائیں
+                </button>
+            </div>
         </div>
         
-        <!-- Main Image -->
-        <img src="https://bloglovers.pk/images/alamaat-sughra/kis-zamane-mein-ek-sajda-dunya-ke-tamam-khazanon-se-qeemti-hoga.png" alt="کس زمانے میں ایک سجدہ دنیا کے تمام خزانوں سے قیمتی ہوگا" class="post-image">
-        
-        <p>دوستو! فتنوں کے اس دور میں لوگ نماز نہیں پڑھتے ہیں ان کی مصروفیت کا یہ عالم ہے کہ رات گئے سوشل میڈیا، فحاشی کے مرتکب موویز، ڈرامہ، بیہودہ ڈانس اور نہ جانے کیا کیا دیکھ کر وقت گزارتے ہیں، کب اذان ہوتی ہے کہ اب نماز کا وقت ہے یہ تو پتہ ہی نہیں چلتا، آنکھ اس وقت کھلتی ہے جب دن کے گیارہ بجے ہوتے ہیں، ہم میں سے نہ جانے کتنے لوگ ہیں جو مسجد میں عرصہ دراز سے نہیں گئے نا قرآن کی تلاوت کی، نا ہی دیگر معاملات سرانجام دیے گئے۔</p>
-        
-        <p>بے شک نماز دین کا اہم ترین رکن ہے، کہا جاتا ہے جس کی نماز پوری ہو گی اس کے باقی کے اعمال بھی درست ہونگے۔ یوں تو نماز نہ پڑھنے والوں کے لیے سخت وعید کے احکامات بتائے گئے ہیں۔ اللہ رب العزت فرماتے ہیں "تو ان نمازیوں کے لیے خرابی ہے جو اپنی نماز سے بھولے بیٹھے ہیں"۔</p>
-        
-        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "جہنم میں ایک ایسی وادی ہے جس کا نام "وئیل" ہے اس کی آگ کی تپش سے خود جہنم بھی پناہ مانگتی ہے یہ ایسے انسانوں کا ٹھکانہ ہے جو نماز کو وقت پر نہیں پڑھتا بلکہ جان بوجھ کر وقت گزار کر پڑھتا ہے۔"</p>
-        
-        <p>ایک اور جگہ ارشاد فرمایا: مسلمان اور کافر کے درمیان نماز کو چھوڑنے کا فرق ہے۔ کہیں یوں فرمایا کہ جو شخص نماز کے معاملے میں سستی کرے گا اللہ رب العزت اسے پندرہ سزائیں دے گا جن میں سے چھ دنیا میں (اس کی عمر سے برکت ختم کر دی جائے گی، چہرے سے نیک لوگوں کی علامت ختم ہو جائے گی، کسی عمل پر اجر و ثواب نہ ہو گا، کوئی دعا قابل قبول نہ ہو گی، لوگ اس شخص سے نفرت کریں گے، نیک لوگوں کی دعاؤں میں اس کا کوئی حصہ نہ ہو گا) تین موت کے وقت (وہ شخص ذلیل و رسوا ہو کر مرے گا، بھوکا مرے گا، موت کے وقت شدید پیاس لگے گی سارے دریاؤں کا پانی بھی اس شخص کو پلایا جائے تب بھی پیاس نہ بجھ پائے گی) اور پھر تین قبر میں (اس کی قبر تنگ ہو جائے گی اور قبر اس طرح دبائے گی کے اس دائیں پسلیاں بائیں جانب پیوستہ ہو جائیں گی، قبر میں آگ بھڑکائی جائے گی ان انگاروں میں دن رات جلتا رہے گا، اس شخص پر ایک اژدھا مسلط کر دیا جائے گا جس کی آنکھیں آگ اور ناخن لوہے کے ہوں گے ہر ناخن کی لمبائی ایک دن کی مسافت کے برابر ہو گی وہ گرجا دار بجلی کی مثل آواز میں کہے گا: میں الشجاع الاقرع ہوں مجھے میرے رب نے حکم دیا ہے کہ میں تجھے فجر کی نماز ضائع کرنے کے جرم میں صبح تا عشاء ادا نہ کرنے پر صبح تک مارتا ہوں" اور جب بھی وہ ایک ضرب لگائے گا تو مردہ ستر ہاتھ زمین میں دھنس جائے گا تو وہ اپنے ناخن زمین میں داخل کر کے اسے نکالے گا اور یہ عذاب اس پر قیامت تک مسلسل ہوتا رہے گا) اور تین سزائیں قبر سے نکلنے کے بعد ہوں گی۔ (اللہ رب العزت اس شخص پر ایک فرشتہ مسلط کر دے گا جو اسے منہ کے بل گھسیٹتے ہوئے جہنم کی طرف ہانک کر لے جائے گا، سزا و جزا کے وقت اللہ اس کی طرف ناراضگی والی نظر سے دیکھے گا جس سے اس کے چہرے کا گوشت جھڑ جائے گا، اس کا حساب بہت سختی سے لیا جائے گا اس سے زیادہ سخت و طویل کوئی عذاب نہ ہو گا، اللہ رب العزت اس کو دوزخ میں لے جانے کا حکم فرمائیں گے جو کہ نہایت ہی بُرا ٹھکانہ ہے (اللہ ہم سب کو نماز پڑھنے کی توفیق عطا فرمائے آمین)</p>
-        
-        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "جو شخص جان بوجھ کر ایک فرض نماز چھوڑ دیتا ہے تو اس کا نام جہنم کے دروازے پر لکھ دیا جاتا ہے کہ فلاں کا جہنم میں داخلہ لازم ہو گیا"۔ ایک اور مقام پر کچھ یوں ارشاد فرمایا "اللہ رب العزت صحت کی حالت میں جان بوجھ کر نماز چھوڑنے والے کی طرف نہ نظرِ رحمت فرمائے گا اور نہ اس کو پاک کرے گا بلکہ اس کے لیے دردناک عذاب ہے مگر یہ کہ وہ اللہ رب العزت کی بارگاہ میں توبہ کرے تو اللہ پاک اس کی تو نہ قبول فرمائیں گے۔</p>
-        
-        <p>دوستو! آپ جانتے ہیں کہ میں مسلسل قیامت کی نشانیوں پر آرٹیکل لکھتا آرہا ہوں، آج کا عنوان بھی قیامت کی ایک نشانی ہے جس کو تفصیل سے ذکر کر چکا ہوں کہ کیسے ہم نماز سے دور ہو گئے ہیں، کیسے ہمیں قرآن سے دور کر دیا گیا ہے،</p>
-        
-        <p>یوں تو یہ علامت حضرت عیسیٰ ابن مریم کے زمانے میں ظاہر ہو گی لیکن اس کے اثرات ابھی سے ظاہر ہو رہے ہیں، اور تیزی سے شدت اختیار کرتے چلے جا رہے ہیں۔ دن بدن مساجد ویران اور سینما، بازار آباد ہو رہے ہیں،</p>
-        
-        <p>حضرت عیسیٰ کا زمانہ بہت ہی فضیلت والا ہو گا۔ عبادات بھی نہایت فضیلت کی حامل ہوں گی کیونکہ وقت اور مقام کے شرف و منزلت کے مطابق عبادات کے اجر و ثواب میں اضافہ ہوتا رہتا ہے۔</p>
-        
-        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "اس اللہ کی قسم جس کے ہاتھ میں میری جان ہے! قریب ہے کہ تم میں عیسیٰ ابن مریم عادل حکمران بن کر نزول فرمائیں۔ وہ صلیب کو توڑ دیں گے۔ خنزیر کو قتل کر دیں گے اور جزیے کو ختم کر دیں گے۔ اس وقت مال کی کثرت ہو جائے گی کہ اس کوئی قبول کرنے والا نہیں ہو گا، اس زمانے میں ایک سجدہ دنیا اور اس کے تمام خزانوں سے زیادہ قیمتی ہو گا۔ اور کوئی اہل کتاب نہیں ہو گا مگر ان کی موت سے پہلے ان پر ایمان لے آئے گا (مطلب یہ کہ حضرت عیسیٰ کسی کو اسلام کے سوا کسی دوسرے دین پر رہنے ہیں نہ دیں گے۔ اسی طرح عیسائیوں کو ابھی اجازت نہ دیں گے کہ وہ اپنے دین پر قائم رہیں، خواہ وہ اس کے لیے جزیہ بھی ادا کریں) اور وہ قیامت کے دن پر گواہ ہوں گے"۔</p>
-        
-        <p>آپ ﷺ کے فرمان کے مطابق اس زمانے میں کسی مومن شخص کا ایک سجدہ دنیا اور اس کے تمام خزانوں سے زیادہ قیمتی ہو گا کے معنی یہ ہیں کہ لوگوں کی نماز اور دیگر تمام عبادات میں رغبت بہت بڑھ جائے گی۔ کیونکہ وہ دنیا سے بے رغبت ہوں گے ان کی خواہشات بہت کم ہوں گی اور قرب قیامت کا انھیں پختہ یقین ہو گا۔</p>
-        
-        <p>اہل علم فرماتے ہیں اس کے معنی یہ ہیں کہ اس ایک سجدے کا اجر دنیا اور اس کے تمام خزانوں کو صدقہ کرنے سے بھی زیادہ ہو گا۔ اس لیے کہ اس زمانے میں مال کی بہتات ہو جائے گی۔ لوگوں میں حرص اور بخل بہت کم ہو گا۔ لوگ دنیا کے مال کو جہاد میں خرچ کریں گے اور خود اس مال کا لالچ نہیں کریں گے۔ اور سجدے سے مراد یا تو سجدہ ہی ہے یا پھر اس سے مراد نماز ہے۔ اللہ بہتر جانتا ہے</p>
-        
-        <p>اللہ رب العزت سے استدعا ہے کہ ہم سب کو نماز پنجگانہ ادا کرنے کی توفیق عطا فرمائے۔ آمین</p>
-        
-        <!-- Back Button -->
-        <div class="back-btn-container">
-            <button class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-right"></i> واپس جائیں
-            </button>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>مزید پوسٹس</h2>
+            <div class="sidebar-scroll">
+                <div class="sidebar-content">
+                    <!-- Sidebar items will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 bloglovers.pk - تمام حقوق محفوظ ہیں</p>
     </div>
     
     <script>
@@ -373,6 +640,46 @@
         // Back button function
         function goBack() {
             window.history.back();
+        }
+        
+        // Social sharing functions
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => {
+                alert('لنک کاپی کرنے میں مسئلہ ہوا');
+            });
         }
         
         // Add hover effect to paragraphs
@@ -399,23 +706,61 @@
                     this.style.borderColor = 'white';
                 });
             }
+            
+            // Populate sidebar with posts
+            const sidebarContent = document.querySelector('.sidebar-content');
+            const posts = [
+                { title: "قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت", url: "https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt", img: "https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" },
+                { title: "ان گنت فتنوں کا ظہور اور ان کے نقصانات", url: "https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat", img: "https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" },
+                { title: "تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟", url: "https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" },
+                { title: "آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟", url: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" },
+                { title: "آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟", url: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" },
+                { title: "وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟", url: "https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi", img: "https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" },
+                { title: "دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟", url: "https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" },
+                { title: "للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟", url: "https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" },
+                { title: "قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟", url: "https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi", img: "https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" },
+                { title: "انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟", url: "https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" },
+                { title: "لوگ  اپنی موت کی تمنا کیوں کرنے لگیں گے؟", url: "https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge", img: "https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" },
+                { title: "آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟", url: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" },
+                { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", url: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", img: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+            ];
+            
+            // Duplicate items for seamless scrolling
+            const allPosts = [...posts, ...posts];
+            
+            allPosts.forEach((post, index) => {
+                const item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'sidebar-item';
+                
+                // Check if this is the current post (for highlighting)
+                if (window.location.pathname.includes(post.url.split('/').pop())) {
+                    item.classList.add('active');
+                }
+                
+                item.innerHTML = `
+                    <img src="${post.img}" alt="${post.title}" loading="lazy">
+                    <span>${post.title}</span>
+                `;
+                sidebarContent.appendChild(item);
+            });
         });
         
-        // Add keyboard shortcuts
+        // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            // Up arrow for scroll to top
             if (e.key === 'ArrowUp') {
                 scrollToTop();
             }
-            // Down arrow for scroll to bottom
             if (e.key === 'ArrowDown') {
                 scrollToBottom();
             }
-            // Escape for back
             if (e.key === 'Escape') {
                 goBack();
             }
         });
     </script>
+    
+    <!-- Reactions.js -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
