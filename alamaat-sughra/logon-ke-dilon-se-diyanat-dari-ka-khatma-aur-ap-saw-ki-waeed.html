@@ -70,11 +70,19 @@
         
         /* Main Container */
         .main-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 30px 20px;
             position: relative;
             z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
+        }
+        
+        /* Content Area */
+        .content-area {
+            min-width: 0;
         }
         
         /* Header */
@@ -198,6 +206,141 @@
             border-bottom: 1px solid rgba(56, 189, 248, 0.3);
         }
         
+        /* Reactions Section */
+        .reactions-section {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .reaction-btn {
+            background: rgba(14, 165, 233, 0.15);
+            border: 2px solid rgba(56, 189, 248, 0.4);
+            border-radius: 60px;
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            font-family: inherit;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .reaction-btn:hover {
+            background: linear-gradient(45deg, var(--dark-blue), var(--primary-blue));
+            border-color: var(--vibrant-blue);
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.6);
+        }
+        
+        .reaction-count {
+            background: rgba(0,0,0,0.4);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            min-width: 45px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        
+        .sidebar h2 {
+            color: var(--light-blue);
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.5);
+            text-shadow: 0 0 10px rgba(56,189,248,0.5);
+        }
+        
+        .sidebar-posts {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+        
+        .auto-scroll {
+            animation: scrollPosts 30s linear infinite;
+        }
+        
+        .auto-scroll:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .sidebar-post {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-light);
+            align-items: center;
+        }
+        
+        .sidebar-post:hover {
+            background: linear-gradient(45deg, var(--dark-blue), var(--primary-blue));
+            border-color: var(--vibrant-blue);
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(14,165,233,0.5);
+        }
+        
+        .sidebar-post img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--primary-blue);
+        }
+        
+        .sidebar-post span {
+            font-size: 1rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .current-post-highlight {
+            background: linear-gradient(45deg, #0e5a9e, #0ea5e9);
+            border: 2px solid var(--vibrant-blue);
+            box-shadow: 0 0 20px rgba(56,189,248,0.5);
+        }
+        
         /* Navigation Buttons */
         .nav-buttons {
             display: flex;
@@ -256,6 +399,47 @@
             transform: translateY(-2px);
         }
         
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            color: white;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        
+        .fa-facebook-f { color: #1877f2; }
+        .fa-whatsapp { color: #25D366; }
+        .fa-twitter { color: #1DA1F2; }
+        .fa-linkedin-in { color: #0077b5; }
+        .fa-telegram-plane { color: #0088cc; }
+        .fa-pinterest-p { color: #bd081c; }
+        .fa-copy { color: #6c757d; }
+        
+        .social-icon:hover i {
+            color: white !important;
+        }
+        
         /* Scroll Buttons */
         .scroll-buttons {
             position: fixed;
@@ -298,100 +482,6 @@
             z-index: 100;
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.3rem;
-            }
-            
-            .post-content p {
-                font-size: 1.25rem;
-            }
-            
-            .post-content {
-                padding: 30px 25px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 20px 15px;
-            }
-            
-            h1 {
-                font-size: 1.9rem;
-            }
-            
-            .post-content p {
-                font-size: 1.15rem;
-                line-height: 2.1;
-            }
-            
-            .post-content h2 {
-                font-size: 1.7rem;
-            }
-            
-            .post-content h3 {
-                font-size: 1.5rem;
-            }
-            
-            .post-image {
-                max-height: 350px;
-            }
-            
-            .btn {
-                min-width: 140px;
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-            
-            .nav-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .scroll-buttons {
-                left: 15px;
-                bottom: 15px;
-            }
-            
-            .scroll-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            .post-content p {
-                font-size: 1.05rem;
-                line-height: 2;
-            }
-            
-            .post-content {
-                padding: 25px 20px;
-            }
-            
-            .post-image {
-                max-height: 250px;
-            }
-            
-            .scroll-buttons {
-                left: 10px;
-                bottom: 10px;
-            }
-            
-            .scroll-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-        }
-        
         /* Highlight Quotes */
         .highlight {
             background: rgba(14, 165, 233, 0.15);
@@ -427,6 +517,33 @@
             border-bottom: 1px solid var(--vibrant-blue);
             text-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
         }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            h1 { font-size: 2.3rem; }
+            .post-content p { font-size: 1.25rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container { padding: 20px 15px; }
+            h1 { font-size: 1.9rem; }
+            .post-content p { font-size: 1.15rem; }
+            .post-content h2 { font-size: 1.7rem; }
+            .post-content h3 { font-size: 1.5rem; }
+            .post-image { max-height: 350px; }
+            .btn { min-width: 140px; padding: 12px 25px; font-size: 1rem; }
+            .nav-buttons { flex-direction: column; align-items: center; }
+            .scroll-buttons { left: 15px; bottom: 15px; }
+            .scroll-btn { width: 50px; height: 50px; font-size: 1.3rem; }
+        }
     </style>
 </head>
 <body>
@@ -445,71 +562,190 @@
     </div>
     
     <div class="main-container">
-        <!-- Header -->
-        <div class="header">
-            <h1>لوگوں کے دلوں سے دیانتداری کا خاتمہ اور آپ ﷺ کی وعید</h1>
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <!-- Header -->
+            <div class="header">
+                <h1>لوگوں کے دلوں سے دیانتداری کا خاتمہ اور آپ ﷺ کی وعید</h1>
+                
+                <!-- Post Image -->
+                <img src="https://bloglovers.pk/images/alamaat-sughra/logon-ke-dilon-se-diyanat-dari-ka-khatma-aur-ap-saw-ki-waeed.png" 
+                     alt="لوگوں کے دلوں سے دیانتداری کا خاتمہ" 
+                     class="post-image">
+            </div>
             
-            <!-- Post Image -->
-            <img src="https://bloglovers.pk/images/alamaat-sughra/logon-ke-dilon-se-diyanat-dari-ka-khatma-aur-ap-saw-ki-waeed.png" 
-                 alt="لوگوں کے دلوں سے دیانتداری کا خاتمہ" 
-                 class="post-image">
+            <!-- Post Content -->
+            <div class="post-content">
+                <p>قیامت کی ڈھیر ساری نشانیوں میں سے ایک نشانی یہ بھی ارشاد فرمائی گئی کہ لوگوں کے دلوں سے دیانت داری نکال لی جائے گی۔ ہم سب جانتے ہیں کہ جس شخص کا دل سے دیانت داری ختم ہو جائے تو بندہ مومن نہیں رہتا یعنی ایمان کا خاتمہ ہو جاتا ہے۔</p>
+                
+                <p>یہ نشانی دور حاضر میں اپنے عروج پر ہے۔ اپنے اردگرد نظر دوڑائیں تو ہم میں سے ہر ایک بندہ اس نشانی پر پورا اترے گا۔ دیانت داری سے مراد صرف روپے پیسے کا لین دین نہیں ہوتا دیانت داری میں ہر ایک لین دین شامل ہوتا ہے۔</p>
+                
+                <p>مثال کے طور پر آج کا ہر ایک نوجوان پڑھنے کے بعد نوکری کی تلاش میں در بدر کی ٹھوکریں کھاتا پھرتا ہے مگر نوکری اسی کو دی جاتی ہے جس کی اچھی سفارش ہو یا رشوت دی گئی ہو۔ ہم سب اسی معاشرے کا حصہ ہیں جہاں ایک حق دار کو اس کا حق نہیں دیا جاتا۔ کہنے کو تو ہم مسلمان ہیں لیکن کیا ہمارے کام مسلمانوں والے ہیں۔</p>
+                
+                <div class="highlight">
+                    <p>یاد رکھیں جب امانتیں برباد ہونے لگتی ہیں تو پیمانے یکسر بدل جایا کرتے ہیں جس سے نہ صرف لوگوں میں انتشار پیدا ہوتا بلکہ معاشرے میں توازن برقرار نہیں رہتا۔ ہم میں سے ہر ایک بندہ اپنا کام دیانت داری سے کرنے کی بجائے دوسروں پر تنقید کرنے کا عادی ہے۔ اسی وجہ سے نااہل لوگ ہم پر حکمرانی کرتے دکھائی دیتے ہیں۔</p>
+                </div>
+                
+                <p>ایک سے بڑھ کر ایک حکمران جو کہنے سے تو مسلمان ہوتا ہے لیکن عملاً ایسا نہیں ہوتا وہ خود بھی بددیانت ہوتا ہے اور لوگوں کو بھی وہ کچھ شئیر کیا جاتا ہے جس کے وہ حق دار ہوتے ہیں۔ ہمیں حکمران ویسا ہی دیا جاتا ہے جیسا کہ ہمارے اعمال ہوتے ہیں۔</p>
+                
+                <h2>ارشادات نبویہ ﷺ</h2>
+                
+                <p>ارشاد نبوی ﷺ کہ "جس کے اندر امانت نہیں اس کے اندر ایمان نہیں"۔ گویا ایمانداری، دیانتداری ایمان کا لازمی جزو قرار دیا گیا ہے۔ اور یقینا جو شخص اللہ تعالی اور آپ ﷺ پر ایمان لاتا ہے وہ کبھی بھی امانت میں خیانت کا نہیں سوچ سکتا۔ ہم کیسے سوچ لیتے ہیں کہ ہم مسلمان ہیں اور ہم امانت میں خیانت نہیں کرتے؟</p>
+                
+                <p>حضرت ابوہریرہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا: "منافق کی تین نشانیاں ہیں: جب بات کرے تو جھوٹ بولے، جب وعدہ کرے تو خلاف ورزی کرے اور جب اس کے پاس امانت رکھوائی جائے تو اس میں خیانت کرے"۔</p>
+                
+                <p>حضرت حذیفہ بن یمان رضی اللہ عنہ سے روایت ہے کہ نبی کریم ﷺ نے فرمایا: "امانت لوگوں کے دلوں کی گہرائی میں نازل ہوئی تھی۔ پھر قرآن نازل ہوا اور لوگوں نے امانت کی اہمیت قرآن سے اور سنت سے معلوم کی"۔</p>
+                
+                <h3>قیامت کی نشانی</h3>
+                
+                <p>ایک اور جگہ ارشاد فرمایا کہ "ایک ایسا وقت آئے گا جب امانت لوگوں کے دلوں سے نکال لی جائے گی۔ آپ ﷺ نے فرمایا: آدمی رات کو سوئے گا تو اچانک اس کے دل سے امانت قبض کر لی جائے گی مگر امانت کا کچھ نہ کچھ اثر ایک نقطے کی مانند دل میں باقی رہ جائے گا۔ پھر اگلی رات وہ سوئے گا تو باقی امانت بھی قبض کر لی جائے گی حتی کہ اس کا معمولی سا اثر باریک چھلکے کی طرح باقی رہ جائے گا۔ جس طرح آپ دہکتے ہوئے انگارے کو اپنے پاؤں پر لڑھکا دیں تو اس پر چھالا پڑ جاتا ہے۔ امانت کا یہ اثر اس چھالے کے بیرونی چھلکے کی طرح نہایت کمزور ہوگا۔ آپ کو پاؤں کا چھالا ابھرا ہوا نظر آتا ہے، حالانکہ حقیقت کے اعتبار سے وہ کچھ بھی نہیں ہوتا (یہ کہہ کر آپ ﷺ نے بات سمجھانے کے لیے ایک کنکری پکڑ کر اپنے پاؤں پر لڑھکا دی) پھر فرمایا: ایک وقت آئے گا لوگ خریدو فروخت کے لیے نکلیں گے، لیکن ڈھونڈنے کے باوجود انہیں کوئی امانت دار آدمی نہیں ملے گا، حتیٰ کہ یہ کہا جائے گا: فلاں قبیلے میں ایک امانت دار شخص ہے۔ یہاں تک کہ کسی شخص کے بارے میں لوگوں کی رائے یہ ہوگی کہ دیکھو وہ شخص کتنا بہادر ہے! کتنا خوش مزاج ہے! کتنا عقل مند ہے! حالانکہ اس کے دل میں رائی کے دانے کے برابر بھی ایمان نہیں ہو گا"۔</p>
+                
+                <p>حضرت حذیفہ رضی اللہ عنہ کہتے ہیں: "مجھ پر ایک وقت ایسا بھی آیا کہ میں خریدو فروخت کرتے وقت اس بات کی پروا نہیں کرتا تھا کہ میں جس سے خریداری کررہا ہوں اس کا دین کیا ہے۔ اگر وہ مسلمان ہوگا تو میرا حق ادا کرے گا اور اگر عیسائی یا یہودی ہو گا تو بھی اپنے وکیل کے ذریعے میرا حق ادا کردے گا۔ مگر آج میں فلاں اور فلاں آدمی کے سوا کسی اور سے خریدو فروخت نہیں کرتا"۔</p>
+                
+                <div class="highlight">
+                    <p>نبوت والی زبان سے نکلے ان الفاظوں کی اہمیت کو صحابہ کرام نے اپنے اعمال سے سچ کر کے دکھایا کہ دیانت داری ہوتی کیا ہے؟ ایمان کسے کہتے ہیں؟ آج ہم بھی کاروبار کرتے ہیں، لین دین بھی کرتے ہیں کیا کبھی ہم نے اس بات کو سوچنا گوارا کیا، اندر سے ایک ہی جواب آئے گا "ہرگز نہیں"۔</p>
+                </div>
+                
+                <h2>قرآن کریم کی آیات</h2>
+                
+                <p>ارشاد باری تعالی ہے: "اے ایمان والو! اللہ اور رسول سے دغا نہ کرو اور اپنی امانتوں میں (دانستہ) خیانت مت کرو"۔</p>
+                
+                <p>ارشاد باری تعالی ہے: "یقینا اللہ تبارک و تعالیٰ تمہیں اس بات کا حکم دیتا ہے کہ تم امانتیں ان کے اہل کی طرف لوٹا دو"۔</p>
+                
+                <p>جب ہم قرآن و سنت کو سمجھنے اور اس کے مطابق عمل کرنے کی بجائے اس میں سے عیب نکالنے کی جستجو میں لگے رہیں گے اور قرآن کے فیصلوں کو پس پشت ڈال کر اپنی من چاہی بات کو ترجیح دیں گے تو معاشرے میں بھونچال آئے گا۔ جب کثیر تعداد میں لوگوں کے ضمیر کمزور اور بیمار ہوجائیں، اور معاملات کمتر، نااہل لوگوں کی طرف لوٹائے جائیں گے کہ وہ ان میں فیصلہ فرما دیں، جب امانتیں کی خیانت کی جائے گی تو قیامت قریب آجائے گی۔</p>
+                
+                <h3>قیامت کا وقت</h3>
+                
+                <p>حضرت ابوہریرہ رضی اللہ عنہ بیان کرتے ہیں کہ نبی کریم ﷺ ایک مجلس میں تشریف فرما تھے اور صحابہ کرام سے گفتگو فرما رہے تھے کہ ایک اعرابی آیا اور اس نے پوچھا: اللہ کے رسول! قیامت کب قائم ہو گی؟ رسول اللہ ﷺ نے اپنی گفتگو جاری رکھی اور اعرابی کی طرف متوجہ نہ ہوئے۔ بعض لوگوں نے کہا: آپ ﷺ نے اعرابی کی بات تو سنی ہے مگر اس کے سوال کو پسند نہیں کیا، (اس لیے جواب دینے سے گریز فرما رہے ہیں)۔ دوسروں نے کہا: آپ ﷺ نے بات سنی ہی نہیں۔ جب آپ ﷺ نے بات مکمل کر لی تو فرمایا: "وہ قیامت کے بارے میں سوال کرنے والا شخص کہاں ہے؟"۔</p>
+                
+                <p>اس نے عرض کیا: یا رسول اللہ! میں یہیں ہوں۔ آپ ﷺ نے فرمایا: "سنو! جب امانتیں ضائع کی جانے لگیں تو قیامت کا انتظار کرو"۔ اس نے عرض کیا: امانتیں کیسے ضائع ہوں گی؟ تو آپ ﷺ نے فرمایا: "جب معاملات نااہل لوگوں کے سپرد کر دئیے جائیں تو اس وقت قیامت کا انتظار کرو"۔</p>
+                
+                <p>عبادات سے لے کر زندگی کے ہر شعبہ میں دیانت داری کا دائرہ کار شامل ہے۔ بندہ کہیں بھی ہو زندگی کے کسی بھی شعبہ سے وابستہ ہو اسے اپنی دیانت داری پر آنچ نہیں آنے دینا چاہیے۔ لیکن افسوس کہ قیامت کی یہ نشانی آج پورے جوبن پر ہے۔ جی ہاں! "جب معاملات نااہل لوگوں کے سپرد کر دئیے جائیں تو قیامت کا انتظار کرو"۔</p>
+                
+                <!-- Reactions Section -->
+                <div class="reactions-section">
+                    <h3 style="text-align: center; color: var(--light-blue); margin-bottom: 20px;">آپ کا ردعمل کیا ہے؟</h3>
+                    <div class="reactions-grid">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')"><span>👍 عمدہ</span> <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')"><span>❤️ دلچسپ</span> <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')"><span>😊 مفید</span> <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')"><span>😢 قابل غور</span> <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')"><span>🤔 سوچ بچار</span> <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')"><span>👏 شاندار</span> <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')"><span>🔥 زبردست</span> <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Social Media Icons -->
+                <div class="social-icons">
+                    <a href="#" class="social-icon" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="social-icon" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                    <button class="social-icon" onclick="copyPageLink()"><i class="fas fa-copy"></i></button>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="nav-buttons">
+                    <button class="btn" id="backBtn"><i class="fas fa-arrow-right"></i> واپس جائیں</button>
+                    <a href="https://bloglovers.pk/" class="btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+            </div>
         </div>
         
-        <!-- Post Content -->
-        <div class="post-content">
-            <p>قیامت کی ڈھیر ساری نشانیوں میں سے ایک نشانی یہ بھی ارشاد فرمائی گئی کہ لوگوں کے دلوں سے دیانت داری نکال لی جائے گی۔ ہم سب جانتے ہیں کہ جس شخص کا دل سے دیانت داری ختم ہو جائے تو بندہ مومن نہیں رہتا یعنی ایمان کا خاتمہ ہو جاتا ہے۔</p>
-            
-            <p>یہ نشانی دور حاضر میں اپنے عروج پر ہے۔ اپنے اردگرد نظر دوڑائیں تو ہم میں سے ہر ایک بندہ اس نشانی پر پورا اترے گا۔ دیانت داری سے مراد صرف روپے پیسے کا لین دین نہیں ہوتا دیانت داری میں ہر ایک لین دین شامل ہوتا ہے۔</p>
-            
-            <p>مثال کے طور پر آج کا ہر ایک نوجوان پڑھنے کے بعد نوکری کی تلاش میں در بدر کی ٹھوکریں کھاتا پھرتا ہے مگر نوکری اسی کو دی جاتی ہے جس کی اچھی سفارش ہو یا رشوت دی گئی ہو۔ ہم سب اسی معاشرے کا حصہ ہیں جہاں ایک حق دار کو اس کا حق نہیں دیا جاتا۔ کہنے کو تو ہم مسلمان ہیں لیکن کیا ہمارے کام مسلمانوں والے ہیں۔</p>
-            
-            <div class="highlight">
-                <p>یاد رکھیں جب امانتیں برباد ہونے لگتی ہیں تو پیمانے یکسر بدل جایا کرتے ہیں جس سے نہ صرف لوگوں میں انتشار پیدا ہوتا بلکہ معاشرے میں توازن برقرار نہیں رہتا۔ ہم میں سے ہر ایک بندہ اپنا کام دیانت داری سے کرنے کی بجائے دوسروں پر تنقید کرنے کا عادی ہے۔ اسی وجہ سے نااہل لوگ ہم پر حکمرانی کرتے دکھائی دیتے ہیں۔</p>
-            </div>
-            
-            <p>ایک سے بڑھ کر ایک حکمران جو کہنے سے تو مسلمان ہوتا ہے لیکن عملاً ایسا نہیں ہوتا وہ خود بھی بددیانت ہوتا ہے اور لوگوں کو بھی وہ کچھ شئیر کیا جاتا ہے جس کے وہ حق دار ہوتے ہیں۔ ہمیں حکمران ویسا ہی دیا جاتا ہے جیسا کہ ہمارے اعمال ہوتے ہیں۔</p>
-            
-            <h2>ارشادات نبویہ ﷺ</h2>
-            
-            <p>ارشاد نبوی ﷺ کہ "جس کے اندر امانت نہیں اس کے اندر ایمان نہیں"۔ گویا ایمانداری، دیانتداری ایمان کا لازمی جزو قرار دیا گیا ہے۔ اور یقینا جو شخص اللہ تعالی اور آپ ﷺ پر ایمان لاتا ہے وہ کبھی بھی امانت میں خیانت کا نہیں سوچ سکتا۔ ہم کیسے سوچ لیتے ہیں کہ ہم مسلمان ہیں اور ہم امانت میں خیانت نہیں کرتے؟</p>
-            
-            <p>حضرت ابوہریرہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا: "منافق کی تین نشانیاں ہیں: جب بات کرے تو جھوٹ بولے، جب وعدہ کرے تو خلاف ورزی کرے اور جب اس کے پاس امانت رکھوائی جائے تو اس میں خیانت کرے"۔</p>
-            
-            <p>حضرت حذیفہ بن یمان رضی اللہ عنہ سے روایت ہے کہ نبی کریم ﷺ نے فرمایا: "امانت لوگوں کے دلوں کی گہرائی میں نازل ہوئی تھی۔ پھر قرآن نازل ہوا اور لوگوں نے امانت کی اہمیت قرآن سے اور سنت سے معلوم کی"۔</p>
-            
-            <h3>قیامت کی نشانی</h3>
-            
-            <p>ایک اور جگہ ارشاد فرمایا کہ "ایک ایسا وقت آئے گا جب امانت لوگوں کے دلوں سے نکال لی جائے گی۔ آپ ﷺ نے فرمایا: آدمی رات کو سوئے گا تو اچانک اس کے دل سے امانت قبض کر لی جائے گی مگر امانت کا کچھ نہ کچھ اثر ایک نقطے کی مانند دل میں باقی رہ جائے گا۔ پھر اگلی رات وہ سوئے گا تو باقی امانت بھی قبض کر لی جائے گی حتی کہ اس کا معمولی سا اثر باریک چھلکے کی طرح باقی رہ جائے گا۔ جس طرح آپ دہکتے ہوئے انگارے کو اپنے پاؤں پر لڑھکا دیں تو اس پر چھالا پڑ جاتا ہے۔ امانت کا یہ اثر اس چھالے کے بیرونی چھلکے کی طرح نہایت کمزور ہوگا۔ آپ کو پاؤں کا چھالا ابھرا ہوا نظر آتا ہے، حالانکہ حقیقت کے اعتبار سے وہ کچھ بھی نہیں ہوتا (یہ کہہ کر آپ ﷺ نے بات سمجھانے کے لیے ایک کنکری پکڑ کر اپنے پاؤں پر لڑھکا دی) پھر فرمایا: ایک وقت آئے گا لوگ خریدو فروخت کے لیے نکلیں گے، لیکن ڈھونڈنے کے باوجود انہیں کوئی امانت دار آدمی نہیں ملے گا، حتیٰ کہ یہ کہا جائے گا: فلاں قبیلے میں ایک امانت دار شخص ہے۔ یہاں تک کہ کسی شخص کے بارے میں لوگوں کی رائے یہ ہوگی کہ دیکھو وہ شخص کتنا بہادر ہے! کتنا خوش مزاج ہے! کتنا عقل مند ہے! حالانکہ اس کے دل میں رائی کے دانے کے برابر بھی ایمان نہیں ہو گا"۔</p>
-            
-            <p>حضرت حذیفہ رضی اللہ عنہ کہتے ہیں: "مجھ پر ایک وقت ایسا بھی آیا کہ میں خریدو فروخت کرتے وقت اس بات کی پروا نہیں کرتا تھا کہ میں جس سے خریداری کررہا ہوں اس کا دین کیا ہے۔ اگر وہ مسلمان ہوگا تو میرا حق ادا کرے گا اور اگر عیسائی یا یہودی ہو گا تو بھی اپنے وکیل کے ذریعے میرا حق ادا کردے گا۔ مگر آج میں فلاں اور فلاں آدمی کے سوا کسی اور سے خریدو فروخت نہیں کرتا"۔</p>
-            
-            <div class="highlight">
-                <p>نبوت والی زبان سے نکلے ان الفاظوں کی اہمیت کو صحابہ کرام نے اپنے اعمال سے سچ کر کے دکھایا کہ دیانت داری ہوتی کیا ہے؟ ایمان کسے کہتے ہیں؟ آج ہم بھی کاروبار کرتے ہیں، لین دین بھی کرتے ہیں کیا کبھی ہم نے اس بات کو سوچنا گوارا کیا، اندر سے ایک ہی جواب آئے گا "ہرگز نہیں"۔</p>
-            </div>
-            
-            <h2>قرآن کریم کی آیات</h2>
-            
-            <p>ارشاد باری تعالی ہے: "اے ایمان والو! اللہ اور رسول سے دغا نہ کرو اور اپنی امانتوں میں (دانستہ) خیانت مت کرو"۔</p>
-            
-            <p>ارشاد باری تعالی ہے: "یقینا اللہ تبارک و تعالیٰ تمہیں اس بات کا حکم دیتا ہے کہ تم امانتیں ان کے اہل کی طرف لوٹا دو"۔</p>
-            
-            <p>جب ہم قرآن و سنت کو سمجھنے اور اس کے مطابق عمل کرنے کی بجائے اس میں سے عیب نکالنے کی جستجو میں لگے رہیں گے اور قرآن کے فیصلوں کو پس پشت ڈال کر اپنی من چاہی بات کو ترجیح دیں گے تو معاشرے میں بھونچال آئے گا۔ جب کثیر تعداد میں لوگوں کے ضمیر کمزور اور بیمار ہوجائیں، اور معاملات کمتر، نااہل لوگوں کی طرف لوٹائے جائیں گے کہ وہ ان میں فیصلہ فرما دیں، جب امانتیں کی خیانت کی جائے گی تو قیامت قریب آجائے گی۔</p>
-            
-            <h3>قیامت کا وقت</h3>
-            
-            <p>حضرت ابوہریرہ رضی اللہ عنہ بیان کرتے ہیں کہ نبی کریم ﷺ ایک مجلس میں تشریف فرما تھے اور صحابہ کرام سے گفتگو فرما رہے تھے کہ ایک اعرابی آیا اور اس نے پوچھا: اللہ کے رسول! قیامت کب قائم ہو گی؟ رسول اللہ ﷺ نے اپنی گفتگو جاری رکھی اور اعرابی کی طرف متوجہ نہ ہوئے۔ بعض لوگوں نے کہا: آپ ﷺ نے اعرابی کی بات تو سنی ہے مگر اس کے سوال کو پسند نہیں کیا، (اس لیے جواب دینے سے گریز فرما رہے ہیں)۔ دوسروں نے کہا: آپ ﷺ نے بات سنی ہی نہیں۔ جب آپ ﷺ نے بات مکمل کر لی تو فرمایا: "وہ قیامت کے بارے میں سوال کرنے والا شخص کہاں ہے؟"۔</p>
-            
-            <p>اس نے عرض کیا: یا رسول اللہ! میں یہیں ہوں۔ آپ ﷺ نے فرمایا: "سنو! جب امانتیں ضائع کی جانے لگیں تو قیامت کا انتظار کرو"۔ اس نے عرض کیا: امانتیں کیسے ضائع ہوں گی؟ تو آپ ﷺ نے فرمایا: "جب معاملات نااہل لوگوں کے سپرد کر دئیے جائیں تو اس وقت قیامت کا انتظار کرو"۔</p>
-            
-            <p>عبادات سے لے کر زندگی کے ہر شعبہ میں دیانت داری کا دائرہ کار شامل ہے۔ بندہ کہیں بھی ہو زندگی کے کسی بھی شعبہ سے وابستہ ہو اسے اپنی دیانت داری پر آنچ نہیں آنے دینا چاہیے۔ لیکن افسوس کہ قیامت کی یہ نشانی آج پورے جوبن پر ہے۔ جی ہاں! "جب معاملات نااہل لوگوں کے سپرد کر دئیے جائیں تو قیامت کا انتظار کرو"۔</p>
-            
-            <div class="nav-buttons">
-                <button class="btn" id="backBtn"><i class="fas fa-arrow-right"></i> واپس جائیں</button>
-                <a href="#" class="btn"><i class="fas fa-share-alt"></i> شئیر کریں</a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>✨ مزید پوسٹس</h2>
+            <div class="sidebar-posts">
+                <div class="auto-scroll">
+                    <!-- 5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                        <span>5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    
+                    <!-- ان گنت فتنوں کا ظہور -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="فتنوں کا ظہور">
+                        <span>ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    
+                    <!-- تنگ لباس پہننے والی ننگی عورتیں -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                        <span>تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    
+                    <!-- علم کے اٹھ جانے -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم کا اٹھ جانا">
+                        <span>آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    
+                    <!-- چھ چیزوں کو حلال سمجھنا -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ حلال">
+                        <span>آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    
+                    <!-- چار حرام کام -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                        <span>وہ کون سے چار حرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    
+                    <!-- دورجدید کے فتنے -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دورجدید کے فتنے">
+                        <span>دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیا حکم فرمایا؟</span>
+                    </a>
+                    
+                    <!-- اللہ کی یاد سے غافل کرنے والا فتنہ -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="غافل کرنے والا فتنہ">
+                        <span>للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    
+                    <!-- قرب قیامت قتل و خوں ریزی -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                        <span>قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    
+                    <!-- انسان کی جلدی پکڑ -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="جلدی پکڑ">
+                        <span>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    
+                    <!-- لوگ اپنی موت کی تمنا -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                        <span>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    
+                    <!-- اچانک اموات -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                        <span>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    
+                    <!-- فرات کا خشک ہونا -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                        <span>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- reactions.js is already present and correct -->
+    <script src="/reactions.js"></script>
+    
     <script>
         // Create animated fire particles
         function createParticles() {
@@ -576,6 +812,46 @@
             }
         });
         
+        // Social Share Functions
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+                default:
+                    return;
+            }
+            
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => {
+                prompt('براہ کرم لنک کاپی کریں:', window.location.href);
+            });
+        }
+        
         // Show/hide back to top button based on scroll position
         window.addEventListener('scroll', () => {
             const backToTopBtn = document.getElementById('backToTopBtn');
@@ -586,9 +862,22 @@
             }
         });
         
+        // Highlight current post in sidebar
+        function highlightCurrentPost() {
+            const currentUrl = window.location.href;
+            const sidebarPosts = document.querySelectorAll('.sidebar-post');
+            
+            sidebarPosts.forEach(post => {
+                if (post.href === currentUrl) {
+                    post.classList.add('current-post-highlight');
+                }
+            });
+        }
+        
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
             createParticles();
+            highlightCurrentPost();
             
             // Hide back to top button initially
             document.getElementById('backToTopBtn').style.display = 'none';
