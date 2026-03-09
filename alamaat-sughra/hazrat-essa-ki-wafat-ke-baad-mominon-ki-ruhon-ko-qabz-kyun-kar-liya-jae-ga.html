@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حضرت عیسیٰ کی وفات کے بعد مومنوں کی روحوں کو قبض کیوں کر لیا جائے گا؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 5 (برائے سوشل آئیکن) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
         
@@ -78,13 +80,21 @@
             border-color: var(--accent-color);
         }
         
-        /* Post Content */
-        .post-content-container {
+        /* Main layout */
+        .main-layout {
+            display: flex;
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
             position: relative;
             z-index: 2;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 30px;
+            padding: 0 20px;
+        }
+        
+        /* Post Content */
+        .post-content-container {
+            flex: 1;
+            min-width: 0; /* for flex overflow */
         }
         
         .post-content {
@@ -161,6 +171,128 @@
             padding: 0 10px;
         }
         
+        /* Reactions section */
+        .reactions-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0 10px;
+        }
+        .reaction-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            font-family: inherit;
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .reaction-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .reaction-count {
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            min-width: 35px;
+            text-align: center;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 350px;
+            flex-shrink: 0;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 20px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        .sidebar h3 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            border-right: none;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+        }
+        .sidebar-scroll {
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+            mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+        }
+        .posts-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            animation: scrollUp 30s linear infinite;
+        }
+        .posts-list:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 15px;
+            transition: background 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .sidebar-post:hover {
+            background: rgba(74,144,226,0.2);
+        }
+        .sidebar-post img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .sidebar-post a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+        .sidebar-post a:hover {
+            color: var(--accent-hover);
+        }
+        /* current post highlight */
+        .sidebar-post.current a {
+            color: var(--accent-color);
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(74,144,226,0.5);
+        }
+        
         /* Buttons */
         .control-buttons {
             position: fixed;
@@ -219,7 +351,7 @@
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
         }
         
-        /* Navigation */
+        /* Nav dots (simplified) */
         .nav-indicator {
             position: fixed;
             right: 20px;
@@ -230,8 +362,9 @@
             border-radius: 20px;
             backdrop-filter: blur(5px);
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
         }
-        
         .nav-dot {
             width: 12px;
             height: 12px;
@@ -241,102 +374,106 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
         .nav-dot.active {
             background: var(--accent-color);
             transform: scale(1.3);
             box-shadow: 0 0 10px var(--accent-color);
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .post-content-container {
-                padding: 15px;
-            }
-            
-            .post-content {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            p {
-                font-size: 1.2rem;
-            }
-            
-            .title-image {
-                height: 250px;
-            }
-            
-            .control-buttons {
-                left: 10px;
-                gap: 10px;
-            }
-            
-            .page-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            
-            .nav-indicator {
-                display: none;
-            }
+        /* Social Icons */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0 10px;
         }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            h3 {
-                font-size: 1.3rem;
-            }
-            
-            p {
-                font-size: 1.1rem;
-            }
-            
-            .title-image {
-                height: 200px;
-            }
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
         }
+        .fb { background: #1877f2; }
+        .wa { background: #25D366; }
+        .tw { background: #1DA1F2; }
+        .li { background: #0077b5; }
+        .tg { background: #0088cc; }
+        .pin { background: #bd081c; }
+        .copy { background: #6c757d; }
         
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 20px;
         }
-        
-        ::-webkit-scrollbar-thumb {
+        .nav-btn {
             background: var(--accent-color);
-            border-radius: 5px;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            border: none;
+            font-family: inherit;
+            display: inline-block;
+        }
+        .nav-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(46,204,113,0.4);
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-hover);
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+            .sidebar-scroll {
+                height: 300px;
+            }
+            .posts-list {
+                animation: scrollUp 30s linear infinite;
+            }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
+            p { font-size: 1.2rem; }
+            .title-image { height: 250px; }
+            .control-buttons { left: 10px; gap: 10px; }
+            .page-btn { width: 45px; height: 45px; font-size: 20px; }
+            .nav-indicator { display: none; }
         }
         
         /* Quote Styling */
@@ -350,6 +487,11 @@
             padding: 20px;
             border-radius: 10px;
         }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-hover); }
     </style>
 </head>
 <body class="moon-theme">
@@ -369,119 +511,181 @@
         <div class="nav-dot" onclick="scrollToSection(5)"></div>
     </div>
     
-    <div class="post-content-container">
-        <div class="post-header">
-            <h1>حضرت عیسیٰ کی وفات کے بعد مومنوں کی روحوں کو قبض کیوں کر لیا جائے گا؟</h1>
-            <img src="https://bloglovers.pk/images/alamaat-sughra/hazrat-essa-ki-wafat-ke-baad-mominon-ki-ruhon-ko-qabz-kyun-kar-liya-jae-ga.png" 
-                 alt="حضرت عیسیٰ کی وفات کے بعد مومنوں کی روحوں کو قبض کیوں کر لیا جائے گا؟" 
-                 class="title-image">
+    <div class="main-layout">
+        <!-- Post Content -->
+        <div class="post-content-container">
+            <div class="post-header">
+                <h1>حضرت عیسیٰ کی وفات کے بعد مومنوں کی روحوں کو قبض کیوں کر لیا جائے گا؟</h1>
+                <img src="https://bloglovers.pk/images/alamaat-sughra/hazrat-essa-ki-wafat-ke-baad-mominon-ki-ruhon-ko-qabz-kyun-kar-liya-jae-ga.png" 
+                     alt="حضرت عیسیٰ کی وفات کے بعد مومنوں کی روحوں کو قبض کیوں کر لیا جائے گا؟" 
+                     class="title-image">
+            </div>
+            
+            <div class="post-content">
+                <h2>حضرت عیسیٰ کی وفات کے بعد مومنوں کی روحوں کو قبض کیوں کر لیا جائے گا؟</h2>
+                <p>قرب قیامت کے حالات اور واقعات کا ذکر کرتے ہوئے احادیث مبارکہ میں بتایا گیا ہے کہ دنیا کے اختتام کے قریب کچھ ایسے واقعات رونما ہوں گے جو ایمان والوں کے لیے آخری امتحان ثابت ہوں گے۔ ان واقعات میں ایک اہم واقعہ ایک پاکیزہ ہوا کا چلنا ہے جس کا مقصد مومنوں کی روحوں کو قبض کرنا ہو گا۔ جبکے بعد دیگرے علامات قیامت ظاہر ہو جائیں گی اور علامات کبریٰ بھی ظاہر ہو جائیں گی، جیسے خروج دجال، اور نزول عیسی ابن مریم تو قیامت بہت قریب آ جائے گی، اس وقت اللہ رب العزت ایک پاکیزہ ہوا بھیجے گا جو مومنوں کی روحیں قبض کر لے گی تاکہ وہ قیامت کے وقت پیدا ہونے والے خوف اور گھبراہٹ سے محفوظ رہیں۔ کیونکہ قیامت صرف بدترین لوگوں پر ہی قائم ہو گی۔</p>
+                
+                <h3>1. قرب قیامت اسلام اور قرآن کا اٹھا لیا جانا</h3>
+                <p>قرب قیامت کے آثار میں سے ایک اہم نشانی یہ ہے کہ اسلام اور قرآن کا اٹھا لیا جانا۔ جس کا میں اپنے سابقہ آرٹیکل میں تفصیل سے ذکر کر چکا ہوں، اس کا مطلب ہے کہ لوگوں کے دلوں سے ایمان کی روشنی بجھ جائے گی اور وہ قرآن کی ہدایت کو چھوڑ دیں گے۔ اس دور میں، قرآن صرف ایک کتاب کی صورت میں رہ جائے گا جسے لوگ پڑھتے تو ہوں گے لیکن اس کے احکامات پر عمل نہیں کریں گے۔ یہ وقت ایسا ہو گا جب لوگ دنیا کی طرف مائل ہوں گے اور دین کو چھوڑ دیں گے۔</p>
+                <p>اسلام کی تعلیمات کو چھوڑنے کا یہ عمل اس قدر عام ہو جائے گا کہ لوگ دین کی طرف بالکل توجہ نہیں دیں گے۔ دین کا علم ناپید ہو جائے گا اور جہالت کا دور دورہ ہو گا۔ یہ دور مسلمانوں کے لیے بہت بڑا فتنہ ہو گا، کیونکہ جب اسلام اور قرآن کی ہدایت دنیا سے ختم ہو جائے گی، تو لوگ اندھیروں میں بھٹکنے لگیں گے۔</p>
+                
+                <h3>2. بیت اللہ پر حملہ آور لشکر کا بھیانک انجام</h3>
+                <p>احادیث میں بیان ہوا ہے کہ ایک لشکر کعبہ کو تباہ کرنے کے لیے آئے گا، لیکن اللہ تعالیٰ اس لشکر کو نیست و نابود کر دے گا۔ یہ واقعہ اس بات کی نشانی ہو گا کہ اللہ تعالیٰ کی حفاظت میں کوئی کمی نہیں آتی، اور جو بھی بیت اللہ کی بے حرمتی کا ارادہ کرے گا، وہ خود تباہ و برباد ہو گا۔ اس نشانی کو سابقہ آرٹیکل میں تفصیل سے ذکر کر چکا ہوں۔</p>
+                
+                <h3>3. حج کا رک جانا</h3>
+                <p>قیامت کے قریب ایک وقت ایسا بھی آئے گا جب حج کا سلسلہ رک جائے گا۔ مسلمانوں کے لیے حج ایک بہت بڑا فریضہ ہے اور یہ اسلام کے پانچ ارکان میں سے ایک ہے۔ لیکن قیامت کے قریب حالات ایسے ہو جائیں گے کہ لوگ حج کے فریضہ کو ادا کرنے سے قاصر ہوں گے۔ احادیث میں بیان ہوا ہے کہ ایک وقت ایسا آئے گا جب خانہ کعبہ کی طرف جانے والے راستے بند ہو جائیں گے اور لوگ حج نہیں کر سکیں گے۔</p>
+                <p>اس کے علاوہ، مسلمانوں کے دلوں میں دین کی محبت کم ہو جائے گی اور وہ حج کی ادائیگی کو ضروری نہیں سمجھیں گے۔ یہ حالت مسلمانوں کے لیے ایک بڑی آزمائش ہو گی اور ان کے ایمان کا امتحان ہو گا۔</p>
+                
+                <h3>4. عرب دنیا میں دوبارہ بت پرستی کا شروع ہو جانا</h3>
+                <p>قرب قیامت کے آثار میں سے ایک اور نشانی یہ ہے کہ عرب دنیا میں دوبارہ بت پرستی کا رواج شروع ہو جائے گا۔ یہ وہی خطہ ہے جہاں رسول اللہ ﷺ نے اسلام کی تبلیغ کی اور توحید کا پیغام پہنچایا، لیکن قیامت کے قریب لوگوں کے دلوں میں شیطان کی وسوسے پیدا ہوں گے اور عرب کے کئی قبائل دوبارہ بتوں کی پوجا شروع کر دیں گے۔</p>
+                <p>یہ حالت اس بات کی نشانی ہو گی کہ لوگوں کے دلوں سے توحید کا تصور ختم ہو گیا ہے اور وہ شرک کی طرف واپس لوٹ گئے ہیں۔ عرب کے قبائل جو کبھی اللہ کے ایک ہونے کا اقرار کرتے تھے، وہ دوبارہ بتوں کی پرستش کریں گے۔ یہ صورت حال مسلمانوں کے لیے انتہائی افسوسناک ہو گی اور ان کے ایمان کی آزمائش ہو گی۔</p>
+                
+                <h3>5. کعبہ کی بربادی ایک حبشی کے ہاتھوں ہونا</h3>
+                <p>قیامت کے قریب ایک اور اہم واقعہ یہ ہو گا کہ ایک حبشی لشکر کعبہ کو تباہ کرنے کے لیے آئے گا اور اس مقدس گھر کی بے حرمتی کرے گا۔ احادیث میں بیان ہوا ہے کہ ایک حبشی شخص، جس کا نام ذوالسویقتین ہو گا، کعبہ کو گرانے میں کامیاب ہو گا۔ یہ واقعہ اس بات کی نشانی ہو گا کہ قیامت کے قریب اللہ تعالیٰ کی حفاظت کا نظام بھی ختم ہو جائے گا اور لوگ کعبہ کی حرمت کو پامال کریں گے۔ لیکن اس واقعہ کے بعد دنیا میں دین کی روشنی ماند پڑ جائے گی اور لوگوں کے دلوں میں خوف و ہراس پھیل جائے گا۔</p>
+                
+                <h3>6. دجال کے قتل اور حضرت عیسیٰ کی وفات کے بعد چلنے والی پاکیزہ ہوا کا مقصد</h3>
+                <p>دجال کے فتنے کے بعد حضرت عیسیٰ علیہ السلام کا نزول ہو گا اور وہ دجال کو قتل کریں گے۔ اس کے بعد دنیا میں ایک عرصہ تک امن و امان کا دور دورہ ہو گا اور حضرت عیسیٰ علیہ السلام کی قیادت میں دین اسلام کو غلبہ حاصل ہو گا۔ لیکن اس کے بعد ایک وقت ایسا بھی آئے گا جب اللہ تعالیٰ ایک پاکیزہ ہوا بھیجے گا۔ اس ہوا کا مقصد یہ ہو گا کہ وہ تمام مومنوں کی روحوں کو قبض کر لے گی تاکہ قیامت کے بھیانک مناظر ان پر ظاہر نہ ہوں۔</p>
+                <p>یہ ہوا اتنی نرم اور خوشبودار ہو گی کہ لوگ اسے محسوس کیے بغیر اس کے زیر اثر آ جائیں گے اور ان کی روحیں اللہ کے حکم سے قبض ہو جائیں گی۔ یہ پاکیزہ ہوا اس بات کی نشانی ہو گی کہ اللہ تعالیٰ نے مومنوں کو قیامت کے عذاب سے محفوظ رکھنے کا انتظام کیا ہے۔ اس ہوا کے چلنے کے بعد دنیا میں صرف بدکار اور کافر لوگ باقی رہ جائیں گے جو قیامت کے عذاب کا سامنا کریں گے۔</p>
+                
+                <blockquote>
+                    آپ ﷺ نے دجال کا ذکر کرتے ہوئے ایک لمبی حدیث فرمائی جس کے الفاظ یہ ہیں: "وہ اسی حال میں ہوں گے کہ اچانک اللہ رب العزت ایک پاکیزہ ہوا بھیجے گا جو انھیں بغلوں کے نیچے محسوس ہو گی، وہ ہر مومن کی روح قبض کر لے گی۔ روئے زمین پر صرف برے اور شریر لوگ ہی رہ جائیں گے جو گدھوں کی طرح سرعام جفتی (سرعام مرد عورتیں زنا بدکاری کریں گے جیسے جانوری یعنی گدھے کرتے ہیں) کریں گے۔ ایسے ہی لوگوں پر قیامت قائم ہو گی۔"
+                </blockquote>
+                
+                <blockquote>
+                    ایک اور جگہ کچھ یوں الفاظ سے وضاحت فرمائی: "دجال نکلے گا... پھر اللہ رب العزت ملک شام کی جانب سے ایک ٹھنڈی ہوا بھیجے گا۔ اس کے اثر سے نیک لوگ فوت ہو جائیں گے حتیٰ کہ روئے زمین پر کوئی ایک بھی ایسا نہ بچے گا کہ جس کے دل میں ذرہ برابر بھلائی یا ایمان ہو۔ صورت حال یہ ہو گی کہ اگر تم میں سے کوئی پہاڑ کی غار میں بھی داخل ہو جائے گا تو وہ ہوا وہاں بھی پہنچ کر اس کی روح قبض کر لے گی۔"
+                </blockquote>
+                
+                <p>قرب قیامت کے یکے بعد دیگرے واقعات اور ان کے بعد چلنے والی پاکیزہ ہوا کا مقصد مومنوں کو دنیا کے آخری فتنے اور عذاب سے محفوظ رکھنا ہے۔ ان واقعات میں ہمیں یہ سبق ملتا ہے کہ ہمیں اپنے ایمان کو مضبوط کرنا چاہیے اور دین اسلام کی تعلیمات پر عمل پیرا رہنا چاہیے تاکہ ہم ان آخری امتحانات میں کامیاب ہو سکیں۔ قیامت کے آثار اور نشانیوں کا علم ہمیں اس بات کی یاد دہانی کراتا ہے کہ دنیا کی زندگی عارضی ہے اور اصل زندگی آخرت کی ہے، جہاں ہمیں اپنے اعمال کا حساب دینا ہو گا۔</p>
+                
+                <!-- Reactions Section (برقرار) -->
+                <div class="reactions-section">
+                    <h3 style="text-align: center; border-right: none;">آپ کا ردعمل کیا ہے؟</h3>
+                    <div class="reactions-grid">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Social Share Icons (7 پلیٹ فارم) -->
+                <div class="social-share">
+                    <a href="#" onclick="shareOnSocial('fb')" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" onclick="shareOnSocial('wa')" class="social-icon wa"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" onclick="shareOnSocial('tw')" class="social-icon tw"><i class="fab fa-twitter"></i></a>
+                    <a href="#" onclick="shareOnSocial('li')" class="social-icon li"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" onclick="shareOnSocial('tg')" class="social-icon tg"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" onclick="shareOnSocial('pin')" class="social-icon pin"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" onclick="copyPageLink()" class="social-icon copy"><i class="fas fa-link"></i></a>
+                </div>
+                
+                <!-- Navigation Buttons (مرکزی صفحہ، تمام پوسٹس) -->
+                <div class="nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-btn">مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn">تمام پوسٹس</a>
+                </div>
+            </div>
         </div>
         
-        <div class="post-content">
-            <h2>حضرت عیسیٰ کی وفات کے بعد مومنوں کی روحوں کو قبض کیوں کر لیا جائے گا؟</h2>
-            <p>قرب قیامت کے حالات اور واقعات کا ذکر کرتے ہوئے احادیث مبارکہ میں بتایا گیا ہے کہ دنیا کے اختتام کے قریب کچھ ایسے واقعات رونما ہوں گے جو ایمان والوں کے لیے آخری امتحان ثابت ہوں گے۔ ان واقعات میں ایک اہم واقعہ ایک پاکیزہ ہوا کا چلنا ہے جس کا مقصد مومنوں کی روحوں کو قبض کرنا ہو گا۔ جبکے بعد دیگرے علامات قیامت ظاہر ہو جائیں گی اور علامات کبریٰ بھی ظاہر ہو جائیں گی، جیسے خروج دجال، اور نزول عیسی ابن مریم تو قیامت بہت قریب آ جائے گی، اس وقت اللہ رب العزت ایک پاکیزہ ہوا بھیجے گا جو مومنوں کی روحیں قبض کر لے گی تاکہ وہ قیامت کے وقت پیدا ہونے والے خوف اور گھبراہٹ سے محفوظ رہیں۔ کیونکہ قیامت صرف بدترین لوگوں پر ہی قائم ہو گی۔</p>
-            
-            <h3>1. قرب قیامت اسلام اور قرآن کا اٹھا لیا جانا</h3>
-            <p>قرب قیامت کے آثار میں سے ایک اہم نشانی یہ ہے کہ اسلام اور قرآن کا اٹھا لیا جانا۔ جس کا میں اپنے سابقہ آرٹیکل میں تفصیل سے ذکر کر چکا ہوں، اس کا مطلب ہے کہ لوگوں کے دلوں سے ایمان کی روشنی بجھ جائے گی اور وہ قرآن کی ہدایت کو چھوڑ دیں گے۔ اس دور میں، قرآن صرف ایک کتاب کی صورت میں رہ جائے گا جسے لوگ پڑھتے تو ہوں گے لیکن اس کے احکامات پر عمل نہیں کریں گے۔ یہ وقت ایسا ہو گا جب لوگ دنیا کی طرف مائل ہوں گے اور دین کو چھوڑ دیں گے۔</p>
-            <p>اسلام کی تعلیمات کو چھوڑنے کا یہ عمل اس قدر عام ہو جائے گا کہ لوگ دین کی طرف بالکل توجہ نہیں دیں گے۔ دین کا علم ناپید ہو جائے گا اور جہالت کا دور دورہ ہو گا۔ یہ دور مسلمانوں کے لیے بہت بڑا فتنہ ہو گا، کیونکہ جب اسلام اور قرآن کی ہدایت دنیا سے ختم ہو جائے گی، تو لوگ اندھیروں میں بھٹکنے لگیں گے۔</p>
-            
-            <h3>2. بیت اللہ پر حملہ آور لشکر کا بھیانک انجام</h3>
-            <p>احادیث میں بیان ہوا ہے کہ ایک لشکر کعبہ کو تباہ کرنے کے لیے آئے گا، لیکن اللہ تعالیٰ اس لشکر کو نیست و نابود کر دے گا۔ یہ واقعہ اس بات کی نشانی ہو گا کہ اللہ تعالیٰ کی حفاظت میں کوئی کمی نہیں آتی، اور جو بھی بیت اللہ کی بے حرمتی کا ارادہ کرے گا، وہ خود تباہ و برباد ہو گا۔ اس نشانی کو سابقہ آرٹیکل میں تفصیل سے ذکر کر چکا ہوں۔</p>
-            
-            <h3>3. حج کا رک جانا</h3>
-            <p>قیامت کے قریب ایک وقت ایسا بھی آئے گا جب حج کا سلسلہ رک جائے گا۔ مسلمانوں کے لیے حج ایک بہت بڑا فریضہ ہے اور یہ اسلام کے پانچ ارکان میں سے ایک ہے۔ لیکن قیامت کے قریب حالات ایسے ہو جائیں گے کہ لوگ حج کے فریضہ کو ادا کرنے سے قاصر ہوں گے۔ احادیث میں بیان ہوا ہے کہ ایک وقت ایسا آئے گا جب خانہ کعبہ کی طرف جانے والے راستے بند ہو جائیں گے اور لوگ حج نہیں کر سکیں گے۔</p>
-            <p>اس کے علاوہ، مسلمانوں کے دلوں میں دین کی محبت کم ہو جائے گی اور وہ حج کی ادائیگی کو ضروری نہیں سمجھیں گے۔ یہ حالت مسلمانوں کے لیے ایک بڑی آزمائش ہو گی اور ان کے ایمان کا امتحان ہو گا۔</p>
-            
-            <h3>4. عرب دنیا میں دوبارہ بت پرستی کا شروع ہو جانا</h3>
-            <p>قرب قیامت کے آثار میں سے ایک اور نشانی یہ ہے کہ عرب دنیا میں دوبارہ بت پرستی کا رواج شروع ہو جائے گا۔ یہ وہی خطہ ہے جہاں رسول اللہ ﷺ نے اسلام کی تبلیغ کی اور توحید کا پیغام پہنچایا، لیکن قیامت کے قریب لوگوں کے دلوں میں شیطان کی وسوسے پیدا ہوں گے اور عرب کے کئی قبائل دوبارہ بتوں کی پوجا شروع کر دیں گے۔</p>
-            <p>یہ حالت اس بات کی نشانی ہو گی کہ لوگوں کے دلوں سے توحید کا تصور ختم ہو گیا ہے اور وہ شرک کی طرف واپس لوٹ گئے ہیں۔ عرب کے قبائل جو کبھی اللہ کے ایک ہونے کا اقرار کرتے تھے، وہ دوبارہ بتوں کی پرستش کریں گے۔ یہ صورت حال مسلمانوں کے لیے انتہائی افسوسناک ہو گی اور ان کے ایمان کی آزمائش ہو گی۔</p>
-            
-            <h3>5. کعبہ کی بربادی ایک حبشی کے ہاتھوں ہونا</h3>
-            <p>قیامت کے قریب ایک اور اہم واقعہ یہ ہو گا کہ ایک حبشی لشکر کعبہ کو تباہ کرنے کے لیے آئے گا اور اس مقدس گھر کی بے حرمتی کرے گا۔ احادیث میں بیان ہوا ہے کہ ایک حبشی شخص، جس کا نام ذوالسویقتین ہو گا، کعبہ کو گرانے میں کامیاب ہو گا۔ یہ واقعہ اس بات کی نشانی ہو گا کہ قیامت کے قریب اللہ تعالیٰ کی حفاظت کا نظام بھی ختم ہو جائے گا اور لوگ کعبہ کی حرمت کو پامال کریں گے۔ لیکن اس واقعہ کے بعد دنیا میں دین کی روشنی ماند پڑ جائے گی اور لوگوں کے دلوں میں خوف و ہراس پھیل جائے گا۔</p>
-            
-            <h3>6. دجال کے قتل اور حضرت عیسیٰ کی وفات کے بعد چلنے والی پاکیزہ ہوا کا مقصد</h3>
-            <p>دجال کے فتنے کے بعد حضرت عیسیٰ علیہ السلام کا نزول ہو گا اور وہ دجال کو قتل کریں گے۔ اس کے بعد دنیا میں ایک عرصہ تک امن و امان کا دور دورہ ہو گا اور حضرت عیسیٰ علیہ السلام کی قیادت میں دین اسلام کو غلبہ حاصل ہو گا۔ لیکن اس کے بعد ایک وقت ایسا بھی آئے گا جب اللہ تعالیٰ ایک پاکیزہ ہوا بھیجے گا۔ اس ہوا کا مقصد یہ ہو گا کہ وہ تمام مومنوں کی روحوں کو قبض کر لے گی تاکہ قیامت کے بھیانک مناظر ان پر ظاہر نہ ہوں۔</p>
-            <p>یہ ہوا اتنی نرم اور خوشبودار ہو گی کہ لوگ اسے محسوس کیے بغیر اس کے زیر اثر آ جائیں گے اور ان کی روحیں اللہ کے حکم سے قبض ہو جائیں گی۔ یہ پاکیزہ ہوا اس بات کی نشانی ہو گی کہ اللہ تعالیٰ نے مومنوں کو قیامت کے عذاب سے محفوظ رکھنے کا انتظام کیا ہے۔ اس ہوا کے چلنے کے بعد دنیا میں صرف بدکار اور کافر لوگ باقی رہ جائیں گے جو قیامت کے عذاب کا سامنا کریں گے۔</p>
-            
-            <blockquote>
-                آپ ﷺ نے دجال کا ذکر کرتے ہوئے ایک لمبی حدیث فرمائی جس کے الفاظ یہ ہیں: "وہ اسی حال میں ہوں گے کہ اچانک اللہ رب العزت ایک پاکیزہ ہوا بھیجے گا جو انھیں بغلوں کے نیچے محسوس ہو گی، وہ ہر مومن کی روح قبض کر لے گی۔ روئے زمین پر صرف برے اور شریر لوگ ہی رہ جائیں گے جو گدھوں کی طرح سرعام جفتی (سرعام مرد عورتیں زنا بدکاری کریں گے جیسے جانوری یعنی گدھے کرتے ہیں) کریں گے۔ ایسے ہی لوگوں پر قیامت قائم ہو گی۔"
-            </blockquote>
-            
-            <blockquote>
-                ایک اور جگہ کچھ یوں الفاظ سے وضاحت فرمائی: "دجال نکلے گا... پھر اللہ رب العزت ملک شام کی جانب سے ایک ٹھنڈی ہوا بھیجے گا۔ اس کے اثر سے نیک لوگ فوت ہو جائیں گے حتیٰ کہ روئے زمین پر کوئی ایک بھی ایسا نہ بچے گا کہ جس کے دل میں ذرہ برابر بھلائی یا ایمان ہو۔ صورت حال یہ ہو گی کہ اگر تم میں سے کوئی پہاڑ کی غار میں بھی داخل ہو جائے گا تو وہ ہوا وہاں بھی پہنچ کر اس کی روح قبض کر لے گی۔"
-            </blockquote>
-            
-            <p>قرب قیامت کے یکے بعد دیگرے واقعات اور ان کے بعد چلنے والی پاکیزہ ہوا کا مقصد مومنوں کو دنیا کے آخری فتنے اور عذاب سے محفوظ رکھنا ہے۔ ان واقعات میں ہمیں یہ سبق ملتا ہے کہ ہمیں اپنے ایمان کو مضبوط کرنا چاہیے اور دین اسلام کی تعلیمات پر عمل پیرا رہنا چاہیے تاکہ ہم ان آخری امتحانات میں کامیاب ہو سکیں۔ قیامت کے آثار اور نشانیوں کا علم ہمیں اس بات کی یاد دہانی کراتا ہے کہ دنیا کی زندگی عارضی ہے اور اصل زندگی آخرت کی ہے، جہاں ہمیں اپنے اعمال کا حساب دینا ہو گا۔</p>
+        <!-- Sidebar with auto-scroll posts -->
+        <div class="sidebar">
+            <h3>مزید پوسٹس</h3>
+            <div class="sidebar-scroll">
+                <ul class="posts-list" id="sidebarPostsList">
+                    <!-- dynamically inserted via JS but we will hardcode for reliability -->
+                </ul>
+            </div>
         </div>
+    </div>
+    
+    <div class="footer">
+        © 2025 bloglovers.pk - تمام حقوق محفوظ ہیں
     </div>
 
     <script>
         // Scroll functions
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        function scrollToBottom() {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-        
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
         function scrollToSection(index) {
             const sections = document.querySelectorAll('h3');
-            if (sections[index]) {
-                sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            if (sections[index]) sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         
-        // Update navigation dots on scroll
+        // Update navigation dots
         window.addEventListener('scroll', function() {
             const sections = document.querySelectorAll('h3');
             const navDots = document.querySelectorAll('.nav-dot');
             const scrollPosition = window.scrollY + 100;
-            
             sections.forEach((section, index) => {
-                if (section.offsetTop <= scrollPosition && 
-                    (index === sections.length - 1 || sections[index + 1].offsetTop > scrollPosition)) {
-                    navDots.forEach(dot => dot.classList.remove('active'));
-                    if (navDots[index]) {
-                        navDots[index].classList.add('active');
-                    }
+                if (section.offsetTop <= scrollPosition && (index === sections.length-1 || sections[index+1].offsetTop > scrollPosition)) {
+                    navDots.forEach(d => d.classList.remove('active'));
+                    if (navDots[index]) navDots[index].classList.add('active');
                 }
             });
         });
-        
-        // Initialize first nav dot as active
-        document.addEventListener('DOMContentLoaded', function() {
-            const firstDot = document.querySelector('.nav-dot');
-            if (firstDot) {
-                firstDot.classList.add('active');
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            if(document.querySelector('.nav-dot')) document.querySelector('.nav-dot').classList.add('active');
+            renderSidebarPosts(); // رینڈر سائیڈ بار
         });
         
-        // Image hover effect enhancement
-        const titleImage = document.querySelector('.title-image');
-        if (titleImage) {
-            titleImage.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.02)';
-                this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.7), 0 0 30px rgba(74, 144, 226, 0.4)';
-            });
-            
-            titleImage.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-                this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
-            });
+        // Image hover
+        document.querySelector('.title-image')?.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.02)'; this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.7), 0 0 30px rgba(74, 144, 226, 0.4)';
+        });
+        document.querySelector('.title-image')?.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)'; this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+        });
+        
+        // Social share functions (باقی رہیں گے)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'fb') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'wa') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'tw') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'li') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'tg') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pin') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!'));
         }
         
-        // Content hover effect
-        const postContent = document.querySelector('.post-content');
-        if (postContent) {
-            postContent.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
+        // سائیڈ بار کی پوسٹس (ہارڈ کوڈ)
+        function renderSidebarPosts() {
+            const posts = [
+                { title: "قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت", link: "https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt", img: "https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" },
+                { title: "ان گنت فتنوں کا ظہور اور ان کے نقصانات", link: "https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat", img: "https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" },
+                { title: "تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" },
+                { title: "آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" },
+                { title: "آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" },
+                { title: "وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟", link: "https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi", img: "https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" },
+                { title: "دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" },
+                { title: "للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" },
+                { title: "قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟", link: "https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi", img: "https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" },
+                { title: "انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" },
+                { title: "لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟", link: "https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge", img: "https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" },
+                { title: "آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" },
+                { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", link: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", img: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+            ];
+            const listContainer = document.getElementById('sidebarPostsList');
+            if (!listContainer) return;
+            let html = '';
+            const currentPath = window.location.pathname; // موجودہ پوسٹ کی پہچان کے لیے (مناسب)
+            posts.forEach(post => {
+                const activeClass = (post.link.includes(window.location.pathname) || (post.title.includes('عیسیٰ') && window.location.pathname.includes('hazrat-essa'))) ? 'current' : '';
+                html += `<li class="sidebar-post ${activeClass}"><img src="${post.img}" alt="thumbnail"><a href="${post.link}">${post.title}</a></li>`;
             });
-            
-            postContent.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
+            listContainer.innerHTML = html;
         }
     </script>
+    
+    <!-- reactions.js شامل ہے (باہر سے) -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
