@@ -80,11 +80,118 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            flex: 1 1 700px;
+            min-width: 300px;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 0 0 300px;
+            background: rgba(15, 26, 48, 0.85);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            height: 500px;
+            position: sticky;
+            top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar h3 {
+            color: var(--heading-color);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.5);
+            text-align: center;
+        }
+        
+        .sidebar-content {
+            overflow-y: auto;
+            flex-grow: 1;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--dark);
+            animation: scrollUp 30s linear infinite;
+            padding-left: 5px;
+        }
+        
+        .sidebar-content:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 400px)); }
+        }
+        
+        .sidebar-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-content::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(74, 144, 226, 0.2);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item.current-post {
+            background: rgba(74, 144, 226, 0.3);
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .sidebar-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid rgba(74, 144, 226, 0.4);
+        }
+        
+        .sidebar-item a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: block;
+        }
+        
+        .sidebar-item a:hover {
+            color: var(--secondary);
         }
         
         /* Header Styles */
@@ -178,6 +285,99 @@
             transform: scale(1.02);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
         }
+        
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .reactions-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #a3d9ff;
+            text-align: center;
+        }
+        
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .reaction-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        
+        .reaction-btn:hover {
+            background: rgba(74, 144, 226, 0.3);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+        
+        .reaction-count {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        /* Social Share */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .fb { background: #1877f2; }
+        .wa { background: #25D366; }
+        .tw { background: #1DA1F2; }
+        .li { background: #0077b5; }
+        .tg { background: #0088cc; }
+        .pt { background: #bd081c; }
+        .cp { background: #6c757d; }
         
         /* Navigation Buttons */
         .nav-buttons {
@@ -294,6 +494,18 @@
             .post-image {
                 max-height: 300px;
             }
+            
+            .sidebar {
+                flex-basis: 100%;
+                position: static;
+                height: 400px;
+                margin-top: 20px;
+            }
+            
+            @keyframes scrollUp {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(calc(-100% + 320px)); }
+            }
         }
         
         @media (max-width: 480px) {
@@ -317,6 +529,11 @@
             
             .nav-buttons {
                 display: none;
+            }
+            
+            .reaction-btn {
+                font-size: 1rem;
+                padding: 8px 12px;
             }
         }
         
@@ -385,6 +602,35 @@
             bottom: 10%;
             left: -150px;
         }
+        
+        /* Navigation buttons at bottom */
+        .bottom-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .bottom-nav-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-family: inherit;
+        }
+        
+        .bottom-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6);
+        }
     </style>
 </head>
 <body>
@@ -411,50 +657,164 @@
     </div>
     
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>پہاڑوں سے بلند مکہ کی عمارات آخری زمانے کی تبدیلیوں کا اشارہ</h1>
-            <button class="back-btn" id="backBtn">
-                <i class="fas fa-arrow-right"></i> واپس جائیں
-            </button>
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1>پہاڑوں سے بلند مکہ کی عمارات آخری زمانے کی تبدیلیوں کا اشارہ</h1>
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-right"></i> واپس جائیں
+                </button>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="post-content">
+                <!-- Image after title -->
+                <img src="https://bloglovers.pk/images/alamaat-sughra/paharon-se-buland-makka-ki-imaaraat-aakhri-zamane-ki-tabdeeliyon-ka-ishara.png" alt="پہاڑوں سے بلند مکہ کی عمارات" class="post-image">
+                
+                <h2>پہاڑوں سے بلند مکہ کی عمارات آخری زمانے کی تبدیلیوں کا اشارہ</h2>
+                <p>اسلامی تعلیمات میں قیامت کے قریب آنے والی نشانیوں کا ذکر بہت وضاحت سے کیا گیا ہے۔ ان نشانیوں میں سے ایک اہم نشانی مکہ مکرمہ میں بلند و بالا عمارات کی تعمیر ہے۔ اس موضوع پر غور کرنے سے ہمیں یہ سمجھنے میں مدد ملتی ہے کہ کیسے زمانے کے بدلتے ہوئے حالات اور لوگوں کی ترجیحات دین کی بجائے دنیا کی طرف مائل ہو جائیں گی۔ اس آرٹیکل میں ہم اس نشانی کے مختلف پہلوؤں کا جائزہ لیں گے اور اس کے اثرات پر روشنی ڈالیں گے۔</p>
+                
+                <h3>1. احادیث میں بلند عمارات کی پیشگوئی</h3>
+                <p>حضرت محمد ﷺ نے قیامت کی نشانیاں بتاتے ہوئے مکہ مکرمہ اور مدینہ منورہ میں بلند و بالا عمارات کی تعمیر کی نشانیوں کا ذکر کیا۔ آپ ﷺ نے فرمایا کہ عرب کے چرواہے جو کبھی بکریاں چرایا کرتے تھے، وہی لوگ بڑی بڑی عمارتیں بنانے میں فخر محسوس کریں گے۔ یہ پیشگوئیاں ہمیں اس بات کی یاد دہانی کراتی ہیں کہ دنیا کے معاملات میں مگن ہونے کی وجہ سے لوگ دین کو بھول جائیں گے اور دنیاوی آسائشوں کو ترجیح دیں گے۔</p>
+                <p>بلند عمارتیں صرف تعمیراتی ترقی کا مظہر نہیں ہوں گی بلکہ یہ اس بات کی علامت بھی ہوں گی کہ لوگوں کے دلوں میں دنیا کی محبت بڑھ گئی ہے اور آخرت کی فکر کم ہو گئی ہے۔ یوں تو عہد نبوی ﷺ میں مکہ کی آبادی بہت کم اور مکانات قلیل تعداد میں تھے۔ آپ ﷺ کی پیشین گوئی کے مطابق مکہ کی عمارات اس کے پہاڑوں سے بھی زیادہ بلند ہو جائیں گی۔</p>
+                
+                <h3>2. موجودہ دور کی حقیقت</h3>
+                <p>اگر ہم آج کے مکہ مکرمہ اور مدینہ منورہ کی صورت حال پر نظر ڈالیں، تو ہمیں احادیث کی پیشگوئیوں کی سچائی کا ادراک ہوتا ہے۔ مکہ مکرمہ میں موجودہ بلند و بالا عمارتیں، خاص طور پر مکہ کلاک ٹاور اور اس کے ارد گرد کی دیگر عمارتیں، اس بات کی نشاندہی کرتی ہیں کہ وہ وقت آ چکا ہے جس کا ذکر احادیث میں کیا گیا تھا۔</p>
+                <p>ایک روایت کے مطابق امام ابن ابی شیبہ فرماتے ہیں کہ میں حضرت عبداللہ بن عمرو کی سواری کی لگام تھامے ہوئے تھا کہ انھوں نے کہا: اس وقت تم لوگوں کا کیا حال ہو گا جب تم بیت اللہ کو گرا دو گے اور اس کا ایک پتھر بھی دوسرے کے اوپر نہیں رہنے دو گے۔ لوگوں نے سوال کیا: کیا ہم اس وقت اسلام پر قائم ہوں گے؟ انھوں نے فرمایا: جی ہاں! آپ لوگ اس وقت اسلام پر ہی ہوں گے۔ سوال کرنے والے نے پوچھا: پھر اس کے بعد کیا ہو گا؟ حضرت عبداللہ بن عمرو کہنے لگے: پھر بیت اللہ کی تعمیر پہلے سے زیادہ احسن انداز میں کی جائے گی۔ جب آپ مکہ کو دیکھیں کہ اس کے پہاڑوں اور زمین کے نیچے سرنگیں کھود دی جائیں اور زیر زمین پانی کے پائپ بچھا دیے جائیں اور مکہ کی عمارتیں پہاڑوں کی چوٹیوں سے اوپر نکل جائیں۔ اس وقت سمجھ لینا کہ معاملہ قریب آ پہنچا ہے۔</p>
+                <p>اس حدیث میں "بعج تک ظائم" سے مراد وہ سرنگیں ہیں جو پہاڑوں کو کھود کر مکہ شہر میں کثیر تعداد میں بنائی گئی ہیں اور زمین کے نیچے بڑے بڑے پائپ آب زمزم کے لیے بچھائے گئے ہیں۔ یہ عمارتیں جہاں ایک طرف حاجیوں کے لیے سہولتیں فراہم کرتی ہیں، وہیں دوسری طرف مقدس مقامات کے قدرتی حسن کو بھی متاثر کرتی ہیں۔ اس کے علاوہ، ان عمارتوں کی تعمیر میں استعمال ہونے والے وسائل اور زمین کے استعمال نے بھی ماحولیات پر گہرے اثرات مرتب کیے ہیں۔</p>
+                
+                <h3>3. بلند عمارات اور دین سے دوری</h3>
+                <p>بلند و بالا عمارتوں کی تعمیر صرف مادی ترقی کا مظہر نہیں ہے، بلکہ یہ دین سے دوری کی بھی علامت ہے۔ جب لوگ دین کی بجائے دنیاوی دولت اور شہرت کے پیچھے بھاگنے لگتے ہیں، تو وہ اپنے اصل مقصد یعنی اللہ کی عبادت اور آخرت کی فکر کو بھول جاتے ہیں۔ مکہ مکرمہ میں بلند عمارات کی تعمیر اسی ذہنیت کا عکس ہے۔</p>
+                <p>یہ عمارتیں مسلمانوں کو اس بات کی یاد دہانی کراتی ہیں کہ وہ اپنے دین کو نہ بھولیں اور دنیا کی عارضی آسائشوں میں مگن نہ ہوں۔ یہ نشانی اس بات کی بھی علامت ہے کہ قیامت قریب ہے اور ہمیں اپنے اعمال کی فکر کرنی چاہیے۔</p>
+                
+                <h3>4. قرب قیامت کی دیگر نشانیاں</h3>
+                <p>بلند و بالا عمارتوں کی تعمیر قرب قیامت کی ایک نشانی ہے، لیکن اس کے علاوہ بھی کئی اور نشانیاں ہیں جو ہمیں قیامت کے قریب ہونے کا اشارہ دیتی ہیں۔ ان میں سے ایک اہم نشانی عرب دنیا میں دوبارہ بت پرستی کا رواج ہے۔ جب لوگ دین کو چھوڑ کر دنیاوی چیزوں کی طرف مائل ہوتے ہیں، تو وہ شیطان کے فریب میں آ کر شرک اور بت پرستی کی طرف لوٹ جاتے ہیں۔</p>
+                <p>اسی طرح، قرب قیامت کے وقت مکہ اور مدینہ جیسے مقدس شہروں کی حالت بھی بدل جائے گی۔ احادیث میں بیان ہوا ہے کہ ان شہروں میں ایمان کی روشنی ماند پڑ جائے گی اور وہاں کے لوگ دین سے دور ہو جائیں گے۔</p>
+                
+                <h3>5. مکہ مکرمہ میں بلند عمارات کے اثرات</h3>
+                <p>مکہ مکرمہ میں بلند عمارات کی تعمیر نے نہ صرف مقدس مقامات کے قدرتی حسن کو متاثر کیا ہے، بلکہ اس کے دیگر کئی اثرات بھی مرتب ہوئے ہیں۔ ان عمارتوں کی تعمیر کے لیے بڑے پیمانے پر زمینوں کو مسمار کیا گیا، جس سے مکہ کے تاریخی مقامات اور قدرتی ماحول کو نقصان پہنچا۔</p>
+                <p>اس کے علاوہ، ان عمارتوں کی وجہ سے مکہ میں جائیدادوں کی قیمتیں بھی بہت زیادہ بڑھ گئی ہیں، جس کی وجہ سے عام لوگ وہاں رہائش اختیار کرنے میں مشکل محسوس کرتے ہیں۔ ان تمام حالات کو دیکھ کر ہمیں یہ احساس ہوتا ہے کہ قیامت کی نشانیوں کا ظہور ہو چکا ہے اور ہمیں اپنی زندگیوں کو دین کے مطابق ڈھالنے کی ضرورت ہے۔</p>
+                
+                <h3>6. مکہ کی تعمیرات اور مسلمانوں کی ذمہ داری</h3>
+                <p>مکہ مکرمہ میں بلند عمارات کی تعمیرات کے باوجود مسلمانوں کی یہ ذمہ داری بنتی ہے کہ وہ اپنے دین کو مضبوطی سے تھامے رکھیں۔ بلند عمارات اور دنیاوی ترقی کے باوجود، ہمیں اپنے ایمان کو مضبوط کرنے کی ضرورت ہے تاکہ ہم قیامت کے دن کامیاب ہو سکیں۔</p>
+                <p>مسلمانوں کو چاہیے کہ وہ مکہ مکرمہ اور مدینہ منورہ کی حرمت کو برقرار رکھیں اور وہاں کے مقدس مقامات کی عزت کریں۔ انہیں چاہیے کہ وہ دنیاوی ترقی کے ساتھ ساتھ دینی تعلیمات کو بھی اپنی زندگیوں میں شامل کریں تاکہ وہ قیامت کے دن اللہ کے حضور سرخرو ہو سکیں۔</p>
+                <p>مکہ مکرمہ میں بلند و بالا عمارات کی تعمیر قرب قیامت کی نشانیوں میں سے ایک اہم نشانی ہے۔ یہ نشانی ہمیں اس بات کی یاد دہانی کراتی ہے کہ دنیاوی ترقی کے باوجود ہمیں اپنے دین کو مضبوطی سے تھامے رکھنا چاہیے اور دنیا کی عارضی آسائشوں میں مگن نہیں ہونا چاہیے۔ مکہ مکرمہ میں بلند عمارات کی تعمیرات نے ہمیں اس بات کا احساس دلایا ہے کہ قیامت قریب ہے اور ہمیں اپنے اعمال کی فکر کرنی چاہیے۔ مسلمانوں کو چاہیے کہ وہ دنیاوی ترقی کے ساتھ ساتھ دینی تعلیمات کو بھی اپنی زندگیوں میں شامل کریں تاکہ وہ قیامت کے دن کامیاب ہو سکیں۔</p>
+                
+                <!-- Reactions Section -->
+                <div class="reactions-section">
+                    <h3 class="reactions-title">اس پوسٹ پر اپنا ردعمل دیں</h3>
+                    <div class="reactions-container">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">
+                            <span>👍</span> عمدہ
+                            <span class="reaction-count" id="count-عمدہ">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">
+                            <span>❤️</span> دلچسپ
+                            <span class="reaction-count" id="count-دلچسپ">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">
+                            <span>😊</span> مفید
+                            <span class="reaction-count" id="count-مفید">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">
+                            <span>😢</span> قابل غور
+                            <span class="reaction-count" id="count-قابل غور">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">
+                            <span>🤔</span> سوچ بچار
+                            <span class="reaction-count" id="count-سوچ بچار">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">
+                            <span>👏</span> شاندار
+                            <span class="reaction-count" id="count-شاندار">0</span>
+                        </button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">
+                            <span>🔥</span> زبردست
+                            <span class="reaction-count" id="count-زبردست">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Social Media Share Buttons -->
+                    <div class="social-share">
+                        <button class="share-btn fb" onclick="shareOnSocial('facebook')" title="فیس بک پر شیئر کریں"><i class="fab fa-facebook-f"></i></button>
+                        <button class="share-btn wa" onclick="shareOnSocial('whatsapp')" title="واٹس ایپ پر شیئر کریں"><i class="fab fa-whatsapp"></i></button>
+                        <button class="share-btn tw" onclick="shareOnSocial('twitter')" title="ٹویٹر پر شیئر کریں"><i class="fab fa-twitter"></i></button>
+                        <button class="share-btn li" onclick="shareOnSocial('linkedin')" title="لنکڈ ان پر شیئر کریں"><i class="fab fa-linkedin-in"></i></button>
+                        <button class="share-btn tg" onclick="shareOnSocial('telegram')" title="ٹیلی گرام پر شیئر کریں"><i class="fab fa-telegram-plane"></i></button>
+                        <button class="share-btn pt" onclick="shareOnSocial('pinterest')" title="پنٹیرسٹ پر شیئر کریں"><i class="fab fa-pinterest-p"></i></button>
+                        <button class="share-btn cp" onclick="copyPageLink()" title="لنک کاپی کریں"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Bottom Navigation Buttons -->
+                <div class="bottom-nav">
+                    <a href="https://bloglovers.pk/" class="bottom-nav-btn">مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="bottom-nav-btn">تمام پوسٹس</a>
+                </div>
+                
+                <div class="footer">
+                    <p>مزید آرٹیکل پڑھنے کے لئے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
+                </div>
+            </div>
         </div>
         
-        <!-- Main Content -->
-        <div class="post-content">
-            <!-- Image after title -->
-            <img src="https://bloglovers.pk/images/alamaat-sughra/paharon-se-buland-makka-ki-imaaraat-aakhri-zamane-ki-tabdeeliyon-ka-ishara.png" alt="پہاڑوں سے بلند مکہ کی عمارات" class="post-image">
-            
-            <h2>پہاڑوں سے بلند مکہ کی عمارات آخری زمانے کی تبدیلیوں کا اشارہ</h2>
-            <p>اسلامی تعلیمات میں قیامت کے قریب آنے والی نشانیوں کا ذکر بہت وضاحت سے کیا گیا ہے۔ ان نشانیوں میں سے ایک اہم نشانی مکہ مکرمہ میں بلند و بالا عمارات کی تعمیر ہے۔ اس موضوع پر غور کرنے سے ہمیں یہ سمجھنے میں مدد ملتی ہے کہ کیسے زمانے کے بدلتے ہوئے حالات اور لوگوں کی ترجیحات دین کی بجائے دنیا کی طرف مائل ہو جائیں گی۔ اس آرٹیکل میں ہم اس نشانی کے مختلف پہلوؤں کا جائزہ لیں گے اور اس کے اثرات پر روشنی ڈالیں گے۔</p>
-            
-            <h3>1. احادیث میں بلند عمارات کی پیشگوئی</h3>
-            <p>حضرت محمد ﷺ نے قیامت کی نشانیاں بتاتے ہوئے مکہ مکرمہ اور مدینہ منورہ میں بلند و بالا عمارات کی تعمیر کی نشانیوں کا ذکر کیا۔ آپ ﷺ نے فرمایا کہ عرب کے چرواہے جو کبھی بکریاں چرایا کرتے تھے، وہی لوگ بڑی بڑی عمارتیں بنانے میں فخر محسوس کریں گے۔ یہ پیشگوئیاں ہمیں اس بات کی یاد دہانی کراتی ہیں کہ دنیا کے معاملات میں مگن ہونے کی وجہ سے لوگ دین کو بھول جائیں گے اور دنیاوی آسائشوں کو ترجیح دیں گے۔</p>
-            <p>بلند عمارتیں صرف تعمیراتی ترقی کا مظہر نہیں ہوں گی بلکہ یہ اس بات کی علامت بھی ہوں گی کہ لوگوں کے دلوں میں دنیا کی محبت بڑھ گئی ہے اور آخرت کی فکر کم ہو گئی ہے۔ یوں تو عہد نبوی ﷺ میں مکہ کی آبادی بہت کم اور مکانات قلیل تعداد میں تھے۔ آپ ﷺ کی پیشین گوئی کے مطابق مکہ کی عمارات اس کے پہاڑوں سے بھی زیادہ بلند ہو جائیں گی۔</p>
-            
-            <h3>2. موجودہ دور کی حقیقت</h3>
-            <p>اگر ہم آج کے مکہ مکرمہ اور مدینہ منورہ کی صورت حال پر نظر ڈالیں، تو ہمیں احادیث کی پیشگوئیوں کی سچائی کا ادراک ہوتا ہے۔ مکہ مکرمہ میں موجودہ بلند و بالا عمارتیں، خاص طور پر مکہ کلاک ٹاور اور اس کے ارد گرد کی دیگر عمارتیں، اس بات کی نشاندہی کرتی ہیں کہ وہ وقت آ چکا ہے جس کا ذکر احادیث میں کیا گیا تھا۔</p>
-            <p>ایک روایت کے مطابق امام ابن ابی شیبہ فرماتے ہیں کہ میں حضرت عبداللہ بن عمرو کی سواری کی لگام تھامے ہوئے تھا کہ انھوں نے کہا: اس وقت تم لوگوں کا کیا حال ہو گا جب تم بیت اللہ کو گرا دو گے اور اس کا ایک پتھر بھی دوسرے کے اوپر نہیں رہنے دو گے۔ لوگوں نے سوال کیا: کیا ہم اس وقت اسلام پر قائم ہوں گے؟ انھوں نے فرمایا: جی ہاں! آپ لوگ اس وقت اسلام پر ہی ہوں گے۔ سوال کرنے والے نے پوچھا: پھر اس کے بعد کیا ہو گا؟ حضرت عبداللہ بن عمرو کہنے لگے: پھر بیت اللہ کی تعمیر پہلے سے زیادہ احسن انداز میں کی جائے گی۔ جب آپ مکہ کو دیکھیں کہ اس کے پہاڑوں اور زمین کے نیچے سرنگیں کھود دی جائیں اور زیر زمین پانی کے پائپ بچھا دیے جائیں اور مکہ کی عمارتیں پہاڑوں کی چوٹیوں سے اوپر نکل جائیں۔ اس وقت سمجھ لینا کہ معاملہ قریب آ پہنچا ہے۔</p>
-            <p>اس حدیث میں &quot;بعج تک ظائم&quot; سے مراد وہ سرنگیں ہیں جو پہاڑوں کو کھود کر مکہ شہر میں کثیر تعداد میں بنائی گئی ہیں اور زمین کے نیچے بڑے بڑے پائپ آب زمزم کے لیے بچھائے گئے ہیں۔ یہ عمارتیں جہاں ایک طرف حاجیوں کے لیے سہولتیں فراہم کرتی ہیں، وہیں دوسری طرف مقدس مقامات کے قدرتی حسن کو بھی متاثر کرتی ہیں۔ اس کے علاوہ، ان عمارتوں کی تعمیر میں استعمال ہونے والے وسائل اور زمین کے استعمال نے بھی ماحولیات پر گہرے اثرات مرتب کیے ہیں۔</p>
-            
-            <h3>3. بلند عمارات اور دین سے دوری</h3>
-            <p>بلند و بالا عمارتوں کی تعمیر صرف مادی ترقی کا مظہر نہیں ہے، بلکہ یہ دین سے دوری کی بھی علامت ہے۔ جب لوگ دین کی بجائے دنیاوی دولت اور شہرت کے پیچھے بھاگنے لگتے ہیں، تو وہ اپنے اصل مقصد یعنی اللہ کی عبادت اور آخرت کی فکر کو بھول جاتے ہیں۔ مکہ مکرمہ میں بلند عمارات کی تعمیر اسی ذہنیت کا عکس ہے۔</p>
-            <p>یہ عمارتیں مسلمانوں کو اس بات کی یاد دہانی کراتی ہیں کہ وہ اپنے دین کو نہ بھولیں اور دنیا کی عارضی آسائشوں میں مگن نہ ہوں۔ یہ نشانی اس بات کی بھی علامت ہے کہ قیامت قریب ہے اور ہمیں اپنے اعمال کی فکر کرنی چاہیے۔</p>
-            
-            <h3>4. قرب قیامت کی دیگر نشانیاں</h3>
-            <p>بلند و بالا عمارتوں کی تعمیر قرب قیامت کی ایک نشانی ہے، لیکن اس کے علاوہ بھی کئی اور نشانیاں ہیں جو ہمیں قیامت کے قریب ہونے کا اشارہ دیتی ہیں۔ ان میں سے ایک اہم نشانی عرب دنیا میں دوبارہ بت پرستی کا رواج ہے۔ جب لوگ دین کو چھوڑ کر دنیاوی چیزوں کی طرف مائل ہوتے ہیں، تو وہ شیطان کے فریب میں آ کر شرک اور بت پرستی کی طرف لوٹ جاتے ہیں۔</p>
-            <p>اسی طرح، قرب قیامت کے وقت مکہ اور مدینہ جیسے مقدس شہروں کی حالت بھی بدل جائے گی۔ احادیث میں بیان ہوا ہے کہ ان شہروں میں ایمان کی روشنی ماند پڑ جائے گی اور وہاں کے لوگ دین سے دور ہو جائیں گے۔</p>
-            
-            <h3>5. مکہ مکرمہ میں بلند عمارات کے اثرات</h3>
-            <p>مکہ مکرمہ میں بلند عمارات کی تعمیر نے نہ صرف مقدس مقامات کے قدرتی حسن کو متاثر کیا ہے، بلکہ اس کے دیگر کئی اثرات بھی مرتب ہوئے ہیں۔ ان عمارتوں کی تعمیر کے لیے بڑے پیمانے پر زمینوں کو مسمار کیا گیا، جس سے مکہ کے تاریخی مقامات اور قدرتی ماحول کو نقصان پہنچا۔</p>
-            <p>اس کے علاوہ، ان عمارتوں کی وجہ سے مکہ میں جائیدادوں کی قیمتیں بھی بہت زیادہ بڑھ گئی ہیں، جس کی وجہ سے عام لوگ وہاں رہائش اختیار کرنے میں مشکل محسوس کرتے ہیں۔ ان تمام حالات کو دیکھ کر ہمیں یہ احساس ہوتا ہے کہ قیامت کی نشانیوں کا ظہور ہو چکا ہے اور ہمیں اپنی زندگیوں کو دین کے مطابق ڈھالنے کی ضرورت ہے۔</p>
-            
-            <h3>6. مکہ کی تعمیرات اور مسلمانوں کی ذمہ داری</h3>
-            <p>مکہ مکرمہ میں بلند عمارات کی تعمیرات کے باوجود مسلمانوں کی یہ ذمہ داری بنتی ہے کہ وہ اپنے دین کو مضبوطی سے تھامے رکھیں۔ بلند عمارات اور دنیاوی ترقی کے باوجود، ہمیں اپنے ایمان کو مضبوط کرنے کی ضرورت ہے تاکہ ہم قیامت کے دن کامیاب ہو سکیں۔</p>
-            <p>مسلمانوں کو چاہیے کہ وہ مکہ مکرمہ اور مدینہ منورہ کی حرمت کو برقرار رکھیں اور وہاں کے مقدس مقامات کی عزت کریں۔ انہیں چاہیے کہ وہ دنیاوی ترقی کے ساتھ ساتھ دینی تعلیمات کو بھی اپنی زندگیوں میں شامل کریں تاکہ وہ قیامت کے دن اللہ کے حضور سرخرو ہو سکیں۔</p>
-            <p>مکہ مکرمہ میں بلند و بالا عمارات کی تعمیر قرب قیامت کی نشانیوں میں سے ایک اہم نشانی ہے۔ یہ نشانی ہمیں اس بات کی یاد دہانی کراتی ہے کہ دنیاوی ترقی کے باوجود ہمیں اپنے دین کو مضبوطی سے تھامے رکھنا چاہیے اور دنیا کی عارضی آسائشوں میں مگن نہیں ہونا چاہیے۔ مکہ مکرمہ میں بلند عمارات کی تعمیرات نے ہمیں اس بات کا احساس دلایا ہے کہ قیامت قریب ہے اور ہمیں اپنے اعمال کی فکر کرنی چاہیے۔ مسلمانوں کو چاہیے کہ وہ دنیاوی ترقی کے ساتھ ساتھ دینی تعلیمات کو بھی اپنی زندگیوں میں شامل کریں تاکہ وہ قیامت کے دن کامیاب ہو سکیں۔</p>
-            
-            <div class="footer">
-                <p>مزید آرٹیکل پڑھنے کے لئے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>مزید پوسٹس</h3>
+            <div class="sidebar-content">
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt">قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنوں کا ظہور">
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat">ان گنت فتنوں کا ظہور اور ان کے نقصانات</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس پہننے والی عورتیں">
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai">تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم کا اٹھ جانا">
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya">آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں حلال">
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai">آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi">وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دورجدید کے فتنے">
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya">دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="اللہ کی یاد سے غافل کرنے والا فتنہ">
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai">اللہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi">قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="جلدی پکڑ کرانے والا گناہ">
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai">انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge">لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya">آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</a>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</a>
+                </div>
             </div>
         </div>
     </div>
@@ -507,6 +867,46 @@
             // In a real scenario, this would navigate to previous page
             // For demo, we'll just show an alert
             alert('واپس جانے کا فنکشن شامل کیا گیا ہے۔ اصل استعمال میں یہ آپ کو پچھلے صفحے پر لے جائے گا۔');
+        }
+        
+        // Social sharing functions
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${title} ${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+                default:
+                    return;
+            }
+            
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => {
+                alert('لنک کاپی کرنے میں مسئلہ ہوا');
+            });
         }
         
         // Event listeners
@@ -583,5 +983,7 @@
             }
         }
     </script>
+    <!-- Reactions JavaScript -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
