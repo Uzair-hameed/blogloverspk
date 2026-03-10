@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قرب قیامت لوگوں کے پاس دولت کی کثرت کیوں ہو جائے گی؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
 
@@ -179,52 +181,227 @@
             box-shadow: 0 12px 25px rgba(74, 144, 226, 0.6);
         }
 
+        /* === Reactions کا سیکشن === */
+        .reactions-section {
+            margin: 40px 0 20px;
+            text-align: center;
+        }
+        .reactions-title {
+            font-size: 1.8rem;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+        .reactions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .reaction-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .reaction-btn:hover {
+            background: rgba(255,204,0,0.2);
+            transform: translateY(-3px);
+            border-color: #ffcc00;
+        }
+        .reaction-count {
+            background: rgba(0,0,0,0.5);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            color: #ffcc00;
+        }
+
+        /* === سوشل میڈیا آئیکونز === */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        .social-icon.fb { background: #1877f2; }
+        .social-icon.ws { background: #25D366; }
+        .social-icon.tw { background: #1DA1F2; }
+        .social-icon.li { background: #0077b5; }
+        .social-icon.tg { background: #0088cc; }
+        .social-icon.pt { background: #bd081c; }
+        .social-icon.cp { background: #6c757d; }
+
+        /* === سائیڈ بار آٹو اسکرول === */
+        .sidebar-auto {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 25px;
+            margin: 40px 0 20px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+        .sidebar-title {
+            color: #ffcc00;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .scroll-wrapper {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px;
+        }
+        .scroll-content {
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px;
+            scroll-behavior: smooth;
+            animation: scrollUp 30s linear infinite;
+        }
+        .scroll-content:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 18px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+        .sidebar-post:hover {
+            background: rgba(255,204,0,0.15);
+            border-color: #ffcc00;
+            transform: translateX(-5px);
+        }
+        .sidebar-post.active {
+            border-right: 5px solid #ffcc00;
+            background: rgba(255,204,0,0.1);
+        }
+        .sidebar-post img {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid rgba(255,204,0,0.3);
+        }
+        .sidebar-post span {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        /* === نیویگیشن بٹنز (پوسٹ کے نیچے) === */
+        .post-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, #ff9a00, #ff5e00);
+            color: white;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(255,94,0,0.3);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255,94,0,0.5);
+            background: linear-gradient(135deg, #ffcc00, #ff9a00);
+        }
+
+        /* === فوٹر === */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 25px;
+            border-top: 1px solid rgba(255,204,0,0.2);
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+
         /* === موبائل ریسپانسیو === */
         @media (max-width: 992px) {
-            .post-container {
-                margin: 20px;
-                padding: 30px;
-                border-radius: 25px;
-            }
+            .post-container { margin: 20px; padding: 30px; }
             h1 { font-size: 2.4rem; }
             h2, h3 { font-size: 1.8rem; }
             p { font-size: 1.35rem; }
         }
         @media (max-width: 768px) {
-            .control-buttons {
-                left: 15px;
-                gap: 10px;
-            }
-            .control-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            .sun {
-                width: 140px;
-                height: 140px;
-            }
-            .sun-rays {
-                width: 240px;
-                height: 240px;
-            }
+            .control-buttons { left: 15px; gap: 10px; }
+            .control-btn { width: 50px; height: 50px; font-size: 20px; }
+            .sun { width: 140px; height: 140px; }
+            .sun-rays { width: 240px; height: 240px; }
             h1 { font-size: 2rem; }
-            p { font-size: 1.25rem; line-height: 2.2; }
+            p { font-size: 1.25rem; }
+            .reaction-btn { padding: 8px 16px; font-size: 1.2rem; }
         }
         @media (max-width: 480px) {
-            .post-container {
-                margin: 15px;
-                padding: 25px;
-            }
+            .post-container { margin: 15px; padding: 25px; }
             .control-buttons {
-                left: 10px;
-                bottom: 20px;
-                top: auto;
-                transform: none;
-                flex-direction: row;
+                left: 10px; bottom: 20px; top: auto;
+                transform: none; flex-direction: row;
             }
             h1 { font-size: 1.8rem; }
             p { font-size: 1.15rem; }
+            .reactions-grid { gap: 8px; }
+            .reaction-btn { padding: 6px 12px; font-size: 1rem; }
+            .sidebar-post span { font-size: 1rem; }
         }
     </style>
 </head>
@@ -236,7 +413,7 @@
         <div class="sun-rays"></div>
     </div>
 
-    <!-- کنٹرول بٹنز -->
+    <!-- کنٹرول بٹنز (بیک، اوپر، نیچے) برقرار -->
     <div class="control-buttons">
         <button class="control-btn" id="backBtn" onclick="window.history.back()" title="واپس جائیں">←</button>
         <button class="control-btn" id="upBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">↑</button>
@@ -250,6 +427,7 @@
         <!-- فیچرڈ تصویر -->
         <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-logon-ke-pas-daulat-ki-kasrat-kyun-ho-jae-gi.png" alt="قرب قیامت لوگوں کے پاس دولت کی کثرت کیوں ہو جائے گی؟" class="featured-image">
 
+        <!-- مکمل مواد بالکل ویسا ہی -->
         <p>دوستو! اسلامی تاریخ کی کتب کا مطالعہ کیا جائے تو یہ بات روزِ روشن کی طرح عیاں ہے کہ مسلمانوں نے اسلام کے ابتدائی سال اللہ کے نبی ﷺ کے رفاقت میں بھی اور بعد میں بھی اس حال میں بسر کیے کہ ان کی زندگی بہت تنگ دستی اور سخت فقر و فاقہ کی تھی۔ یہاں تک کہ ایک کے بعد دوسرا مہینہ بھی گزر جاتا اور اللہ کے رسول ﷺ کے گھر چولہے میں آگ نہ جلتی۔ ان کا گزارا محض دو چیزوں پر نیم اور کھجور پر ہوتا تھا۔</p>
         <p>آپ ﷺ اپنے پیارے ساتھیوں سے فرمایا کرتے تھے کہ عنقریب حالات بدل جائیں گے اور قیامت کی نشانیوں میں سے یہ ہے کہ دولت کی ریل پیل ہو جائے گی۔ آپ ﷺ نے فرمایا کہ مال و متاع کی اس قدر کثرت ہو جائے گی کہ ایک شخص اپنی زکوٰۃ لے کر ایک مہینے تک پھرتا رہے گا مگر اسے کوئی مستحق نہیں ملے گا، اس لیے کہ لوگ اس سے بہت مستغنی ہوں گے۔</p>
         <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "قیامت اس وقت تک ہرگز قائم نہ ہو گی جبتک کہ تم میں مال کی کثرت نہ ہو جائے گی۔ مال کی ریل پیل اس قدر ہو جائے گی کہ مال والے کو یہ پریشانی لاحق ہو گی کہ اس کا صدقہ کون قبول کرے گا؟ وہ ایک شخص کو اپنا مال پیش کرے گا مگر وہ شخص کہے گا: مجھے اس کی کوئی ضرورت نہیں۔"</p>
@@ -261,30 +439,172 @@
         <p>اس دولت کی خاطر انسان کا خون سفید ہو چکا ہے، اپنے سوا کچھ دکھائی نہیں دیتا، رشتے ناطے، دوست احباب سببے نام ہو کر رہ گئے ہیں۔ حتی کہ دین سے اس قدر دوری ہو گئی ہے کہ گویا زنا، شراب، رقص و سرود کی محفلوں میں بے دریغ دولت ضائع کی جاتی ہے جبکہ حقدار کو حق دینے سے ہمکراتے ہیں۔</p>
         <p>آج بھی ہمارے معاشرے میں لوگوں کے پاس بے شمار دولت ہے جبکہ عوام بوند بوند کو ترس رہی ہے۔ سسک سسک کر زندگی گزارنے والے اپنی نگاہیں آسمان پر گاڑے ہوئے ہیں کہ شاید کہیں سے کوئی مدد آ جائے اور وہ اپنی جائز خواہشات کی تکمیل کر سکیں۔</p>
         <p>دولت ایک فتنہ ہے یہ اللہ رب العزت کی طرف سے ایک آزمائش ہے لوگ اس آزمائش پر کتنا کھرا اترتے ہیں یہ اللہ کی ذاتا قدس بہتر جانتی ہے کیونکہ دلوں کے حال اللہ پاک ہی جانتے ہیں۔</p>
+
+        <!-- ========== REACTIONS سیکشن (بالکل مطلوبہ انداز میں) ========== -->
+        <div class="reactions-section">
+            <div class="reactions-title">اس پوسٹ پر اپنا ردعمل دیں</div>
+            <div class="reactions-grid">
+                <!-- عمدہ -->
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <!-- دلچسپ -->
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <!-- مفید -->
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <!-- قابل غور -->
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <!-- سوچ بچار -->
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <!-- شاندار -->
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <!-- زبردست -->
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- ========== سوشل میڈیا آئیکونز (7 پلیٹ فارمز) ========== -->
+        <div class="social-share">
+            <div class="social-icon fb" onclick="shareOnSocial('fb')"><i class="fab fa-facebook-f"></i></div>
+            <div class="social-icon ws" onclick="shareOnSocial('wa')"><i class="fab fa-whatsapp"></i></div>
+            <div class="social-icon tw" onclick="shareOnSocial('tw')"><i class="fab fa-x-twitter"></i></div>
+            <div class="social-icon li" onclick="shareOnSocial('li')"><i class="fab fa-linkedin-in"></i></div>
+            <div class="social-icon tg" onclick="shareOnSocial('tg')"><i class="fab fa-telegram-plane"></i></div>
+            <div class="social-icon pt" onclick="shareOnSocial('pt')"><i class="fab fa-pinterest-p"></i></div>
+            <div class="social-icon cp" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+        </div>
+
+        <!-- ========== سائیڈ بار آٹو اسکرول (پوسٹس کی مکمل فہرست) ========== -->
+        <div class="sidebar-auto">
+            <div class="sidebar-title">📚 مزید پوسٹس</div>
+            <div class="scroll-wrapper">
+                <div class="scroll-content">
+                    <!-- 1 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                        <span>قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</span>
+                    </a>
+                    <!-- 2 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="ان گنت فتنے">
+                        <span>ان گنت فتنوں کا ظہور اور ان کے نقصانات</span>
+                    </a>
+                    <!-- 3 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                        <span>تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</span>
+                    </a>
+                    <!-- 4 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم اٹھ جانا">
+                        <span>آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- 5 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں حلال">
+                        <span>آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</span>
+                    </a>
+                    <!-- 6 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                        <span>وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</span>
+                    </a>
+                    <!-- 7 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دورجدید فتنے">
+                        <span>دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</span>
+                    </a>
+                    <!-- 8 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="غافل کرنے والا فتنہ">
+                        <span>للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</span>
+                    </a>
+                    <!-- 9 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                        <span>قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</span>
+                    </a>
+                    <!-- 10 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="بدترین گناہ">
+                        <span>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</span>
+                    </a>
+                    <!-- 11 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="موت کی تمنا">
+                        <span>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</span>
+                    </a>
+                    <!-- 12 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="اچانک اموات">
+                        <span>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</span>
+                    </a>
+                    <!-- 13 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا">
+                        <span>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                    </a>
+                    <!-- 14 موجودہ پوسٹ (active) -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-logon-ke-pas-daulat-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post active">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-logon-ke-pas-daulat-ki-kasrat-kyun-ho-jae-gi.png" alt="دولت کی کثرت">
+                        <span>قرب قیامت لوگوں کے پاس دولت کی کثرت کیوں ہو جائے گی؟ (موجودہ)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== نیویگیشن بٹنز (مرکزی صفحہ اور تمام پوسٹس) ========== -->
+        <div class="post-nav-buttons">
+            <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+        </div>
+
+        <!-- ========== فوٹر ========== -->
+        <div class="footer">
+            © 2025 bloglovers.pk - تمام حقوق محفوظ ہیں
+        </div>
     </div>
 
+    <!-- ========== reactions.js (باہر سے لنک) ========== -->
+    <script src="/reactions.js"></script>
+
+    <!-- ========== جاوا اسکرپٹ (صرف سوشل شیئر اور ڈپلیکیٹ ری ایکشن کوڈ نہیں) ========== -->
     <script>
-        // بٹنوں پر ہور ایفیکٹس کے لیے اضافی انٹرایکشن
+        // سوشل میڈیا شیئرنگ فنکشنز (برقرار)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'fb') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'wa') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'tw') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'li') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'tg') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pt') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => {
+                alert('کاپی کرنے میں مسئلہ ہوا');
+            });
+        }
+
+        // بٹنوں پر ہور ایفیکٹس
         document.querySelectorAll('.control-btn').forEach(btn => {
-            btn.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.1)';
-            });
-            btn.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
+            btn.addEventListener('mouseenter', function() { this.style.transform = 'translateY(-5px) scale(1.1)'; });
+            btn.addEventListener('mouseleave', function() { this.style.transform = 'translateY(0) scale(1)'; });
         });
 
-        // موبائل پر کنٹرول بٹنز کو زیادہ بہتر بنانے کے لیے
+        // موبائل پر کنٹرول بٹنز
         if (window.innerWidth <= 480) {
             const controls = document.querySelector('.control-buttons');
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    controls.style.opacity = '0.9';
-                } else {
-                    controls.style.opacity = '1';
-                }
+                controls.style.opacity = window.scrollY > 300 ? '0.9' : '1';
             });
         }
     </script>
+
+    <!-- reactions.js میں reactionClick موجود ہے، یہاں ڈپلیکیٹ reactions کوڈ نہیں -->
 </body>
 </html>
