@@ -38,10 +38,104 @@
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .main-content {
+            flex: 2;
+            min-width: 280px;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 20px;
+            align-self: start;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(30, 58, 138, 0.1);
+            border: 1px solid rgba(135, 206, 235, 0.3);
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+        
+        .sidebar-header {
+            background: linear-gradient(135deg, var(--sky-blue), var(--dark-blue));
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .sidebar-posts {
+            height: 500px;
+            overflow-y: auto;
+            padding: 15px;
+            scroll-behavior: smooth;
+            animation: autoScroll 30s linear infinite;
+        }
+        
+        .sidebar-posts:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        
+        .sidebar-posts .post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border-right: 3px solid transparent;
+        }
+        
+        .sidebar-posts .post-item:hover {
+            background: rgba(135, 206, 235, 0.3);
+            transform: translateX(-5px);
+            border-right-color: var(--dark-blue);
+        }
+        
+        .sidebar-posts .post-item.active {
+            background: rgba(30, 58, 138, 0.15);
+            border-right-color: var(--dark-blue);
+        }
+        
+        .sidebar-posts .post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--sky-blue);
+        }
+        
+        .sidebar-posts .post-title {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--dark-blue);
+            text-decoration: none;
+            flex: 1;
+        }
+        
+        .sidebar-posts .post-title:hover {
+            color: #0d47a1;
+            text-decoration: underline;
         }
         
         /* Animated Background Theme */
@@ -211,6 +305,59 @@
             padding-right: 15px;
         }
         
+        /* Reactions Styles */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .reactions-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+        }
+        
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid var(--sky-blue);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+        
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.2);
+            background: var(--sky-blue);
+            border-color: var(--dark-blue);
+        }
+        
+        .reaction-count {
+            font-weight: bold;
+            color: var(--dark-blue);
+            background: rgba(30, 58, 138, 0.1);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
         /* Navigation Buttons */
         .nav-buttons {
             position: fixed;
@@ -269,6 +416,83 @@
             box-shadow: 0 8px 20px rgba(192, 57, 43, 0.6);
         }
         
+        /* Post Navigation Buttons */
+        .post-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .post-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--sky-blue), var(--dark-blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .post-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.4);
+        }
+        
+        /* Social Media Icons */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+        }
+        
+        .social-share h4 {
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+            font-size: 1.3rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .fb { background: #1877f2; }
+        .wa { background: #25D366; }
+        .tw { background: #1DA1F2; }
+        .li { background: #0077b5; }
+        .tg { background: #0088cc; }
+        .pt { background: #bd081c; }
+        .cp { background: #6c757d; }
+        
         /* Decorative Elements */
         .decoration {
             position: fixed;
@@ -298,36 +522,33 @@
         /* Mobile Responsive */
         @media (max-width: 992px) {
             .container {
-                max-width: 95%;
+                flex-direction: column;
             }
-            
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
             h1 {
                 font-size: 2.2rem;
             }
-            
             .post-content {
                 font-size: 1.2rem;
             }
-            
             .content-box {
                 padding: 25px;
             }
-            
             .nav-buttons {
                 left: 10px;
             }
-            
             .nav-btn, .back-btn {
                 width: 45px;
                 height: 45px;
                 font-size: 1.2rem;
             }
-            
             .back-btn {
                 width: 50px;
                 height: 50px;
             }
-            
             .floating-text {
                 font-size: 2rem;
             }
@@ -337,12 +558,10 @@
             h1 {
                 font-size: 1.8rem;
             }
-            
             .post-content {
                 font-size: 1.1rem;
                 line-height: 2;
             }
-            
             .nav-buttons {
                 position: fixed;
                 bottom: 80px;
@@ -352,19 +571,16 @@
                 flex-direction: row;
                 gap: 10px;
             }
-            
             .nav-btn {
                 width: 40px;
                 height: 40px;
                 font-size: 1rem;
             }
-            
             .back-btn {
                 bottom: 20px;
                 left: 50%;
                 transform: translateX(-50%);
             }
-            
             .decoration {
                 display: none;
             }
@@ -430,40 +646,125 @@
     <button class="back-btn" id="backBtn" title="واپس جائیں"><i class="fas fa-arrow-right"></i></button>
     
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</h1>
-        </div>
-        
-        <!-- Post Image -->
-        <div class="post-image">
-            <img src="https://bloglovers.pk/images/alamaat-sughra/shabh-kram-rzi-allah-anhm-ka-is-dnya-se-rkhst-ho-jana-hmyn-kya-drs-dyta-hai.jpg" alt="صحابہ کرام رضی اللہ عنہم" onerror="this.style.display='none'">
-        </div>
-        
-        <!-- Content Box -->
-        <div class="content-box">
-            <div class="post-content">
-                <p>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</p>
-                <p>اللہ کے حبیب حضرت محمد ﷺ کے اس دنیا سے رخصت ہونے کے بعد اس زمین پر مقدس ہستیاں صرف صحابہ کرام رضی اللہ عنہم کی جماعت ہے۔ جن کو نہ صرف آپ ﷺ کی قربت نصیب ہوئی بلکہ دین کو صحیح طریقے سے سیکھنے، سمجھنے اور سمجھ کر عمل کرنے کا ٹھیک ٹھیک موقع ملا۔ قرآن میں جگہ جگہ صحابہ کی عظمت وقار کے بارے میں بتایا گیا ہے۔ انبیاء کرام اور رسولوں کے بعد سب سے معزز صحابہ کرام کی جماعت ہے۔</p>
-                <p>چنانچہ ارشاد نبوی ﷺ ہے کہ آپ ﷺ نے ارشاد فرمایا: <span class="highlight">"میرے اصحاب کو بُرا نہ کہو اگر تم میں سے کوئی ایک شخص احد پہاڑ جتنا سونا خیرات کردے، پھر بھی وہ ان کے دئیے ہوئے ایک کلو یا نصف کلو کے برابر نہیں ہوگا"</span>۔</p>
-                <p>اس حدیث سے شان ِ صحابہ کی وضاحت بالکل ویسے ہی ہے جیسے اس میں حرف بہ حرف کہا گیا ہے اور انہوں نے ایسا کرکے دکھایا۔ آج لوگ طرح طرح باتیں کرتے ہیں، گالیاں دیتے ہیں، نہ جانے کس بات کا بغض رکھتے ہیں اپنے سینوں میں صحابہ کرام کے بارے میں۔ اس روئے زمین پر انبیاء کرام کے بعد کوئی عمل کرکے دکھلانے والا نہیں جیسا عمل انہوں نے کر کے دکھایا اس لئے کہا گیا ہے کہ چاہے تم احد پہاڑ جتنا صدقہ خیرات ہی کیوں نہ کر دو ان کے مرتبے اور عظمت و وقار تک نہیں پہنچ سکتے۔</p>
-                <p>ایک اور روایت میں فرمایا: ایک اور روایت کے مطابق آپ ﷺ نے آسمان کی طرف دیکھ کر ارشاد فرمایا: <span class="highlight">"ستارے آسمان کی امان ہیں اور جب ستارے چلے جائیں گے تو آسمان پر وہ چیزیں آجائیں گی جن سے آسمان کو ڈرایا گیا ہے اور میرے اصحاب میری امت کے امان ہیں۔ جب میرا وصال ہوگا تو میرے اصحاب کے پاس وہ چیزیں آجائیں گی، جن سے ان کو ڈرایا گیا ہے"</span>۔</p>
-                <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: <span class="highlight">"میرے اصحاب کے متعلق اللہ سے ڈرو، ان کو میرے بعد طنز کا نشانہ نہ بناؤ۔ جس نے ان سے محبت رکھی اس نے میری وجہ سے ان سے محبت رکھی اور جس نے ان سے بغض رکھا انہوں نے مجھ سے بغض رکھا اور جس نے ان کو اذیت دی، اس نے بے شک مجھ کو اذیت دی اور جس نے مجھ کو اذیت دی اس نے بے شک اللہ کو اذیت دی اور جس نے اللہ کو اذیت دی، عنقریب اللہ اس کو پکڑے گا"</span>۔</p>
-                <p>گویا اس بات کی وضاحت کی گئی ہے کہ اطاعت صحابہ در حقیقت اطاعت رسول ﷺ ہے اور اطاعت رسول اطاعت خداوندی ہے۔ قرب قیامت کی اس نشانی میں اللہ کے نبی ﷺ نے خود ہی وضاحت کر دی کے میرے صحابہ کے بعد کوئی سمجھانے والا نہیں ہوگا در حقیقت صحابہ کرام کے ذریعے جو دین تابعین، تبع تابعین اور بزرگوں تک پہنچا وہ صحابہ ہی کے مرہون منت ہے۔</p>
-                <p>علماء کرام فرماتے ہیں: <span class="highlight">"یہ ہرگز جائز نہیں کہ کسی بھی صحابی کی طرف قطعی اور یقینی طور پر کوئی غلطی منسوب کی جائے۔ کیونکہ صحابہ کی اس جماعت نے اپنے اپنے طرز عمل میں اجتہاد سے کام لیا تھا اور سب کا مقصد صرف اور صرف اللہ کی خوشنودی اور اس کی رضا تھی۔ صحابہ کرام ہمارے پیشوا ہیں اور ہمیں حکم ہے کہ ان کے باہمی اختلاف میں اپنے منہ سے کوئی بات کریں اور ہمیشہ ان کا ذکر عظمت و وقار سے کریں جس کے یہ مستحق ہیں۔ آپ ﷺ نے ان کو برا کہنے سے منع فرمایا ہے اور یہ خبر دی ہے کہ اللہ نے ان سب کو معاف کر رکھا ہے اور اللہ ان سے راضی ہے"</span>۔</p>
-                <p>اللہ کے ان نیک بندوں کو نہ تو دنیا کی کوئی حرص تھی اور نہ ہی مال و دولت سے کوئی لگاؤ بلکہ وہ تو رات کو کمایا ہوا مال صبح تک اور صبح کو کمایا ہوا مال شام تک خرچ کر دیا کرتے تھے۔ قرآن مجید میں انفاق فی سبیل اللہ کی کئی بار مثالیں دی گئی ہیں۔ اللہ کے یہ پیارے اور نیک لوگ سراپا محبت ہیں۔</p>
-                <p>ان کی کون کون سی مثالیں دوں اور کون کون سے واقعات قلم بند کروں کیونکہ میرے پاس تو الفاظ ہی نہیں ہیں کہ جن سے ان کی شان میں تعریف کر سکوں۔ مہاجرین اور انصار کی جو مثال پیش کی گئی دنیا میں کہیں کوئی نظیر نہیں ملتی۔ یہی لوگ سچے لوگ تھے۔ دین عزیز تھا لہذا جان کا نذرانہ پیش کرنے میں کبھی پیچھے نہیں ہٹتے تھے۔</p>
-                <p>نبی کریم ﷺ کی ذات گرامی کے بعد صحابہ کرام رضی اللہ عنہم اس امت کے افضل ترین لوگ ہیں۔ ایک مقام پر آپ ﷺ نے فرمایا: <span class="highlight">"آسمان کے ستارے آسمان کے لئے امن و سلامتی (کی ضمانت) ہیں۔ جب ستارے ختم ہوجائیں گے تو وہ (قیامت) آجائے گی جس کا وعدہ کیا گیا ہے اور میں اپنے صحابہ کے لئے امن و سلامتی ہوں۔ جب میں چلا جاؤں گا تو صحابہ پر وہ حالت آجائے گی جس کا ان سے وعدہ کیا گیا ہے۔ اور میرے صحابہ امت کے لئے امن وسلامتی کی ضمانت ہیں۔ جب صحابہ چلے جائیں گے تو امت کو وہ (اختلاف وانتشار) پیش آ جائے گا جس کا ان سے وعدہ کیا گیا ہے"</span>۔</p>
-                <p>اس حدیث سے معلوم ہوا کہ نبی کریم ﷺ نے صحابہ کرام رضی اللہ عنہم کے دنیا سے چلے جانے کو قیامت کی دو نشانیوں کے ساتھ ملاکر بیان فرمایا۔ ایک نبی کریم ﷺ کی وفات اور دوسری ستاروں کا جھڑ جانا اور شہابیوں کا گرنا۔</p>
-                <p>گویا ایک ایک کرکے اس دنیا نیک لوگ رخصت ہو جائیں گے اور پیچھے گنہگار اور گمراہ لوگ رہ جائیں گے جن پر اللہ تعالیٰ قیامت برپا کریں گے۔ آج اگر حالات دیکھیں تو مایوس کن ہیں، قیامت کی ان نشانیوں کو ذرا سا غور کریں تو یقین کیجئے اتنی تیزی سے دن گزر رہے ہیں۔ لوگ دین سے دور غفلت کی نیند سو رہے ہیں۔ جو مرتا ہے اس کے لئے تو قیامت شروع ہو جاتی ہے لیکن باقی لوگ سمجھتے ہیں کہ جیسے اسی کو ہی مرنا تھا ہمیں نہیں۔</p>
-                <p>اللہ پاک ہم سب کی مغفرت فرمائے ہمیں صحابہ جیسی محبت، صحابہ جیسی دین کی خدمت اور صحابہ کے نقش قدم پر چلنے کی توفیق عطا فرمائے۔ آمین سم آمین۔</p>
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</h1>
+            </div>
+            
+            <!-- Post Image -->
+            <div class="post-image">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/shabh-kram-rzi-allah-anhm-ka-is-dnya-se-rkhst-ho-jana-hmyn-kya-drs-dyta-hai.jpg" alt="صحابہ کرام رضی اللہ عنہم" onerror="this.style.display='none'">
+            </div>
+            
+            <!-- Content Box -->
+            <div class="content-box">
+                <div class="post-content">
+                    <p>صحابہ کرام رضی اللہ عنہم کا اس دنیا سے رخصت ہو جانا ہمیں کیا درس دیتا ہے؟</p>
+                    <p>اللہ کے حبیب حضرت محمد ﷺ کے اس دنیا سے رخصت ہونے کے بعد اس زمین پر مقدس ہستیاں صرف صحابہ کرام رضی اللہ عنہم کی جماعت ہے۔ جن کو نہ صرف آپ ﷺ کی قربت نصیب ہوئی بلکہ دین کو صحیح طریقے سے سیکھنے، سمجھنے اور سمجھ کر عمل کرنے کا ٹھیک ٹھیک موقع ملا۔ قرآن میں جگہ جگہ صحابہ کی عظمت وقار کے بارے میں بتایا گیا ہے۔ انبیاء کرام اور رسولوں کے بعد سب سے معزز صحابہ کرام کی جماعت ہے۔</p>
+                    <p>چنانچہ ارشاد نبوی ﷺ ہے کہ آپ ﷺ نے ارشاد فرمایا: <span class="highlight">"میرے اصحاب کو بُرا نہ کہو اگر تم میں سے کوئی ایک شخص احد پہاڑ جتنا سونا خیرات کردے، پھر بھی وہ ان کے دئیے ہوئے ایک کلو یا نصف کلو کے برابر نہیں ہوگا"</span>۔</p>
+                    <p>اس حدیث سے شان ِ صحابہ کی وضاحت بالکل ویسے ہی ہے جیسے اس میں حرف بہ حرف کہا گیا ہے اور انہوں نے ایسا کرکے دکھایا۔ آج لوگ طرح طرح باتیں کرتے ہیں، گالیاں دیتے ہیں، نہ جانے کس بات کا بغض رکھتے ہیں اپنے سینوں میں صحابہ کرام کے بارے میں۔ اس روئے زمین پر انبیاء کرام کے بعد کوئی عمل کرکے دکھلانے والا نہیں جیسا عمل انہوں نے کر کے دکھایا اس لئے کہا گیا ہے کہ چاہے تم احد پہاڑ جتنا صدقہ خیرات ہی کیوں نہ کر دو ان کے مرتبے اور عظمت و وقار تک نہیں پہنچ سکتے۔</p>
+                    <p>ایک اور روایت میں فرمایا: ایک اور روایت کے مطابق آپ ﷺ نے آسمان کی طرف دیکھ کر ارشاد فرمایا: <span class="highlight">"ستارے آسمان کی امان ہیں اور جب ستارے چلے جائیں گے تو آسمان پر وہ چیزیں آجائیں گی جن سے آسمان کو ڈرایا گیا ہے اور میرے اصحاب میری امت کے امان ہیں۔ جب میرا وصال ہوگا تو میرے اصحاب کے پاس وہ چیزیں آجائیں گی، جن سے ان کو ڈرایا گیا ہے"</span>۔</p>
+                    <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا: <span class="highlight">"میرے اصحاب کے متعلق اللہ سے ڈرو، ان کو میرے بعد طنز کا نشانہ نہ بناؤ۔ جس نے ان سے محبت رکھی اس نے میری وجہ سے ان سے محبت رکھی اور جس نے ان سے بغض رکھا انہوں نے مجھ سے بغض رکھا اور جس نے ان کو اذیت دی، اس نے بے شک مجھ کو اذیت دی اور جس نے مجھ کو اذیت دی اس نے بے شک اللہ کو اذیت دی اور جس نے اللہ کو اذیت دی، عنقریب اللہ اس کو پکڑے گا"</span>۔</p>
+                    <p>گویا اس بات کی وضاحت کی گئی ہے کہ اطاعت صحابہ در حقیقت اطاعت رسول ﷺ ہے اور اطاعت رسول اطاعت خداوندی ہے۔ قرب قیامت کی اس نشانی میں اللہ کے نبی ﷺ نے خود ہی وضاحت کر دی کے میرے صحابہ کے بعد کوئی سمجھانے والا نہیں ہوگا در حقیقت صحابہ کرام کے ذریعے جو دین تابعین، تبع تابعین اور بزرگوں تک پہنچا وہ صحابہ ہی کے مرہون منت ہے۔</p>
+                    <p>علماء کرام فرماتے ہیں: <span class="highlight">"یہ ہرگز جائز نہیں کہ کسی بھی صحابی کی طرف قطعی اور یقینی طور پر کوئی غلطی منسوب کی جائے۔ کیونکہ صحابہ کی اس جماعت نے اپنے اپنے طرز عمل میں اجتہاد سے کام لیا تھا اور سب کا مقصد صرف اور صرف اللہ کی خوشنودی اور اس کی رضا تھی۔ صحابہ کرام ہمارے پیشوا ہیں اور ہمیں حکم ہے کہ ان کے باہمی اختلاف میں اپنے منہ سے کوئی بات کریں اور ہمیشہ ان کا ذکر عظمت و وقار سے کریں جس کے یہ مستحق ہیں۔ آپ ﷺ نے ان کو برا کہنے سے منع فرمایا ہے اور یہ خبر دی ہے کہ اللہ نے ان سب کو معاف کر رکھا ہے اور اللہ ان سے راضی ہے"</span>۔</p>
+                    <p>اللہ کے ان نیک بندوں کو نہ تو دنیا کی کوئی حرص تھی اور نہ ہی مال و دولت سے کوئی لگاؤ بلکہ وہ تو رات کو کمایا ہوا مال صبح تک اور صبح کو کمایا ہوا مال شام تک خرچ کر دیا کرتے تھے۔ قرآن مجید میں انفاق فی سبیل اللہ کی کئی بار مثالیں دی گئی ہیں۔ اللہ کے یہ پیارے اور نیک لوگ سراپا محبت ہیں۔</p>
+                    <p>ان کی کون کون سی مثالیں دوں اور کون کون سے واقعات قلم بند کروں کیونکہ میرے پاس تو الفاظ ہی نہیں ہیں کہ جن سے ان کی شان میں تعریف کر سکوں۔ مہاجرین اور انصار کی جو مثال پیش کی گئی دنیا میں کہیں کوئی نظیر نہیں ملتی۔ یہی لوگ سچے لوگ تھے۔ دین عزیز تھا لہذا جان کا نذرانہ پیش کرنے میں کبھی پیچھے نہیں ہٹتے تھے۔</p>
+                    <p>نبی کریم ﷺ کی ذات گرامی کے بعد صحابہ کرام رضی اللہ عنہم اس امت کے افضل ترین لوگ ہیں۔ ایک مقام پر آپ ﷺ نے فرمایا: <span class="highlight">"آسمان کے ستارے آسمان کے لئے امن و سلامتی (کی ضمانت) ہیں۔ جب ستارے ختم ہوجائیں گے تو وہ (قیامت) آجائے گی جس کا وعدہ کیا گیا ہے اور میں اپنے صحابہ کے لئے امن و سلامتی ہوں۔ جب میں چلا جاؤں گا تو صحابہ پر وہ حالت آجائے گی جس کا ان سے وعدہ کیا گیا ہے۔ اور میرے صحابہ امت کے لئے امن وسلامتی کی ضمانت ہیں۔ جب صحابہ چلے جائیں گے تو امت کو وہ (اختلاف وانتشار) پیش آ جائے گا جس کا ان سے وعدہ کیا گیا ہے"</span>۔</p>
+                    <p>اس حدیث سے معلوم ہوا کہ نبی کریم ﷺ نے صحابہ کرام رضی اللہ عنہم کے دنیا سے چلے جانے کو قیامت کی دو نشانیوں کے ساتھ ملاکر بیان فرمایا۔ ایک نبی کریم ﷺ کی وفات اور دوسری ستاروں کا جھڑ جانا اور شہابیوں کا گرنا۔</p>
+                    <p>گویا ایک ایک کرکے اس دنیا نیک لوگ رخصت ہو جائیں گے اور پیچھے گنہگار اور گمراہ لوگ رہ جائیں گے جن پر اللہ تعالیٰ قیامت برپا کریں گے۔ آج اگر حالات دیکھیں تو مایوس کن ہیں، قیامت کی ان نشانیوں کو ذرا سا غور کریں تو یقین کیجئے اتنی تیزی سے دن گزر رہے ہیں۔ لوگ دین سے دور غفلت کی نیند سو رہے ہیں۔ جو مرتا ہے اس کے لئے تو قیامت شروع ہو جاتی ہے لیکن باقی لوگ سمجھتے ہیں کہ جیسے اسی کو ہی مرنا تھا ہمیں نہیں۔</p>
+                    <p>اللہ پاک ہم سب کی مغفرت فرمائے ہمیں صحابہ جیسی محبت، صحابہ جیسی دین کی خدمت اور صحابہ کے نقش قدم پر چلنے کی توفیق عطا فرمائے۔ آمین سم آمین۔</p>
+                </div>
+            </div>
+            
+            <!-- Reactions Section -->
+            <div class="reactions-section">
+                <div class="reactions-title">اس پوسٹ پر اپنے جذبات کا اظہار کریں</div>
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <!-- Social Media Share -->
+            <div class="social-share">
+                <h4>سوشل میڈیا پر شیئر کریں</h4>
+                <div class="social-icons">
+                    <a class="social-icon fb" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                    <a class="social-icon wa" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                    <a class="social-icon tw" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                    <a class="social-icon li" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="social-icon tg" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram"></i></a>
+                    <a class="social-icon pt" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                    <a class="social-icon cp" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+                </div>
+            </div>
+            
+            <!-- Post Navigation Buttons -->
+            <div class="post-nav-buttons">
+                <a href="https://bloglovers.pk/" class="post-nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="post-nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
             </div>
         </div>
         
-        <!-- Footer -->
-        <div class="footer">
-            <p>اللہ ہم سب کو صحابہ کرام کی سیرت پر عمل کرنے کی توفیق عطا فرمائے</p>
+        <!-- Sidebar with Auto-scroll posts -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-book-open"></i> مزید پڑھیں
+            </div>
+            <div class="sidebar-posts" id="sidebarPosts">
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="قبلہ اول">
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="post-title">قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="فتنوں کا ظہور">
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="post-title">ان گنت فتنوں کا ظہور اور ان کے نقصانات</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="تنگ لباس">
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="post-title">تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="علم کا اٹھ جانا">
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="post-title">آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="چھ چیزیں">
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="post-title">آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="چار حرام کام">
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="post-title">وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="دور جدید کے فتنے">
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="post-title">دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="عظیم فتنہ">
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="post-title">للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="قتل و خوں ریزی">
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="post-title">قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟</a>
+                </div>
+                <div class="post-item">
+                    <img class="post-img" src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="بدترین گناہ">
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="post-title">انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟</a>
+                </div>
+            </div>
         </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>اللہ ہم سب کو صحابہ کرام کی سیرت پر عمل کرنے کی توفیق عطا فرمائے</p>
     </div>
 
     <script>
@@ -482,15 +783,12 @@
         
         // Add keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            // Up arrow key
             if (e.key === 'ArrowUp') {
                 window.scrollBy({ top: -100, behavior: 'smooth' });
             }
-            // Down arrow key
             else if (e.key === 'ArrowDown') {
                 window.scrollBy({ top: 100, behavior: 'smooth' });
             }
-            // Escape key for back
             else if (e.key === 'Escape') {
                 window.history.back();
             }
@@ -501,7 +799,6 @@
             p.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateX(5px)';
             });
-            
             p.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateX(0)';
             });
@@ -512,18 +809,50 @@
             heading.addEventListener('mouseenter', function() {
                 this.style.color = '#0d47a1';
             });
-            
             heading.addEventListener('mouseleave', function() {
                 this.style.color = '';
             });
         });
         
+        // Social Media Share Functions
+        window.shareOnSocial = function(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                    break;
+                case 'pinterest':
+                    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                    break;
+            }
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        };
+        
+        window.copyPageLink = function() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        };
+        
         // Dynamic floating text creation
         function createFloatingText() {
             const texts = ['صحابہ کرام', 'رضی اللہ عنہم', 'نبی کریم ﷺ', 'اتباع سنت', 'اسوہ حسنہ', 'دین اسلام'];
-            const container = document.body;
-            
-            texts.forEach((text, index) => {
+            texts.forEach((text) => {
                 const floatingText = document.createElement('div');
                 floatingText.className = 'floating-text';
                 floatingText.textContent = text;
@@ -531,12 +860,14 @@
                 floatingText.style.top = `${Math.random() * 90}%`;
                 floatingText.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
                 floatingText.style.animationDuration = `${Math.random() * 10 + 15}s`;
-                container.appendChild(floatingText);
+                document.body.appendChild(floatingText);
             });
         }
         
-        // Call function to create additional floating text
         setTimeout(createFloatingText, 1000);
     </script>
+    
+    <!-- Reactions JS - External file -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
