@@ -24,7 +24,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
         }
 
         @keyframes sunsetGradient {
@@ -33,29 +32,105 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* مین کنٹینر */
-        .main-wrapper {
-            max-width: 900px;
+        /* مین لے آؤٹ کنٹینر */
+        .page-container {
+            display: flex;
+            max-width: 1200px;
             width: 95%;
             margin: 40px auto;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* مین کنٹینر */
+        .main-wrapper {
+            flex: 3;
             background: rgba(255, 255, 255, 0.92);
             padding: 40px;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
         }
 
-        /* ہوور ایفیکٹ صرف مین کارڈ پر */
-        .main-wrapper:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        /* سائیڈ بار اسٹائل */
+        .sidebar {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 15px;
+            height: 500px;
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-title {
+            text-align: center;
+            font-size: 22px;
+            color: #e73c7e;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+        }
+
+        .scroll-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            animation: scrollUp 30s linear infinite;
+        }
+
+        .scroll-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        .sidebar-item {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            transition: 0.3s;
+        }
+
+        .sidebar-item:hover {
+            background: #ffeef2;
+        }
+
+        .sidebar-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .sidebar-item span {
+            font-size: 16px;
+            line-height: 1.4;
+            font-weight: bold;
         }
 
         /* ہیڈنگ اسٹائل */
         h1 {
             color: #2c3e50;
-            font-size: 42px;
+            font-size: 38px;
             text-align: center;
             margin-bottom: 25px;
             border-bottom: 4px solid #e73c7e;
@@ -75,15 +150,103 @@
 
         /* پیراگراف ٹیکسٹ اسٹائل */
         p {
-            font-size: 26px;
+            font-size: 24px;
             line-height: 2.2;
             color: #333;
             text-align: justify;
             margin-bottom: 20px;
         }
 
-        /* نیویگیشن بٹنز */
-        .nav-buttons {
+        /* Reactions Section */
+        .reactions-wrapper {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .reaction-btn {
+            background: white;
+            border: 2px solid #eee;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: inherit;
+        }
+
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            border-color: #e73c7e;
+            background: #fff5f8;
+        }
+
+        .reaction-count {
+            font-weight: bold;
+            color: #e73c7e;
+        }
+
+        /* Social Share Icons */
+        .share-container {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .share-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .share-icon:hover { transform: scale(1.1); }
+
+        /* Navigation Buttons */
+        .bottom-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .nav-link-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+            background: #23a6d5;
+        }
+
+        .nav-link-btn:hover { background: #e73c7e; }
+
+        /* فلوٹنگ اسکرول بٹنز */
+        .float-nav-buttons {
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -106,13 +269,10 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
 
-        .scroll-btn:hover {
-            background: #e73c7e;
-            transform: scale(1.1);
-        }
+        .scroll-btn:hover { background: #e73c7e; transform: scale(1.1); }
 
         .back-btn {
             position: absolute;
@@ -120,56 +280,199 @@
             right: 20px;
             background: #333;
             color: white;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 25px;
             text-decoration: none;
-            font-size: 18px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .back-btn:hover {
-            background: #e73c7e;
-            transform: scale(1.05);
+            font-size: 16px;
+            transition: 0.3s;
         }
 
         /* موبائل ریسپانسیو */
-        @media (max-width: 768px) {
-            .main-wrapper { padding: 20px; margin: 20px auto; }
-            h1 { font-size: 30px; }
-            p { font-size: 20px; line-height: 2; }
-            .back-btn { top: -15px; right: 10px; font-size: 14px; }
+        @media (max-width: 992px) {
+            .page-container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; }
+            .scroll-content { animation: none; display: grid; grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .scroll-content { grid-template-columns: 1fr; }
+            h1 { font-size: 28px; }
+            p { font-size: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <a href="javascript:history.back()" class="back-btn">🔙 واپس جائیں</a>
-        
-        <h1>تاتاری منگولوں کا صحابہ کرام سے لڑنا</h1>
+    <div class="page-container">
+        <!-- مین مواد -->
+        <div class="main-wrapper">
+            <a href="javascript:history.back()" class="back-btn">🔙 واپس جائیں</a>
+            
+            <h1>تاتاری منگولوں کا صحابہ کرام سے لڑنا</h1>
 
-        <!-- فراہم کردہ امیج لنک -->
-        <img src="https://bloglovers.pk/images/alamaat-sughra/tatari-mangoloon-ka-sahaba-karam-se-larna.png" alt="Tatari Mongol" class="post-image">
+            <img src="https://bloglovers.pk/images/alamaat-sughra/tatari-mangoloon-ka-sahaba-karam-se-larna.png" alt="Tatari Mongol" class="post-image">
 
-        <p>قارئین کرام! تاریخی کتب کے پیش نظر ترکوں کے لگ بھگ بائیس قبیلے تھے جو لوٹ مار کیا کرتے تھے اور ہر آنے جانے والے لوگوں، مسافروں کو تنگ کیا کرتے تھے۔ بادشاہ ذوالقرنین نے ان اکیس قبائل کے لیے تو لوہے کی ایک دیوار بنا دی تھی مگر ایک قبیلہ بچ گیا تھا جو ترک کہلائے۔ انہیں ترک اس لیے کہا گیا کہ انہیں دیوار کے باہر ترک کر (چھوڑ) دیا گیا اور دیگر قبائل کے ساتھ انہیں بند نہیں کیا گیا تھا۔</p>
+            <p>قارئین کرام! تاریخی کتب کے پیش نظر ترکوں کے لگ بھگ بائیس قبیلے تھے جو لوٹ مار کیا کرتے تھے اور ہر آنے جانے والے لوگوں، مسافروں کو تنگ کیا کرتے تھے۔ بادشاہ ذوالقرنین نے ان اکیس قبائل کے لیے تو لوہے کی ایک دیوار بنا دی تھی مگر ایک قبیلہ بچ گیا تھا جو ترک کہلائے۔ انہیں ترک اس لیے کہا گیا کہ انہیں دیوار کے باہر ترک کر (چھوڑ) دیا گیا اور دیگر قبائل کے ساتھ انہیں بند نہیں کیا گیا تھا۔</p>
 
-        <p>یہ لوگ وسط ایشیا اور شمال مشرقی صحرائے گوبی کے باشندے تھے۔ منگولوں کو تاتا منگو قبیلے سے منسوب کیا جاتا ہے۔ وقت کے ساتھ ساتھ یہ قبیلہ منگول کے نام سے مشہور ہوا۔ چنگیز خان بھی انہی قبائل میں سے تھا۔ آج کل ان کے ملک کو ترکستان کے نام سے جانا جاتا ہے اور اس کے اردگرد کے علاقے جن پر تاتاریوں نے قبضہ کر کے اپنا ڈیرہ جما لیا تھا وہ دراصل تاتاری کہلاتے تھے۔ آج کل روس اور سائبیریا میں یہ لوگ کثیر تعداد میں رہائش پذیر ہیں۔ یہ وہی لوگ ہیں جنھوں نے مسلمانوں سے معرکے لڑے اور بعد میں مسلمان ہو گئے اور افغانستان، ایران اور روس کی سرحدوں کے اردگرد یہ لوگ کثیر تعداد میں آباد ہیں۔</p>
+            <p>یہ لوگ وسط ایشیا اور شمال مشرقی صحرائے گوبی کے باشندے تھے۔ منگولوں کو تاتا منگو قبیلے سے منسوب کیا جاتا ہے۔ وقت کے ساتھ ساتھ یہ قبیلہ منگول کے نام سے مشہور ہوا۔ چنگیز خان بھی انہی قبائل میں سے تھا۔ آج کل ان کے ملک کو ترکستان کے نام سے جانا جاتا ہے اور اس کے اردگرد کے علاقے جن پر تاتاریوں نے قبضہ کر کے اپنا ڈیرہ جما لیا تھا وہ دراصل تاتاری کہلاتے تھے۔ آج کل روس اور سائبیریا میں یہ لوگ کثیر تعداد میں رہائش پذیر ہیں۔ یہ وہی لوگ ہیں جنھوں نے مسلمانوں سے معرکے لڑے اور بعد میں مسلمان ہو گئے اور افغانستان، ایران اور روس کی سرحدوں کے اردگرد یہ لوگ کثیر تعداد میں آباد ہیں۔</p>
 
-        <p>یہ لوگ خانہ بدوشی کی زندگی گزارتے ہوئے جانوروں کے ریوڑ صحراؤں میں چراتے تھے۔ ان میں سے بہت سے لوگوں نے کھیتی باڑی بھی کی۔ سلطان شمس الدین التمش کے زمانے میں انہی تاتاریوں کی پشت پناہی پر چنگیز خان نے پورے ایشیا میں قتل و غارت اور لوٹ مار کا بازار گرم کر رکھا تھا۔ یہی وہ چنگیز خان تھا جس نے چین کے مشرقی ساحلوں سے لے کر وسط یورپ تک ایک طاقتور اور سب سے بڑی سلطنت قائم کی۔</p>
+            <p>یہ لوگ خانہ بدوشی کی زندگی گزارتے ہوئے جانوروں کے ریوڑ صحراؤں میں چراتے تھے۔ ان میں سے بہت سے لوگوں نے کھیتی باڑی بھی کی۔ سلطان شمس الدین التمش کے زمانے میں انہی تاتاریوں کی پشت پناہی پر چنگیز خان نے پورے ایشیا میں قتل و غارت اور لوٹ مار کا بازار گرم کر رکھا تھا۔ یہی وہ چنگیز خان تھا جس نے چین کے مشرقی ساحلوں سے لے کر وسط یورپ تک ایک طاقتور اور سب سے بڑی سلطنت قائم کی۔</p>
 
-        <p>قیامت کی ان بے شمار نشانیوں میں سے ایک نشانی ان تاتاری منگولوں سے معرکے کے بارے میں بیان کی گئی ہے، جس کی پیش گوئی اللہ کے نبی حضرت محمد ﷺ نے اپنی نبوت والی زبان سے کی۔ حضرت ابو ہریرہ بیان کرتے ہیں کہ رسول اللہ ﷺ نے فرمایا:</p>
+            <p>قیامت کی ان بے شمار نشانیوں میں سے ایک نشانی ان تاتاری منگولوں سے معرکے کے بارے میں بیان کی گئی ہے، جس کی پیش گوئی اللہ کے نبی حضرت محمد ﷺ نے اپنی نبوت والی زبان سے کی۔ حضرت ابو ہریرہ بیان کرتے ہیں کہ رسول اللہ ﷺ نے فرمایا:</p>
 
-        <p>"قیامت اس وقت تک قائم نہ ہو گی، جب تک تم چھوٹی آنکھوں والے، سرخ چہروں والے، چپٹی ناک والے ترکوں سے قتال نہ کر لو، ان کے چہرے گویا ایسی ڈھالیں ہوں گی جن پر چمڑا لگایا گیا ہوتا ہے۔ قیامت قائم نہ ہو گی جب تک تم ایسی قوم سے قتال نہ کر لو جن کے جوتے بالوں والی جلد سے بنے ہوں گے۔"</p>
+            <p>"قیامت اس وقت تک قائم نہ ہو گی، جب تک تم چھوٹی آنکھوں والے، سرخ چہروں والے، چپٹی ناک والے ترکوں سے قتال نہ کر لو، ان کے چہرے گویا ایسی ڈھالیں ہوں گی جن پر چمڑا لگایا گیا ہوتا ہے۔ قیامت قائم نہ ہو گی جب تک تم ایسی قوم سے قتال نہ کر لو جن کے جوتے بالوں والی جلد سے بنے ہوں گے۔"</p>
 
-        <p>قیامت کی یہ نشانی صحابہ کرام کے زمانے میں واقع ہو چکی ہے۔ خلافت بنو امیہ کے دور میں یہ جنگ تاتاری منگولوں اور صحابہ کرام کے درمیان زبردست طریقے سے ہوئی، جس کے عوض تاتاریوں کو بری شکست کا سامنا کرنا پڑا۔ صحابہ کرام نے ناصر ف ان کو شکست سے دوچار کیا، بلکہ ان سے ڈھیر سارا مال غنیمت بھی حاصل کیا۔ بعد میں اللہ کے حکم سے ان لوگوں نے اسلام قبول کیا اور یوں یہ امت اسلامیہ کا حصہ بن گئے۔</p>
+            <p>قیامت کی یہ نشانی صحابہ کرام کے زمانے میں واقع ہو چکی ہے۔ خلافت بنو امیہ کے دور میں یہ جنگ تاتاری منگولوں اور صحابہ کرام کے درمیان زبردست طریقے سے ہوئی، جس کے عوض تاتاریوں کو بری شکست کا سامنا کرنا پڑا۔ صحابہ کرام نے ناصر ف ان کو شکست سے دوچار کیا، بلکہ ان سے ڈھیر سارا مال غنیمت بھی حاصل کیا۔ بعد میں اللہ کے حکم سے ان لوگوں نے اسلام قبول کیا اور یوں یہ امت اسلامیہ کا حصہ بن گئے۔</p>
+
+            <!-- Reactions Section -->
+            <div class="reactions-wrapper">
+                <h3>آپ کو یہ تحریر کیسی لگی؟</h3>
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+
+            <!-- Social Media Share -->
+            <div class="share-container">
+                <button onclick="shareOnSocial('facebook')" class="share-icon" style="background:#1877f2" title="Facebook">FB</button>
+                <button onclick="shareOnSocial('whatsapp')" class="share-icon" style="background:#25D366" title="WhatsApp">WA</button>
+                <button onclick="shareOnSocial('twitter')" class="share-icon" style="background:#1DA1F2" title="Twitter">X</button>
+                <button onclick="shareOnSocial('linkedin')" class="share-icon" style="background:#0077b5" title="LinkedIn">IN</button>
+                <button onclick="shareOnSocial('telegram')" class="share-icon" style="background:#0088cc" title="Telegram">TG</button>
+                <button onclick="shareOnSocial('pinterest')" class="share-icon" style="background:#bd081c" title="Pinterest">PI</button>
+                <button onclick="copyPageLink()" class="share-icon" style="background:#6c757d" title="Copy Link">🔗</button>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <a href="https://bloglovers.pk/" class="nav-link-btn">🏠 مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link-btn">📚 تمام پوسٹس</a>
+            </div>
+        </div>
+
+        <!-- سائیڈ بار -->
+        <div class="sidebar">
+            <div class="sidebar-title">مزید دلچسپ پوسٹس</div>
+            <div class="scroll-container">
+                <div class="scroll-content">
+                    <!-- Post 1 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" alt="Post">
+                        <span>قبلہ اول کی فتح اور حقیقت</span>
+                    </a>
+                    <!-- Post 2 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" alt="Post">
+                        <span>ان گنت فتنوں کا ظہور</span>
+                    </a>
+                    <!-- Post 3 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" alt="Post">
+                        <span>تنگ لباس پہننے والی عورتیں</span>
+                    </a>
+                    <!-- Post 4 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" alt="Post">
+                        <span>علم کے اٹھ جانے کی پیشین گوئی</span>
+                    </a>
+                    <!-- Post 5 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" alt="Post">
+                        <span>چھ حرام چیزیں اور عذاب الہی</span>
+                    </a>
+                    <!-- Post 6 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" alt="Post">
+                        <span>چار حرام کام اور امت محمدیہ</span>
+                    </a>
+                    <!-- Post 7 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="Post">
+                        <span>دور جدید کے فتنے</span>
+                    </a>
+                    <!-- Post 8 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="Post">
+                        <span>عظیم ترین فتنہ</span>
+                    </a>
+                    <!-- Post 9 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="Post">
+                        <span>قتل و خوں ریزی کی کثرت</span>
+                    </a>
+                    <!-- Post 10 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="Post">
+                        <span>بدترین گناہ</span>
+                    </a>
+                    <!-- Post 11 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="Post">
+                        <span>موت کی تمنا</span>
+                    </a>
+                    <!-- Post 12 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="Post">
+                        <span>اچانک اموات</span>
+                    </a>
+                    <!-- Post 13 -->
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="Post">
+                        <span>فرات کا خشک ہونا</span>
+                    </a>
+                    
+                    <!-- Duplicate items for seamless loop -->
+                    <div class="sidebar-item">...</div> 
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- پیج اپ اور ڈاؤن بٹنز -->
-    <div class="nav-buttons">
+    <!-- فلوٹنگ بٹنز -->
+    <div class="float-nav-buttons">
         <button class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">▲</button>
         <button class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="نیچے جائیں">▼</button>
     </div>
+
+    <!-- JavaScript -->
+    <script>
+        // سوشل میڈیا شیئرنگ
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.title);
+            let shareUrl = '';
+
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${text}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`; break;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        // لنک کاپی کریں
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی کر لیا گیا ہے!');
+            });
+        }
+
+        // سائیڈ بار کے لوپ کو مکمل کرنے کے لیے مواد کو ڈپلیکیٹ کرنا
+        const scrollContent = document.querySelector('.scroll-content');
+        scrollContent.innerHTML += scrollContent.innerHTML;
+    </script>
+
+    <!-- Reactions Script -->
+    <script src="/reactions.js"></script>
 
 </body>
 </html>
