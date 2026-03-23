@@ -63,10 +63,20 @@
             color: #ffeb3b;
         }
 
+        /* Layout: main + sidebar */
+        .main-layout {
+            max-width: 1300px;
+            margin: 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
         /* Post Container */
         .post-container {
-            max-width: 900px;
-            margin: 30px auto;
+            flex: 2;
+            min-width: 280px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 25px;
@@ -74,6 +84,107 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             border: 1px solid rgba(255, 235, 59, 0.2);
             position: relative;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            max-width: 360px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 235, 59, 0.3);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sidebar h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #ff9800;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .sidebar-scroll {
+            height: calc(100% - 50px);
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            direction: ltr;
+        }
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: #222;
+            border-radius: 10px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #ffeb3b;
+            border-radius: 10px;
+        }
+
+        .sidebar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            direction: rtl;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.08);
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,235,59,0.2);
+        }
+        .sidebar-item:hover {
+            background: rgba(255,235,59,0.2);
+            transform: translateX(-5px);
+        }
+        .sidebar-item img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid #ffeb3b;
+        }
+        .sidebar-item a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: bold;
+            flex: 1;
+        }
+        .sidebar-item a:hover {
+            color: #ffeb3b;
+        }
+
+        /* Auto-scroll animation */
+        .auto-scroll {
+            animation: scrollUp 30s linear infinite;
+        }
+        .sidebar-scroll:hover .auto-scroll {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
         }
 
         /* Heading */
@@ -116,7 +227,121 @@
             display: block;
         }
 
-        /* Buttons */
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 30px;
+            text-align: center;
+        }
+        .reactions-title {
+            font-size: 1.6rem;
+            color: #ffeb3b;
+            margin-bottom: 20px;
+        }
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .reaction-btn {
+            background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ff9800;
+            color: #000;
+        }
+        .reaction-count {
+            background: #ffeb3b;
+            color: #000;
+            border-radius: 30px;
+            padding: 0px 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            min-width: 28px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: linear-gradient(45deg, #ff9800, #ffeb3b);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255,235,59,0.4);
+        }
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,235,59,0.7);
+        }
+
+        /* Social Icons */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        .social-share h4 {
+            color: #ffeb3b;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #222;
+            padding: 8px 20px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .social-icon i {
+            font-style: normal;
+            font-weight: bold;
+        }
+        .social-icon:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+
+        /* Action Buttons */
         .action-buttons {
             position: fixed;
             bottom: 30px;
@@ -126,7 +351,6 @@
             gap: 15px;
             z-index: 1000;
         }
-
         .action-btn {
             width: 60px;
             height: 60px;
@@ -142,10 +366,8 @@
             box-shadow: 0 8px 20px rgba(255, 235, 59, 0.5);
             transition: all 0.3s;
         }
-
         .action-btn:hover {
             transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 12px 30px rgba(255, 235, 59, 0.8);
         }
 
         .back-btn {
@@ -162,13 +384,11 @@
             transition: all 0.3s;
             z-index: 1000;
         }
-
         .back-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.9);
         }
 
-        /* Color Fill Mode (Special Feature) */
+        /* Color Fill Mode */
         .color-fill-container {
             position: fixed;
             top: 0;
@@ -180,12 +400,10 @@
             transition: opacity 1.5s ease;
             pointer-events: none;
         }
-
         .color-fill-container.active {
             opacity: 1;
             z-index: 9998;
         }
-
         .color-fill-background {
             position: absolute;
             width: 100%;
@@ -194,13 +412,11 @@
             background-size: 400% 400%;
             animation: gradientFlow 15s ease infinite;
         }
-
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         .post-content-overlay {
             position: fixed;
             top: 50%;
@@ -219,12 +435,10 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 2px solid #ffeb3b;
         }
-
         .post-content-overlay.active {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
-
         .close-btn {
             position: absolute;
             top: 15px;
@@ -238,88 +452,54 @@
             font-size: 24px;
             cursor: pointer;
             z-index: 10000;
-            transition: transform 0.3s;
         }
-
-        .close-btn:hover {
-            transform: rotate(90deg) scale(1.1);
-        }
-
         .trigger-btn {
             display: block;
-            margin: 30px auto;
+            margin: 20px auto 10px;
             background: linear-gradient(45deg, #ff9800, #ffeb3b);
             color: #000;
             padding: 15px 40px;
             border-radius: 50px;
-            text-decoration: none;
             font-weight: bold;
             font-size: 1.2rem;
             box-shadow: 0 10px 25px rgba(255, 235, 59, 0.5);
-            transition: all 0.3s;
             border: none;
             cursor: pointer;
-            text-align: center;
             width: fit-content;
         }
-
-        .trigger-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255, 235, 59, 0.8);
-        }
-
-        /* Mobile Responsive */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            p {
-                font-size: 1.2rem;
-            }
-            .post-container {
-                padding: 25px;
-            }
-            .action-buttons {
-                bottom: 20px;
-                left: 20px;
-            }
-            .action-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-            .back-btn {
-                top: 20px;
-                right: 20px;
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            .animated-text-container h1 {
-                font-size: 2rem;
-            }
+            h1 { font-size: 2rem; }
+            p { font-size: 1.2rem; }
+            .post-container { padding: 25px; }
+            .action-btn { width: 50px; height: 50px; }
+            .back-btn { padding: 8px 18px; font-size: 0.9rem; }
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #aaa;
+            border-top: 1px solid #333;
         }
     </style>
 </head>
 <body>
 
-    <!-- Back Button -->
-    <a href="#" class="back-btn" onclick="history.back(); return false;">⬅ واپس جائیں</a>
+<a href="#" class="back-btn" onclick="history.back(); return false;">⬅ واپس جائیں</a>
 
-    <!-- Animated Title Section -->
-    <div class="animated-text-container">
-        <h1>صرف جان پہچان کے لوگوں کو سلام کرنے کے کیا نقصانات ہیں؟</h1>
-        <p>ایک اہم اسلامی تعلیم کی روشنی میں</p>
-    </div>
+<div class="animated-text-container">
+    <h1>صرف جان پہچان کے لوگوں کو سلام کرنے کے کیا نقصانات ہیں؟</h1>
+    <p>ایک اہم اسلامی تعلیم کی روشنی میں</p>
+</div>
 
-    <!-- Trigger Button for Special Color Mode -->
-    <button class="trigger-btn" onclick="openColorFillPost()">
-        🌈 اسپیشل کلر موڈ میں پڑھیں
-    </button>
+<button class="trigger-btn" onclick="openColorFillPost()">
+    🌈 اسپیشل کلر موڈ میں پڑھیں
+</button>
 
+<div class="main-layout">
     <!-- Main Post Container -->
     <div class="post-container">
         <img src="https://bloglovers.pk/images/alamaat-sughra/sirf-jan-pehchan-ke-logon-ko-salam-karne-ke-kya-nuqsanat-hain.png" alt="تصویر" class="post-image">
-
         <h1>صرف جان پہچان کے لوگوں کو سلام کرنے کے کیا نقصانات ہیں؟</h1>
         
         <p>دوستو! وقت گزرنے کے ساتھ جیسے جیسے نت نئی ٹیکنالوجی کی ایجادات ہورہی ہیں اس سے صاف ظاہر ہو رہا ہے کہ انسان تنہائی پسند ہوتا چلا جا رہا ہے۔ اس کی ارد گرد کی دنیا بالکل ختم ہوتی جا رہی ہے نا تو اس میں رشتوں کو نبھانے کی صلاحیت باقی رہ گئی ہے نہ وہ دین کا ہے نہ دنیا کا۔</p>
@@ -328,46 +508,171 @@
         <p>معاشرے میں صلہ رحمی کی بجائے قطع رحمی بڑھتی چلی جارہی ہے چھوٹی چھوٹی باتوں پر ناراضگی اور ناراضگی رنجشوں اور دشمنیوں میں تبدیل ہو رہی ہے۔ خوامخوہ کی ناراضگی اور گناہوں کے بوجھ کو سالہ سال پالتے ہوئے نظر آتے ہیں۔</p>
         <p>اس بات سے بخوبی اندازہ لگایا جا سکتا ہے کہ آج کا انسان خونی رشتوں کو چھوڑ کر اجنبی رشتوں کو زیادہ اہمیت دے رہا ہے جس کی وجہ سے وہ انہی لوگوں میں اٹھنا بیٹھنا پسند کرتا ہے جو اس کی طبیعت اور مزاج کے مطابق ہوتے ہیں۔ اور اس بات کو دیکھتے ہوئے اللہ کے نبی حضرت محمد ﷺ کی کہی ہوئی بات سچ ہوتی ہے۔</p>
         <p>قیامت کی بہت ساری نشانیوں میں سے ایک نشانی یہ بھی ہے کہ قرب قیامت لوگ صرف جان پہچان والوں سے کلام کرنا پسند کریں گے اور انہی خاص لوگوں کو سلام کرنا اور میل جول رکھنا پسند کیا جائے گا۔</p>
-        <p>ارشاد ربانی ہے: &quot;جب تمہیں سلام کہا جائے تو تم اس سے اچھا سلام جواب میں کہو، یا وہی الفاظ لوٹا دو، بیشک اللہ تعالی ہر چیز کا حساب رکھنے والا ہے&quot;۔</p>
-        <p>جبکہ اللہ رب العزت نے ہر خاص و عام کو سلام کہنے کا حکم اس لیے دیا تاکہ یہ معاشرے میں موجود لوگوں کے درمیان محبت اور رابطے کی علامت بن جائے۔ حدیث نبوی ﷺ کے مطابق &quot;چھوٹا بڑے کو اور غنی فقیر کو سلام کرے&quot;۔</p>
-        <p>سلام کی اہمیت ہمیں ایک جگہ یوں بھی ملتی ہے &quot;ہر عرب و عجم اور سیاہ و سفید کو حکم دیا کہ وہ ہر شخص کو سلام کہے چاہے اس سے واقفیت ہو یا نہ ہو&quot;۔</p>
-        <p>آپ ﷺ کا ارشاد گرامی ہے: &quot;تم لوگ جنت میں داخل نہیں ہو سکتے جب تک تم ایمان دار نہ ہو جاؤ اور تم ایمان دار نہیں ہو سکتے جب تک آپس میں محبت نہ کرنے لگ جاؤ۔ کیا میں تمھیں ایک ایسی چیز نہ بتلاؤں کہ جب تم اسے کروگے تو آپس میں محبت کرنے لگو گے؟ آپس میں سلام کو پھیلاؤ&quot;۔</p>
+        <p>ارشاد ربانی ہے: "جب تمہیں سلام کہا جائے تو تم اس سے اچھا سلام جواب میں کہو، یا وہی الفاظ لوٹا دو، بیشک اللہ تعالی ہر چیز کا حساب رکھنے والا ہے"۔</p>
+        <p>جبکہ اللہ رب العزت نے ہر خاص و عام کو سلام کہنے کا حکم اس لیے دیا تاکہ یہ معاشرے میں موجود لوگوں کے درمیان محبت اور رابطے کی علامت بن جائے۔ حدیث نبوی ﷺ کے مطابق "چھوٹا بڑے کو اور غنی فقیر کو سلام کرے"۔</p>
+        <p>سلام کی اہمیت ہمیں ایک جگہ یوں بھی ملتی ہے "ہر عرب و عجم اور سیاہ و سفید کو حکم دیا کہ وہ ہر شخص کو سلام کہے چاہے اس سے واقفیت ہو یا نہ ہو"۔</p>
+        <p>آپ ﷺ کا ارشاد گرامی ہے: "تم لوگ جنت میں داخل نہیں ہو سکتے جب تک تم ایمان دار نہ ہو جاؤ اور تم ایمان دار نہیں ہو سکتے جب تک آپس میں محبت نہ کرنے لگ جاؤ۔ کیا میں تمھیں ایک ایسی چیز نہ بتلاؤں کہ جب تم اسے کروگے تو آپس میں محبت کرنے لگو گے؟ آپس میں سلام کو پھیلاؤ"۔</p>
         <p>اللہ تعالی نے سلام کو عام کرنے کا حکم فرمایا ہے اور سلام کا جواب واجب قرار دیا، بلکہ سلام کو ایسے امور میں شامل فرمایا جن کی وجہ سے مسلمانوں میں محبت اور الفت پیدا ہو۔</p>
         <p>جبکہ آج کے اس دور میں ہم دیکھ رہے ہیں کہ آج کا ایک شخص اپنے مراسم صرف اسی شخص سے رکھتا ہے جس کو جانتا ہے جس سے واقفیت نہیں ہے اس سے سلام اور کلام کرنا پسند نہیں کرتا۔ جبکہ سنت یہ ہے کہ سلام ہر مسلمان کو کیا جانا چاہیے۔ آپ اسے جانتے ہوں یا نہ جانتے ہوں۔</p>
-        <p>ابو الجعد کہتے ہیں! عبداللہ بن مسعود رضی اللہ عنہ سے ایک شخص کی ملاقات ہوئی تو اس نے کہا: ابن مسعود! تم پر سلام ہو۔ حضرت عبداللہ رضی اللہ عنہ نے کہا: سچ فرمایا اللہ اور اس کے رسول ﷺ نے، میں نے اللہ کے نبی ﷺ کو یہ فرماتے ہوئے سنا: &quot;قیامت کی علامات میں سے یہ بھی ہے کہ آدمی مسجد میں داخل ہوگا، مگر اس میں دورکعات ادا نہیں کرے گا اور یہ بھی کہ ایک شخص سلام صرف اسی کو کہے گا جس سے اس کی واقفیت ہو گی&quot;۔</p>
+        <p>ابو الجعد کہتے ہیں! عبداللہ بن مسعود رضی اللہ عنہ سے ایک شخص کی ملاقات ہوئی تو اس نے کہا: ابن مسعود! تم پر سلام ہو۔ حضرت عبداللہ رضی اللہ عنہ نے کہا: سچ فرمایا اللہ اور اس کے رسول ﷺ نے، میں نے اللہ کے نبی ﷺ کو یہ فرماتے ہوئے سنا: "قیامت کی علامات میں سے یہ بھی ہے کہ آدمی مسجد میں داخل ہوگا، مگر اس میں دورکعات ادا نہیں کرے گا اور یہ بھی کہ ایک شخص سلام صرف اسی کو کہے گا جس سے اس کی واقفیت ہو گی"۔</p>
         <p>آج ہماری مساجد میں بالکل ایسا ہی ہو رہا ہے یہاں تک کہ لوگ جمعہ کی نماز کے لیے عین اسی وقت مسجد میں داخل ہوتے ہیں جب نماز ہونے والی ہوتی ہے اور اگر غلطی سے تھوڑا جلدی چلیں جائیں تو وضو کر کے خاموشی سے بیٹھ جاتے ہیں۔ جبکہ حکم یہ ہے کہ اس وقت تک نہ بیٹھا جائے جب تک دو رکعات ادا نہ کر لے۔ اللہ ہم سب کو نیکی کی توفیق ادا کرے اور ہم سب کے گناہ معاف فرمائے (آمین)۔</p>
-        <p>صحیحین میں روایت ہے کہ ایک شخص نے نبی کریم ﷺ سے پوچھا: کون سا اسلام بہتر ہے؟ آپ ﷺ نے فرمایا: &quot;کھانا کھلاؤ اور ہر شخص کو سلام کرو خواہ تم اسے جانتے ہو یا نہ جانتے ہو&quot;۔</p>
+        <p>صحیحین میں روایت ہے کہ ایک شخص نے نبی کریم ﷺ سے پوچھا: کون سا اسلام بہتر ہے؟ آپ ﷺ نے فرمایا: "کھانا کھلاؤ اور ہر شخص کو سلام کرو خواہ تم اسے جانتے ہو یا نہ جانتے ہو"۔</p>
+
+        <!-- REACTIONS SECTION (as per requirement) -->
+        <div class="reactions-section">
+            <div class="reactions-title">📢 اس پوسٹ پر اپنا ردعمل دیں</div>
+            <div class="reactions-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <a href="https://bloglovers.pk/" class="nav-btn">🏠 مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn">📚 تمام پوسٹس</a>
+        </div>
+
+        <!-- Social Media Icons (7 Platforms) -->
+        <div class="social-share">
+            <h4>اس پوسٹ کو شیئر کریں</h4>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=" class="social-icon" id="shareFb" style="background:#1877f2">📘 Facebook</a>
+                <a href="https://wa.me/?text=" class="social-icon" id="shareWa" style="background:#25D366">💬 WhatsApp</a>
+                <a href="https://twitter.com/intent/tweet?url=" class="social-icon" id="shareTw" style="background:#1DA1F2">🐦 Twitter</a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=" class="social-icon" id="shareLi" style="background:#0077b5">🔗 LinkedIn</a>
+                <a href="https://t.me/share/url?url=" class="social-icon" id="shareTg" style="background:#0088cc">📲 Telegram</a>
+                <a href="https://pinterest.com/pin/create/button/?url=" class="social-icon" id="sharePin" style="background:#bd081c">📌 Pinterest</a>
+                <button class="social-icon" id="copyLinkBtn" style="background:#6c757d; border:none; cursor:pointer;">🔗 کاپی لنک</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Action Buttons (Up/Down) -->
-    <div class="action-buttons">
-        <button class="action-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">⬆</button>
-        <button class="action-btn" onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })">⬇</button>
+    <!-- SIDEBAR with auto-scroll (14 posts as per requirement) -->
+    <div class="sidebar">
+        <h3>📖 متعلقہ مضامین</h3>
+        <div class="sidebar-scroll" id="sidebarScroll">
+            <div class="sidebar-list auto-scroll" id="sidebarList"></div>
+        </div>
     </div>
+</div>
 
-    <!-- Special Color Fill Mode -->
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn" onclick="closeColorFillPost()">×</button>
-        <div id="postContent"></div>
-    </div>
+<footer>© 2025 BlogLovers.pk | اسلامی تعلیمات کی روشنی میں</footer>
 
-    <script>
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-container').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+<div class="action-buttons">
+    <button class="action-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">⬆</button>
+    <button class="action-btn" onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })">⬇</button>
+</div>
+
+<!-- Special Color Fill Mode Elements -->
+<div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+<div class="post-content-overlay" id="postOverlay">
+    <button class="close-btn" onclick="closeColorFillPost()">×</button>
+    <div id="postContent"></div>
+</div>
+
+<!-- reactions.js (external) - keeping only this, removed duplicate internal functions -->
+<script src="/reactions.js"></script>
+
+<script>
+    // ========== SIDEBAR DATA (14 posts exactly as provided) ==========
+    const sidebarPosts = [
+        { title: "5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت", link: "https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt", img: "https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" },
+        { title: "ان گنت فتنوں کا ظہور اور ان کے نقصانات", link: "https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat", img: "https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" },
+        { title: "تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" },
+        { title: "آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" },
+        { title: "آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" },
+        { title: "وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟", link: "https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi", img: "https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" },
+        { title: "دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" },
+        { title: "للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" },
+        { title: "قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟", link: "https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi", img: "https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" },
+        { title: "انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" },
+        { title: "لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟", link: "https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge", img: "https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" },
+        { title: "آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" },
+        { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", link: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", img: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+    ];
+
+    // Build sidebar list with duplicate items to enable seamless infinite loop (doubled for smooth scroll)
+    function buildSidebar() {
+        const container = document.getElementById('sidebarList');
+        if(!container) return;
+        let html = '';
+        // Duplicate twice for infinite scroll effect
+        const doubled = [...sidebarPosts, ...sidebarPosts];
+        doubled.forEach(post => {
+            html += `
+                <div class="sidebar-item">
+                    <img src="${post.img}" alt="تصویر" loading="lazy">
+                    <a href="${post.link}">${post.title}</a>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+        // reset scroll position to top
+        const scrollDiv = document.getElementById('sidebarScroll');
+        if(scrollDiv) scrollDiv.scrollTop = 0;
+    }
+    buildSidebar();
+
+    // ========== SOCIAL SHARE & COPY LINK ==========
+    function getCurrentPageURL() {
+        return window.location.href;
+    }
+    function updateShareLinks() {
+        const url = encodeURIComponent(getCurrentPageURL());
+        const title = encodeURIComponent(document.title);
+        const fb = document.getElementById('shareFb');
+        const wa = document.getElementById('shareWa');
+        const tw = document.getElementById('shareTw');
+        const li = document.getElementById('shareLi');
+        const tg = document.getElementById('shareTg');
+        const pin = document.getElementById('sharePin');
+        if(fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        if(wa) wa.href = `https://wa.me/?text=${url}`;
+        if(tw) tw.href = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+        if(li) li.href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+        if(tg) tg.href = `https://t.me/share/url?url=${url}&text=${title}`;
+        if(pin) pin.href = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+        const copyBtn = document.getElementById('copyLinkBtn');
+        if(copyBtn) {
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(getCurrentPageURL()).then(() => alert('لنک کاپی ہو گیا!'));
+            };
         }
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-        }
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-    </script>
+    }
+    updateShareLinks();
+
+    // ========== COLOR FILL MODE ==========
+    function openColorFillPost() {
+        const originalContent = document.querySelector('.post-container').cloneNode(true);
+        // Remove any nested action-buttons and extraneous fixed elements to avoid double buttons inside overlay, but keep all main content.
+        const contentDiv = document.getElementById('postContent');
+        contentDiv.innerHTML = '';
+        contentDiv.appendChild(originalContent);
+        document.getElementById('colorFillBg').classList.add('active');
+        document.getElementById('postOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeColorFillPost() {
+        document.getElementById('colorFillBg').classList.remove('active');
+        document.getElementById('postOverlay').classList.remove('active');
+        document.body.style.overflow = 'auto';
+        setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+    }
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+    document.getElementById('colorFillBg')?.addEventListener('click', closeColorFillPost);
+    
+    // Note: All duplicate Reactions functions (loadReactions, updateReactionsUI, addReaction, API_URL) have been removed.
+    // The reactions are fully managed by external /reactions.js which provides reactionClick() and count persistence.
+    // If loadInitialReactions exists globally (from reactions.js), call it to populate counts on load.
+    if(window.loadInitialReactions) {
+        window.loadInitialReactions();
+    }
+</script>
 </body>
 </html>
