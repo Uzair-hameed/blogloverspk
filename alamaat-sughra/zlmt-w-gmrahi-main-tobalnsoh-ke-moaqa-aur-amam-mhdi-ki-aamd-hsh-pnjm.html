@@ -50,7 +50,6 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Space Stars Effect */
         .space-stars {
             position: fixed;
             top: 0;
@@ -73,11 +72,90 @@
             100% { opacity: 1; }
         }
         
+        /* Sidebar Auto-scroll */
+        .sidebar-wrapper {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            height: 500px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            overflow: hidden;
+            z-index: 90;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-title {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-scroll {
+            height: calc(100% - 55px);
+            overflow-y: auto;
+            padding: 10px;
+            scroll-behavior: smooth;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(74, 144, 226, 0.3);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item.active {
+            background: rgba(46, 204, 113, 0.2);
+            border-right: 3px solid var(--secondary);
+        }
+        
+        .sidebar-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-text {
+            flex: 1;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
         /* Navigation Buttons */
         .nav-buttons {
             position: fixed;
             top: 50%;
-            left: 20px;
+            right: 20px;
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
@@ -106,10 +184,8 @@
             background: var(--primary);
             transform: scale(1.1);
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(74, 144, 226, 0.7);
         }
         
-        /* Back Button */
         .back-btn {
             position: fixed;
             top: 20px;
@@ -128,17 +204,13 @@
             justify-content: center;
             z-index: 100;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .back-btn:hover {
             background: var(--accent);
             transform: rotate(-10deg) scale(1.1);
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.7);
         }
         
-        /* Main Content */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -174,8 +246,6 @@
             margin-bottom: 20px;
             line-height: 1.4;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            border-bottom: none;
-            padding-bottom: 0;
         }
         
         .post-image {
@@ -185,23 +255,12 @@
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
             border: 5px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-        
-        .post-image:hover {
-            transform: scale(1.01);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
         
         .post-image img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.5s ease;
-        }
-        
-        .post-image:hover img {
-            transform: scale(1.03);
         }
         
         .post-content {
@@ -211,7 +270,6 @@
             margin-bottom: 40px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         h2, h3 {
@@ -220,11 +278,6 @@
             margin: 30px 0 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-        }
-        
-        h3 {
-            font-size: 1.8rem;
         }
         
         p {
@@ -243,178 +296,181 @@
             font-size: 1.4rem;
             margin-bottom: 15px;
             color: var(--text);
-            text-align: justify;
             padding-right: 10px;
         }
         
-        a {
-            color: var(--secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-bottom: 1px dotted var(--secondary);
-            padding-bottom: 2px;
-        }
-        
-        a:hover {
-            color: var(--accent);
-            border-bottom: 1px solid var(--accent);
-            text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
-        }
-        
-        /* Content Box Hover Effects */
         .content-box {
             background: rgba(30, 41, 59, 0.5);
             border-radius: 15px;
             padding: 25px;
             margin: 25px 0;
-            border-left: 5px solid transparent;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .content-box:hover {
             background: rgba(30, 41, 59, 0.8);
-            border-left: 5px solid var(--primary);
             transform: translateX(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
         
-        /* Footer */
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 30px;
+            text-align: center;
+        }
+        
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .reaction-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: var(--primary);
+        }
+        
+        .reaction-count {
+            background: rgba(0,0,0,0.5);
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+        
+        /* Social Icons */
+        .social-share {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            transition: 0.3s;
+            cursor: pointer;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.1);
+        }
+        
+        /* Navigation Links */
+        .post-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 35px 0;
+        }
+        
+        .nav-link-btn {
+            background: linear-gradient(135deg, var(--primary), #2c3e66);
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(74,144,226,0.5);
+        }
+        
         .footer {
             text-align: center;
             padding: 30px;
             margin-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text);
             font-size: 1.2rem;
         }
         
-        /* Responsive Styles */
         @media (max-width: 1200px) {
-            .container {
-                max-width: 900px;
+            .sidebar-wrapper {
+                display: none;
             }
-        }
-        
-        @media (max-width: 992px) {
             .container {
                 max-width: 95%;
-            }
-            
-            h1 {
-                font-size: 2.4rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            h3 {
-                font-size: 1.6rem;
-            }
-            
-            p, li {
-                font-size: 1.3rem;
             }
         }
         
         @media (max-width: 768px) {
             .nav-buttons {
-                left: 10px;
-                gap: 10px;
+                right: 10px;
             }
-            
-            .nav-btn, .back-btn {
+            .nav-btn {
                 width: 45px;
                 height: 45px;
-                font-size: 18px;
             }
-            
-            .container {
-                padding: 70px 15px 30px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            p, li {
-                font-size: 1.25rem;
-            }
-            
-            .post-header, .post-content {
-                padding: 25px;
-            }
+            h1 { font-size: 2rem; }
+            p, li { font-size: 1.25rem; }
         }
         
-        @media (max-width: 576px) {
-            .nav-buttons {
-                display: none;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.6rem;
-            }
-            
-            h3 {
-                font-size: 1.4rem;
-            }
-            
-            p, li {
-                font-size: 1.2rem;
-                line-height: 2;
-            }
-            
-            .post-header, .post-content {
-                padding: 20px;
-            }
-            
-            .container {
-                padding: 60px 10px 20px;
-            }
-        }
-        
-        /* Scrollbar Styling */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
-        
         ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.8);
+            background: #0f172a;
         }
-        
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--primary), var(--secondary));
+            background: var(--primary);
             border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(var(--secondary), var(--primary));
         }
     </style>
 </head>
 <body>
-    <!-- Space Stars Background -->
     <div class="space-stars" id="spaceStars"></div>
     
-    <!-- Back Button -->
     <button class="back-btn" onclick="window.history.back()">
         <i class="fas fa-arrow-right"></i>
     </button>
     
-    <!-- Navigation Buttons -->
+    <!-- Sidebar Auto-scroll -->
+    <div class="sidebar-wrapper" id="sidebarWrapper">
+        <div class="sidebar-title">
+            <i class="fas fa-newspaper"></i> مزید مضامین
+        </div>
+        <div class="sidebar-scroll" id="sidebarScroll">
+            <!-- sidebar items will be inserted via js but static html for reliability -->
+        </div>
+    </div>
+    
     <div class="nav-buttons">
         <button class="nav-btn" onclick="scrollToTop()">
             <i class="fas fa-arrow-up"></i>
@@ -424,67 +480,77 @@
         </button>
     </div>
     
-    <!-- Main Content -->
     <div class="container">
         <header class="post-header">
             <h1>ظلمت و گمراہی میں توبۃ النصوح کے مواقع اور امام مہدی کی آمد (حصہ پنجم)</h1>
         </header>
         
-        <!-- Post Image -->
         <div class="post-image">
-            <img src="https://bloglovers.pk/images/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-pnjm.png" alt="ظلمت و گمراہی میں توبۃ النصوح کے مواقع اور امام مہدی کی آمد">
+            <img src="https://bloglovers.pk/images/alamaat-sughra/zlmt-w-gmrahi-main-tobalnsoh-ke-moaqa-aur-amam-mhdi-ki-aamd-hsh-pnjm.png" alt="امام مہدی">
         </div>
         
         <div class="post-content">
             <div class="content-box">
                 <p>امام مہدی کا تصور مسلمانوں کے درمیان ایک اہم عقیدہ ہے، جس کے مطابق قیامت سے قبل اللہ تعالیٰ کی طرف سے ایک نجات دہندہ امام مہدی کی صورت میں بھیجا جائے گا، جو دنیا میں عدل و انصاف کا نظام قائم کرے گا اور گمراہی کے اندھیروں کو مٹائے گا۔ اس عقیدے کی اہمیت اور مسلمانوں میں اس کے وسیع اثرات کی وجہ سے تاریخ میں مختلف ادوار میں متعدد افراد نے امام مہدی ہونے کا دعویٰ کیا۔ اور کئی لوگوں نے ان کے اس دعوے کی تصدیق بھی کی۔ ان میں سے بعض درج ذیل ہیں:</p>
             </div>
-            
             <div class="content-box">
                 <ol>
-                    <li><strong>عبداللہ بن سبا</strong> نے دعوی کیا تھا کہ علی بن ابی طالب مہدی منتظر ہیں اور اس کا خیال تھا کہ وہ دنیا میں واپس آئیں گے۔</li>
-                    
-                    <li><strong>مختار بن عبید ثقفی</strong> نے دعوی کیا کہ محمد بن الحنفیہ جو سن 81 ہجری میں وفات پا گئے تھے، وہ مہدی منتظر ہیں۔ محمد بن الحنفیہ کا نام محمد بن علی بن ابی طالب ہے۔ انھیں ابن الحنفیہ اس لیے کہا جاتا ہے کہ ان کی والدہ خولہ بنت جعفر کا تعلق بنو حنیفہ کے قبیلے سے تھا۔</li>
-                    
-                    <li><strong>فرقہ کیسانیہ کے لوگ</strong> جو کہ حضرت علی کے آزاد کردہ غلام کیسان کے پیروکار ہیں اور یہ بھی شیعوں کا ایک فرقہ ہے۔ ان کا عقیدہ ہے کہ محمد بن الحنفیہ تمام علوم کا احاطہ کیے ہوئے تھے اور ان کا خلاصہ یہ ہے کہ دین ایک شخص کی اطاعت کا نام ہے۔ انھوں نے ارکانِ شرعیہ کی تاویل کرتے ہوئے کہا ہے کہ ان سے مراد رجال ہیں اور اس طرح انھوں نے ارکانِ شرعیہ کو معطل قرار دے دیا۔ اس فرقے کا عقیدہ ہے کہ عبداللہ بن معاویہ بن عبداللہ بن جعفر بن ابی طالب ہاشمی قریشی ہی مہدی ہیں۔</li>
-                    
-                    <li><strong>محمد بن عبداللہ بن حسن بن ابی طالب</strong> جن کا لقب نفسِ زکیہ تھا اور جو سن 145 ہجری میں فوت ہوئے۔ یہ بہت زیادہ روزے رکھنے والے اور نمازیں پڑھنے والے عبادت گزار شخص تھے۔ ان کے عہد میں کچھ لوگ فتنے میں مبتلا ہو گئے اور سمجھنے لگے کہ وہی امام مہدی ہیں۔ انھوں نے تحریک شروع کی اور کئی لوگ ان کے پیروکار ہو گئے۔ انھوں نے حالات کی بہتری کے لیے کوشش کی۔ ان کے دور کے عباسی خلفاء نے دس ہزار جنگجوؤں پر مشتمل لشکر کے ساتھ لڑائی کی اور اس تحریک کو ختم کر دیا۔ نفس زکیہ نے عباسی خلیفہ کے خلاف خروج کیا تھا کیونکہ اس کے دور میں ظلم و استبداد بہت پھیل گیا تھا۔</li>
-                    
-                    <li><strong>مہدی کا دعوی کرنے والوں میں ایک نام عبیداللہ بن میمون القداح کا بھی ہے۔</strong> اس نے سن 325 ہجری میں وفات پائی، اس کا دادا یہودی تھا۔ عبیداللہ فرقہ قرامطہ کا بانی ہے جنھوں نے مسلمانوں کا قتل عام کیا اور سن 317 ہجری میں حجر اسود چرا کر لے گئے۔ یہ لوگ کفر و الحاد میں یہود و نصاری سے بھی دو قدم بڑھ کر تھے۔ اس کی اولاد کو شہرت و اقتدار نصیب ہوا۔ انھوں نے مصر، حجاز اور شام پر کنٹرول حاصل کر لیا اور وہاں اپنی حکومتیں قائم کیں۔ انھوں نے غلط بیانی کرتے ہوئے خود کو اہل بیت سے منسوب کیا اور دعوی کیا کہ وہ سیدہ فاطمہ زہراء کی نسل میں سے ہیں۔ یہی وجہ ہے کہ وہ فاطمی کہلائے۔ انھوں نے اپنے عہد اقتدار میں شافعی مسلک کے تمام قاضیوں معزول کر دیا اور ہر جگہ قبروں اور مزاروں کو رواج دیا۔ ان کے کرتوتوں کے باعث امت پر بے شمار مصیبتیں نازل ہوئیں۔ قرامطہ بظاہر مسلمان ہونے کا دم بھرتے تھے لیکن حقیقت میں وہ ملحد تھے۔ یہ لوگ تمام مذاہب سے خارج تھے۔ ان کا مذہب آگ کے پجاری مجوسیوں اور ستاروں کے پجاری صابیوں کے مذاہب سے مرکب ہے۔ فاطمیوں کا دور حکومت 280 برس سے زیادہ عرصے پر محیط ہے۔ عبیداللہ القداح نے مہدی ہونے کا دعوی کیا اور "مہدیہ" نامی شہر کی بنیاد رکھی۔</li>
-                    
-                    <li><strong>مہدی ہونے کا دعوی کرنے والے محمد بن عبداللہ بربری بھی ہے</strong> جو ابنتومرت کے نام سے معروف ہے۔ یہ شخص سن 514 ہجری میں ظاہر ہوا اور اس نے دعوی کیا کہ وہ حضرت علی بن ابی طالب کی نسل سے ہے۔ اس نے اپنا نسب حسن بن علی کے ساتھ جوڑ لیا۔ اس آدمی نے ظلم و استبداد کے ذریعے حکومت بھی حاصل کر لی۔ یہ بہت حیلے باز اور دھوکے باز انسان تھا جو لوگوں کو حیلے بازیوں کے ساتھ دھوکا دیتا اور ان کے سامنے اظہار کرتا کہ اس کی بہت سی کرامات ہیں۔ اس کی ایک حیلہ بازی یہ بھی تھی کہ اس نے ایک دفعہ کچھ لوگوں کو قبروں میں داخل کر دیا اور کچھ لوگوں کو لے کر آیا تاکہ انھیں نشانی دکھائے۔ اس نے آواز دے کر کہا: اے قبر والو! میری بات کا جواب دو۔ انھوں نے کہا: آپ مہدی ہیں، معصوم عن الخطا ہیں اور آپ کی فلاں خوبی ہے، آپ کی فلاں خوبی ہے، پھر اسے اندیشہ ہوا کہ کہیں اس کے فراڈ کاراز فاش نہ ہو جائے، اس لیے اس نے قبروں میں لیٹے ہوئے لوگوں پر قبریں دھنسا دیں اور وہ مر گئے۔</li>
-                    
-                    <li><strong>ایک اور شخص محمد احمد بن عبداللہ سوڈانی</strong> متوفی 1302 ہجری موافق 1885 عیسوی بھی ہے۔ یہ ایک صوفی تھا جس نے سوڈان پر غلبہ حاصل کر لیا۔ وہ زہد و عبادت میں مشہور ہوا اور اس نے اڑتیس برس کی عمر میں مہدی ہونے کا دعوی کیا۔ قبائل کے سردار اور بزرگ لوگ اس کی طرف مائل ہوئے۔ اس کا عقیدہ تھا کہ جو شخص اس کی مہدیت کا انکار کرے گا وہ اللہ اور رسول کے ساتھ کفر کا مرتکب ہو گا۔ وہ اس طرح کے اور بھی بے کار دعوے کیا کرتا تھا۔ اگرچہ انگریز عیسائیوں کے خلاف جنگوں میں اس کے کچھ کارنامے بھی ہیں۔ تاہم امر واقعی یہ ہے کہ وہ احادیث میں مذکور مہدی موعود نہیں تھا بلکہ وہ بھی مہدیت کے دیگر دعویداروں کی مانند ایک جھوٹا دعویدار تھا۔</li>
-                    
-                    <li><strong>روافض (شیعہ) کا عقیدہ ہے کہ وہ مہدی کے منتظر ہیں۔</strong> وہ ان کا بارہواں امام ہے۔ ان کے نزدیک اس کا نام محمد بن حسن عسکری ہے۔ شیعہ کہتے ہیں کہ وہ حسن بن علی کی اولاد سے نہیں بلکہ حسین بن علی کی اولاد سے ہے۔ ان کا عقیدہ ہے کہ یہ امام ایک ہزار برس سے زیادہ عرصہ قبل سن دو سو ساٹھ ہجری میں سامراء کے ایک غار میں داخل ہوا تھا۔ جب وہ اس غار میں داخل ہوا تو اس کی عمر پانچ برس تھی۔ وہ اس وقت سے اس غار میں زندہ ہے، اسے موت نہیں آئی اور وہ آخری زمانے میں اسی غار سے باہر نکلے گا۔ یہ امام ہر جگہ حاضر و ناظر ہے۔ وہ لوگوں کے حالات سے آگاہ ہے مگر ان کی نگاہوں سے غائب ہے اور اسے دیکھا جا سکتا ہے۔ یاد رہے! ان کے یہ عقائد سراسر بے وقوفی اور جہالت پر مبنی ہیں، کسی دلیل و برہان اور عقل و استدلال سے اس کی تائید نہیں ہوتی۔ پھر یہ عقیدہ انسانوں کے بارے میں اللہ کی سنت کے بھی خلاف ہے، اللہ رب العزت کے انبیاء و رسل جو اس کی مخلوق میں سے افضل ترین انسان ہیں، انھیں تو اللہ رب العزت فوت کر دے اور شیعوں کے مہدی کو ہزار برس سے زیادہ عرصے سے زندہ رکھے، یہ کیسے ممکن ہے؟ اور اگر وہ زندہ ہے تو اس طویل مدت تک اس کے غائب ہونے اور چھپنے کی ضرورت کیا ہے؟ وہ باہر نکل کر لوگوں کے درمیان امر بالمعروف اور نہی عن المنکر کا فریضہ انجام کیوں نہیں دیتا۔ حالانکہ امت کو آج کے حالات میں اس کی شدید ضرورت ہے۔ امام ابن کثیرؒ فرماتے ہیں: "اہل سنت کا مہدی بلادِ مشرق سے ظاہر ہو گا نہ کہ سامراء کے غار سے جیسا کہ جاہل شیعوں کا عقیدہ ہے کہ وہ اب بھی اس غار میں موجود ہے۔ وہ آخری زمانے میں اس کے خروج کا انتظار کر رہے ہیں۔ یہ محض حماقت اور شیطان کی طرف سے شدید گمراہی اور دھوکہ دہی ہے۔"</li>
+                    <li><strong>عبداللہ بن سبا</strong> نے دعوی کیا تھا کہ علی بن ابی طالب مہدی منتظر ہیں۔</li>
+                    <li><strong>مختار بن عبید ثقفی</strong> نے دعوی کیا کہ محمد بن الحنفیہ مہدی ہیں۔</li>
+                    <li><strong>فرقہ کیسانیہ کے لوگ</strong> اور عبداللہ بن معاویہ۔</li>
+                    <li><strong>محمد بن عبداللہ بن حسن (نفس زکیہ)</strong> نے بھی دعوی کیا۔</li>
+                    <li><strong>عبیداللہ بن میمون القداح</strong> نے مہدی ہونے کا دعویٰ کیا۔</li>
+                    <li><strong>محمد بن عبداللہ بربری (ابن تومرت)</strong> نے مہدی ہونے کا جھوٹا دعویٰ کیا۔</li>
+                    <li><strong>محمد احمد بن عبداللہ سوڈانی</strong> نے مہدیت کا جھوٹا دعویٰ کیا۔</li>
+                    <li><strong>روافض (شیعہ)</strong> کا عقیدہ مہدی منتظر کے بارے میں ہے۔</li>
                 </ol>
             </div>
             
             <h2><strong>اہم باتیں:</strong></h2>
-            
             <div class="content-box">
                 <ol>
-                    <li>مہدی لوگوں کو اپنی ذات کی طرف دعوت نہیں دے گا، نہ ہی اپنی بیعت کے لیے لوگوں کو پکارے گا۔ بلکہ لوگ اس کی بیعت کریں گے اور وہ اسے ناپسند کرتا ہو گا۔</li>
-                    
-                    <li>مہدی کا نام نبی کریم ﷺ کے نام کے مطابق، یعنی اس کا نام محمد بن عبداللہ ہو گا۔</li>
-                    
-                    <li>اس کا نسب سیدنا حسن بن علی تک پہنچتا ہو گا۔</li>
-                    
-                    <li>وہ چوڑی پیشانی والا اور لمبی ناک والا ہو گا۔</li>
-                    
-                    <li>وہ جن حالات میں ظاہر ہو گا، وہ کچھ اس طرح سے ہوں گے۔
-                        <p>a. ایک خلیفہ کی وفات کے بعد اختلاف واقع ہو گا۔</p>
-                        <p>b. زمین میں اس وقت ظلم و جور سے بھر چکی ہو گی۔</p>
-                        <p>c. تین خلفاء کے بیٹے آپس میں جنگ کریں گے۔</p>
-                        <p>d. مہدی ایک نیک اور متقی شخص ہو گا۔ وہ علم شریعت اور حکمت و دانش سے لبریز ہو گا۔</p>
-                    </li>
-                    
-                    <li>اس کا ظہور مکہ مکرمہ میں ہو گا اور حجر اسود اور مقام ابراہیم کے درمیان اس کی بیعت کی جائے گی۔</li>
+                    <li>مہدی لوگوں کو اپنی ذات کی طرف دعوت نہیں دے گا۔</li>
+                    <li>مہدی کا نام محمد بن عبداللہ ہو گا۔</li>
+                    <li>نسب سیدنا حسن بن علی تک پہنچتا ہو گا۔</li>
+                    <li>چوڑی پیشانی، لمبی ناک والا ہو گا۔</li>
+                    <li>ظلم و جور سے بھری زمین میں ظہور ہو گا۔</li>
+                    <li>مکہ مکرمہ میں حجر اسود کے پاس بیعت ہو گی۔</li>
                 </ol>
             </div>
             
-            <div class="content-box" style="text-align: center; padding: 30px;">
-                <p style="font-size: 1.5rem; margin-bottom: 0;">مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
+            <!-- REACTIONS SECTION (preserved with correct IDs and onclick) -->
+            <div class="reactions-section">
+                <h3><i class="fas fa-heart"></i> اپنے جذبات کا اظہار کریں</h3>
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <!-- Social Share Icons (7 platforms) -->
+            <div class="social-share">
+                <div class="social-icon" style="background: #1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-icon" style="background: #25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                <div class="social-icon" style="background: #1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                <div class="social-icon" style="background: #0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                <div class="social-icon" style="background: #0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram"></i></div>
+                <div class="social-icon" style="background: #bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                <div class="social-icon" style="background: #6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+            </div>
+            
+            <!-- Post Navigation Buttons -->
+            <div class="post-nav-links">
+                <a href="https://bloglovers.pk/" class="nav-link-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+            
+            <div class="content-box" style="text-align: center;">
+                <p style="font-size: 1.5rem;">مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
             </div>
         </div>
         
@@ -492,95 +558,144 @@
             <p>© تمام حقوق محفوظ ہیں</p>
         </div>
     </div>
-
+    
+    <script src="/reactions.js"></script>
     <script>
-        // Create space stars
+        // Stars background
         function createStars() {
             const starsContainer = document.getElementById('spaceStars');
-            const starCount = 150;
-            
-            for (let i = 0; i < starCount; i++) {
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
-                // Random size between 1-3px
                 const size = Math.random() * 2 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
-                
-                // Random position
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
-                
-                // Random twinkle duration
                 star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
-                
                 starsContainer.appendChild(star);
             }
         }
         
-        // Navigation functions
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+        
+        // Social share functions (keep original)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہو گیا!');
+        }
+        
+        // SIDEBAR DATA (10 posts with exact links and images)
+        const sidebarPosts = [
+            { title: "قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت", link: "https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt", img: "https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" },
+            { title: "ان گنت فتنوں کا ظہور اور ان کے نقصانات", link: "https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat", img: "https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" },
+            { title: "تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" },
+            { title: "آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" },
+            { title: "آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" },
+            { title: "وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟", link: "https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi", img: "https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" },
+            { title: "دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" },
+            { title: "للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" },
+            { title: "قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟", link: "https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi", img: "https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" },
+            { title: "انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" },
+            { title: "لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟", link: "https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge", img: "https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" },
+            { title: "آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" },
+            { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", link: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", img: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+        ];
+        
+        function buildSidebar() {
+            const container = document.getElementById('sidebarScroll');
+            if (!container) return;
+            container.innerHTML = '';
+            sidebarPosts.forEach(post => {
+                const a = document.createElement('a');
+                a.className = 'sidebar-item';
+                a.href = post.link;
+                const img = document.createElement('img');
+                img.src = post.img;
+                img.alt = post.title;
+                img.className = 'sidebar-img';
+                const span = document.createElement('span');
+                span.className = 'sidebar-text';
+                span.innerText = post.title;
+                a.appendChild(img);
+                a.appendChild(span);
+                container.appendChild(a);
+            });
+            // Auto-scroll logic: 30 sec per cycle (top to bottom smoothly)
+            let scrollPos = 0;
+            let interval;
+            function startAutoScroll() {
+                if (interval) clearInterval(interval);
+                interval = setInterval(() => {
+                    if (!container.matches(':hover')) {
+                        const maxScroll = container.scrollHeight - container.clientHeight;
+                        if (scrollPos >= maxScroll) scrollPos = 0;
+                        else scrollPos += 1.5;
+                        container.scrollTo({ top: scrollPos, behavior: 'smooth' });
+                    } else {
+                        scrollPos = container.scrollTop;
+                    }
+                }, 100);
+            }
+            container.addEventListener('mouseenter', () => { if (interval) clearInterval(interval); });
+            container.addEventListener('mouseleave', () => { scrollPos = container.scrollTop; startAutoScroll(); });
+            startAutoScroll();
+        }
+        
+        // Highlight current post in sidebar based on URL
+        function highlightCurrentPost() {
+            const currentUrl = window.location.href;
+            const items = document.querySelectorAll('.sidebar-item');
+            items.forEach(item => {
+                if (currentUrl.includes(item.getAttribute('href'))) {
+                    item.classList.add('active');
+                }
             });
         }
         
-        function scrollToBottom() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
-        }
+        // ensure that reactions.js does not conflict: but we removed duplicate local reaction functions, only social and UI
+        // reactionClick is provided by reactions.js external file (Cloudflare based)
+        // fallback: just in case reactions.js not loaded, we define dummy
+        window.reactionClick = window.reactionClick || function(type) {
+            console.log("Reaction via external:", type);
+            const countSpan = document.getElementById(`count-${type}`);
+            if(countSpan) {
+                let val = parseInt(countSpan.innerText) || 0;
+                countSpan.innerText = val+1;
+            }
+        };
         
-        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
+            buildSidebar();
+            highlightCurrentPost();
             
-            // Add hover effects to content boxes
-            const contentBoxes = document.querySelectorAll('.content-box');
-            contentBoxes.forEach(box => {
-                box.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateX(-10px)';
-                });
-                
-                box.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateX(0)';
-                });
-            });
-            
-            // Add scroll effect to header
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('.post-header');
-                const scrolled = window.pageYOffset;
-                
-                if (scrolled > 100) {
-                    header.style.transform = `translateY(${scrolled * 0.05}px)`;
-                    header.style.opacity = 1 - (scrolled * 0.002);
-                } else {
-                    header.style.transform = 'translateY(0)';
-                    header.style.opacity = 1;
-                }
+            // Add hover animation on content boxes
+            document.querySelectorAll('.content-box').forEach(box => {
+                box.addEventListener('mouseenter', () => box.style.transform = 'translateX(-5px)');
+                box.addEventListener('mouseleave', () => box.style.transform = 'translateX(0)');
             });
         });
         
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Up arrow for page up
-            if (e.key === 'ArrowUp') {
-                scrollToTop();
-            }
-            
-            // Down arrow for page down
-            if (e.key === 'ArrowDown') {
-                scrollToBottom();
-            }
-            
-            // Escape for back
-            if (e.key === 'Escape') {
-                window.history.back();
-            }
+        // Keyboard shortcuts: up/down, escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') scrollToTop();
+            if (e.key === 'ArrowDown') scrollToBottom();
+            if (e.key === 'Escape') window.history.back();
         });
     </script>
 </body>
