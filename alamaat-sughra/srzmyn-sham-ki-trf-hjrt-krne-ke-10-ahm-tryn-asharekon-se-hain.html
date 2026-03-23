@@ -116,64 +116,231 @@
         }
         
         .main-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
-        .trigger-btn {
-            display: block;
-            width: 100%;
-            max-width: 500px;
-            margin: 30px auto;
-            background: linear-gradient(45deg, var(--dark-bg), #333);
+        .post-wrapper {
+            flex: 2;
+            min-width: 280px;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+        
+        .sidebar-card {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        
+        .sidebar-title {
             color: var(--primary-color);
-            padding: 18px 40px;
+            font-size: 24px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .scroll-posts-container {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            direction: ltr;
+            scroll-behavior: smooth;
+            animation: scrollPosts 30s linear infinite;
+        }
+        
+        .scroll-posts-container:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        
+        /* inner wrapper to allow proper scrolling animation */
+        .posts-scroll-wrapper {
+            display: flex;
+            flex-direction: column;
+            direction: rtl;
+        }
+        
+        .sidebar-post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 12px;
+            transition: all 0.3s;
+            border-right: 3px solid transparent;
+            text-decoration: none;
+        }
+        
+        .sidebar-post-item:hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-right-color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-post-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .sidebar-post-title {
+            color: #eee;
+            font-size: 16px;
+            line-height: 1.6;
+            flex: 1;
+        }
+        
+        .current-post-highlight {
+            background: rgba(255, 215, 0, 0.25);
+            border-right-color: var(--primary-color);
+        }
+        
+        /* Reactions Styles */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 25px;
+            text-align: center;
+        }
+        
+        .reactions-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: linear-gradient(145deg, #222, #111);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-size: 20px;
+            font-family: inherit;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+            color: #000;
+            box-shadow: var(--hover-glow);
+        }
+        
+        .reaction-count {
+            background: #000;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        
+        /* Navigation Buttons after post */
+        .post-navigation {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0 30px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link-btn {
+            background: linear-gradient(45deg, var(--dark-bg), #222);
+            color: var(--primary-color);
+            padding: 12px 28px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: all 0.3s;
             border: 2px solid var(--primary-color);
-            cursor: pointer;
-            font-size: 22px;
-            font-family: inherit;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            transition: all 0.3s;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .trigger-btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .nav-link-btn:hover {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: -1;
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: var(--hover-glow);
         }
         
-        .trigger-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
-            color: var(--dark-bg);
+        /* Social Icons */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
         }
         
-        .trigger-btn:hover:before {
-            opacity: 1;
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
         
-        .trigger-btn i {
-            margin-left: 10px;
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1) translateY(-5px);
         }
         
         .post-content {
-            max-width: 850px;
-            margin: 0 auto;
             background: rgba(20, 20, 20, 0.95);
             padding: 40px;
             border-radius: 20px;
@@ -216,19 +383,9 @@
             margin-bottom: 30px;
         }
         
-        h1:hover {
-            text-shadow: 0 0 20px var(--primary-color);
-            transform: translateY(-3px);
-        }
-        
         h2 {
             font-size: 34px;
             border-bottom: 2px solid rgba(255, 215, 0, 0.5);
-        }
-        
-        h2:hover {
-            color: #FFEE58;
-            padding-right: 15px;
         }
         
         p {
@@ -315,115 +472,59 @@
             box-shadow: var(--hover-glow);
         }
         
-        .back-button i {
-            margin-right: 8px;
-        }
-        
-        /* Mobile Responsive */
         @media (max-width: 992px) {
-            .nav-buttons {
-                left: 10px;
-            }
-            
-            .nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
+            .main-container { flex-direction: column; }
+            .sidebar { max-width: 100%; position: static; }
+            .nav-buttons { left: 10px; }
+            .nav-btn { width: 50px; height: 50px; font-size: 20px; }
         }
         
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .main-container {
-                padding: 10px;
-            }
-            
-            .post-content {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            h2 {
-                font-size: 26px;
-            }
-            
-            p {
-                font-size: 20px;
-                line-height: 2.2;
-            }
-            
-            .trigger-btn {
-                font-size: 18px;
-                padding: 15px 25px;
-            }
-            
-            .back-button {
-                top: 10px;
-                right: 10px;
-                font-size: 16px;
-                padding: 10px 18px;
-            }
-            
-            .nav-buttons {
-                flex-direction: row;
-                position: fixed;
-                bottom: 20px;
-                top: auto;
-                left: 50%;
-                transform: translateX(-50%);
-                flex-direction: row;
-            }
+            body { padding: 10px; }
+            .post-content { padding: 25px; }
+            h1 { font-size: 32px; }
+            h2 { font-size: 26px; }
+            p { font-size: 20px; line-height: 2.2; }
+            .back-button { top: 10px; right: 10px; font-size: 16px; padding: 10px 18px; }
+            .nav-buttons { flex-direction: row; position: fixed; bottom: 20px; top: auto; left: 50%; transform: translateX(-50%); flex-direction: row; }
         }
         
         @media (max-width: 480px) {
-            h1 {
-                font-size: 28px;
-            }
-            
-            h2 {
-                font-size: 22px;
-            }
-            
-            p {
-                font-size: 18px;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            .nav-buttons {
-                bottom: 10px;
-            }
-            
-            .nav-btn {
-                width: 45px;
-                height: 45px;
-            }
+            h1 { font-size: 28px; }
+            h2 { font-size: 22px; }
+            p { font-size: 18px; }
+            .post-content { padding: 20px; }
         }
         
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #222; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary-color), var(--secondary-color)); border-radius: 5px; }
+        
+        .trigger-btn {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            background: linear-gradient(45deg, var(--dark-bg), #333);
+            color: var(--primary-color);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            font-size: 22px;
+            font-family: inherit;
+            text-align: center;
         }
         
-        ::-webkit-scrollbar-track {
-            background: #222;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--primary-color), var(--secondary-color));
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(var(--secondary-color), var(--primary-color));
+        .trigger-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.6);
+            color: var(--dark-bg);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
         }
     </style>
 </head>
@@ -433,74 +534,99 @@
     </button>
 
     <div class="main-container">
-        <div style="text-align: center; margin: 20px 0 40px;">
-            <button class="trigger-btn" onclick="openColorFillPost()">
-                🕌 اس پوسٹ کو خصوصی تھیم کے ساتھ پڑھیں <i class="fas fa-fire"></i>
-            </button>
-        </div>
+        <div class="post-wrapper">
+            <div style="text-align: center; margin: 20px 0 20px;">
+                <button class="trigger-btn" onclick="openColorFillPost()">
+                    🕌 اس پوسٹ کو خصوصی تھیم کے ساتھ پڑھیں <i class="fas fa-fire"></i>
+                </button>
+            </div>
 
-        <div class="post-content">
-            <h1>سرزمین شام کی طرف ہجرت کرنے کے 10 اہم ترین اشارے کون سے ہیں؟</h1>
-            
-            <img src="https://bloglovers.pk/images/alamaat-sughra/srzmyn-sham-ki-trf-hjrt-krne-ke-10-ahm-tryn-asharekon-se-hain.png" 
-                 alt="سرزمین شام کی طرف ہجرت کرنے کے 10 اہم ترین اشارے" 
-                 class="post-image">
-            
-            <p>سرزمین شام (سوریا) اسلامی روایات میں اہم کردار ادا کرتی ہے اور مسلمانوں کے لیے اس کا مقام بہت ہی خاص ہے۔ اس ملک کی زمین پر ہونے والے واقعات اور مقامات اسلامی تاریخ میں اہمیت رکھتے ہیں۔ یہ سرزمین اپنی مثال آپ ہے کیونکہ یہ مختلف انبیاء کرام کی سرگزشتوں اور واقعات سے بھری ہوئی ہے۔ یہاں پر انبیاء، صحابہ اور دینی علماء کے قدموں کے نشانات ملتے ہیں جو مسلمانوں کو اپنے ایمانی اقدار کی راہنمائی کرتے ہیں۔</p>
-            
-            <p>تاریخی اعتبار سے "بلادِ شام" "ارضِ جہاد" کہا جانے والا خطہ اراضی نہایت ہی قدیم اور اہمیت کا حامل ہے۔ اللہ رب العزت کی لعنت کے مستحق یہود و نصاری ہمیشہ اس میں تاک میں لگے رہتے کہ کب اور کس طرح مسلمانوں کو اذیت سے دوچار کیا جائے۔ بات اذیت دینے تک کی فینہ تھی، جونہی ہی مسلم حکمران نظم و نسق کی باگ ڈور میں کمزور ہونے لگے، 1920 میں انگریزوں اور اہل فرانس کی بدعنوانیوں کی وجہ سے سرزمین شام کو چار بڑے الگ ملکوں میں تقسیم کر دیا، اور یوں عالمی جنگ عظیم کے بعد دنیا کے نقشے پر چار الگ ملک دیکھنے کو ملے۔ سرزمین شام براعظم ایشیا کے انتہائی مغرب میں واقع ہے اور یوں تین برے اعظموں، ایشیا، یورپ اور افریقہ کا جوائنٹ ہے۔</p>
-            
-            <p>٭ سوریا (شام) جس کا دارالحکومت دمشق کہلاتا ہے درحقیقت یہود و نصاری کے قبضہ میں ہے اور آئے روز مسلم عزتوں کو پامال کرنے اور جسم نوچنے میں مگن ہے۔</p>
-            
-            <p>٭ سرزمین شام کا دوسرا حصہ فلسطین کہلایا جس کا دارالحکومت بیت المقدس یعنی قبلہ اول ہے جہاں نصف صدی سے یہود قابض ہیں اور آج کل یہود نے فلسطین پر جنگ طاری کی ہوئی ہے ایک اندازے کے مطابق 30 ہزار سے زائد مسلمانوں کو شہید کیا جا چکا ہے۔ مگر ہائے افسوس! امت مسلمہ خاموش تماشائی بنے اپنی انگنہگار آنکھوں سے دیکھ رہی ہے۔</p>
-            
-            <p>٭ سرزمین شام کا تیسرا حصہ لبنان کی صورت میں منظر عام پر لایا گیا اس ملک کا دارالحکومت بھی لبنان ہے اس ملک میں مسلمانوں کو اقلیت میں رکھا گیا زیادہ تر یہود و نصاری ہی قابض ہیں، چونکہ اکثریت میں ہونے کی وجہ سے طرح طرح سے مسلم کمیونٹی کا استحصال کیا جاتا ہے۔</p>
-            
-            <p>٭ سرزمین شام کا چوتھا حصہ اردن کہلاتا ہے جس کا دارالحکومت عمان ہے یہ ملک بھی یہود و نصاری کی دوستی کا حق ادا کرنے سے پیچھے نہ ہٹنے والے نمک خوار، ایجنٹوں کے ہاتھوں خوار ہو رہا ہے۔</p>
-            
-            <p>سوالیہ پیدا ہوتا ہے کہ آخر ایسی کیا بات ہے اس سرزمین میں کہ آپ ﷺ نے حکم فرمایا کہ قرب قیامت لوگ سرزمین شام کی طرف ہجرت کر جائیں گے۔ یوں تو امت مسلمہ کی بھلائی کے لیے آپ ﷺ نے بہت ساری احادیث بتلائی جو کہ درج ذیل شئیر کر رہا ہوں۔</p>
-            
-            <h2>1: جب فتنے رونما ہوں گے تو ایمان شام میں ہو گا</h2>
-            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا؛ میں نے دیکھا کہ میرے تکیے کے نیچے سے کتاب کا ایک بنیادی حصہ مجھ سے واپس لیا جا رہا ہے، میری نظروں نے تعاقب کیا، ادھر سے نور پھوٹ رہا تھا، میں نے دیکھا کہ وہ شام میں رکھ دی گئی ہے، پس جب فتنے رونما ہوں تو ایمان شام میں ہو گا۔</p>
-            
-            <h2>2: رحمتوں اور برکتوں والی سرزمین</h2>
-            <p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا؛ اے اللہ ہمارے شام میں ہمیں برکتیں نصیب فرما اور ہمارے یمن میں ہمیں برکتیں نصیب کر"</p>
-            
-            <h2>3: خوشحالی کی سرزمین</h2>
-            <p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا؛ شام کے لیے خوشحالی ہے، ہم نے عرض کیا اے اللہ کے رسول یہ کس وجہ سے ہے؟ تو آپ ﷺ نے فرمایا رحمن کے فرشتے اس پر اپنے پر پھیلائے ہوئے ہیں۔</p>
-            
-            <h2>4: نیک اور عابد بندوں کی سرزمین</h2>
-            <p>ایک روایت کے مطابق ایک صحابی رسول نے آپ ﷺ سے عرض کی؛ اے اللہ کے رسول ﷺ مجھے بتائیں کہ میں کس علاقے میں رہوں، اگر مجھے پتہ ہو کہ آپ ﷺ ہمارے ساتھ لمبے عرصے تک رہیں گے تو میں آپ کی رفاقت کے علاوہ کہیں اور رہنے کو ہرگز ترجیح نہ دوں؛ آپ ﷺ نے فرمایا؛ شام کی طرف جاؤ، شام کی طرف جاؤ، تو جب آپ ﷺ نے دیکھا کہ مجھے شام پسند نہیں ہے تو آپ ﷺ نے فرمایا؛ کیا تم جانتے ہو کہ اللہ رب العزت اس بارے میں کیا فرماتا ہے؟ پھر آپ ﷺ نے فرمایا؛ شام میری زمینوں میں سے وہ منتخب کردہ زمین ہے جہاں میں اپنے بہترین عابدوں کو داخل کرتا ہوں"۔</p>
-            
-            <h2>5: رزق سے مالا مال سرزمین</h2>
-            <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا "اللہ رب العزت نے میرا رخ شام کی طرف کیا ہے اور میری پیٹھ یمن کی طرف اور مجھے کہا ہے: اے محمد! میں نے تمہارے سامنے غنیمتوں اور رزق کو رکھا ہے اور تمہارے پیچھے مدد رکھی ہے"۔</p>
-            
-            <h2>6: میدان محشر کی سرزمین</h2>
-            <p>آپ ﷺ نے فرمایا "شام وہ زمین ہے جہاں آخری بار جمع کیا جائے گا اور جہاں محشر سجے گا"۔</p>
-            
-            <h2>7: دجال کے خاتمے کی سرزمین</h2>
-            <p>آپ ﷺ نے فرمایا "ایمان دائیں جانب ہے اور کفر مشرق یعنی نجد کی جانب ہے، گھوڑوں اور اونٹوں والوں میں غرور و تکبر پایا جاتا ہے اور مسیح الدجال مشرق سے آئے گا، پھر فرشتے اسے شام کی طرف بھگا دیں گے اور وہ مدینہ کی جانب پیش قدمی کرے گا یہاں تک کہ وہ احد پہاڑوں کے پیچھے تک پہنچ جائے گا پھر فرشتے اسے شام کی طرف بھگا دیں گے اور پھر ادھر اسے ہلاک کر دیا جائے گا"۔</p>
-            
-            <h2>8: قیامت تک فتحیاب رہنے والے گروہ کی سرزمین</h2>
-            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "جب شام والوں میں بگاڑ آ جائے گا تو تم میں کوئی بھلائی نہ رہے گی، میری امت کا ایک گروہ قیامت تک فتحیاب رہے گا، انھیں رسوا کرنے والا انھیں کوئی نقصان نہیں پہنچا سکے گا"۔</p>
-            
-            <p>یہی وجہ ہے کہ آپ ﷺ نے شام میں رہائش اختیار کرنے کی وصیت فرمائی ہے۔ اس لیے کہ قیامت کے قریب شام اہل اسلام کا مضبوط گڑھ اور مرکز ہو گا۔ غوطہ "ایک شہر کا نام ہے جو آج کل غوطہ دمشق کہلاتا ہے اور "دمشق مشہور و معروف شہر ہے اور شام کا دارالحکومت ہے، اہل اسلام اور یہودیوں کے درمیان جو عظیم معرکہ ہو گا مسلمان اسی جگہ جمع ہونگے۔ یہ معرکہ یا تو مہدی کے ظہور سے قبل ہو گا یا مہدی کے زمانے میں ہو گا یا پھر کسی اور زمانے میں۔ آپ ﷺ نے ملک شام میں رہائش اختیار کرنے کی ترغیب اس لیے دلائی ہے کہ یہ سرزمین محشر مومنوں کا مرکز ہے۔</p>
-            
-            <h2>9: ہر مومن شام میں چلا جائے گا۔</h2>
-            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "ایک ایسا زمانہ آئے گا کہ ہر مومن شام میں چلا جائے گا"۔ اس روایت سے پتہ چلتا ہے کہ قیامت قائم ہونے سے پہلے مومنوں کی غالب اکثریت وہاں ہجرت کر جائے گی بلکہ ہر مومن وہاں چلا جائے گا۔</p>
-            
-            <h2>10: نزول عیسیٰ کی سرزمین</h2>
-            <p>دمشق کے مشرق میں سفید منارے کے پاس عیسیٰ علیہ السلام اتریں گے‘ پس وہ (دجال کو) اسی بلد کے پاس پائیں گے اور اس کا کام تمام کر دیں گے۔</p>
+            <div class="post-content" id="mainPostContent">
+                <h1>سرزمین شام کی طرف ہجرت کرنے کے 10 اہم ترین اشارے کون سے ہیں؟</h1>
+                <img src="https://bloglovers.pk/images/alamaat-sughra/srzmyn-sham-ki-trf-hjrt-krne-ke-10-ahm-tryn-asharekon-se-hain.png" 
+                     alt="سرزمین شام کی طرف ہجرت کرنے کے 10 اہم ترین اشارے" 
+                     class="post-image">
+                <p>سرزمین شام (سوریا) اسلامی روایات میں اہم کردار ادا کرتی ہے اور مسلمانوں کے لیے اس کا مقام بہت ہی خاص ہے۔ اس ملک کی زمین پر ہونے والے واقعات اور مقامات اسلامی تاریخ میں اہمیت رکھتے ہیں۔ یہ سرزمین اپنی مثال آپ ہے کیونکہ یہ مختلف انبیاء کرام کی سرگزشتوں اور واقعات سے بھری ہوئی ہے۔ یہاں پر انبیاء، صحابہ اور دینی علماء کے قدموں کے نشانات ملتے ہیں جو مسلمانوں کو اپنے ایمانی اقدار کی راہنمائی کرتے ہیں۔</p>
+                <p>تاریخی اعتبار سے "بلادِ شام" "ارضِ جہاد" کہا جانے والا خطہ اراضی نہایت ہی قدیم اور اہمیت کا حامل ہے۔ اللہ رب العزت کی لعنت کے مستحق یہود و نصاری ہمیشہ اس میں تاک میں لگے رہتے کہ کب اور کس طرح مسلمانوں کو اذیت سے دوچار کیا جائے۔ بات اذیت دینے تک کی فینہ تھی، جونہی ہی مسلم حکمران نظم و نسق کی باگ ڈور میں کمزور ہونے لگے، 1920 میں انگریزوں اور اہل فرانس کی بدعنوانیوں کی وجہ سے سرزمین شام کو چار بڑے الگ ملکوں میں تقسیم کر دیا، اور یوں عالمی جنگ عظیم کے بعد دنیا کے نقشے پر چار الگ ملک دیکھنے کو ملے۔ سرزمین شام براعظم ایشیا کے انتہائی مغرب میں واقع ہے اور یوں تین برے اعظموں، ایشیا، یورپ اور افریقہ کا جوائنٹ ہے۔</p>
+                <p>٭ سوریا (شام) جس کا دارالحکومت دمشق کہلاتا ہے درحقیقت یہود و نصاری کے قبضہ میں ہے اور آئے روز مسلم عزتوں کو پامال کرنے اور جسم نوچنے میں مگن ہے۔</p>
+                <p>٭ سرزمین شام کا دوسرا حصہ فلسطین کہلایا جس کا دارالحکومت بیت المقدس یعنی قبلہ اول ہے جہاں نصف صدی سے یہود قابض ہیں اور آج کل یہود نے فلسطین پر جنگ طاری کی ہوئی ہے ایک اندازے کے مطابق 30 ہزار سے زائد مسلمانوں کو شہید کیا جا چکا ہے۔ مگر ہائے افسوس! امت مسلمہ خاموش تماشائی بنے اپنی انگنہگار آنکھوں سے دیکھ رہی ہے۔</p>
+                <p>٭ سرزمین شام کا تیسرا حصہ لبنان کی صورت میں منظر عام پر لایا گیا اس ملک کا دارالحکومت بھی لبنان ہے اس ملک میں مسلمانوں کو اقلیت میں رکھا گیا زیادہ تر یہود و نصاری ہی قابض ہیں، چونکہ اکثریت میں ہونے کی وجہ سے طرح طرح سے مسلم کمیونٹی کا استحصال کیا جاتا ہے۔</p>
+                <p>٭ سرزمین شام کا چوتھا حصہ اردن کہلاتا ہے جس کا دارالحکومت عمان ہے یہ ملک بھی یہود و نصاری کی دوستی کا حق ادا کرنے سے پیچھے نہ ہٹنے والے نمک خوار، ایجنٹوں کے ہاتھوں خوار ہو رہا ہے۔</p>
+                <p>سوالیہ پیدا ہوتا ہے کہ آخر ایسی کیا بات ہے اس سرزمین میں کہ آپ ﷺ نے حکم فرمایا کہ قرب قیامت لوگ سرزمین شام کی طرف ہجرت کر جائیں گے۔ یوں تو امت مسلمہ کی بھلائی کے لیے آپ ﷺ نے بہت ساری احادیث بتلائی جو کہ درج ذیل شئیر کر رہا ہوں۔</p>
+                <h2>1: جب فتنے رونما ہوں گے تو ایمان شام میں ہو گا</h2>
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا؛ میں نے دیکھا کہ میرے تکیے کے نیچے سے کتاب کا ایک بنیادی حصہ مجھ سے واپس لیا جا رہا ہے، میری نظروں نے تعاقب کیا، ادھر سے نور پھوٹ رہا تھا، میں نے دیکھا کہ وہ شام میں رکھ دی گئی ہے، پس جب فتنے رونما ہوں تو ایمان شام میں ہو گا۔</p>
+                <h2>2: رحمتوں اور برکتوں والی سرزمین</h2>
+                <p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا؛ اے اللہ ہمارے شام میں ہمیں برکتیں نصیب فرما اور ہمارے یمن میں ہمیں برکتیں نصیب کر"</p>
+                <h2>3: خوشحالی کی سرزمین</h2>
+                <p>ایک اور روایت کے مطابق آپ ﷺ نے فرمایا؛ شام کے لیے خوشحالی ہے، ہم نے عرض کیا اے اللہ کے رسول یہ کس وجہ سے ہے؟ تو آپ ﷺ نے فرمایا رحمن کے فرشتے اس پر اپنے پر پھیلائے ہوئے ہیں۔</p>
+                <h2>4: نیک اور عابد بندوں کی سرزمین</h2>
+                <p>ایک روایت کے مطابق ایک صحابی رسول نے آپ ﷺ سے عرض کی؛ اے اللہ کے رسول ﷺ مجھے بتائیں کہ میں کس علاقے میں رہوں، اگر مجھے پتہ ہو کہ آپ ﷺ ہمارے ساتھ لمبے عرصے تک رہیں گے تو میں آپ کی رفاقت کے علاوہ کہیں اور رہنے کو ہرگز ترجیح نہ دوں؛ آپ ﷺ نے فرمایا؛ شام کی طرف جاؤ، شام کی طرف جاؤ، تو جب آپ ﷺ نے دیکھا کہ مجھے شام پسند نہیں ہے تو آپ ﷺ نے فرمایا؛ کیا تم جانتے ہو کہ اللہ رب العزت اس بارے میں کیا فرماتا ہے؟ پھر آپ ﷺ نے فرمایا؛ شام میری زمینوں میں سے وہ منتخب کردہ زمین ہے جہاں میں اپنے بہترین عابدوں کو داخل کرتا ہوں"۔</p>
+                <h2>5: رزق سے مالا مال سرزمین</h2>
+                <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا "اللہ رب العزت نے میرا رخ شام کی طرف کیا ہے اور میری پیٹھ یمن کی طرف اور مجھے کہا ہے: اے محمد! میں نے تمہارے سامنے غنیمتوں اور رزق کو رکھا ہے اور تمہارے پیچھے مدد رکھی ہے"۔</p>
+                <h2>6: میدان محشر کی سرزمین</h2>
+                <p>آپ ﷺ نے فرمایا "شام وہ زمین ہے جہاں آخری بار جمع کیا جائے گا اور جہاں محشر سجے گا"۔</p>
+                <h2>7: دجال کے خاتمے کی سرزمین</h2>
+                <p>آپ ﷺ نے فرمایا "ایمان دائیں جانب ہے اور کفر مشرق یعنی نجد کی جانب ہے، گھوڑوں اور اونٹوں والوں میں غرور و تکبر پایا جاتا ہے اور مسیح الدجال مشرق سے آئے گا، پھر فرشتے اسے شام کی طرف بھگا دیں گے اور وہ مدینہ کی جانب پیش قدمی کرے گا یہاں تک کہ وہ احد پہاڑوں کے پیچھے تک پہنچ جائے گا پھر فرشتے اسے شام کی طرف بھگا دیں گے اور پھر ادھر اسے ہلاک کر دیا جائے گا"۔</p>
+                <h2>8: قیامت تک فتحیاب رہنے والے گروہ کی سرزمین</h2>
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "جب شام والوں میں بگاڑ آ جائے گا تو تم میں کوئی بھلائی نہ رہے گی، میری امت کا ایک گروہ قیامت تک فتحیاب رہے گا، انھیں رسوا کرنے والا انھیں کوئی نقصان نہیں پہنچا سکے گا"۔</p>
+                <p>یہی وجہ ہے کہ آپ ﷺ نے شام میں رہائش اختیار کرنے کی وصیت فرمائی ہے۔ اس لیے کہ قیامت کے قریب شام اہل اسلام کا مضبوط گڑھ اور مرکز ہو گا۔ غوطہ "ایک شہر کا نام ہے جو آج کل غوطہ دمشق کہلاتا ہے اور "دمشق مشہور و معروف شہر ہے اور شام کا دارالحکومت ہے، اہل اسلام اور یہودیوں کے درمیان جو عظیم معرکہ ہو گا مسلمان اسی جگہ جمع ہونگے۔ یہ معرکہ یا تو مہدی کے ظہور سے قبل ہو گا یا مہدی کے زمانے میں ہو گا یا پھر کسی اور زمانے میں۔ آپ ﷺ نے ملک شام میں رہائش اختیار کرنے کی ترغیب اس لیے دلائی ہے کہ یہ سرزمین محشر مومنوں کا مرکز ہے۔</p>
+                <h2>9: ہر مومن شام میں چلا جائے گا۔</h2>
+                <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا "ایک ایسا زمانہ آئے گا کہ ہر مومن شام میں چلا جائے گا"۔ اس روایت سے پتہ چلتا ہے کہ قیامت قائم ہونے سے پہلے مومنوں کی غالب اکثریت وہاں ہجرت کر جائے گی بلکہ ہر مومن وہاں چلا جائے گا۔</p>
+                <h2>10: نزول عیسیٰ کی سرزمین</h2>
+                <p>دمشق کے مشرق میں سفید منارے کے پاس عیسیٰ علیہ السلام اتریں گے‘ پس وہ (دجال کو) اسی بلد کے پاس پائیں گے اور اس کا کام تمام کر دیں گے۔</p>
+                
+                <!-- Reactions Section -->
+                <div class="reactions-section">
+                    <div class="reactions-title">📢 اس پوسٹ پر اپنے جذبات کا اظہار کریں</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Post Navigation Buttons -->
+                <div class="post-navigation">
+                    <a href="https://bloglovers.pk/" class="nav-link-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+                
+                <!-- Social Media Share Icons -->
+                <div class="social-share">
+                    <div class="reactions-title">📲 شیئر کریں</div>
+                    <div class="social-icons">
+                        <a class="social-icon" style="background:#1877f2" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                        <a class="social-icon" style="background:#25D366" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                        <a class="social-icon" style="background:#1DA1F2" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                        <a class="social-icon" style="background:#0077b5" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="social-icon" style="background:#0088cc" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                        <a class="social-icon" style="background:#bd081c" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                        <a class="social-icon" style="background:#6c757d" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar with Auto Scroll Posts -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">✨ مزید پڑھیں</div>
+                <div class="scroll-posts-container" id="scrollPostsContainer">
+                    <div class="posts-scroll-wrapper" id="postsScrollWrapper">
+                        <!-- posts will be injected via js but we keep static for reliability -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
-            <i class="fas fa-arrow-down"></i>
-        </button>
+        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-arrow-down"></i></button>
     </div>
 
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
@@ -509,45 +635,97 @@
         <div id="postContent"></div>
     </div>
 
+    <!-- reactions.js from cloudflare (existing file) -->
+    <script src="/reactions.js"></script>
+    
     <script>
+        // Sidebar posts list
+        const sidebarPosts = [
+            { title: "5 قبلہ اول (بیت المقدس) کی فتح اور اس کی حقیقت", link: "https://bloglovers.pk/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt", img: "https://bloglovers.pk/images/alamaat-sughra/qblh-aol-byt-almqds-ki-fth-aur-is-ki-hqyqt.Jpg" },
+            { title: "ان گنت فتنوں کا ظہور اور ان کے نقصانات", link: "https://bloglovers.pk/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat", img: "https://bloglovers.pk/images/alamaat-sughra/in-ginat-fitnon-ka-zohoor-aur-unke-nuqsanat.png" },
+            { title: "تنگ لباس پہننے والی ننگی عورتوں کے بارے میں آپ ﷺ نے کیا وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/tang-libas-pehnne-wali-nangi-auraton-ke-bare-mein-ap-saw-ne-kya-waeed-sunai.png" },
+            { title: "آپ ﷺ نے امت کو علم کے اُٹھ جانے کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-ummat-ko-ilm-ke-uth-jane-ke-bare-mein-kya-farmaya.png" },
+            { title: "آپ ﷺ نے کن چھ چیزوں کو حلال سمجھنے پر امت کو عذاب ِالہی کی وعید سنائی؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-kin-chhe-chizon-ko-halal-samajhne-par-ummat-ko-azab-ilahi-ki-waeed-sunai.png" },
+            { title: "وہ کون سے چارحرام کام ہیں جو امت محمدیہ ﷺ حلال سمجھ لے گی؟", link: "https://bloglovers.pk/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi", img: "https://bloglovers.pk/images/alamaat-sughra/woh-kon-se-char-hram-kam-hain-jo-amt-mhmdyh-hlal-smjh-le-gi.png" },
+            { title: "دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" },
+            { title: "للہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" },
+            { title: "قرب قیامت قتل و خوں ریزی کی کثرت کیوں ہو جائے گی؟", link: "https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi", img: "https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" },
+            { title: "انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ کون سا ہے؟", link: "https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai", img: "https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" },
+            { title: "لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟", link: "https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge", img: "https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" },
+            { title: "آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟", link: "https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya", img: "https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" },
+            { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", link: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", img: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+        ];
+
+        // Build sidebar dynamically
+        const wrapper = document.getElementById('postsScrollWrapper');
+        if(wrapper) {
+            sidebarPosts.forEach(post => {
+                const item = document.createElement('a');
+                item.className = 'sidebar-post-item';
+                item.href = post.link;
+                item.innerHTML = `
+                    <img src="${post.img}" class="sidebar-post-img" alt="${post.title}" loading="lazy">
+                    <div class="sidebar-post-title">${post.title}</div>
+                `;
+                wrapper.appendChild(item);
+            });
+            // Duplicate for seamless infinite scroll effect (optional)
+            sidebarPosts.forEach(post => {
+                const clone = document.createElement('a');
+                clone.className = 'sidebar-post-item';
+                clone.href = post.link;
+                clone.innerHTML = `
+                    <img src="${post.img}" class="sidebar-post-img" alt="${post.title}" loading="lazy">
+                    <div class="sidebar-post-title">${post.title}</div>
+                `;
+                wrapper.appendChild(clone);
+            });
+        }
+
+        // Share functions
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+
+        // Overlay functions
         function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
+            const originalContent = document.querySelector('.post-content').cloneNode(true);
+            document.getElementById('postContent').innerHTML = originalContent.innerHTML;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
+        document.getElementById('colorFillBg')?.addEventListener('click', closeColorFillPost);
         
-        document.addEventListener('keydown', function(e) { 
-            if (e.key === 'Escape') closeColorFillPost(); 
-        });
-        
-        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-        
-        // Add hover effects to headings
+        // heading effects
         document.querySelectorAll('h1, h2').forEach(heading => {
-            heading.addEventListener('mouseenter', function() {
-                this.style.textShadow = '0 0 25px #FFD700';
-            });
-            
-            heading.addEventListener('mouseleave', function() {
-                this.style.textShadow = '0 0 10px rgba(255, 215, 0, 0.5)';
-            });
+            heading.addEventListener('mouseenter', function() { this.style.textShadow = '0 0 25px #FFD700'; });
+            heading.addEventListener('mouseleave', function() { this.style.textShadow = '0 0 10px rgba(255, 215, 0, 0.5)'; });
         });
         
-        // Scroll to top on page load for better UX
-        window.onload = function() {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 100);
-        };
+        window.onload = () => { window.scrollTo(0,0); };
     </script>
 </body>
 </html>
