@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وکٹورین دور (1837 - 1914) حصہ ساتواں</title>
+    <title>وکٹورین دور (1837 - 1914) حصہ ساتواں | BlogLovers.pk</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -17,6 +17,8 @@
             --text-light: #cbd5e1;
             --shadow: rgba(0, 0, 0, 0.5);
             --gradient: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            --card-bg: rgba(15, 23, 42, 0.8);
+            --border-glow: rgba(59, 130, 246, 0.3);
         }
         
         * {
@@ -37,6 +39,7 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            transition: background 0.3s, color 0.2s;
         }
         
         body::before {
@@ -59,12 +62,124 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
             position: relative;
         }
         
+        /* Main content area */
+        .main-content {
+            flex: 2;
+            min-width: 280px;
+        }
+        
+        /* Sidebar styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+        
+        .sidebar-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glow);
+            overflow: hidden;
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+        
+        .sidebar-header {
+            background: rgba(59, 130, 246, 0.2);
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-glow);
+        }
+        
+        .sidebar-header h3 {
+            margin: 0;
+            font-size: 26px;
+            color: #60a5fa;
+        }
+        
+        .posts-scroll {
+            height: 500px;
+            overflow-y: auto;
+            padding: 15px;
+            direction: rtl;
+            scroll-behavior: smooth;
+            transition: overflow-y 0.1s;
+        }
+        
+        /* custom scrollbar */
+        .posts-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .posts-scroll::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        .posts-scroll::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 16px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .post-item:hover {
+            background: rgba(59, 130, 246, 0.15);
+            transform: translateX(-5px);
+            border-color: rgba(59,130,246,0.4);
+        }
+        
+        .post-item.active-post {
+            background: rgba(59, 130, 246, 0.25);
+            border-right: 3px solid #3b82f6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .post-info {
+            flex: 1;
+        }
+        
+        .post-title {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+        }
+        
+        .post-title:hover {
+            color: #60a5fa;
+        }
+        
+        /* back btn & post content */
         .back-btn {
             display: inline-flex;
             align-items: center;
@@ -75,7 +190,7 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            margin: 20px 0 40px;
+            margin: 0 0 30px 0;
             border: 1px solid rgba(59, 130, 246, 0.3);
             transition: all 0.3s;
             backdrop-filter: blur(10px);
@@ -85,11 +200,10 @@
         .back-btn:hover {
             background: rgba(59, 130, 246, 0.4);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
         }
         
         .post-content {
-            background: rgba(15, 23, 42, 0.8);
+            background: var(--card-bg);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 20px 40px var(--shadow);
@@ -97,42 +211,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             transition: transform 0.3s;
-        }
-        
-        .post-content:hover {
-            transform: translateY(-5px);
-        }
-        
-        h1, h2, h3 {
-            color: #60a5fa;
-            padding-bottom: 15px;
-            position: relative;
-            margin-top: 40px;
-        }
-        
-        h1 {
-            text-align: center;
-            font-size: 42px;
-            border-bottom: 3px solid #3b82f6;
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-            text-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
-        }
-        
-        h2 {
-            font-size: 34px;
-            border-bottom: 2px solid rgba(59, 130, 246, 0.5);
-        }
-        
-        h3 {
-            font-size: 28px;
-        }
-        
-        p {
-            font-size: 22px;
-            margin-bottom: 25px;
-            color: var(--text-light);
-            text-align: justify;
         }
         
         .featured-image {
@@ -147,12 +225,133 @@
             transition: all 0.5s;
         }
         
-        .featured-image:hover {
-            transform: scale(1.02);
-            border-color: rgba(59, 130, 246, 0.7);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+        h1 {
+            text-align: center;
+            font-size: 42px;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            color: #60a5fa;
+        }
+        h2 {
+            font-size: 34px;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.5);
+            margin-top: 40px;
+            color: #60a5fa;
+        }
+        p {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            text-align: justify;
         }
         
+        /* Reactions Styles */
+        .reactions-wrapper {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 24px;
+            text-align: center;
+        }
+        .reactions-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #94a3b8;
+        }
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+        }
+        .reaction-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 60px;
+            font-size: 20px;
+            font-family: inherit;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #3b82f6;
+            border-color: #60a5fa;
+        }
+        .reaction-count {
+            font-size: 18px;
+            font-weight: bold;
+            background: #0f172a;
+            padding: 2px 10px;
+            border-radius: 40px;
+            min-width: 40px;
+            display: inline-block;
+        }
+        
+        /* navigation post buttons */
+        .post-nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 35px 0 20px;
+            flex-wrap: wrap;
+        }
+        .nav-custom-btn {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid #3b82f6;
+            padding: 12px 28px;
+            border-radius: 50px;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-custom-btn:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        /* social icons */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* floating scroll */
         .nav-buttons {
             position: fixed;
             left: 20px;
@@ -163,7 +362,6 @@
             gap: 15px;
             z-index: 100;
         }
-        
         .nav-btn {
             width: 50px;
             height: 50px;
@@ -173,19 +371,8 @@
             border: none;
             font-size: 22px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        .nav-btn:hover {
-            background: #3b82f6;
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
-        }
-        
         .color-mode-btn {
             position: fixed;
             bottom: 20px;
@@ -198,232 +385,242 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
             z-index: 100;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+        .stars { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events: none; z-index: -1; }
+        .star { position: absolute; background-color: white; border-radius: 50%; animation: twinkle 3s infinite; }
+        @keyframes twinkle { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
         
-        .color-mode-btn:hover {
-            background: #3b82f6;
-            transform: rotate(30deg) scale(1.1);
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .sidebar { position: static; width: 100%; }
+            .post-content { padding: 25px; }
+            h1 { font-size: 32px; }
         }
-        
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .post-content {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            h2 {
-                font-size: 28px;
-            }
-            
-            p {
-                font-size: 20px;
-            }
-            
-            .nav-buttons {
-                left: 10px;
-            }
-            
-            .nav-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
-            
-            .color-mode-btn {
-                width: 55px;
-                height: 55px;
-                font-size: 22px;
-            }
-        }
-        
         @media (max-width: 480px) {
-            h1 {
-                font-size: 28px;
-            }
-            
-            h2 {
-                font-size: 24px;
-            }
-            
-            p {
-                font-size: 18px;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            .back-btn {
-                font-size: 16px;
-                padding: 10px 20px;
-            }
+            .reaction-btn { padding: 6px 12px; font-size: 16px; }
         }
     </style>
 </head>
 <body>
-    <!-- ستاروں کی اینیمیشن -->
     <div class="stars" id="stars"></div>
-    
-    <!-- نیویگیشن بٹن -->
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
-            <i class="fas fa-arrow-down"></i>
-        </button>
+        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-arrow-down"></i></button>
     </div>
-    
-    <!-- کلر موڈ بٹن -->
-    <button class="color-mode-btn" id="colorModeBtn">
-        <i class="fas fa-palette"></i>
-    </button>
-    
+    <button class="color-mode-btn" id="colorModeBtn"><i class="fas fa-palette"></i></button>
+
     <div class="container">
-        <!-- بیک بٹن -->
-        <a href="#" class="back-btn">
-            <i class="fas fa-arrow-right"></i>
-            پیچھے جائیں
-        </a>
+        <div class="main-content">
+            <a href="#" class="back-btn" id="backBtn"><i class="fas fa-arrow-right"></i> پیچھے جائیں</a>
+            <div class="post-content">
+                <h1>وکٹورین دور (1837 - 1914) حصہ ساتواں</h1>
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" alt="وکٹورین دور حصہ ساتواں" class="featured-image">
+                <p>وکٹورین دور (1837 - 1914) حصہ ساتواں</p>
+                <h2>سماجی تبدیلی</h2>
+                <p>صنعت میں اضافے اور کامیابی کا مطلب یہ تھا کہ متوسط طبقے کی تعداد میں اضافہ ہوا اور ان لوگوں کے پاس خرچ کرنے کے لئے زیادہ رقم تھی۔ بینک منیجر، فیکٹری مالکان اور دولت مند تاجر جیسے لوگ اکثر اپنی دولت کو ظاہر کرنے کے لئے بڑے بڑے مکانات تعمیر کرتے ہیں۔</p>
+                <p>ہم 1850 کی دہائی سے فوٹو گرافی کی ایجاد کی وجہ سے اس دور کے لوگوں کے بارے میں بہت کچھ جانتے ہیں۔ اس کے اندر، ایک درمیانے طبقے کے گھر میں بھری ہوئی بھٹی بھرے ہوئے مخمل سے ڈھکے ہوئے فرنیچر اور بھاری بھرکم پردے والی ونڈوز اکثر رنگین شیشوں کی پینوں سے سجتی تھیں۔ کمرے چین اور شیشے کے زیورات اور پینٹنگز سے بھرے ہوں گے۔</p>
+                <p>متوسط طبقے کی خواتین سے توقع کی جاتی تھی کہ وہ اس گھر کا انتظام کریں، نوکروں سمیت، جن میں باورچی اور ممکنہ طور پر ایک بٹلر اور کوچ شامل ہوں گے۔ خیراتی اداروں کی مدد کرنے کے علاوہ ان کے پاس نوکری نہیں ہوگی، کیونکہ اسے "قابل احترام" نہیں سمجھا جاتا تھا۔</p>
+                
+                <h2>وکٹورین لباس اور تفریح</h2>
+                <p>دولت مندوں کے لئے، فیشن نے بڑھتی ہوئی خوشحالی کی عکاسی کی۔ خواتین crinolines (چھڑی یا وہیلبون کے ایک فریم پر پکڑے ہوئے ہوپڈ پیٹیکوٹ) پہنتی تھیں جس نے ان کے لباس کو گھنٹی کی شکل دی تھی۔ بعد میں، خواتین نے پیچھے کی طرف ہلچل پہنا۔ مرد فراک کوٹ اور پنکھوں والا کالر پہنے ہوئے تھے۔ ان کے پاس ٹائپنز، جڑیاں، گھڑیاں اور زنجیریں بھی تھیں۔</p>
+                <p>سن 1860 کی دہائی میں چاندی کے نوبس کے ساتھ چلنے والی لاٹھی بھی مقبول ہوگئی، جیسا کہ پیٹنٹ کے چمڑے کے جوتے اور جوتے سامنے والے حصے میں رکھے ہوئے تھے۔</p>
+                <p>چونکہ نئی متوسط طبقے کے ملازمین ملازمین نے اس سے زیادہ سے زیادہ خواتین کو تفریحی وقت فراہم کیا ہے کہ وہ کھیلوں، جیسے کہ تیر اندازی، ٹینس اور کروکٹ آزمائیں۔ دولت مند وکٹورین خاندانوں کے بچوں نے چائے کے وقت کے علاوہ اپنے والدین کو بہت کم دیکھا۔ وہ نرسری یا نانی کے ساتھ نرسری سے سیدھے گورننس والے اسکول روم میں چلے گئے۔ ان کی زندگی گھر پر سبق پر مشتمل ہے، پارک میں سیر اور دیگر دولت مند بچوں کے ساتھ کھیل رہی ہے۔ ان کے پاس پہلا ٹیڈی ریچھ، دھات کے کھلونے اور بچوں کی کتابیں بھی تھیں۔</p>
+                
+                <h2>عوامی تعلیم</h2>
+                <p>1870 تک زیادہ تر بچے سکول نہیں جاتے تھے۔ اس وقت زیادہ تر اسکول مقامی چرچ چلاتے تھے۔ 1870 میں ایجوکیشن ایکٹ کے تحت منتخب سکول بورڈ تشکیل دیئے گئے تھے جس کے تحت یہ یقینی بنایا گیا تھا کہ کسی بھی ضلع میں جس میں چرچ کا اسکول نہیں ہے میں 13 سال تک کے بچوں کے لئے سکول مہیا کیے گئے تھے۔ حکومت نے چرچ کے سکولوں کو فنڈ دینے کے لئے رقم بھی دی۔ سکولوں کی فیس بننا اور تعلیم لازمی ہونے سے قبل، یہ 13 سال کی عمر تک مزید 21 سال ہوگی۔</p>
+                
+                <h2>محنت کش طبقے کی زندگی</h2>
+                <p>محنت کش طبقے کے بچوں کے لئے زندگی بہت مشکل تھی۔ زیادہ تر غریب بچے ابھی بھی اسکول نہیں گئے تھے کیونکہ ان سے کام کی توقع کی جارہی تھی۔ اس وقت بے روزگار، بیمار، بوڑھے یا غریب کی عملی طور پر کوئی مدد نہیں کی گئی تھی۔ لوگ یا تو بھوکے مرے، گلیوں میں بھیک مانگے یا مقامی ورک ہاؤس بھیج دیئے گئے۔ یہاں انہیں کام کے بدلے میں کھانا اور ٹھکانے ملیں گے جیسے پتھر توڑنا (مردوں کے لئے) اور کپڑے دھونے (خواتین اور بچوں کے لئے)۔</p>
+                
+                <h2>سماجی اصلاحات</h2>
+                <p>دولت مند وکٹورین اور مزدور طبقے کی غربت کے مابین زبردست فرق نے بہت سارے معاشرتی اصلاح پسندوں کو رضاکارانہ تنظیمیں شروع کرنے پر اکسایا۔ مثال کے طور پر، ڈاکٹر برنارڈو نے اپنے مشہور گھروں میں سے سب سے پہلے 1870 میں بچوں کے لئے بنیاد رکھی۔</p>
+                <p>اصلاح پسندوں نے بھی پارلیمنٹ کو بالعموم اور خاص طور پر بچوں کے لئے اسکول کی تعلیم اور صحت کی دیکھ بھال میں بہتری لانے کے لئے کام کرنے پر راضی کیا۔ 1875 میں پبلک ہیلتھ ایکٹ نے یہ یقینی بنانے کی کوشش کی کہ تمام مکانات کو صاف پانی اور مناسب ورکنگ نالوں کی فراہمی ہو۔ مقامی کونسلوں کو یہ یقینی بنانا تھا کہ گلیوں کو باقاعدگی سے صاف ستھرا بنایا جائے اور دکانوں میں فروخت کیا جانے والا کھانا - چاہے پکایا ہو یا کچا - صاف اور کھانے کے قابل تھا۔</p>
+                
+                <h2>بہتر مواصلات</h2>
+                <p>پینی پوسٹ کے علاوہ، برقی ٹیلی گراف کے ذریعہ بھی پیغامات بھیجے جاسکتے تھے اور 1858 میں بحر اوقیانوس کے بستر پر پہلا ٹرانزلانٹیک کیبل بچھایا گیا تھا۔ سمندری فرش پر کیبل بچھانے سے برطانیہ اور امریکہ کے مابین ٹیلی گراف پیغامات بھیجنے کی اجازت ملی۔</p>
+                <p>سکاٹسمین الیگزینڈر گراہم بیل نے پہلا ٹیلیفون 1870s کے آخر میں، ریاستہائے متحدہ میں مکمل کیا۔ برطانیہ کا پہلا ٹیلیفون ایکسچینج ٹیلیفون کمپنی لمیٹڈ نے کھولا تھا۔ اس تبادلے میں 10 گاہک تھے۔ 1890 کی دہائی تک برطانیہ میں 45000 سے زیادہ ٹیلیفون تھے۔</p>
+
+                <!-- Reactions system (exactly as required) -->
+                <div class="reactions-wrapper">
+                    <div class="reactions-title">آپ کا ردعمل کیا ہے؟</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Post Navigation Buttons -->
+                <div class="post-nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-custom-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-custom-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+                
+                <!-- Social Media Icons 7 platforms -->
+                <div class="social-share">
+                    <div class="reactions-title">شیئر کریں</div>
+                    <div class="social-icons">
+                        <a class="social-icon" style="background:#1877f2;" id="share-fb"><i class="fab fa-facebook-f"></i></a>
+                        <a class="social-icon" style="background:#25D366;" id="share-wa"><i class="fab fa-whatsapp"></i></a>
+                        <a class="social-icon" style="background:#1DA1F2;" id="share-tw"><i class="fab fa-twitter"></i></a>
+                        <a class="social-icon" style="background:#0077b5;" id="share-li"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="social-icon" style="background:#0088cc;" id="share-tg"><i class="fab fa-telegram-plane"></i></a>
+                        <a class="social-icon" style="background:#bd081c;" id="share-pt"><i class="fab fa-pinterest-p"></i></a>
+                        <a class="social-icon" style="background:#6c757d;" id="copy-link"><i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        <!-- پوسٹ کا مواد -->
-        <div class="post-content">
-            <h1>وکٹورین دور (1837 - 1914) حصہ ساتواں</h1>
-            
-            <!-- تصویر -->
-            <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" 
-                 alt="وکٹورین دور (1837 - 1914) حصہ ساتواں" 
-                 class="featured-image">
-            
-            <p>وکٹورین دور (1837 - 1914) حصہ ساتواں</p>
-            
-            <h2>سماجی تبدیلی</h2>
-            <p>صنعت میں اضافے اور کامیابی کا مطلب یہ تھا کہ متوسط طبقے کی تعداد میں اضافہ ہوا اور ان لوگوں کے پاس خرچ کرنے کے لئے زیادہ رقم تھی۔ بینک منیجر، فیکٹری مالکان اور دولت مند تاجر جیسے لوگ اکثر اپنی دولت کو ظاہر کرنے کے لئے بڑے بڑے مکانات تعمیر کرتے ہیں۔</p>
-            <p>ہم 1850 کی دہائی سے فوٹو گرافی کی ایجاد کی وجہ سے اس دور کے لوگوں کے بارے میں بہت کچھ جانتے ہیں۔ اس کے اندر، ایک درمیانے طبقے کے گھر میں بھری ہوئی بھٹی بھرے ہوئے مخمل سے ڈھکے ہوئے فرنیچر اور بھاری بھرکم پردے والی ونڈوز اکثر رنگین شیشوں کی پینوں سے سجتی تھیں۔ کمرے چین اور شیشے کے زیورات اور پینٹنگز سے بھرے ہوں گے۔</p>
-            <p>متوسط طبقے کی خواتین سے توقع کی جاتی تھی کہ وہ اس گھر کا انتظام کریں، نوکروں سمیت، جن میں باورچی اور ممکنہ طور پر ایک بٹلر اور کوچ شامل ہوں گے۔ خیراتی اداروں کی مدد کرنے کے علاوہ ان کے پاس نوکری نہیں ہوگی، کیونکہ اسے "قابل احترام" نہیں سمجھا جاتا تھا۔</p>
-            
-            <h2>وکٹورین لباس اور تفریح</h2>
-            <p>دولت مندوں کے لئے، فیشن نے بڑھتی ہوئی خوشحالی کی عکاسی کی۔ خواتین crinolines (چھڑی یا وہیلبون کے ایک فریم پر پکڑے ہوئے ہوپڈ پیٹیکوٹ) پہنتی تھیں جس نے ان کے لباس کو گھنٹی کی شکل دی تھی۔ بعد میں، خواتین نے پیچھے کی طرف ہلچل پہنا۔ مرد فراک کوٹ اور پنکھوں والا کالر پہنے ہوئے تھے۔ ان کے پاس ٹائپنز، جڑیاں، گھڑیاں اور زنجیریں بھی تھیں۔</p>
-            <p>سن 1860 کی دہائی میں چاندی کے نوبس کے ساتھ چلنے والی لاٹھی بھی مقبول ہوگئی، جیسا کہ پیٹنٹ کے چمڑے کے جوتے اور جوتے سامنے والے حصے میں رکھے ہوئے تھے۔</p>
-            <p>چونکہ نئی متوسط طبقے کے ملازمین ملازمین نے اس سے زیادہ سے زیادہ خواتین کو تفریحی وقت فراہم کیا ہے کہ وہ کھیلوں، جیسے کہ تیر اندازی، ٹینس اور کروکٹ آزمائیں۔ دولت مند وکٹورین خاندانوں کے بچوں نے چائے کے وقت کے علاوہ اپنے والدین کو بہت کم دیکھا۔ وہ نرسری یا نانی کے ساتھ نرسری سے سیدھے گورننس والے اسکول روم میں چلے گئے۔ ان کی زندگی گھر پر سبق پر مشتمل ہے، پارک میں سیر اور دیگر دولت مند بچوں کے ساتھ کھیل رہی ہے۔ ان کے پاس پہلا ٹیڈی ریچھ، دھات کے کھلونے اور بچوں کی کتابیں بھی تھیں۔</p>
-            
-            <h2>عوامی تعلیم</h2>
-            <p>1870 تک زیادہ تر بچے سکول نہیں جاتے تھے۔ اس وقت زیادہ تر اسکول مقامی چرچ چلاتے تھے۔ 1870 میں ایجوکیشن ایکٹ کے تحت منتخب سکول بورڈ تشکیل دیئے گئے تھے جس کے تحت یہ یقینی بنایا گیا تھا کہ کسی بھی ضلع میں جس میں چرچ کا اسکول نہیں ہے میں 13 سال تک کے بچوں کے لئے سکول مہیا کیے گئے تھے۔ حکومت نے چرچ کے سکولوں کو فنڈ دینے کے لئے رقم بھی دی۔ سکولوں کی فیس بننا اور تعلیم لازمی ہونے سے قبل، یہ 13 سال کی عمر تک مزید 21 سال ہوگی۔</p>
-            
-            <h2>محنت کش طبقے کی زندگی</h2>
-            <p>محنت کش طبقے کے بچوں کے لئے زندگی بہت مشکل تھی۔ زیادہ تر غریب بچے ابھی بھی اسکول نہیں گئے تھے کیونکہ ان سے کام کی توقع کی جارہی تھی۔ اس وقت بے روزگار، بیمار، بوڑھے یا غریب کی عملی طور پر کوئی مدد نہیں کی گئی تھی۔ لوگ یا تو بھوکے مرے، گلیوں میں بھیک مانگے یا مقامی ورک ہاؤس بھیج دیئے گئے۔ یہاں انہیں کام کے بدلے میں کھانا اور ٹھکانے ملیں گے جیسے پتھر توڑنا (مردوں کے لئے) اور کپڑے دھونے (خواتین اور بچوں کے لئے)۔</p>
-            
-            <h2>سماجی اصلاحات</h2>
-            <p>دولت مند وکٹورین اور مزدور طبقے کی غربت کے مابین زبردست فرق نے بہت سارے معاشرتی اصلاح پسندوں کو رضاکارانہ تنظیمیں شروع کرنے پر اکسایا۔ مثال کے طور پر، ڈاکٹر برنارڈو نے اپنے مشہور گھروں میں سے سب سے پہلے 1870 میں بچوں کے لئے بنیاد رکھی۔</p>
-            <p>اصلاح پسندوں نے بھی پارلیمنٹ کو بالعموم اور خاص طور پر بچوں کے لئے اسکول کی تعلیم اور صحت کی دیکھ بھال میں بہتری لانے کے لئے کام کرنے پر راضی کیا۔ 1875 میں پبلک ہیلتھ ایکٹ نے یہ یقینی بنانے کی کوشش کی کہ تمام مکانات کو صاف پانی اور مناسب ورکنگ نالوں کی فراہمی ہو۔ مقامی کونسلوں کو یہ یقینی بنانا تھا کہ گلیوں کو باقاعدگی سے صاف ستھرا بنایا جائے اور دکانوں میں فروخت کیا جانے والا کھانا - چاہے پکایا ہو یا کچا - صاف اور کھانے کے قابل تھا۔</p>
-            
-            <h2>بہتر مواصلات</h2>
-            <p>پینی پوسٹ کے علاوہ، برقی ٹیلی گراف کے ذریعہ بھی پیغامات بھیجے جاسکتے تھے اور 1858 میں بحر اوقیانوس کے بستر پر پہلا ٹرانزلانٹیک کیبل بچھایا گیا تھا۔ سمندری فرش پر کیبل بچھانے سے برطانیہ اور امریکہ کے مابین ٹیلی گراف پیغامات بھیجنے کی اجازت ملی۔</p>
-            <p>سکاٹسمین الیگزینڈر گراہم بیل نے پہلا ٹیلیفون 1870s کے آخر میں، ریاستہائے متحدہ میں مکمل کیا۔ برطانیہ کا پہلا ٹیلیفون ایکسچینج ٹیلیفون کمپنی لمیٹڈ نے کھولا تھا۔ اس تبادلے میں 10 گاہک تھے۔ 1890 کی دہائی تک برطانیہ میں 45000 سے زیادہ ٹیلیفون تھے۔</p>
+        <!-- Sidebar with auto-scroll & posts list -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-header"><h3><i class="fas fa-newspaper"></i> متعلقہ پوسٹس</h3></div>
+                <div class="posts-scroll" id="autoScrollSidebar">
+                    <!-- dynamic posts injected from JS but we keep static for fallback, yet built by JS exactly as per list -->
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- reactions.js is already existing and correct -->
+    <script src="/reactions.js"></script>
+    
     <script>
-        // ستاروں کی اینیمیشن کا کوڈ
+        // create stars background
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starCount = 150;
-            
-            for (let i = 0; i < starCount; i++) {
+            if(!starsContainer) return;
+            for (let i = 0; i < 150; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
                 const size = Math.random() * 3 + 1;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 3 + 2;
-                const delay = Math.random() * 2;
-                
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.animationDuration = `${duration}s`;
-                star.style.animationDelay = `${delay}s`;
-                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
                 starsContainer.appendChild(star);
             }
         }
         
-        // کلر موڈ ٹوگل
+        // color mode toggle
         const colorModeBtn = document.getElementById('colorModeBtn');
         let isDarkMode = true;
-        
-        colorModeBtn.addEventListener('click', function() {
-            if (isDarkMode) {
-                // لائٹ موڈ
+        colorModeBtn.addEventListener('click', () => {
+            if(isDarkMode) {
                 document.documentElement.style.setProperty('--primary', '#f8fafc');
                 document.documentElement.style.setProperty('--secondary', '#f1f5f9');
-                document.documentElement.style.setProperty('--accent', '#3b82f6');
                 document.documentElement.style.setProperty('--text', '#0f172a');
                 document.documentElement.style.setProperty('--text-light', '#475569');
                 document.documentElement.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.1)');
                 document.documentElement.style.setProperty('--gradient', 'linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1)');
+                document.documentElement.style.setProperty('--card-bg', 'rgba(255, 255, 255, 0.85)');
+                document.documentElement.style.setProperty('--border-glow', 'rgba(59, 130, 246, 0.5)');
                 colorModeBtn.innerHTML = '<i class="fas fa-moon"></i>';
                 isDarkMode = false;
             } else {
-                // ڈارک موڈ
                 document.documentElement.style.setProperty('--primary', '#0f172a');
                 document.documentElement.style.setProperty('--secondary', '#1e293b');
-                document.documentElement.style.setProperty('--accent', '#3b82f6');
                 document.documentElement.style.setProperty('--text', '#f1f5f9');
                 document.documentElement.style.setProperty('--text-light', '#cbd5e1');
                 document.documentElement.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.5)');
                 document.documentElement.style.setProperty('--gradient', 'linear-gradient(135deg, #0f172a, #1e293b, #334155)');
+                document.documentElement.style.setProperty('--card-bg', 'rgba(15, 23, 42, 0.8)');
+                document.documentElement.style.setProperty('--border-glow', 'rgba(59, 130, 246, 0.3)');
                 colorModeBtn.innerHTML = '<i class="fas fa-palette"></i>';
                 isDarkMode = true;
             }
         });
         
-        // پیج لوڈ ہونے پر ستارے بنائیں
-        document.addEventListener('DOMContentLoaded', function() {
-            createStars();
+        // sidebar posts data (exactly as provided)
+        const postsList = [
+            { title: "5 رومانوی دور", link: "https://bloglovers.pk/english-adab/romanoi-dor", img: "https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" },
+            { title: "شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ", link: "https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea", img: "https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" },
+            { title: "طاقت کاکھیل افسانۂ حیوان سے پاکستان تک", link: "https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak", img: "https://bloglovers.pk/images/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak.png" },
+            { title: "ٹیلی اسکرینز سے سمارٹ فونز تک: 1984 اور آج کی نگرانی کا موازنہ", link: "https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh", img: "https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" },
+            { title: "وکٹورین دور (پارٹ ون) (1837-1913)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" },
+            { title: "وکٹورین دور 1837-1914 (دوسرا حصہ)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-dosra-hsh.jpg" },
+            { title: "وکٹورین دور 1837-1914 (حصہ سوئم)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" },
+            { title: "وکٹورین دور 1837-1914 (حصہ چہارم)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chharm.jpg" },
+            { title: "وکٹورین دور 1837-1914 (پانچواں حصہ)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-panchoan-hsh.jpg" },
+            { title: "وکٹورین دور (1837 - 1914) حصہ چھٹا", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chhta.jpg" },
+            { title: "وکٹورین دور (1837 - 1914) حصہ ساتواں", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" },
+            { title: "وکٹورین دور (1837 - 1914) آخری حصہ", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" },
+            { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", link: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", img: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+        ];
+        
+        const currentPageUrl = "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan";
+        
+        function buildSidebar() {
+            const container = document.getElementById('autoScrollSidebar');
+            if(!container) return;
+            container.innerHTML = '';
+            postsList.forEach(post => {
+                const isActive = post.link === currentPageUrl;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'post-item' + (isActive ? ' active-post' : '');
+                itemDiv.innerHTML = `
+                    <img src="${post.img}" class="post-img" alt="${post.title}" onerror="this.src='https://via.placeholder.com/60?text=Image'">
+                    <div class="post-info">
+                        <a href="${post.link}" class="post-title">${post.title}</a>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+        
+        // Auto-scroll logic: scroll from bottom to top in 30s cycle, stops on hover
+        let scrollInterval = null;
+        const scrollBox = document.getElementById('autoScrollSidebar');
+        function startAutoScroll() {
+            if(scrollInterval) clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+                if(!scrollBox) return;
+                const maxScroll = scrollBox.scrollHeight - scrollBox.clientHeight;
+                if(scrollBox.scrollTop >= maxScroll) {
+                    scrollBox.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    scrollBox.scrollBy({ top: 2, behavior: 'smooth' });
+                }
+            }, 150);
+        }
+        function stopAutoScroll() { if(scrollInterval) clearInterval(scrollInterval); scrollInterval = null; }
+        if(scrollBox) {
+            scrollBox.addEventListener('mouseenter', stopAutoScroll);
+            scrollBox.addEventListener('mouseleave', startAutoScroll);
+            startAutoScroll();
+        }
+        
+        // social share + copy link
+        const pageLink = encodeURIComponent(window.location.href);
+        const pageTitle = encodeURIComponent("وکٹورین دور (1837 - 1914) حصہ ساتواں");
+        document.getElementById('share-fb')?.addEventListener('click', (e) => { e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageLink}`, '_blank'); });
+        document.getElementById('share-wa')?.addEventListener('click', (e) => { e.preventDefault(); window.open(`https://wa.me/?text=${pageTitle}%20${pageLink}`, '_blank'); });
+        document.getElementById('share-tw')?.addEventListener('click', (e) => { e.preventDefault(); window.open(`https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageLink}`, '_blank'); });
+        document.getElementById('share-li')?.addEventListener('click', (e) => { e.preventDefault(); window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${pageLink}&title=${pageTitle}`, '_blank'); });
+        document.getElementById('share-tg')?.addEventListener('click', (e) => { e.preventDefault(); window.open(`https://t.me/share/url?url=${pageLink}&text=${pageTitle}`, '_blank'); });
+        document.getElementById('share-pt')?.addEventListener('click', (e) => { e.preventDefault(); window.open(`https://pinterest.com/pin/create/button/?url=${pageLink}&description=${pageTitle}`, '_blank'); });
+        document.getElementById('copy-link')?.addEventListener('click', () => {
+            navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہوگیا!'));
         });
         
-        // بیک بٹن کے لیے تاریخ میں پیچھے جانے کا فنکشن
-        document.querySelector('.back-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.history.back();
+        // back button history
+        document.querySelector('.back-btn')?.addEventListener('click', (e) => { e.preventDefault(); window.history.back(); });
+        
+        // ensure that reactions.js will override any local conflicts - but we removed duplicate functions.
+        // Additionally, the reactionClick function is defined globally in reactions.js, we keep it.
+        window.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            buildSidebar();
+            // small fix: after build sidebar check active scrolling box dimensions
+            if(scrollBox && scrollBox.scrollHeight > scrollBox.clientHeight && !scrollInterval) startAutoScroll();
         });
     </script>
 </body>
