@@ -18,6 +18,7 @@
             --bg-color: #f1f2f6;
             --card-bg: #ffffff;
             --shadow: 0 15px 35px rgba(0,0,0,0.1);
+            --sidebar-bg: rgba(255,255,255,0.95);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -27,6 +28,7 @@
                 --text-color: #f1f2f6;
                 --bg-color: #0f172a;
                 --card-bg: #1e293b;
+                --sidebar-bg: #1e293be6;
             }
         }
 
@@ -58,25 +60,120 @@
             100% { background-position: 0% 50%; }
         }
 
+        .main-wrapper {
+            display: flex;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 30px;
+            position: relative;
+        }
+
         .container {
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 40px;
+            flex: 1;
             background: var(--card-bg);
             border-radius: 30px;
             box-shadow: var(--shadow);
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        /* سائیڈ بار اسٹائل */
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            padding: 20px 15px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            align-self: flex-start;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar h3 {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
+            display: inline-block;
+            width: 100%;
+        }
+
+        .scroll-list {
+            max-height: 500px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            animation: autoScroll 30s linear infinite;
+        }
+
+        .scroll-list:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* انر کنٹینر تاکہ انیمیشن صحیح رہے */
+        .scroll-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            transition: 0.2s;
+            text-decoration: none;
+            color: var(--text-color);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .sidebar-item.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-item.active .sidebar-title {
+            color: white;
+        }
+
+        .sidebar-item img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-title {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
         }
 
         h1 { 
             text-align: center; 
             color: var(--primary-color);
-            font-size: 3.2rem; /* Increased size */
+            font-size: 3.2rem;
             margin-bottom: 20px;
             line-height: 1.3;
         }
 
         h2 {
-            font-size: 2.4rem; /* Increased size */
+            font-size: 2.4rem;
             color: var(--primary-color);
             margin-top: 40px;
             border-right: 10px solid var(--secondary-color);
@@ -90,9 +187,9 @@
         }
 
         p {
-            font-size: 1.4rem; /* Increased size for readability */
+            font-size: 1.4rem;
             margin-bottom: 25px;
-            text-align: justify; /* Text Justify */
+            text-align: justify;
             text-justify: inter-word;
         }
 
@@ -104,7 +201,117 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* نیویگیشن بٹنز */
+        /* Reactions Section */
+        .reactions-section {
+            margin: 50px 0 40px;
+            padding: 25px 0;
+            border-top: 2px dashed var(--secondary-color);
+            border-bottom: 2px dashed var(--secondary-color);
+        }
+
+        .reactions-title {
+            font-size: 1.6rem;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .reaction-btn {
+            background: var(--card-bg);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .reaction-count {
+            font-weight: bold;
+            background: rgba(0,0,0,0.08);
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        /* نیویگیشن بٹنز (پوسٹ کے نیچے) */
+        .post-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0 30px;
+        }
+
+        .nav-link-btn {
+            background: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        }
+
+        .nav-link-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* سوشل میڈیا آئیکونز */
+        .social-share {
+            margin: 35px 0 20px;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            text-decoration: none;
+            color: white;
+            transition: 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .social-icon:hover { transform: scale(1.1); opacity: 0.9;}
+
+        /* فلوٹنگ اسکرول بٹن */
         .btn-nav {
             position: fixed;
             width: 55px;
@@ -124,26 +331,28 @@
         }
 
         .btn-nav:hover { transform: scale(1.1); background: var(--secondary-color); }
-
-        .back-btn { bottom: 30px; left: 30px; } /* Back/Top Button */
+        .back-btn { bottom: 30px; left: 30px; }
         .up-btn { bottom: 100px; right: 30px; background: #3498db; }
         .down-btn { bottom: 30px; right: 30px; background: #9b59b6; }
 
-        @media (max-width: 768px) {
-            .container { margin: 15px; padding: 20px; }
+        @media (max-width: 900px) {
+            .main-wrapper { flex-direction: column; padding: 15px; }
+            .sidebar { width: auto; position: static; margin-top: 20px; }
+            .scroll-list { max-height: 380px; }
+            .container { padding: 25px; }
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
             p { font-size: 1.2rem; }
-            .btn-nav { width: 45px; height: 45px; font-size: 18px; }
         }
     </style>
 </head>
 <body>
 
+<div class="main-wrapper">
+    <!-- مرکزی مواد -->
     <div class="container">
         <h1>شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ</h1>
         
-        <!-- امیج لنک - ٹائٹل کے بعد -->
         <img src="https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" class="main-img" alt="Shakespeare Analysis">
 
         <p>انسانی فطرت کو سمجھنا ہمیشہ سے دانشوروں، ادیبوں اور فلسفیوں کے لیے ایک پرکشش موضوع رہا ہے۔ اس گہرے اور پیچیدہ مطالعے میں جہاں فلسفہ اور سائنس نے اپنا کردار ادا کیا وہیں ادب نے بھی انسانی جذبات، خیالات اور رویوں کو پرکھنے کا بہترین ذریعہ فراہم کیا ہے۔ ادب کی تاریخ میں اگر کوئی ایک نام اس میدان میں سب سے بلند اور نمایاں نظر آتا ہے تو وہ ولیم شیکسپیئر کا ہے۔</p>
@@ -170,12 +379,155 @@
 
         <h2>نتیجہ</h2>
         <p>شیکسپیئر کے ان تینوں عظیم ڈراموں ہیملیٹ، اوتھیلو اور کنگ لیئر میں پیش کیے گئے کردار محض کہانی کے لیے نہیں بنائے گئے تھے۔ یہ کردار دراصل انسانی فطرت کے ان گہرے نفسیاتی محرکات کی عکاسی کرتے ہیں جو ہر زمانے اور ہر معاشرے میں موجود رہے ہیں۔ شیکسپیئر کا فن آج بھی اس لیے زندہ ہے کہ وہ انسان کو انسان سے روشناس کراتا ہے۔</p>
+
+        <!-- ری ایکشنز سیکشن (مطلوبہ IDs اور onclick کے ساتھ) -->
+        <div class="reactions-section">
+            <div class="reactions-title">📊 اپنے جذبات کا اظہار کریں</div>
+            <div class="reactions-container">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- نیویگیشن بٹن (مرکزی صفحہ + تمام پوسٹس) -->
+        <div class="post-nav-buttons">
+            <a href="https://bloglovers.pk/" class="nav-link-btn">🏠 مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link-btn">📚 تمام پوسٹس</a>
+        </div>
+
+        <!-- سوشل میڈیا شیئرنگ (7 پلیٹ فارمز) -->
+        <div class="social-share">
+            <div class="reactions-title">📢 شیئر کریں</div>
+            <div class="social-icons">
+                <a href="#" class="social-icon" onclick="shareOnSocial('facebook')" style="background:#1877f2;">📘</a>
+                <a href="#" class="social-icon" onclick="shareOnSocial('whatsapp')" style="background:#25D366;">💬</a>
+                <a href="#" class="social-icon" onclick="shareOnSocial('twitter')" style="background:#1DA1F2;">🐦</a>
+                <a href="#" class="social-icon" onclick="shareOnSocial('linkedin')" style="background:#0077b5;">🔗</a>
+                <a href="#" class="social-icon" onclick="shareOnSocial('telegram')" style="background:#0088cc;">✈️</a>
+                <a href="#" class="social-icon" onclick="shareOnSocial('pinterest')" style="background:#bd081c;">📌</a>
+                <a href="#" class="social-icon" onclick="copyPageLink()" style="background:#6c757d;">🔗 کاپی</a>
+            </div>
+        </div>
     </div>
 
-    <!-- کنٹرول بٹنز -->
-    <button class="btn-nav back-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">↑</button>
-    <button class="btn-nav up-btn" onclick="window.scrollBy({top: -400, behavior: 'smooth'})" title="اوپر">▲</button>
-    <button class="btn-nav down-btn" onclick="window.scrollBy({top: 400, behavior: 'smooth'})" title="نیچے">▼</button>
+    <!-- سائیڈ بار: آٹو اسکرول لنکس (انٹرنل لنکنگ) -->
+    <aside class="sidebar">
+        <h3>📖 مزید پڑھیں</h3>
+        <div class="scroll-list">
+            <div class="scroll-inner">
+                <!-- 13 پوسٹس ڈیٹا کے مطابق + 1 موجودہ نمایاں ہوگی active کلاس سے -->
+                <a href="https://bloglovers.pk/english-adab/romanoi-dor" class="sidebar-item" data-post="رومانوی دور">
+                    <img src="https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" alt="رومانوی دور">
+                    <span class="sidebar-title">5 رومانوی دور</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea" class="sidebar-item active" data-post="شیکسپیئر">
+                    <img src="https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" alt="شیکسپیئر">
+                    <span class="sidebar-title">شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak" class="sidebar-item" data-post="طاقت کا کھیل">
+                    <img src="https://bloglovers.pk/images/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak.png" alt="طاقت کا کھیل">
+                    <span class="sidebar-title">طاقت کاکھیل افسانۂ حیوان سے پاکستان تک</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh" class="sidebar-item" data-post="ٹیلی اسکرینز">
+                    <img src="https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" alt="ٹیلی اسکرینز">
+                    <span class="sidebar-title">ٹیلی اسکرینز سے سمارٹ فونز تک: 1984 اور آج کی نگرانی کا موازنہ</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913" class="sidebar-item" data-post="وکٹورین دور پارٹ ون">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" alt="وکٹورین ون">
+                    <span class="sidebar-title">وکٹورین دور (پارٹ ون) (1837-1913)</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh" class="sidebar-item" data-post="وکٹورین دور دوئم">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-dosra-hsh.jpg" alt="وکٹورین دوئم">
+                    <span class="sidebar-title">وکٹورین دور 1837-1914 (دوسرا حصہ)</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som" class="sidebar-item" data-post="وکٹورین سوم">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" alt="وکٹورین سوم">
+                    <span class="sidebar-title">وکٹورین دور 1837-1914 (حصہ سوئم)</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm" class="sidebar-item" data-post="وکٹورین چہارم">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chharm.jpg" alt="وکٹورین چہارم">
+                    <span class="sidebar-title">وکٹورین دور 1837-1914 (حصہ چہارم)</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh" class="sidebar-item" data-post="وکٹورین پنجم">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-panchoan-hsh.jpg" alt="وکٹورین پنجم">
+                    <span class="sidebar-title">وکٹورین دور 1837-1914 (پانچواں حصہ)</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta" class="sidebar-item" data-post="وکٹورین چھٹا">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chhta.jpg" alt="وکٹورین چھٹا">
+                    <span class="sidebar-title">وکٹورین دور (1837 - 1914) حصہ چھٹا</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan" class="sidebar-item" data-post="وکٹورین ساتواں">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" alt="وکٹورین ساتواں">
+                    <span class="sidebar-title">وکٹورین دور (1837 - 1914) حصہ ساتواں</span>
+                </a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh" class="sidebar-item" data-post="وکٹورین آخری">
+                    <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" alt="وکٹورین آخری">
+                    <span class="sidebar-title">وکٹورین دور (1837 - 1914) آخری حصہ</span>
+                </a>
+                <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-item" data-post="فرات کا خشک ہونا">
+                    <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات">
+                    <span class="sidebar-title">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+</div>
 
+<!-- فلوٹنگ اسکرول بٹنز -->
+<button class="btn-nav back-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">↑</button>
+<button class="btn-nav up-btn" onclick="window.scrollBy({top: -400, behavior: 'smooth'})" title="اوپر اسکرول">▲</button>
+<button class="btn-nav down-btn" onclick="window.scrollBy({top: 400, behavior: 'smooth'})" title="نیچے اسکرول">▼</button>
+
+<!-- Reactions.js ایکسٹرنل فائل (پہلے سے موجود) نیز سوشل میڈیا فنکشنز رکھے گئے ہیں -->
+<script src="/reactions.js"></script>
+<script>
+    // یہ صرف سوشل میڈیا شیئرنگ اور کاپی لنک فنکشنز ہیں۔ ڈپلیکیٹ reactions کوڈ ہٹا دیا گیا ہے۔
+    function shareOnSocial(platform) {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        let shareUrl = '';
+        switch(platform) {
+            case 'facebook':
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                break;
+            case 'whatsapp':
+                shareUrl = `https://wa.me/?text=${title}%20${url}`;
+                break;
+            case 'twitter':
+                shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                break;
+            case 'linkedin':
+                shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+                break;
+            case 'telegram':
+                shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+                break;
+            case 'pinterest':
+                shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+                break;
+            default: return;
+        }
+        window.open(shareUrl, '_blank', 'width=600,height=500');
+    }
+
+    function copyPageLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('لنک کاپی کر لیا گیا!');
+        }).catch(() => {
+            prompt('لنک کاپی کریں:', window.location.href);
+        });
+    }
+
+    // موجودہ پوسٹ کو ہائی لائٹ رکھنے کے لیے مزید کوئی فنکشن نہیں بلکہ active کلاس پہلے سے موجود ہے۔
+    // اس کے علاوہ reactions.js پہلے سے reactionClick اور API انٹیگریشن رکھتا ہے۔
+    // نوٹ: یقینی بنانے کے لیے reactions.js فائل میں reactionClick موجود ہے۔
+    // ہم نے کوئی loadReactions یا addReaction نہیں بنایا، reactions.js ہی انہیں ہینڈل کرے گا۔
+    console.log("صرف سوشل میڈیا فنکشنز فعال ہیں، reactions.js سے reactions چلیں گے۔");
+</script>
 </body>
 </html>
