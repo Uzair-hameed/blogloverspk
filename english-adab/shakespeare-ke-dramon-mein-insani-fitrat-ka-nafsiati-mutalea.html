@@ -107,23 +107,26 @@
             max-height: 500px;
             overflow-y: auto;
             scroll-behavior: smooth;
-            animation: autoScroll 30s linear infinite;
         }
 
-        .scroll-list:hover {
-            animation-play-state: paused;
+        /* آٹو اسکرول انیمیشن (نیچے سے اوپر) */
+        .auto-scroll-wrapper {
+            max-height: 500px;
+            overflow-y: hidden;
+            position: relative;
         }
-
-        @keyframes autoScroll {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
-        }
-
-        /* انر کنٹینر تاکہ انیمیشن صحیح رہے */
         .scroll-inner {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            animation: autoScrollUp 30s linear infinite;
+        }
+        .auto-scroll-wrapper:hover .scroll-inner {
+            animation-play-state: paused;
+        }
+        @keyframes autoScrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
         }
 
         .sidebar-item {
@@ -338,7 +341,7 @@
         @media (max-width: 900px) {
             .main-wrapper { flex-direction: column; padding: 15px; }
             .sidebar { width: auto; position: static; margin-top: 20px; }
-            .scroll-list { max-height: 380px; }
+            .auto-scroll-wrapper { max-height: 380px; }
             .container { padding: 25px; }
             h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
@@ -415,12 +418,12 @@
         </div>
     </div>
 
-    <!-- سائیڈ بار: آٹو اسکرول لنکس (انٹرنل لنکنگ) -->
+    <!-- سائیڈ بار: آٹو اسکرول لنکس (انٹرنل لنکنگ) 13 پوسٹس شامل -->
     <aside class="sidebar">
         <h3>📖 مزید پڑھیں</h3>
-        <div class="scroll-list">
+        <div class="auto-scroll-wrapper">
             <div class="scroll-inner">
-                <!-- 13 پوسٹس ڈیٹا کے مطابق + 1 موجودہ نمایاں ہوگی active کلاس سے -->
+                <!-- تمام 13 پوسٹس (ویکٹورین پارٹس + دیگر) بشمول موجودہ پوسٹ active -->
                 <a href="https://bloglovers.pk/english-adab/romanoi-dor" class="sidebar-item" data-post="رومانوی دور">
                     <img src="https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" alt="رومانوی دور">
                     <span class="sidebar-title">5 رومانوی دور</span>
@@ -483,10 +486,10 @@
 <button class="btn-nav up-btn" onclick="window.scrollBy({top: -400, behavior: 'smooth'})" title="اوپر اسکرول">▲</button>
 <button class="btn-nav down-btn" onclick="window.scrollBy({top: 400, behavior: 'smooth'})" title="نیچے اسکرول">▼</button>
 
-<!-- Reactions.js ایکسٹرنل فائل (پہلے سے موجود) نیز سوشل میڈیا فنکشنز رکھے گئے ہیں -->
+<!-- reactions.js فائل کا حوالہ (موجودہ اور درست) -->
 <script src="/reactions.js"></script>
 <script>
-    // یہ صرف سوشل میڈیا شیئرنگ اور کاپی لنک فنکشنز ہیں۔ ڈپلیکیٹ reactions کوڈ ہٹا دیا گیا ہے۔
+    // صرف سوشل میڈیا شیئرنگ اور کاپی لنک کے فنکشنز (ڈپلیکیٹ Reactions کوڈ بالکل نہیں)
     function shareOnSocial(platform) {
         const url = encodeURIComponent(window.location.href);
         const title = encodeURIComponent(document.title);
@@ -522,11 +525,10 @@
             prompt('لنک کاپی کریں:', window.location.href);
         });
     }
-
-    // موجودہ پوسٹ کو ہائی لائٹ رکھنے کے لیے مزید کوئی فنکشن نہیں بلکہ active کلاس پہلے سے موجود ہے۔
-    // اس کے علاوہ reactions.js پہلے سے reactionClick اور API انٹیگریشن رکھتا ہے۔
-    // نوٹ: یقینی بنانے کے لیے reactions.js فائل میں reactionClick موجود ہے۔
-    // ہم نے کوئی loadReactions یا addReaction نہیں بنایا، reactions.js ہی انہیں ہینڈل کرے گا۔
+    
+    // یقینی بنائیں کہ reactions.js موجود ہے اور reactionClick عالمی طور پر دستیاب ہے۔
+    // reactions.js میں reactionClick فنکشن کاؤنٹرز کو اپ ڈیٹ کرے گا اور Cloudflare API سے ہم آہنگ ہوگا۔
+    // اس فائل میں کوئی loadReactions, updateReactionsUI, addReaction یا API_URL نہیں ہے۔ تمام ڈپلیکیٹ کوڈ ہٹا دیا گیا۔
     console.log("صرف سوشل میڈیا فنکشنز فعال ہیں، reactions.js سے reactions چلیں گے۔");
 </script>
 </body>
