@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* --- Font Settings --- */
         @font-face { 
@@ -23,6 +24,8 @@
             --accent-color: #e74c3c;
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
             --nav-bg: rgba(255, 255, 255, 0.95);
+            --sidebar-bg: #ffffff;
+            --sidebar-hover: #f0f2f5;
         }
 
         /* Dark Mode Variables */
@@ -36,12 +39,14 @@
             --accent-color: #ff8a80;
             --shadow: 0 10px 30px rgba(0,0,0,0.5);
             --nav-bg: rgba(30, 30, 30, 0.95);
+            --sidebar-bg: #2d2d2d;
+            --sidebar-hover: #3a3a3a;
         }
 
         /* --- Base Styles --- */
         body { 
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif; 
-            line-height: 2.5; /* Line height increased for readability */
+            line-height: 2.5;
             direction: rtl; 
             text-align: right; 
             margin: 0; 
@@ -87,10 +92,19 @@
             color: #fff;
         }
 
-        /* --- Main Content Container --- */
+        /* --- Main Layout: Flex for Sidebar --- */
+        .main-wrapper {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
         .post-content { 
-            max-width: 850px; 
-            margin: 30px auto; 
+            flex: 2;
+            min-width: 280px;
             background: var(--container-bg); 
             padding: 40px; 
             border-radius: 20px; 
@@ -98,70 +112,243 @@
             transition: background 0.3s ease;
         }
 
-        /* --- Typography & Alignment --- */
-        h1 { 
-            text-align: center; 
-            border-bottom: 3px solid var(--border-color); 
-            padding-bottom: 15px; 
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: var(--sidebar-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            height: 500px;
+            position: sticky;
+            top: 80px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h3 {
             color: var(--heading-color);
-            font-size: 2.4rem; /* Increased Heading Size */
-            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
 
-        h2 { 
-            color: var(--heading-color); 
-            border-bottom: 1px solid var(--text-secondary); 
-            padding-bottom: 10px; 
+        .posts-scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            animation: autoScroll 30s linear infinite;
+        }
+
+        .posts-scroll-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .scroll-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 12px;
+            background: var(--container-bg);
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 1px solid rgba(74,144,226,0.2);
+        }
+
+        .sidebar-post:hover {
+            background: var(--sidebar-hover);
+            transform: translateX(-5px);
+        }
+
+        .sidebar-post img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .sidebar-post p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* --- Reactions Section --- */
+        .reactions-section {
             margin-top: 40px;
-            font-size: 1.8rem; /* Sub-heading size increased */
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+            text-align: center;
         }
-
-        p {
-            font-size: 1.4rem; /* Text Size Increased */
-            text-align: justify; /* Proper Alignment */
-            color: var(--text-secondary);
-            margin-bottom: 25px;
+        .reactions-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--heading-color);
         }
-
-        /* --- Featured Image --- */
-        .featured-img {
-            width: 100%;
-            height: auto;
-            border-radius: 15px;
-            margin: 20px 0 30px 0;
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .reaction-btn {
+            background: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: var(--border-color);
+            color: white;
+        }
+        .reaction-count {
+            font-weight: bold;
+            background: rgba(0,0,0,0.1);
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+        }
+        
+        /* --- Bottom Navigation Buttons --- */
+        .bottom-nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        .nav-bottom-btn {
+            background: var(--border-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .nav-bottom-btn:hover {
+            transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: block;
         }
 
+        /* Social Icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Floating Scroll Buttons */
+        .scroll-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+        }
+        .scroll-btn {
+            background: var(--border-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            border: none;
+        }
+        .scroll-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Typography */
+        h1 { text-align: center; border-bottom: 3px solid var(--border-color); padding-bottom: 15px; color: var(--heading-color); font-size: 2.4rem; margin-bottom: 20px; }
+        h2 { color: var(--heading-color); border-bottom: 1px solid var(--text-secondary); padding-bottom: 10px; margin-top: 40px; font-size: 1.8rem; }
+        p { font-size: 1.4rem; text-align: justify; color: var(--text-secondary); margin-bottom: 25px; }
+        .featured-img { width: 100%; height: auto; border-radius: 15px; margin: 20px 0 30px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: block; }
         a { color: var(--accent-color); text-decoration: none; font-weight: bold; }
         
-        /* --- Color Fill Overlay Styles (Preserved) --- */
+        /* Color Fill Overlay */
         .trigger-btn { display: inline-block; width: 100%; text-align: center; background: linear-gradient(45deg, #4a90e2, #2ecc71); color: white; padding: 15px 30px; border-radius: 15px; text-decoration: none; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4); transition: all 0.3s; border: none; cursor: pointer; font-size: 1.2rem; font-family: inherit; }
         .trigger-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6); }
-        
         .color-fill-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
         .color-fill-container.active { opacity: 1; z-index: 9998; }
         .color-fill-background { position: absolute; width: 100%; height: 100%; background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3); background-size: 400% 400%; animation: gradientFlow 15s ease infinite; }
         @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
         .post-content-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #2c3e50; }
         .post-content-overlay.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .close-btn { position: absolute; top: 15px; left: 15px; background: #ff6b6b; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10000; transition: transform 0.3s; }
         .close-btn:hover { transform: rotate(90deg); }
 
-        /* --- Mobile Responsive --- */
-        @media (max-width: 600px) {
-            .post-content { padding: 20px; margin: 10px; width: auto; }
+        @media (max-width: 768px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { position: relative; top: 0; height: 450px; }
+            .post-content { padding: 20px; }
             h1 { font-size: 1.8rem; }
             h2 { font-size: 1.5rem; }
-            p { font-size: 1.2rem; text-align: justify; }
-            .nav-btn span { display: none; } /* Hide text on very small screens, keep icon if added */
+            p { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Navigation with Back Button and Dark Mode -->
+    <!-- Top Navigation -->
     <div class="top-nav">
         <button class="nav-btn" onclick="history.back()">
             ⟵ واپس
@@ -171,103 +358,172 @@
         </button>
     </div>
 
-    <div class="post-content">
-        
-        <!-- Title -->
-        <h1>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</h1>
-        
-        <!-- Featured Image (Added as requested) -->
-        <img src="https://bloglovers.pk/images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai.jpg" alt="8 Azkar" class="featured-img">
+    <div class="main-wrapper">
+        <!-- Main Content Area -->
+        <div class="post-content">
+            <h1>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</h1>
+            <img src="https://bloglovers.pk/images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai.jpg" alt="8 Azkar" class="featured-img">
+            <button class="trigger-btn" onclick="openColorFillPost()">
+                🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
+            </button>
 
-        <!-- Color Fill Trigger Button -->
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            🕌 اس پوسٹ کو کلر فل بیک گراؤنڈ کے ساتھ پڑھیں
-        </button>
+            <p>دوستو! آپ ﷺ نے اُمت کی بھلائی کے لیے ایسے نایاب اذکار بتائے کہ جن کو ہر نماز کے بعد خشوع اور خضوع کے ساتھ اللہ رب العالمین کے سامنے اپنے ہاتھ پھیلائیں اور ان کلمات کا ادائیگی کے ساتھ دعا مانگیں تو نہ صرف فریادیں سنی جاتی ہیں بلکہ اللہ رب العزت ہر جائز حاجت پوری فرما دیتے ہیں اور انسان کی پریشانیاں اور آزمائشیں دور فرما دیتے ہیں۔ اپنے سابقہ آرٹیکل میں میں نے ذکر کیا تھا کہ "<a href="https://www.bloglovers.pk/2022/06/7.html">7 ایسی رکاوٹیں جن سے دعائیں قبول نہیں ہوتی</a>" اور احادیث کی روشنی میں ان رکاوٹوں کا ذکر تفصیل سے بیان کیا تھا۔ آج کے اس آرٹیکل میں 8 ایسے اذکار شئیر کرنے جا رہا ہوں جن کو ہر دعا کے آغاز میں پڑھ کر مرادیں مانگیں تو اللہ اپنے بندوں کو مایوس نہیں لوٹائے گا۔</p>
+            
+            <h2>﴿1﴾ اَللّٰھُمَّ اِنّیْ اَسْاَلُکَ بِاَنِّی اَشْھَدُاَنَّکَ اَنْتَ اللّٰہُ،لَا اِلٰہَ اَلاَّ اَنْتَ الْاَحَدُالصَّمَدُالَّذِیْ لَمْ یَلِدْ وَلَمْ یُوْلَدْ، وَلَمْ یَکُنْ لَہُ کُفُوَااَحَدُ</h2>
+            <p><strong>ترجمہ:</strong> "اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ بلاشبہ میں گواہی دیتا ہوں، کہ درحقیقت آپ ہی اللہ ہیں، آپ کے سوا کوئی معبود نہیں، آپ یکتا، بے نیاز ہیں، جنہوں نے کسی کو جنم نہیں دیا اور نہ انہیں کسی نے جنم دیا، اور ان کا کوئی ہمسر نہیں۔"</p>
+            <p>ایک روایت کے مطابق آپ ﷺ نے ایک شخص کو دعا کرتے ہوئے سنا وہ ان الفاظ کو ادا کر رہا تھا۔ آپ ﷺ نے فرمایا: "کہ جس کے ہاتھ میں میری جان ہے! بلاشبہ اس نے اللہ رب العزت سے ان کے اسم اعظم کے ساتھ سوال کیا ہے کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول فرماتے ہیں اور جب اس کے ساتھ ان سے مانگا جائے تو وہ عطا فرماتے ہیں۔"</p>
+            
+            <h2>﴿2﴾ اَللّٰھُمَّ اِنّیْ اَسْاَلُکَ بِاَنَّ لَکَ الْحَمْدَ، لَا اِلٰہَ اِلَّا اَنْتَ الْمَنَّانُ،بَدِیْعُ السَّمَاوَاتِ وَ الْاَرْضِ، یاَ ذَالْجَلاَلِ وَالْاِکْرَامِ، یَاحَیُّ، یَاقَیُّومُ</h2>
+            <p><strong>ترجمہ:</strong> "اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ یقینا تمام تعریف آپ ہی کے لیے ہے، کوئی معبود نہیں مگر آپ، بہت عطا فرمانے والے، آسمانوں اور زمین کو بغیر سابقہ نمونہ کے بنانے والے، اے جلال و اکرام والے"</p>
+            <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ آپ ﷺ کے ساتھ بیٹھے ہوئے تھے اور ایک شخص نماز پڑھ رہا تھا، اس شخص نے دعا کی۔ تو نبی کریم ﷺ نے فرمایا: "بے شک اس نے اللہ تعالیٰ کے اسم عظیم کے ساتھ ان سے فریاد کی ہے، کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول کرتے ہیں اور جب اس کے ساتھ ان سے سوال کیا جائے، تو وہ عطا فرماتے ہیں۔"</p>
+            
+            <h2>﴿3﴾ اَللّٰھُمَّ اَنْتَ خَلَقْتَنِی، وَ اَنْتَ تَھْدِیْنِی، وَاَنْتَ تُطْعِمُنِیْ، وَاَنْتَ تَسْقِیْنِی، وَاَنْتَ تُمِیْتُنِیْ، وَاَنْتَ تُحْیِیْنِیْ</h2>
+            <p><strong>ترجمہ:</strong> "اے اللہ! آپ نے مجھے پیدا فرمایا اور آپ مجھے ہدایت دیتے ہیں اور آپ مجھے کھلاتے ہیں اور آپ مجھے پلاتے ہیں اور آپ مجھے موت دیتے ہیں اور آپ مجھے زندگی عطا فرماتے ہیں۔"</p>
+            <p>حضرت سمرہ بن جندب رضی اللہ عنہ نے فرمایا: "کیا میں تمہیں وہ حدیث نہ بتلاؤں، جو میں نے رسول اللہ ﷺ سے کئی مرتبہ، ابوبکر صدیق رضی اللہ عنہ سے کئی دفعہ، عمر رضی اللہ عنہ سے کئی بار سنی؟" میں نے عرض کیا: "کیوں نہیں" انہوں نے بیان کیا: "جو شخص صبح اور شام کے وقت ان کلمات کو پڑھے اور پھر اللہ تعالیٰ سے جو چیز بھی مانگے گا وہ اسے عطا فرمائیں گے۔"</p>
+            
+            <h2>﴿4﴾ یَا بَدِیْعَ السَّمٰوٰتِ، یَا حَیُّ، یَا قُیُّوْمٗ، اِنِّی اَسْاَ لُکَ</h2>
+            <p><strong>ترجمہ:</strong> "اے آسمانوں کو بغیر سابقہ نمونہ کے بنانے والے! اے ہمیشہ زندہ رہنے والے! اے ساری کائنات قائم کرنے رکھنے والے! بے شک میں آپ سے سوال کرتا ہوں"۔</p>
+            <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ نبی کریم ﷺ کے ساتھ تھے تو ایک شخص نے دعا کرتے ہوئے ان کلمات سے آغاز کیا تو آپ ﷺ نے فرمایا: "کیا تمہیں علم ہے، کہ اس نے کس (یعنی کن کلمات) کے ساتھ دعا کی ہے؟ اس ذات کی قسم! کہ جس کے ہاتھ میں میری جان ہے! اس نے اللہ رب العزت کے اس نام کے ساتھ ان سے دعا کی ہے کہ جس کے ساتھ ان سے دعا کی جائے تو وہ قبول فرماتے ہیں"۔</p>
+            
+            <h2>﴿5﴾ لَا اِلٰہَ اِلاَّ اَنْتَ سُبْحَانَکَ اِ نِّیْ کُنْتُ مِنَ الظَّالِمِیْنَ</h2>
+            <p><strong>ترجمہ:</strong> "آپ کے سوا کوئی معبود نہیں، آپ پاک ہے اور بے شک میں ہی ظالموں میں سے ہوں"۔</p>
+            <p>آپ ﷺ نے فرمایا: "مچھلی والے کی دعا" جب انہوں نے (حضرت یونس علیہ السلام) مچھلی کے پیٹ سے اللہ کو ان کلمات کے ساتھ پکارا، یقینا ان (کلمات) کے ساتھ کوئی بھی مسلمان کبھی بھی کسی چیز کے بارے میں دعا نہیں کرتا، مگر اللہ تعالیٰ اس کی فریاد پوری فرما دیتے ہیں"۔</p>
+            
+            <h2>﴿6﴾ لَا اِلٰہَ اِلاَّ اللّٰہُ وَحْدَہُ، لَا شَرِیْکَ لَہُ، لَہُ الْمُلْکُ، وَلَہُ الْحَمْدُ، وَ ھُوَ عَلیٰ کُلِّ شَیْ ءِ قَدِیْرُ۔ اَلْحَمْدُ لِلّٰہِ، وَ سُبْحَانَ اللہِ، وَلَااِلٰہَ اِلاَّ اللہُ، وَاللہُ اَکْبَرُ، وَلَا قُوَّۃَ اِلاَّ بِاللہِ</h2>
+            <p><strong>ترجمہ:</strong> "اللہ رب العزت کے سوا کوئی معبود نہیں، وہ یکتا ہے، ان کا کوئی ساجھی نہیں، ساری بادشاہت ان ہی کی ہے، ساری تعریف ان ہی کے لیے ہے اور وہ ہر چیز پر کمال قدرت رکھتے ہیں۔"</p>
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "جو شخص رات کو بیدار ہو اور یہ کلمات ادا کرے اور پھر کہے اے اللہ پاک! مجھے معاف فرما دیجیے۔ یا پھر کوئی اور دعا کرے تو اس کی دعا قبول کی جاتی ہے۔"</p>
+            
+            <h2>﴿7﴾ حضرت اُم سلیم رضی اللہ عنہا نبی کریم ﷺ کی خدمت میں حاضر ہوئیں</h2>
+            <p>آپ ﷺ نے فرمایا: "دس دفعہ اَللہُ اَکْبر کہو، دس مرتبہ سُبْحاَنَ اللہ کہو، دس مرتبہ اَلْحَمْدُلِلّٰہِ کہو، پھر جو چاہو مانگو اللہ جواب میں فرماتے ہیں: 'ہاں ہاں'"</p>
+            
+            <h2>﴿8﴾ ایک بدو نبی کریم ﷺ کی خدمت میں حاضر ہوا</h2>
+            <p>آپ ﷺ نے فرمایا: "تم کہو! 'سُبْحَانَ اللہِ، وَالْحَمْدُ لِلہِ،وَلَا اِلَہَ اِلَّااللہُ، وَاللہُ اَکْبَرُ'" اور پھر واپس آیا تو آپ نے ارشاد فرمایا کہ یہ کلمات اللہ کے لیے ہیں اور دعا قبول ہوتی ہے۔</p>
 
-        <!-- Main Content -->
-        <p>دوستو! آپ ﷺ نے اُمت کی بھلائی کے لیے ایسے نایاب اذکار بتائے کہ جن کو ہر نماز کے بعد خشوع اور خضوع کے ساتھ اللہ رب العالمین کے سامنے اپنے ہاتھ پھیلائیں اور ان کلمات کا ادائیگی کے ساتھ دعا مانگیں تو نہ صرف فریادیں سنی جاتی ہیں بلکہ اللہ رب العزت ہر جائز حاجت پوری فرما دیتے ہیں اور انسان کی پریشانیاں اور آزمائشیں دور فرما دیتے ہیں۔ اپنے سابقہ آرٹیکل میں میں نے ذکر کیا تھا کہ "<a href="https://www.bloglovers.pk/2022/06/7.html">7 ایسی رکاوٹیں جن سے دعائیں قبول نہیں ہوتی</a>" اور احادیث کی روشنی میں ان رکاوٹوں کا ذکر تفصیل سے بیان کیا تھا۔ آج کے اس آرٹیکل میں 8 ایسے اذکار شئیر کرنے جا رہا ہوں جن کو ہر دعا کے آغاز میں پڑھ کر مرادیں مانگیں تو اللہ اپنے بندوں کو مایوس نہیں لوٹائے گا۔</p>
-        
-        <h2>﴿1﴾ اَللّٰھُمَّ اِنّیْ اَسْاَلُکَ بِاَنِّی اَشْھَدُاَنَّکَ اَنْتَ اللّٰہُ،لَا اِلٰہَ اَلاَّ اَنْتَ الْاَحَدُالصَّمَدُالَّذِیْ لَمْ یَلِدْ وَلَمْ یُوْلَدْ، وَلَمْ یَکُنْ لَہُ کُفُوَااَحَدُ</h2>
-        <p><strong>ترجمہ:</strong> "اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ بلاشبہ میں گواہی دیتا ہوں، کہ درحقیقت آپ ہی اللہ ہیں، آپ کے سوا کوئی معبود نہیں، آپ یکتا، بے نیاز ہیں، جنہوں نے کسی کو جنم نہیں دیا اور نہ انہیں کسی نے جنم دیا، اور ان کا کوئی ہمسر نہیں۔"</p>
-        <p>ایک روایت کے مطابق آپ ﷺ نے ایک شخص کو دعا کرتے ہوئے سنا وہ ان الفاظ کو ادا کر رہا تھا۔ آپ ﷺ نے فرمایا: "کہ جس کے ہاتھ میں میری جان ہے! بلاشبہ اس نے اللہ رب العزت سے ان کے اسم اعظم کے ساتھ سوال کیا ہے کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول فرماتے ہیں اور جب اس کے ساتھ ان سے مانگا جائے تو وہ عطا فرماتے ہیں۔"</p>
-        
-        <h2>﴿2﴾ اَللّٰھُمَّ اِنّیْ اَسْاَلُکَ بِاَنَّ لَکَ الْحَمْدَ، لَا اِلٰہَ اِلَّا اَنْتَ الْمَنَّانُ،بَدِیْعُ السَّمَاوَاتِ وَ الْاَرْضِ، یاَ ذَالْجَلاَلِ وَالْاِکْرَامِ، یَاحَیُّ، یَاقَیُّومُ</h2>
-        <p><strong>ترجمہ:</strong> "اے اللہ! یقینا میں آپ سے سوال کرتا ہوں، کیونکہ یقینا تمام تعریف آپ ہی کے لیے ہے، کوئی معبود نہیں مگر آپ، بہت عطا فرمانے والے، آسمانوں اور زمین کو بغیر سابقہ نمونہ کے بنانے والے، اے جلال و اکرام والے"</p>
-        <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ آپ ﷺ کے ساتھ بیٹھے ہوئے تھے اور ایک شخص نماز پڑھ رہا تھا، اس شخص نے دعا کی۔ تو نبی کریم ﷺ نے فرمایا: "بے شک اس نے اللہ تعالیٰ کے اسم عظیم کے ساتھ ان سے فریاد کی ہے، کہ جب اس کے ساتھ ان سے دعا کی جائے، تو وہ قبول کرتے ہیں اور جب اس کے ساتھ ان سے سوال کیا جائے، تو وہ عطا فرماتے ہیں۔"</p>
-        
-        <h2>﴿3﴾ اَللّٰھُمَّ اَنْتَ خَلَقْتَنِی، وَ اَنْتَ تَھْدِیْنِی، وَاَنْتَ تُطْعِمُنِیْ، وَاَنْتَ تَسْقِیْنِی، وَاَنْتَ تُمِیْتُنِیْ، وَاَنْتَ تُحْیِیْنِیْ</h2>
-        <p><strong>ترجمہ:</strong> "اے اللہ! آپ نے مجھے پیدا فرمایا اور آپ مجھے ہدایت دیتے ہیں اور آپ مجھے کھلاتے ہیں اور آپ مجھے پلاتے ہیں اور آپ مجھے موت دیتے ہیں اور آپ مجھے زندگی عطا فرماتے ہیں۔"</p>
-        <p>حضرت سمرہ بن جندب رضی اللہ عنہ نے فرمایا: "کیا میں تمہیں وہ حدیث نہ بتلاؤں، جو میں نے رسول اللہ ﷺ سے کئی مرتبہ، ابوبکر صدیق رضی اللہ عنہ سے کئی دفعہ، عمر رضی اللہ عنہ سے کئی بار سنی؟" میں نے عرض کیا: "کیوں نہیں" انہوں نے بیان کیا: "جو شخص صبح اور شام کے وقت ان کلمات کو پڑھے اور پھر اللہ تعالیٰ سے جو چیز بھی مانگے گا وہ اسے عطا فرمائیں گے۔ انہوں نے بیان کیا: "میری عبداللہ بن سلام رضی اللہ عنہ سے ملاقات ہوئی تو میں نے ان سے کہا: 'کیا میں آپ کو وہ حدیث نہ بتلاؤں جو میں نے رسول اللہ ﷺ سے کئی مرتبہ، ابوبکر صدیق رضی اللہ عنہ سے کئی دفعہ، اور عمر رضی اللہ عنہ سے کئی بار سنی؟' انہوں نے فرمایا: 'کیوں نہیں؟' تو میں نے ان کے سامنے یہ حدیث بیان کی، تو وہ فرمانے لگے یہی کلمات اللہ رب العزت نے موسیٰ علیہ السلام کو عطا فرمائے تھے، وہ انہیں سات دفعہ پڑھ کر دعا کرتے، تو وہ جو چیز بھی اللہ رب العزت سے طلب کرتے وہ انہیں عطا فرما دیتے"۔</p>
-        
-        <h2>﴿4﴾ یَا بَدِیْعَ السَّمٰوٰتِ، یَا حَیُّ، یَا قُیُّوْمٗ، اِنِّی اَسْاَ لُکَ</h2>
-        <p><strong>ترجمہ:</strong> "اے آسمانوں کو بغیر سابقہ نمونہ کے بنانے والے! اے ہمیشہ زندہ رہنے والے! اے ساری کائنات قائم کرنے رکھنے والے! بے شک میں آپ سے سوال کرتا ہوں"۔</p>
-        <p>ایک روایت کے مطابق حضرت انس رضی اللہ عنہ نبی کریم ﷺ کے ساتھ تھے تو ایک شخص نے دعا کرتے ہوئے ان کلمات سے آغاز کیا تو آپ ﷺ نے فرمایا: "کیا تمہیں علم ہے، کہ اس نے کس (یعنی کن کلمات) کے ساتھ دعا کی ہے؟ اس ذات کی قسم! کہ جس کے ہاتھ میں میری جان ہے! اس نے اللہ رب العزت کے اس نام کے ساتھ ان سے دعا کی ہے کہ جس کے ساتھ ان سے دعا کی جائے تو وہ قبول فرماتے ہیں"۔</p>
-        
-        <h2>﴿5﴾ لَا اِلٰہَ اِلاَّ اَنْتَ سُبْحَانَکَ اِ نِّیْ کُنْتُ مِنَ الظَّالِمِیْنَ</h2>
-        <p><strong>ترجمہ:</strong> "آپ کے سوا کوئی معبود نہیں، آپ پاک ہے اور بے شک میں ہی ظالموں میں سے ہوں"۔</p>
-        <p>آپ ﷺ نے فرمایا: "مچھلی والے کی دعا" جب انہوں نے (حضرت یونس علیہ السلام) مچھلی کے پیٹ سے اللہ کو ان کلمات کے ساتھ پکارا، یقینا ان (کلمات) کے ساتھ کوئی بھی مسلمان کبھی بھی کسی چیز کے بارے میں دعا نہیں کرتا، مگر اللہ تعالیٰ اس کی فریاد پوری فرما دیتے ہیں"۔</p>
-        
-        <h2>﴿6﴾ لَا اِلٰہَ اِلاَّ اللّٰہُ وَحْدَہُ، لَا شَرِیْکَ لَہُ، لَہُ الْمُلْکُ، وَلَہُ الْحَمْدُ، وَ ھُوَ عَلیٰ کُلِّ شَیْ ءِ قَدِیْرُ۔ اَلْحَمْدُ لِلّٰہِ، وَ سُبْحَانَ اللہِ، وَلَااِلٰہَ اِلاَّ اللہُ، وَاللہُ اَکْبَرُ، وَلَا قُوَّۃَ اِلاَّ بِاللہِ</h2>
-        <p><strong>ترجمہ:</strong> "اللہ رب العزت کے سوا کوئی معبود نہیں، وہ یکتا ہے، ان کا کوئی ساجھی نہیں، ساری بادشاہت ان ہی کی ہے، ساری تعریف ان ہی کے لیے ہے اور وہ ہر چیز پر کمال قدرت رکھتے ہیں۔ سب تعریف اللہ تعالیٰ کے لیے ہے اور اللہ تعالیٰ ہر عیب سے پاک ہیں۔ اللہ تعالیٰ کے سوا کوئی اور معبود نہیں، اللہ تعالیٰ بہت بڑے ہیں، اور اللہ تعالیٰ کی (توفیق کے بغیر) نہ گناہ چھوڑنے کی طاقت ہے اور نہ نیکی کرنے کی قوت"۔</p>
-        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "جو شخص رات کو بیدار ہو اور یہ کلمات ادا کرے اور پھر کہے اے اللہ پاک! مجھے معاف فرما دیجیے۔ یا پھر کوئی اور دعا کرے تو اس کی دعا قبول کی جاتی ہے اور اسی دوران اگر وہ وضو کرے تو اس کی نماز قبول کی جاتی ہے۔"</p>
-        
-        <h2>﴿7﴾ حضرت اُم سلیم رضی اللہ عنہا نبی کریم ﷺ کی خدمت میں حاضر ہوئیں اور عرض کیا: مجھے ایسے کلمات سکھلائیے، کہ میں انہیں نماز میں پڑھوں</h2>
-        <p>آپ ﷺ نے فرمایا: "دس دفعہ اَللہُ اَکْبر کہو، دس مرتبہ سُبْحاَنَ اللہ کہو، دس مرتبہ اَلْحَمْدُلِلّٰہِ کہو، پھر جو چاہو مانگو اللہ جواب میں فرماتے ہیں: 'ہاں ہاں'"</p>
-        
-        <h2>﴿8﴾ ایک بدو نبی کریم ﷺ کی خدمت میں حاضر ہوا اور عرض کیا: "یا رسول اللہ مجھے خیر کی کوئی بات سکھائیے۔"</h2>
-        <p>آپ ﷺ نے اس کا ہاتھ تھام لیا اور فرمایا: "تم کہو! 'سُبْحَانَ اللہِ، وَالْحَمْدُ لِلہِ،وَلَا اِلَہَ اِلَّااللہُ، وَاللہُ اَکْبَرُ'"</p>
-        <p>بدو نے اپنے ہاتھ پر انہیں شمار کیا اور پھر چلا گیا، تھوڑی دیر غور کیا پھر واپس آیا۔ نبی کریم ﷺ مسکرائے اور ارشاد فرمایا: "بیچارے نے کچھ سوچا ہے" وہ حاضر ہوا اور عرض کی: "یا رسول اللہ سُبْحَانَ اللہِ، وَالْحَمْدُ لِلہِ،وَلَا اِلَہَ اِلَّااللہُ، وَاللہُ اَکْبَرُ یہ سب کلمات تو اللہ رب العزت کے لیے ہیں میرے لیے کیا ہے۔"</p>
-        <p>آپ ﷺ نے فرمایا: "اے بدو! جب تو سُبْحَانَ اللہِ کہتا ہے تو اللہ تعالیٰ فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو وَالْحَمْدُ لِلہِ کہتا ہے تو اللہ پاک فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو وَلَا اِلَہَ اِلَّااللہُ کہتا ہے تو اللہ پاک فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو وَاللہُ اَکْبَرُ کہتا ہے تو اللہ تعالیٰ فرماتے ہیں: 'تو نے سچ کہا'۔ اور جب تو اَللَھُمَّ اغْفِرْلیِ کہتا ہے، تو اللہ پاک فرماتے ہیں: 'میں نے تجھے معاف کر دیا'۔ اور جب تو اَللَھُمَّ ارْحَمْنِیْ کہتا ہے تو اللہ پاک فرماتے ہیں: 'میں نے کر دیا'۔ اور جب تو اَللَھُمَّ ارْزُقْنِیْ کہتا ہے تو اللہ فرماتے ہیں: 'میں نے کر دیا'۔ اسی طرح بدو نے اپنے ہاتھ پر سات باتیں لگائیں اور پھر چلا گیا۔</p>
+            <!-- Reactions Section (Exactly as per requirements) -->
+            <div class="reactions-section">
+                <h3>📊 آپ کا ردعمل</h3>
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
 
+            <!-- Social Media Icons (7 platforms) -->
+            <div class="social-share">
+                <a href="#" onclick="shareOnSocial('facebook')" class="social-icon" style="background: #1877f2;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" onclick="shareOnSocial('whatsapp')" class="social-icon" style="background: #25D366;"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" onclick="shareOnSocial('twitter')" class="social-icon" style="background: #1DA1F2;"><i class="fab fa-twitter"></i></a>
+                <a href="#" onclick="shareOnSocial('linkedin')" class="social-icon" style="background: #0077b5;"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" onclick="shareOnSocial('telegram')" class="social-icon" style="background: #0088cc;"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" onclick="shareOnSocial('pinterest')" class="social-icon" style="background: #bd081c;"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" onclick="copyPageLink()" class="social-icon" style="background: #6c757d;"><i class="fas fa-link"></i></a>
+            </div>
+
+            <!-- Bottom Navigation Buttons -->
+            <div class="bottom-nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-bottom-btn">🏠 مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-bottom-btn">📚 تمام پوسٹس</a>
+            </div>
+        </div>
+
+        <!-- Sidebar with Auto-Scroll -->
+        <div class="sidebar">
+            <h3>📖 مزید پڑھیں</h3>
+            <div class="posts-scroll-container">
+                <div class="scroll-inner">
+                    <a href="https://bloglovers.pk/azkar/7-aysi-rkaotyn-jn-se-daa-qbol-nahi-hoti" class="sidebar-post"><img src="https://bloglovers.pk/images/azkar/7-aysi-rkaotyn-jn-se-daa-qbol-nahi-hoti.jpg" alt="post"><p>7 ایسی رکاوٹیں جن سے دعا قبول نہیں ہوتی</p></a>
+                    <a href="https://bloglovers.pk/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai" class="sidebar-post"><img src="https://bloglovers.pk/images/azkar/8-ese-azkar-jin-ke-parhne-se-har-murad-puri-hoti-hai.jpg" alt="post"><p>8 ایسے اذکار جن کے پڑھنے سے ہر مراد پوری ہوتی ہے</p></a>
+                    <a href="https://bloglovers.pk/azkar/bara-hi-bad-naseeb-hai-woh-shakhs-jo-in-azkar-ka-mamool-nahi-banata" class="sidebar-post"><img src="https://bloglovers.pk/images/azkar/bara-hi-bad-naseeb-hai-woh-shakhs-jo-in-azkar-ka-mamool-nahi-banata.png" alt="post"><p>بڑا ہی بدنصیب ہے وہ شخص جو ان اذکار کا معمول نہیں بناتا</p></a>
+                    <a href="https://bloglovers.pk/azkar/hum-dua-mangne-mein-sust-kyun-ho-gaye-hain" class="sidebar-post"><img src="https://bloglovers.pk/images/azkar/hum-dua-mangne-mein-sust-kyun-ho-gaye-hain.png" alt="post"><p>ہم دعا مانگنے میں سست کیوں ہو گئے ہیں؟</p></a>
+                    <a href="https://bloglovers.pk/azkar/kya-allah-mujh-se-raazi-hai-apni-zindagi-mein-alamaat-ko-pehchaniye" class="sidebar-post"><img src="https://bloglovers.pk/images/azkar/kya-allah-mujh-se-raazi-hai-apni-zindagi-mein-alamaat-ko-pehchaniye.png" alt="post"><p>کیا اللہ مجھ سے راضی ہے؟</p></a>
+                    <a href="https://bloglovers.pk/azkar/main-aur-aap-allah-ko-kaise-na-pukareen" class="sidebar-post"><img src="https://bloglovers.pk/images/azkar/main-aur-aap-allah-ko-kaise-na-pukareen.png" alt="post"><p>میں اور آپ اللہ کو کیسے نہ پکاریں؟</p></a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/door-jadeed-ke-fitnon-ke-bare-mein-ap-saw-ne-kya-hukm-farmaya.png" alt="post"><p>دورجدید کے فتنوں کے بارے میں آپ ﷺ نے کیاحکم فرمایا؟</p></a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/allah-ki-yaad-se-ghafil-kar-dene-wala-azeem-tareen-fitna-kon-sa-hai.png" alt="post"><p>اللہ کی یاد سے غافل کر دینے والا عظیم ترین فتنہ</p></a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/qurb-qayamat-qatl-o-khoon-rezi-ki-kasrat-kyun-ho-jae-gi.png" alt="post"><p>قرب قیامت قتل و خوں ریزی کی کثرت</p></a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/insaan-ki-jaldi-pakad-karwa-dene-wala-bad-tareen-gunah-kon-sa-hai.png" alt="post"><p>انسان کی جلدی پکڑ کروا دینے والا بدترین گناہ</p></a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/log-apni-maut-ki-tamanna-kyun-karne-lageen-ge.png" alt="post"><p>لوگ اپنی موت کی تمنا کیوں کرنے لگیں گے؟</p></a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/ap-saw-ne-achaanak-amwat-ke-bare-mein-kya-farmaya.jpg" alt="post"><p>آپ ﷺ نے اچانک اموات کے بارے میں کیا فرمایا؟</p></a>
+                    <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="post"><p>فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</p></a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Color Fill Overlay HTML (Hidden by default) -->
+    <!-- Floating Scroll Buttons -->
+    <div class="scroll-buttons">
+        <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+        <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"><i class="fas fa-arrow-down"></i></button>
+    </div>
+
+    <!-- Color Fill Overlay -->
     <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
     <div class="post-content-overlay" id="postOverlay">
         <button class="close-btn" onclick="closeColorFillPost()">×</button>
         <div id="postContent"></div>
     </div>
 
+    <!-- reactions.js (external file) -->
+    <script src="/reactions.js"></script>
+    
     <script>
-        // Theme Toggle Logic
+        // Theme Toggle
         function toggleTheme() {
-            const body = document.documentElement;
+            const root = document.documentElement;
             const btn = document.getElementById('themeToggle');
-            const currentTheme = body.getAttribute('data-theme');
-            
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'light');
+            const current = root.getAttribute('data-theme');
+            if(current === 'dark') {
+                root.setAttribute('data-theme', 'light');
                 btn.innerHTML = '🌙 ڈارک موڈ';
             } else {
-                body.setAttribute('data-theme', 'dark');
+                root.setAttribute('data-theme', 'dark');
                 btn.innerHTML = '☀️ لائٹ موڈ';
             }
         }
 
         // Color Fill Logic
         function openColorFillPost() {
-            // Get content but remove the image and trigger button from overlay to keep it clean text
             const contentClone = document.querySelector('.post-content').cloneNode(true);
             const img = contentClone.querySelector('.featured-img');
             const btn = contentClone.querySelector('.trigger-btn');
+            const reactions = contentClone.querySelector('.reactions-section');
             if(img) img.remove();
             if(btn) btn.remove();
-
+            if(reactions) reactions.remove(); // clean overlay
             document.getElementById('postContent').innerHTML = contentClone.innerHTML;
             document.getElementById('colorFillBg').classList.add('active');
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+
+        // Social Share Functions
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if(platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if(platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if(platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if(platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if(platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!'));
+        }
     </script>
 </body>
 </html>
