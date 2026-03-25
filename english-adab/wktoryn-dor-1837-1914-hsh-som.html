@@ -2,8 +2,8 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وکٹورین دور 1837-1914 (حصہ سوئم)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>وکٹورین دور 1837-1914 (حصہ سوئم) - BlogLovers.pk</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -17,6 +17,9 @@
             --text-light: #cccccc;
             --shadow: rgba(0, 0, 0, 0.6);
             --gradient: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            --card-bg: rgba(26, 26, 46, 0.85);
+            --border-light: rgba(255, 255, 255, 0.05);
+            --sidebar-bg: rgba(0, 0, 0, 0.5);
         }
         
         * {
@@ -60,10 +63,112 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
             position: relative;
+        }
+        
+        .main-content {
+            flex: 2;
+            min-width: 280px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            max-width: 340px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+        
+        .sidebar-card {
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .sidebar-title {
+            font-size: 26px;
+            color: #4cc9f0;
+            border-right: 4px solid #ff6b6b;
+            padding-right: 15px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .scroll-list {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            animation: autoScroll 30s linear infinite;
+        }
+        
+        .scroll-list:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        
+        .scroll-list-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 10px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(255,107,107,0.2);
+            border-color: #ff6b6b;
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item.active {
+            background: rgba(76,201,240,0.2);
+            border-right: 3px solid #4cc9f0;
+        }
+        
+        .sidebar-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .sidebar-link:hover {
+            color: #ff6b6b;
         }
         
         .back-btn {
@@ -76,7 +181,7 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            margin: 20px 0 40px;
+            margin-bottom: 30px;
             border: 1px solid rgba(255, 107, 107, 0.3);
             transition: all 0.3s;
             backdrop-filter: blur(10px);
@@ -90,12 +195,12 @@
         }
         
         .post-content {
-            background: rgba(26, 26, 46, 0.85);
+            background: var(--card-bg);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 20px 40px var(--shadow);
             margin-bottom: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
             backdrop-filter: blur(10px);
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -157,6 +262,89 @@
             box-shadow: 0 20px 40px rgba(76, 201, 240, 0.3);
         }
         
+        /* Reactions Styling */
+        .reactions-section {
+            margin: 50px 0 40px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 60px;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        
+        .reactions-title {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #ffb347;
+        }
+        
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .reaction-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            backdrop-filter: blur(4px);
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.08);
+            background: rgba(255,107,107,0.6);
+        }
+        
+        .reaction-count {
+            font-size: 18px;
+            background: rgba(0,0,0,0.5);
+            padding: 2px 8px;
+            border-radius: 40px;
+            min-width: 32px;
+        }
+        
+        /* Social Icons */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            transition: 0.3s;
+            cursor: pointer;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+        
         .nav-buttons {
             position: fixed;
             left: 20px;
@@ -187,7 +375,6 @@
         .nav-btn:hover {
             background: #ff6b6b;
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
         }
         
         .color-mode-btn {
@@ -215,7 +402,35 @@
             transform: rotate(30deg) scale(1.1);
         }
         
-        .stars {
+        .post-footer-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-nav-btn {
+            background: rgba(255,107,107,0.2);
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: bold;
+            transition: 0.3s;
+            border: 1px solid rgba(255,107,107,0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-nav-btn:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .stars, .floating-elements {
             position: fixed;
             top: 0;
             left: 0;
@@ -237,14 +452,6 @@
             50% { opacity: 0.8; }
         }
         
-        .floating-elements {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
         .floating-element {
             position: absolute;
             background: rgba(255, 107, 107, 0.1);
@@ -260,243 +467,256 @@
         
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                flex-direction: column;
             }
-            
+            .sidebar {
+                max-width: 100%;
+                position: static;
+            }
             .post-content {
                 padding: 25px;
             }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            h2 {
-                font-size: 28px;
-            }
-            
-            p {
-                font-size: 20px;
-            }
-            
-            .nav-buttons {
-                left: 10px;
-            }
-            
-            .nav-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
-            
-            .color-mode-btn {
-                width: 55px;
-                height: 55px;
-                font-size: 22px;
-            }
+            h1 { font-size: 32px; }
+            h2 { font-size: 28px; }
+            p { font-size: 20px; }
+            .reaction-btn { padding: 6px 12px; font-size: 18px; }
         }
         
         @media (max-width: 480px) {
-            h1 {
-                font-size: 28px;
-            }
-            
-            h2 {
-                font-size: 24px;
-            }
-            
-            p {
-                font-size: 18px;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            .back-btn {
-                font-size: 16px;
-                padding: 10px 20px;
-            }
+            h1 { font-size: 28px; }
+            p { font-size: 18px; }
+            .social-icon { width: 45px; height: 45px; font-size: 22px; }
         }
     </style>
 </head>
 <body>
-    <!-- ستاروں کی اینیمیشن -->
     <div class="stars" id="stars"></div>
-    
-    <!-- فلواٹنگ عناصر -->
     <div class="floating-elements" id="floatingElements"></div>
     
-    <!-- نیویگیشن بٹن -->
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
-            <i class="fas fa-arrow-down"></i>
-        </button>
+        <button class="nav-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-arrow-up"></i></button>
+        <button class="nav-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-arrow-down"></i></button>
     </div>
-    
-    <!-- کلر موڈ بٹن -->
-    <button class="color-mode-btn" id="colorModeBtn">
-        <i class="fas fa-palette"></i>
-    </button>
+    <button class="color-mode-btn" id="colorModeBtn"><i class="fas fa-palette"></i></button>
     
     <div class="container">
-        <!-- بیک بٹن -->
-        <a href="#" class="back-btn">
-            <i class="fas fa-arrow-right"></i>
-            پیچھے جائیں
-        </a>
+        <div class="main-content">
+            <a href="#" class="back-btn" id="backButton"><i class="fas fa-arrow-right"></i> پیچھے جائیں</a>
+            
+            <div class="post-content">
+                <h1>وکٹورین دور 1837-1914 (حصہ سوئم)</h1>
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" alt="وکٹورین دور 1837-1914 (حصہ سوئم)" class="featured-image">
+                <p>وکٹورین دور 1837-1914 (حصہ سوئم)</p>
+                
+                <h2>وکٹورین کتابیں</h2>
+                <p>وکٹورین ناول نگار، شاعروں اور دوسرے مصنفین نے اپنے دور کی معاشرتی تبدیلیوں اور پریشانیوں کی عکاسی اس سے قبل والٹر اسکاٹ یا شاعر ولیم ورڈز ورتھ جیسے رومانٹک ناول نگاروں کی نسبت کی تھی۔ اولیور ٹوسٹ جیسی کتابوں میں چارلس ڈکنز نے شاعر کی خراب زندگی کو بڑی مہارت کے ساتھ بیان کیا۔ ولیم ٹھاکرے نے وینٹی میلے میں درمیانے اور اعلی طبقے کے درمیان رہنے والے ملک اور قصبے کی شبیہہ پیدا کی، اور الزبتھ گاسکل نے شمال اور جنوب جیسی کتابوں میں شمال کے نئے مینوفیکچرنگ شہروں میں زندگی کی تصویر کشی کی۔</p>
+                <p>اس وقت کا مضبوط اور کبھی کبھی سخت مذہبی عقیدہ بہت سے کم لکھنے والوں کا موضوع تھا، خاص طور پر وہ جو نوجوان قارئین کی تلاش کر رہے ہیں۔ اس طرح کے ایک عام مصنف ALOE (انگلینڈ کی ایک لیڈی) تھے، جو شارلٹ ماریہ ٹکر کا نام تھا۔ اس کی انتہائی اخلاقی داستانیں اکثر سنڈے اسکول کے انعامات کے طور پر دی گئیں۔ اننا سیول کی ایک کتاب، بلیک بیوٹی، لوگوں کو گھوڑوں کے ذریعہ ہونے والے ظالمانہ سلوک سے بیدار کرنے کے لئے بہت کچھ کیا۔</p>
+                <p>انگریزی زبان کے کچھ قابل ذکر ناول اس دور میں تین بہنوں نے لکھے تھے جو یارکشائر کے ماتھے پر تنہائی میں رہتی تھیں۔ شارلٹ، ایملی اور این برونٹے نے شاید اپنے جابرانہ ماحول سے بچنے کے لئے لکھا تھا، اور خوبصورت ہیرو اور پرجوش خواتین پر مشتمل ہزاروں نظمیں اور رومانوی کہانیاں تیار کیں۔</p>
+                <p>ایملی برونٹے کا زبردست ناول ووٹرنگ ہائٹس آج بھی بڑے پیمانے پر پڑھا جاتا ہے۔ شارلٹ برونٹی کے جین آئیر میں مرکزی کردار، جو اس وقت کا بہترین فروخت کنندہ تھا اور اب بھی مقبول ہے، خواتین کی آزادی کے بڑھتے ہوئے جذبے کی عکاسی کرتا ہے۔</p>
+                <p>پریوں کی کہانی کے طور پر بیان کردہ چارلس کنگسلی کی کتاب دی واٹر بیبیز نے 19 ویں صدی کے ظالمانہ عمل کو بے نقاب کیا۔ جھاڑو صاف کرنے کےلئے چھوٹے لڑکوں کو چمنی بھیج دیتے تھے۔ کاجل کی وجہ سے، لڑکے اکثر سانس کی خرابی کا شکار تھے۔ یہ کتاب 1863 میں شائع ہوئی، اور اگلے ہی سال پارلیمنٹ نے اس ناجائز سلوک کے خلاف چمنی سویپس ایکٹ منظور کیا۔ اس عمل کو بالآخر 1875 میں ایک اور سخت ایکٹ کے ذریعہ ٹھہرادیا گیا۔</p>
+                
+                <h2>پہلی ٹریڈ یونین</h2>
+                <p>پہلی ٹریڈ یونین، 1700 کی دہائی کے اوائل میں ہی معرض وجود میں آئے جب زرعی اور بعد میں صنعتی انقلاب نے مزدوروں کے کام کرنے کے طریقے کو مکمل طور پر تبدیل کردیا۔ یونینیں میں اس وقت پریشانی کا شکار ہوگئیں جب ان پر سرکاری طور پر پابندی عائد کردی گئی تھی کیونکہ اس بات کا خدشہ تھا کہ وہ مزدوروں کو بغاوت کی ترغیب دے سکتے ہیں۔ یہ وہ وقت تھا جب فرانسیسی انقلاب کی پرتشدد زیادتییں لوگوں کے ذہنوں میں اب بھی بہت زیادہ تھیں۔</p>
+                <p>یہ پابندی 1824 میں ہٹا دی گئی، اور اس کے بعد یونینوں میں تیزی سے اضافہ ہوا، جیسا کہ ناقص اجرتوں کی ادائیگی اور خراب کام کی شرائط کے خلاف ہڑتالیں ہوئیں جو اس وقت عام تھیں۔</p>
+                <p>کچھ یونینیں اپنے طریقوں سے بے رحم تھیں۔ شیفیلڈ کٹلری ورکرز اپنے ساتھی کارکن کی یونین لائن پر عمل نہیں کرنے والے چمنی کے نیچے بارود کا ایک کٹا گراتے تھے۔ تاہم، زیادہ تر یونینیں انصاف اور ذمہ دار تھیں۔ 1871 کے ٹریڈ یونین ایکٹ نے بالآخر یونینوں کو قانونی شکل دے دی، اور انہیں ورثہ کے فنڈز کے لئے کچھ حقوق اور تحفظ فراہم کیا۔ یہ قانون پارلیمنٹ کے ذریعہ منظور کیا گیا تھا - نئی تشکیل شدہ ٹریڈس یونین کانگریس کے دباؤ کا نتیجہ۔</p>
+                
+                <h2>نہر سوئز</h2>
+                <p>جب 1859 میں فرانس اور مصر کے ترک حکمرانوں نے سوئز نہر کی تعمیر کا کام شروع کیا، جو دس سال بعد کھولی تو برطانوی تاجروں نے اس کا خیرمقدم کیا۔ تاہم، حکومت نے نہر کی مخالفت برطانوی تجارت اور ہندوستان کے ساتھ دوسرے روابط کے لئے خطرہ کی حیثیت سے کی تھی کیونکہ اس نے ہندوستان جانے کا سب سے مختصر راستہ تشکیل دیا تھا اور برطانیہ کے زیر کنٹرول نہیں تھا۔</p>
+                <p>سولہ سال بعد مصر کے سسستھ رفٹ کھیڈیو (وائسرائے) کے پاس رقم کی کمی تھی، اور انہوں نے سویس کینال کمپنی میں اپنے حصص کی پیش کش برطانیہ کو کی۔</p>
+                
+                <h2>ڈسرایلی کا نظریہ</h2>
+                <p>وزیر اعظم، بینجمن ڈسرایلی، سلطنت کو بڑھانا چاہتے تھے، جبکہ ان کے سیاسی مخالف اور لبرل پارٹی کے رہنما، ولیم گلیڈ اسٹون، نے اس کو محدود رکھنے کے حامی بنائے۔ ڈسرایلی اپنے پیشروں اور دفتر خارجہ سے کہیں زیادہ دور نگاہ رکھنے والا تھا، اور انہوں نے فوری طور پر 4 ملین (پاؤنڈ) میں سویز شیئرز خرید کر سکریٹری خارجہ لارڈ ڈربی کو مسترد کردیا۔</p>
+                <p>انہوں نے یہ رقم بین الاقوامی بینکرس، روتھشیلڈس سے ادھار لے لی، جب تک کہ پارلیمنٹ ضروری فنڈز میں ووٹ نہ دے سکے۔ سویٹ کینال کمپنی کے کل 400000 حصص میں سے برطانوی حکومت کے پاس اب 176602 کی ملکیت ہے۔</p>
+                <p>اس کارروائی کے ذریعے ڈسرایلی نے مشرقی ممالک تک کے انتہائی اہم تجارتی آبی راستہ پر برطانوی کنٹرول حاصل کرلیا۔ ملکہ وکٹوریہ نے اس ہوشیار خریداری کے لئے ان کی مدد کی۔</p>
+                
+                <h2>کیو گارڈنز</h2>
+                <p>رچمنڈ کے لندن بورو میں واقع کیو میں واقع رائل بوٹینیکل گارڈنز کا آغاز لارڈ کیپل کے ذریعہ پودوں کے جمع کرنے کے ساتھ 1600 میں ہوا۔ 1759 میں، شہزادی آگسٹا، جارج III کی والدہ نے، کیو پیلس کے باغات کا ایک حصہ پودوں کے تجربات کے لئے مختص کیا، جس میں ربڑ کے پودوں کی کاشت شامل ہے۔ یہ باغ 3.6 ہیکٹر پر محیط ہے۔</p>
+                <p>کیو گارڈنز اس وقت تک توسیع کرتا رہا جب تک کہ وہ 117 ہیکٹر سے زیادہ کا احاطہ نہیں کرتے۔ ان پر سر ولیم چیمبرز کے تیار کردہ ایک آرائشی پگوڈا کا غلبہ ہے، جو تقریبا 50 میٹر لمبا ہے، جو 1762 میں مکمل ہوا تھا۔ 1841 میں باغات قوم کے حوالے کردیئے گئے تھے۔</p>
+                <p>آج کیو گارڈنز کو سرکاری طور پر رائل بوٹینک گارڈن کہا جاتا ہے۔ وہ نباتیات کے مطالعات کے ایک مرکز کے طور پر دنیا بھر میں مشہور ہیں اور دنیا میں جاندار اور محفوظ پودوں کا سب سے بڑا ذخیرہ رکھتے ہیں۔ وہ نباتات کے تجزیہ کے ایک مرکز کے طور پر نئے طور پر برطانیہ میں متعارف کروائے جانے والے پودوں کے لئے سنگرودھ اسٹیشن کی حیثیت سے بھی اہم ہیں۔</p>
+                <p>ویلز کنزرویٹری کی راجکماری، جو 1987 میں کھولی گئی تھی، وکٹورین آبشار کے ساتھ واقع ہے جو 1837 میں ملکہ کے اعزاز میں جنوبی امریکہ سے متعارف کروائی گئی تھی۔ اس کے پتے زیادہ سے زیادہ دو میٹر تک ہوسکتے ہیں۔</p>
+                
+                <!-- Reactions System (exactly as required) -->
+                <div class="reactions-section">
+                    <div class="reactions-title">📢 اس پوسٹ پر اپنے جذبات کا اظہار کریں</div>
+                    <div class="reactions-container">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Social Share Icons 7 platforms -->
+                <div class="social-share">
+                    <div class="social-icons">
+                        <div class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                        <div class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                        <div class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                        <div class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></div>
+                        <div class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                        <div class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Footer Navigation Buttons -->
+                <div class="post-footer-nav">
+                    <a href="https://bloglovers.pk/" class="footer-nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="footer-nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+            </div>
+        </div>
         
-        <!-- پوسٹ کا مواد -->
-        <div class="post-content">
-            <h1>وکٹورین دور 1837-1914 (حصہ سوئم)</h1>
-            
-            <!-- تصویر -->
-            <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" 
-                 alt="وکٹورین دور 1837-1914 (حصہ سوئم)" 
-                 class="featured-image">
-            
-            <p>وکٹورین دور 1837-1914 (حصہ سوئم)</p>
-            
-            <h2>وکٹورین کتابیں</h2>
-            <p>وکٹورین ناول نگار، شاعروں اور دوسرے مصنفین نے اپنے دور کی معاشرتی تبدیلیوں اور پریشانیوں کی عکاسی اس سے قبل والٹر اسکاٹ یا شاعر ولیم ورڈز ورتھ جیسے رومانٹک ناول نگاروں کی نسبت کی تھی۔ اولیور ٹوسٹ جیسی کتابوں میں چارلس ڈکنز نے شاعر کی خراب زندگی کو بڑی مہارت کے ساتھ بیان کیا۔ ولیم ٹھاکرے نے وینٹی میلے میں درمیانے اور اعلی طبقے کے درمیان رہنے والے ملک اور قصبے کی شبیہہ پیدا کی، اور الزبتھ گاسکل نے شمال اور جنوب جیسی کتابوں میں شمال کے نئے مینوفیکچرنگ شہروں میں زندگی کی تصویر کشی کی۔</p>
-            
-            <p>اس وقت کا مضبوط اور کبھی کبھی سخت مذہبی عقیدہ بہت سے کم لکھنے والوں کا موضوع تھا، خاص طور پر وہ جو نوجوان قارئین کی تلاش کر رہے ہیں۔ اس طرح کے ایک عام مصنف ALOE (انگلینڈ کی ایک لیڈی) تھے، جو شارلٹ ماریہ ٹکر کا نام تھا۔ اس کی انتہائی اخلاقی داستانیں اکثر سنڈے اسکول کے انعامات کے طور پر دی گئیں۔ انا سیول کی ایک کتاب، بلیک بیوٹی، لوگوں کو گھوڑوں کے ذریعہ ہونے والے ظالمانہ سلوک سے بیدار کرنے کے لئے بہت کچھ کیا۔</p>
-            
-            <p>انگریزی زبان کے کچھ قابل ذکر ناول اس دور میں تین بہنوں نے لکھے تھے جو یارکشائر کے ماتھے پر تنہائی میں رہتی تھیں۔ شارلٹ، ایملی اور این برونٹے نے شاید اپنے جابرانہ ماحول سے بچنے کے لئے لکھا تھا، اور خوبصورت ہیرو اور پرجوش خواتین پر مشتمل ہزاروں نظمیں اور رومانوی کہانیاں تیار کیں۔</p>
-            
-            <p>ایملی برونٹے کا زبردست ناول ووٹرنگ ہائٹس آج بھی بڑے پیمانے پر پڑھا جاتا ہے۔ شارلٹ برونٹی کے جین آئیر میں مرکزی کردار، جو اس وقت کا بہترین فروخت کنندہ تھا اور اب بھی مقبول ہے، خواتین کی آزادی کے بڑھتے ہوئے جذبے کی عکاسی کرتا ہے۔</p>
-            
-            <p>پریوں کی کہانی کے طور پر بیان کردہ چارلس کنگسلی کی کتاب دی واٹر بیبیز نے 19 ویں صدی کے ظالمانہ عمل کو بے نقاب کیا۔ جھاڑو صاف کرنے کےلئے چھوٹے لڑکوں کو چمنی بھیج دیتے تھے۔ کاجل کی وجہ سے، لڑکے اکثر سانس کی خرابی کا شکار تھے۔ یہ کتاب 1863 میں شائع ہوئی، اور اگلے ہی سال پارلیمنٹ نے اس ناجائز سلوک کے خلاف چمنی سویپس ایکٹ منظور کیا۔ اس عمل کو بالآخر 1875 میں ایک اور سخت ایکٹ کے ذریعہ ٹھہرادیا گیا۔</p>
-            
-            <h2>پہلی ٹریڈ یونین</h2>
-            <p>پہلی ٹریڈ یونین، 1700 کی دہائی کے اوائل میں ہی معرض وجود میں آئے جب زرعی اور بعد میں صنعتی انقلاب نے مزدوروں کے کام کرنے کے طریقے کو مکمل طور پر تبدیل کردیا۔ یونینیں میں اس وقت پریشانی کا شکار ہوگئیں جب ان پر سرکاری طور پر پابندی عائد کردی گئی تھی کیونکہ اس بات کا خدشہ تھا کہ وہ مزدوروں کو بغاوت کی ترغیب دے سکتے ہیں۔ یہ وہ وقت تھا جب فرانسیسی انقلاب کی پرتشدد زیادتییں لوگوں کے ذہنوں میں اب بھی بہت زیادہ تھیں۔</p>
-            
-            <p>یہ پابندی 1824 میں ہٹا دی گئی، اور اس کے بعد یونینوں میں تیزی سے اضافہ ہوا، جیسا کہ ناقص اجرتوں کی ادائیگی اور خراب کام کی شرائط کے خلاف ہڑتالیں ہوئیں جو اس وقت عام تھیں۔</p>
-            
-            <p>کچھ یونینیں اپنے طریقوں سے بے رحم تھیں۔ شیفیلڈ کٹلری ورکرز اپنے ساتھی کارکن کی یونین لائن پر عمل نہیں کرنے والے چمنی کے نیچے بارود کا ایک کٹا گراتے تھے۔ تاہم، زیادہ تر یونینیں انصاف اور ذمہ دار تھیں۔ 1871 کے ٹریڈ یونین ایکٹ نے بالآخر یونینوں کو قانونی شکل دے دی، اور انہیں ورثہ کے فنڈز کے لئے کچھ حقوق اور تحفظ فراہم کیا۔ یہ قانون پارلیمنٹ کے ذریعہ منظور کیا گیا تھا - نئی تشکیل شدہ ٹریڈس یونین کانگریس کے دباؤ کا نتیجہ۔</p>
-            
-            <h2>نہر سوئز</h2>
-            <p>جب 1859 میں فرانس اور مصر کے ترک حکمرانوں نے سوئز نہر کی تعمیر کا کام شروع کیا، جو دس سال بعد کھولی تو برطانوی تاجروں نے اس کا خیرمقدم کیا۔ تاہم، حکومت نے نہر کی مخالفت برطانوی تجارت اور ہندوستان کے ساتھ دوسرے روابط کے لئے خطرہ کی حیثیت سے کی تھی کیونکہ اس نے ہندوستان جانے کا سب سے مختصر راستہ تشکیل دیا تھا اور برطانیہ کے زیر کنٹرول نہیں تھا۔</p>
-            
-            <p>سولہ سال بعد مصر کے سسٹتھ رفٹ کھیڈیو (وائسرائے) کے پاس رقم کی کمی تھی، اور انہوں نے سویس کینال کمپنی میں اپنے حصص کی پیش کش برطانیہ کو کی۔</p>
-            
-            <h2>ڈسرایلی کا نظریہ</h2>
-            <p>وزیر اعظم، بینجمن ڈسرایلی، سلطنت کو بڑھانا چاہتے تھے، جبکہ ان کے سیاسی مخالف اور لبرل پارٹی کے رہنما، ولیم گلیڈ اسٹون، نے اس کو محدود رکھنے کے حامی بنائے۔ ڈسرایلی اپنے پیشروں اور دفتر خارجہ سے کہیں زیادہ دور نگاہ رکھنے والا تھا، اور انہوں نے فوری طور پر 4 ملین (پاؤنڈ) میں سویز شیئرز خرید کر سکریٹری خارجہ لارڈ ڈربی کو مسترد کردیا۔</p>
-            
-            <p>انہوں نے یہ رقم بین الاقوامی بینکرس، روتھشیلڈس سے ادھار لے لی، جب تک کہ پارلیمنٹ ضروری فنڈز میں ووٹ نہ دے سکے۔ سویٹ کینال کمپنی کے کل 400000 حصص میں سے برطانوی حکومت کے پاس اب 176602 کی ملکیت ہے۔</p>
-            
-            <p>اس کارروائی کے ذریعے ڈسرایلی نے مشرقی ممالک تک کے انتہائی اہم تجارتی آبی راستہ پر برطانوی کنٹرول حاصل کرلیا۔ ملکہ وکٹوریہ نے اس ہوشیار خریداری کے لئے ان کی مدد کی۔</p>
-            
-            <h2>کیو گارڈنز</h2>
-            <p>رچمنڈ کے لندن بورو میں واقع کیو میں واقع رائل بوٹینیکل گارڈنز کا آغاز لارڈ کیپل کے ذریعہ پودوں کے جمع کرنے کے ساتھ 1600 میں ہوا۔ 1759 میں، شہزادی آگسٹا، جارج III کی والدہ نے، کیو پیلس کے باغات کا ایک حصہ پودوں کے تجربات کے لئے مختص کیا، جس میں ربڑ کے پودوں کی کاشت شامل ہے۔ یہ باغ 3.6 ہیکٹر پر محیط ہے۔</p>
-            
-            <p>کیو گارڈنز اس وقت تک توسیع کرتا رہا جب تک کہ وہ 117 ہیکٹر سے زیادہ کا احاطہ نہیں کرتے۔ ان پر سر ولیم چیمبرز کے تیار کردہ ایک آرائشی پگوڈا کا غلبہ ہے، جو تقریبا 50 میٹر لمبا ہے، جو 1762 میں مکمل ہوا تھا۔ 1841 میں باغات قوم کے حوالے کردیئے گئے تھے۔</p>
-            
-            <p>آج کیو گارڈنز کو سرکاری طور پر رائل بوٹینک گارڈن کہا جاتا ہے۔ وہ نباتیات کے مطالعات کے ایک مرکز کے طور پر دنیا بھر میں مشہور ہیں اور دنیا میں جاندار اور محفوظ پودوں کا سب سے بڑا ذخیرہ رکھتے ہیں۔ وہ نباتات کے تجزیہ کے ایک مرکز کے طور پر نئے طور پر برطانیہ میں متعارف کروائے جانے والے پودوں کے لئے سنگرودھ اسٹیشن کی حیثیت سے بھی اہم ہیں۔</p>
-            
-            <p>ویلز کنزرویٹری کی راجکماری، جو 1987 میں کھولی گئی تھی، وکٹورین آبشار کے ساتھ واقع ہے جو 1837 میں ملکہ کے اعزاز میں جنوبی امریکہ سے متعارف کروائی گئی تھی۔ اس کے پتے زیادہ سے زیادہ دو میٹر تک ہوسکتے ہیں۔</p>
+        <!-- Sidebar with auto-scroll links -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">📚 مزید پڑھیں</div>
+                <div class="scroll-list" id="scrollList">
+                    <div class="scroll-list-inner" id="scrollListInner">
+                        <!-- dynamic items will be injected via js but we hardcode full list for reliability -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <script src="/reactions.js"></script>
     <script>
-        // ستاروں کی اینیمیشن کا کوڈ
+        // Social share functions (kept from original)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+                default: return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+        
+        // Sidebar data (exactly as provided)
+        const sidebarPosts = [
+            { title: "5 رومانوی دور", link: "https://bloglovers.pk/english-adab/romanoi-dor", img: "https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" },
+            { title: "شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ", link: "https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea", img: "https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" },
+            { title: "طاقت کاکھیل افسانۂ حیوان سے پاکستان تک", link: "https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak", img: "https://bloglovers.pk/images/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak.png" },
+            { title: "ٹیلی اسکرینز سے سمارٹ فونز تک: 1984 اور آج کی نگرانی کا موازنہ", link: "https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh", img: "https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" },
+            { title: "وکٹورین دور (پارٹ ون) (1837-1913)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" },
+            { title: "وکٹورین دور 1837-1914 (دوسرا حصہ)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-dosra-hsh.jpg" },
+            { title: "وکٹورین دور 1837-1914 (حصہ سوئم)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg", active: true },
+            { title: "وکٹورین دور 1837-1914 (حصہ چہارم)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chharm.jpg" },
+            { title: "وکٹورین دور 1837-1914 (پانچواں حصہ)", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-panchoan-hsh.jpg" },
+            { title: "وکٹورین دور (1837 - 1914) حصہ چھٹا", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chhta.jpg" },
+            { title: "وکٹورین دور (1837 - 1914) حصہ ساتواں", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" },
+            { title: "وکٹورین دور (1837 - 1914) آخری حصہ", link: "https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh", img: "https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" },
+            { title: "فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟", link: "https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai", img: "https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" }
+        ];
+        
+        function buildSidebar() {
+            const inner = document.getElementById('scrollListInner');
+            if(!inner) return;
+            inner.innerHTML = '';
+            sidebarPosts.forEach(post => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'sidebar-item';
+                if(post.active) itemDiv.classList.add('active');
+                const img = document.createElement('img');
+                img.src = post.img;
+                img.alt = post.title;
+                img.className = 'sidebar-img';
+                const link = document.createElement('a');
+                link.href = post.link;
+                link.className = 'sidebar-link';
+                link.innerText = post.title;
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(link);
+                inner.appendChild(itemDiv);
+            });
+            // duplicate for seamless infinite scroll effect
+            const clone = inner.cloneNode(true);
+            inner.parentNode.appendChild(clone);
+        }
+        
+        // stars & floating
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starCount = 120;
-            
-            for (let i = 0; i < starCount; i++) {
+            for(let i=0;i<100;i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
-                const size = Math.random() * 3 + 1;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 3 + 2;
-                const delay = Math.random() * 2;
-                
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.animationDuration = `${duration}s`;
-                star.style.animationDelay = `${delay}s`;
-                
+                star.style.width = `${Math.random()*3+1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random()*100}%`;
+                star.style.top = `${Math.random()*100}%`;
+                star.style.animationDuration = `${Math.random()*3+2}s`;
+                star.style.animationDelay = `${Math.random()*2}s`;
                 starsContainer.appendChild(star);
             }
         }
-        
-        // فلواٹنگ عناصر بنانا
-        function createFloatingElements() {
-            const container = document.getElementById('floatingElements');
-            const elementCount = 8;
-            
-            for (let i = 0; i < elementCount; i++) {
-                const element = document.createElement('div');
-                element.classList.add('floating-element');
-                
-                const size = Math.random() * 100 + 50;
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                
-                element.style.width = `${size}px`;
-                element.style.height = `${size}px`;
-                element.style.left = `${x}%`;
-                element.style.top = `${y}%`;
-                element.style.animationDuration = `${duration}s`;
-                element.style.animationDelay = `${delay}s`;
-                element.style.background = i % 2 === 0 
-                    ? 'radial-gradient(circle, rgba(255,107,107,0.1) 0%, transparent 70%)' 
-                    : 'radial-gradient(circle, rgba(76,201,240,0.1) 0%, transparent 70%)';
-                
-                container.appendChild(element);
+        function createFloating() {
+            const floatCont = document.getElementById('floatingElements');
+            for(let i=0;i<10;i++) {
+                const el = document.createElement('div');
+                el.classList.add('floating-element');
+                const size = Math.random()*80+40;
+                el.style.width = `${size}px`;
+                el.style.height = `${size}px`;
+                el.style.left = `${Math.random()*100}%`;
+                el.style.top = `${Math.random()*100}%`;
+                el.style.animationDuration = `${Math.random()*20+10}s`;
+                el.style.background = i%2===0 ? 'radial-gradient(circle, rgba(255,107,107,0.1) 0%, transparent 70%)' : 'radial-gradient(circle, rgba(76,201,240,0.1) 0%, transparent 70%)';
+                floatCont.appendChild(el);
             }
         }
         
-        // کلر موڈ ٹوگل
-        const colorModeBtn = document.getElementById('colorModeBtn');
-        let isDarkMode = true;
-        
-        colorModeBtn.addEventListener('click', function() {
-            if (isDarkMode) {
-                // لائٹ موڈ
+        // Color mode toggle
+        const colorBtn = document.getElementById('colorModeBtn');
+        let isDark = true;
+        colorBtn.addEventListener('click', () => {
+            if(isDark) {
                 document.documentElement.style.setProperty('--primary', '#f8f9fa');
                 document.documentElement.style.setProperty('--secondary', '#e9ecef');
-                document.documentElement.style.setProperty('--accent', '#ff6b6b');
                 document.documentElement.style.setProperty('--text', '#212529');
                 document.documentElement.style.setProperty('--text-light', '#495057');
                 document.documentElement.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.1)');
                 document.documentElement.style.setProperty('--gradient', 'linear-gradient(135deg, #f8f9fa, #e9ecef, #dee2e6)');
-                colorModeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-                isDarkMode = false;
+                document.documentElement.style.setProperty('--card-bg', 'rgba(248,249,250,0.9)');
+                document.documentElement.style.setProperty('--border-light', 'rgba(0,0,0,0.05)');
+                document.documentElement.style.setProperty('--sidebar-bg', 'rgba(0,0,0,0.2)');
+                colorBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                isDark = false;
             } else {
-                // ڈارک موڈ
                 document.documentElement.style.setProperty('--primary', '#1a1a2e');
                 document.documentElement.style.setProperty('--secondary', '#16213e');
-                document.documentElement.style.setProperty('--accent', '#ff6b6b');
                 document.documentElement.style.setProperty('--text', '#f0f0f0');
                 document.documentElement.style.setProperty('--text-light', '#cccccc');
                 document.documentElement.style.setProperty('--shadow', 'rgba(0, 0, 0, 0.6)');
                 document.documentElement.style.setProperty('--gradient', 'linear-gradient(135deg, #1a1a2e, #16213e, #0f3460)');
-                colorModeBtn.innerHTML = '<i class="fas fa-palette"></i>';
-                isDarkMode = true;
+                document.documentElement.style.setProperty('--card-bg', 'rgba(26, 26, 46, 0.85)');
+                document.documentElement.style.setProperty('--border-light', 'rgba(255, 255, 255, 0.05)');
+                document.documentElement.style.setProperty('--sidebar-bg', 'rgba(0,0,0,0.5)');
+                colorBtn.innerHTML = '<i class="fas fa-palette"></i>';
+                isDark = true;
             }
         });
         
-        // پیج لوڈ ہونے پر ستارے اور فلواٹنگ عناصر بنائیں
-        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('backButton').addEventListener('click', (e) => { e.preventDefault(); window.history.back(); });
+        document.addEventListener('DOMContentLoaded', () => {
             createStars();
-            createFloatingElements();
-        });
-        
-        // بیک بٹن کے لیے تاریخ میں پیچھے جانے کا فنکشن
-        document.querySelector('.back-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.history.back();
+            createFloating();
+            buildSidebar();
         });
     </script>
 </body>
