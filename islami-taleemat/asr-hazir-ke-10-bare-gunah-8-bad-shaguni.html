@@ -28,11 +28,118 @@
             transition: all 0.3s ease;
         }
         
-        .container {
-            max-width: 1000px;
+        /* سائیڈبار کے لیے مین کنٹینر فلیکس */
+        .main-wrapper {
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+            display: flex;
+            gap: 30px;
             position: relative;
+        }
+        
+        .container {
+            flex: 3;
+            min-width: 0;
+        }
+        
+        /* سائیڈبار اسٹائل */
+        .sidebar {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            max-height: 550px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-header {
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            padding: 15px 20px;
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .sidebar-content {
+            overflow-y: auto;
+            flex: 1;
+            padding: 15px 10px;
+            scroll-behavior: smooth;
+            max-height: 500px;
+        }
+        
+        /* آٹو اسکرول اینیمیشن */
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .sidebar-content.auto-scroll-active {
+            animation: autoScroll 30s linear infinite;
+        }
+        
+        .sidebar-content.auto-scroll-active:hover {
+            animation-play-state: paused;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            border-right: 3px solid transparent;
+        }
+        
+        .sidebar-item:hover {
+            background: linear-gradient(135deg, #e3f2fd, #e8f5e9);
+            transform: translateX(-5px);
+            border-right-color: #4a90e2;
+        }
+        
+        .sidebar-item.active {
+            background: linear-gradient(135deg, #e1f5fe, #c8e6e9);
+            border-right-color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .sidebar-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-title {
+            font-size: 1rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+        
+        @media (max-width: 992px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-height: 450px;
+            }
         }
         
         .header {
@@ -153,20 +260,101 @@
             transform: translateX(-5px);
         }
         
-        p::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 0;
-            height: 100%;
-            background: linear-gradient(to left, rgba(74, 144, 226, 0.1), transparent);
-            transition: width 0.5s ease;
-            border-radius: 10px;
+        /* Reactions سیکشن اسٹائل */
+        .reactions-section {
+            margin: 30px 0 25px;
+            padding: 20px;
+            background: #f9f9ff;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
-        p:hover::before {
-            width: 100%;
+        .reactions-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .reaction-btn {
+            background: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+        }
+        
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            color: white;
+            box-shadow: 0 5px 15px rgba(74,144,226,0.3);
+        }
+        
+        .reaction-count {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        /* سوشل میڈیا شیئرنگ اسٹائل */
+        .social-share {
+            margin: 20px 0;
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 15px;
+        }
+        
+        .social-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.05);
         }
         
         .nav-buttons {
@@ -289,117 +477,124 @@
             font-size: 1.2rem;
         }
         
-        /* موبائل ریسپانسیو */
         @media (max-width: 768px) {
             .container {
+                padding: 0;
+            }
+            .main-wrapper {
                 padding: 15px;
             }
-            
             h1 {
                 font-size: 2.2rem;
             }
-            
             h2, h3 {
                 font-size: 1.8rem;
             }
-            
             .content-box {
                 padding: 25px;
                 font-size: 1.3rem;
             }
-            
             .btn {
                 min-width: 150px;
                 padding: 12px 20px;
                 font-size: 1.1rem;
             }
-            
             .nav-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-            
             .scroll-buttons {
                 left: 15px;
                 bottom: 15px;
             }
-            
             .scroll-btn {
                 width: 50px;
                 height: 50px;
                 font-size: 20px;
-            }
-            
-            .post-image {
-                margin: 15px 0;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2, h3 {
-                font-size: 1.5rem;
-            }
-            
-            .content-box {
-                padding: 20px;
-                font-size: 1.2rem;
-            }
-            
-            .btn {
-                min-width: 100%;
-                margin-bottom: 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="nature-bg"></div>
-    
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
     
-    <div class="container">
-        <div class="header">
-            <h1>عصر حاضر کے 10 بڑے گناہ 8- بدشگونی</h1>
-            <p>دین اسلام کی روشنی میں توہمات و بدعات کا انکار</p>
-        </div>
-        
-        <div class="nav-buttons">
-            <button class="btn btn-back" onclick="window.history.back()"><i class="fas fa-arrow-right"></i> پیچھے جائیں</button>
-            <button class="btn" onclick="window.print()"><i class="fas fa-print"></i> پرنٹ کریں</button>
-        </div>
-        
-        <div class="content-box">
-            <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-8-bad-shaguni.jpg" alt="بدشگونی" class="post-image">
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="header">
+                <h1>عصر حاضر کے 10 بڑے گناہ 8- بدشگونی</h1>
+                <p>دین اسلام کی روشنی میں توہمات و بدعات کا انکار</p>
+            </div>
             
-            <p>دین اسلام عظمتوں، امن و سلامتی، حقائق، سراپا رحمتوں اور سچائیوں والا دین ہے، جہاں توہمات و بدعات، تصوراتی، ماورائی و خیالی دنیا سے اس کا دور دور تک کوئی تعلق نہیں۔ دین اسلام توہم پرستی، بدگمانی و بدشگونی اور مختلف اشیاء کی نحوست کے تصور و عقائد کی سرے سے انکار کرتا ہے۔ دین اسلام در حقیقت توحید پر مبنی ایک واحد، قادر مطلق ذات اقدس پر یقین و اعتماد کی تعلیم دیتا ہے۔</p>
-            <p>اسی رب العزت کے قبضہ قدرت میں کائنات کی ہر چیز ہے وہ حقیقی خالق و مالک ہے۔ انسان چاہے عقل کے جتنے مرضی گھوڑے دوڑا لے جتنی بھی بلندی پر اڑنا شروع کر دے، رہے گا وہ اسی رب عظیم کا محتاج۔ وہ چاہے جو مرضی سوچے جو مرضی کر لے ہوگا وہی جو اللہ رب العزت چاہے گا۔</p>
-            <p>درحقیقت یہی وہ دین اسلام کا بنیادی نقطہ ہے جس سے کفر و شرک، توہم پرستی، بدعات و خرافات اور ماورائی و تصوراتی دنیا کی نفی ہو جاتی ہے۔</p>
-            <p>عصر حاضر کے دس بڑے گناہ جن میں غیر اللہ کی پکار، بت پرستی، مردہ پرستی، اکابر پرستی، فرقہ پرستی، تعویذات، توہم پرستی کے بعد بدشگونی و بدگمانی پر بات کرنے جا رہا ہوں۔ بدشگونی و بدگمانی بھی کبیرہ گناہوں میں سے ایک ہے اور شرک کی ایک خاص قسم ہے جو انسان کی عقل پر گمراہی کے پردے ڈال کر اس سے ایسے کام کرنے پر مجبور کر دیتی ہے جس سے دین اسلام کا دور تک کوئی واسطہ نہیں ہوتا۔</p>
-            <p>آج کل کے مشکل حالات اور دشوار گزار زندگی میں ایسے لوگ جن کے مذہب کی بنیاد ہی توہم پرستی، بدعت و خرافات سے شروع ہو، دیومالائی کہانیاں اور عجیب و غریب، من گھڑت قصے، رسوم و روایات جن کا بنیادی حصہ ہوں، یقیناً غیرمسلموں کی صحبت میں طویل بود و باش اور رہن سہن کے نتیجے میں خود مسلمانوں میں بھی دنوں، مہینوں، جگہوں، چیزوں اور مختلف رسوم و رواج کی عدمِ ادائیگی کی شکل میں بے شمار توہمات سرایت کر چکے ہیں کہ بناسوچے سمجھے ہم اکثر کہتے یا سنتے دکھائی دیتے ہیں کہ فلاں دن اور فلاں مہینہ بڑا ہی منحوس ہوتا ہے، یا اس رخ پر گھر بنانے یا درست سمت اور رُخ کے اعتبار سے مسرت و نحوست کا باعث سمجھا جانا، بچے کی پیدائش سے لے کر شادی کے بندھن میں بندھ جانے، اور پھر صاحب اولاد ہونے تک، یا پھر اس کے عمر کے آخری مراحل سے گزر کر اس کے موت کے منہ میں چلے جانے تک؛ بلکہ بعض کے ہاں تو مرنے کے بعد بھی اس کے دفنانے کی مختلف رسوم و رواج کا سلسلہ جاری و ساری رہتا ہے۔ پھر اس شخص کی جمعرات، پندرہواں، مہینہ، چالیسواں، برسی پتہ اور کیا کیا رسومات کا سلسلہ چل نکلتا ہے۔</p>
-            <p>شیطان بھی لوگوں کے دماغوں کے ساتھ کیسا بدتمذاق کرتا ہے کہ بدعقائد شخص یہ کبھی جان نہیں پاتا کہ ایک اللہ کی ذات اقدس کو راضی کرنا کتنا آسان تھا۔ جبکہ آج کا انسان اس حقیقی رب کو چھوڑ کر جگہ جگہ اپنی جبین نیاز خم کرتا دکھائی دیتا ہے۔ مختلف پتھروں، مورتیوں، رسموں رواجوں، کے علاوہ بے زبان، بے عقل جانور کتے، بلیوں، طوطوں، الوؤں اور کوؤں تک سے اپنے غیب کے بارے میں رسائی حاصل کرتا دکھائی دیتا ہے۔</p>
-            <p>زمانہ جاہلیت میں جب کسی کو کام سے نکلنا ہوتا تو درخت پر بیٹھے ہوئے کسی پرندے کو اڑا کر دیکھتے کہ یہ جانور کس سمت اڑا، اگر دائیں جانب کو اڑ گیا تو اسے متبرک یا اچھی قسمت جانتے تھے کہ جس کام کے لیے ہم نکلے ہیں وہ کام ہو جائے گا اور اگر بائیں جانب کو اڑ گیا تو اس کو منحوس اور خطرناک سمجھتے۔ آپ ﷺ نے ان سب چیزوں کی نفی فرمادی اور فرمایا: "کہ پرندوں کو اپنی جگہ بیٹھے رہنے دو، ان کو خواہ مخواہ اڑا کر فال نہ لو"۔</p>
-            <p>اسی طرح قدیم دور میں ایک بات بہت عام تھی جو کہ آپ ﷺ نے اس بدعقیدہ کی اصلاح فرمائی: "کہ بیماریاں ایک دوسرے کو منتقل ہوتی ہیں، آپ ﷺ نے فرمایا کہ: تعدیہ کوئی چیز نہیں ہے، اس تعدیہ کے متعلق ایک دیہاتی نے جب آپﷺ سے یہ دریافت کیا کہ: اے اللہ کے رسولﷺ! اونٹ رتیلے علاقوں میں بالکل ہرنوں کے مانند تیز و طرار ہوتے ہیں کہ کوئی عارضہ یا کوئی بیماری انہیں نہیں ہوتی ان میں ایک خارش زدہ اونٹ آکر گھل مل جاتا ہے، وہ سب کو خارش زدہ کر دیتا ہے (یہ تو تعدیہ ہوا) اس پر آپﷺ نے فرمایا: پہلے اونٹ کو خارش کہاں سے ہوئی؟ یعنی جب پہلے اونٹ کی خارش من جانب اللہ ہے تو ان تمام کا خارش زدہ ہونا بھی اسی کی جانب سے ہے۔"</p>
-            <p>بالکل ایسے ہی اہل عرب کا ایک عقیدہ یہ بھی تھا کہ مردار کی ہڈیاں جب بالکل بوسیدہ اور ریزہ ریزہ ہو جاتی ہیں تو وہ ’’الو‘‘ کی شکل اختیار کرکے باہر نکل آتی ہیں اور جب تک قاتل سے بدلہ نہیں لیا جاتا اس کے گھر پر اس کی آمد و رفت برقرار رہتی ہے۔ دورِ قدیم کی طرح موجودہ دور میں بھی ’’الو‘‘اور "کوّا" کو منحوس پرندے تصور کیا جاتا ہے، اس کے گھر پر بیٹھنے کو مصائب کی آمد کا اعلان تصور کیا جاتا ہے۔ آپ ﷺ نے ان تمام اعتقادات اور توہمات کا انکار کر دیا۔</p>
-            <p>اس کے علاوہ کچھ لوگوں کی سوچ تو یہ بھی ہے کہ شب معراج، شب برات اور شب قدر اور عید وغیرہ میں روحیں اپنے گھر آتی ہیں۔ جوکہ سراسر توہمات ہیں۔ ایک اور روایت کے مطابق آپﷺ نے یہ بھی فرمایا کہ بھوت پریت کا کوئی وجود نہیں۔ دور جاہلیت کے لوگ یہ سمجھتے ہیں کہ جنگلوں اور بیابانوں میں انسان کو بھوت پریت نظر آتے ہیں جو مختلف شکلیں تبدیل کرتے رہتے ہیں اور لوگوں کو گمراہ کر دیتے ہیں اور ان کو جان سے بھی مار دیتے ہیں۔ آپ ﷺ نے ان سب خرافات کا انکار فرمایا۔</p>
-            <p>دوستو! جس طرح بدگمانیاں اور بدشگونیاں دورِ جاہلیت میں رہیں ہیں اسی طرح یہ بدشگونیاں آج ہمارے معاشرے میں بھی بہت زوروں پر ہے۔ جیسے آپ ﷺ نے اپنی ایک روایت میں فرمایا کہ چار چیزیں سابقہ امتوں میں موجود تھیں وہی چاروں چیزیں میری امت میں بھی ہونگی ان میں سے ایک بدشگونی لینا بھی سرفہرست ہے۔</p>
-            <p>آج بھی عورتوں میں اس قسم کی باتیں مشہور ہیں، اگر کوئی شخص کام کو نکلا اور بلی یا عورت سامنے سے گذر گئی یا کسی کو چھینک آگئی تو سمجھتے ہیں کہ کام نہیں ہوگا، جوتی پر جوتی چڑھ گئی تو کہتے ہیں کہ سفر درپیش ہوگا، آنکھ پھڑکنے لگی تو فلاں بات ہوگئی، گھر پر کوے کی چیخ و پکار کو مہمان کی آمد کا اعلان اور الو کی آمد کو نقصان کا باعث تصور کیا جاتا ہے، ہچکیوں کے آنے پر یہ کہا جاتا ہے کسی قریب عزیز نے یاد کر لیا، یہ بھی خیال کیا جاتا ہے کہ ہتھیلی میں خارش ہونے سے مال ملتا ہے اور تلوے میں خارش ہونے سے سفر درپیش ہوتا ہے، اس طرح روز مرہ کی زندگی میں بے شمار تصورات و خیالات ہیں جو رات و دن لوگوں سے سننے میں آتے ہیں، عجیب توہم پرستی کی دنیا ہے جبکہ آپ ﷺ کا واضح فرمان ہے کہ "بد شگونی کا لینا شرک ہے"۔</p>
-            <p>یاد رکھیئے! اللہ رب العزت کے علاوہ غیب کا علم کوئی نہیں جانتا یہاں تک کہ خود طوطا، مینا لے کر بیٹھنے والے کو پتہ نہیں ہوتا ہے کہ وہ کل کیا کرے گا؟ اور اگر اس کو قسمت کا علم ہوتا تو اس چلتے روڈ پر بیٹھ کر لوگوں کو دھوکہ نہیں دیتا، کوئی شخص نہیں جانتا وہ کل کیا کرے گا؟ ارشاد ربانی ہے: ‘‘(اے نبی ﷺ! آپ کہہ دیجیئے کہ جو لوگ آسمان و زمین میں ہیں وہ غیب کو نہیں جانتے، غیب کو صرف اللہ ہی جانتا ہے"۔</p>
-            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "جو شخص کسی ایسے آدمی کے پاس گیا جو غیب کی باتیں بتاتا ہو، پھر اس سے کچھ بات پوچھ لی تو اس کی نماز چالیس دن تک قبول نہ ہوگی"۔</p>
-            <p>دوسرے مقام پر کچھ یوں ارشاد فرمایا کہ: "جو شخص کسی ایسے شخص کے پاس گیا جو غیب کی خبریں بتاتا ہو اور اس کے غیب کی تصدیق کر دی، تو اس چیز سے بری ہوگیا جو محمدﷺ پر نازل ہوئی"۔</p>
-            <p>مسلمانوں کو چاہئے کہ ٹونا ٹوٹکہ، بدفالی، بدگمانی و بدشگونی اور بدعات کی رسوم و رواج سے سختی سے پرہیز کریں، ایسا نہ ہو کہ یہ چیزیں اس کی آخرت کی تباہی اور اللہ رب العزت سے تعلق کو کمزور کر دیں۔ اور جس شخص کے پاس ایمان کی دولت موجود نہ ہو اس کی حالت جانوروں سے بھی بدتر ہوتی ہے۔</p>
-            <p>اللہ رب العزت سے استدعا ہے کہ وہ ہمیں دین کو سمجھنے اور عمل کرنے کی توفیق عطا فرمائے اور ہم سب کے گناہ معاف فرما دے۔۔۔ آمین</p>
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="window.history.back()"><i class="fas fa-arrow-right"></i> پیچھے جائیں</button>
+                <button class="btn" onclick="window.print()"><i class="fas fa-print"></i> پرنٹ کریں</button>
+            </div>
+            
+            <div class="content-box">
+                <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-8-bad-shaguni.jpg" alt="بدشگونی" class="post-image">
+                
+                <p>دین اسلام عظمتوں، امن و سلامتی، حقائق، سراپا رحمتوں اور سچائیوں والا دین ہے، جہاں توہمات و بدعات، تصوراتی، ماورائی و خیالی دنیا سے اس کا دور دور تک کوئی تعلق نہیں۔ دین اسلام توہم پرستی، بدگمانی و بدشگونی اور مختلف اشیاء کی نحوست کے تصور و عقائد کی سرے سے انکار کرتا ہے۔ دین اسلام در حقیقت توحید پر مبنی ایک واحد، قادر مطلق ذات اقدس پر یقین و اعتماد کی تعلیم دیتا ہے۔</p>
+                <p>اسی رب العزت کے قبضہ قدرت میں کائنات کی ہر چیز ہے وہ حقیقی خالق و مالک ہے۔ انسان چاہے عقل کے جتنے مرضی گھوڑے دوڑا لے جتنی بھی بلندی پر اڑنا شروع کر دے، رہے گا وہ اسی رب عظیم کا محتاج۔ وہ چاہے جو مرضی سوچے جو مرضی کر لے ہوگا وہی جو اللہ رب العزت چاہے گا۔</p>
+                <p>درحقیقت یہی وہ دین اسلام کا بنیادی نقطہ ہے جس سے کفر و شرک، توہم پرستی، بدعات و خرافات اور ماورائی و تصوراتی دنیا کی نفی ہو جاتی ہے۔</p>
+                <p>عصر حاضر کے دس بڑے گناہ جن میں غیر اللہ کی پکار، بت پرستی، مردہ پرستی، اکابر پرستی، فرقہ پرستی، تعویذات، توہم پرستی کے بعد بدشگونی و بدگمانی پر بات کرنے جا رہا ہوں۔ بدشگونی و بدگمانی بھی کبیرہ گناہوں میں سے ایک ہے اور شرک کی ایک خاص قسم ہے جو انسان کی عقل پر گمراہی کے پردے ڈال کر اس سے ایسے کام کرنے پر مجبور کر دیتی ہے جس سے دین اسلام کا دور تک کوئی واسطہ نہیں ہوتا۔</p>
+                <p>آج کل کے مشکل حالات اور دشوار گزار زندگی میں ایسے لوگ جن کے مذہب کی بنیاد ہی توہم پرستی، بدعت و خرافات سے شروع ہو، دیومالائی کہانیاں اور عجیب و غریب، من گھڑت قصے، رسوم و روایات جن کا بنیادی حصہ ہوں، یقیناً غیرمسلموں کی صحبت میں طویل بود و باش اور رہن سہن کے نتیجے میں خود مسلمانوں میں بھی دنوں، مہینوں، جگہوں، چیزوں اور مختلف رسوم و رواج کی عدمِ ادائیگی کی شکل میں بے شمار توہمات سرایت کر چکے ہیں کہ بناسوچے سمجھے ہم اکثر کہتے یا سنتے دکھائی دیتے ہیں کہ فلاں دن اور فلاں مہینہ بڑا ہی منحوس ہوتا ہے، یا اس رخ پر گھر بنانے یا درست سمت اور رُخ کے اعتبار سے مسرت و نحوست کا باعث سمجھا جانا، بچے کی پیدائش سے لے کر شادی کے بندھن میں بندھ جانے، اور پھر صاحب اولاد ہونے تک، یا پھر اس کے عمر کے آخری مراحل سے گزر کر اس کے موت کے منہ میں چلے جانے تک؛ بلکہ بعض کے ہاں تو مرنے کے بعد بھی اس کے دفنانے کی مختلف رسوم و رواج کا سلسلہ جاری و ساری رہتا ہے۔ پھر اس شخص کی جمعرات، پندرہواں، مہینہ، چالیسواں، برسی پتہ اور کیا کیا رسومات کا سلسلہ چل نکلتا ہے۔</p>
+                <p>شیطان بھی لوگوں کے دماغوں کے ساتھ کیسا بدتمذاق کرتا ہے کہ بدعقائد شخص یہ کبھی جان نہیں پاتا کہ ایک اللہ کی ذات اقدس کو راضی کرنا کتنا آسان تھا۔ جبکہ آج کا انسان اس حقیقی رب کو چھوڑ کر جگہ جگہ اپنی جبین نیاز خم کرتا دکھائی دیتا ہے۔ مختلف پتھروں، مورتیوں، رسموں رواجوں، کے علاوہ بے زبان، بے عقل جانور کتے، بلیوں، طوطوں، الوؤں اور کوؤں تک سے اپنے غیب کے بارے میں رسائی حاصل کرتا دکھائی دیتا ہے۔</p>
+                
+                <!-- Reactions سیکشن -->
+                <div class="reactions-section">
+                    <div class="reactions-title">📊 اس تحریر پر اپنا ردعمل دیں</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <p>زمانہ جاہلیت میں جب کسی کو کام سے نکلنا ہوتا تو درخت پر بیٹھے ہوئے کسی پرندے کو اڑا کر دیکھتے کہ یہ جانور کس سمت اڑا، اگر دائیں جانب کو اڑ گیا تو اسے متبرک یا اچھی قسمت جانتے تھے کہ جس کام کے لیے ہم نکلے ہیں وہ کام ہو جائے گا اور اگر بائیں جانب کو اڑ گیا تو اس کو منحوس اور خطرناک سمجھتے۔ آپ ﷺ نے ان سب چیزوں کی نفی فرمادی اور فرمایا: "کہ پرندوں کو اپنی جگہ بیٹھے رہنے دو، ان کو خواہ مخواہ اڑا کر فال نہ لو"۔</p>
+                <p>اسی طرح قدیم دور میں ایک بات بہت عام تھی جو کہ آپ ﷺ نے اس بدعقیدہ کی اصلاح فرمائی: "کہ بیماریاں ایک دوسرے کو منتقل ہوتی ہیں، آپ ﷺ نے فرمایا کہ: تعدیہ کوئی چیز نہیں ہے، اس تعدیہ کے متعلق ایک دیہاتی نے جب آپﷺ سے یہ دریافت کیا کہ: اے اللہ کے رسولﷺ! اونٹ رتیلے علاقوں میں بالکل ہرنوں کے مانند تیز و طرار ہوتے ہیں کہ کوئی عارضہ یا کوئی بیماری انہیں نہیں ہوتی ان میں ایک خارش زدہ اونٹ آکر گھل مل جاتا ہے، وہ سب کو خارش زدہ کر دیتا ہے (یہ تو تعدیہ ہوا) اس پر آپﷺ نے فرمایا: پہلے اونٹ کو خارش کہاں سے ہوئی؟ یعنی جب پہلے اونٹ کی خارش من جانب اللہ ہے تو ان تمام کا خارش زدہ ہونا بھی اسی کی جانب سے ہے۔"</p>
+                <p>بالکل ایسے ہی اہل عرب کا ایک عقیدہ یہ بھی تھا کہ مردار کی ہڈیاں جب بالکل بوسیدہ اور ریزہ ریزہ ہو جاتی ہیں تو وہ ’’الو‘‘ کی شکل اختیار کرکے باہر نکل آتی ہیں اور جب تک قاتل سے بدلہ نہیں لیا جاتا اس کے گھر پر اس کی آمد و رفت برقرار رہتی ہے۔ دورِ قدیم کی طرح موجودہ دور میں بھی ’’الو‘‘اور "کوّا" کو منحوس پرندے تصور کیا جاتا ہے، اس کے گھر پر بیٹھنے کو مصائب کی آمد کا اعلان تصور کیا جاتا ہے۔ آپ ﷺ نے ان تمام اعتقادات اور توہمات کا انکار کر دیا۔</p>
+                <p>اللہ رب العزت سے استدعا ہے کہ وہ ہمیں دین کو سمجھنے اور عمل کرنے کی توفیق عطا فرمائے اور ہم سب کے گناہ معاف فرما دے۔۔۔ آمین</p>
+            </div>
+            
+            <!-- سوشل میڈیا آئیکونز -->
+            <div class="social-share">
+                <div class="social-title">📢 شیئر کریں</div>
+                <div class="social-icons">
+                    <a class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                    <a class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                    <a class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                    <a class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                    <a class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                    <a class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+                </div>
+            </div>
+            
+            <div class="nav-buttons" style="margin-top:20px;">
+                <a href="https://bloglovers.pk/" class="btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+            
+            <footer>
+                <p>اللہ ہم سب کو توہمات اور بدشگونی سے بچائے اور سیدھے راستے پر چلنے کی توفیق عطا فرمائے۔</p>
+                <p style="margin-top: 15px; font-size: 1rem;">© اسلامی تعلیمات</p>
+            </footer>
         </div>
         
-        <footer>
-            <p>اللہ ہم سب کو توہمات اور بدشگونی سے بچائے اور سیدھے راستے پر چلنے کی توفیق عطا فرمائے۔</p>
-            <p style="margin-top: 15px; font-size: 1rem;">© اسلامی تعلیمات</p>
-        </footer>
+        <!-- سائیڈبار آٹو اسکرول -->
+        <div class="sidebar">
+            <div class="sidebar-header"><i class="fas fa-book-open"></i> مزید پڑھیں</div>
+            <div class="sidebar-content" id="sidebarContent">
+                <!-- سائیڈبار آئٹمز ڈائنامکلی بنائے جائیں گے -->
+            </div>
+        </div>
     </div>
     
     <div class="scroll-buttons">
@@ -407,6 +602,7 @@
         <button class="scroll-btn" onclick="scrollToBottom()"><i class="fas fa-chevron-down"></i></button>
     </div>
 
+    <script src="/reactions.js"></script>
     <script>
         // سکرول پروگریس بار
         window.onscroll = function() {
@@ -420,65 +616,89 @@
             document.getElementById("progressBar").style.width = scrolled + "%";
         }
         
-        // اوپر سکرول کرنے کی فنکشن
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // نیچے سکرول کرنے کی فنکشن
         function scrollToBottom() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        
+        // سوشل میڈیا شیئرنگ
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
             });
         }
         
-        // طبیعت پسند ہوور افیکٹس
-        document.addEventListener('DOMContentLoaded', function() {
-            const paragraphs = document.querySelectorAll('p');
-            paragraphs.forEach(p => {
-                p.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = getRandomColor(0.05);
-                });
-                
-                p.addEventListener('mouseleave', function() {
-                    setTimeout(() => {
-                        this.style.backgroundColor = '';
-                    }, 300);
-                });
+        // سائیڈبار ڈیٹا
+        const sidebarPosts = [
+            { title: "عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+            { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+            { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+            { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+            { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+        ];
+        
+        // سائیڈبار بنانا
+        const sidebarContainer = document.getElementById('sidebarContent');
+        function buildSidebar() {
+            sidebarContainer.innerHTML = '';
+            sidebarPosts.forEach(post => {
+                const item = document.createElement('a');
+                item.className = 'sidebar-item';
+                item.href = post.link;
+                item.innerHTML = `
+                    <img src="${post.img}" class="sidebar-img" alt="${post.title}">
+                    <div class="sidebar-title">${post.title}</div>
+                `;
+                sidebarContainer.appendChild(item);
             });
-            
-            const headings = document.querySelectorAll('h1, h2, h3');
-            headings.forEach(h => {
-                h.addEventListener('mouseenter', function() {
-                    this.style.textShadow = '0 0 15px rgba(231, 76, 60, 0.5)';
-                });
-                
-                h.addEventListener('mouseleave', function() {
-                    this.style.textShadow = '';
-                });
-            });
+            // آٹو اسکرول فعال
+            sidebarContainer.classList.add('auto-scroll-active');
+        }
+        buildSidebar();
+        
+        // ہوور پر اسکرول روکنا
+        sidebarContainer.addEventListener('mouseenter', () => {
+            sidebarContainer.classList.remove('auto-scroll-active');
+        });
+        sidebarContainer.addEventListener('mouseleave', () => {
+            sidebarContainer.classList.add('auto-scroll-active');
         });
         
-        function getRandomColor(alpha = 1) {
-            const colors = [
-                'rgba(74, 144, 226, ALPHA)',   // نیلا
-                'rgba(46, 204, 113, ALPHA)',   // سبز
-                'rgba(155, 89, 182, ALPHA)',   // بنفشی
-                'rgba(52, 152, 219, ALPHA)',   // ہلکا نیلا
-                'rgba(241, 196, 15, ALPHA)',   // پیلا
-                'rgba(230, 126, 34, ALPHA)'    // نارنجی
-            ];
-            
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            return randomColor.replace('ALPHA', alpha);
-        }
+        // موجودہ پوسٹ نمایاں کریں (مطابق عنوان)
+        const currentTitle = "عصر حاضر کے 10 بڑے گناہ 8- بدشگونی";
+        const items = document.querySelectorAll('.sidebar-item');
+        items.forEach(item => {
+            if(item.querySelector('.sidebar-title')?.innerText.includes('بدشگونی')) {
+                item.classList.add('active');
+            }
+        });
         
-        // تصویر کو کلک کرنے پر بڑا کرنے کا آپشن
-        document.querySelector('.post-image').addEventListener('click', function() {
+        // تصویر کلک زوم
+        document.querySelector('.post-image')?.addEventListener('click', function() {
             this.classList.toggle('fullscreen-image');
             if (this.classList.contains('fullscreen-image')) {
                 this.style.position = 'fixed';
