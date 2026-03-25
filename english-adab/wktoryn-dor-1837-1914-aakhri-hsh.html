@@ -37,6 +37,92 @@
             position: relative;
         }
 
+        /* Sidebar - آٹو اسکرول */
+        .sidebar {
+            position: fixed;
+            left: 20px;
+            top: 120px;
+            width: 300px;
+            height: 500px;
+            background: rgba(15, 15, 40, 0.9);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(110, 231, 255, 0.3);
+            overflow: hidden;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        
+        .sidebar-header {
+            background: rgba(110, 231, 255, 0.2);
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(110,231,255,0.5);
+            color: #6ee7ff;
+            font-size: 1.2rem;
+        }
+        
+        .sidebar-scroll {
+            height: calc(100% - 50px);
+            overflow-y: auto;
+            padding: 10px;
+            scroll-behavior: smooth;
+        }
+        
+        /* Auto-scroll animation */
+        .sidebar-scroll {
+            animation: autoScroll 30s linear infinite;
+        }
+        
+        .sidebar-scroll:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-40%); }
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            transition: all 0.3s;
+            border-right: 3px solid transparent;
+        }
+        
+        .sidebar-item.active {
+            background: rgba(110, 231, 255, 0.2);
+            border-right-color: #6ee7ff;
+            box-shadow: 0 2px 8px rgba(110,231,255,0.2);
+        }
+        
+        .sidebar-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(110,231,255,0.4);
+        }
+        
+        .sidebar-item a {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #e0e0ff;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+        
+        .sidebar-item a:hover {
+            color: #ff9ff3;
+        }
+        
         /* Headings with animation */
         h1, h2, h3 {
             color: #6ee7ff;
@@ -56,20 +142,14 @@
             animation: glow 3s infinite alternate;
         }
 
-        h2 {
-            font-size: 2.2rem;
-        }
-
-        h3 {
-            font-size: 1.8rem;
-        }
+        h2 { font-size: 2.2rem; }
+        h3 { font-size: 1.8rem; }
 
         @keyframes glow {
             from { text-shadow: 0 0 10px rgba(110, 231, 255, 0.5); }
             to { text-shadow: 0 0 20px rgba(110, 231, 255, 0.8); }
         }
 
-        /* Text Size */
         p, li, a {
             font-size: 1.3rem;
             color: #d0d0ff;
@@ -77,21 +157,17 @@
             margin-bottom: 20px;
         }
 
-        /* Links */
         a {
             color: #6ee7ff;
             text-decoration: none;
             border-bottom: 1px dashed #6ee7ff;
             transition: all 0.3s;
         }
-
         a:hover {
             color: #ff9ff3;
             border-bottom: 1px solid #ff9ff3;
-            text-shadow: 0 0 10px rgba(255, 159, 243, 0.5);
         }
 
-        /* Image */
         .featured-image {
             width: 100%;
             max-height: 500px;
@@ -102,52 +178,65 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: transform 0.5s, box-shadow 0.5s;
         }
-
         .featured-image:hover {
             transform: scale(1.02);
             box-shadow: 0 15px 40px rgba(110, 231, 255, 0.4);
         }
 
-        /* Buttons */
-        .button-container {
+        /* Reactions Container */
+        .reactions-container {
+            background: rgba(110, 231, 255, 0.1);
+            border-radius: 60px;
+            padding: 20px 25px;
+            margin: 40px 0 30px;
             text-align: center;
-            margin: 40px 0;
+            border: 1px solid rgba(110, 231, 255, 0.3);
         }
-
-        .trigger-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #4a90e2, #2ecc71);
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 10px;
-            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
-            transition: all 0.3s;
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .reaction-btn {
+            background: rgba(20, 20, 50, 0.7);
             border: none;
+            font-size: 1.3rem;
+            padding: 8px 16px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 1.2rem;
+            transition: all 0.2s ease;
+            color: #e0e0ff;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
             font-family: inherit;
         }
-
-        .trigger-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.7);
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: rgba(110, 231, 255, 0.3);
+        }
+        .reaction-count {
+            background: rgba(0,0,0,0.5);
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 1rem;
+            min-width: 28px;
+            display: inline-block;
         }
 
         /* Navigation Buttons */
         .nav-buttons {
             position: fixed;
             left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 30px;
             display: flex;
             flex-direction: column;
             gap: 15px;
             z-index: 1000;
         }
-
         .nav-btn {
             width: 50px;
             height: 50px;
@@ -163,11 +252,9 @@
             align-items: center;
             justify-content: center;
         }
-
         .nav-btn:hover {
             background: #ff9ff3;
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 159, 243, 0.5);
         }
 
         .back-btn {
@@ -186,10 +273,67 @@
             z-index: 1000;
             font-size: 1.1rem;
         }
-
         .back-btn:hover {
             background: #ff9ff3;
             transform: translateY(-3px);
+        }
+
+        /* Bottom Navigation Buttons (Post Footer) */
+        .post-footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 50px 0 30px;
+            flex-wrap: wrap;
+        }
+        .footer-nav-btn {
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            padding: 12px 30px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .footer-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74,144,226,0.5);
+        }
+
+        /* Social Media Icons */
+        .social-share {
+            text-align: center;
+            margin: 30px 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(110,231,255,0.3);
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            color: white;
+            background: #2c3e50;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
         }
 
         /* Color Fill Feature */
@@ -204,12 +348,10 @@
             transition: opacity 1.5s ease; 
             pointer-events: none; 
         }
-        
         .color-fill-container.active { 
             opacity: 1; 
             z-index: 9998; 
         }
-        
         .color-fill-background { 
             position: absolute; 
             width: 100%; 
@@ -218,13 +360,11 @@
             background-size: 400% 400%; 
             animation: gradientFlow 15s ease infinite; 
         }
-        
         @keyframes gradientFlow { 
             0% { background-position: 0% 50%; } 
             50% { background-position: 100% 50%; } 
             100% { background-position: 0% 50%; } 
         }
-        
         .post-content-overlay { 
             position: fixed; 
             top: 50%; 
@@ -243,12 +383,10 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             border: 1px solid rgba(110, 231, 255, 0.3);
         }
-        
         .post-content-overlay.active { 
             opacity: 1; 
             transform: translate(-50%, -50%) scale(1); 
         }
-        
         .close-btn { 
             position: absolute; 
             top: 15px; 
@@ -264,74 +402,21 @@
             z-index: 10000; 
             transition: transform 0.3s; 
         }
-        
         .close-btn:hover { 
             transform: rotate(90deg); 
-            background: #ff9ff3;
         }
 
-        /* Mobile Responsive */
+        @media (max-width: 1100px) {
+            .sidebar { display: none; }
+        }
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .post-content {
-                padding: 20px;
-                margin: 20px auto;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            p, li, a {
-                font-size: 1.2rem;
-                line-height: 2.2;
-            }
-            
-            .nav-buttons {
-                left: 10px;
-            }
-            
-            .nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            
-            .back-btn {
-                top: 10px;
-                right: 10px;
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-            
-            .featured-image {
-                max-height: 300px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .post-content {
-                padding: 15px;
-            }
-            
-            .nav-buttons {
-                display: none;
-            }
+            body { padding: 10px; }
+            .post-content { padding: 20px; margin: 20px auto; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            p, li, a { font-size: 1.2rem; line-height: 2.2; }
+            .nav-buttons { left: 10px; bottom: 20px; }
+            .nav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -341,58 +426,128 @@
         <i class="fas fa-arrow-right"></i> واپس جائیں
     </button>
 
-    <!-- Navigation Buttons -->
+    <!-- Floating Scroll Buttons -->
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="scrollToTop()">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-        <button class="nav-btn" onclick="scrollToBottom()">
-            <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="nav-btn" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()"><i class="fas fa-chevron-down"></i></button>
+    </div>
+
+    <!-- Sidebar Auto-Scroll -->
+    <div class="sidebar">
+        <div class="sidebar-header"><i class="fas fa-book-open"></i> مزید پڑھیں</div>
+        <div class="sidebar-scroll" id="sidebarScroll">
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/romanoi-dor">
+                <img src="https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" alt="رومانوی دور">
+                <a href="https://bloglovers.pk/english-adab/romanoi-dor">رومانوی دور</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea">
+                <img src="https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" alt="شیکسپیئر">
+                <a href="https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea">شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak">
+                <img src="https://bloglovers.pk/images/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak.png" alt="طاقت کا کھیل">
+                <a href="https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak">طاقت کاکھیل افسانۂ حیوان سے پاکستان تک</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh">
+                <img src="https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" alt="ٹیلی اسکرینز">
+                <a href="https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh">ٹیلی اسکرینز سے سمارٹ فونز تک: 1984 اور آج کی نگرانی کا موازنہ</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" alt="وکٹورین پارٹ ون">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913">وکٹورین دور (پارٹ ون) (1837-1913)</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-dosra-hsh.jpg" alt="وکٹورین دور دوم">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh">وکٹورین دور 1837-1914 (دوسرا حصہ)</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" alt="وکٹورین دور سوم">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som">وکٹورین دور 1837-1914 (حصہ سوئم)</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chharm.jpg" alt="وکٹورین دور چہارم">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm">وکٹورین دور 1837-1914 (حصہ چہارم)</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-panchoan-hsh.jpg" alt="وکٹورین دور پنجم">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh">وکٹورین دور 1837-1914 (پانچواں حصہ)</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chhta.jpg" alt="وکٹورین دور چھٹا">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta">وکٹورین دور (1837 - 1914) حصہ چھٹا</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" alt="وکٹورین دور ساتواں">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan">وکٹورین دور (1837 - 1914) حصہ ساتواں</a>
+            </div>
+            <div class="sidebar-item active" data-url="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh">
+                <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" alt="وکٹورین دور آخری">
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh">وکٹورین دور (1837 - 1914) آخری حصہ</a>
+            </div>
+            <div class="sidebar-item" data-url="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai">
+                <img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات">
+                <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</a>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content -->
     <div class="post-content">
         <h1>وکٹورین دور (1837 - 1914) آخری حصہ</h1>
-        
-        <!-- Featured Image -->
         <img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" alt="وکٹورین دور (1837 - 1914) آخری حصہ" class="featured-image">
-        
         <p>وکٹورین دور (1837 - 1914) حصہ آٹھویں</p>
-        
         <p>وکٹورین دور حصہ ساتواں تفصیلا بیان کرنے کے بعد آج کے اس آرٹیکل میں آخری حصہ ملاحظہ فرمائیں۔</p>
-        
         <h2>ایڈورڈ VII</h2>
         <p>ایڈورڈ، جو 1841 میں پیدا ہوئے تھے، وہ 59 سال کی عمر تک شہزادہ آف ویلز رہے۔ اس کی والدہ، ملکہ وکٹوریہ، انہیں سیاست میں شامل نہیں کرتی تھیں یا انہیں کوئی سنجیدہ ذمہ داریاں نہیں دیتی تھیں۔ تاہم، انہوں نے بیرون ملک بہت سارے خیر سگالی دورے کیے۔</p>
         <p>اسے فرانس بہت پسند آیا حالانکہ اینگلو فرانسیسی تعلقات اتنے اچھے نہیں تھے۔ ایڈورڈ کی کوششوں کی بدولت، کئی سالوں سے برطانیہ اور فرانس کے مابین بیرون ملک علاقوں میں تنازعات کا خاتمہ اینٹینٹ (افہام و تفہیم) پر دستخط کرکے ہوا، جو 1903 کے اینٹینٹ کورڈیول کے نام سے مشہور ہوا۔ فرانسیسی، جو کافی دشمنی کا شکار رہا، 1903 میں پیرس کے سرکاری دورے کے دوران ایڈورڈ ہفتم کے دلکشی کے ساتھ جیت گیا۔</p>
-        
         <h2>ایڈورڈین دور</h2>
         <p>ایڈورڈ 1901 میں بادشاہ بنا اور اس نے نو سال حکومت کی۔ وہ ایک مشہور بادشاہ تھا اور غیر ملکی سفر اور تقریبات سے محظوظ ہوتا رہا، اور سیاست میں کم دلچسپی لیتا تھا۔ سطح پر، ایڈورڈین دور، جینیاتی اور خوشی پسند بادشاہ کے ماتحت، اختتامی برسوں سے زیادہ روشن اور زیادہ گلیمرس وقت تھا۔ وکٹوریہ کے دور کے بعد۔</p>
-        <p>لیکن بظاہر پرسکون اور طے شدہ معاملات کے نیچے، بڑھتی ہوئی بدامنی پھیل رہی تھی۔ سیاسی کشمکش تلخ تھی، مزدوروں کی تحریک طاقت کے ساتھ بڑھ رہی تھی، خواتین آزادی کے لئے لڑ رہیں تھیں (حق رائے دہی سمیت) اور یوروپ میں جنگ کے بادل اکھٹے ہو رہے تھے۔</p>
-        
+        <p>لیکن بظاہر پرسکون اور طے شدہ معاملات کے نیچے، بڑھتی ہوئی بدامنی پھیل رہی تھی۔ سیاسی کشمکش تلخ تھی، مزدوروں کی تحریک طاقت کے ساتھ بڑھ رہی تھی، خواتین آزادی کے لئے لڑ رہیں تھیں (حق رائے دہی سمیت) اور یوروپ میں جنگ کے بادل اکٹھے ہو رہے تھے۔</p>
         <h2>رابرٹ فالکن اسکاٹ کی مہم</h2>
         <p>رابرٹ فالکن اسکاٹ کی برطانوی مہم قطب جنوبی تک جس نے 1910 سے 1912 تک کی رفتار کا مظاہرہ کیا وہ سانحہ انٹارکٹیکا جاتے ہوئے ختم ہوا۔ 42 سال کی عمر میں، سکاٹ نے سنا کہ روالڈ امنڈسن کی سربراہی میں، جس کے بارے میں خیال کیا جاتا ہے کہ، آرکٹک جا رہا تھا، کی طرف سے ناروے کی ایک مہم بھی جنوبی قطب کی طرف جارہی ہے۔</p>
         <p>امڈسن نے اپنی گلیوں کو کھینچنے کے لئے ہسکی کتوں کا استعمال کیا۔ سکاٹ نے غیر دانشمند ٹٹو استعمال کیا، جو سخت حالات کے لئے موزوں نہیں تھے اور ان کی موت ہوگئی۔ برف کے طوفان نے اس کی پیشرفت کو آہستہ آہستہ کرنا مشکل بنا دیا۔ بالآخر اسکاٹ اور چار ساتھی اپنی اپنی سلجیاں کھینچتے ہوئے قطب پہنچ گئے، یہ معلوم کرنے کے لئے کہ امندسن 34 دن پہلے ہی قطب پر پہنچا تھا۔</p>
-        <p>واپسی کے دوران اسکاٹ کی پارٹی غیر متوقع طوفانوں سے دوچار ہوگئی، اور وہ پناہ گاہ اور کھانے کی کافی دکانوں سے صرف 18 کلو میٹر دور سردی اور بھوک سے مر گیا۔ تین افراد کی لاشیں، ساتھ ہی ان ریکارڈوں اور ڈائریوں کو بھی ملا جنھوں نے ان افراد کو رکھا تھا۔ اسکاٹ نے اپنی موت کے دن تک اپنی ڈائری لکھی تھی۔ سانحہ کی خبروں نے قومی فخر کو ہلا کر رکھ دیا۔</p>
-        
         <h2>جارج پنجم</h2>
         <p>جارج پنجم کے خاندانی نام سیکس کوبرگ تھا جو وزیر اعظم البرٹ، ان کے دادا سے آیا تھا۔ اپنے دور حکومت کے پہلے سات سال جارج پنجم نے یہ نام رکھا۔ لیکن جرمنی کے خلاف پہلی جنگ عظیم شروع ہونے کے ساتھ ہی، اور جرمنی مخالف جذباتیت کے ساتھ، اس نے اپنے جرمنی کے کنبہ کا نام بدل کر ونڈسر رکھ دیا۔</p>
-        <p>جارج ایڈورڈ ہفتم کا دوسرا بیٹا تھا (اس کا بڑا بھائی اس سے پہلے ہی فوت ہوگیا)۔ وہ اس وقت ہندوستان کا بادشاہ اور شہنشاہ بن گیا جب پارلیمنٹ ہاؤس آف لارڈز کی طاقت کو محدود کرنے کی کوشش کر رہی تھی، اور خواتین ووٹ کے حق کے لئے مہم چلا رہیں تھیں۔</p>
-        
         <h2>خواتین کو ووٹ دیں</h2>
-        <p>خواتین کے حق رائے دہی کے لئے مہم کا آغاز 1866 میں ہوا تھا۔ جب خواتین کی رائے دہی (ووٹ ڈالنے کے حق) سے متعلق انتخابی اصلاحات ایکٹ میں ایک ترمیم کو شکست ہوئی تو پورے ملک میں تنظیمیں تشکیل دی گئیں۔ کاٹن ملوں میں خواتین کارکنوں نے ٹریڈ یونینوں اور لیبر پارٹی کے توسط سے ووٹ کے لئے انتخابی مہم چلائی۔</p>
-        <p>سب سے زیادہ مؤثر خواتین کی سماجی اور سیاسی یونین کے عسکریت پسند طریقے تھے جو ایمیلین پنکھورسٹ نے 1903 میں قائم کیا تھا۔ اس کے ممبروں کو دوائیوں کے نام سے جانا جاتا ہے۔ خواتین کے حق میں ووٹ کے لئے عسکریت پسندوں کے ان مہم چلانے والوں نے سیاسی جلسوں میں رکاوٹ ڈال کر، ریلنگوں میں جکڑے ہوئے اور کھڑکیوں کو توڑ کر اپنے مقصد کی طرف توجہ دلانے اور ان کی حمایت کرنے کی کوشش کی۔</p>
-        
+        <p>خواتین کے حق رائے دہی کے لئے مہم کا آغاز 1866 میں ہوا تھا۔ جب خواتین کی رائے دہی سے متعلق انتخابی اصلاحات ایکٹ میں ایک ترمیم کو شکست ہوئی تو پورے ملک میں تنظیمیں تشکیل دی گئیں۔</p>
         <h2>بجٹ کا بحران</h2>
-        <p>1909 کے بجٹ میں بہت زیادہ آمدنی پر ایک سپر ٹیکس اور زمین کی ملکیت پر ٹیکس متعارف کرایا گیا تھا۔ یہ ٹیکس بڑھاپے کی پنشن کے لئے اور ڈریڈنوٹس نامی نئی جنگی جہاز بنانے کے لئے رقم اکٹھا کرنا تھا جو جرمنی کی بڑھتی ہوئی فوجی طاقت سے مقابلہ کرنے کے لئے درکار تھا۔</p>
-        <p>اس سے عام لوگوں اور ایوانوں کے مابین شدید جنگ شروع ہوگئی، جنہوں نے بجٹ کو مسترد کردیا۔ کنزرویٹو ساتھیوں کے ذریعہ مالیات کے بلوں کو مسترد کرنے کے اقتدار سے اقتدار کو محروم کرنے کے مقصد سے متعلق ایک بل کی مخالفت کی گئی۔ ایڈورڈ ہفتم نے کسی سمجھوتے تک پہنچنے کے لئے کام کیا تھا، لیکن اس نے آئینی بحران کو حل کرنے کے لئے چھوڑ دیا۔</p>
-        <p>تاہم، جارج پنجم نے بالآخر کافی حد تک نئے لبرل ہم مرتبہ تیار کرنے پر اتفاق کیا تاکہ اس بات کو یقینی بنایا جاسکے کہ اس بل کے ذریعے کامیابی حاصل ہوگی۔ 1911 میں، مالکان نے راہ دی اور بجٹ منظور ہوا۔</p>
-        
+        <p>1909 کے بجٹ میں بہت زیادہ آمدنی پر ایک سپر ٹیکس اور زمین کی ملکیت پر ٹیکس متعارف کرایا گیا تھا۔</p>
         <h2>ٹائٹینک کی تباہی</h2>
-        <p>ٹائٹینک 12 اپریل، 1912 کو پہلی بار نیو یارک شہر کے سفر پر، برطانیہ سے روانہ ہوا۔ یہ دنیا کا سب سے بڑا جہاز تھا، جس کی پیمائش 269 میٹر ہے، جس کی مجموعی تعداد 46،328 ہے۔ لائنر کو "قابل استعمال" کے طور پر بیان کیا گیا تھا کیونکہ اس کے پاس 16 پانی والے ڈبہ کے ساتھ ایک ڈبل بوتل کی ہل تھی اور اب بھی چاروں سیلابوں سے تیر سکتی ہے۔</p>
-        <p>14-15 اپریل کی درمیانی شب، اپنی منزل سے شمال مشرق میں تقریبا 70 2570 کلومیٹر کی دوری پر، لائنر نے ایک آئس برگ کو ٹکر ماری، جس نے اس کی کھوٹی کو توڑ دی۔ ٹائٹینک ڈھائی گھنٹے بعد ڈوب گیا، جس میں 1513 افراد کی جانیں گئیں۔ جہاز میں سوار دیگر 711 افراد کو لائنر کارپٹیا نے اٹھایا، جو 20 منٹ بعد جائے وقوع پر پہنچا۔</p>
-        <p>نتیجے کے طور پر، بحری جہازوں کے لئے حفاظتی قوانین سخت کردیئے گئے تھے: ہر جہاز کو اب بورڈوں پر ہر ایک کے لئے کافی لائف بوٹ لے جانا ضروری ہے، جبکہ ٹائٹینک کے پاس اپنے آدھے سے کم مسافروں کے لئے جگہیں تھیں۔ اور جہازوں کو 24 گھنٹے ریڈیو واچ کو برقرار رکھنا چاہئے۔</p>
+        <p>ٹائٹینک 12 اپریل، 1912 کو پہلی بار نیو یارک شہر کے سفر پر، برطانیہ سے روانہ ہوا۔ یہ دنیا کا سب سے بڑا جہاز تھا، جس کی پیمائش 269 میٹر ہے۔ 14-15 اپریل کی درمیانی شب، لائنر نے ایک آئس برگ کو ٹکر ماری، جس میں 1513 افراد کی جانیں گئیں۔</p>
         
+        <!-- Reactions System (according to required IDs) -->
+        <div class="reactions-container">
+            <div class="reaction-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation Buttons -->
+        <div class="post-footer-nav">
+            <a href="https://bloglovers.pk/" class="footer-nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="footer-nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+        </div>
+
+        <!-- Social Media Icons (7 platforms) -->
+        <div class="social-share">
+            <h3>اس پوسٹ کو شیئر کریں</h3>
+            <div class="social-icons">
+                <div class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                <div class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                <div class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                <div class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram"></i></div>
+                <div class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest"></i></div>
+                <div class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+            </div>
+        </div>
+
         <!-- Color Fill Trigger Button -->
         <div class="button-container">
             <button class="trigger-btn" onclick="openColorFillPost()">
@@ -408,7 +563,14 @@
         <div id="postContent"></div>
     </div>
 
+    <!-- Reactions.js (external) -->
+    <script src="/reactions.js"></script>
+
     <script>
+        // Scroll functions
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+
         // Color Fill Functions
         function openColorFillPost() {
             const originalContent = document.querySelector('.post-content').innerHTML;
@@ -417,56 +579,56 @@
             document.getElementById('postOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        
         function closeColorFillPost() {
             document.getElementById('colorFillBg').classList.remove('active');
             document.getElementById('postOverlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
         }
-        
-        // Navigation Functions
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        function scrollToBottom() {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-        
-        // Event Listeners
-        document.addEventListener('keydown', function(e) { 
-            if (e.key === 'Escape') closeColorFillPost(); 
-        });
-        
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeColorFillPost(); });
         document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-        
-        // Highlight headings on hover
-        document.querySelectorAll('h1, h2, h3').forEach(heading => {
-            heading.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(-10px)';
-                this.style.color = '#ff9ff3';
-            });
-            
-            heading.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
-                this.style.color = '#6ee7ff';
-            });
+
+        // Social Sharing functions (保留原有，无冲突)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareLink = '';
+            switch(platform) {
+                case 'facebook': shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareLink = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareLink = `https://twitter.com/intent/tweet?text=${title}&url=${url}`; break;
+                case 'linkedin': shareLink = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`; break;
+                case 'telegram': shareLink = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareLink = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+                default: return;
+            }
+            window.open(shareLink, '_blank', 'width=600,height=500');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہو گیا!');
+        }
+
+        // Highlight active sidebar item based on current URL
+        const currentUrl = window.location.href;
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            const link = item.querySelector('a');
+            if(link && currentUrl.includes(link.getAttribute('href'))) {
+                item.classList.add('active');
+            } else {
+                if(!currentUrl.includes('aakhri-hsh') && item.querySelector('a')?.getAttribute('href')?.includes('aakhri-hsh')) 
+                    item.classList.remove('active');
+            }
         });
         
-        // Make paragraphs more readable on hover
+        // Hover animations for headings
+        document.querySelectorAll('h1, h2, h3').forEach(heading => {
+            heading.addEventListener('mouseenter', function() { this.style.transform = 'translateX(-10px)'; this.style.color = '#ff9ff3'; });
+            heading.addEventListener('mouseleave', function() { this.style.transform = 'translateX(0)'; this.style.color = '#6ee7ff'; });
+        });
         document.querySelectorAll('p').forEach(para => {
-            para.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = 'rgba(110, 231, 255, 0.1)';
-                this.style.padding = '10px';
-                this.style.borderRadius = '10px';
-                this.style.transition = 'all 0.3s ease';
-            });
-            
-            para.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = 'transparent';
-                this.style.padding = '0';
-            });
+            para.addEventListener('mouseenter', function() { this.style.backgroundColor = 'rgba(110, 231, 255, 0.1)'; this.style.padding = '10px'; this.style.borderRadius = '10px'; });
+            para.addEventListener('mouseleave', function() { this.style.backgroundColor = 'transparent'; this.style.padding = '0'; });
         });
     </script>
 </body>
