@@ -62,100 +62,213 @@
             100% { background-position: 0% 50%; }
         }
         
-        body.sunset-mode .sunset-bg {
-            opacity: 1;
-        }
+        body.sunset-mode .sunset-bg { opacity: 1; }
+        body.sunset-mode { background: transparent; color: var(--text-light); }
         
-        body.sunset-mode {
-            background: transparent;
-            color: var(--text-light);
-        }
-        
-        body.sunset-mode .post-content {
+        body.sunset-mode .post-content, 
+        body.sunset-mode .sidebar {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: var(--text-light);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        /* Layout Container */
+        .main-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+            position: relative;
         }
         
-        body.sunset-mode h1,
-        body.sunset-mode h2,
-        body.sunset-mode h3 {
-            color: var(--text-light);
-            border-bottom-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        /* Post Container */
+        /* Post Content Area */
         .post-content {
-            max-width: 900px;
-            margin: 0 auto 100px;
+            flex: 1;
             background: white;
             padding: 40px;
             border-radius: 25px;
             box-shadow: var(--shadow);
-            transition: all 0.5s ease;
-            position: relative;
             text-align: justify;
         }
         
-        /* Headings */
-        h1 {
-            font-size: 2.8rem;
-            color: var(--text-dark);
-            border-bottom: 3px solid var(--sunset-orange);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+        /* Sidebar Styling */
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            height: 500px;
+            position: sticky;
+            top: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
             text-align: center;
-            transition: all 0.5s ease;
-        }
-        
-        h2 {
-            font-size: 2.2rem;
-            color: var(--text-dark);
-            border-bottom: 2px solid #eee;
-            padding-bottom: 12px;
-            margin: 30px 0 20px;
-            transition: all 0.5s ease;
-        }
-        
-        h3 {
-            font-size: 1.8rem;
-            color: var(--text-dark);
-            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--sunset-orange);
             padding-bottom: 10px;
-            margin: 25px 0 15px;
-            transition: all 0.5s ease;
         }
-        
-        /* Text */
-        p {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            text-align: justify;
-            transition: all 0.5s ease;
+
+        .sidebar-scroll-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
         }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            animation: scrollSidebar 30s linear infinite;
+        }
+
+        .sidebar-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollSidebar {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .sidebar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .sidebar-item a {
+            font-size: 1rem;
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        /* Headings */
+        h1 { font-size: 2.5rem; color: var(--text-dark); border-bottom: 3px solid var(--sunset-orange); padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
+        h2 { font-size: 2rem; border-bottom: 2px solid #eee; padding-bottom: 12px; margin: 30px 0 20px; }
+        p { font-size: 1.4rem; margin-bottom: 20px; }
         
-        /* Main Image */
         .main-image {
             width: 100%;
             max-height: 500px;
             object-fit: cover;
             border-radius: 20px;
-            margin: 25px auto 35px;
-            display: block;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transition: all 0.5s ease;
+            margin-bottom: 35px;
             border: 5px solid transparent;
+            transition: 0.5s;
+        }
+
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 15px;
+            text-align: center;
         }
         
-        .main-image:hover {
-            transform: scale(1.01);
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .reaction-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 1.1rem;
+        }
+
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border-color: var(--sunset-orange);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
         }
-        
-        /* Control Buttons */
+
+        /* Social Share Section */
+        .share-section {
+            margin-top: 40px;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+        }
+
+        .share-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .share-btn:hover { transform: scale(1.1); }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .nav-link {
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            background: linear-gradient(45deg, var(--sunset-orange), var(--sunset-pink));
+        }
+
+        .nav-link:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Control Buttons (Floating) */
         .control-buttons {
             position: fixed;
             bottom: 30px;
@@ -167,274 +280,215 @@
         }
         
         .control-btn {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--sunset-orange), var(--sunset-pink));
             color: white;
             border: none;
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
-            transition: all 0.3s ease;
-        }
-        
-        .control-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 12px 25px rgba(255, 107, 53, 0.6);
-        }
-        
-        .back-btn {
-            background: linear-gradient(45deg, var(--sunset-purple), var(--sunset-blue));
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
         }
         
         .theme-btn {
             position: fixed;
             top: 30px;
             left: 30px;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--sunset-yellow), var(--sunset-orange));
             color: white;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(255, 179, 71, 0.4);
             z-index: 1000;
-            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-        
-        .theme-btn:hover {
-            transform: rotate(30deg) scale(1.1);
-            box-shadow: 0 12px 25px rgba(255, 179, 71, 0.6);
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .post-content {
-                padding: 25px;
-                margin: 0 auto 80px;
-                border-radius: 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            p {
-                font-size: 1.2rem;
-            }
-            
-            .control-buttons {
-                bottom: 20px;
-                left: 20px;
-            }
-            
-            .control-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .theme-btn {
-                top: 20px;
-                left: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .main-image {
-                max-height: 300px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .post-content {
-                padding: 20px;
-                margin: 0 auto 70px;
-                border-radius: 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            p {
-                font-size: 1.1rem;
-            }
-            
-            .control-buttons {
-                bottom: 15px;
-                left: 15px;
-                gap: 10px;
-            }
-            
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-            
-            .theme-btn {
-                top: 15px;
-                left: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-            
-            .main-image {
-                max-height: 250px;
-            }
-        }
-        
-        /* Remove all links styling */
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; top: 0; }
+            .sidebar-content { animation: none; flex-direction: row; overflow-x: auto; padding-bottom: 10px; }
+            .sidebar-item { min-width: 250px; }
         }
     </style>
 </head>
 <body>
-    <!-- Sunset Background -->
     <div class="sunset-bg"></div>
     
-    <!-- Theme Toggle Button -->
-    <button class="theme-btn" id="themeToggle">
+    <button class="theme-btn" id="themeToggle" title="تھیم تبدیل کریں">
         <i class="fas fa-sun"></i>
     </button>
     
-    <!-- Post Content -->
-    <div class="post-content">
-        <h1>عصر حاضر کے 10 بڑے گناہ 1-غیر اللہ کی پکار</h1>
-        
-        <!-- Main Image -->
-        <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-1-ghair-allah-ki-pukar.jpg" 
-             alt="عصر حاضر کے 10 بڑے گناہ 1-غیر اللہ کی پکار" 
-             class="main-image">
-        
-        <h2>عصر حاضر کے 10 بڑے گناہ 1-غیر اللہ کی پکار</h2>
-        <p>محترم قارئین کرام! ہمارے ایمان کا بنیادی جزو ہے کہ اللہ رب العزت کے سوا کسی اور کو مسبب الاسباب سے بالاتر نہ سمجھا جائے اور نہ ہی پکارا جائے۔ توحید یہ ہے کہ خاص اسی کی عبادت کی جائے اور اسی سے مدد مانگی جائے، وہ واحد ہے ذات و صفات میں اس کا کوئی شریک نہیں ہے۔ لیکن افسوس کہ آج کے مسلمانوں نے اپنی حاجات کو پورا کرنے کے لئے الگ الگ پیر بنا لئے ہیں جن سے ناصرف مختلف توقعات بلکہ امداد و استعانت طلب کی جاتی ہے۔ بیٹے دینے والا پیر الگ ہے تو دولت دینے والا، نوکریاں بانٹنے والا کوئی اور۔ جنتی دروازہ کا محافظ کوئی اور ہے تو بیماریاں دور کرنے والا کوئی اور بالکل اسی طرح جیسے مشرکین الگ الگ بتوں سے الگ الگ حاجات کی توقعات رکھا کرتے تھے۔</p>
-        <p>یاد رکھئیے! شرک پر مرنے والے کی کوئی معافی نہیں ہے۔ اور شرک بہت بڑا ظلم اور کبائر اکبر کہا گیا ہے۔ ایمان کا نہ ہونا جانوروں سے برتر کہا گیا ہے۔</p>
-        <p>اللہ رب العزت فرماتے ہیں "اللہ کے سوا نہ کوئی کسی کو فائدہ پہنچا سکتا ہے اور نہ نقصان"۔ ایسی لاحاصل خواہشات کے حصول جو درحقیقت مخلوق کے اختیار میں نہیں ہیں، اللہ کی پیدا کردہ مخلوق میں سے کسی فرد جو کہ کمتر، کمزور، اور محتاج ہو کو خواہشات پوری کرنے کے لئے پکارے شرک عظیم ہے۔ اور خاص کر قبر میں لیٹے اس مردہ لاش کو جو نہ تو سن سکتا ہے نہ اپنے لئے کچھ کر سکتا ہے اور نہ جواب دے سکتا ہے۔ ظلم عظیم ہے۔ اسی طرح ایک اور مقام پر فرمایا گیا:</p>
-        <p>"اور اللہ کے سوا کسی کو مت پکارو جو نہ تجھے نفع دے سکتا ہے اور نہ نقصان۔ اگر تو نے یہ کام کیا تو ظالموں میں شمار ہو گا۔"</p>
-        <p>"اگر اللہ تعالیٰ تجھ کو کسی مصیبت میں مبتلا کر دے تو اس مصیبت کو دور کرنے والا اللہ کے سوا کوئی نہیں۔"</p>
-        <p>حدیث نبوی ﷺ "جان لو! اگر ساری امت تجھے نفع پہنچانے کے لیے جمع ہو جائے تو نفع نہیں پہنچا سکتی مگر وہ جو اللہ نے تیرے لیے لکھ دیا ہے۔"</p>
-        <p>اللہ نے دوسرے مقام پر کچھ اس طرح فرمایا:</p>
-        <p>"بے شک جن لوگوں کی تم اللہ کے سوا عبادت کرتے ہو، وہ تمھارے لیے رزق دینے کا اختیار نہیں رکھتے۔ پس تم اللہ تعالیٰ کے ہاں سے رزق مانگو اور اس کی عبادت کرو۔"</p>
-        <p>"اور ایسے لوگوں سے زیادہ کون گمراہ ہیں جو اللہ تعالیٰ کے سوا ایسے لوگوں کو پکارتے ہیں جو قیامت تک ان کی دعا قبول نہ کر سکیں بلکہ ان کی آواز سے بھی بے خبر ہوں اور جب سب لوگ جمع کیے جائیں گے تو وہ ان کے دشمن ہو جائیں گے اور ان کی عبادات سے انکار کر دیں گے۔"</p>
-        <p>"مجبور و بے بس شخص کی دعا کو قبول کرنے والا اور مشکل کو حل کرنے والا اللہ تعالیٰ کے سوا کون ہے۔"</p>
-        <p>یہ چند دلائل ہیں ورنہ اس بیان کے لیے قرآن و سنت میں کئی نصوص موجود ہیں جن کو پڑھ کر کوئی بھی ذی شعور اور صاحب عقل اللہ کے سوا کسی کو حاجت روا اور مشکل کشا نہیں سمجھ سکتا۔ یہ تو ایسی کھلی حقیقت ہے کہ مشرکین مکہ بھی اس کا اعتراف کیے بغیر نہ رہ سکے۔ قرآن مجید میں کئی مقامات پر اللہ تعالیٰ نے ان کے اس اعتراف کا ذکر کیا ہے۔ اگر کسی بزرگ کی قبر پر جا کر حاجت روائی کے لیے پکارنا درست ہوتا تو اللہ کے رسول ﷺ سے بڑا بزرگ دنیا میں کون ہو سکتا ہے؟ لیکن حالت یہ ہے کہ صحابہ کرام میں سے کسی نے بھی نبی ﷺ کی قبر پر جا کر انھیں کسی حاجت کے لیے کبھی نہیں پکارا۔ اگر یہ کام جائز ہوتا تو صحابہ خصوصاً خلفائے راشدین کو اپنے دور میں بڑی بڑی ضرورتوں اور مصائب کا سامنا تھا، وہ ضرور اللہ کے نبی ﷺ کی قبر پر آتے۔ بالکل اسی طرح دعا کا مسئلہ ہے۔ ان جلیل القدر صحابہ میں سے کسی نے بھی اللہ کے رسول صلی اللہ علیہ وسلم کی قبر پر آ کر یہ نہیں کہا کہ آپ ﷺ ہمارے لیے دعا کر دیں۔ ہاں! زندگی میں جو واقعتاً بزرگ ہو اس سے دعا کروانا درست ہے اور اس میں بھی بزرگ سے نہیں مانگا جاتا بلکہ اس سے عرض کی جاتی ہے کہ وہ اللہ سے ہماری بہتری کے لیے دعا کرے۔</p>
-        <p>جیسے اللہ کے نبی ﷺ کا فرمان ہے کہ وقت گزرنے کے ساتھ ساتھ لوگوں کا اللہ کی ذات پر ایمان ختم ہوتا چلا جائے گا۔ لوگ وہم و گمان کا شکار ہوتے چلے جائیں گے اور یاد رکھیں کہ شیطان ابلیس ہمیشہ انسان کی عقل پر وار کرتا ہے۔ اور شرک کے عمیق گہرائیوں میں انسان اس وقت جا گرتا ہے جب اس کی عقل پر شیطان ابلیس کی طرف سے پردہ ڈال دیا جاتا ہے۔ اس لئے آج کا انسان پریشان اور ویراں کیفیت سے دوچار نظر آتا ہے کیونکہ اللہ پر ایمان نہیں رہا۔ نماز پڑھو تو دماغ کہیں اور اور دل کہیں اور ہوتا ہے حتیٰ کہ سکون نہیں ہوتا یہی کیفیت ہر اس اچھے کام کی ہوتی ہے جو وہ کرتا تو ہے لیکن جزوی اور وقتی طور پر، لیکن کہیں بھی سکون نہیں ہوتا دعا کرتا ہے تو دعا فوراً قبول ہونے کی شرط رکھتا ہے۔ صبر نہیں ہوتا تو فوراً باباجی آستانے پر پہنچتا ہے اور بابا جو پہلے ہی اسی تیاری میں ہوتا ہے کہ کب کوئی شکار آئے اور میں چند ٹکے بٹور لوں۔ اور یوں بہت ہی سستے میں اپنے ایمان کا سودا کر بیٹھتا ہے۔</p>
-        <p>اور پھر جیسے جیسے وہ غلیظ کام کرواتا چلا جاتا ہے یہ انسان کرتا چلا جاتا ہے اور اسے پتہ ہی نہیں چلتا کہ وہ سیدھی راہ سے بھٹک چکا ہے۔ ڈر کا ایسا بزنس کرتے ہیں یہ لوگ کہ لوگوں کے ناصرف ایمان سے کھیلتے ہیں بلکہ جان و مال اور عزت و آبرو تک کو نہیں چھوڑتے۔ اللہ کے در کو چھوڑ کر جب کسی اور کو مشکل کشا مانو گے تو تحفظ کیسا، سکون قلب کیسا۔</p>
-        <p>جب اللہ رب العزت کی ذات اقدس خود قرآن میں فرماتے ہیں میں انسان کی شہ رگ سے بھی زیادہ قریب ہوں، پکارنے والے کی پکار کو سنتا ہوں، اللہ ہمارا حقیقی خالق و مالک ہے ہم اس کے بندے ہیں ہمیں جائز نہیں کہ ہم اپنے رب کو آزمائیں۔ یہ کام میرے رب کا ہے وہ اپنے بندوں کو آزماتا ہے۔</p>
-        <p>آج ہمارے معاشرے کا المیہ ہے کہ مساجد ویران ہیں صبح کی نماز ماسوائے چند لوگوں کے کوئی نہیں پڑھتا، جبکہ جعلی عامل، نجومی، پیر، آستانے، بازار، مزار، قبرستان، آباد ہیں۔ دین سمٹتا چلا جا رہا ہے شیطانی جال پھیلتا جا رہا ہے۔</p>
-        <p>اللہ رب العزت سے استدعا ہے کہ وہ ہمیں شرک سے بچائے، ہر اس کبیرہ صغیرہ گناہوں سے بچائے جس سے اللہ کی ناراضی ہو اور ہماری بربادی ہو۔ آمین۔</p>
+    <div class="main-wrapper">
+        <div class="post-content">
+            <h1>عصر حاضر کے 10 بڑے گناہ 1-غیر اللہ کی پکار</h1>
+            
+            <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-1-ghair-allah-ki-pukar.jpg" 
+                 alt="عصر حاضر کے 10 بڑے گناہ 1-غیر اللہ کی پکار" 
+                 class="main-image">
+            
+            <p>محترم قارئین کرام! ہمارے ایمان کا بنیادی جزو ہے کہ اللہ رب العزت کے سوا کسی اور کو مسبب الاسباب سے بالاتر نہ سمجھا جائے اور نہ ہی پکارا جائے۔ توحید یہ ہے کہ خاص اسی کی عبادت کی جائے اور اسی سے مدد مانگی جائے، وہ واحد ہے ذات و صفات میں اس کا کوئی شریک نہیں ہے۔ لیکن افسوس کہ آج کے مسلمانوں نے اپنی حاجات کو پورا کرنے کے لئے الگ الگ پیر بنا لئے ہیں جن سے ناصرف مختلف توقعات بلکہ امداد و استعانت طلب کی جاتی ہے۔ بیٹے دینے والا پیر الگ ہے تو دولت دینے والا، نوکریاں بانٹنے والا کوئی اور۔ جنتی دروازہ کا محافظ کوئی اور ہے تو بیماریاں دور کرنے والا کوئی اور بالکل اسی طرح جیسے مشرکین الگ الگ بتوں سے الگ الگ حاجات کی توقعات رکھا کرتے تھے۔</p>
+            <p>یاد رکھئیے! شرک پر مرنے والے کی کوئی معافی نہیں ہے۔ اور شرک بہت بڑا ظلم اور کبائر اکبر کہا گیا ہے۔ ایمان کا نہ ہونا جانوروں سے برتر کہا گیا ہے۔</p>
+            <p>اللہ رب العزت فرماتے ہیں "اللہ کے سوا نہ کوئی کسی کو فائدہ پہنچا سکتا ہے اور نہ نقصان"۔ ایسی لاحاصل خواہشات کے حصول جو درحقیقت مخلوق کے اختیار میں نہیں ہیں، اللہ کی پیدا کردہ مخلوق میں سے کسی فرد جو کہ کمتر، کمزور، اور محتاج ہو کو خواہشات پوری کرنے کے لئے پکارے شرک عظیم ہے۔ اور خاص کر قبر میں لیٹے اس مردہ لاش کو جو نہ تو سن سکتا ہے نہ اپنے لئے کچھ کر سکتا ہے اور نہ جواب دے سکتا ہے۔ ظلم عظیم ہے۔</p>
+            <p>جب اللہ رب العزت کی ذات اقدس خود قرآن میں فرماتے ہیں میں انسان کی شہ رگ سے بھی زیادہ قریب ہوں، پکارنے والے کی پکار کو سنتا ہوں، اللہ ہمارا حقیقی خالق و مالک ہے ہم اس کے بندے ہیں ہمیں جائز نہیں کہ ہم اپنے رب کو آزمائیں۔ یہ کام میرے رب کا ہے وہ اپنے بندوں کو آزماتا ہے۔</p>
+            <p>اللہ رب العزت سے استدعا ہے کہ وہ ہمیں شرک سے بچائے، ہر اس کبیرہ صغیرہ گناہوں سے بچائے جس سے اللہ کی ناراضی ہو اور ہماری بربادی ہو۔ آمین۔</p>
+
+            <!-- Reactions Section -->
+            <div class="reactions-section">
+                <h3>آپ کا اس تحریر کے بارے میں کیا خیال ہے؟</h3>
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+
+            <!-- Social Share Section -->
+            <div class="share-section">
+                <h3 style="text-align: center; margin-bottom: 15px;">اس تحریر کو شیئر کریں</h3>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="shareOnSocial('facebook')" style="background: #1877f2;"><i class="fab fa-facebook-f"></i></button>
+                    <button class="share-btn" onclick="shareOnSocial('whatsapp')" style="background: #25D366;"><i class="fab fa-whatsapp"></i></button>
+                    <button class="share-btn" onclick="shareOnSocial('twitter')" style="background: #1DA1F2;"><i class="fab fa-x-twitter"></i></button>
+                    <button class="share-btn" onclick="shareOnSocial('linkedin')" style="background: #0077b5;"><i class="fab fa-linkedin-in"></i></button>
+                    <button class="share-btn" onclick="shareOnSocial('telegram')" style="background: #0088cc;"><i class="fab fa-telegram-plane"></i></button>
+                    <button class="share-btn" onclick="shareOnSocial('pinterest')" style="background: #bd081c;"><i class="fab fa-pinterest-p"></i></button>
+                    <button class="share-btn" onclick="copyPageLink()" style="background: #6c757d;" title="لنک کاپی کریں"><i class="fas fa-link"></i></button>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-link">مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link">تمام پوسٹس</a>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-title">مزید پڑھیں</div>
+            <div class="sidebar-scroll-container">
+                <div class="sidebar-content">
+                    <!-- Item 1 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی">
+                        <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی کرنا">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بھیک مانگنا">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="زمین پر قبضہ">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - زمین پر قبضہ کرنا</a>
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عالم کا عمل">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا بے عملی</a>
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">50 بدعتی حملے 2- قل خوانی کرنا</a>
+                    </div>
+                    <!-- Item 8 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a>
+                    </div>
+                    <!-- Item 9 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="دھاگے باندھنا">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">قبروں پر دھاگے باندھنا</a>
+                    </div>
+                    <!-- Item 10 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="سجدہ کرنا">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">پیر کی عقیدت میں سجدہ کرنا</a>
+                    </div>
+                    <!-- Repeat for animation loop -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہیٰ">
+                        <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے گھر</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
-    <!-- Control Buttons -->
+    <!-- Floating Controls -->
     <div class="control-buttons">
-        <button class="control-btn back-btn" onclick="window.history.back()" title="واپس جائیں">
+        <button class="control-btn" onclick="window.history.back()" title="واپس جائیں">
             <i class="fas fa-arrow-left"></i>
         </button>
-        <button class="control-btn" onclick="scrollToTop()" title="اوپر جائیں">
+        <button class="control-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="اوپر جائیں">
             <i class="fas fa-arrow-up"></i>
         </button>
-        <button class="control-btn" onclick="scrollToBottom()" title="نیچے جائیں">
+        <button class="control-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" title="نیچے جائیں">
             <i class="fas fa-arrow-down"></i>
         </button>
     </div>
 
     <script>
-        // Theme Toggle
+        // Theme Toggle Logic
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', () => {
             body.classList.toggle('sunset-mode');
-            
-            if (body.classList.contains('sunset-mode')) {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                themeToggle.title = "روشنی والا تھیم";
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                themeToggle.title = "سورج ڈوبنے والا تھیم";
-            }
+            themeToggle.innerHTML = body.classList.contains('sunset-mode') ? 
+                '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         });
-        
-        // Scroll Functions
-        function scrollToTop() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
+
+        // Social Media Sharing Logic
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.title);
+            let shareUrl = '';
+
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${text}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`; break;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=400');
         }
-        
-        function scrollToBottom() {
-            window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
-        }
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Up Arrow - Scroll Up
-            if (e.key === 'ArrowUp') {
-                window.scrollBy({top: -100, behavior: 'smooth'});
-            }
-            // Down Arrow - Scroll Down
-            if (e.key === 'ArrowDown') {
-                window.scrollBy({top: 100, behavior: 'smooth'});
-            }
-            // Home - Scroll to Top
-            if (e.key === 'Home') {
-                scrollToTop();
-            }
-            // End - Scroll to Bottom
-            if (e.key === 'End') {
-                scrollToBottom();
-            }
-            // T - Toggle Theme
-            if (e.key === 't' || e.key === 'T') {
-                themeToggle.click();
-            }
-            // B - Go Back
-            if (e.key === 'b' || e.key === 'B') {
-                window.history.back();
-            }
-        });
-        
-        // Image hover effect enhancement
-        const mainImage = document.querySelector('.main-image');
-        if (mainImage) {
-            mainImage.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.02)';
-            });
-            
-            mainImage.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی کر لیا گیا ہے!');
             });
         }
     </script>
+    
+    <!-- External Reactions Script -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
