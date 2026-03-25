@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نماز کی اہمیت پر مبنی 50 سوالات</title>
+    <title>نماز کی اہمیت پر مبنی 50 سوالات | BlogLovers.pk</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
@@ -84,13 +84,168 @@
 
         /* Main Container */
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
         }
 
-        /* Header */
+        /* Main Content Area */
+        .main-content {
+            flex: 3;
+            min-width: 280px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            max-height: 500px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .sidebar-header {
+            padding: 18px;
+            background: linear-gradient(135deg, rgba(78,205,196,0.2), rgba(255,107,107,0.1));
+            border-bottom: 1px solid rgba(78,205,196,0.4);
+            text-align: center;
+        }
+
+        .sidebar-header h3 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .sidebar-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .posts-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 15px;
+            direction: ltr; /* scroll direction normal */
+        }
+
+        .posts-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .posts-scroll::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        .posts-scroll::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 14px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--text-light);
+            direction: rtl;
+            border-right: 3px solid transparent;
+        }
+
+        .sidebar-post:hover {
+            background: rgba(78, 205, 196, 0.2);
+            border-right-color: var(--primary);
+            transform: translateX(-4px);
+        }
+
+        .sidebar-post img {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid var(--primary);
+        }
+
+        .sidebar-post-info {
+            flex: 1;
+        }
+
+        .sidebar-post-title {
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 600;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Reactions styling */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 20px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 50px;
+        }
+
+        .reaction-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-light);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: var(--primary);
+            color: var(--dark-bg);
+            border-color: var(--primary);
+        }
+
+        .reaction-count {
+            background: rgba(0,0,0,0.5);
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-size: 0.9rem;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        /* Header, image, content box etc - keep original */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -112,23 +267,12 @@
             position: relative;
         }
 
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            right: 0;
-            width: 100px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
         .subtitle {
             color: var(--text-muted);
             font-size: 1.4rem;
             margin-bottom: 25px;
         }
 
-        /* Image Section */
         .featured-image {
             width: 100%;
             height: 400px;
@@ -147,10 +291,6 @@
             transition: transform 0.5s ease;
         }
 
-        .featured-image:hover img {
-            transform: scale(1.05);
-        }
-
         .image-caption {
             position: absolute;
             bottom: 0;
@@ -163,7 +303,6 @@
             text-align: center;
         }
 
-        /* Content Box */
         .content-box {
             background: rgba(15, 23, 42, 0.9);
             padding: 40px;
@@ -174,7 +313,6 @@
             margin-bottom: 40px;
         }
 
-        /* Questions List */
         ol {
             list-style-position: inside;
             padding-right: 0;
@@ -214,7 +352,6 @@
             border-right: 3px solid var(--accent);
         }
 
-        /* Buttons */
         .btn-container {
             display: flex;
             justify-content: center;
@@ -262,7 +399,56 @@
             box-shadow: 0 10px 30px rgba(255, 107, 107, 0.6);
         }
 
-        /* Footer */
+        /* social icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin: 30px 0 20px;
+        }
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .social-icon:hover { transform: translateY(-5px); opacity: 0.9; }
+
+        /* floating scroll */
+        .floating-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .float-btn {
+            background: var(--primary);
+            color: var(--dark-bg);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.2s;
+            border: none;
+        }
+        .float-btn:hover { transform: scale(1.1); background: var(--secondary); }
+
         .footer {
             text-align: center;
             padding: 30px;
@@ -271,340 +457,235 @@
             font-size: 1.2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .content-box {
-                padding: 20px;
-            }
-
-            li {
-                padding: 20px;
-                margin-bottom: 20px;
-            }
-
-            li p, strong {
-                font-size: 1.2rem;
-            }
-
-            .featured-image {
-                height: 300px;
-            }
-
-            .btn {
-                min-width: 100%;
-                padding: 12px 25px;
-                font-size: 1.1rem;
-            }
-
-            .btn-container {
-                flex-direction: column;
-                gap: 15px;
-            }
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .sidebar { position: relative; top: 0; width: 100%; max-height: 450px; }
+            h1 { font-size: 2.5rem; }
+            .featured-image { height: 300px; }
+            .content-box { padding: 20px; }
+            li p, strong { font-size: 1.2rem; }
         }
-
         @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .featured-image {
-                height: 250px;
-            }
-
-            li {
-                padding: 15px;
-            }
-
-            li p, strong {
-                font-size: 1.1rem;
-            }
+            h1 { font-size: 2rem; }
+            .featured-image { height: 250px; }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="animated-bg"></div>
-    
-    <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
 
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>نماز کی اہمیت پر مبنی 50 سوالات</h1>
-            <div class="subtitle">نماز ایمان کی علامت اور دین کا ستون ہے</div>
-            
-            <!-- Button Container -->
-            <div class="btn-container">
-                <button class="btn btn-primary" onclick="scrollToContent()">
-                    📖 مطالعہ شروع کریں
-                </button>
-                <a href="javascript:history.back()" class="btn btn-back">
-                    🔙 واپس جائیں
-                </a>
+        <div class="main-content">
+            <div class="header">
+                <h1>نماز کی اہمیت پر مبنی 50 سوالات</h1>
+                <div class="subtitle">نماز ایمان کی علامت اور دین کا ستون ہے</div>
+                <div class="btn-container">
+                    <button class="btn btn-primary" onclick="scrollToContent()">📖 مطالعہ شروع کریں</button>
+                    <a href="javascript:history.back()" class="btn btn-back">🔙 واپس جائیں</a>
+                </div>
+            </div>
+
+            <div class="featured-image">
+                <img src="https://bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.webp" alt="نماز کی اہمیت" loading="lazy">
+                <div class="image-caption">نماز - مومن کی معراج اور رب سے تعلق کا ذریعہ</div>
+            </div>
+
+            <div class="content-box">
+                <ol id="contentList">
+                    <li><p>نماز دین اسلام کا کونسا رکن ہے؟<br><strong>جواب:</strong> دوسرا</p></li>
+                    <li><p>قرآن کریم میں نماز کو قائم کرنے کا حکم کتنی بار آیا ہے؟<br><strong>جواب:</strong> تقریباً 700 بار</p></li>
+                    <li><p>نماز کو دین کا کیا کہا گیا ہے؟<br><strong>جواب:</strong> ستون</p></li>
+                    <li><p>سب سے پہلی نماز کونسی ہے جس کا حکم حضرت محمد ﷺ پر نازل ہوا؟<br><strong>جواب:</strong> نمازِ تہجد</p></li>
+                    <li><p>نماز کی پابندی کرنے والے کو کیا انعام دیا جائے گا؟<br><strong>جواب:</strong> جنت</p></li>
+                    <li><p>روز قیامت سب سے پہلے کس چیز کا حساب لیا جائے گا؟<br><strong>جواب:</strong> نماز</p></li>
+                    <li><p>حضرت محمد ﷺ نے نماز کو کس چیز کی روشنی قرار دیا ہے؟<br><strong>جواب:</strong> آنکھوں کی روشنی</p></li>
+                    <li><p>کس چیز کو ترک کرنے والا کفر کے قریب ہوتا ہے؟<br><strong>جواب:</strong> نماز</p></li>
+                    <li><p>حضرت ابوبکر صدیقؓ کے عہد خلافت میں کس وجہ سے جنگ کی گئی؟<br><strong>جواب:</strong> زکٰوۃ اور نماز ترک کرنے پر</p></li>
+                    <li><p>حدیث کے مطابق جس نے جان بوجھ کر نماز ترک کی وہ کیا کہلاتا ہے؟<br><strong>جواب:</strong> کافر کے قریب</p></li>
+                    <li><p>نماز ادا کرنے سے پہلے کونسی چیز ضروری ہے؟<br><strong>جواب:</strong> وضو</p></li>
+                    <li><p>نماز کو ایمان کا کیا کہا گیا ہے؟<br><strong>جواب:</strong> مظہر</p></li>
+                    <li><p>نماز کی ادائیگی کس کے لیے باعث سکون ہے؟<br><strong>جواب:</strong> دل اور روح</p></li>
+                    <li><p>حضرت علیؓ نے فرمایا کہ اگر کوئی نماز چھوڑے تو اسے کیا سمجھا جائے؟<br><strong>جواب:</strong> اللہ سے دور</p></li>
+                    <li><p>روز قیامت جس کی نمازیں درست ہوں گی، اس کے باقی اعمال کا کیا حال ہوگا؟<br><strong>جواب:</strong> قبول ہوں گے</p></li>
+                    <li><p>پانچ نمازوں کے علاوہ ایک اور نماز کونسی ہے جو عید کے دن ادا کی جاتی ہے؟<br><strong>جواب:</strong> عید کی نماز</p></li>
+                    <li><p>فرض نماز کے علاوہ نفل نماز کی ادائیگی سے کیا ملتا ہے؟<br><strong>جواب:</strong> اللہ کا قرب</p></li>
+                    <li><p>نماز کو چھوڑنے والا کس گروہ سے تعلق رکھتا ہے؟<br><strong>جواب:</strong> منافقین</p></li>
+                    <li><p>نماز کس پر فرض ہے؟<br><strong>جواب:</strong> ہر بالغ مسلمان مرد و عورت پر</p></li>
+                    <li><p>حضور ﷺ نے نماز کو کائنات کا کونسا کام کہا ہے؟<br><strong>جواب:</strong> بہترین عمل</p></li>
+                    <li><p>قرآن میں نماز کا حکم سب سے زیادہ کس نبی کی قوم کو دیا گیا؟<br><strong>جواب:</strong> حضرت موسیٰؑ کی قوم</p></li>
+                    <li><p>نماز کو اول وقت میں ادا کرنے سے کیا فائدہ ہوتا ہے؟<br><strong>جواب:</strong> اللہ کی خوشنودی حاصل ہوتی ہے</p></li>
+                    <li><p>قرآن میں نماز چھوڑنے والوں کے لیے کونسی وادی کا ذکر آیا ہے؟<br><strong>جواب:</strong> وادیٔ ویل</p></li>
+                    <li><p>حضور ﷺ نے فرمایا کہ نماز ترک کرنا کس کا راستہ اختیار کرنے کے برابر ہے؟<br><strong>جواب:</strong> شیطان کا</p></li>
+                    <li><p>نماز ادا کرنے والوں کے چہروں پر کیا چیز نظر آتی ہے؟<br><strong>جواب:</strong> نور</p></li>
+                    <li><p>روزانہ کتنی بار نماز فرض ہے؟<br><strong>جواب:</strong> پانچ بار</p></li>
+                    <li><p>نماز کے بغیر کونسی عبادت ناقابل قبول ہو جاتی ہے؟<br><strong>جواب:</strong> زکٰوۃ</p></li>
+                    <li><p>سب سے پہلی نماز کس نے ادا کی تھی؟<br><strong>جواب:</strong> حضرت آدمؑ نے</p></li>
+                    <li><p>سب سے پہلا کام کس چیز کا حساب لیا جائے گا؟<br><strong>جواب:</strong> نماز</p></li>
+                    <li><p>حضور ﷺ نے فرمایا کہ نماز کیا ہے؟<br><strong>جواب:</strong> مومن کی معراج</p></li>
+                    <li><p>مسجد کی طرف قدم بڑھانے پر اللہ کس چیز کا انعام دیتا ہے؟<br><strong>جواب:</strong> گناہوں کی معافی</p></li>
+                    <li><p>نماز کے بعد دعا مانگنے سے کیا ملتا ہے؟<br><strong>جواب:</strong> برکت</p></li>
+                    <li><p>حضور ﷺ نے فرمایا کہ اگر کسی کے گھر کے سامنے نہر ہو اور وہ روزانہ پانچ بار نہائے تو کیا ہوگا؟<br><strong>جواب:</strong> گناہوں سے پاک ہو جائے گا</p></li>
+                    <li><p>نماز کس عمر میں فرض ہوتی ہے؟<br><strong>جواب:</strong> بلوغت پر</p></li>
+                    <li><p>کس نماز کو سورج طلوع ہونے سے پہلے ادا کیا جاتا ہے؟<br><strong>جواب:</strong> فجر</p></li>
+                    <li><p>رات کی آخری نماز کو کیا کہا جاتا ہے؟<br><strong>جواب:</strong> وتر</p></li>
+                    <li><p>نماز کے دوران کس چیز پر غور کرنا چاہیے؟<br><strong>جواب:</strong> اللہ کی بڑائیاں اور رحمت</p></li>
+                    <li><p>حضور ﷺ نے فرمایا کہ اللہ کو کس نماز کا وقت زیادہ پسند ہے؟<br><strong>جواب:</strong> فجر اور عصر</p></li>
+                    <li><p>دن کے وسط میں کس نماز کا وقت ہوتا ہے؟<br><strong>جواب:</strong> ظہر</p></li>
+                    <li><p>نماز کے دوران کس جانب منہ کر کے پڑھنا ضروری ہے؟<br><strong>جواب:</strong> قبلہ</p></li>
+                    <li><p>قرآن میں نماز کو ترک کرنے والوں کے لیے کیا وعید ہے؟<br><strong>جواب:</strong> عذاب الیم</p></li>
+                    <li><p>نماز پڑھنے سے کس چیز کی حفاظت ہوتی ہے؟<br><strong>جواب:</strong> گناہوں سے</p></li>
+                    <li><p>نبی کریم ﷺ کے نزدیک افضل ترین عمل کونسا ہے؟<br><strong>جواب:</strong> نماز کو وقت پر ادا کرنا</p></li>
+                    <li><p>نماز کا قصر کس حالت میں کیا جا سکتا ہے؟<br><strong>جواب:</strong> سفر</p></li>
+                    <li><p>کس نماز میں قرآن کی سب سے طویل تلاوت کی جاتی ہے؟<br><strong>جواب:</strong> فجر</p></li>
+                    <li><p>جب کوئی نماز کے دوران بھول جائے تو اسے کیا کرنا چاہیے؟<br><strong>جواب:</strong> سجدہ سہو</p></li>
+                    <li><p>نماز کو اگر بغیر کسی عذر کے چھوڑا جائے تو کیا سمجھا جائے گا؟<br><strong>جواب:</strong> گناہ کبیرہ</p></li>
+                    <li><p>حضرت محمد ﷺ نے کس نماز کو منافقوں پر سب سے زیادہ بھاری قرار دیا ہے؟<br><strong>جواب:</strong> فجر اور عشاء</p></li>
+                    <li><p>حضرت محمد ﷺ نے اپنی آخری وقتوں میں امت کو کس بات کی تاکید کی؟<br><strong>جواب:</strong> نماز قائم کرنا</p></li>
+                    <li><p>نماز کا ترک کرنے والا آخرت میں کس گروہ میں ہوگا؟<br><strong>جواب:</strong> گناہگار</p></li>
+                </ol>
+
+                <!-- Reactions Section (exactly as required) -->
+                <div class="reactions-container">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+
+                <!-- Social Share Icons (7 platforms) -->
+                <div class="social-share">
+                    <div class="social-icon" style="background:#1877f2" onclick="shareOnSocial('facebook')"><i>📘</i></div>
+                    <div class="social-icon" style="background:#25D366" onclick="shareOnSocial('whatsapp')"><i>💬</i></div>
+                    <div class="social-icon" style="background:#1DA1F2" onclick="shareOnSocial('twitter')"><i>🐦</i></div>
+                    <div class="social-icon" style="background:#0077b5" onclick="shareOnSocial('linkedin')"><i>🔗</i></div>
+                    <div class="social-icon" style="background:#0088cc" onclick="shareOnSocial('telegram')"><i>📲</i></div>
+                    <div class="social-icon" style="background:#bd081c" onclick="shareOnSocial('pinterest')"><i>📌</i></div>
+                    <div class="social-icon" style="background:#6c757d" onclick="copyPageLink()"><i>🔗</i></div>
+                </div>
+
+                <div class="btn-container" style="margin-top: 20px;">
+                    <a href="https://bloglovers.pk/" class="btn btn-primary">🏠 مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="btn btn-back">📚 تمام پوسٹس</a>
+                </div>
+                <div class="btn-container">
+                    <button class="btn btn-primary" onclick="scrollToTop()">🔝 اوپر جائیں</button>
+                    <a href="javascript:history.back()" class="btn btn-back">🔙 واپس جائیں</a>
+                </div>
+            </div>
+            <div class="footer">
+                <p>© 2024 نماز کی اہمیت - تمام حقوق محفوظ ہیں</p>
+                <p style="font-size: 1rem; margin-top: 10px;">نماز قائم کریں، جنت پائیں</p>
             </div>
         </div>
 
-        <!-- Featured Image -->
-        <div class="featured-image">
-            <img src="https://bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.webp" alt="نماز کی اہمیت" loading="lazy">
-            <div class="image-caption">نماز - مومن کی معراج اور رب سے تعلق کا ذریعہ</div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="content-box">
-            <ol id="contentList">
-                <li><p>نماز دین اسلام کا کونسا رکن ہے؟<br>
-                <strong>جواب:</strong> دوسرا</p></li>
-                
-                <li><p>قرآن کریم میں نماز کو قائم کرنے کا حکم کتنی بار آیا ہے؟<br>
-                <strong>جواب:</strong> تقریباً 700 بار</p></li>
-                
-                <li><p>نماز کو دین کا کیا کہا گیا ہے؟<br>
-                <strong>جواب:</strong> ستون</p></li>
-                
-                <li><p>سب سے پہلی نماز کونسی ہے جس کا حکم حضرت محمد ﷺ پر نازل ہوا؟<br>
-                <strong>جواب:</strong> نمازِ تہجد</p></li>
-                
-                <li><p>نماز کی پابندی کرنے والے کو کیا انعام دیا جائے گا؟<br>
-                <strong>جواب:</strong> جنت</p></li>
-                
-                <li><p>روز قیامت سب سے پہلے کس چیز کا حساب لیا جائے گا؟<br>
-                <strong>جواب:</strong> نماز</p></li>
-                
-                <li><p>حضرت محمد ﷺ نے نماز کو کس چیز کی روشنی قرار دیا ہے؟<br>
-                <strong>جواب:</strong> آنکھوں کی روشنی</p></li>
-                
-                <li><p>کس چیز کو ترک کرنے والا کفر کے قریب ہوتا ہے؟<br>
-                <strong>جواب:</strong> نماز</p></li>
-                
-                <li><p>حضرت ابوبکر صدیقؓ کے عہد خلافت میں کس وجہ سے جنگ کی گئی؟<br>
-                <strong>جواب:</strong> زکٰوۃ اور نماز ترک کرنے پر</p></li>
-                
-                <li><p>حدیث کے مطابق جس نے جان بوجھ کر نماز ترک کی وہ کیا کہلاتا ہے؟<br>
-                <strong>جواب:</strong> کافر کے قریب</p></li>
-                
-                <li><p>نماز ادا کرنے سے پہلے کونسی چیز ضروری ہے؟<br>
-                <strong>جواب:</strong> وضو</p></li>
-                
-                <li><p>نماز کو ایمان کا کیا کہا گیا ہے؟<br>
-                <strong>جواب:</strong> مظہر</p></li>
-                
-                <li><p>نماز کی ادائیگی کس کے لیے باعث سکون ہے؟<br>
-                <strong>جواب:</strong> دل اور روح</p></li>
-                
-                <li><p>حضرت علیؓ نے فرمایا کہ اگر کوئی نماز چھوڑے تو اسے کیا سمجھا جائے؟<br>
-                <strong>جواب:</strong> اللہ سے دور</p></li>
-                
-                <li><p>روز قیامت جس کی نمازیں درست ہوں گی، اس کے باقی اعمال کا کیا حال ہوگا؟<br>
-                <strong>جواب:</strong> قبول ہوں گے</p></li>
-                
-                <li><p>پانچ نمازوں کے علاوہ ایک اور نماز کونسی ہے جو عید کے دن ادا کی جاتی ہے؟<br>
-                <strong>جواب:</strong> عید کی نماز</p></li>
-                
-                <li><p>فرض نماز کے علاوہ نفل نماز کی ادائیگی سے کیا ملتا ہے؟<br>
-                <strong>جواب:</strong> اللہ کا قرب</p></li>
-                
-                <li><p>نماز کو چھوڑنے والا کس گروہ سے تعلق رکھتا ہے؟<br>
-                <strong>جواب:</strong> منافقین</p></li>
-                
-                <li><p>نماز کس پر فرض ہے؟<br>
-                <strong>جواب:</strong> ہر بالغ مسلمان مرد و عورت پر</p></li>
-                
-                <li><p>حضور ﷺ نے نماز کو کائنات کا کونسا کام کہا ہے؟<br>
-                <strong>جواب:</strong> بہترین عمل</p></li>
-                
-                <li><p>قرآن میں نماز کا حکم سب سے زیادہ کس نبی کی قوم کو دیا گیا؟<br>
-                <strong>جواب:</strong> حضرت موسیٰؑ کی قوم</p></li>
-                
-                <li><p>نماز کو اول وقت میں ادا کرنے سے کیا فائدہ ہوتا ہے؟<br>
-                <strong>جواب:</strong> اللہ کی خوشنودی حاصل ہوتی ہے</p></li>
-                
-                <li><p>قرآن میں نماز چھوڑنے والوں کے لیے کونسی وادی کا ذکر آیا ہے؟<br>
-                <strong>جواب:</strong> وادیٔ ویل</p></li>
-                
-                <li><p>حضور ﷺ نے فرمایا کہ نماز ترک کرنا کس کا راستہ اختیار کرنے کے برابر ہے؟<br>
-                <strong>جواب:</strong> شیطان کا</p></li>
-                
-                <li><p>نماز ادا کرنے والوں کے چہروں پر کیا چیز نظر آتی ہے؟<br>
-                <strong>جواب:</strong> نور</p></li>
-                
-                <li><p>روزانہ کتنی بار نماز فرض ہے؟<br>
-                <strong>جواب:</strong> پانچ بار</p></li>
-                
-                <li><p>نماز کے بغیر کونسی عبادت ناقابل قبول ہو جاتی ہے؟<br>
-                <strong>جواب:</strong> زکٰوۃ</p></li>
-                
-                <li><p>سب سے پہلی نماز کس نے ادا کی تھی؟<br>
-                <strong>جواب:</strong> حضرت آدمؑ نے</p></li>
-                
-                <li><p>سب سے پہلا کام کس چیز کا حساب لیا جائے گا؟<br>
-                <strong>جواب:</strong> نماز</p></li>
-                
-                <li><p>حضور ﷺ نے فرمایا کہ نماز کیا ہے؟<br>
-                <strong>جواب:</strong> مومن کی معراج</p></li>
-                
-                <li><p>مسجد کی طرف قدم بڑھانے پر اللہ کس چیز کا انعام دیتا ہے؟<br>
-                <strong>جواب:</strong> گناہوں کی معافی</p></li>
-                
-                <li><p>نماز کے بعد دعا مانگنے سے کیا ملتا ہے؟<br>
-                <strong>جواب:</strong> برکت</p></li>
-                
-                <li><p>حضور ﷺ نے فرمایا کہ اگر کسی کے گھر کے سامنے نہر ہو اور وہ روزانہ پانچ بار نہائے تو کیا ہوگا؟<br>
-                <strong>جواب:</strong> گناہوں سے پاک ہو جائے گا</p></li>
-                
-                <li><p>نماز کس عمر میں فرض ہوتی ہے؟<br>
-                <strong>جواب:</strong> بلوغت پر</p></li>
-                
-                <li><p>کس نماز کو سورج طلوع ہونے سے پہلے ادا کیا جاتا ہے؟<br>
-                <strong>جواب:</strong> فجر</p></li>
-                
-                <li><p>رات کی آخری نماز کو کیا کہا جاتا ہے؟<br>
-                <strong>جواب:</strong> وتر</p></li>
-                
-                <li><p>نماز کے دوران کس چیز پر غور کرنا چاہیے؟<br>
-                <strong>جواب:</strong> اللہ کی بڑائیاں اور رحمت</p></li>
-                
-                <li><p>حضور ﷺ نے فرمایا کہ اللہ کو کس نماز کا وقت زیادہ پسند ہے؟<br>
-                <strong>جواب:</strong> فجر اور عصر</p></li>
-                
-                <li><p>دن کے وسط میں کس نماز کا وقت ہوتا ہے؟<br>
-                <strong>جواب:</strong> ظہر</p></li>
-                
-                <li><p>نماز کے دوران کس جانب منہ کر کے پڑھنا ضروری ہے؟<br>
-                <strong>جواب:</strong> قبلہ</p></li>
-                
-                <li><p>قرآن میں نماز کو ترک کرنے والوں کے لیے کیا وعید ہے؟<br>
-                <strong>جواب:</strong> عذاب الیم</p></li>
-                
-                <li><p>نماز پڑھنے سے کس چیز کی حفاظت ہوتی ہے؟<br>
-                <strong>جواب:</strong> گناہوں سے</p></li>
-                
-                <li><p>نبی کریم ﷺ کے نزدیک افضل ترین عمل کونسا ہے؟<br>
-                <strong>جواب:</strong> نماز کو وقت پر ادا کرنا</p></li>
-                
-                <li><p>نماز کا قصر کس حالت میں کیا جا سکتا ہے؟<br>
-                <strong>جواب:</strong> سفر</p></li>
-                
-                <li><p>کس نماز میں قرآن کی سب سے طویل تلاوت کی جاتی ہے؟<br>
-                <strong>جواب:</strong> فجر</p></li>
-                
-                <li><p>جب کوئی نماز کے دوران بھول جائے تو اسے کیا کرنا چاہیے؟<br>
-                <strong>جواب:</strong> سجدہ سہو</p></li>
-                
-                <li><p>نماز کو اگر بغیر کسی عذر کے چھوڑا جائے تو کیا سمجھا جائے گا؟<br>
-                <strong>جواب:</strong> گناہ کبیرہ</p></li>
-                
-                <li><p>حضرت محمد ﷺ نے کس نماز کو منافقوں پر سب سے زیادہ بھاری قرار دیا ہے؟<br>
-                <strong>جواب:</strong> فجر اور عشاء</p></li>
-                
-                <li><p>حضرت محمد ﷺ نے اپنی آخری وقتوں میں امت کو کس بات کی تاکید کی؟<br>
-                <strong>جواب:</strong> نماز قائم کرنا</p></li>
-                
-                <li><p>نماز کا ترک کرنے والا آخرت میں کس گروہ میں ہوگا؟<br>
-                <strong>جواب:</strong> گناہگار</p></li>
-            </ol>
-
-            <!-- Bottom Buttons -->
-            <div class="btn-container" style="margin-top: 40px;">
-                <button class="btn btn-primary" onclick="scrollToTop()">
-                    🔝 اوپر جائیں
-                </button>
-                <a href="javascript:history.back()" class="btn btn-back">
-                    🔙 واپس جائیں
-                </a>
+        <!-- Sidebar with auto-scroll -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>📖 مزید پڑھیں</h3>
+                <p>متعلقہ تحریریں</p>
             </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2024 نماز کی اہمیت - تمام حقوق محفوظ ہیں</p>
-            <p style="font-size: 1rem; margin-top: 10px;">نماز قائم کریں، جنت پائیں</p>
+            <div class="posts-scroll" id="autoScrollSidebar">
+                <!-- 12 posts list as provided -->
+                <a href="https://bloglovers.pk/english-adab/romanoi-dor" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/romanoi-dor.jpg" alt="5 رومانوی دور"><div class="sidebar-post-info"><div class="sidebar-post-title">5 رومانوی دور</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/shakespeare-ke-dramon-mein-insani-fitrat-ka-nafsiati-mutalea.png" alt="شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ"><div class="sidebar-post-info"><div class="sidebar-post-title">شیکسپیئر کے ڈراموں میں انسانی فطرت کا نفسیاتی مطالعہ</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/taaqat-ka-khel-afsana-e-haiwan-se-pakistan-tak.png" alt="طاقت کاکھیل افسانۂ حیوان سے پاکستان تک"><div class="sidebar-post-info"><div class="sidebar-post-title">طاقت کاکھیل افسانۂ حیوان سے پاکستان تک</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/tyli-askrynz-se-smart-fonz-tak-1984-aur-aaj-ki-ngrani-ka-moaznh.png" alt="ٹیلی اسکرینز سے سمارٹ فونز تک"><div class="sidebar-post-info"><div class="sidebar-post-title">ٹیلی اسکرینز سے سمارٹ فونز تک: 1984 اور آج کی نگرانی کا موازنہ</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-part-wn-1837-1913.jpg" alt="وکٹورین دور (پارٹ ون)"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور (پارٹ ون) (1837-1913)</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-dosra-hsh" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-dosra-hsh.jpg" alt="وکٹورین دور دوسرا حصہ"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور 1837-1914 (دوسرا حصہ)</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-som" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-som.jpg" alt="حصہ سوئم"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور 1837-1914 (حصہ سوئم)</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chharm" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chharm.jpg" alt="حصہ چہارم"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور 1837-1914 (حصہ چہارم)</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-panchoan-hsh" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-panchoan-hsh.jpg" alt="پانچواں حصہ"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور 1837-1914 (پانچواں حصہ)</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-chhta" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-chhta.jpg" alt="حصہ چھٹا"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور (1837 - 1914) حصہ چھٹا</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-hsh-satoan" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-hsh-satoan.jpg" alt="حصہ ساتواں"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور (1837 - 1914) حصہ ساتواں</div></div></a>
+                <a href="https://bloglovers.pk/english-adab/wktoryn-dor-1837-1914-aakhri-hsh" class="sidebar-post"><img src="https://bloglovers.pk/images/english-adab/wktoryn-dor-1837-1914-aakhri-hsh.jpg" alt="آخری حصہ"><div class="sidebar-post-info"><div class="sidebar-post-title">وکٹورین دور (1837 - 1914) آخری حصہ</div></div></a>
+                <a href="https://bloglovers.pk/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai" class="sidebar-post"><img src="https://bloglovers.pk/images/alamaat-sughra/furat-ka-khushk-hona-kon-se-fitne-ki-pasheen-goi-hai.png" alt="فرات کا خشک ہونا"><div class="sidebar-post-info"><div class="sidebar-post-title">فرات کا خشک ہونا کون سے فتنے کی پیشین گوئی ہے؟</div></div></a>
+            </div>
         </div>
     </div>
 
+    <div class="floating-buttons">
+        <div class="float-btn" onclick="scrollToTop()">↑</div>
+        <div class="float-btn" onclick="scrollToBottom()">↓</div>
+    </div>
+
     <script>
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random size
-                const size = Math.random() * 100 + 50;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Random position
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                
-                // Random animation delay
-                particle.style.animationDelay = `${Math.random() * 20}s`;
-                
-                // Random opacity
-                particle.style.opacity = Math.random() * 0.1 + 0.05;
-                
-                particlesContainer.appendChild(particle);
-            }
+        function scrollToContent() { document.getElementById('contentList').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+
+        // Social share functions
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title} ${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہو گیا!');
         }
 
-        // Scroll to content function
-        function scrollToContent() {
-            document.getElementById('contentList').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+        // Auto-scroll sidebar with hover pause (30 sec cycle, 12 items approx)
+        const scrollDiv = document.getElementById('autoScrollSidebar');
+        let scrollInterval;
+        function startAutoScroll() {
+            if (!scrollDiv) return;
+            scrollInterval = setInterval(() => {
+                if (!scrollDiv.matches(':hover')) {
+                    const maxScroll = scrollDiv.scrollHeight - scrollDiv.clientHeight;
+                    if (scrollDiv.scrollTop + 5 >= maxScroll) scrollDiv.scrollTop = 0;
+                    else scrollDiv.scrollTop += 2;
+                }
+            }, 80);
+        }
+        function stopAutoScroll() { if(scrollInterval) clearInterval(scrollInterval); }
+        if(scrollDiv){
+            startAutoScroll();
+            scrollDiv.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+            scrollDiv.addEventListener('mouseleave', startAutoScroll);
         }
 
-        // Scroll to top function
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Add hover effect to list items
+        // Add numbers to list items (style)
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            
-            // Add number styling to list items
             const listItems = document.querySelectorAll('li');
-            listItems.forEach((item, index) => {
-                const number = document.createElement('span');
-                number.textContent = `${index + 1}. `;
-                number.style.color = 'var(--primary)';
-                number.style.fontSize = '1.5rem';
-                number.style.fontWeight = 'bold';
-                number.style.marginLeft = '10px';
-                item.insertBefore(number, item.firstChild);
+            listItems.forEach((item, idx) => {
+                const numSpan = document.createElement('span');
+                numSpan.textContent = `${idx+1}. `;
+                numSpan.style.color = 'var(--primary)';
+                numSpan.style.fontSize = '1.5rem';
+                numSpan.style.fontWeight = 'bold';
+                numSpan.style.marginLeft = '10px';
+                item.insertBefore(numSpan, item.firstChild);
             });
+            createParticles();
         });
-
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i=0;i<20;i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                let s = Math.random() * 100 + 50;
+                p.style.width = `${s}px`; p.style.height = `${s}px`;
+                p.style.left = `${Math.random() * 100}%`; p.style.top = `${Math.random() * 100}%`;
+                p.style.animationDelay = `${Math.random() * 20}s`;
+                p.style.opacity = Math.random() * 0.1 + 0.05;
+                container.appendChild(p);
+            }
+        }
         // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // ESC to go back
-            if (e.key === 'Escape') {
-                history.back();
-            }
-            // Home to scroll to top
-            if (e.key === 'Home') {
-                scrollToTop();
-            }
-        });
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') history.back(); if(e.key === 'Home') scrollToTop(); });
     </script>
+    <!-- reactions.js is included externally -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
