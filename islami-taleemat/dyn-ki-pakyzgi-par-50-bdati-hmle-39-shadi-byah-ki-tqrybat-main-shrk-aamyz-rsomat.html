@@ -2,7 +2,7 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>دین کی پاکیزگی پر 50 بدعتی حملے – 39: شادی بیاہ کی تقریبات میں شرک آمیز رسومات</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -45,7 +45,6 @@
             100% { opacity: 0.5; filter: brightness(0.8); }
         }
 
-        /* Lightning effect on hover over body */
         body:hover::after {
             content: '';
             position: fixed;
@@ -68,10 +67,19 @@
             100% { opacity: 0; }
         }
 
-        /* Main container */
-        .main-container {
-            max-width: 1000px;
+        /* Main layout: flex to accommodate sidebar */
+        .layout-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1400px;
             margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        .main-container {
+            flex: 3;
+            min-width: 280px;
             background: rgba(10, 15, 25, 0.85);
             backdrop-filter: blur(5px);
             border-radius: 30px;
@@ -80,7 +88,88 @@
             border: 1px solid #567;
         }
 
-        /* Image after title */
+        /* Sidebar styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(4px);
+            border-radius: 30px;
+            padding: 20px 15px;
+            border: 1px solid #5f7f9f;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        .sidebar h3 {
+            font-size: 1.6rem;
+            color: #f9e3a0;
+            border-bottom: 2px solid #fda172;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Auto-scroll container */
+        .scroll-posts {
+            height: 500px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            position: relative;
+            direction: ltr; /* for scrollbar but content inside rtl */
+        }
+        .scroll-posts::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scroll-posts::-webkit-scrollbar-track {
+            background: #1f2a38;
+            border-radius: 10px;
+        }
+        .scroll-posts::-webkit-scrollbar-thumb {
+            background: #fda172;
+            border-radius: 10px;
+        }
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 20px;
+            background: rgba(30, 40, 55, 0.6);
+            transition: 0.2s;
+            direction: rtl;
+        }
+        .post-item:hover {
+            background: #2a3f55;
+            transform: translateX(-5px);
+        }
+        .post-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 1px solid #ffcf9a;
+        }
+        .post-item a {
+            text-decoration: none;
+            color: #e9e2c7;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
+        }
+        .post-item a:hover {
+            color: #ffcf9a;
+        }
+        .active-post {
+            background: #4f6f8a;
+            border-right: 5px solid #fda172;
+        }
+
+        /* Featured image */
         .featured-image {
             width: 100%;
             margin: 30px 0 20px;
@@ -89,19 +178,16 @@
             box-shadow: 0 15px 30px -8px black;
             border: 2px solid #5f7f9f;
         }
-
         .featured-image img {
             width: 100%;
             height: auto;
             display: block;
             transition: transform 0.5s;
         }
-
         .featured-image img:hover {
             transform: scale(1.02);
         }
 
-        /* Headings */
         h1 {
             font-size: 2.2rem;
             color: #f9e3a0;
@@ -137,16 +223,63 @@
             border-right: 5px solid #7a9fbc;
         }
 
-        /* Paragraphs */
         p, li {
             font-size: 1.3rem;
             text-align: justify;
             color: #ddd;
             margin-bottom: 18px;
         }
-
         li {
             margin-right: 20px;
+        }
+        ul, ol {
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Reactions container */
+        .reactions-wrap {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 60px;
+            padding: 20px 15px;
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .reaction-btn {
+            background: #1e2e3e;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            font-weight: bold;
+            color: #f0e6c5;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid #6a8eaa;
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #3a617b;
+            color: white;
+        }
+        .reaction-count {
+            background: #0b0f1c;
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            margin-right: 5px;
         }
 
         /* Buttons container */
@@ -157,7 +290,6 @@
             gap: 15px;
             margin: 30px 0;
         }
-
         .nav-btn, .share-btn {
             display: inline-flex;
             align-items: center;
@@ -175,17 +307,15 @@
             transition: 0.1s linear;
             cursor: pointer;
         }
-
         .nav-btn:hover, .share-btn:hover {
             transform: translateY(5px);
             box-shadow: 0 3px 0 #0f141c, 0 8px 20px black;
             background: linear-gradient(145deg, #345b74, #233b4b);
         }
-
         .home-btn { background: linear-gradient(145deg, #4f7b3a, #2f5a1f); border-color: #a5d685; }
-        .back-btn { background: linear-gradient(145deg, #9e6d3b, #7b4d1f); border-color: #edb87a; }
+        .all-posts-btn { background: linear-gradient(145deg, #9e6d3b, #7b4d1f); border-color: #edb87a; }
 
-        /* Social share */
+        /* social panel */
         .share-panel {
             display: flex;
             flex-wrap: wrap;
@@ -196,20 +326,20 @@
             background: #0b121cb0;
             border-radius: 80px;
         }
-
         .share-btn {
             padding: 10px 18px;
             font-size: 1.1rem;
             min-width: 50px;
         }
-
-        .facebook { background: #3b5998; border-color: #8bb1ff; }
+        .facebook { background: #1877f2; border-color: #8bb1ff; }
         .whatsapp { background: #25D366; border-color: #b1ffb1; }
         .twitter { background: #1DA1F2; border-color: #b1e4ff; }
         .telegram { background: #0088cc; border-color: #9cd4ff; }
-        .linkedin { background: #0e76a8; border-color: #9fc9ff; }
+        .linkedin { background: #0077b5; border-color: #9fc9ff; }
+        .pinterest { background: #bd081c; border-color: #ffa6b1; }
+        .copy-link-btn { background: #6c757d; border-color: #cfcfcf; }
 
-        /* Up-Down buttons fixed */
+        /* scroll fixed buttons */
         .scroll-btns {
             position: fixed;
             left: 15px;
@@ -219,7 +349,6 @@
             gap: 12px;
             z-index: 99;
         }
-
         .scroll-btns a {
             background: #1f3a4bdd;
             color: white;
@@ -236,63 +365,54 @@
             transition: 0.2s;
             text-decoration: none;
         }
-
         .scroll-btns a:hover {
             background: #2f5570;
             transform: scale(1.1);
             border-color: #fc6;
         }
-
-        /* mobile tweaks */
-        @media (max-width: 600px) {
-            .main-container { padding: 18px; }
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.6rem; padding: 10px 18px; }
-            p, li { font-size: 1.2rem; }
-            .nav-btn, .share-btn { padding: 10px 18px; font-size: 1rem; }
-            .share-panel { border-radius: 30px; }
-            .scroll-btns { left: 5px; }
-            .scroll-btns a { width: 45px; height: 45px; font-size: 24px; }
-        }
-
-        /* extra touch */
         hr {
             border: none;
             height: 2px;
             background: linear-gradient(to left, #3a5f7a, #b5a87c, #3a5f7a);
             margin: 40px 0;
         }
-
         strong {
             color: #ffcf9a;
+        }
+        @media (max-width: 800px) {
+            .layout-flex { flex-direction: column; }
+            .sidebar { position: static; width: 100%; }
+            .main-container { padding: 18px; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.6rem; padding: 10px 18px; }
+            p, li { font-size: 1.2rem; }
+            .reaction-btn { padding: 6px 12px; font-size: 0.9rem; }
+            .scroll-btns a { width: 45px; height: 45px; font-size: 24px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- fixed up/down buttons -->
-    <div class="scroll-btns">
-        <a href="#" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
-        <a href="#" title="نیچے جائیں" onclick="window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
-    </div>
+<div class="scroll-btns">
+    <a href="#" id="scrollUpBtn" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" id="scrollDownBtn" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
+</div>
 
+<div class="layout-flex">
+    <!-- MAIN CONTENT -->
     <div class="main-container">
-
-        <!-- main heading -->
         <h1>دین کی پاکیزگی پر 50 بدعتی حملے – 39: شادی بیاہ کی تقریبات میں شرک آمیز رسومات</h1>
 
-        <!-- image after title (only one) -->
         <div class="featured-image">
             <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-39-shadi-byah-ki-tqrybat-main-shrk-aamyz-rsomat.png" alt="شرک آمیز رسومات">
         </div>
 
-        <!-- navigation buttons (home & back) external links but no internal linking remains -->
         <div class="nav-buttons">
             <a href="https://bloglovers.pk/" class="nav-btn home-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn back-btn" target="_blank"><i class="fas fa-arrow-right"></i> بیک پیج</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn all-posts-btn" target="_blank"><i class="fas fa-list-ul"></i> تمام پوسٹس</a>
         </div>
 
-        <!-- original content (text untouched) -->
+        <!-- original content -->
         <h2>شادی بیاہ کی رسومات میں فضول خرچی</h2>
         <p>شادی بیاہ کی رسومات میں فضول خرچی ایک ایسا مسئلہ ہے جو ہماری معاشرتی اور اقتصادی زندگی پر گہرا اثر ڈال رہا ہے۔ شادی جیسے پاکیزہ بندھن کو خوشیوں اور سادگی سے منانے کے بجائے اسے غیر ضروری شان و شوکت کا مظاہرہ بنا دیا گیا ہے۔ مہنگے لباس، قیمتی زیورات، بڑے بڑے بینکوئٹ ہالز، اور لذتوں سے بھرے کھانوں پر لاکھوں روپے خرچ کرنا ایک معمول بن چکا ہے۔</p>
         <p>یہ سب کچھ معاشرتی دباؤ اور اپنی حیثیت دکھانے کی کوشش میں کیا جاتا ہے، جو نہ صرف دلہا دلہن کے خاندانوں پر مالی بوجھ ڈالتی ہے بلکہ پورے سماج میں ایک غلط مثال قائم کرتی ہے۔ فضول خرچی کے یہ مظاہر ہمارے دین کی تعلیمات کے بھی خلاف ہیں، جو سادگی اور اعتدال کا درس دیتے ہیں۔ قرآن پاک اور احادیث نبویہ ﷺ میں اسراف سے بچنے کی بارہا تاکید کی گئی ہے، لیکن افسوس کہ ہم نے ان ہدایات کو نظر انداز کر دیا ہے۔</p>
@@ -329,31 +449,167 @@
         </ol>
         <p>جیسا کہ اللہ رب العزت نے فرمایا: <strong>"اور تم اپنی جانوں کو شرک سے بچاؤ"</strong>۔</p>
 
-        <!-- social media sharing buttons (multiple) -->
+        <!-- REACTIONS SYSTEM (exactly as required) -->
+        <div class="reactions-wrap">
+            <div style="font-size:1.5rem; margin-bottom:10px;"><i class="fas fa-smile"></i> آپ کا ردعمل</div>
+            <div class="reaction-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- Social Media Icons (7 platforms) -->
         <div class="share-panel">
             <span style="color:#eee; font-size:1.3rem; margin-left:10px;"><i class="fas fa-share-alt"></i> شیئر کریں:</span>
             <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/post-39" target="_blank" class="share-btn facebook"><i class="fab fa-facebook-f"></i> فیس بک</a>
             <a href="https://wa.me/?text=دین%20کی%20پاکیزگی%20پر%20بدعتی%20حملے%20-%20شادی%20بیاہ%20کی%20تقریبات%20میں%20شرک%20آمیز%20رسومات%20https://bloglovers.pk/islami-taleemat/post-39" target="_blank" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i> واٹس ایپ</a>
             <a href="https://twitter.com/intent/tweet?text=دین%20کی%20پاکیزگی%20پر%20بدعتی%20حملے%20-%20شادی%20بیاہ%20کی%20تقریبات%20میں%20شرک%20آمیز%20رسومات&url=https://bloglovers.pk/islami-taleemat/post-39" target="_blank" class="share-btn twitter"><i class="fab fa-x-twitter"></i> ٹویٹر</a>
-            <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/post-39&text=دین%20کی%20پاکیزگی%20پر%20بدعتی%20حملے%20-%20شادی%20بیاہ%20کی%20تقریبات%20میں%20شرک%20آمیز%20رسومات" target="_blank" class="share-btn telegram"><i class="fab fa-telegram-plane"></i> ٹیلی گرام</a>
             <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk/islami-taleemat/post-39" target="_blank" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i> لنکڈ ان</a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/post-39&text=دین%20کی%20پاکیزگی%20پر%20بدعتی%20حملے%20-%20شادی%20بیاہ%20کی%20تقریبات%20میں%20شرک%20آمیز%20رسومات" target="_blank" class="share-btn telegram"><i class="fab fa-telegram-plane"></i> ٹیلی گرام</a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/islami-taleemat/post-39&media=https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-39-shadi-byah-ki-tqrybat-main-shrk-aamyz-rsomat.png&description=دین کی پاکیزگی پر 50 بدعتی حملے" target="_blank" class="share-btn pinterest"><i class="fab fa-pinterest-p"></i> پنٹیرسٹ</a>
+            <button class="share-btn copy-link-btn" id="copyLinkBtn"><i class="fas fa-copy"></i> کاپی لنک</button>
         </div>
 
-        <!-- repeated home/back for good UX -->
         <div class="nav-buttons" style="margin-top:10px;">
             <a href="https://bloglovers.pk/" class="nav-btn home-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn back-btn" target="_blank"><i class="fas fa-arrow-right"></i> بیک پیج</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn all-posts-btn" target="_blank"><i class="fas fa-list-ul"></i> تمام پوسٹس</a>
         </div>
+    </div>
 
-    </div> <!-- main container end -->
+    <!-- SIDEBAR with auto-scroll -->
+    <div class="sidebar">
+        <h3><i class="fas fa-book-open"></i> متعلقہ مضامین</h3>
+        <div class="scroll-posts" id="autoScrollSidebar">
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">
+                <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="toham parasti">
+                <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="chughli">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="bhik mangna">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="zameen qabza">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="khudkushi">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="aalim">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="qul khawani">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="gyarahvin">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="dhage">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="sajda">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="behayai">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">
+                <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="azab">
+                <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+            </div>
+            <div class="post-item" data-url="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">
+                <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="mazaq">
+                <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script>
-        // smooth scroll up function
-        document.querySelector('.scroll-btns a[href="#"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+<!-- Include reactions.js from root (existing) -->
+<script src="/reactions.js"></script>
+
+<script>
+    // Smooth scroll up/down + auto-scroll sidebar (30 sec cycle, pause on hover)
+    (function() {
+        // up/down floating buttons
+        const upBtn = document.getElementById('scrollUpBtn');
+        const downBtn = document.getElementById('scrollDownBtn');
+        if(upBtn) upBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        if(downBtn) downBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); });
+
+        // Auto-scroll sidebar logic
+        const sidebarContainer = document.getElementById('autoScrollSidebar');
+        if(sidebarContainer) {
+            let scrollInterval;
+            let isHovering = false;
+
+            function startAutoScroll() {
+                if(scrollInterval) clearInterval(scrollInterval);
+                scrollInterval = setInterval(() => {
+                    if(!isHovering && sidebarContainer) {
+                        const maxScroll = sidebarContainer.scrollHeight - sidebarContainer.clientHeight;
+                        if(sidebarContainer.scrollTop >= maxScroll) {
+                            sidebarContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                        } else {
+                            sidebarContainer.scrollBy({ top: 2, behavior: 'smooth' });
+                        }
+                    }
+                }, 100);
+            }
+
+            function stopAutoScroll() {
+                if(scrollInterval) clearInterval(scrollInterval);
+                scrollInterval = null;
+            }
+
+            sidebarContainer.addEventListener('mouseenter', () => { isHovering = true; });
+            sidebarContainer.addEventListener('mouseleave', () => { isHovering = false; });
+            startAutoScroll();
+        }
+
+        // Copy link functionality
+        const copyBtn = document.getElementById('copyLinkBtn');
+        if(copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                const dummy = document.createElement('input');
+                const pageUrl = window.location.href;
+                dummy.value = pageUrl;
+                document.body.appendChild(dummy);
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                alert('لنک کاپی ہو گیا!');
+            });
+        }
+
+        // Highlight current post in sidebar (based on URL)
+        const currentPath = window.location.pathname;
+        const allSideItems = document.querySelectorAll('.post-item');
+        allSideItems.forEach(item => {
+            const link = item.querySelector('a');
+            if(link && link.getAttribute('href') === currentPath) {
+                item.classList.add('active-post');
+            }
         });
-    </script>
+    })();
+</script>
 
+<!-- NOTE: reactions.js contains reactionClick and loads counts from Cloudflare API. No duplicate internal functions remain -->
 </body>
 </html>
