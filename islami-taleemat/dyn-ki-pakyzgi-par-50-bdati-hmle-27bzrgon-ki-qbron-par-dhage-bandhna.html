@@ -16,390 +16,604 @@
 
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            line-height: 1.8;
+            line-height: 2;
             direction: rtl;
             text-align: right;
-            background: #0a0a0a; /* vibrant dark base */
+            background: linear-gradient(135deg, #e6f7ff 0%, #ffe8d4 50%, #f0f9ff 100%);
             min-height: 100vh;
             padding: 0 15px;
-            color: #f0f0f0;
+            color: #1e2a3a;
+            letter-spacing: 0.3px;
+            word-spacing: 0.8px;
         }
 
-        /* ---------- animated moving dark theme background (yellow & black vibrant) ---------- */
-        .dark-animated-bg {
+        /* vibrant multi-colour animated background - sky blue & baby orange */
+        .multi-color-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(135deg, #0f0c08 0%, #1a140e 25%, #221b12 50%, #1a130b 75%, #0f0b07 100%);
+            background: linear-gradient(125deg, 
+                #b8e1fc 0%, 
+                #ffd9b5 25%, 
+                #c5e8ff 50%, 
+                #ffe0c0 75%, 
+                #a8dcff 100%);
             background-size: 400% 400%;
-            animation: darkLava 18s ease infinite;
-            opacity: 0.95;
+            animation: gentleFlow 20s ease infinite;
+            opacity: 0.6;
         }
 
-        @keyframes darkLava {
-            0% { background-position: 0% 0%; }
-            25% { background-position: 50% 50%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 50% 50%; }
-            100% { background-position: 0% 0%; }
+        @keyframes gentleFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* glowing orbs to enhance yellow/black vibe */
+        /* soft glowing orbs */
         .glow-orb {
             position: fixed;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, transparent 70%);
+            width: 400px;
+            height: 400px;
             border-radius: 50%;
-            filter: blur(60px);
+            filter: blur(80px);
             z-index: -1;
-            animation: floatGlow 14s infinite alternate ease-in-out;
+            animation: floatGlow 22s infinite alternate ease-in-out;
         }
-
-        .orb1 { top: 5%; left: 5%; background: rgba(255, 200, 0, 0.18); }
-        .orb2 { bottom: 10%; right: 5%; background: rgba(255, 180, 0, 0.15); animation-delay: -5s; width: 400px; height: 400px; }
-        .orb3 { top: 40%; right: 20%; background: rgba(255, 140, 0, 0.1); animation-duration: 20s; width: 350px; height: 350px; }
+        .orb1 { top: -10%; left: -5%; background: rgba(135, 206, 235, 0.5); }
+        .orb2 { bottom: -5%; right: -5%; background: rgba(255, 180, 100, 0.45); width: 500px; height: 500px; animation-duration: 25s; }
+        .orb3 { top: 30%; left: 20%; background: rgba(255, 220, 150, 0.4); width: 350px; height: 350px; animation-duration: 18s; }
+        .orb4 { bottom: 25%; left: 60%; background: rgba(100, 180, 250, 0.35); width: 380px; height: 380px; animation-duration: 20s; }
 
         @keyframes floatGlow {
             0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
-            100% { transform: translate(40px, -30px) scale(1.2); opacity: 0.7; }
+            100% { transform: translate(40px, -30px) scale(1.15); opacity: 0.7; }
         }
 
-        /* main content card */
-        .post-card {
-            max-width: 900px;
+        /* main layout: flex for sidebar + content */
+        .main-wrapper {
+            max-width: 1400px;
             margin: 30px auto;
-            background: rgba(10, 10, 10, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.25);
-            border-radius: 32px;
-            padding: 25px 30px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,200,0,0.2) inset;
-            transition: box-shadow 0.4s, border-color 0.4s;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        /* post card - light & vibrant */
+        .post-card {
+            flex: 2;
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(135, 206, 235, 0.8);
+            border-radius: 36px;
+            padding: 28px 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
         }
 
         .post-card:hover {
-            border-color: #f0b000;
-            box-shadow: 0 35px 70px rgba(255,215,0,0.2), 0 0 0 2px rgba(255,215,0,0.3) inset;
+            border-color: #ffaa66;
+            box-shadow: 0 25px 45px rgba(255, 140, 70, 0.15);
+            transform: translateY(-3px);
         }
 
-        /* headings: normal size, crisp */
-        h1, h2, h3 {
-            color: #ffdb7e;
-            border-bottom: 1px solid #ffb347;
+        /* sidebar styling - light theme */
+        .sidebar-scroll {
+            flex: 0.8;
+            min-width: 280px;
+            background: rgba(255, 248, 240, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 36px;
+            border: 1px solid #ffcd94;
+            overflow: hidden;
+            padding: 20px 0;
+            position: sticky;
+            top: 20px;
+            height: auto;
+            max-height: 560px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-scroll h3 {
+            font-size: 1.6rem;
+            text-align: center;
+            margin: 0 15px 20px;
+            border-bottom: 3px solid #ffaa66;
+            display: inline-block;
             padding-bottom: 8px;
-            margin: 25px 0 15px 0;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            color: #2c5a7a;
+            background: linear-gradient(135deg, #2c7a9e, #ff9966);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
+        .scroll-container {
+            overflow-y: auto;
+            height: 500px;
+            scroll-behavior: smooth;
+            padding: 0 12px;
+        }
+
+        /* auto-scroll animation */
+        .scroll-container {
+            animation: autoScroll 30s linear infinite;
+        }
+
+        .scroll-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* inner wrapper to allow full scroll */
+        .scroll-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 235, 215, 0.7);
+            border-radius: 28px;
+            padding: 8px 12px;
+            transition: 0.25s;
+            border-right: 4px solid #ffaa66;
+        }
+
+        .sidebar-item.active {
+            background: rgba(135, 206, 235, 0.4);
+            border-right: 6px solid #ff8866;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-item img {
+            width: 55px;
+            height: 55px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 2px solid #ffaa66;
+        }
+
+        .sidebar-item a {
+            color: #2c5a7a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .sidebar-item a:hover {
+            color: #ff8866;
+            text-decoration: underline;
+        }
+
+        /* headings with vibrant colors */
+        h1, h2, h3 {
+            color: #2c7a9e;
+            border-bottom: 2px solid #ffaa66;
+            padding-bottom: 8px;
+            margin: 25px 0 15px;
+            font-weight: 700;
+        }
         h1 {
             text-align: center;
-            border-bottom: 3px solid #ffaa33;
+            border-bottom: 3px solid #ffaa66;
             font-size: 2rem;
-            background: linear-gradient(145deg, #f9e0a0, #d4a259);
+            background: linear-gradient(135deg, #2c7a9e, #ff9966);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-top: 10px;
         }
+        h2 { 
+            font-size: 1.7rem; 
+            border-right: 6px solid #ffaa66; 
+            padding-right: 18px;
+            color: #2c7a9e;
+        }
+        h3 { font-size: 1.5rem; color: #ff8866; }
 
-        h2 { font-size: 1.7rem; border-right: 6px solid #f0b000; padding-right: 15px; }
-        h3 { font-size: 1.5rem; }
-
-        /* text: small but readable, justified */
         p, li, .post-content {
             font-size: 1rem;
             line-height: 2.1;
             text-align: justify;
-            color: #f5e9d8;
+            color: #2c3e4e;
+            word-spacing: 0.8px;
         }
+        li { margin: 10px 0; }
 
-        li {
-            margin: 10px 0;
-        }
-
-        /* image after title — full width, visible */
         .post-image {
-            margin: 25px 0 20px 0;
+            margin: 25px 0 20px;
             border-radius: 28px;
             overflow: hidden;
-            border: 3px solid #f3b33d;
-            transition: transform 0.5s, box-shadow 0.5s;
-            box-shadow: 0 20px 35px -10px black;
-            background: #231f1a;
+            border: 3px solid #ffaa66;
+            transition: 0.4s;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
         }
-
         .post-image img {
             width: 100%;
-            height: auto;
             display: block;
-            transition: transform 0.7s ease;
+            transition: 0.6s;
         }
-
         .post-image:hover {
-            box-shadow: 0 30px 50px -10px #ffb86b;
-            border-color: #f5c542;
+            border-color: #ffcc88;
+            transform: scale(1.01);
         }
 
-        .post-image:hover img {
-            transform: scale(1.02);
+        /* reactions row - vibrant */
+        .reactions-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px 0 20px;
+            padding: 15px 0;
+            border-top: 2px solid #ffccaa;
+            border-bottom: 2px solid #ffccaa;
+        }
+        .reaction-btn {
+            background: linear-gradient(135deg, #fff5e8, #ffe6d5);
+            border: 2px solid #ffaa66;
+            border-radius: 60px;
+            padding: 8px 18px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c5a7a;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        .reaction-btn:hover {
+            background: linear-gradient(135deg, #ffaa66, #ffcc88);
+            color: white;
+            transform: scale(1.05);
+            border-color: #ff8866;
+        }
+        .reaction-count {
+            background: #ffeedd;
+            padding: 0 8px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-right: 5px;
+            color: #2c5a7a;
         }
 
-        /* buttons bar */
+        /* nav buttons - vibrant */
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: center;
             gap: 15px;
-            margin: 30px 0 20px;
+            margin: 20px 0 25px;
         }
-
-        .nav-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            background: #1f1b15;
-            border: 2px solid #e4a022;
-            color: #ffd966;
+            background: linear-gradient(135deg, #ffeedd, #ffe0c8);
+            border: 2px solid #ffaa66;
+            color: #2c7a9e;
             padding: 10px 25px;
             border-radius: 60px;
-            font-size: 1.1rem;
             font-weight: 700;
             text-decoration: none;
             transition: 0.3s;
-            box-shadow: 0 8px 0 #6b4f1f;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             cursor: pointer;
-            font-family: inherit;
         }
-
-        .btn i {
-            font-size: 1.2rem;
-            color: #f5b342;
-        }
-
         .btn:hover {
-            background: #332c20;
-            border-color: #f8c150;
-            transform: translateY(-5px);
-            box-shadow: 0 13px 0 #6b4f1f;
-            color: #ffe69b;
+            background: linear-gradient(135deg, #ffaa66, #ffcc99);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 140, 70, 0.2);
+            border-color: #ff8866;
         }
 
-        .btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #6b4f1f;
-        }
-
-        /* social buttons */
+        /* social icons - colorful */
         .social-share {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin: 20px 0 15px;
+            gap: 14px;
             justify-content: center;
+            margin: 25px 0 10px;
         }
-
         .social-btn {
             width: 52px;
             height: 52px;
             border-radius: 30px;
-            background: #1e1a14;
-            border: 2px solid #dc9e2b;
+            background: linear-gradient(135deg, #fff5e8, #ffe8d8);
+            border: 2px solid #ffaa66;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fdd28c;
             font-size: 1.9rem;
-            transition: 0.25s;
+            transition: 0.2s;
             text-decoration: none;
+            color: #ff8866;
         }
-
         .social-btn:hover {
-            background: #dc9e2b;
-            color: #0f0c08;
-            border-color: white;
-            transform: scale(1.15) rotate(5deg);
+            transform: scale(1.12) rotate(3deg);
+            background: linear-gradient(135deg, #ffaa66, #ffcc99);
+            color: white;
+            border-color: #ff8866;
         }
 
-        /* page up/down fixed buttons */
+        /* floating up/down - vibrant */
         .page-updown {
             position: fixed;
-            left: 15px;
+            left: 20px;
             bottom: 30px;
             display: flex;
             flex-direction: column;
             gap: 12px;
             z-index: 99;
         }
-
         .page-updown a {
-            background: #2a241c;
-            border: 2px solid #f3b946;
+            background: linear-gradient(135deg, #ffe6d5, #ffd9c0);
+            border: 2px solid #ffaa66;
             width: 50px;
             height: 50px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #f3b33d;
             font-size: 1.8rem;
+            color: #ff8866;
             transition: 0.3s;
-            box-shadow: 0 5px 0 #61481c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
             text-decoration: none;
         }
-
         .page-updown a:hover {
-            background: #f3b946;
-            color: #1a130b;
-            border-color: #fff0c0;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 0 #61481c;
+            background: linear-gradient(135deg, #ffaa66, #ffcc99);
+            color: white;
+            transform: translateY(-3px);
         }
 
-        /* internal links removed — no anchors remain inside content.
-           All original text preserved, no single word changed */
-        .post-content a {
-            color: #ffbc6c;
-            text-decoration: underline wavy #ffaa33 1px;
-            transition: 0.3s;
+        @media (max-width: 800px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar-scroll { position: relative; top: 0; width: 100%; }
+            .scroll-container { height: 380px; }
+            .post-card { padding: 18px; }
         }
 
-        .post-content a:hover {
-            color: #ffde9e;
-            text-decoration: underline wavy #ffd966;
-        }
-
-        /* mobile fine-tune */
-        @media (max-width: 600px) {
-            .post-card { padding: 15px; }
-            h1 { font-size: 1.8rem; }
-            .nav-buttons { flex-direction: column; align-items: stretch; }
-            .btn { width: 100%; }
-            .page-updown { left: 5px; }
-            .page-updown a { width: 42px; height: 42px; font-size: 1.5rem; }
-        }
-
-        /* preserve original text, no toggles, just special vibe */
-        hr {
-            border: 1px solid #6b4f1f;
-            margin: 20px 0;
-        }
-
-        /* quote styling */
         blockquote {
-            background: rgba(255, 200, 0, 0.05);
-            border-right: 6px solid #f3b946;
-            padding: 10px 20px;
+            background: rgba(255, 200, 150, 0.2);
+            border-right: 6px solid #ffaa66;
+            padding: 12px 20px;
             margin: 20px 0;
-            border-radius: 20px 0 0 20px;
-            font-style: italic;
+            border-radius: 20px;
+            color: #2c5a7a;
         }
-
-        /* remove any potential internal links in content? we'll keep original but they are safe */
+        hr { border-color: #ffccaa; margin: 20px 0; }
+        .footer-note {
+            text-align: center;
+            color: #ff8866;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+        
+        /* additional text enhancements */
+        strong {
+            color: #ff8866;
+        }
+        
+        a {
+            color: #2c7a9e;
+        }
+        
+        ol li {
+            margin: 12px 0;
+        }
     </style>
 </head>
 <body>
-    <!-- vibrant yellow/black dark animated background with moving orbs -->
-    <div class="dark-animated-bg"></div>
+    <div class="multi-color-bg"></div>
     <div class="glow-orb orb1"></div>
     <div class="glow-orb orb2"></div>
     <div class="glow-orb orb3"></div>
+    <div class="glow-orb orb4"></div>
 
-    <!-- fixed page up/down buttons -->
     <div class="page-updown">
-        <a href="#" title="اوپر جائیں"><i class="fas fa-chevron-up"></i></a>
-        <a href="#" title="نیچے جائیں"><i class="fas fa-chevron-down"></i></a>
+        <a href="#" title="اوپر جائیں" id="scrollUpBtn"><i class="fas fa-chevron-up"></i></a>
+        <a href="#" title="نیچے جائیں" id="scrollDownBtn"><i class="fas fa-chevron-down"></i></a>
     </div>
 
-    <div class="post-card">
-        <!-- navigation + home/back buttons with icons -->
-        <div class="nav-buttons">
-            <div class="nav-group">
-                <a href="https://bloglovers.pk/" class="btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس</a>
+    <div class="main-wrapper">
+        <!-- main post content -->
+        <div class="post-card">
+            <div class="nav-buttons">
+                <div class="nav-group">
+                    <a href="https://bloglovers.pk/" class="btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="btn" target="_blank"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+                <div class="nav-group">
+                    <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس</a>
+                </div>
             </div>
-            <div class="nav-group">
-                <!-- optional dummy: just for design -->
-                <span class="btn" style="background:transparent; border:2px dashed #f3b946; box-shadow:none;"><i class="fas fa-mosque"></i> 27</span>
+
+            <h1>دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</h1>
+
+            <div class="post-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" 
+                     alt="قبروں پر دھاگے باندھنا - بدعت اور شرک">
+            </div>
+
+            <div class="post-content">
+                <p>اسلام ایک توحید پر مبنی دین ہے جس میں اللہ تعالیٰ کی عبادت میں کسی قسم کی شرکت کو سختی سے ممنوع قرار دیا گیا ہے۔ بدعت (ایسی نئی رسم جو دین میں شامل نہ ہو) اور شرک (اللہ کے ساتھ کسی کو شریک کرنا) جیسے اعمال دین کی روح کو نقصان پہنچاتے ہیں۔ ان میں سے ایک بدعت، جو معاشرے میں رائج ہو چکی ہے، قبروں پر دھاگے باندھنا ہے۔ ذیل میں اس عمل کی تفصیل، اس کے تاریخی پس منظر، اور اس پر مختلف مسالک اور مذاہب کے نقطۂ نظر کو بیان کیا گیا ہے۔</p>
+                <h2>قبروں پر دھاگے باندھنے کا عمل</h2>
+                <p>قبروں پر دھاگے باندھنا ایک ایسا عمل ہے جس میں لوگ مختلف رنگوں کے دھاگے، کپڑے یا چوڑیاں بزرگوں کے مزارات یا قبروں پر باندھ دیتے ہیں۔ اس عمل کا مقصد یہ ہوتا ہے کہ ان سے برکت حاصل ہو، ان کی حاجات پوری ہوں یا مشکلات دور ہوں۔ اس عمل میں قبروں یا اولیاء اللہ کے مزارات پر ان کے وسیلے سے دعائیں مانگی جاتی ہیں۔</p>
+                <h2>تاریخی پس منظر</h2>
+                <p>قبروں پر دھاگے باندھنے کی روایت تاریخی طور پر مختلف ثقافتوں اور مذاہب میں موجود رہی ہے۔ یونان، روم، اور برصغیر کی روایات میں بھی مقدس مقامات پر نذریں چڑھانا اور خاص علامتیں باندھنا دیکھا گیا ہے۔ اسلامی دنیا میں یہ عمل زیادہ تر صوفیاء کرام اور بعض اولیاء کے مزارات کے ساتھ منسلک ہوا۔ اس کا آغاز برصغیر پاک و ہند میں خاص طور پر مغل دور میں نظر آتا ہے، جہاں مختلف مذہبی عقائد اور رسوم ایک دوسرے سے متاثر ہوئے۔</p>
+                <h2>اسلامی تعلیمات میں توحید</h2>
+                <p>اسلامی تعلیمات میں توحید یعنی اللہ کی وحدانیت بنیادی اصول ہے۔ اس پر قرآن میں واضح ارشادات ہیں: "بیشک اللہ اس کو نہیں بخشے گا کہ اس کے ساتھ شرک کیا جائے، اور اس کے علاوہ جس کو چاہے بخش دے، اور جس نے اللہ کے ساتھ کسی کو شریک کیا، تو اس نے بہت بڑا گناہ کیا۔"</p>
+                <p>مزارات پر دھاگے باندھ کر برکت طلب کرنا، اس بات کا اظہار ہے کہ ان مزارات میں خدا کے علاوہ بھی کوئی طاقت موجود ہے جو ہماری دعاؤں کو قبول کر سکتی ہے۔ یہ عمل توحید میں خلل ڈالنے کے مترادف ہے اور شرک کی ایک شکل سمجھا جاتا ہے۔</p>
+                <h2>دیگر مذاہب میں روایات</h2>
+                <p><strong>عیسائیت:</strong> مسیحیت میں بھی کچھ لوگ مقدس مقامات پر مختلف اشیاء باندھ کر برکت حاصل کرنے کا عقیدہ رکھتے ہیں۔ بعض چرچوں میں شمع جلانا یا کسی مقدس مقام پر کچھ باندھنا ایک عام بات ہے۔</p>
+                <p><strong>یہودیت:</strong> یہودیوں میں "ویشنگ وال" (دیوار گریہ) پر کاغذ پر دعائیں لکھ کر رکھنے کا رواج ہے۔</p>
+                <p><strong>ہندوازم:</strong> ہندو مذہب میں مخصوص درختوں یا مقامات پر دھاگے باندھ کر منتیں مانگنے کا رواج پایا جاتا ہے۔</p>
+                <p><strong>بدھ مت اور جین مت:</strong> ان مذاہب میں بھی مختلف اشیاء یا دھاگے باندھ کر عبادت گاہوں پر منتیں مانگی جاتی ہیں۔</p>
+                <h2>اسلامی نقطہ نظر</h2>
+                <p>اسلام میں قبروں اور مزارات پر کسی قسم کی شرکیہ یا بدعتی رسومات کو ممنوع قرار دیا گیا ہے۔ نبی کریم ﷺ نے اس بارے میں سخت تنبیہ فرمائی ہے: "تم سے پہلی قومیں قبروں کو عبادت گاہ بنا کر ہلاک ہوئیں، لہٰذا قبروں کو سجدہ گاہ نہ بناؤ، میں تمہیں اس سے منع کرتا ہوں۔"</p>
+                <h2>مسالک کا موقف</h2>
+                <p><strong>احمدیہ:</strong> اس جماعت میں عموماً قبروں پر دھاگے باندھنے کا تصور نہیں پایا جاتا۔</p>
+                <p><strong>دیوبندی:</strong> دیوبندی علما کے نزدیک یہ عمل سراسر بدعت ہے اور اس کی مذمت کی جاتی ہے۔</p>
+                <p><strong>بریلوی:</strong> بریلوی مسلک میں بعض افراد اس عمل کو جائز سمجھتے ہیں، خصوصاً اگر اس سے کسی بزرگ کی نسبت ہو۔</p>
+                <p><strong>اہل تشیع:</strong> اہل تشیع میں بھی کچھ لوگ مزارات پر اس عمل کو جائز سمجھتے ہیں، جبکہ علما کا مؤقف ہے کہ توحید کے خلاف کوئی عمل نہیں ہونا چاہیے۔</p>
+                <p><strong>اہل حدیث:</strong> اہل حدیث علما اس عمل کو شدید بدعت اور شرک قرار دیتے ہیں اور اس سے بچنے کی تلقین کرتے ہیں۔</p>
+                <p><strong>ندوی اور جماعت اسلامی:</strong> دونوں کے نزدیک یہ عمل بدعت ہے اور اسلامی توحید کے خلاف ہے۔</p>
+                <h2>ائمہ کرام کی آراء</h2>
+                <p>ائمہ اربعہ (امام ابو حنیفہ، امام مالک، امام شافعی، امام احمد بن حنبل) سمیت اکثر علماء نے قبروں پر کسی قسم کے شرکیہ عمل کی مخالفت کی ہے۔ امام مالک کے نزدیک قبروں پر کسی بھی غیر ضروری عمل کو سختی سے ترک کرنا چاہیے، اور توحید کو نقصان پہنچانے والی ہر چیز ممنوعہ ہے۔</p>
+                <h2>احتیاطی تدابیر</h2>
+                <ol>
+                    <li><strong>تعلیمات اسلام:</strong> قرآن و سنت کی تعلیمات کو سمجھنا اور ان پر عمل کرنا سب سے اہم ہے۔</li>
+                    <li><strong>شرک سے اجتناب:</strong> شرک سے بچنے کے لیے توحید کا درس سمجھنا اور دوسروں کو بھی اس کی تعلیم دینا ضروری ہے۔</li>
+                    <li><strong>علماء کی رہنمائی:</strong> علماء کرام سے راہنمائی حاصل کریں اور ان کے بیانات کو سنیں جو اس عمل کی مذمت کرتے ہیں۔</li>
+                    <li><strong>اللہ سے براہ راست تعلق:</strong> ہر دعا اور مشکل کا حل اللہ کی ذات میں ہے۔ "ہم تیری ہی عبادت کرتے ہیں اور تجھ ہی سے مدد مانگتے ہیں۔"</li>
+                </ol>
+                <h2>خلاصہ</h2>
+                <p>قبروں پر دھاگے باندھنے جیسی بدعات اسلام کی روح کو نقصان پہنچاتی ہیں۔ ان خرافات سے بچ کر دین کی اصل تعلیمات کو سمجھنے اور ان پر عمل کرنے کی ضرورت ہے تاکہ اللہ کی توحید اور اس کی عبادت خالص رہے۔</p>
+            </div>
+
+            <!-- REACTIONS SECTION - exactly with required IDs and onclick -->
+            <div class="reactions-row">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+
+            <!-- Social share icons (7 platforms) -->
+            <div class="social-share">
+                <a href="#" class="social-btn" id="shareFacebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-btn" id="shareTwitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn" id="shareWhatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-btn" id="shareLinkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn" id="shareTelegram"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="social-btn" id="sharePinterest"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" class="social-btn" id="copyLinkBtn"><i class="fas fa-link"></i></a>
+            </div>
+
+            <div class="footer-note">
+                <i class="fas fa-star-and-crescent" style="color:#ffaa66;"></i> خالص توحید کا پیغام <i class="fas fa-star-and-crescent" style="color:#ffaa66;"></i>
             </div>
         </div>
 
-        <!-- POST TITLE (H1) exactly as before -->
-        <h1>دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</h1>
-
-        <!-- NEW IMAGE after title: full image link provided (only one image) -->
-        <div class="post-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" 
-                 alt="قبروں پر دھاگے باندھنا - بدعت اور شرک">
-        </div>
-
-        <!-- post content (original text unchanged, exactly as given, no word altered) -->
-        <div class="post-content">
-            <p>اسلام ایک توحید پر مبنی دین ہے جس میں اللہ تعالیٰ کی عبادت میں کسی قسم کی شرکت کو سختی سے ممنوع قرار دیا گیا ہے۔ بدعت (ایسی نئی رسم جو دین میں شامل نہ ہو) اور شرک (اللہ کے ساتھ کسی کو شریک کرنا) جیسے اعمال دین کی روح کو نقصان پہنچاتے ہیں۔ ان میں سے ایک بدعت، جو معاشرے میں رائج ہو چکی ہے، قبروں پر دھاگے باندھنا ہے۔ ذیل میں اس عمل کی تفصیل، اس کے تاریخی پس منظر، اور اس پر مختلف مسالک اور مذاہب کے نقطۂ نظر کو بیان کیا گیا ہے۔</p>
-            <h2>قبروں پر دھاگے باندھنے کا عمل</h2>
-            <p>قبروں پر دھاگے باندھنا ایک ایسا عمل ہے جس میں لوگ مختلف رنگوں کے دھاگے، کپڑے یا چوڑیاں بزرگوں کے مزارات یا قبروں پر باندھ دیتے ہیں۔ اس عمل کا مقصد یہ ہوتا ہے کہ ان سے برکت حاصل ہو، ان کی حاجات پوری ہوں یا مشکلات دور ہوں۔ اس عمل میں قبروں یا اولیاء اللہ کے مزارات پر ان کے وسیلے سے دعائیں مانگی جاتی ہیں۔</p>
-            <h2>تاریخی پس منظر</h2>
-            <p>قبروں پر دھاگے باندھنے کی روایت تاریخی طور پر مختلف ثقافتوں اور مذاہب میں موجود رہی ہے۔ یونان، روم، اور برصغیر کی روایات میں بھی مقدس مقامات پر نذریں چڑھانا اور خاص علامتیں باندھنا دیکھا گیا ہے۔ اسلامی دنیا میں یہ عمل زیادہ تر صوفیاء کرام اور بعض اولیاء کے مزارات کے ساتھ منسلک ہوا۔ اس کا آغاز برصغیر پاک و ہند میں خاص طور پر مغل دور میں نظر آتا ہے، جہاں مختلف مذہبی عقائد اور رسوم ایک دوسرے سے متاثر ہوئے۔</p>
-            <h2>اسلامی تعلیمات میں توحید</h2>
-            <p>اسلامی تعلیمات میں توحید یعنی اللہ کی وحدانیت بنیادی اصول ہے۔ اس پر قرآن میں واضح ارشادات ہیں: "بیشک اللہ اس کو نہیں بخشے گا کہ اس کے ساتھ شرک کیا جائے، اور اس کے علاوہ جس کو چاہے بخش دے، اور جس نے اللہ کے ساتھ کسی کو شریک کیا، تو اس نے بہت بڑا گناہ کیا۔"</p>
-            <p>مزارات پر دھاگے باندھ کر برکت طلب کرنا، اس بات کا اظہار ہے کہ ان مزارات میں خدا کے علاوہ بھی کوئی طاقت موجود ہے جو ہماری دعاؤں کو قبول کر سکتی ہے۔ یہ عمل توحید میں خلل ڈالنے کے مترادف ہے اور شرک کی ایک شکل سمجھا جاتا ہے۔</p>
-            <h2>دیگر مذاہب میں روایات</h2>
-            <p><strong>عیسائیت:</strong> مسیحیت میں بھی کچھ لوگ مقدس مقامات پر مختلف اشیاء باندھ کر برکت حاصل کرنے کا عقیدہ رکھتے ہیں۔ بعض چرچوں میں شمع جلانا یا کسی مقدس مقام پر کچھ باندھنا ایک عام بات ہے۔</p>
-            <p><strong>یہودیت:</strong> یہودیوں میں "ویشنگ وال" (دیوار گریہ) پر کاغذ پر دعائیں لکھ کر رکھنے کا رواج ہے۔</p>
-            <p><strong>ہندوازم:</strong> ہندو مذہب میں مخصوص درختوں یا مقامات پر دھاگے باندھ کر منتیں مانگنے کا رواج پایا جاتا ہے۔</p>
-            <p><strong>بدھ مت اور جین مت:</strong> ان مذاہب میں بھی مختلف اشیاء یا دھاگے باندھ کر عبادت گاہوں پر منتیں مانگی جاتی ہیں۔</p>
-            <h2>اسلامی نقطہ نظر</h2>
-            <p>اسلام میں قبروں اور مزارات پر کسی قسم کی شرکیہ یا بدعتی رسومات کو ممنوع قرار دیا گیا ہے۔ نبی کریم ﷺ نے اس بارے میں سخت تنبیہ فرمائی ہے: "تم سے پہلی قومیں قبروں کو عبادت گاہ بنا کر ہلاک ہوئیں، لہٰذا قبروں کو سجدہ گاہ نہ بناؤ، میں تمہیں اس سے منع کرتا ہوں۔"</p>
-            <h2>مسالک کا موقف</h2>
-            <p><strong>احمدیہ:</strong> اس جماعت میں عموماً قبروں پر دھاگے باندھنے کا تصور نہیں پایا جاتا۔</p>
-            <p><strong>دیوبندی:</strong> دیوبندی علما کے نزدیک یہ عمل سراسر بدعت ہے اور اس کی مذمت کی جاتی ہے۔</p>
-            <p><strong>بریلوی:</strong> بریلوی مسلک میں بعض افراد اس عمل کو جائز سمجھتے ہیں، خصوصاً اگر اس سے کسی بزرگ کی نسبت ہو۔</p>
-            <p><strong>اہل تشیع:</strong> اہل تشیع میں بھی کچھ لوگ مزارات پر اس عمل کو جائز سمجھتے ہیں، جبکہ علما کا مؤقف ہے کہ توحید کے خلاف کوئی عمل نہیں ہونا چاہیے۔</p>
-            <p><strong>اہل حدیث:</strong> اہل حدیث علما اس عمل کو شدید بدعت اور شرک قرار دیتے ہیں اور اس سے بچنے کی تلقین کرتے ہیں۔</p>
-            <p><strong>ندوی اور جماعت اسلامی:</strong> دونوں کے نزدیک یہ عمل بدعت ہے اور اسلامی توحید کے خلاف ہے۔</p>
-            <h2>ائمہ کرام کی آراء</h2>
-            <p>ائمہ اربعہ (امام ابو حنیفہ، امام مالک، امام شافعی، امام احمد بن حنبل) سمیت اکثر علماء نے قبروں پر کسی قسم کے شرکیہ عمل کی مخالفت کی ہے۔ امام مالک کے نزدیک قبروں پر کسی بھی غیر ضروری عمل کو سختی سے ترک کرنا چاہیے، اور توحید کو نقصان پہنچانے والی ہر چیز ممنوعہ ہے۔</p>
-            <h2>احتیاطی تدابیر</h2>
-            <ol>
-                <li><p><strong>تعلیمات اسلام:</strong> قرآن و سنت کی تعلیمات کو سمجھنا اور ان پر عمل کرنا سب سے اہم ہے۔</p></li>
-                <li><p><strong>شرک سے اجتناب:</strong> شرک سے بچنے کے لیے توحید کا درس سمجھنا اور دوسروں کو بھی اس کی تعلیم دینا ضروری ہے۔</p></li>
-                <li><p><strong>علماء کی رہنمائی:</strong> علماء کرام سے راہنمائی حاصل کریں اور ان کے بیانات کو سنیں جو اس عمل کی مذمت کرتے ہیں۔</p></li>
-                <li><p><strong>اللہ سے براہ راست تعلق:</strong> ہر دعا اور مشکل کا حل اللہ کی ذات میں ہے۔ "ہم تیری ہی عبادت کرتے ہیں اور تجھ ہی سے مدد مانگتے ہیں۔"</p></li>
-            </ol>
-            <h2>خلاصہ</h2>
-            <p>قبروں پر دھاگے باندھنے جیسی بدعات اسلام کی روح کو نقصان پہنچاتی ہیں۔ ان خرافات سے بچ کر دین کی اصل تعلیمات کو سمجھنے اور ان پر عمل کرنے کی ضرورت ہے تاکہ اللہ کی توحید اور اس کی عبادت خالص رہے۔</p>
-        </div>
-
-        <!-- social sharing buttons (multiple platforms) -->
-        <div class="social-share">
-            <a href="#" class="social-btn" title="شیئر فیسبوک"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-btn" title="شیئر ٹویٹر"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="social-btn" title="شیئر واٹس ایپ"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="social-btn" title="شیئر ٹیلی گرام"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#" class="social-btn" title="شیئر لنکڈ ان"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-
-        <!-- small footer note: no internal links, only external home/back -->
-        <div style="text-align:center; color:#b59d6b; margin-top:30px; font-size:0.9rem;">
-            <i class="fas fa-star-and-crescent" style="color:#f3b946;"></i> خالص توحید کا پیغام <i class="fas fa-star-and-crescent" style="color:#f3b946;"></i>
+        <!-- SIDEBAR with auto-scroll and current post highlight -->
+        <div class="sidebar-scroll">
+            <h3><i class="fas fa-book-open"></i> متعلقہ مضامین</h3>
+            <div class="scroll-container">
+                <div class="scroll-list">
+                    <!-- defined posts list exactly as requested -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی">
+                        <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بھیک">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="قبضہ">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عالم">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a>
+                    </div>
+                    <div class="sidebar-item active">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="دھاگے باندھنا">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="پیر سجدہ">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="بے حیائی">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہی">
+                        <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="دل دکھانا">
+                        <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- No toggle option, no extra javascript, everything static but friendly and colorful. 
-         All original text preserved word for word, image added only once after title. -->
+    <!-- reactions.js is included, we keep ONLY social share helpers (no duplicate reaction logic) -->
+    <script src="/reactions.js"></script>
+    <script>
+        // No duplicate reaction functions. Only social share and smooth scroll.
+        (function() {
+            // Scroll buttons
+            const upBtn = document.getElementById('scrollUpBtn');
+            const downBtn = document.getElementById('scrollDownBtn');
+            if(upBtn) upBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            if(downBtn) downBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); });
+            
+            // Social share logic
+            const currentUrl = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            const shareData = {
+                facebook: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+                twitter: `https://twitter.com/intent/tweet?text=${title}&url=${currentUrl}`,
+                whatsapp: `https://wa.me/?text=${title}%20${currentUrl}`,
+                linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${currentUrl}&title=${title}`,
+                telegram: `https://t.me/share/url?url=${currentUrl}&text=${title}`,
+                pinterest: `https://pinterest.com/pin/create/button/?url=${currentUrl}&description=${title}`
+            };
+            document.getElementById('shareFacebook')?.addEventListener('click', (e) => { e.preventDefault(); window.open(shareData.facebook, '_blank'); });
+            document.getElementById('shareTwitter')?.addEventListener('click', (e) => { e.preventDefault(); window.open(shareData.twitter, '_blank'); });
+            document.getElementById('shareWhatsapp')?.addEventListener('click', (e) => { e.preventDefault(); window.open(shareData.whatsapp, '_blank'); });
+            document.getElementById('shareLinkedin')?.addEventListener('click', (e) => { e.preventDefault(); window.open(shareData.linkedin, '_blank'); });
+            document.getElementById('shareTelegram')?.addEventListener('click', (e) => { e.preventDefault(); window.open(shareData.telegram, '_blank'); });
+            document.getElementById('sharePinterest')?.addEventListener('click', (e) => { e.preventDefault(); window.open(shareData.pinterest, '_blank'); });
+            document.getElementById('copyLinkBtn')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!'));
+            });
+        })();
+    </script>
 </body>
 </html>
