@@ -67,9 +67,18 @@
             100% { opacity: 0.9; filter: blur(0px); }
         }
 
-        .main-wrapper {
-            max-width: 860px;
+        /* main layout: flex to have sidebar + content */
+        .flex-layout {
+            max-width: 1280px;
             margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            align-items: flex-start;
+        }
+        .main-wrapper {
+            flex: 3;
+            min-width: 260px;
             background: rgba(255, 240, 245, 0.1);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -78,7 +87,130 @@
             box-shadow: 0 30px 60px rgba(255, 105, 180, 0.4), 0 0 0 2px #ffb3c6 inset, 0 0 15px #ff99cc;
             border: 1px solid #ffb3c6;
         }
-
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(20, 8, 25, 0.65);
+            backdrop-filter: blur(14px);
+            border-radius: 35px;
+            padding: 20px 15px;
+            border: 1px solid #ff99cc;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 15px #ff66b2;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+        .sidebar h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #ffb3c6;
+            display: inline-block;
+            width: 100%;
+        }
+        .scroll-posts-container {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            direction: rtl;
+            scroll-behavior: smooth;
+            transition: all 0.2s;
+        }
+        .scroll-posts-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        .scroll-posts-container::-webkit-scrollbar-track {
+            background: #ffb3c633;
+            border-radius: 10px;
+        }
+        .scroll-posts-container::-webkit-scrollbar-thumb {
+            background: #ff99cc;
+            border-radius: 10px;
+        }
+        .sidebar-post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            background: rgba(255, 210, 230, 0.15);
+            padding: 8px 12px;
+            border-radius: 28px;
+            transition: 0.25s;
+            border: 1px solid transparent;
+        }
+        .sidebar-post-item:hover {
+            background: rgba(255, 153, 204, 0.3);
+            border-color: #ffb3c6;
+            transform: translateX(-5px);
+        }
+        .sidebar-post-item.active-sidebar {
+            background: #ff99cc55;
+            border: 1px solid #ffd9e6;
+            box-shadow: 0 0 12px #ff66b2;
+        }
+        .sidebar-post-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 28px;
+            object-fit: cover;
+            border: 2px solid #ffb3c6;
+            background: #2d1a2a;
+        }
+        .sidebar-post-title {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #ffecf2;
+            text-decoration: none;
+            font-weight: bold;
+            flex: 1;
+        }
+        a.sidebar-post-title:hover {
+            color: #ffb3c6;
+            text-shadow: 0 0 3px magenta;
+        }
+        /* Reactions styling */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 35px 0 20px;
+            padding: 15px 10px;
+            background: rgba(255, 215, 230, 0.2);
+            border-radius: 70px;
+            backdrop-filter: blur(6px);
+        }
+        .reaction-btn {
+            background: rgba(255, 200, 220, 0.3);
+            border: 1px solid #ffb3c6;
+            border-radius: 50px;
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #ffeef4;
+            font-weight: bold;
+        }
+        .reaction-btn i {
+            font-size: 1.3rem;
+        }
+        .reaction-btn:hover {
+            background: #ff99cc;
+            color: #2d0f1f;
+            transform: scale(1.02);
+            border-color: white;
+        }
+        .reaction-count {
+            font-size: 0.95rem;
+            background: #33001a80;
+            padding: 0px 8px;
+            border-radius: 40px;
+            font-weight: normal;
+        }
         /* عنوان عام */
         h1, h2, h3 {
             color: #ffd9e6;
@@ -110,7 +242,6 @@
             margin-bottom: 12px;
             word-spacing: 1px;
         }
-        /* image after title */
         .feature-image {
             width: 100%;
             margin: 30px 0 20px;
@@ -131,8 +262,6 @@
             object-fit: cover;
             border-radius: 28px;
         }
-
-        /* navigation buttons */
         .nav-bar {
             display: flex;
             flex-wrap: wrap;
@@ -168,11 +297,6 @@
             transform: translateY(-6px);
             box-shadow: 0 12px 20px #ff66b2, 0 0 15px #ffb3c6;
         }
-        .nav-btn:hover i {
-            color: #4d0026;
-        }
-
-        /* social share */
         .share-section {
             display: flex;
             flex-wrap: wrap;
@@ -212,8 +336,6 @@
             color: #ff1a75;
             box-shadow: 0 15px 25px #ffb3c6, 0 0 25px #ffb3c6;
         }
-
-        /* page up/down */
         .scroll-tools {
             position: fixed;
             left: 20px;
@@ -244,8 +366,6 @@
             transform: scale(1.1) translateY(-5px);
             box-shadow: 0 13px 0 #b3005c, 0 0 30px #ff99ff;
         }
-
-        /* فہرست */
         ol, ul {
             padding-right: 25px;
             margin: 15px 0;
@@ -257,24 +377,24 @@
             color: #ffb3da;
             text-shadow: 0 0 4px #ff3399;
         }
-
-        /* موبائل */
-        @media (max-width: 600px) {
+        @media (max-width: 860px) {
+            .flex-layout {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+            }
             h1 { font-size: 1.6rem; }
-            .nav-bar { gap: 10px; }
             .nav-btn { padding: 8px 18px; font-size: 1rem; }
-            .share-section { gap: 8px; }
             .share-btn { width: 45px; height: 45px; font-size: 1.5rem; }
-            .scroll-tools button { width: 45px; height: 45px; font-size: 1.8rem; left: 8px; }
+            .scroll-tools button { width: 45px; height: 45px; font-size: 1.8rem; }
         }
-
-        /* لنک کو ہٹانا (لیکن بٹن رکھے) */
-        a.nav-btn, a.share-btn {
+        a.nav-btn, a.share-btn, a.sidebar-post-title {
             text-decoration: none;
         }
-
-        /* کسی بھی اندرونی لنک کو نہیں ہٹایا متن سے */
-        .post-content a:not(.nav-btn):not(.share-btn) {
+        .post-content a:not(.nav-btn):not(.share-btn):not(.sidebar-post-title) {
             pointer-events: none;
             color: inherit;
             text-decoration: none;
@@ -289,24 +409,22 @@
     <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
 </div>
 
-<div class="main-wrapper">
-    <!-- عنوان -->
-    <h1>دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</h1>
+<div class="flex-layout">
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <h1>دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</h1>
 
-    <!-- تصویر (مکمل) صرف عنوان کے بعد -->
-    <div class="feature-image">
-        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="دین کی پاکیزگی - 29 پیر کی عقیدت میں سجدہ کرنا" onerror="this.parentElement.style.display='none';">
-    </div>
+        <div class="feature-image">
+            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="دین کی پاکیزگی - 29 پیر کی عقیدت میں سجدہ کرنا" onerror="this.parentElement.style.display='none';">
+        </div>
 
-    <!-- نیویگیشن بٹن (ہوم اور بیک) -->
-    <div class="nav-bar">
-        <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</a>
-        <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
-    </div>
+        <div class="nav-bar">
+            <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+        </div>
 
-    <!-- اصل پوسٹ مواد (بالکل وہی متن، کوئی تبدیلی نہیں) -->
-    <div class="post-content">
-        <p>اسلام دین فطرت ہے، اور اس کی بنیاد توحید اور رسول اکرم ﷺ کی سنت پر ہے۔ بدعت کا مطلب دین میں ایسی چیز شامل کرنا ہے جس کی نہ قرآن میں نہ سنت میں کوئی اصل ہو۔ ان بدعات میں ایک اہم حملہ "پیر کی عقیدت میں سجدہ کرنا" ہے۔ اس مضمون میں، ہم اس بدعت کے مختلف پہلوؤں کو قرآن و سنت کی روشنی میں تفصیل سے بیان کریں گے۔</p>
+        <div class="post-content">
+            <p>اسلام دین فطرت ہے، اور اس کی بنیاد توحید اور رسول اکرم ﷺ کی سنت پر ہے۔ بدعت کا مطلب دین میں ایسی چیز شامل کرنا ہے جس کی نہ قرآن میں نہ سنت میں کوئی اصل ہو۔ ان بدعات میں ایک اہم حملہ "پیر کی عقیدت میں سجدہ کرنا" ہے۔ اس مضمون میں، ہم اس بدعت کے مختلف پہلوؤں کو قرآن و سنت کی روشنی میں تفصیل سے بیان کریں گے۔</p>
 <p>"پیر کی عقیدت میں سجدہ کرنا" کا مطلب کسی بزرگی یا روحانی رہنما (پیر) کے لیے اس احترام اور محبت کا اظہار ہے جو انسان کو اس حد تک لے جائے کہ وہ انہیں اللہ تعالیٰ کے مقابلے میں عبادت کا مقام دے۔ بعض لوگ پیر کے سامنے جھک کر، سجدہ کر کے یا دیگر عباداتی اعمال انجام دے کر ان کی تعظیم کرتے ہیں، جو کہ واضح طور پر شرک کی ایک شکل ہے۔</p>
 <p>دورِ جاہلیت میں مشرکین اللہ کے علاوہ دیگر مخلوقات جیسے بتوں، ستاروں، اور انسانوں کو سجدہ کرتے تھے۔ جیسا کہ قرآن مجید میں اللہ تعالیٰ فرماتے ہیں: "اور وہ اللہ کو چھوڑ کر ایسی چیزوں کی عبادت کرتے ہیں جو نہ انہیں نقصان پہنچا سکتی ہیں اور نہ فائدہ دے سکتی ہیں۔" یہ بدعت اسی جاہلانہ تصور کی ایک شکل ہے جہاں اللہ کے مقابلے میں کسی اور کو سجدہ کیا جائے۔</p>
 <p>آج کے دور میں پیر حضرات بعض اوقات خود کو لوگوں کے ایمان اور جذبات سے کھیلنے کے لیے استعمال کرتے ہیں۔ مریدین اپنی دنیاوی مشکلات اور روحانی سکون کے لیے ان کے قدموں میں گر جاتے ہیں۔ جبکہ جاہل پیر اسی کمزوری کا فائدہ اٹھاتے ہوئے اپنا رتبہ اور مقام بلند کرتے چلے جاتے ہیں۔ پیر صاحب اس غریب مرید سے ہر وہ فائدہ اٹھاتے ہیں جس کی اس کو ضرورت ہوتی ہے۔ پیر خود تو گمراہ ہوتا ہے جبکہ وہ اپنے مریدین کو بھی اس گمراہی کے اندھیروں میں گھسیٹ کر لے جاتے ہیں کیونکہ دونوں اچھی طرح سے جانتے ہیں کہ سجدہ صرف اور صرف اللہ رب العزت کی ذات قدس کے لیے ہے۔ کسی انسان کو انسان کے آگے جھکنے یا جھکانے پر مجبور کرنے والا پیر درحقیقت پیر نہیں ہے۔ کیا عجب بات ہے کہ ایک مرید اپنے جیسے کم ظرف انسان کو اپنا پیر مانتا ہے جبکہ وہی پیر خود ایک مرید کے احسانات کا محتاج ہوتا ہے۔ وہ اپنی ساری خواہشات مریدین کی چمڑی ادھیڑ کر پوری کرتا چلا جاتا ہے۔</p>
@@ -339,32 +457,132 @@
 <li><strong>قرآن کی تعلیم</strong>: اللہ کے کلام کو سمجھیں اور اس پر عمل کریں۔</li>
 </ol>
 <p>پیر کی عقیدت میں سجدہ کرنا اسلامی عقائد کے خلاف اور توحید کے منافی ہے۔ ہمیں اس گناہ سے بچنا چاہیے اور دوسروں کو بھی اس کی برائی سے آگاہ کرنا چاہیے تاکہ دین کی پاکیزگی کو قائم رکھا جا سکے۔</p>
+        </div>
+
+        <!-- Reactions Section (exactly as required) -->
+        <div class="reactions-container">
+            <div class="reaction-btn" onclick="reactionClick('عمدہ')"><i class="far fa-thumbs-up"></i> عمدہ <span class="reaction-count" id="count-عمدہ">0</span></div>
+            <div class="reaction-btn" onclick="reactionClick('دلچسپ')"><i class="far fa-heart"></i> دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></div>
+            <div class="reaction-btn" onclick="reactionClick('مفید')"><i class="far fa-smile"></i> مفید <span class="reaction-count" id="count-مفید">0</span></div>
+            <div class="reaction-btn" onclick="reactionClick('قابل غور')"><i class="far fa-frown"></i> قابل غور <span class="reaction-count" id="count-قابل غور">0</span></div>
+            <div class="reaction-btn" onclick="reactionClick('سوچ بچار')"><i class="far fa-lightbulb"></i> سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></div>
+            <div class="reaction-btn" onclick="reactionClick('شاندار')"><i class="far fa-star"></i> شاندار <span class="reaction-count" id="count-شاندار">0</span></div>
+            <div class="reaction-btn" onclick="reactionClick('زبردست')"><i class="fas fa-fire"></i> زبردست <span class="reaction-count" id="count-زبردست">0</span></div>
+        </div>
+
+        <!-- social share 7 icons -->
+        <div class="share-section">
+            <span class="share-text"><i class="fas fa-share-alt"></i> شیئر کریں:</span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" target="_blank" class="share-btn" style="background:#1877f2; color:white;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/?text=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" target="_blank" class="share-btn" style="background:#25D366; color:white;"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" target="_blank" class="share-btn" style="background:#1DA1F2; color:white;"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" target="_blank" class="share-btn" style="background:#0077b5; color:white;"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" target="_blank" class="share-btn" style="background:#0088cc; color:white;"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" target="_blank" class="share-btn" style="background:#bd081c; color:white;"><i class="fab fa-pinterest"></i></a>
+            <button onclick="copyPageLink()" class="share-btn" style="background:#6c757d; color:white; border:none; cursor:pointer;"><i class="fas fa-link"></i></button>
+        </div>
+
+        <!-- navigation buttons bottom (مرکزی صفحہ + تمام پوسٹس) -->
+        <div class="nav-bar" style="margin-top: 10px;">
+            <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list-ul"></i> تمام پوسٹس</a>
+        </div>
     </div>
 
-    <!-- سوشل شیئر بٹن -->
-    <div class="share-section">
-        <span class="share-text"><i class="fas fa-share-alt"></i> شیئر کریں:</span>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=bloglovers.pk" target="_blank" class="share-btn"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://twitter.com/intent/tweet?url=bloglovers.pk" target="_blank" class="share-btn"><i class="fab fa-twitter"></i></a>
-        <a href="https://wa.me/?text=bloglovers.pk" target="_blank" class="share-btn"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://pinterest.com/pin/create/button/?url=bloglovers.pk" target="_blank" class="share-btn"><i class="fab fa-pinterest"></i></a>
-        <a href="https://t.me/share/url?url=bloglovers.pk" target="_blank" class="share-btn"><i class="fab fa-telegram-plane"></i></a>
-    </div>
-
-    <!-- دوبارہ نیچے بھی نیویگیشن بٹن رکھے (صارف دوستی) -->
-    <div class="nav-bar" style="margin-top: 10px;">
-        <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</a>
-        <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+    <!-- Sidebar with auto-scroll posts -->
+    <div class="sidebar">
+        <h3><i class="fas fa-newspaper"></i> متعلقہ مضامین</h3>
+        <div class="scroll-posts-container" id="autoScrollSidebar">
+            <!-- list provided 10 posts exactly -->
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti" class="sidebar-post-title">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna" class="sidebar-post-title">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna" class="sidebar-post-title">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna" class="sidebar-post-title">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna" class="sidebar-post-title">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="sidebar-post-title">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="sidebar-post-title">گیارہویں منانا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna" class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a>
+            </div>
+            <div class="sidebar-post-item active-sidebar" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana" class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="sidebar-post-title">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+            </div>
+            <div class="sidebar-post-item" data-url="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">
+                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="post image">
+                <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="sidebar-post-title">مذاق میں کسی کا دل دکھانا</a>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    (function() {
-        // پرانے کلر فل کنٹینر اور پاپ اپ کو ہٹا دیا گیا ہے، ان کی جگہ پرماننٹ تھیم ہے۔
-        // کوئی بھی ٹوگل نہیں، بٹن مستقل۔
-        // تمام اندرونی لنک غیر فعال (pointer-events: none) پہلے سے سیٹ ہے۔
-    })();
+    // Auto-scroll for sidebar: scrolls from top to bottom in 30 seconds cycle (infinite smooth)
+    const scrollContainer = document.getElementById('autoScrollSidebar');
+    if(scrollContainer) {
+        let isHovering = false;
+        let scrollInterval;
+        function startAutoScroll() {
+            if(scrollInterval) clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+                if(!isHovering && scrollContainer) {
+                    const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+                    if(scrollContainer.scrollTop >= maxScroll - 1) {
+                        scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        scrollContainer.scrollBy({ top: 70, behavior: 'smooth' });
+                    }
+                }
+            }, 2000);
+        }
+        scrollContainer.addEventListener('mouseenter', () => { isHovering = true; });
+        scrollContainer.addEventListener('mouseleave', () => { isHovering = false; });
+        startAutoScroll();
+        // reset smoothness
+    }
+    // copy link function for share
+    window.copyPageLink = function() {
+        const url = "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna";
+        navigator.clipboard.writeText(url).then(() => {
+            alert("لنک کاپی ہوگیا!");
+        }).catch(() => alert("کاپی کرنے میں مسئلہ"));
+    };
 </script>
-<!-- اس بات کی ضمانت کہ تصویر صرف ایک ہے اور متن میں کوئی تبدیلی نہیں کی گئی -->
+<!-- reactions.js external (existing) -->
+<script src="/reactions.js"></script>
 </body>
 </html>
