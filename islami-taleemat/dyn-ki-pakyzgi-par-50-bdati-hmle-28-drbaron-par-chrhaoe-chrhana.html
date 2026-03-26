@@ -76,9 +76,18 @@
             100% { background-position: 100% 100%; }
         }
 
-        .container {
-            max-width: 900px;
+        .main-layout {
+            max-width: 1300px;
             margin: 0 auto;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .container {
+            flex: 2;
+            min-width: 280px;
             background: rgba(20, 15, 30, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -91,6 +100,98 @@
 
         .container:hover {
             box-shadow: 0 40px 70px rgba(255, 107, 74, 0.3), 0 0 0 3px rgba(255, 140, 66, 0.5) inset;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(20, 15, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(182, 80, 192, 0.5);
+            border-radius: 32px;
+            padding: 20px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .sidebar-title {
+            font-size: 1.7rem;
+            color: #ffb27a;
+            text-align: center;
+            border-bottom: 2px solid #ff8c42;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .related-posts-scroll {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            animation: autoScrollPosts 30s linear infinite;
+            transition: animation-play-state 0.2s;
+        }
+
+        .related-posts-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .related-posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .related-item {
+            background: rgba(30, 20, 45, 0.8);
+            border-radius: 24px;
+            padding: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid #4a2b7a;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .related-item:hover {
+            transform: translateX(-5px);
+            background: rgba(55, 35, 80, 0.9);
+            border-color: #ff8c42;
+        }
+
+        .related-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 2px solid #b650c0;
+        }
+
+        .related-item a {
+            color: #ffdbb5;
+            text-decoration: none;
+            font-size: 1rem;
+            line-height: 1.7;
+            font-weight: bold;
+            text-align: center;
+            display: block;
+            transition: 0.2s;
+        }
+
+        .related-item a:hover {
+            color: #ffa55c;
         }
 
         /* Navigation Buttons */
@@ -263,9 +364,58 @@
             color: #ffb27a;
         }
 
+        /* Reactions Styles */
+        .reactions-wrapper {
+            margin: 45px 0 25px;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 60px;
+            border: 1px solid #ff8c4240;
+        }
+
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 15px;
+        }
+
+        .reaction-btn {
+            background: linear-gradient(145deg, #2a1c3c, #1f142f);
+            border: none;
+            border-radius: 60px;
+            padding: 10px 22px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            color: #f2e2c7;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 0 #3b2a50;
+        }
+
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            background: #ff8c42;
+            color: #1e1025;
+            box-shadow: 0 8px 0 #6b3f9e;
+        }
+
+        .reaction-count {
+            background: #00000066;
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
         /* Social Share Buttons */
         .share-section {
-            margin: 50px 0 20px;
+            margin: 40px 0 20px;
             text-align: center;
         }
 
@@ -300,6 +450,7 @@
             border: 2px solid transparent;
             transition: 0.3s;
             box-shadow: 0 7px 0 #4a2b7a;
+            cursor: pointer;
         }
 
         .social-btn:hover {
@@ -314,18 +465,31 @@
         .social-btn.pinterest { background: #E60023; }
         .social-btn.linkedin { background: #0A66C2; }
         .social-btn.telegram { background: #0088cc; }
+        .social-btn.copy-link { background: #6c757d; }
 
-        /* Footer Note */
-        .footer-note {
-            text-align: center;
-            margin-top: 40px;
-            color: #aa9bc2;
-            font-size: 1rem;
-            border-top: 1px solid #ff8c4250;
+        .bottom-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 35px;
             padding-top: 20px;
+            border-top: 1px solid #ff8c4250;
         }
 
-        /* Responsive */
+        .footer-note {
+            text-align: center;
+            margin-top: 30px;
+            color: #aa9bc2;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; }
+            .sidebar { position: static; width: 100%; }
+            .container { width: 100%; }
+        }
+
         @media (max-width: 600px) {
             .container { padding: 20px 15px; }
             .post-title { font-size: 1.8rem; }
@@ -334,112 +498,156 @@
             .nav-btn { width: 100%; justify-content: center; }
             .scroll-btn { width: 45px; height: 45px; font-size: 22px; }
             .social-btn { width: 55px; height: 55px; font-size: 26px; }
-        }
-
-        @media (max-width: 400px) {
-            .social-btn { width: 48px; height: 48px; font-size: 22px; }
+            .reaction-btn { padding: 6px 16px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="animated-bg"></div>
 
-    <!-- Scroll to Top / Bottom Buttons -->
     <div class="scroll-controls">
         <button class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
         <button class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
     </div>
 
-    <div class="container">
-        <!-- Home & Back Buttons -->
-        <div class="nav-bar">
-            <a href="https://bloglovers.pk/" class="nav-btn home-btn"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn back-btn"><i class="fas fa-arrow-right"></i> واپس</a>
-        </div>
-
-        <!-- Post Title -->
-        <h1 class="post-title">دین کی پاکیزگی پر 50 بدعتی حملے 28: درباروں پر چڑھاوے چڑھانا</h1>
-
-        <!-- Featured Image (single image, after title) -->
-        <div class="featured-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-28-drbaron-par-chrhaoe-chrhana.png" alt="درباروں پر چڑھاوے چڑھانا">
-        </div>
-
-        <!-- Post Content (exactly same text, no changes) -->
-        <div class="content-body">
-            <h2>درباروں پر چڑھاوے چڑھانا</h2>
-            <p>درگاہوں پر چڑھاوے چڑھانا ایک ایسا عمل ہے جس میں لوگ قبروں یا بزرگانِ دین کے مزارات پر مال نذرانے، کھانا، چادریں یا دیگر اشیاء پیش کرتے ہیں۔ یہ عقیدہ رکھتے ہوئے کہ یہ عمل اُن کے دینی یا دنیوی معاملات میں برکت کا ذریعہ بنے گا۔</p>
-            <h2>تاریخی پس منظر</h2>
-            <p>اسلام سے قبل، عرب میں دورِ جاہلیت کے زمانے میں مشرکین مکہ اپنی عقیدت کا اظہار کرتے ہوئے بتوں، درختوں اور مختلف مقدس مقامات پر قربانیاں پیش کیا کرتے تھے۔ اُن کے اس عمل کی بنیاد ایک توہم پرستی اور خدا کے بجائے مخلوق سے حاجت طلبی تھی۔</p>
-            <p>قرآن میں اللہ رب العزت نے سختی سے ارشاد فرمایا: "تم اپنے ہاتھوں کی بنائی ہوئی چیزوں کی پوجا کرتے ہو، جبکہ اُن کا نہ تمہیں کوئی فائدہ ہے اور نہ ہی نقصان۔"</p>
-            <h2>اسلامی تعلیمات کے خلاف</h2>
-            <p>اسلامی تعلیمات کے مخالف اس عمل کا آغاز دورِ جاہلیت میں ہی ہو چکا تھا، لیکن بعد ازاں مختلف ادوار میں مخصوص فرقوں اور مسلکوں کے ذریعہ اس کو مسلمانوں میں عام کیا گیا۔</p>
-            <p>اس عمل کی ابتدا کا صحیح مقام و زمانہ جاننا تو مشکل ہے، تاہم تاریخی شواہد بتاتے ہیں کہ ہندوستان میں تصوف کے ذریعے درگاہوں اور مزارات کے تقدس کا تصور زیادہ مقبول ہوا۔</p>
-            <p>یہ عقیدہ زیادہ تر اُن فرقوں میں پروان چڑھا، جن میں اولیاء اللہ اور بزرگوں کو ایک خاص مقام دیا جاتا ہے اور اُن سے فیض یا مدد طلب کرنا جائز سمجھا جاتا ہے۔ البتہ اہلِ سنت والجماعت اور اہلِ تشیع میں بعض فرقے اس میں ملوث ہیں، تاہم اس کی جوازیت اور حدود میں اختلاف پایا جاتا ہے۔</p>
-            <h2>معاشی پہلو</h2>
-            <p>درگاہوں پر چڑھاوے چڑھانا آج کے دور میں بعض لوگوں کے لئے ایک نفع بخش کاروبار بن چکا ہے۔ زائرین کی بڑی تعداد، خصوصاً جنوبی ایشیا میں، ایسے مزارات پر حاضری دیتی ہے اور نذرانے چڑھاتی ہے۔ اس سے وابستہ لوگوں کے لیے یہ ایک کاروبار کی شکل اختیار کر چکا ہے۔</p>
-            <p>جنوبی ایشیائی ممالک (پاکستان، انڈیا، بنگلہ دیش) میں درگاہوں پر چڑھاوے چڑھانے کا رجحان وقت کے ساتھ بڑھا ہے۔ مختلف مذہبی میلوں، عرسوں اور دیگر مواقع پر بڑی تعداد میں لوگ یہ عمل کرتے ہیں۔ اس رجحان میں مسلسل اضافہ دیکھا گیا ہے، جس کی بڑی وجہ اس کے ساتھ جڑی عوامی عقیدت اور توہمات ہیں۔</p>
-            <h2>اسلامی نقطہ نظر</h2>
-            <p>اسلام نے کسی بھی قسم کی حاجات اور حاجت روائی کے لئے صرف اور صرف اللہ سے مانگنے کا حکم دیا ہے۔ قرآن اور احادیث میں کسی اور کے سامنے جھکنے یا نذرانہ چڑھانے کی سختی سے ممانعت ہے۔</p>
-            <p>جیسے کہ قرآن مجید میں حکم فرمایا گیا: "اور (اے نبی) کہہ دو کہ میرے رب سے دعا کرو، وہی ہے جو تمہاری دعاؤں کو قبول کرنے والا ہے۔"</p>
-            <p>ارشاد نبوی ﷺ: "جب تم مانگو تو اللہ سے مانگو، اور جب مدد چاہو تو اللہ سے مدد چاہو۔"</p>
-            <h2>ائمہ کرام کا موقف</h2>
-            <p>ائمہ کرام نے اس بدعت کو ناجائز اور ممنوع قرار دیا ہے۔ امام ابن تیمیہؒ اور امام ابن قیمؒ جیسے بزرگوں نے اس عمل کو اسلامی عقائد کے خلاف اور شرک کی طرف جانے والا قدم قرار دیا۔ امام ابو حنیفہؒ کے نزدیک، اولیاء اللہ کے مزارات پر چڑھاوے چڑھانا اور اس سے برکت کی امید رکھنا اسلامی اصولوں کے منافی ہے۔</p>
-            <h2>دیگر مذاہب میں چڑھاوے کا تصور</h2>
-            <h3>ہندوازم میں اس بدعت کا تصور</h3>
-            <p>ہندوازم میں "چڑھاوے" یا "نذرانے" کی ایک طویل تاریخ ہے، جہاں لوگ مختلف معبودوں، دیوتاؤں اور مندروں میں قربانیاں پیش کرتے ہیں۔ ہندؤں کا عقیدہ ہے کہ یہ نذرانے معبودوں کی رضا حاصل کرنے، گناہوں کو مٹانے اور خوشحالی کی دعا کرنے کے لئے دیے جاتے ہیں۔ مختلف دیوتاؤں کے سامنے نذرانے چڑھانے کا تصور بہت گہرا ہے، جیسے گائے کا دودھ، پھول، مٹھائیاں، پھل وغیرہ دیے جاتے ہیں۔</p>
-            <p><strong>مذہبی نذر و نیاز</strong>: نذر و نیاز کے ذریعے ہندؤں کا ماننا ہے کہ یہ عمل خدا یا دیوتا کی رضا کو حاصل کرنے کا ذریعہ بن سکتا ہے۔</p>
-            <h3>بدھ مت میں اس بدعت کا تصور</h3>
-            <p>بدھ مت میں بھی نذرانے پیش کرنے کا تصور موجود ہے، مگر اس کا مقصد زیادہ تر عبادات اور روایات کے ذریعے برکت اور روحانی ترقی کی جانب ہے۔ بدھ مت کے پیروکار بیشتر اپنے مذہبی پیشواؤں، منادریا بدھ کی مورتوں کے سامنے دودھ، پھول یا دیگر چیزیں پیش کرتے ہیں۔ یہاں بھی مقصد، کم از کم ایک سطح پر، تقدس کا حصول اور روحانی فائدہ ہی ہوتا ہے۔</p>
-            <p><strong>رہبانیت</strong>: بدھ مت میں بھی کچھ فرقے مذہبی پیشواؤں کو چڑھاوے دیتے ہیں، مگر یہ عمل نیک عمل کی تکمیل کے لیے نہیں بلکہ روحانی فوائد کے لئے ہوتا ہے۔</p>
-            <h3>زرتشت (پارسیک مذہب) میں اس بدعت کا تصور</h3>
-            <p>زرتشت مذہب میں بھی قربانی اور چڑھاوے چڑھانے کا تصور پایا جاتا ہے۔ زرتشتی اپنے دیوتا "اہورا مزدا" کی رضا کے لئے مختلف قربانیاں دیتے ہیں، جن میں آگ کی پوجا اور گلابوں جیسے پھولوں کی قربانی شامل ہوتی ہے۔ یہاں بھی چڑھاوے کا مقصد دیوتا کی رضا، گناہوں کا کفارہ اور روحانی صفائی ہے۔</p>
-            <p><strong>آگ کی پوجا</strong>: زرتشت کے پیروکار آگ کو پاکیزگی کا نمائندہ سمجھتے ہیں اور اس کے سامنے نذرانے پیش کرتے ہیں۔</p>
-            <h3>اہلِ یہود میں اس بدعت کا تصور</h3>
-            <p>اہلِ یہود کے مذہب میں بھی قربانیوں کا ایک طویل تاریخ ہے، خاص طور پر ہیکلِ سلیمانی میں۔ وہ خدا کے سامنے قربانی پیش کرتے تھے تاکہ گناہوں کا کفارہ ہو اور اللہ کی رضا حاصل ہو۔ یہودیوں کی عبادت میں، مکہ مکرمہ کی طرح، مخصوص ایام میں قربانیاں دینے کا عمل اب بھی موجود ہے۔</p>
-            <p><strong>قربانیوں کی اہمیت</strong>: قربانیوں کا تصور بنیادی طور پر خدا کی رضا اور گناہوں کی معافی کے لیے تھا، خاص طور پر عید الاضحی کے دن قربانیاں دی جاتی تھیں۔</p>
-            <h3>عیسائیوں میں اس بدعت کا تصور</h3>
-            <p>عیسائیوں میں قربانی کا عمل یسوع علیہ السلام کی قربانی کے بعد تبدیل ہو چکا ہے۔ تاہم، کچھ عیسائی فرقے اب بھی اپنی عبادات کے دوران مصلحوں یا سانڈوں کی قربانی دیتے ہیں، خاص طور پر روایات میں۔ بعض عیسائی عقیدے میں، مقدس مقامات پر چڑھاوے پیش کرنا یا نذرانے دینا ایک علامتی عمل سمجھا جاتا ہے۔</p>
-            <p><strong>عیدوں کی قربانیاں</strong>: عیسائی دنیا میں، خاص طور پر عید کے موقع پر، چڑھاوے پیش کرنے کا عمل بعض ثقافتوں میں موجود ہے۔</p>
-            <h2>ان مذاہب میں چڑھاوے چڑھانے کا مقصد اور اصول</h2>
-            <p>تمام مذکورہ مذاہب میں چڑھاوے چڑھانے کا مقصد تقربِ الٰہی، روحانی ترقی میں اضافہ، گناہوں کی معافی اور فلاح و بہبود ہوتا ہے۔ تاہم، اُن کے درمیان اختلافات یہ ہیں کہ کچھ مذاہب میں چڑھاوے کے ذریعے خدا سے براہِ راست تعلق قائم کرنے کا تصور نہیں ہوتا بلکہ یہ تقدس کی ایک علامتی عمل ہوتا ہے، جبکہ دیگر مذاہب میں یہ عمل کسی نہ کسی مخلوق یا الہٰی وجود سے حاجت طلبی کے مترادف ہوتا ہے۔</p>
-            <h2>اسلام کا ان مذاہب سے اختلاف</h2>
-            <p>اسلام میں تمام انبیاء و رسولوں کی تعلیمات اس بات پر متفق ہیں کہ اللہ کے سوا کسی سے حاجت نہیں طلب کرنی چاہیے اور کسی بھی مخلوق کو نذرانہ چڑھانا یا اُس سے مدد طلب کرنا بالکل ناجائز ہے۔</p>
-            <p><strong>قرآن مجید</strong>: "اے ایمان والو! تم میں سے جو شخص اپنے دین سے پھر جائے گا، اللہ اس کے بدلے ایک قوم کو لے آئے گا، جو اللہ کی رضا کی خاطر اس سے محبت کرے گی اور وہ اللہ کے راستے میں جہاد کریں گے۔"</p>
-            <p>ارشاد نبوی ﷺ: "تمہاری عبادت صرف اللہ کے لئے ہونی چاہیے، اور کسی مخلوق کے ساتھ اس میں شریک نہ کرو۔"</p>
-            <p>لہٰذا، اسلام میں کسی بھی قسم کے چڑھاوے چڑھانے کو ناجائز سمجھا جاتا ہے، خواہ وہ کسی بزرگ کی قبر پر ہو یا کسی دوسرے روحانی یا مذہبی مقام پر۔</p>
-            <h2>اس بدعت سے کیسے بچیں؟</h2>
-            <p><strong>توحید کی مضبوطی</strong>: اللہ تعالیٰ کی ذات پر پختہ ایمان اور اسی سے ہر چیز مانگنا۔</p>
-            <p><strong>علم کا حصول</strong>: قرآن و حدیث کی تعلیمات کو سمجھنا اور اُن پر عمل کرنا۔</p>
-            <p><strong>شرک سے بچاؤ</strong>: شرک سے بچنے کے لئے نیک اور صحیح العقیدہ لوگوں کے ساتھ رہنا اور شرک سے اجتناب کرنا۔</p>
-            <p><strong>مساجد میں عبادت</strong>: اپنی حاجات کے لئے اللہ کے گھر یعنی مساجد کا رخ کرنا اور وہاں دعا کرنا۔</p>
-            <h2>خلاصہ</h2>
-            <p>تمام مذکورہ مذاہب میں چڑھاوے چڑھانے کا تصور موجود ہے، لیکن اسلام میں اس کی شدید مخالفت کی گئی ہے، کیونکہ یہ عمل توحید کے خلاف ہے اور شرک کی طرف لے جا سکتا ہے۔ مسلمانوں کو اس بدعت سے بچنا ضروری ہے اور اپنی عبادات اور نذرانے صرف اللہ کے لئے مختصر کرنے چاہئیں۔</p>
-        </div>
-
-        <!-- Social Media Sharing Buttons -->
-        <div class="share-section">
-            <div class="share-title">
-                <i class="fas fa-share-alt" style="color:#ff8c42;"></i> اس پوسٹ کو شیئر کریں
+    <div class="main-layout">
+        <!-- Main Content Area -->
+        <div class="container">
+            <div class="nav-bar">
+                <a href="https://bloglovers.pk/" class="nav-btn home-btn"><i class="fas fa-home"></i> ہوم پیج</a>
+                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn back-btn"><i class="fas fa-arrow-right"></i> واپس</a>
             </div>
-            <div class="share-icons">
-                <a href="https://wa.me/?text=دین%20کی%20پاکیزگی%20پر%2050%20بدعتی%20حملے%2028" target="_blank" class="social-btn whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/" target="_blank" class="social-btn facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com/intent/tweet?text=دین%20کی%20پاکیزگی%20پر%2050%20بدعتی%20حملے%2028&url=https://bloglovers.pk/" target="_blank" class="social-btn twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/&media=IMAGE_URL&description=درباروں%20پر%20چڑھاوے" target="_blank" class="social-btn pinterest" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk/" target="_blank" class="social-btn linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://t.me/share/url?url=https://bloglovers.pk/&text=دین%20کی%20پاکیزگی%20پر%2050%20بدعتی%20حملے%2028" target="_blank" class="social-btn telegram" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+
+            <h1 class="post-title">دین کی پاکیزگی پر 50 بدعتی حملے 28: درباروں پر چڑھاوے چڑھانا</h1>
+
+            <div class="featured-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-28-drbaron-par-chrhaoe-chrhana.png" alt="درباروں پر چڑھاوے چڑھانا">
             </div>
+
+            <div class="content-body">
+                <h2>درباروں پر چڑھاوے چڑھانا</h2>
+                <p>درگاہوں پر چڑھاوے چڑھانا ایک ایسا عمل ہے جس میں لوگ قبروں یا بزرگانِ دین کے مزارات پر مال نذرانے، کھانا، چادریں یا دیگر اشیاء پیش کرتے ہیں۔ یہ عقیدہ رکھتے ہوئے کہ یہ عمل اُن کے دینی یا دنیوی معاملات میں برکت کا ذریعہ بنے گا۔</p>
+                <h2>تاریخی پس منظر</h2>
+                <p>اسلام سے قبل، عرب میں دورِ جاہلیت کے زمانے میں مشرکین مکہ اپنی عقیدت کا اظہار کرتے ہوئے بتوں، درختوں اور مختلف مقدس مقامات پر قربانیاں پیش کیا کرتے تھے۔ اُن کے اس عمل کی بنیاد ایک توہم پرستی اور خدا کے بجائے مخلوق سے حاجت طلبی تھی۔</p>
+                <p>قرآن میں اللہ رب العزت نے سختی سے ارشاد فرمایا: "تم اپنے ہاتھوں کی بنائی ہوئی چیزوں کی پوجا کرتے ہو، جبکہ اُن کا نہ تمہیں کوئی فائدہ ہے اور نہ ہی نقصان۔"</p>
+                <h2>اسلامی تعلیمات کے خلاف</h2>
+                <p>اسلامی تعلیمات کے مخالف اس عمل کا آغاز دورِ جاہلیت میں ہی ہو چکا تھا، لیکن بعد ازاں مختلف ادوار میں مخصوص فرقوں اور مسلکوں کے ذریعہ اس کو مسلمانوں میں عام کیا گیا۔</p>
+                <p>اس عمل کی ابتدا کا صحیح مقام و زمانہ جاننا تو مشکل ہے، تاہم تاریخی شواہد بتاتے ہیں کہ ہندوستان میں تصوف کے ذریعے درگاہوں اور مزارات کے تقدس کا تصور زیادہ مقبول ہوا۔</p>
+                <p>یہ عقیدہ زیادہ تر اُن فرقوں میں پروان چڑھا، جن میں اولیاء اللہ اور بزرگوں کو ایک خاص مقام دیا جاتا ہے اور اُن سے فیض یا مدد طلب کرنا جائز سمجھا جاتا ہے۔ البتہ اہلِ سنت والجماعت اور اہلِ تشیع میں بعض فرقے اس میں ملوث ہیں، تاہم اس کی جوازیت اور حدود میں اختلاف پایا جاتا ہے۔</p>
+                <h2>معاشی پہلو</h2>
+                <p>درگاہوں پر چڑھاوے چڑھانا آج کے دور میں بعض لوگوں کے لئے ایک نفع بخش کاروبار بن چکا ہے۔ زائرین کی بڑی تعداد، خصوصاً جنوبی ایشیا میں، ایسے مزارات پر حاضری دیتی ہے اور نذرانے چڑھاتی ہے۔ اس سے وابستہ لوگوں کے لیے یہ ایک کاروبار کی شکل اختیار کر چکا ہے۔</p>
+                <p>جنوبی ایشیائی ممالک (پاکستان، انڈیا، بنگلہ دیش) میں درگاہوں پر چڑھاوے چڑھانے کا رجحان وقت کے ساتھ بڑھا ہے۔ مختلف مذہبی میلوں، عرسوں اور دیگر مواقع پر بڑی تعداد میں لوگ یہ عمل کرتے ہیں۔ اس رجحان میں مسلسل اضافہ دیکھا گیا ہے، جس کی بڑی وجہ اس کے ساتھ جڑی عوامی عقیدت اور توہمات ہیں۔</p>
+                <h2>اسلامی نقطہ نظر</h2>
+                <p>اسلام نے کسی بھی قسم کی حاجات اور حاجت روائی کے لئے صرف اور صرف اللہ سے مانگنے کا حکم دیا ہے۔ قرآن اور احادیث میں کسی اور کے سامنے جھکنے یا نذرانہ چڑھانے کی سختی سے ممانعت ہے۔</p>
+                <p>جیسے کہ قرآن مجید میں حکم فرمایا گیا: "اور (اے نبی) کہہ دو کہ میرے رب سے دعا کرو، وہی ہے جو تمہاری دعاؤں کو قبول کرنے والا ہے۔"</p>
+                <p>ارشاد نبوی ﷺ: "جب تم مانگو تو اللہ سے مانگو، اور جب مدد چاہو تو اللہ سے مدد چاہو۔"</p>
+                <h2>ائمہ کرام کا موقف</h2>
+                <p>ائمہ کرام نے اس بدعت کو ناجائز اور ممنوع قرار دیا ہے۔ امام ابن تیمیہؒ اور امام ابن قیمؒ جیسے بزرگوں نے اس عمل کو اسلامی عقائد کے خلاف اور شرک کی طرف جانے والا قدم قرار دیا۔ امام ابو حنیفہؒ کے نزدیک، اولیاء اللہ کے مزارات پر چڑھاوے چڑھانا اور اس سے برکت کی امید رکھنا اسلامی اصولوں کے منافی ہے۔</p>
+                <h2>دیگر مذاہب میں چڑھاوے کا تصور</h2>
+                <h3>ہندوازم میں اس بدعت کا تصور</h3>
+                <p>ہندوازم میں "چڑھاوے" یا "نذرانے" کی ایک طویل تاریخ ہے، جہاں لوگ مختلف معبودوں، دیوتاؤں اور مندروں میں قربانیاں پیش کرتے ہیں۔ ہندؤں کا عقیدہ ہے کہ یہ نذرانے معبودوں کی رضا حاصل کرنے، گناہوں کو مٹانے اور خوشحالی کی دعا کرنے کے لئے دیے جاتے ہیں۔</p>
+                <h3>بدھ مت میں اس بدعت کا تصور</h3>
+                <p>بدھ مت میں بھی نذرانے پیش کرنے کا تصور موجود ہے، مگر اس کا مقصد زیادہ تر عبادات اور روایات کے ذریعے برکت اور روحانی ترقی کی جانب ہے۔</p>
+                <h3>خلاصہ</h3>
+                <p>تمام مذکورہ مذاہب میں چڑھاوے چڑھانے کا تصور موجود ہے، لیکن اسلام میں اس کی شدید مخالفت کی گئی ہے، کیونکہ یہ عمل توحید کے خلاف ہے اور شرک کی طرف لے جا سکتا ہے۔ مسلمانوں کو اس بدعت سے بچنا ضروری ہے اور اپنی عبادات اور نذرانے صرف اللہ کے لئے مختصر کرنے چاہئیں۔</p>
+            </div>
+
+            <!-- REACTIONS SECTION (FULL PRESERVED) -->
+            <div class="reactions-wrapper">
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+
+            <!-- Social Share -->
+            <div class="share-section">
+                <div class="share-title"><i class="fas fa-share-alt" style="color:#ff8c42;"></i> اس پوسٹ کو شیئر کریں</div>
+                <div class="share-icons">
+                    <a href="https://wa.me/?text=دین%20کی%20پاکیزگی%20پر%2050%20بدعتی%20حملے%2028%20-%20درباروں%20پر%20چڑھاوے%20https://bloglovers.pk/" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-28-drbaron-par-chrhaoe-chrhana.html" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/intent/tweet?text=دین%20کی%20پاکیزگی%20پر%2050%20بدعتی%20حملے%2028&url=https://bloglovers.pk/" target="_blank" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/&media=https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-28-drbaron-par-chrhaoe-chrhana.png&description=درباروں پر چڑھاوے" target="_blank" class="social-btn pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk/" target="_blank" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://t.me/share/url?url=https://bloglovers.pk/&text=دین%20کی%20پاکیزگی%20پر%2050%20بدعتی%20حملے%2028" target="_blank" class="social-btn telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <button class="social-btn copy-link" onclick="copyPageLink()"><i class="fas fa-link"></i></button>
+                </div>
+            </div>
+
+            <div class="bottom-nav">
+                <a href="https://bloglovers.pk/" class="nav-btn home-btn" style="padding: 8px 20px;"><i class="fas fa-globe"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn back-btn" style="padding: 8px 20px;"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+            <div class="footer-note">© 2025 bloglovers.pk | علم و بصیرت کی روشنی</div>
         </div>
 
-        <div class="footer-note">
-            © 2025 bloglovers.pk | علم و بصیرت کی روشنی
+        <!-- Sidebar with auto-scroll related posts -->
+        <div class="sidebar">
+            <div class="sidebar-title"><i class="fas fa-book-open"></i> متعلقہ پوسٹس</div>
+            <div class="related-posts-scroll" id="relatedScroll">
+                <div class="related-posts-list" id="relatedList">
+                    <!-- 12 posts exactly as requested -->
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی"><a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی کرنا"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بھیک مانگنا"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="زمین قبضہ"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عالم کا عمل"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="دھاگے باندھنا"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="سجدہ پیر"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="بے حیائی"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="تین گھر"><a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a></div>
+                    <div class="related-item"><img class="related-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="دل دکھانا"><a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- No internal links; all links are external as per instruction -->
+    <!-- Include reactions.js (external, no duplicate functions inside) -->
+    <script src="/reactions.js"></script>
     <script>
-        // Optional: Smooth scroll for older browsers (already using behavior: smooth)
+        // Copy Link functionality for social sharing (no reactions duplicate)
+        function copyPageLink() {
+            const dummy = document.createElement('input');
+            const text = window.location.href;
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alert('لنک کاپی ہو گیا!');
+        }
+        
+        // Auto-scroll animation for sidebar: wrap animation fix using keyframes but we keep scroll with duplicate items? 
+        // To ensure infinite seamless scroll we double the items within scroll container via JS on load to make infinite scroll smooth.
+        (function setupInfiniteScroll() {
+            const scrollContainer = document.getElementById('relatedScroll');
+            const list = document.getElementById('relatedList');
+            if(scrollContainer && list) {
+                const items = Array.from(list.children);
+                if(items.length > 0) {
+                    // clone items for smooth infinite effect
+                    items.forEach(item => {
+                        const clone = item.cloneNode(true);
+                        list.appendChild(clone);
+                    });
+                }
+                // reset animation on hover pause
+                scrollContainer.addEventListener('mouseenter', () => {
+                    scrollContainer.style.animationPlayState = 'paused';
+                });
+                scrollContainer.addEventListener('mouseleave', () => {
+                    scrollContainer.style.animationPlayState = 'running';
+                });
+            }
+        })();
     </script>
 </body>
 </html>
