@@ -17,20 +17,20 @@
 
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            line-height: 2.5;
+            line-height: 2;
             text-align: right;
             background: radial-gradient(ellipse at 30% 40%, #0a0f2e, #030514);
             min-height: 100vh;
-            padding: 30px 20px;
+            padding: 25px 18px;
             color: #f0e9d8;
             position: relative;
             overflow-x: hidden;
-            font-size: 1.5rem;  /* Increased base text size (worth reading) */
+            font-size: 1.2rem;
             text-justify: inter-word;
-            text-align: justify;  /* proper alignment */
+            text-align: justify;
         }
 
-        /* Animated solar system background (dark theme with moving orbs) */
+        /* Animated solar system background */
         .solar-bg {
             position: fixed;
             top: 0;
@@ -45,416 +45,535 @@
             position: absolute;
             top: 15%;
             left: 10%;
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             background: radial-gradient(circle at 30% 30%, #f9d71c, #f68b1e);
             border-radius: 50%;
-            box-shadow: 0 0 70px 20px #fabe2c;
+            box-shadow: 0 0 60px 15px #fabe2c;
             animation: sunGlow 4s infinite alternate ease-in-out;
         }
 
         @keyframes sunGlow {
-            0% { box-shadow: 0 0 60px 15px #fabc2c; transform: scale(1); }
-            100% { box-shadow: 0 0 110px 35px #ffdd55; transform: scale(1.05); }
+            0% { box-shadow: 0 0 50px 12px #fabc2c; transform: scale(1); }
+            100% { box-shadow: 0 0 90px 28px #ffdd55; transform: scale(1.05); }
         }
 
         .planet {
             position: absolute;
             border-radius: 50%;
             background: rgba(170, 140, 100, 0.3);
-            box-shadow: 0 0 30px #fff2c0 inset, 0 0 15px #acb5ff;
+            box-shadow: 0 0 25px #fff2c0 inset, 0 0 12px #acb5ff;
             animation: orbitMove 24s infinite linear;
         }
 
-        .planet1 { width: 300px; height: 300px; top: 60%; left: 70%; background: radial-gradient(circle at 20% 20%, #5f7a9e, #1c2f45); opacity: 0.3; animation-duration: 42s; }
-        .planet2 { width: 190px; height: 190px; top: 10%; left: 80%; background: radial-gradient(circle at 30% 30%, #aa7c5f, #432e1f); opacity: 0.3; animation-duration: 30s; animation-direction: reverse; }
-        .planet3 { width: 450px; height: 450px; top: 40%; left: -10%; background: radial-gradient(circle at 70% 20%, #46695f, #121f1b); opacity: 0.2; animation-duration: 58s; }
+        .planet1 { width: 260px; height: 260px; top: 60%; left: 70%; background: radial-gradient(circle at 20% 20%, #5f7a9e, #1c2f45); opacity: 0.3; animation-duration: 42s; }
+        .planet2 { width: 160px; height: 160px; top: 10%; left: 80%; background: radial-gradient(circle at 30% 30%, #aa7c5f, #432e1f); opacity: 0.3; animation-duration: 30s; animation-direction: reverse; }
+        .planet3 { width: 380px; height: 380px; top: 40%; left: -10%; background: radial-gradient(circle at 70% 20%, #46695f, #121f1b); opacity: 0.2; animation-duration: 58s; }
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 0 12px white;
+            box-shadow: 0 0 10px white;
             animation: twinkle 3s infinite alternate;
         }
 
         @keyframes orbitMove {
-            0% { transform: rotate(0deg) translateX(25px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(25px) rotate(-360deg); }
+            0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
         }
 
         @keyframes twinkle {
             0% { opacity: 0.2; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 1; transform: scale(1.4); }
         }
 
-        /* stars generate 60 little dots */
-        .starfield span { display: none; } /* simplified: use pseudo but easier to gen via js */ 
+        /* main layout: flex to include sidebar */
+        .main-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            align-items: flex-start;
+        }
 
-        /* main card */
         .post-card {
-            max-width: 1000px;
-            margin: 20px auto;
+            flex: 3;
+            min-width: 280px;
             background: rgba(10, 15, 30, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-radius: 45px;
-            padding: 40px 50px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 2px #fffaec30 inset;
+            border-radius: 40px;
+            padding: 30px 40px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 0 2px #fffaec30 inset;
             border: 1px solid #b5926a40;
             transition: all 0.4s;
-            position: relative;
         }
 
         .post-card:hover {
-            box-shadow: 0 30px 100px #f0b56a30, 0 0 30px #d4a373;
+            box-shadow: 0 25px 90px #f0b56a30, 0 0 25px #d4a373;
             border-color: #e9c38b;
             backdrop-filter: blur(16px);
         }
 
-        /* heading size increase (worth reading) */
+        /* Sidebar auto-scroll */
+        .sidebar-scroll {
+            flex: 1.2;
+            min-width: 280px;
+            background: rgba(5, 8, 20, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 35px;
+            padding: 20px 18px;
+            border: 1px solid #b48b5a60;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            height: 500px;
+            overflow-y: auto;
+            position: sticky;
+            top: 25px;
+            scrollbar-width: thin;
+            direction: rtl;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: #2a2440;
+            border-radius: 8px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #c69c6d;
+            border-radius: 8px;
+        }
+
+        .sidebar-title {
+            font-size: 1.6rem;
+            color: #fbe5b9;
+            border-right: 5px solid #b48b5a;
+            padding-right: 12px;
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        .related-posts-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            animation: scrollPosts 30s linear infinite;
+        }
+
+        .sidebar-scroll:hover .related-posts-list {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .related-post-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            background: rgba(30, 28, 45, 0.6);
+            border-radius: 24px;
+            padding: 10px;
+            transition: 0.2s;
+            border: 1px solid #776b4b60;
+        }
+        .related-post-item:hover {
+            background: #4a3e2e90;
+            transform: scale(1.01);
+        }
+        .related-post-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 1.5px solid #e4b87a;
+        }
+        .related-post-item a {
+            font-size: 1.2rem;
+            color: #f7e3c6;
+            text-decoration: none;
+            font-weight: bold;
+            line-height: 1.4;
+            pointer-events: auto;
+        }
+        .related-post-item a:hover {
+            color: #ffda99;
+            text-decoration: underline;
+        }
+
         h1 {
-            font-size: 4.5rem;
+            font-size: 3rem;
             color: #ffefcf;
             text-align: center;
-            border-bottom: 3px solid #e1b37e;
-            padding-bottom: 15px;
-            margin-bottom: 35px;
+            border-bottom: 2px solid #e1b37e;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
             font-weight: 700;
-            text-shadow: 0 0 15px #ffae6a, 2px 2px 10px black;
-            letter-spacing: 1px;
+            text-shadow: 0 0 12px #ffae6a, 1px 1px 6px black;
         }
 
         h2 {
-            font-size: 3.2rem;
-            border-right: 8px solid #b48b5a;
-            padding-right: 20px;
-            margin: 40px 0 20px 0;
+            font-size: 2.2rem;
+            border-right: 6px solid #b48b5a;
+            padding-right: 16px;
+            margin: 30px 0 18px 0;
             color: #fbe5b9;
-            text-shadow: 0 0 8px #bd7e4b;
         }
 
         h3 {
-            font-size: 2.6rem;
+            font-size: 1.8rem;
             color: #f7d9aa;
-            margin: 30px 0 15px;
+            margin: 22px 0 12px;
         }
 
         p {
-            font-size: 1.8rem;
-            line-height: 3.2rem;
-            margin-bottom: 25px;
+            font-size: 1.35rem;
+            line-height: 2.4rem;
+            margin-bottom: 20px;
             text-align: justify;
         }
 
-        /* image after title – full visible */
         .featured-image {
             width: 100%;
-            margin: 35px 0 30px;
-            border-radius: 30px;
+            margin: 25px 0 25px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 3px #cfa668;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 0 2px #cfa668;
             transition: transform 0.4s;
-            background: #251e14;
         }
-
         .featured-image img {
             width: 100%;
             height: auto;
             display: block;
-            object-fit: cover;
-            border-radius: 28px;
+            border-radius: 26px;
             transition: 0.4s;
         }
-
         .featured-image img:hover {
-            transform: scale(1.02);
-            filter: brightness(1.1);
+            transform: scale(1.01);
+            filter: brightness(1.08);
         }
 
-        /* Buttons group */
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0 25px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50px;
+            padding: 20px 18px;
+            text-align: center;
+        }
+        .reactions-title {
+            font-size: 1.7rem;
+            margin-bottom: 18px;
+            color: #f6deae;
+        }
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+        }
+        .reaction-btn {
+            background: #2f2a44;
+            border: 1.5px solid #b28b5c;
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-size: 1.35rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #fae6c3;
+            font-weight: bold;
+        }
+        .reaction-btn:hover {
+            background: #6a5a3f;
+            transform: scale(1.05);
+            border-color: #ffd58c;
+        }
+        .reaction-count {
+            background: #1b172e;
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            margin-right: 5px;
+        }
+
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin: 40px 0 20px;
+            gap: 12px;
+            margin: 35px 0 18px;
         }
-
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             background: #2f2e4e;
             color: #fae3b3;
-            border: 2px solid #b69360;
-            border-radius: 60px;
-            padding: 12px 25px;
-            font-size: 1.7rem;
+            border: 1.5px solid #b69360;
+            border-radius: 50px;
+            padding: 10px 22px;
+            font-size: 1.35rem;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 8px 18px #00000060;
             text-decoration: none;
-            backdrop-filter: blur(4px);
         }
-
-        .btn i {
-            font-size: 2rem;
-            color: #f5c68a;
-        }
-
         .btn:hover {
             background: #564d77;
             border-color: #ebc174;
-            transform: translateY(-6px) scale(1.08);
-            box-shadow: 0 12px 28px #d7a459;
+            transform: translateY(-3px);
         }
-
-        /* back button special */
-        .back-btn {
-            background: #3b3252;
-            border-color: #cdaa7b;
-            padding: 14px 40px;
-            font-size: 2rem;
+        .nav-btns-group {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 18px 0;
         }
-
-        /* social sharing buttons */
         .share-wrap {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px 18px;
-            margin: 30px 0 10px;
+            gap: 10px;
+            margin: 20px 0 12px;
         }
-
         .share-btn {
             background: #35314b;
-            border-radius: 50px;
-            padding: 12px 25px;
-            font-size: 2rem;
-            min-width: 60px;
+            border-radius: 45px;
+            padding: 8px 16px;
+            font-size: 1.3rem;
             text-align: center;
             transition: 0.2s;
             border: 1px solid #b48b5a;
             color: #faeacb;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-
         .share-btn:hover {
-            background: #725e46;
+            background: #ad7f55;
             color: #0a0a14;
-            border-color: white;
         }
 
-        /* page up/down fixed buttons */
         .page-nav {
             position: fixed;
             left: 15px;
-            bottom: 30px;
+            bottom: 25px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             z-index: 99;
         }
         .page-nav a {
             background: #27233b;
             color: #efd9ae;
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
-            border: 2px solid #b58d5b;
-            box-shadow: 0 0 25px #fdaa4b80;
-            transition: 0.25s;
+            font-size: 2rem;
+            border: 1.5px solid #b58d5b;
             text-decoration: none;
+            transition: 0.25s;
         }
-
         .page-nav a:hover {
             background: #ad7f55;
             color: black;
-            transform: scale(1.15);
-            border-color: white;
+            transform: scale(1.08);
         }
 
-        /* remove all internal link styling (no underline etc) but we also removed actual links */
-        a, a[href*="blogger.com"], a[href*="bloglovers"] {
-            text-decoration: none;
-            pointer-events: none;   /* remove internal linking — no clickable internal */
-            color: #dbbc87;          /* keep color but no underline */
-            cursor: default;
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; }
+            .sidebar-scroll { position: relative; top: 0; width: 100%; height: 420px; }
+            h1 { font-size: 2.4rem; }
+            .post-card { padding: 20px 18px; }
+            p { font-size: 1.25rem; line-height: 2.2rem; }
+            .reaction-btn { font-size: 1.2rem; padding: 6px 12px; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.5rem; }
         }
-
-        /* but keep social buttons clickable — we give them actual buttons */
-        .share-btn, .back-btn, .page-nav a, .btn:not(.disabled) {
-            pointer-events: auto;
-            cursor: pointer;
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            opacity: 0.8;
+            font-size: 1.1rem;
         }
-
-        /* list and others */
-        ul, li {
-            font-size: 1.8rem;
-            text-align: justify;
-        }
-
-        /* responsive */
-        @media (max-width: 700px) {
-            body { font-size: 1.4rem; padding: 15px; }
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2.4rem; }
-            h3 { font-size: 2rem; }
-            p { font-size: 1.6rem; line-height: 2.7rem; }
-            .post-card { padding: 25px 18px; }
-            .btn { font-size: 1.4rem; padding: 8px 18px; }
-            .share-btn { font-size: 1.6rem; padding: 8px 16px; }
-            .page-nav a { width: 55px; height: 55px; font-size: 2rem; }
-        }
-
-        /* hide original post-content but we use dynamic, we embed image after title manually */
-        /* extra class for solar stars */
     </style>
 </head>
 <body>
-    <!-- solar system dark background moving elements -->
     <div class="solar-bg" id="solarBg">
         <div class="sun"></div>
         <div class="planet planet1"></div>
         <div class="planet planet2"></div>
         <div class="planet planet3"></div>
-        <!-- add some stars via js -->
     </div>
 
-    <!-- Page UP/DOWN buttons -->
     <div class="page-nav">
         <a href="#" id="pageUp" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
         <a href="#" id="pageDown" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
     </div>
 
-    <!-- main article card -->
-    <div class="post-card">
-        <!-- TITLE (already inside h1) -->
-        <h1>تعویز پہننا</h1>
+    <div class="main-layout">
+        <!-- Main Article Post Card -->
+        <div class="post-card">
+            <h1>تعویز پہننا</h1>
+            <div class="featured-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-17-taoyz-phnna.png" alt="تعویز پہننا - تصویر">
+            </div>
 
-        <!-- NEW IMAGE after title as per instruction (full visible) -->
-        <div class="featured-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-17-taoyz-phnna.png" alt="تعویز پہننا - تصویر">
+            <div class="content-body">
+                <p>تعویز ایک قسم کی تحریر، طغرٰی، یا علامتی شکل ہے جسے لوگ اپنی جسمانی یا روحانی حفاظت، بیماریوں سے شفا یا بری نظر سے بچنے کے لیے پہنتے ہیں۔ تعویز عموماً کسی کپڑے یا دھاتی ڈبے میں لپیٹ کر گردن، بازو یا کمر میں باندھ دیا جاتا ہے۔ اس کے اندر قرآن کی آیات، مقدس دعائیں، یا جادوئی نقوش درج کیے جاتے ہیں۔ تعویز پہننے کا مقصد ان غیر مرئی طاقتوں یا ناپسندیدہ اثرات سے بچنا ہوتا ہے جنہیں لوگ سمجھتے ہیں کہ ان پر اثر انداز ہو سکتی ہیں۔</p>
+                <h2>مختلف مسالک میں تعویز پہننا</h2>
+                <h3>مسلک بریلوی</h3>
+                <p>مسلک بریلوی میں <span style="color:#e7c994;">تعویز پہننا</span> ایک عام رواج ہے۔ ان کے عقائد کے مطابق، اگر تعویز قرآنی آیات یا نیک دعاؤں پر مشتمل ہو تو اس کا پہننا جائز اور نیک کام ہے۔ تعویز کو روحانی حفاظت کے لیے پہنا جاتا ہے اور بریلوی حضرات اس عمل کو کسی حد تک شریعت کے دائرے میں سمجھتے ہیں۔</p>
+                <h3>اہل تشیع</h3>
+                <p>اہل تشیع میں بھی تعویز کا رواج موجود ہے، جہاں تعویز اکثر اوقات حضرت علیؓ اور دیگر اہل بیت سے منسوب دعاؤں اور آیات پر مشتمل ہوتے ہیں۔ اہل تشیع میں تعویز کو روحانی طاقت کا ایک ذریعہ مانا جاتا ہے، جس کے ذریعے مومن کو اللہ کی مدد حاصل ہو سکتی ہے۔</p>
+                <h2>دیگر مذاہب میں تعویز کا تصور</h2>
+                <h3>ہندومذہب</h3>
+                <p>ہندو مذہب میں تعویز، جسے "تاویز" یا "کاوچ" کہا جاتا ہے، عام طور پر بدروحوں، بری نظر، اور <span style="color:#e7c994;">بدقسمتی</span> سے بچنے کے لیے پہنا جاتا ہے۔ تعویز میں مختلف دیوی دیوتاؤں کی عبادات یا مقدس منتروں پر مشتمل تحریریں شامل ہوتی ہیں۔</p>
+                <h3>سکھازم</h3>
+                <p>سکھازم میں تعویز پہننے کا تصور نہیں ہے، لیکن سکھ عوام میں یہ رواج پایا جاتا ہے، خاص طور پر جب وہ اپنی صحت یا مشکلات کے لیے کسی روحانی حل کی تلاش میں ہوں۔ سکھ مت میں یہ عام نہیں لیکن عوامی سطح پر ثقافتی اثرات کے تحت یہ عمل موجود ہے۔</p>
+                <h3>زرتشت مذہب</h3>
+                <p>زرتشتی مذہب میں بھی تعویز کا تصور پایا جاتا ہے، جو آتش پرستی کی مذہبی <span style="color:#e7c994;">روایات</span> سے جڑا ہوا ہے۔ زرتشتی تعویذات کو جادوئی یا مذہبی اثرات سے بچنے کے لیے پہنا جاتا ہے۔</p>
+                <h2>دور جاہلیت میں تعویز</h2>
+                <p>دورِ جاہلیت میں لوگ تعویذ اور طلسمات کو اپنی حفاظت، جنگ میں کامیابی، اور بیماریوں سے شفا کے لیے پہنتے تھے۔ ان کا عقیدہ تھا کہ یہ تعویذات انہیں بری نظر، جادو، اور آفات سے بچا سکتے ہیں۔ قرآن مجید اور نبی کریم ﷺ نے اس قسم کے توہمات اور جادوئی اثرات کے خلاف سختی سے احکامات دیے۔</p>
+                <h2>صحابہ کرام کے دور میں تعویز</h2>
+                <p>صحابہ کرام کے ادوار میں <span style="color:#e7c994;">تعویز کا رواج</span> نہیں تھا۔ صحابہ کرامؓ براہ راست اللہ تعالیٰ پر بھروسہ کرتے تھے اور اس کی مدد طلب کرتے تھے۔ حضرت عمر فاروقؓ نے تعویذ اور جادوئی عملیات کے سخت خلاف اقدامات کیے۔ ان کے دور میں جادو، طلسمات، اور غیر شرعی اعمال کو ختم کرنے کی کوشش کی گئی۔ رسول اللہ ﷺ نے فرمایا: "<strong>جو شخص تعویذ لٹکائے، اس نے شرک کیا</strong>"۔</p>
+                <h2>مختلف مذاہب میں تعویز پہننا</h2>
+                <p>مختلف مذاہب میں تعویز پہننے کا رواج عام ہے۔ عیسائیت، یہودیت، ہندو مذہب، بدھ مت اور دیگر مذاہب میں تعویذات کا استعمال تحفظ، بیماری سے شفا، اور بدروحوں سے بچاؤ کے لیے ہوتا ہے۔ ہر مذہب میں اس کا تصور مختلف طریقے سے موجود ہے اور لوگوں کا عقیدہ ہے کہ یہ تعویذات انہیں روحانی اور جسمانی مشکلات سے محفوظ رکھ سکتے ہیں۔</p>
+                <h2>جنوبی ایشیا میں تعویز پہننا</h2>
+                <p>جنوبی ایشیائی ممالک، خصوصاً پاکستان، بھارت اور بنگلہ دیش میں تعویز پہننے کا رواج بہت زیادہ ہے۔ ان ممالک میں عوام کا ایک بڑا طبقہ جاہلانہ عقائد اور توہمات کا شکار ہوتا ہے، اور تعویز کے ذریعے روحانی اور جسمانی مسائل کا حل تلاش کیا جاتا ہے۔ ان ممالک میں تعویز کے عاملین کا ایک وسیع کاروبار ہے، جو عوام کے خوف اور مشکلات کو استعمال کر کے اپنا فائدہ اٹھاتے ہیں۔</p>
+                <h2>اسلام میں تعویز پہننے کا حکم</h2>
+                <p>اسلام میں تعویز پہننے کے بارے میں سختی سے منع کیا گیا ہے، خاص طور پر اگر اس میں شرکیہ الفاظ یا غیر اسلامی تحریریں شامل ہوں۔ نبی کریم ﷺ نے تعویز کو شرک کی علامت قرار دیا۔ حدیث میں آیا ہے: "<strong>دم، تعویذ اور جادو شرک ہیں</strong>"۔</p>
+                <p>البتہ، بعض علماء نے یہ رائے دی ہے کہ اگر تعویز میں صرف قرآن کی آیات یا جائز دعائیں ہوں اور اس پر یقین اللہ کی ذات پر ہو، تو اسے جائز کہا جا سکتا ہے، مگر یہ رائے محدود ہے اور اس پر عمل کرنے والے علماء کی تعداد کم ہے۔</p>
+                <h2>تعویز کا کاروباری پہلو</h2>
+                <p>تعویز لکھنا اور فروخت کرنا ایک نفع بخش کاروبار بن چکا ہے، خاص طور پر جنوبی ایشیا میں۔ عاملین اور پیروں کے پاس لوگ اپنی مشکلات اور مسائل کے حل کے لیے آتے ہیں، اور وہ تعویز لکھنے اور دینے کے بدلے میں پیسے لیتے ہیں۔ اس عمل میں عاملین لوگوں کے خوف اور جہالت کا فائدہ اٹھاتے ہیں، اور اکثر یہ عمل مالی فائدے کے لیے کیا جاتا ہے۔</p>
+                <h2>تعویز سے بچنے کے طریقے</h2>
+                <h3>1. اللہ پر مکمل بھروسہ</h3>
+                <p>قرآن اور حدیث کی تعلیمات ہمیں بتاتی ہیں کہ ہر مشکل اور پریشانی کے حل کے لیے ہمیں اللہ پر بھروسہ رکھنا چاہیے۔ اللہ نے قرآن میں فرمایا: "<strong>جو اللہ پر بھروسہ کرتا ہے، اللہ اس کے لیے کافی ہے</strong>"۔</p>
+                <h3>2. قرآن کی تلاوت اور دعا</h3>
+                <p>مشکلات اور بیماریوں کے حل کے لیے قرآن کی تلاوت اور نبی کریم ﷺ کی سنت کے مطابق دعائیں کرنی چاہئیں۔ نبی کریم ﷺ نے مختلف بیماریوں اور مشکلات کے لیے دعائیں سکھائی ہیں۔</p>
+                <h3>3. تعلیم اور شعور کی ضرورت</h3>
+                <p>مسلمانوں کو تعویذ اور جادوئی عقائد سے بچنے کے لیے دینی اور دنیاوی تعلیم کی ضرورت ہے۔ علماء اور معلمین کو چاہیے کہ وہ عوام کو قرآن و سنت کی روشنی میں آگاہ کریں تاکہ لوگ توہمات سے بچ سکیں۔</p>
+                <h3>4. علماء کی رہنمائی</h3>
+                <p>معتبر علماء کی رہنمائی حاصل کریں جو قرآن و سنت کی روشنی میں دینی مسائل کو حل کرنے کی صلاحیت رکھتے ہیں۔</p>
+                <h2>نتیجہ</h2>
+                <p>تعویز پہننے کے گناہ سے بچنے کے لیے ضروری ہے کہ ہم دین اسلام کی اصل تعلیمات کو سمجھیں اور اپنے مسائل کا حل صرف اللہ سے مانگیں، نہ کہ تعویذات یا جادوئی طریقوں سے۔</p>
+                <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+            </div>
+
+            <!-- Reactions Section -->
+            <div class="reactions-section">
+                <div class="reactions-title">📢 اپنے جذبات کا اظہار کریں</div>
+                <div class="reactions-container">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-btns-group">
+                <a class="btn" href="https://bloglovers.pk/" target="_blank"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a class="btn" href="https://bloglovers.pk/category-pages/alamaat-sughra.html" target="_blank"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn back-btn" onclick="window.history.back();"><i class="fas fa-arrow-right"></i> واپس جائیں (Back)</button>
+            </div>
+
+            <!-- Social Sharing 7 Platforms -->
+            <div class="share-wrap">
+                <span class="share-btn" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i> Facebook</span>
+                <span class="share-btn" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                <span class="share-btn" onclick="shareOnSocial('twitter')"><i class="fab fa-x-twitter"></i> Twitter</span>
+                <span class="share-btn" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i> LinkedIn</span>
+                <span class="share-btn" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram"></i> Telegram</span>
+                <span class="share-btn" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i> Pinterest</span>
+                <span class="share-btn" onclick="copyPageLink()"><i class="fas fa-link"></i> کاپی لنک</span>
+            </div>
+            <footer>© دین کی پاکیزگی پر سلسلہ وار مضامین</footer>
         </div>
 
-        <!-- article content (exact words, no single change, but we must remove internal hyperlinks: change <a> tags to spans or remove href) -->
-        <!-- we will process content while keeping text exactly but stripping hrefs and keeping only text. Since we need exact copy, we'll rewrite inside div but without actual links. But given text is long, I'll embed content with all tags but remove hrefs manually in code. However to preserve exact words, I'll copy paste inner content and replace <a> with <span> or remove hrefs. Ensure no internal linking remains. I'll also add target for image. Let's do it.-->
-
-        <div class="content-body">
-            <!-- Following is exactly the original text, but I have removed all href and replaced anchor tags with span (to keep text) but also I must keep words untouched. I'll manually remove links. According to requirement: remove internal linking, don't change a single word. So I convert <a> to <span> and keep text. Additionally there were some blogger links etc — now they are inert. Also preserve all urdu. -->
-            <p>تعویز ایک قسم کی تحریر، طغرٰی، یا علامتی شکل ہے جسے لوگ اپنی جسمانی یا روحانی حفاظت، بیماریوں سے شفا یا بری نظر سے بچنے کے لیے پہنتے ہیں۔ تعویز عموماً کسی کپڑے یا دھاتی ڈبے میں لپیٹ کر گردن، بازو یا کمر میں باندھ دیا جاتا ہے۔ اس کے اندر قرآن کی آیات، مقدس دعائیں، یا جادوئی نقوش درج کیے جاتے ہیں۔ تعویز پہننے کا مقصد ان غیر مرئی طاقتوں یا ناپسندیدہ اثرات سے بچنا ہوتا ہے جنہیں لوگ سمجھتے ہیں کہ ان پر اثر انداز ہو سکتی ہیں۔</p>
-            <h2>مختلف مسالک میں تعویز پہننا</h2>
-            <h3>مسلک بریلوی</h3>
-            <p>مسلک بریلوی میں <span style="color:#e7c994;">تعویز پہننا</span> ایک عام رواج ہے۔ ان کے عقائد کے مطابق، اگر تعویز قرآنی آیات یا نیک دعاؤں پر مشتمل ہو تو اس کا پہننا جائز اور نیک کام ہے۔ تعویز کو روحانی حفاظت کے لیے پہنا جاتا ہے اور بریلوی حضرات اس عمل کو کسی حد تک شریعت کے دائرے میں سمجھتے ہیں۔</p>
-            <h3>اہل تشیع</h3>
-            <p>اہل تشیع میں بھی تعویز کا رواج موجود ہے، جہاں تعویز اکثر اوقات حضرت علیؓ اور دیگر اہل بیت سے منسوب دعاؤں اور آیات پر مشتمل ہوتے ہیں۔ اہل تشیع میں تعویز کو روحانی طاقت کا ایک ذریعہ مانا جاتا ہے، جس کے ذریعے مومن کو اللہ کی مدد حاصل ہو سکتی ہے۔</p>
-            <h2>دیگر مذاہب میں تعویز کا تصور</h2>
-            <h3>ہندومذہب</h3>
-            <p>ہندو مذہب میں تعویز، جسے "تاویز" یا "کاوچ" کہا جاتا ہے، عام طور پر بدروحوں، بری نظر، اور <span style="color:#e7c994;">بدقسمتی</span> سے بچنے کے لیے پہنا جاتا ہے۔ تعویز میں مختلف دیوی دیوتاؤں کی عبادات یا مقدس منتروں پر مشتمل تحریریں شامل ہوتی ہیں۔</p>
-            <h3>سکھازم</h3>
-            <p>سکھازم میں تعویز پہننے کا تصور نہیں ہے، لیکن سکھ عوام میں یہ رواج پایا جاتا ہے، خاص طور پر جب وہ اپنی صحت یا مشکلات کے لیے کسی روحانی حل کی تلاش میں ہوں۔ سکھ مت میں یہ عام نہیں لیکن عوامی سطح پر ثقافتی اثرات کے تحت یہ عمل موجود ہے۔</p>
-            <h3>زرتشت مذہب</h3>
-            <p>زرتشتی مذہب میں بھی تعویز کا تصور پایا جاتا ہے، جو آتش پرستی کی مذہبی <span style="color:#e7c994;">روایات</span> سے جڑا ہوا ہے۔ زرتشتی تعویذات کو جادوئی یا مذہبی اثرات سے بچنے کے لیے پہنا جاتا ہے۔</p>
-            <h2>دور جاہلیت میں تعویز</h2>
-            <p>دورِ جاہلیت میں لوگ تعویذ اور طلسمات کو اپنی حفاظت، جنگ میں کامیابی، اور بیماریوں سے شفا کے لیے پہنتے تھے۔ ان کا عقیدہ تھا کہ یہ تعویذات انہیں بری نظر، جادو، اور آفات سے بچا سکتے ہیں۔ قرآن مجید اور نبی کریم ﷺ نے اس قسم کے توہمات اور جادوئی اثرات کے خلاف سختی سے احکامات دیے۔</p>
-            <h2>صحابہ کرام کے دور میں تعویز</h2>
-            <p>صحابہ کرام کے ادوار میں <span style="color:#e7c994;">تعویز کا رواج</span> نہیں تھا۔ صحابہ کرامؓ براہ راست اللہ تعالیٰ پر بھروسہ کرتے تھے اور اس کی مدد طلب کرتے تھے۔ حضرت عمر فاروقؓ نے تعویذ اور جادوئی عملیات کے سخت خلاف اقدامات کیے۔ ان کے دور میں جادو، طلسمات، اور غیر شرعی اعمال کو ختم کرنے کی کوشش کی گئی۔ رسول اللہ ﷺ نے فرمایا: "<strong>جو شخص تعویذ لٹکائے، اس نے شرک کیا</strong>"۔</p>
-            <h2>مختلف مذاہب میں تعویز پہننا</h2>
-            <p>مختلف مذاہب میں تعویز پہننے کا رواج عام ہے۔ عیسائیت، یہودیت، ہندو مذہب، بدھ مت اور دیگر مذاہب میں تعویذات کا استعمال تحفظ، بیماری سے شفا، اور بدروحوں سے بچاؤ کے لیے ہوتا ہے۔ ہر مذہب میں اس کا تصور مختلف طریقے سے موجود ہے اور لوگوں کا عقیدہ ہے کہ یہ تعویذات انہیں روحانی اور جسمانی مشکلات سے محفوظ رکھ سکتے ہیں۔</p>
-            <h2>جنوبی ایشیا میں تعویز پہننا</h2>
-            <p>جنوبی ایشیائی ممالک، خصوصاً پاکستان، بھارت اور بنگلہ دیش میں تعویز پہننے کا رواج بہت زیادہ ہے۔ ان ممالک میں عوام کا ایک بڑا طبقہ جاہلانہ عقائد اور توہمات کا شکار ہوتا ہے، اور تعویز کے ذریعے روحانی اور جسمانی مسائل کا حل تلاش کیا جاتا ہے۔ ان ممالک میں تعویز کے عاملین کا ایک وسیع کاروبار ہے، جو عوام کے خوف اور مشکلات کو استعمال کر کے اپنا فائدہ اٹھاتے ہیں۔</p>
-            <h2>اسلام میں تعویز پہننے کا حکم</h2>
-            <p>اسلام میں تعویز پہننے کے بارے میں سختی سے منع کیا گیا ہے، خاص طور پر اگر اس میں شرکیہ الفاظ یا غیر اسلامی تحریریں شامل ہوں۔ نبی کریم ﷺ نے تعویز کو شرک کی علامت قرار دیا۔ حدیث میں آیا ہے: "<strong>دم، تعویذ اور جادو شرک ہیں</strong>"۔</p>
-            <p>البتہ، بعض علماء نے یہ رائے دی ہے کہ اگر تعویز میں صرف قرآن کی آیات یا جائز دعائیں ہوں اور اس پر یقین اللہ کی ذات پر ہو، تو اسے جائز کہا جا سکتا ہے، مگر یہ رائے محدود ہے اور اس پر عمل کرنے والے علماء کی تعداد کم ہے۔</p>
-            <h2>تعویز کا کاروباری پہلو</h2>
-            <p>تعویز لکھنا اور فروخت کرنا ایک نفع بخش کاروبار بن چکا ہے، خاص طور پر جنوبی ایشیا میں۔ عاملین اور پیروں کے پاس لوگ اپنی مشکلات اور مسائل کے حل کے لیے آتے ہیں، اور وہ تعویز لکھنے اور دینے کے بدلے میں پیسے لیتے ہیں۔ اس عمل میں عاملین لوگوں کے خوف اور جہالت کا فائدہ اٹھاتے ہیں، اور اکثر یہ عمل مالی فائدے کے لیے کیا جاتا ہے۔</p>
-            <h2>تعویز سے بچنے کے طریقے</h2>
-            <h3>1. اللہ پر مکمل بھروسہ</h3>
-            <p>قرآن اور حدیث کی تعلیمات ہمیں بتاتی ہیں کہ ہر مشکل اور پریشانی کے حل کے لیے ہمیں اللہ پر بھروسہ رکھنا چاہیے۔ اللہ نے قرآن میں فرمایا: "<strong>جو اللہ پر بھروسہ کرتا ہے، اللہ اس کے لیے کافی ہے</strong>"۔</p>
-            <h3>2. قرآن کی تلاوت اور دعا</h3>
-            <p>مشکلات اور بیماریوں کے حل کے لیے قرآن کی تلاوت اور نبی کریم ﷺ کی سنت کے مطابق دعائیں کرنی چاہئیں۔ نبی کریم ﷺ نے مختلف بیماریوں اور مشکلات کے لیے دعائیں سکھائی ہیں۔</p>
-            <h3>3. تعلیم اور شعور کی ضرورت</h3>
-            <p>مسلمانوں کو تعویذ اور جادوئی عقائد سے بچنے کے لیے دینی اور دنیاوی تعلیم کی ضرورت ہے۔ علماء اور معلمین کو چاہیے کہ وہ عوام کو قرآن و سنت کی روشنی میں آگاہ کریں تاکہ لوگ توہمات سے بچ سکیں۔</p>
-            <h3>4. علماء کی رہنمائی</h3>
-            <p>معتبر علماء کی رہنمائی حاصل کریں جو قرآن و سنت کی روشنی میں دینی مسائل کو حل کرنے کی صلاحیت رکھتے ہیں۔</p>
-            <h2>نتیجہ</h2>
-            <p>تعویز پہننے کے گناہ سے بچنے کے لیے ضروری ہے کہ ہم دین اسلام کی اصل تعلیمات کو سمجھیں اور اپنے مسائل کا حل صرف اللہ سے مانگیں، نہ کہ تعویذات یا جادوئی طریقوں سے۔</p>
-            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-            <!-- original links now as plain spans, no href, words exactly -->
-            <p style="font-size:1.8rem;">
-                <span style="color:#dbbc87;">کسی جانور گائے بکری سے جماع کرنا،</span> <span style="color:#dbbc87;">بغیر عذر شرعی جماعت کی نماز چھوڑنا</span>، <span style="color:#dbbc87;">پڑوسی کو تکلیف دینا</span>، <span style="color:#dbbc87;">وعدہ خلافی کرنا</span>، <span style="color:#dbbc87;">غیر محرم عورت کی طرف بہ قصد دیکھنا</span>، <span style="color:#dbbc87;">پکی قبریں بنانا</span>، <span style="color:#dbbc87;">قل خوانی کرنا</span>، <span style="color:#dbbc87;">عرس میلے منانا</span>
-            </p>
+        <!-- Auto-scroll Sidebar with required posts -->
+        <div class="sidebar-scroll">
+            <div class="sidebar-title">📖 متعلقہ مضامین</div>
+            <div class="related-posts-wrapper">
+                <ul class="related-posts-list" id="relatedList">
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt=""><a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a></li>
+                    <li class="related-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a></li>
+                </ul>
+            </div>
         </div>
-
-        <!-- Action buttons: Back, Social sharing, as per advanced features -->
-        <div class="action-buttons">
-            <button class="btn back-btn" onclick="window.history.back();"><i class="fas fa-arrow-right"></i> واپس جائیں (Back)</button>
-        </div>
-
-        <!-- Social media share buttons (multiple platforms) -->
-        <div class="share-wrap" id="shareWrap">
-            <span class="share-btn" onclick="shareOn('facebook')"><i class="fab fa-facebook-f"></i></span>
-            <span class="share-btn" onclick="shareOn('twitter')"><i class="fab fa-x-twitter"></i></span>
-            <span class="share-btn" onclick="shareOn('whatsapp')"><i class="fab fa-whatsapp"></i></span>
-            <span class="share-btn" onclick="shareOn('telegram')"><i class="fab fa-telegram"></i></span>
-            <span class="share-btn" onclick="shareOn('linkedin')"><i class="fab fa-linkedin-in"></i></span>
-        </div>
-
     </div>
 
+    <script src="/reactions.js"></script>
     <script>
-        // generate stars
+        // stars generation
         (function generateStars() {
             const bg = document.getElementById('solarBg');
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 55; i++) {
                 let star = document.createElement('div');
                 star.classList.add('star');
-                let size = Math.random() * 4 + 2;
+                let size = Math.random() * 3 + 1.5;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 5 + 's';
-                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 bg.appendChild(star);
             }
         })();
 
-        // page up down
-        document.getElementById('pageUp').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        document.getElementById('pageDown').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        });
+        document.getElementById('pageUp').addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        document.getElementById('pageDown').addEventListener('click', function(e) { e.preventDefault(); window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); });
 
-        // social share functions (multiple platforms)
-        function shareOn(platform) {
+        function shareOnSocial(platform) {
             let url = encodeURIComponent(window.location.href);
             let title = encodeURIComponent('دین کی پاکیزگی پر 50 بدعتی حملے 17 - تعویز پہننا');
-            let shareUrl = '';
+            let shareLink = '';
             switch(platform) {
-                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
-                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`; break;
-                case 'whatsapp': shareUrl = `https://wa.me/?text=${title}%20${url}`; break;
-                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
-                case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'facebook': shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareLink = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareLink = `https://twitter.com/intent/tweet?url=${url}&text=${title}`; break;
+                case 'linkedin': shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+                case 'telegram': shareLink = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareLink = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
                 default: return;
             }
-            window.open(shareUrl, '_blank', 'width=600,height=500');
+            window.open(shareLink, '_blank', 'width=600,height=500');
         }
-
-        // remove all internal linking — already removed anchors from content; also remove any leftover from blogger posts but fine.
-        // and no toggle option, it's a normal single view.
-        // mobile responsive done, colorful interface.
-        // back button added, social buttons.
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہو گیا!');
+        }
     </script>
 </body>
 </html>
