@@ -64,43 +64,108 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Main Container */
-        .main-container {
-            max-width: 900px;
+        /* Main Container + Sidebar Layout */
+        .main-wrapper {
+            max-width: 1300px;
             margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
             position: relative;
+            align-items: flex-start;
         }
         
-        /* Header & Navigation */
-        .header-section {
-            text-align: center;
-            margin: 20px 0 40px;
+        .post-container {
+            flex: 2;
+            min-width: 280px;
         }
         
-        .back-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            position: sticky;
+            top: 20px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            backdrop-filter: blur(2px);
             transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-family: inherit;
         }
         
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6);
+        .sidebar-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
         }
         
-        .back-btn i {
-            margin-left: 8px;
+        .sidebar-posts {
+            height: 500px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            transition: scroll-behavior 0.3s;
+        }
+        
+        .sidebar-posts::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .sidebar-posts::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .sidebar-posts::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .sidebar-item:hover {
+            background: #f8f9ff;
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item.active {
+            background: linear-gradient(95deg, #eef2ff, #ffffff);
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .sidebar-img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-info {
+            flex: 1;
+        }
+        
+        .sidebar-title {
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         
         /* Post Content */
@@ -118,12 +183,10 @@
             transform: translateY(-5px);
         }
         
-        /* Heading Styles */
         h1, h2, h3 {
             color: var(--text-color);
             padding-bottom: 10px;
             margin-top: 30px;
-            position: relative;
         }
         
         h1 {
@@ -132,20 +195,11 @@
             border-bottom: 3px solid var(--primary-color);
             margin-bottom: 30px;
             padding-bottom: 20px;
-            color: #2c3e50;
         }
         
-        h2 {
-            font-size: 2.2rem;
-            border-bottom: 2px solid #eee;
-        }
+        h2 { font-size: 2.2rem; border-bottom: 2px solid #eee; }
+        h3 { font-size: 1.8rem; color: #34495e; }
         
-        h3 {
-            font-size: 1.8rem;
-            color: #34495e;
-        }
-        
-        /* Text Styles */
         p {
             margin-bottom: 20px;
             text-align: justify;
@@ -154,7 +208,6 @@
             color: #2c3e50;
         }
         
-        /* Image */
         .post-image {
             max-width: 100%;
             height: auto;
@@ -162,15 +215,130 @@
             display: block;
             margin: 30px auto;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            transition: transform 0.5s ease;
         }
         
         .post-image:hover {
             transform: scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
         
-        /* Navigation Buttons */
+        /* Reactions section */
+        .reactions-section {
+            background: #fef9f0;
+            border-radius: 35px;
+            padding: 25px 20px;
+            margin: 40px 0 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .reactions-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: white;
+            border: none;
+            border-radius: 60px;
+            padding: 8px 18px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            color: #2c3e50;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #f0f2f5;
+        }
+        
+        .reaction-count {
+            font-weight: bold;
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        
+        /* Social Icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+        
+        .nav-links-bottom {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0 20px;
+        }
+        
+        .nav-bottom-btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1rem;
+        }
+        
+        .nav-bottom-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .footer-section {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Floating Buttons */
         .nav-buttons {
             position: fixed;
             left: 20px;
@@ -199,50 +367,29 @@
         
         .nav-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         
-        /* Footer */
-        .footer-section {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 1.2rem;
-            border-top: 1px solid #eee;
+        .back-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
         }
         
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            h1 { font-size: 2.4rem; }
-            h2 { font-size: 1.9rem; }
-            h3 { font-size: 1.6rem; }
-            p { font-size: 1.3rem; }
+        .back-btn:hover {
+            transform: translateY(-3px);
         }
         
-        @media (max-width: 768px) {
-            body { padding: 15px; }
-            .post-content { padding: 25px; }
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.7rem; }
-            h3 { font-size: 1.5rem; }
-            p { font-size: 1.2rem; line-height: 2.2; }
-            .nav-buttons { left: 15px; bottom: 15px; }
-            .nav-btn { width: 45px; height: 45px; font-size: 18px; }
-        }
-        
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            .post-content { padding: 20px; }
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.5rem; }
-            h3 { font-size: 1.3rem; }
-            p { font-size: 1.1rem; }
-            .nav-buttons { display: none; }
-            .back-btn { padding: 10px 20px; font-size: 14px; }
-        }
-        
-        /* Decorative Elements */
         .decoration {
             position: absolute;
             width: 100px;
@@ -252,181 +399,237 @@
             z-index: -1;
         }
         
-        .decoration-1 {
-            top: 50px;
-            left: 50px;
-            background: var(--accent-color);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .decoration-2 {
-            bottom: 100px;
-            right: 80px;
-            background: var(--primary-color);
-            animation: float 8s ease-in-out infinite reverse;
-        }
+        .decoration-1 { top: 50px; left: 50px; background: var(--accent-color); animation: float 6s ease-in-out infinite; }
+        .decoration-2 { bottom: 100px; right: 80px; background: var(--primary-color); animation: float 8s ease-in-out infinite reverse; }
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
         }
+        
+        @media (max-width: 992px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { max-width: 100%; position: static; margin-top: 20px; }
+            h1 { font-size: 2.4rem; }
+            p { font-size: 1.3rem; }
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 15px; }
+            .post-content { padding: 25px; }
+            .reaction-btn { padding: 5px 12px; font-size: 1rem; }
+            .nav-buttons { left: 15px; bottom: 15px; }
+            .nav-btn { width: 45px; height: 45px; }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-buttons { display: none; }
+            .back-btn { padding: 8px 18px; }
+        }
     </style>
 </head>
 <body>
-    <!-- Rainbow Background -->
     <div class="rainbow-bg"></div>
-    
-    <!-- Decorative Elements -->
     <div class="decoration decoration-1"></div>
     <div class="decoration decoration-2"></div>
     
-    <!-- Navigation Buttons -->
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="scrollToTop()" title="اوپر جائیں">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-        <button class="nav-btn" onclick="scrollToBottom()" title="نیچے جائیں">
-            <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="nav-btn" onclick="scrollToTop()" title="اوپر جائیں"><i class="fas fa-chevron-up"></i></button>
+        <button class="nav-btn" onclick="scrollToBottom()" title="نیچے جائیں"><i class="fas fa-chevron-down"></i></button>
     </div>
     
-    <div class="main-container">
-        <!-- Header -->
-        <div class="header-section">
-            <button class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-right"></i> واپس جائیں
-            </button>
+    <div class="main-wrapper">
+        <div class="post-container">
+            <div class="header-section" style="text-align: center;">
+                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-right"></i> واپس جائیں</button>
+            </div>
+            <div class="post-content">
+                <h1>گدی نشینی</h1>
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-7-gdi-nshyni.png" alt="گدی نشینی" class="post-image">
+                
+                <p>"گدی نشینی" ایک اصطلاح ہے جو عموماً صوفیاء اور روحانی شخصیات کی سربراہی کے منصب کی منتقلی کے لیے استعمال کی جاتی ہے۔ جب کوئی روحانی رہنما یا صوفی بزرگ وفات پاتا ہے تو اس کی جگہ اس کا مقرر کردہ یا قدرتی وارث "گدی" پر بیٹھتا ہے۔ یہ گدی نشین عموماً درگاہ یا خانقاہ کے معاملات کی نگرانی، مریدین کی روحانی رہنمائی اور علاقے کے معاشرتی و مذہبی ذمہ داریوں کو سنبھالتا ہے۔</p>
+                <h2>پاکستان میں گدی نشینی کا نظام</h2>
+                <p>پاکستان جیسے ملک میں گدی نشینی کا ادارہ تاریخی، سماجی اور معاشرتی اہمیت کا حامل ہے۔ یہاں کئی درگاہیں اور خانقاہیں موجود ہیں جو لاکھوں عقیدت مندوں کو اپنی طرف متوجہ کرتی ہیں۔ یہ خانقاہیں اور درگاہیں زائرین کی آمد و رفت اور نذرانوں کی وجہ سے کافی مالی فائدہ بھی دیتی ہیں۔</p>
+                <p>زائرین کی عقیدت کی بنا پر جمع ہونے والے نذرانے، چندے، اور عطیات گدی نشین کے لیے ایک اہم مالی ذریعہ بن جاتے ہیں۔ بعض اوقات یہ مالی فوائد اتنی زیادہ ہوتے ہیں کہ گدی نشینی ایک قسم کا کاروبار معلوم ہوتا ہے، جس میں گدی نشینوں کا خاندان نسل در نسل اس عہدے کو برقرار رکھتا ہے۔</p>
+                <h2>اسلام میں تجارتی پہلو</h2>
+                <p>اس حوالے سے قرآن پاک میں واضح ہے کہ دین میں کسی بھی قسم کی تجارتی یا نفع اندوزی جائز نہیں، جب تک کہ وہ اللہ کی رضا کے لیے ہو۔ سورۃ البقرہ میں اللہ تعالیٰ فرماتے ہیں: "اور تم اپنے مال آپس میں ناجائز طریقے سے نہ کھاؤ"۔ اسی طرح، ایک حدیث میں نبی کریم ﷺ نے فرمایا: "کسی کو نقصان پہنچانا اور خود نقصان اٹھانا دونوں حرام ہیں"۔</p>
+                <p>ان احادیث اور قرآنی آیات کی روشنی میں یہ واضح ہوتا ہے کہ گدی نشینی یا کوئی بھی مذہبی منصب اگر مخلصانہ طور پر اللہ کی رضا کے لیے انجام دیا جائے تو جائز ہے، لیکن اگر اسے دنیاوی نفع کے لیے استعمال کیا جائے تو یہ دین کے اصولوں کے منافی ہے۔</p>
+                <h2>گدی نشینی کی تاریخی ابتدا</h2>
+                <p>گدی نشینی جیسی بدعت کی ابتدا کی واضح تاریخ کا تعین مشکل ہے، لیکن یہ کہنا درست ہو گا کہ اس کا رواج اسلام کے ابتدائی ادوار کے بعد رفتہ رفتہ مخصوص معاشرتی اور ثقافتی اثرات کے زیر اثر پیدا ہوا۔ گدی نشینی کا رواج زیادہ تر برصغیر پاک و ہند میں دیکھا جاتا ہے، جہاں صوفی ازم اور درگاہوں کی اہمیت بڑھنے کے ساتھ ساتھ گدی نشینی کے تصورات بھی پروان چڑھے۔</p>
+                <h2>اسلام کے ابتدائی دور میں</h2>
+                <p>اسلام کے ابتدائی دور میں گدی نشینی یا موروثی روحانی قیادت کا کوئی تصور نہیں تھا۔ خلافت راشدہ کا نظام اس بات کا ثبوت ہے کہ قیادت کی بنیاد علم، تقویٰ، صلاحیت، اور امت کی فلاح و بہبود پر رکھی جاتی تھی۔ اسلام میں خلافت اور روحانی قیادت کو کسی خاندانی سلسلے یا وراثت کے ذریعے منتقل نہیں کیا جاتا تھا۔</p>
+                <h2>برصغیر پاک و ہند میں</h2>
+                <p>برصغیر پاک و ہند میں صوفیاء کرام کی آمد کے ساتھ اسلام کی تبلیغ میں ایک خاص روحانی رنگ پیدا ہوا۔ صوفیاء کرام نے اپنی خانقاہوں اور درگاہوں کے ذریعے لوگوں کی روحانی تربیت کی اور انہیں دین کی طرف مائل کیا۔ ان صوفیاء کی وفات کے بعد ان کے پیروکاروں نے ان کی جگہ لینے کے لیے ان کے مریدین یا خاندان کے کسی فرد کو "گدی نشین" کے طور پر مقرر کرنا شروع کیا۔ یہیں سے گدی نشینی کا رواج شروع ہوا، جو بعد میں ایک مضبوط روایت بن گیا۔</p>
+                <h2>گدی نشینی کے فروغ کے عوامل</h2>
+                <h3>صوفیاء کی عوامی مقبولیت</h3>
+                <p>صوفیاء کرام نے برصغیر میں اسلام کی تبلیغ میں اہم کردار ادا کیا اور عوام میں بے پناہ مقبولیت حاصل کی۔ ان کی درگاہوں پر لوگوں کا ہجوم جمع ہوتا اور لوگ ان کے ذریعے اپنی روحانی اور مادی مشکلات کا حل تلاش کرتے۔</p>
+                <h3>موروثیت کا تصور</h3>
+                <p>برصغیر کے ہندو معاشرے میں موروثی قیادت کا تصور موجود تھا، جیسے کہ گرو کلیا آشرم کے نظام میں۔ جب اسلام برصغیر میں آیا تو یہ مقامی معاشرتی روایتیں بھی اس کے ساتھ مل گئیں۔</p>
+                <h3>مالی مفادات</h3>
+                <p>درگاہوں اور خانقاہوں پر زائرین کی آمد کے ساتھ نذرانوں اور عطیات کی شکل میں بڑی مالی امداد بھی ہوتی تھی۔ اس مالی فائدے نے بھی گدی نشینی کو ایک منفعہ بخش کاروبار میں تبدیل کر دیا۔</p>
+                <h2>اسلام میں قیادت کا تصور</h2>
+                <p>اسلام میں قیادت اور رہنمائی کی بنیاد علم، تقویٰ اور اللہ کی رضا پر رکھی گئی ہے، نہ کہ موروثی نظام پر۔ رسول اللہ ﷺ نے فرمایا: "جس نے ہمارے دین میں کوئی ایسی چیز ایجاد کی جو اس میں نہیں تھی، تو وہ رد کر دی جائے گی"۔</p>
+                <h2>علماء کا موقف</h2>
+                <p>بہت سے علماء اور ائمہ کرام نے گدی نشینی کے نظام کو ایک بدعت قرار دیا ہے۔ امام ابن تیمیہ رحمہ اللہ فرماتے ہیں: "دین میں بدعات سے بچنا اور سنت کی پیروی کرنا فرض ہے"۔</p>
+                <h2>مختلف مسالک میں</h2>
+                <p>لیکن مسلک بریلوی اور مسلک اہل تشیع میں اس بدعت کا خاص اہتمام کیا جاتا ہے جس کی وجہ یہ خانقاہیں آباد ہیں۔</p>
+                <h2>گدی نشینی کی ابتدا کا خلاصہ</h2>
+                <p>گدی نشینی کی ابتدا زیادہ تر برصغیر میں صوفی ازم اور مقامی روایات کے زیر اثر ہوئی، جس کا اسلامی تعلیمات سے کوئی تعلق نہیں تھا۔</p>
+                <h2>دیگر مذاہب میں گدی نشینی</h2>
+                <p>دنیا کے مختلف مذاہب میں گدی نشینی یا مذہبی قیادت کا تصور موجود ہے۔ ہندو مت میں "گدی" کو عموماً "آشرم" کا نظام کہا جاتا ہے۔ عیسائیت میں پوپ کا عہدہ، بدھ مت میں دلائی لاما کی مثال ہے۔</p>
+                <h2>نتیجہ</h2>
+                <p>گدی نشینی کا تصور بعض خطوں میں ثقافتی اہمیت رکھتا ہے، لیکن اسلامی تعلیمات کے عین مطابق رکھنے کی ضرورت ہے۔ اسلام میں علم، تقویٰ، اور خلوص کی بنیاد پر روحانی قیادت کو ترجیح دی گئی ہے۔</p>
+                
+                <!-- Reactions Section (exactly as required) -->
+                <div class="reactions-section">
+                    <div class="reactions-title">📊 اس تحریر پر آپ کا ردعمل</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Social Media Icons 7 platforms -->
+                <div class="social-share">
+                    <a href="#" class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+                </div>
+                
+                <!-- Bottom Navigation Buttons -->
+                <div class="nav-links-bottom">
+                    <a href="https://bloglovers.pk/" class="nav-bottom-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-bottom-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+                
+                <div class="footer-section">
+                    <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+                </div>
+            </div>
         </div>
         
-        <!-- Post Content -->
-        <div class="post-content">
-            <h1>گدی نشینی</h1>
-            
-            <!-- Post Image -->
-            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-7-gdi-nshyni.png" alt="گدی نشینی" class="post-image">
-            
-            <p>"گدی نشینی" ایک اصطلاح ہے جو عموماً صوفیاء اور روحانی شخصیات کی سربراہی کے منصب کی منتقلی کے لیے استعمال کی جاتی ہے۔ جب کوئی روحانی رہنما یا صوفی بزرگ وفات پاتا ہے تو اس کی جگہ اس کا مقرر کردہ یا قدرتی وارث "گدی" پر بیٹھتا ہے۔ یہ گدی نشین عموماً درگاہ یا خانقاہ کے معاملات کی نگرانی، مریدین کی روحانی رہنمائی اور علاقے کے معاشرتی و مذہبی ذمہ داریوں کو سنبھالتا ہے۔</p>
-            
-            <h2>پاکستان میں گدی نشینی کا نظام</h2>
-            <p>پاکستان جیسے ملک میں گدی نشینی کا ادارہ تاریخی، سماجی اور معاشرتی اہمیت کا حامل ہے۔ یہاں کئی درگاہیں اور خانقاہیں موجود ہیں جو لاکھوں عقیدت مندوں کو اپنی طرف متوجہ کرتی ہیں۔ یہ خانقاہیں اور درگاہیں زائرین کی آمد و رفت اور نذرانوں کی وجہ سے کافی مالی فائدہ بھی دیتی ہیں۔</p>
-            <p>زائرین کی عقیدت کی بنا پر جمع ہونے والے نذرانے، چندے، اور عطیات گدی نشین کے لیے ایک اہم مالی ذریعہ بن جاتے ہیں۔ بعض اوقات یہ مالی فوائد اتنی زیادہ ہوتے ہیں کہ گدی نشینی ایک قسم کا کاروبار معلوم ہوتا ہے، جس میں گدی نشینوں کا خاندان نسل در نسل اس عہدے کو برقرار رکھتا ہے۔</p>
-            
-            <h2>اسلام میں تجارتی پہلو</h2>
-            <p>اس حوالے سے قرآن پاک میں واضح ہے کہ دین میں کسی بھی قسم کی تجارتی یا نفع اندوزی جائز نہیں، جب تک کہ وہ اللہ کی رضا کے لیے ہو۔ سورۃ البقرہ میں اللہ تعالیٰ فرماتے ہیں: "اور تم اپنے مال آپس میں ناجائز طریقے سے نہ کھاؤ"۔ اسی طرح، ایک حدیث میں نبی کریم ﷺ نے فرمایا: "کسی کو نقصان پہنچانا اور خود نقصان اٹھانا دونوں حرام ہیں"۔</p>
-            <p>ان احادیث اور قرآنی آیات کی روشنی میں یہ واضح ہوتا ہے کہ گدی نشینی یا کوئی بھی مذہبی منصب اگر مخلصانہ طور پر اللہ کی رضا کے لیے انجام دیا جائے تو جائز ہے، لیکن اگر اسے دنیاوی نفع کے لیے استعمال کیا جائے تو یہ دین کے اصولوں کے منافی ہے۔</p>
-            
-            <h2>گدی نشینی کی تاریخی ابتدا</h2>
-            <p>گدی نشینی جیسی بدعت کی ابتدا کی واضح تاریخ کا تعین مشکل ہے، لیکن یہ کہنا درست ہو گا کہ اس کا رواج اسلام کے ابتدائی ادوار کے بعد رفتہ رفتہ مخصوص معاشرتی اور ثقافتی اثرات کے زیر اثر پیدا ہوا۔ گدی نشینی کا رواج زیادہ تر برصغیر پاک و ہند میں دیکھا جاتا ہے، جہاں صوفی ازم اور درگاہوں کی اہمیت بڑھنے کے ساتھ ساتھ گدی نشینی کے تصورات بھی پروان چڑھے۔</p>
-            
-            <h2>اسلام کے ابتدائی دور میں</h2>
-            <p>اسلام کے ابتدائی دور میں گدی نشینی یا موروثی روحانی قیادت کا کوئی تصور نہیں تھا۔ خلافت راشدہ کا نظام اس بات کا ثبوت ہے کہ قیادت کی بنیاد علم، تقویٰ، صلاحیت، اور امت کی فلاح و بہبود پر رکھی جاتی تھی۔ اسلام میں خلافت اور روحانی قیادت کو کسی خاندانی سلسلے یا وراثت کے ذریعے منتقل نہیں کیا جاتا تھا۔</p>
-            
-            <h2>برصغیر پاک و ہند میں</h2>
-            <p>برصغیر پاک و ہند میں صوفیاء کرام کی آمد کے ساتھ اسلام کی تبلیغ میں ایک خاص روحانی رنگ پیدا ہوا۔ صوفیاء کرام نے اپنی خانقاہوں اور درگاہوں کے ذریعے لوگوں کی روحانی تربیت کی اور انہیں دین کی طرف مائل کیا۔ ان صوفیاء کی وفات کے بعد ان کے پیروکاروں نے ان کی جگہ لینے کے لیے ان کے مریدین یا خاندان کے کسی فرد کو "گدی نشین" کے طور پر مقرر کرنا شروع کیا۔ یہیں سے گدی نشینی کا رواج شروع ہوا، جو بعد میں ایک مضبوط روایت بن گیا۔</p>
-            
-            <h2>گدی نشینی کے فروغ کے عوامل</h2>
-            <p>گدی نشینی کے رواج کو فروغ دینے میں کئی عوامل نے کردار ادا کیا:</p>
-            
-            <h3>صوفیاء کی عوامی مقبولیت</h3>
-            <p>صوفیاء کرام نے برصغیر میں اسلام کی تبلیغ میں اہم کردار ادا کیا اور عوام میں بے پناہ مقبولیت حاصل کی۔ ان کی درگاہوں پر لوگوں کا ہجوم جمع ہوتا اور لوگ ان کے ذریعے اپنی روحانی اور مادی مشکلات کا حل تلاش کرتے۔ ان صوفیاء کی وفات کے بعد ان کے پیروکاروں نے اس نظام کو جاری رکھنے کے لیے گدی نشینوں کو مقرر کیا۔</p>
-            
-            <h3>موروثیت کا تصور</h3>
-            <p>برصغیر کے ہندو معاشرے میں موروثی قیادت کا تصور موجود تھا، جیسے کہ گرو کلیا آشرم کے نظام میں۔ جب اسلام برصغیر میں آیا تو یہ مقامی معاشرتی روایتیں بھی اس کے ساتھ مل گئیں اور گدی نشینی کا رواج مضبوط ہوا۔</p>
-            
-            <h3>مالی مفادات</h3>
-            <p>درگاہوں اور خانقاہوں پر زائرین کی آمد کے ساتھ نذرانوں اور عطیات کی شکل میں بڑی مالی امداد بھی ہوتی تھی۔ اس مالی فائدے نے بھی گدی نشینی کو ایک منفعہ بخش کاروبار میں تبدیل کر دیا۔</p>
-            
-            <h2>اسلام میں قیادت کا تصور</h2>
-            <p>اسلام میں قیادت اور رہنمائی کی بنیاد علم، تقویٰ اور اللہ کی رضا پر رکھی گئی ہے، نہ کہ موروثی نظام پر۔ قرآن و حدیث میں ایسی کسی بدعتی یا روایت کی اجازت نہیں دی گئی ہے جو دین کے اصولوں سے متصادم ہو۔ رسول اللہ ﷺ نے واضح طور پر فرمایا: "جس نے ہمارے دین میں کوئی ایسی چیز ایجاد کی جو اس میں نہیں تھی، تو وہ رد کر دی جائے گی"۔</p>
-            <p>یہ حدیث اس بات کی تصدیق کرتی ہے کہ دین میں کسی نئی رسم یا روایت کو داخل کرنا بدعت ہے، اور ایسی بدعات کو دین میں کوئی مقام حاصل نہیں۔</p>
-            
-            <h2>علماء کا موقف</h2>
-            <p>بہت سے علماء اور ائمہ کرام نے گدی نشینی کے نظام کو ایک بدعت قرار دیا ہے۔ ان کا موقف ہے کہ گدی نشینی کا تصور اسلامی تعلیمات کے برخلاف ہے، کیونکہ دین کی قیادت اور روحانی رہنمائی کسی خاندانی یا نسلی وراثت نہیں ہونی چاہیے، بلکہ اس کا انحصار تقویٰ، علم، اور خدمت پر ہونا چاہیے۔</p>
-            <p>امام ابن تیمیہ رحمہ اللہ فرماتے ہیں: "دین میں بدعات سے بچنا اور سنت کی پیروی کرنا فرض ہے"۔ یہ بات واضح کرتی ہے کہ گدی نشینی جیسے بدعتی تصورات کی کوئی اصل اسلامی شریعت میں نہیں ہے۔</p>
-            
-            <h2>مختلف مسالک میں</h2>
-            <p>لیکن مسلک بریلوی اور مسلک اہل تشیع میں اس بدعت کا خاص اہتمام کیا جاتا ہے جس کی وجہ یہ خانقاہیں آباد ہیں۔</p>
-            
-            <h2>گدی نشینی کی ابتدا کا خلاصہ</h2>
-            <p>گدی نشینی کی ابتدا زیادہ تر برصغیر میں صوفی ازم اور مقامی روایات کے زیر اثر ہوئی، جس کا اسلامی تعلیمات سے کوئی تعلق نہیں تھا۔ یہ ایک ایسی بدعت ہے جو رفتہ رفتہ معاشرتی اور مالی مفادات کی وجہ سے پروان چڑھی۔ اسلام میں روحانی قیادت کا معیار تقویٰ، علم اور اخلاص پر مبنی ہونا چاہیے نہ کہ موروثی سلسلے پر۔</p>
-            
-            <h2>دیگر مذاہب میں گدی نشینی</h2>
-            <p>دنیا کے مختلف مذاہب میں گدی نشینی یا مذہبی قیادت کا تصور موجود ہے۔ ہندو مت میں "گدی" کو عموماً "آشرم" یا "گرو کل" کا نظام کہا جاتا ہے جہاں گرو اپنے شاگردوں کو تعلیم دیتے ہیں اور بعد میں اپنے کسی شاگرد کو اپنا جانشین مقرر کرتے ہیں۔</p>
-            <p>عیسائیت میں بھی مذہبی قیادت کا ایک سلسلہ پایا جاتا ہے۔ رومن کیتھولک چرچ میں پوپ کا عہدہ ایک ایسی ہی مثال ہے جو ایک روحانی سلسلے کے ذریعے نئے پوپ کو منتقل کیا جاتا ہے۔</p>
-            <p>بدھ مت میں "دلائی لاما" کی مثال لی جا سکتی ہے جو روحانی قیادت کی ایک عظیم شکل ہے اور نئے دلائی لاما کا انتخاب مخصوص قواعد کے تحت کیا جاتا ہے۔</p>
-            
-            <h2>اسلام میں روحانی قیادت</h2>
-            <p>اسلامی تاریخ میں گدی نشینی یا روحانی قیادت کے مناصب کی کوئی ایک معیاری شکل متعین نہیں ہے۔ اسلام کی بنیاد اللہ اور اس کے رسول ﷺ کی اطاعت اور قرآن و سنت کی پیروی پر ہے۔ اسلامی معاشرے میں علماء اور فقہاء کو بڑا مقام حاصل ہے، لیکن اس میں کوئی موروثی سلسلہ نہیں ہوتا۔</p>
-            <p>قرآن مجید میں اللہ تعالیٰ فرماتے ہیں: "بے شک تم میں سے عزت والا وہی ہے جو زیادہ پرہیزگار ہے"۔ یہ آیت اس بات کی طرف اشارہ کرتی ہے کہ عزت و مقام تقویٰ اور اللہ کی رضا کی بنیاد پر ہے، نہ کہ کسی خاندانی یا موروثی سلسلے کی بنیاد پر۔</p>
-            
-            <h2>نتیجہ</h2>
-            <p>گدی نشینی کا تصور بعض خطوں میں ثقافتی اور معاشرتی اہمیت رکھتا ہے، لیکن اسے اسلامی تعلیمات کے عین مطابق رکھنے کی ضرورت ہے۔ گدی نشین کو اللہ کی رضا کے لیے اپنی خدمات انجام دینی چاہئیں اور اسے دنیاوی نفع یا کاروبار کا ذریعہ نہیں بنانا چاہیے۔ اسلام میں علم، تقویٰ، اور خلوص کی بنیاد پر روحانی قیادت کو ترجیح دی گئی ہے اور خاندانی یا موروثی سلسلے کو زیادہ اہمیت نہیں دی گئی۔</p>
-            
-            <div class="footer-section">
-                <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+        <!-- Sidebar with auto-scroll -->
+        <div class="sidebar" id="sidebarWidget">
+            <div class="sidebar-header"><i class="fas fa-book-open"></i> مزید اہم مضامین</div>
+            <div class="sidebar-posts" id="sidebarPostsList">
+                <!-- dynamic posts will be injected here -->
             </div>
         </div>
     </div>
-
+    
     <script>
-        // Navigation functions
-        function goBack() {
-            window.history.back();
+        // ----- SIDEBAR DATA (10 posts with links/images) -----
+        const sidebarPosts = [
+            { title: "5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+            { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+            { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" }
+        ];
+        
+        // Render sidebar
+        function renderSidebar() {
+            const container = document.getElementById('sidebarPostsList');
+            if (!container) return;
+            let html = '';
+            const currentPageTitle = "گدی نشینی";
+            sidebarPosts.forEach(post => {
+                let activeClass = (post.title.includes("گدی نشینی") || (post.title === "دین کی پاکیزگی پر 50 بدعتی حملے 7- گدی نشینی")) ? 'active' : '';
+                html += `
+                    <a href="${post.link}" class="sidebar-item ${activeClass}">
+                        <img src="${post.img}" alt="${post.title}" class="sidebar-img" onerror="this.src='https://placehold.co/55x55?text=Post'">
+                        <div class="sidebar-info">
+                            <div class="sidebar-title">${post.title}</div>
+                        </div>
+                    </a>
+                `;
+            });
+            container.innerHTML = html;
         }
         
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+        // Auto-scroll sidebar (cycle every 30 seconds)
+        let scrollInterval;
+        function startSidebarScroll() {
+            const sidebarDiv = document.querySelector('.sidebar-posts');
+            if (!sidebarDiv) return;
+            let scrollAmount = 0;
+            scrollInterval = setInterval(() => {
+                if (!sidebarDiv.matches(':hover')) {
+                    const maxScroll = sidebarDiv.scrollHeight - sidebarDiv.clientHeight;
+                    if (scrollAmount + 1 >= maxScroll) scrollAmount = 0;
+                    else scrollAmount += 1.8;
+                    sidebarDiv.scrollTo({ top: scrollAmount, behavior: 'smooth' });
+                }
+            }, 200);
         }
         
-        function scrollToBottom() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
+        function stopSidebarScroll() {
+            if (scrollInterval) clearInterval(scrollInterval);
+        }
+        
+        // Hover pause
+        const sidebarEl = document.querySelector('.sidebar-posts');
+        if (sidebarEl) {
+            sidebarEl.addEventListener('mouseenter', () => stopSidebarScroll());
+            sidebarEl.addEventListener('mouseleave', () => startSidebarScroll());
+        }
+        
+        // General helpers
+        function goBack() { window.history.back(); }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+        
+        // Social share functions (preserved)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=450');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!'));
         }
         
         // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Page up key
-            if (e.key === 'PageUp' || (e.key === 'ArrowUp' && e.ctrlKey)) {
-                scrollToTop();
-                e.preventDefault();
-            }
-            // Page down key
-            if (e.key === 'PageDown' || (e.key === 'ArrowDown' && e.ctrlKey)) {
-                scrollToBottom();
-                e.preventDefault();
-            }
-            // Escape key for back
-            if (e.key === 'Escape') {
-                goBack();
-            }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'PageUp' || (e.key === 'ArrowUp' && e.ctrlKey)) { scrollToTop(); e.preventDefault(); }
+            if (e.key === 'PageDown' || (e.key === 'ArrowDown' && e.ctrlKey)) { scrollToBottom(); e.preventDefault(); }
+            if (e.key === 'Escape') goBack();
         });
         
-        // Add hover effect to rainbow background on mobile touch
-        if ('ontouchstart' in window) {
-            document.querySelector('.rainbow-bg').addEventListener('touchstart', function() {
-                this.style.opacity = '0.15';
-                setTimeout(() => {
-                    this.style.opacity = '0.1';
-                }, 500);
-            });
-        }
-        
-        // Add scroll effect to post content
-        window.addEventListener('scroll', function() {
+        // Scroll effect for post content
+        window.addEventListener('scroll', () => {
             const postContent = document.querySelector('.post-content');
-            const scrollPosition = window.scrollY;
-            
-            if (scrollPosition > 100) {
-                postContent.style.transform = 'translateY(-2px)';
-            } else {
-                postContent.style.transform = 'translateY(0)';
-            }
+            if (postContent) postContent.style.transform = window.scrollY > 100 ? 'translateY(-2px)' : 'translateY(0)';
         });
+        
+        // Init
+        renderSidebar();
+        setTimeout(() => { startSidebarScroll(); }, 500);
     </script>
+    <!-- reactions.js will handle reactionClick and counts; ensure it's loaded externally -->
+    <script src="/reactions.js"></script>
+    <!-- No duplicate reaction functions: removed loadReactions, updateReactionsUI, addReaction etc -->
 </body>
 </html>
