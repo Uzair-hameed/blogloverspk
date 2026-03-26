@@ -48,10 +48,20 @@
             100% { transform: translateX(100%) rotate(3deg); }
         }
 
-        /* Main post container */
-        .post-container {
-            max-width: 1000px;
+        /* Main container - we will use flex to add sidebar */
+        .main-layout {
+            max-width: 1300px;
             margin: 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        /* Post container */
+        .post-container {
+            flex: 3;
+            min-width: 280px;
             background: rgba(255, 255, 245, 0.95);
             backdrop-filter: blur(5px);
             border-radius: 40px 40px 30px 30px;
@@ -65,17 +75,120 @@
             box-shadow: 0 35px 60px -10px #176b38;
         }
 
-        /* Heading styling - bold and colorful */
+        /* Sidebar styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255, 250, 235, 0.92);
+            backdrop-filter: blur(4px);
+            border-radius: 35px;
+            box-shadow: 0 18px 35px -8px #2c5a3e;
+            padding: 20px 15px;
+            border: 1px solid #f0e2c5;
+            position: sticky;
+            top: 20px;
+            height: auto;
+            align-self: flex-start;
+        }
+
+        .sidebar h3 {
+            font-size: 1.8rem;
+            color: #9b2c2c;
+            text-align: center;
+            border-bottom: 3px solid #e6a345;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        /* Scrollable posts list */
+        .sidebar-posts {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding-left: 5px;
+            padding-right: 8px;
+        }
+
+        /* Custom scrollbar */
+        .sidebar-posts::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar-posts::-webkit-scrollbar-track {
+            background: #e9dbc9;
+            border-radius: 10px;
+        }
+        .sidebar-posts::-webkit-scrollbar-thumb {
+            background: #b88b4b;
+            border-radius: 10px;
+        }
+
+        /* Auto-scroll animation */
+        @keyframes autoScrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+
+        .auto-scroll-wrapper {
+            display: flex;
+            flex-direction: column;
+            animation: autoScrollPosts 30s linear infinite;
+        }
+
+        .sidebar-posts:hover .auto-scroll-wrapper {
+            animation-play-state: paused;
+        }
+
+        /* Each post card in sidebar */
+        .side-post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fffef7;
+            margin-bottom: 18px;
+            border-radius: 28px;
+            padding: 8px 10px;
+            transition: 0.2s;
+            border: 1px solid #f0e2cf;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .side-post-item:hover {
+            background: #fef2e0;
+            transform: scale(1.01);
+            border-color: #e0b074;
+        }
+        .side-post-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 2px solid #dbb067;
+            background: #f3e9d2;
+        }
+        .side-post-item a {
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2b5e3b;
+            line-height: 1.4;
+            flex: 1;
+        }
+        .side-post-item a:hover {
+            color: #c24a1a;
+        }
+
+        /* Heading styling */
         h1 {
-            font-size: 2.2rem;  /* Reduced from 2.6rem to appropriate size */
-            color: #9b2c2c;      /* Deep red/burgundy for main heading */
+            font-size: 2.2rem;
+            color: #9b2c2c;
             text-align: center;
             margin: 15px 0 20px;
             padding-bottom: 15px;
             border-bottom: 4px solid #e6a345;
             line-height: 1.5;
             text-shadow: 1px 1px 3px #f5d0a9;
-            font-weight: 800;     /* Extra bold */
+            font-weight: 800;
             background: linear-gradient(135deg, #9b2c2c, #b6581c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -83,8 +196,8 @@
         }
 
         h2, h3 {
-            font-size: 1.9rem;    /* Reduced, but bold and colored */
-            color: #1e6d4c;        /* Dark green */
+            font-size: 1.9rem;
+            color: #1e6d4c;
             margin: 22px 0 15px;
             border-right: 8px solid #f09b43;
             padding-right: 20px;
@@ -95,9 +208,8 @@
             background-clip: text;
         }
 
-        /* Text size - normal and readable, not too large */
         p, li, .post-text {
-            font-size: 1.3rem;      /* Normal reading size */
+            font-size: 1.3rem;
             text-align: justify;
             margin-bottom: 20px;
             color: #1f342b;
@@ -107,11 +219,10 @@
 
         strong {
             color: #b3412c;
-            font-size: 1.35rem;     /* Slightly bigger than regular text */
+            font-size: 1.35rem;
             font-weight: 700;
         }
 
-        /* Image after title - full visible */
         .featured-image {
             width: 100%;
             max-height: 450px;
@@ -129,7 +240,54 @@
             filter: drop-shadow(0 15px 20px #3d6e4a);
         }
 
-        /* navigation buttons */
+        /* Reactions container styles */
+        .reactions-section {
+            background: #fff7ea;
+            border-radius: 50px;
+            padding: 15px 20px;
+            margin: 35px 0 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #f3e0c0;
+        }
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .reaction-btn {
+            background: #ffffff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 3px 8px #cfb28452;
+            color: #3b2c1e;
+            font-weight: 600;
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ffe0b5;
+            box-shadow: 0 6px 12px #cb9e60;
+        }
+        .reaction-count {
+            font-size: 1.1rem;
+            background: #e9ddca;
+            padding: 2px 8px;
+            border-radius: 50px;
+            margin-right: 6px;
+            font-weight: bold;
+            color: #5c3e1a;
+        }
+
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -165,7 +323,6 @@
             color: #0a2f1f;
         }
 
-        /* social share buttons */
         .share-wrap {
             display: flex;
             flex-wrap: wrap;
@@ -185,10 +342,8 @@
             font-size: 2.2rem;
             box-shadow: 0 4px 12px #1f3b2b99;
             transition: 0.2s ease-in;
-            color: #2c3e50;
             text-decoration: none;
         }
-
         .share-btn:hover {
             transform: scale(1.25) rotate(8deg);
             background: #259f6d;
@@ -196,7 +351,6 @@
             box-shadow: 0 12px 18px #117744;
         }
 
-        /* page up/down buttons (fixed) */
         .page-controls {
             position: fixed;
             left: 15px;
@@ -206,7 +360,6 @@
             gap: 12px;
             z-index: 99;
         }
-
         .page-controls a {
             background: #1b4b36e0;
             color: white;
@@ -221,61 +374,45 @@
             border: 2px solid #ecf0f1;
             transition: 0.3s;
         }
-
         .page-controls a:hover {
             background: #e67e22;
             transform: scale(1.2);
         }
 
-        /* mobile responsive fine-tuning */
-        @media (max-width: 680px) {
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; }
+            .sidebar { position: relative; top: 0; width: 100%; }
             h1 { font-size: 1.9rem; }
             h2 { font-size: 1.7rem; }
             p { font-size: 1.2rem; }
-            .btn { font-size: 1.2rem; padding: 10px 18px; }
-            .post-container { padding: 20px 15px; }
-            .share-btn { width: 48px; height: 48px; font-size: 2rem; }
         }
 
-        /* Remove all internal linking (disable any relative links) */
-        a:not(.btn):not(.share-btn):not(.page-controls a) {
-            pointer-events: none;
-            cursor: default;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* colorful touches */
         hr {
             border: 2px dashed #eab44f;
             margin: 30px 0;
         }
-
-        /* No toggle option used */
     </style>
 </head>
 <body>
-    <!-- page up/down fixed buttons -->
-    <div class="page-controls">
-        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
-        <a href="#" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
-    </div>
 
+<div class="page-controls">
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
+</div>
+
+<div class="main-layout">
+    <!-- MAIN POST CONTENT -->
     <div class="post-container">
-        <!-- Home & Back buttons (external links) -->
         <div class="nav-buttons">
             <a href="https://bloglovers.pk/" class="btn" target="_blank" rel="noopener"><i class="fas fa-home"></i> ہوم پیج</a>
             <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank" rel="noopener"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
         </div>
 
-        <!-- Main Title - bold and colorful -->
         <h1>دین کی پاکیزگی پر 50 بدعتی حملے 18 - قبروں پر دئیے جلانا</h1>
 
-        <!-- Single Image after title (full width) -->
         <img class="featured-image" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-18-qbron-par-dye-jlana.png" alt="قبروں پر دئیے جلانا - بدعت" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%20viewBox%3D%220%200%20800%20400%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23eedcc9%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%22200%22%20font-family%3D%22system-ui%22%20font-size%3D%2230%22%20fill%3D%22%233d2b15%22%3E\u062a\u0635\u0648\u06cc\u0631\u200f\u0020\u0642\u0628\u0631\u0648\u06ba\u0020\u067e\u0631\u0020\u062f\u0626\u06d2\u0020\u062c\u0644\u0627\u0646\u0627\u003C%2Ftext%3E%3C%2Fsvg%3E';">
 
-        <!-- POST CONTENT (exact original text, not a word changed) -->
-        <!-- Note: "سکھ ازم" is correctly written as in original, not "سکھازم" -->
+        <!-- Full article content unchanged -->
         <p>قبروں پر دئیے جلانا ایک قدیم رسم ہے، جس میں لوگ مردوں کی قبروں پر چراغ یا دئیے روشن کرتے ہیں۔ اس کا مقصد مردے کی روح کو تسلی دینا، اس کی روح کی حفاظت کرنا، یا اس کے لیے کسی قسم کا روحانی فائدہ پہنچانا سمجھا جاتا ہے۔ یہ عمل مختلف مذاہب اور ثقافتوں میں پایا جاتا ہے، مگر اسلام میں اس کا کوئی شرعی حکم موجود نہیں، بلکہ یہ غیر اسلامی اور بدعتی تصور ہے۔</p>
         <p><strong>ہندوازم:</strong> ہندوازم میں قبروں پر دئیے جلانے کا عمل عام ہے، خاص طور پر پوجا یا دیگر مذہبی رسومات کے دوران۔ ہندو عقائد میں روحوں کی تسکین اور ان کی خوشنودی کے لیے چراغ جلائے جاتے ہیں۔</p>
         <p><strong>یہودی:</strong> یہودی مذہب میں قبرستانوں پر یا مرنے والوں کی قبروں کے قریب دئیے جلانے کا رواج پایا جاتا ہے، خصوصاً یوم کپور جیسے مواقع پر، جسے یومِ کفارہ کہا جاتا ہے۔</p>
@@ -306,24 +443,75 @@
         <p>قبروں پر دئیے جلانے جیسی رسومات کا اسلام میں کوئی جواز نہیں ہے اور یہ صریح بدعت ہے۔ مسلمانوں کو چاہیے کہ وہ دین اسلام کی اصل روحانی تعلیمات کو سمجھیں اور ان بدعات سے بچیں۔</p>
         <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
 
-        <hr>
+        <!-- REACTIONS SECTION (as per requirements) -->
+        <div class="reactions-section">
+            <div class="reaction-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
 
-        <!-- Social Media Sharing Buttons (multiple platforms) -->
+        <!-- Social share icons (7 platforms) -->
         <div class="share-wrap">
             <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/" target="_blank" class="share-btn" style="background:#1877f2; color:white;"><i class="fab fa-facebook-f"></i></a>
             <a href="https://wa.me/?text=%D8%AF%DB%8C%D9%86%20%DA%A9%DB%8C%20%D9%BE%D8%A7%DA%A9%DB%8C%D8%B2%DA%AF%DB%8C%20%D9%BE%D8%B1%2050%20%D8%A8%D8%AF%D8%B9%D8%AA%DB%8C%20%D8%AD%D9%85%D9%84%DB%92%20-%20%D9%82%D8%A8%D8%B1%D9%88%DA%BA%20%D9%BE%D8%B1%20%D8%AF%D8%A6%DB%92%20%D8%AC%D9%84%D8%A7%D9%86%D8%A7%20https://bloglovers.pk/" target="_blank" class="share-btn" style="background:#25D366; color:white;"><i class="fab fa-whatsapp"></i></a>
             <a href="https://twitter.com/intent/tweet?text=%D8%AF%DB%8C%D9%86%20%DA%A9%DB%8C%20%D9%BE%D8%A7%DA%A9%DB%8C%D8%B2%DA%AF%DB%8C%20%D9%BE%D8%B1%2050%20%D8%A8%D8%AF%D8%B9%D8%AA%DB%8C%20%D8%AD%D9%85%D9%84%DB%92%20-%20%D9%82%D8%A8%D8%B1%D9%88%DA%BA%20%D9%BE%D8%B1%20%D8%AF%D8%A6%DB%92%20%D8%AC%D9%84%D8%A7%D9%86%D8%A7&amp;url=https://bloglovers.pk/" target="_blank" class="share-btn" style="background:#1DA1F2; color:white;"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.instagram.com/" target="_blank" class="share-btn" style="background:#E4405F; color:white;"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/&title=دین کی پاکیزگی پر 50 بدعتی حملے" target="_blank" class="share-btn" style="background:#0077b5; color:white;"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://telegram.me/share/url?url=https://bloglovers.pk/&text=%D8%AF%DB%8C%D9%86%20%DA%A9%DB%8C%20%D9%BE%D8%A7%DA%A9%DB%8C%D8%B2%DA%AF%DB%8C%20%D9%BE%D8%B1%2050%20%D8%A8%D8%AF%D8%B9%D8%AA%DB%8C%20%D8%AD%D9%85%D9%84%DB%92" target="_blank" class="share-btn" style="background:#0088cc; color:white;"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/&media=https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-18-qbron-par-dye-jlana.png&description=قبروں پر دئیے جلانا" target="_blank" class="share-btn" style="background:#bd081c; color:white;"><i class="fab fa-pinterest-p"></i></a>
+            <button class="share-btn" style="background:#6c757d; color:white; border:none; cursor:pointer;" onclick="copyPageLink()"><i class="fas fa-link"></i></button>
         </div>
 
-        <!-- Bottom home/back for convenience -->
+        <!-- New nav buttons (home + all posts) -->
         <div class="nav-buttons" style="margin-top:15px;">
-            <a href="https://bloglovers.pk/" class="btn" target="_blank" rel="noopener"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank" rel="noopener"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+            <a href="https://bloglovers.pk/" class="btn" target="_blank" rel="noopener"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="btn" target="_blank" rel="noopener"><i class="fas fa-list"></i> تمام پوسٹس</a>
         </div>
     </div>
 
-    <!-- No toggle used. All internal links disabled. -->
+    <!-- SIDEBAR with auto-scroll internal links -->
+    <div class="sidebar">
+        <h3><i class="fas fa-book-open"></i> مزید مقالات</h3>
+        <div class="sidebar-posts">
+            <div class="auto-scroll-wrapper">
+                <!-- Post list exactly as requested (10 items) -->
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی"><a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی کرنا"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بھیک مانگنا"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="قبضہ کرنا"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عمل نہ کرنا"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں منانا"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="دھاگے باندھنا"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="سجدہ کرنا"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="بے حیائی پھیلانا"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہیٰ"><a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a></div>
+                <div class="side-post-item"><img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="دل دکھانا"><a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Helper function to copy link (social)
+    window.copyPageLink = function() {
+        const dummy = document.createElement('input');
+        dummy.value = window.location.href;
+        document.body.appendChild(dummy);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        alert("لنک کاپی ہوگیا!");
+    };
+</script>
+
+<!-- Load reactions.js from root (already present) -->
+<script src="/reactions.js"></script>
 </body>
 </html>
