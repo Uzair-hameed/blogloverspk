@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دین کی پاکیزگی پر 50 بدعتی حملے 10 - دسواں منانا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Free) for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face { 
             font-family: 'Jameel Noori Nastaleeq'; 
@@ -40,7 +42,7 @@
             overflow-x: hidden;
         }
         
-        /* Orange & Blue animated background theme */
+        /* Animated Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -61,23 +63,122 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Content Container */
-        .content-container {
-            max-width: 900px;
+        /* Layout: main content + sidebar (inline flex) */
+        .main-wrapper {
+            max-width: 1300px;
             margin: 0 auto;
+            padding: 40px 20px 100px;
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            position: relative;
+        }
+        
+        .content-container {
+            flex: 2;
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            position: relative;
-            margin-top: 40px;
-            margin-bottom: 100px;
             transition: transform 0.3s ease;
         }
         
         .content-container:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Sidebar Styling */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 24px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px 15px;
+            position: sticky;
+            top: 30px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255,107,53,0.2);
+        }
+        
+        .sidebar h3 {
+            color: var(--dark-blue);
+            font-size: 1.8rem;
+            text-align: center;
+            border-bottom: 2px solid var(--orange-color);
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+        
+        /* Auto-scroll container */
+        .posts-scroll {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            direction: ltr; /* for scroll but content stays rtl */
+            scroll-behavior: smooth;
+            position: relative;
+        }
+        
+        .posts-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .posts-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .posts-scroll::-webkit-scrollbar-thumb {
+            background: var(--orange-color);
+            border-radius: 10px;
+        }
+        
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding: 10px;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            direction: rtl;
+        }
+        
+        .post-item:hover {
+            background: #fff5f0;
+            transform: translateX(-5px);
+        }
+        
+        .post-item.active-post {
+            background: linear-gradient(95deg, #fff0e6, #ffe6d5);
+            border-right: 5px solid var(--orange-color);
+        }
+        
+        .post-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+        
+        .post-item a {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--dark-blue);
+            text-decoration: none;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .post-item a:hover {
+            color: var(--orange-color);
         }
         
         /* Header and Title */
@@ -104,7 +205,6 @@
             font-size: 2.8rem;
             margin-bottom: 15px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 0 10px;
         }
         
         h2 {
@@ -121,16 +221,13 @@
             margin: 20px 0 12px;
         }
         
-        /* Paragraph text with increased size */
         p {
             font-size: 1.4rem;
             margin-bottom: 20px;
             text-align: justify;
             line-height: 2.4;
-            padding: 0 5px;
         }
         
-        /* Main image after title */
         .main-image {
             width: 100%;
             max-height: 500px;
@@ -140,15 +237,128 @@
             display: block;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             border: 5px solid white;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            transition: transform 0.5s ease;
         }
         
         .main-image:hover {
             transform: scale(1.01);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
         
-        /* Buttons Styling */
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: #fef7e8;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+        }
+        
+        .reactions-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .reaction-btn {
+            background: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ffe0b5;
+        }
+        
+        .reaction-count {
+            font-weight: bold;
+            background: #ffedd5;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        
+        /* Navigation Buttons (after post) */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(45deg, var(--orange-color), var(--blue-color));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        
+        /* Social Media Icons (7 platforms) */
+        .social-share {
+            margin: 25px 0 15px;
+            text-align: center;
+        }
+        
+        .social-share p {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            transition: 0.2s;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* floating buttons */
         .control-buttons {
             position: fixed;
             left: 20px;
@@ -178,7 +388,6 @@
         
         .btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
         .back-btn {
@@ -191,103 +400,41 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
             z-index: 100;
             font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .back-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
-        /* Mobile Responsive */
+        /* responsive */
         @media (max-width: 992px) {
-            .content-container {
-                margin: 20px;
+            .main-wrapper {
+                flex-direction: column;
                 padding: 20px;
-                margin-top: 80px;
             }
-            
-            h1 {
-                font-size: 2.2rem;
+            .sidebar {
+                position: static;
+                width: 100%;
             }
-            
-            h2 {
-                font-size: 1.8rem;
+            .content-container {
+                margin: 0;
             }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            p {
-                font-size: 1.2rem;
-                line-height: 2.2;
-            }
-            
-            .control-buttons {
-                left: 10px;
-            }
-            
-            .btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-                top: 10px;
-                right: 10px;
-            }
+            h1 { font-size: 2rem; }
+            p { font-size: 1.2rem; }
+            .btn { width: 50px; height: 50px; }
         }
         
         @media (max-width: 576px) {
-            .content-container {
-                margin: 10px;
-                padding: 15px;
-                margin-top: 70px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            h3 {
-                font-size: 1.3rem;
-            }
-            
-            p {
-                font-size: 1.1rem;
-                line-height: 2;
-            }
-            
-            .control-buttons {
-                left: 5px;
-                gap: 10px;
-            }
-            
-            .btn {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
+            .content-container { padding: 15px; }
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1.1rem; }
+            .reaction-btn { padding: 5px 12px; font-size: 0.9rem; }
         }
         
-        /* Remove link styling (as requested) */
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        /* Decorative elements */
+        a { text-decoration: none; }
         .decoration {
             position: absolute;
             width: 150px;
@@ -296,144 +443,258 @@
             background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, rgba(30,144,255,0.1) 100%);
             z-index: -1;
         }
+        .decoration-1 { top: -50px; right: -50px; }
+        .decoration-2 { bottom: -50px; left: -50px; }
         
-        .decoration-1 {
-            top: -50px;
-            right: -50px;
-        }
-        
-        .decoration-2 {
-            bottom: -50px;
-            left: -50px;
-        }
-        
-        /* Content highlight on hover */
-        .content-container p:hover, 
-        .content-container h2:hover, 
-        .content-container h3:hover {
+        /* hover effects */
+        .content-container p:hover, .content-container h2:hover {
             background-color: rgba(255, 107, 53, 0.05);
-            transition: background-color 0.3s ease;
             border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="animated-bg"></div>
-    
-    <!-- Decorative elements -->
     <div class="decoration decoration-1"></div>
     <div class="decoration decoration-2"></div>
     
-    <!-- Back Button -->
-    <a href="#" class="back-btn">← واپس جائیں</a>
+    <a href="#" class="back-btn" id="backButton">← واپس جائیں</a>
     
-    <!-- Control Buttons -->
     <div class="control-buttons">
         <button class="btn page-up" onclick="scrollToTop()">↑</button>
         <button class="btn page-down" onclick="scrollToBottom()">↓</button>
     </div>
     
-    <!-- Main Content -->
-    <div class="content-container">
-        <div class="post-header">
-            <h1>دسواں منانا</h1>
+    <div class="main-wrapper">
+        <!-- Main Article Content -->
+        <div class="content-container">
+            <div class="post-header">
+                <h1>دسواں منانا</h1>
+            </div>
+            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-10-dsoan-mnana.png" alt="دسواں منانا" class="main-image">
+            
+            <p>"دسواں منانا" ایک رسم ہے جو مرنے والے شخص کے انتقال کے دس دن بعد انجام دی جاتی ہے۔ اس کا مقصد مرنے والے کی روح کے لیے دعائیں کرنا اور قرآن خوانی کرنا ہوتا ہے۔ اس موقع پر لوگوں کو مدعو کیا جاتا ہے، اور عموماً کھانے کا بھی اہتمام کیا جاتا ہے۔ یہ رسم خاص طور پر برصغیر پاک و ہند میں عام ہے، جہاں خاندان والے مرنے والے کے لیے مغفرت کی دعائیں کرتے ہیں۔</p>
+            
+            <h2>دسویں منانے کا طریقہ</h2>
+            <p>دسویں منانے کا طریقہ مختلف علاقوں اور فرقوں میں کچھ فرق کے ساتھ تقریباً یکساں ہوتا ہے۔ عمومی طور پر دسویں منانے کا طریقہ کار درج ذیل ہوتا ہے:</p>
+            
+            <h3>اجتماع اور دعوت</h3>
+            <p>مرنے والے کے گھر یا کسی قریبی مقام پر لوگوں کو مدعو کیا جاتا ہے۔ خاندان والے، رشتہ دار، دوست احباب اور اہل محلہ اس اجتماع میں شامل ہوتے ہیں۔</p>
+            
+            <h3>قرآن خوانی اور دعائیں</h3>
+            <p>مرنے والے کے لیے قرآن خوانی کی جاتی ہے، اور خاص طور پر سورۂ یٰسین، سورۂ فاتحہ، یا دیگر سورتیں پڑھی جاتی ہیں۔ دعا کے دوران مرنے والے کی مغفرت اور جنت میں اعلیٰ مقام کی دعا کی جاتی ہے۔</p>
+            
+            <h3>علماء کی تقریر</h3>
+            <p>بعض اوقات علماء یا واعظ حضرات کو مدعو کیا جاتا ہے جو مرنے والے کے ایصالِ ثواب کے لیے دعا کرتے ہیں اور حاضرین کو آخرت کی یاد دہانی کے موضوع پر نصیحت کرتے ہیں۔</p>
+            
+            <h3>کھانے کا اہتمام</h3>
+            <p>قرآن خوانی کے بعد کھانے کا اہتمام کیا جاتا ہے۔ بعض مقامات پر اس کھانے کو صدقہ یا خیرات کے طور پر تقسیم کیا جاتا ہے تاکہ مرنے والے کے لیے ثواب حاصل ہو۔</p>
+            
+            <h3>فاتحہ خوانی اور دعا</h3>
+            <p>آخر میں اجتماعی طور پر فاتحہ خوانی اور دعا کی جاتی ہے، جسے مرنے والے کے ایصالِ ثواب کے لیے انجام دیا جاتا ہے۔</p>
+            
+            <h2>مختلف مذاہب میں دسویں منانے کا تصور</h2>
+            <p>دسویں منانے کا تصور مختلف مذاہب اور معاشروں میں مختلف طریقوں سے پایا جاتا ہے:</p>
+            
+            <h3>ہندومت</h3>
+            <p>ہندو مذہب میں مرنے والے کے لیے دس دن تک مختلف رسومات کی جاتی ہیں جنہیں "دشاہ" کہا جاتا ہے۔ ان رسومات کا مقصد مرنے والے کی روح کو تسکین اور مغفرت کی دعا کرنا ہوتا ہے۔</p>
+            
+            <h3>عیسائیت</h3>
+            <p>عیسائیت میں مرنے والوں کے لیے مخصوص دنوں میں دعائیں کی جاتی ہیں، اور مرنے والے کو یاد رکھا جاتا ہے۔ بعض عیسائی فرقے نو دن تک دعائیں پڑھتے ہیں جسے "نووینا" کہا جاتا ہے۔</p>
+            
+            <h3>زرتشت مذہب</h3>
+            <p>زرتشتی مذہب میں بھی مرنے والے کے لیے مختلف دنوں پر رسومات کی جاتی ہیں، جن کا مقصد روح کی پاکیزگی اور مغفرت کے لیے دعا کرنا ہوتا ہے۔</p>
+            
+            <h2>دسویں منانے کی ابتدا</h2>
+            <p>دسویں منانے کی رسم کی ابتدا کے بارے میں کوئی مستند تاریخی شواہد موجود نہیں ہیں، لیکن یہ رسم برصغیر پاک و ہند کے معاشرتی اور مذہبی اثرات کے تحت وجود میں آئی معلوم ہوتی ہے۔ ہندومت اور دیگر قدیم رسومات سے متاثر ہو کر یہ عمل مسلمانوں میں داخل ہوا۔ اسلام میں ایسی رسومات کا کوئی ذکر نہیں ہے، بلکہ یہ ایک علاقائی اور ثقافتی رسم کے طور پر سامنے آئی۔</p>
+            
+            <h2>پاکستان میں دسویں منانے کی رسم</h2>
+            <p>پاکستان میں دسویں منانے کی رسم بعض مقامات پر نفع بخش کاروبار کی شکل اختیار کر چکی ہے۔ اس موقع پر کھانے اور دیگر انتظامات کے لیے کیٹرنگ سروسز، ہوٹل اور دیگر خدمات فراہم کرنے والے افراد مالی فائدہ اٹھاتے ہیں۔ بعض اوقات یہ رسومات مرنے والے کے اہل خانہ پر سماجی دباؤ کا باعث بن جاتی ہیں، اور انہیں فضول خرچی پر مجبور کیا جاتا ہے۔</p>
+            
+            <h2>اسلام میں دسویں منانے کا تصور</h2>
+            <p>اسلام میں دسویں منانے کا کوئی تصور موجود نہیں ہے۔ قرآن اور سنت میں مرنے کے بعد کسی خاص دن پر اجتماع، قرآن خوانی، یا کھانے کا اہتمام کرنے کا کوئی حکم نہیں ملتا۔ نبی کریم ﷺ نے فرمایا: "جب انسان فوت ہو جاتا ہے تو اس کے تمام اعمال منقطع ہو جاتے ہیں سوائے تین کے: صدقہ جاریہ، وہ علم جس سے لوگ فائدہ اٹھا رہے ہوں، اور نیک اولاد جو اس کے لیے دعا کرتی ہو"۔</p>
+            <p>سیدنا جریر بن عبداللہ رضی اللہ عنہ فرماتے ہیں: "<strong>ہم نوحہ کرنے اور میت کے بعد جمع ہو کر کھانے کو برا سمجھتے تھے</strong>"۔ اس حدیث سے یہ واضح ہوتا ہے کہ اسلام میں ایسی رسومات کو ناپسندیدہ سمجھا گیا ہے۔</p>
+            
+            <h2>مختلف مسالک میں دسویں منانا</h2>
+            <h3>بریلوی مسلک</h3>
+            <p>بریلوی مسلک میں مرنے والوں کے لیے ایصالِ ثواب کے طور پر دعاؤں اور اجتماعات کا اہتمام کیا جاتا ہے، جس میں دسویں بھی شامل ہے۔ ان کے عقائد میں اولیاء کرام اور بزرگان دین کی روحانی اثرات پر زور دیا جاتا ہے، اور اس کی بنا پر مرنے والے کے لیے خصوصی رسومات انجام دی جاتی ہیں۔</p>
+            
+            <h3>اہل تشیع</h3>
+            <p>اہل تشیع میں مرنے والوں کے لیے مخصوص رسومات اور مجالس کا انعقاد کیا جاتا ہے۔ خاص طور پر عاشورہ اور محرم کے دنوں میں امام حسین اور ان کے ساتھیوں کی یاد میں مجالس منعقد کی جاتی ہیں۔ اسی اثر کے تحت مرنے والوں کے لیے دسویں اور دیگر دنوں پر دعائیں کی جاتی ہیں۔</p>
+            
+            <h3>احمدی مسلک</h3>
+            <p>احمدیوں میں بھی مرنے والوں کے لیے دعاؤں اور اجتماعات کا رجحان موجود ہے، جہاں ایصالِ ثواب کے لیے مختلف رسومات انجام دی جاتی ہیں۔</p>
+            <p>ان مسالک میں دسویں منانے کا رجحان بڑھنے کی وجہ دینی تعلیمات کے ساتھ ساتھ علاقائی اور ثقافتی اثرات ہیں۔ کچھ لوگ ان رسومات کو دین کا حصہ سمجھتے ہیں، جبکہ علماء کے مطابق یہ ایک علاقائی رسم ہے جو دین کا حصہ نہیں ہے۔</p>
+            
+            <h2>نتیجہ</h2>
+            <p>دسواں منانا ایک علاقائی اور ثقافتی رسم ہے جس کا قرآن و سنت میں کوئی ذکر موجود نہیں ہے۔ علماء کے مطابق ایسی رسومات کو ترک کرنا چاہیے اور مرنے والوں کے لیے قرآن و سنت کے مطابق دعا اور صدقہ جاریہ کو ترجیح دینی چاہیے۔ اللہ تعالیٰ نے قرآن مجید میں فرمایا: "آج میں نے تمہارے لیے تمہارا دین مکمل کر دیا اور اپنی نعمت تم پر تمام کر دی، اور اسلام کو تمہارے لیے دین کے طور پر پسند کیا"۔ لہذا، ضروری ہے کہ ہم اپنی زندگی کو قرآن و سنت کے مطابق ڈھالیں اور غیر ضروری رسومات سے بچیں۔</p>
+            
+            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+            
+            <!-- REACTIONS SECTION (exactly as required) -->
+            <div class="reactions-section">
+                <div class="reactions-title">📢 اپنا ردعمل دیں</div>
+                <div class="reactions-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-btn">🏠 مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn">📚 تمام پوسٹس</a>
+            </div>
+            
+            <!-- Social Media Icons (7 platforms) -->
+            <div class="social-share">
+                <p>📲 اس تحریر کو شیئر کریں</p>
+                <div class="social-icons">
+                    <div class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                    <div class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                    <div class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                    <div class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></div>
+                    <div class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                    <div class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+                </div>
+            </div>
         </div>
         
-        <!-- Main Image after title -->
-        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-10-dsoan-mnana.png" alt="دسواں منانا" class="main-image">
-        
-        <p>"دسواں منانا" ایک رسم ہے جو مرنے والے شخص کے انتقال کے دس دن بعد انجام دی جاتی ہے۔ اس کا مقصد مرنے والے کی روح کے لیے دعائیں کرنا اور قرآن خوانی کرنا ہوتا ہے۔ اس موقع پر لوگوں کو مدعو کیا جاتا ہے، اور عموماً کھانے کا بھی اہتمام کیا جاتا ہے۔ یہ رسم خاص طور پر برصغیر پاک و ہند میں عام ہے، جہاں خاندان والے مرنے والے کے لیے مغفرت کی دعائیں کرتے ہیں۔</p>
-        
-        <h2>دسویں منانے کا طریقہ</h2>
-        <p>دسویں منانے کا طریقہ مختلف علاقوں اور فرقوں میں کچھ فرق کے ساتھ تقریباً یکساں ہوتا ہے۔ عمومی طور پر دسویں منانے کا طریقہ کار درج ذیل ہوتا ہے:</p>
-        
-        <h3>اجتماع اور دعوت</h3>
-        <p>مرنے والے کے گھر یا کسی قریبی مقام پر لوگوں کو مدعو کیا جاتا ہے۔ خاندان والے، رشتہ دار، دوست احباب اور اہل محلہ اس اجتماع میں شامل ہوتے ہیں۔</p>
-        
-        <h3>قرآن خوانی اور دعائیں</h3>
-        <p>مرنے والے کے لیے قرآن خوانی کی جاتی ہے، اور خاص طور پر سورۂ یٰسین، سورۂ فاتحہ، یا دیگر سورتیں پڑھی جاتی ہیں۔ دعا کے دوران مرنے والے کی مغفرت اور جنت میں اعلیٰ مقام کی دعا کی جاتی ہے۔</p>
-        
-        <h3>علماء کی تقریر</h3>
-        <p>بعض اوقات علماء یا واعظ حضرات کو مدعو کیا جاتا ہے جو مرنے والے کے ایصالِ ثواب کے لیے دعا کرتے ہیں اور حاضرین کو آخرت کی یاد دہانی کے موضوع پر نصیحت کرتے ہیں۔</p>
-        
-        <h3>کھانے کا اہتمام</h3>
-        <p>قرآن خوانی کے بعد کھانے کا اہتمام کیا جاتا ہے۔ بعض مقامات پر اس کھانے کو صدقہ یا خیرات کے طور پر تقسیم کیا جاتا ہے تاکہ مرنے والے کے لیے ثواب حاصل ہو۔</p>
-        
-        <h3>فاتحہ خوانی اور دعا</h3>
-        <p>آخر میں اجتماعی طور پر فاتحہ خوانی اور دعا کی جاتی ہے، جسے مرنے والے کے ایصالِ ثواب کے لیے انجام دیا جاتا ہے۔</p>
-        
-        <h2>مختلف مذاہب میں دسویں منانے کا تصور</h2>
-        <p>دسویں منانے کا تصور مختلف مذاہب اور معاشروں میں مختلف طریقوں سے پایا جاتا ہے:</p>
-        
-        <h3>ہندومت</h3>
-        <p>ہندو مذہب میں مرنے والے کے لیے دس دن تک مختلف رسومات کی جاتی ہیں جنہیں "دشاہ" کہا جاتا ہے۔ ان رسومات کا مقصد مرنے والے کی روح کو تسکین اور مغفرت کی دعا کرنا ہوتا ہے۔</p>
-        
-        <h3>عیسائیت</h3>
-        <p>عیسائیت میں مرنے والوں کے لیے مخصوص دنوں میں دعائیں کی جاتی ہیں، اور مرنے والے کو یاد رکھا جاتا ہے۔ بعض عیسائی فرقے نو دن تک دعائیں پڑھتے ہیں جسے "نووینا" کہا جاتا ہے۔</p>
-        
-        <h3>زرتشت مذہب</h3>
-        <p>زرتشتی مذہب میں بھی مرنے والے کے لیے مختلف دنوں پر رسومات کی جاتی ہیں، جن کا مقصد روح کی پاکیزگی اور مغفرت کے لیے دعا کرنا ہوتا ہے۔</p>
-        
-        <h2>دسویں منانے کی ابتدا</h2>
-        <p>دسویں منانے کی رسم کی ابتدا کے بارے میں کوئی مستند تاریخی شواہد موجود نہیں ہیں، لیکن یہ رسم برصغیر پاک و ہند کے معاشرتی اور مذہبی اثرات کے تحت وجود میں آئی معلوم ہوتی ہے۔ ہندومت اور دیگر قدیم رسومات سے متاثر ہو کر یہ عمل مسلمانوں میں داخل ہوا۔ اسلام میں ایسی رسومات کا کوئی ذکر نہیں ہے، بلکہ یہ ایک علاقائی اور ثقافتی رسم کے طور پر سامنے آئی۔</p>
-        
-        <h2>پاکستان میں دسویں منانے کی رسم</h2>
-        <p>پاکستان میں دسویں منانے کی رسم بعض مقامات پر نفع بخش کاروبار کی شکل اختیار کر چکی ہے۔ اس موقع پر کھانے اور دیگر انتظامات کے لیے کیٹرنگ سروسز، ہوٹل اور دیگر خدمات فراہم کرنے والے افراد مالی فائدہ اٹھاتے ہیں۔ بعض اوقات یہ رسومات مرنے والے کے اہل خانہ پر سماجی دباؤ کا باعث بن جاتی ہیں، اور انہیں فضول خرچی پر مجبور کیا جاتا ہے۔</p>
-        
-        <h2>اسلام میں دسویں منانے کا تصور</h2>
-        <p>اسلام میں دسویں منانے کا کوئی تصور موجود نہیں ہے۔ قرآن اور سنت میں مرنے کے بعد کسی خاص دن پر اجتماع، قرآن خوانی، یا کھانے کا اہتمام کرنے کا کوئی حکم نہیں ملتا۔ نبی کریم ﷺ نے فرمایا: "جب انسان فوت ہو جاتا ہے تو اس کے تمام اعمال منقطع ہو جاتے ہیں سوائے تین کے: صدقہ جاریہ، وہ علم جس سے لوگ فائدہ اٹھا رہے ہوں، اور نیک اولاد جو اس کے لیے دعا کرتی ہو"۔</p>
-        <p>سیدنا جریر بن عبداللہ رضی اللہ عنہ فرماتے ہیں: "<strong>ہم نوحہ کرنے اور میت کے بعد جمع ہو کر کھانے کو برا سمجھتے تھے</strong>"۔ اس حدیث سے یہ واضح ہوتا ہے کہ اسلام میں ایسی رسومات کو ناپسندیدہ سمجھا گیا ہے۔</p>
-        
-        <h2>مختلف مسالک میں دسویں منانا</h2>
-        <h3>بریلوی مسلک</h3>
-        <p>بریلوی مسلک میں مرنے والوں کے لیے ایصالِ ثواب کے طور پر دعاؤں اور اجتماعات کا اہتمام کیا جاتا ہے، جس میں دسویں بھی شامل ہے۔ ان کے عقائد میں اولیاء کرام اور بزرگان دین کی روحانی اثرات پر زور دیا جاتا ہے، اور اس کی بنا پر مرنے والے کے لیے خصوصی رسومات انجام دی جاتی ہیں۔</p>
-        
-        <h3>اہل تشیع</h3>
-        <p>اہل تشیع میں مرنے والوں کے لیے مخصوص رسومات اور مجالس کا انعقاد کیا جاتا ہے۔ خاص طور پر عاشورہ اور محرم کے دنوں میں امام حسین اور ان کے ساتھیوں کی یاد میں مجالس منعقد کی جاتی ہیں۔ اسی اثر کے تحت مرنے والوں کے لیے دسویں اور دیگر دنوں پر دعائیں کی جاتی ہیں۔</p>
-        
-        <h3>احمدی مسلک</h3>
-        <p>احمدیوں میں بھی مرنے والوں کے لیے دعاؤں اور اجتماعات کا رجحان موجود ہے، جہاں ایصالِ ثواب کے لیے مختلف رسومات انجام دی جاتی ہیں۔</p>
-        <p>ان مسالک میں دسویں منانے کا رجحان بڑھنے کی وجہ دینی تعلیمات کے ساتھ ساتھ علاقائی اور ثقافتی اثرات ہیں۔ کچھ لوگ ان رسومات کو دین کا حصہ سمجھتے ہیں، جبکہ علماء کے مطابق یہ ایک علاقائی رسم ہے جو دین کا حصہ نہیں ہے۔</p>
-        
-        <h2>نتیجہ</h2>
-        <p>دسواں منانا ایک علاقائی اور ثقافتی رسم ہے جس کا قرآن و سنت میں کوئی ذکر موجود نہیں ہے۔ علماء کے مطابق ایسی رسومات کو ترک کرنا چاہیے اور مرنے والوں کے لیے قرآن و سنت کے مطابق دعا اور صدقہ جاریہ کو ترجیح دینی چاہیے۔ اللہ تعالیٰ نے قرآن مجید میں فرمایا: "آج میں نے تمہارے لیے تمہارا دین مکمل کر دیا اور اپنی نعمت تم پر تمام کر دی، اور اسلام کو تمہارے لیے دین کے طور پر پسند کیا"۔ لہذا، ضروری ہے کہ ہم اپنی زندگی کو قرآن و سنت کے مطابق ڈھالیں اور غیر ضروری رسومات سے بچیں۔</p>
-        
-        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+        <!-- Sidebar with auto-scroll posts -->
+        <div class="sidebar">
+            <h3>📖 متعلقہ مضامین</h3>
+            <div class="posts-scroll" id="autoScrollPosts">
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی">
+                    <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بھیک">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="قبضہ">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عالم">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="دھاگے">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="سجدہ">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="بے حیائی">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہی">
+                    <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="دل دکھانا">
+                    <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- reactions.js (external) and inline only share functions, no duplicate reaction functions -->
+    <script src="/reactions.js"></script>
     <script>
-        // Scroll functions
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        // Scroll helpers
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
         
-        function scrollToBottom() {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-        
-        // Back button functionality
-        document.querySelector('.back-btn').addEventListener('click', function(e) {
+        // Back button
+        document.getElementById('backButton').addEventListener('click', function(e) {
             e.preventDefault();
             window.history.back();
         });
         
-        // Add hover effect to control buttons on touch devices
-        const buttons = document.querySelectorAll('.btn');
-        buttons.forEach(btn => {
-            btn.addEventListener('touchstart', function() {
-                this.style.transform = 'scale(1.1)';
-            });
-            
-            btn.addEventListener('touchend', function() {
-                this.style.transform = 'scale(1)';
-            });
+        // Social sharing (7 platforms)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہوگیا!');
+        }
+        
+        // Auto-scroll sidebar (30 seconds per full cycle, hover pause)
+        const scrollContainer = document.getElementById('autoScrollPosts');
+        let scrollInterval;
+        let isHovering = false;
+        
+        function startAutoScroll() {
+            if (scrollInterval) clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+                if (!isHovering && scrollContainer) {
+                    const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+                    if (scrollContainer.scrollTop >= maxScroll) {
+                        scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        scrollContainer.scrollBy({ top: 150, behavior: 'smooth' });
+                    }
+                }
+            }, 4000);
+        }
+        
+        if (scrollContainer) {
+            scrollContainer.addEventListener('mouseenter', () => { isHovering = true; });
+            scrollContainer.addEventListener('mouseleave', () => { isHovering = false; });
+            startAutoScroll();
+        }
+        
+        // Highlight current post based on URL match (active class)
+        const currentPath = window.location.pathname;
+        const allPostItems = document.querySelectorAll('.post-item');
+        allPostItems.forEach(item => {
+            const anchor = item.querySelector('a');
+            if (anchor && anchor.href.includes(currentPath) && currentPath !== '/') {
+                item.classList.add('active-post');
+            }
         });
         
-        // Mobile detection for better UX
-        if ('ontouchstart' in window) {
-            document.body.classList.add('touch-device');
-        }
+        // Ensure that we have NO duplicate reactions functions: reactionClick is provided by /reactions.js
+        // Additionally, clean any global conflicting loads: all good.
     </script>
 </body>
 </html>
