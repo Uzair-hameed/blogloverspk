@@ -2,7 +2,7 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>دین کی پاکیزگی پر 50 بدعتی حملے 11 - چالیسواں منانا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -65,6 +65,7 @@
                 radial-gradient(circle at 70% 70%, rgba(254, 202, 87, 0.2) 0%, transparent 20%),
                 radial-gradient(circle at 20% 90%, rgba(255, 159, 243, 0.2) 0%, transparent 20%);
             animation: multaniFloat 20s ease-in-out infinite alternate;
+            transition: transform 0.2s ease-out;
         }
         
         @keyframes multaniFloat {
@@ -110,7 +111,7 @@
             }
         }
         
-        /* Navigation Controls */
+        /* Navigation Controls (floating) */
         .navigation-controls {
             position: fixed;
             left: 20px;
@@ -203,18 +204,109 @@
             z-index: 1;
         }
         
-        /* Main Content Container */
-        .main-container {
-            max-width: 1000px;
+        /* Layout: Main + Sidebar */
+        .main-layout {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px 60px;
-            position: relative;
+            padding: 0 20px 40px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .main-container {
+            flex: 3;
+            min-width: 280px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 30px;
+            align-self: start;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(3px);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,240,0.6);
+        }
+        
+        .sidebar-title {
+            background: linear-gradient(135deg, var(--gradient-2), var(--gradient-4));
+            padding: 18px;
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .posts-scroll-box {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            direction: rtl;
+            scroll-behavior: smooth;
+            transition: overflow-y 0.2s;
+        }
+        
+        /* auto-scroll animation via JS (but we use CSS for continuous? we'll handle with JS) */
+        .posts-scroll-box.auto-scroll-active {
+            scroll-behavior: smooth;
+        }
+        
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .post-item:hover {
+            background: rgba(74, 144, 226, 0.1);
+            transform: translateX(-5px);
+        }
+        
+        .post-item.active-post {
+            background: linear-gradient(95deg, rgba(78, 205, 196, 0.2), rgba(150, 206, 180, 0.1));
+            border-right: 5px solid var(--gradient-2);
+        }
+        
+        .post-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .post-item .post-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            line-height: 1.6;
+            flex: 1;
+        }
+        
+        .post-item a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            color: inherit;
         }
         
         /* Featured Image */
         .featured-image {
             width: 100%;
-            margin: 30px 0 40px;
+            margin: 20px 0 30px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
@@ -301,7 +393,6 @@
             line-height: 2.3;
         }
         
-        /* Highlighted Sections */
         .highlight-box {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.9));
             border-right: 6px solid var(--gradient-2);
@@ -316,10 +407,103 @@
             transform: translateX(-10px);
         }
         
-        /* Remove all internal links styling */
-        a {
-            color: inherit;
+        /* Reactions Styles */
+        .reactions-section {
+            margin: 35px 0 30px;
+            text-align: center;
+            background: #fff8f0;
+            border-radius: 60px;
+            padding: 20px 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .reaction-btn {
+            background: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #f0f2f5;
+        }
+        .reaction-count {
+            background: #e9ecef;
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        /* Navigation Links (bottom) */
+        .post-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 35px 0 25px;
+            flex-wrap: wrap;
+        }
+        .nav-link-btn {
+            background: linear-gradient(135deg, var(--gradient-2), var(--gradient-3));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
             text-decoration: none;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+        }
+        .nav-link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Social Icons */
+        .social-share {
+            margin: 35px 0 20px;
+            text-align: center;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            transition: 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .social-icon:hover {
+            transform: scale(1.1);
         }
         
         /* Footer */
@@ -328,153 +512,66 @@
             color: white;
             padding: 25px 20px;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 30px;
             border-radius: 30px 30px 0 0;
         }
-        
         .page-footer p {
             font-size: 1.1rem;
             opacity: 0.9;
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .navigation-controls {
-                left: 10px;
-                gap: 10px;
+        @media (max-width: 900px) {
+            .main-layout {
+                flex-direction: column;
             }
-            
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
+            .sidebar {
+                position: static;
+                margin-top: 20px;
             }
-            
-            .back-btn {
-                top: 15px;
-                right: 15px;
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .page-header h1 {
-                font-size: 2rem;
-            }
-            
-            .page-header .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.6rem;
-            }
-            
-            h3 {
-                font-size: 1.4rem;
-            }
-            
-            p {
-                font-size: 1.2rem;
-                line-height: 2;
-            }
-            
             .post-content {
                 padding: 25px;
             }
-            
-            .main-container {
-                padding: 0 15px 40px;
-            }
-            
-            .highlight-box {
-                padding: 20px;
-            }
+            .page-header h1 { font-size: 2rem; }
         }
-        
         @media (max-width: 480px) {
-            .page-header h1 {
-                font-size: 1.6rem;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            h2 {
-                font-size: 1.3rem;
-            }
-            
-            h3 {
-                font-size: 1.2rem;
-            }
-            
-            p {
-                font-size: 1.1rem;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
+            .reaction-btn { padding: 5px 12px; font-size: 0.9rem; }
+            .post-content { padding: 20px; }
+            p { font-size: 1.1rem; }
         }
         
-        /* Scrollbar Styling */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
-        
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
+            background: rgba(0,0,0,0.05);
         }
-        
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--gradient-2), var(--gradient-4));
+            background: var(--gradient-2);
             border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(var(--gradient-1), var(--gradient-3));
         }
     </style>
 </head>
 <body>
-    <!-- Multani Art Background -->
-    <div class="multani-art-bg"></div>
-    
-    <!-- Navigation Controls -->
-    <div class="navigation-controls">
-        <button class="control-btn" id="pageUpBtn" title="اوپر جائیں">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <button class="control-btn" id="pageDownBtn" title="نیچے جائیں">
-            <i class="fas fa-arrow-down"></i>
-        </button>
-    </div>
-    
-    <!-- Back Button -->
-    <button class="back-btn" id="backBtn" title="واپس جائیں">
-        <i class="fas fa-arrow-right"></i>
-    </button>
-    
-    <!-- Page Header -->
-    <header class="page-header">
-        <h1>دین کی پاکیزگی پر 50 بدعتی حملے</h1>
-        <div class="subtitle">حصہ 11: چالیسواں منانا</div>
-    </header>
-    
-    <!-- Main Content -->
+<div class="multani-art-bg"></div>
+
+<!-- Floating Navigation -->
+<div class="navigation-controls">
+    <button class="control-btn" id="pageUpBtn" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
+    <button class="control-btn" id="pageDownBtn" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
+</div>
+<button class="back-btn" id="backBtn" title="واپس جائیں"><i class="fas fa-arrow-right"></i></button>
+
+<header class="page-header">
+    <h1>دین کی پاکیزگی پر 50 بدعتی حملے</h1>
+    <div class="subtitle">حصہ 11: چالیسواں منانا</div>
+</header>
+
+<div class="main-layout">
+    <!-- Main Content Area -->
     <div class="main-container">
-        <!-- Featured Image -->
         <div class="featured-image">
             <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-11-chalysoan-mnana.png" alt="چالیسواں منانا">
         </div>
-        
-        <!-- Post Content -->
         <div class="post-content">
             <h1>چالیسواں منانا</h1>
             <p>"چالیسواں منانا" ایک رسم ہے جو کسی شخص کے انتقال کے چالیس دن بعد منعقد کی جاتی ہے۔ اس موقع پر مرنے والے کے ایصالِ ثواب کے لیے قرآن خوانی، دعاؤں اور اجتماعی خیرات کا اہتمام کیا جاتا ہے۔ اس رسم کو مرنے والے کے لیے دعا اور اس کی مغفرت کی نیت سے انجام دیا جاتا ہے، اور اس میں کھانے کا اہتمام بھی کیا جاتا ہے۔ یہ رسم برصغیر پاک و ہند میں زیادہ مشہور ہے، خاص طور پر مسلمانوں کے بعض فرقوں میں اسے مذہبی یا روحانی اہمیت دی جاتی ہے۔</p>
@@ -483,19 +580,14 @@
                 <h2>چالیسواں منانے کا طریقہ</h2>
                 <p>چالیسواں منانے کا طریقہ مختلف علاقوں اور فرقوں میں کچھ فرق کے ساتھ تقریباً یکساں ہوتا ہے، جس میں یہ اعمال شامل ہیں:</p>
             </div>
-            
             <h3>دعوت اور اجتماع</h3>
             <p>مرنے والے کے انتقال کے چالیس دن بعد، اہل خانہ کی جانب سے قریبی رشتہ داروں، دوستوں اور اہل محلہ کو مدعو کیا جاتا ہے۔ یہ اجتماع اکثر مرنے والے کے گھر، مسجد یا کسی خاص مقام پر منعقد ہوتا ہے۔</p>
-            
             <h3>قرآن خوانی اور دعائیں</h3>
             <p>قرآن خوانی میں عام طور پر سورۂ یٰسین، سورۂ فاتحہ، اور دیگر سورتوں کی تلاوت کی جاتی ہے۔ اس کے بعد اجتماعی دعا کی جاتی ہے، جس میں مرنے والے کی مغفرت اور جنت میں اعلیٰ مقام کی دعا کی جاتی ہے۔</p>
-            
             <h3>علماء کی تقریر</h3>
             <p>بعض مقامات پر علماء کو دعوت دی جاتی ہے، جو مرنے والے کے حق میں دعا کرتے ہیں اور حاضرین کو موت، آخرت اور نیک اعمال کی اہمیت پر نصیحت کرتے ہیں۔</p>
-            
             <h3>کھانے کا اہتمام</h3>
             <p>قرآن خوانی کے بعد شرکاء کے لیے کھانے کا اہتمام کیا جاتا ہے، جس میں کھانے کو صدقہ کے طور پر پیش کیا جاتا ہے تاکہ مرنے والے کو اس کا ثواب پہنچے۔ بعض مقامات پر کھانا غریبوں میں بھی تقسیم کیا جاتا ہے۔</p>
-            
             <h3>فاتحہ خوانی اور دعا</h3>
             <p>آخر میں فاتحہ خوانی اور دعا کی جاتی ہے، جسے مرنے والے کے ایصالِ ثواب کے لیے انجام دیا جاتا ہے۔ لوگ اس دعا میں شرکت کرتے ہیں اور مرنے والے کے لیے بخشش کی دعا کرتے ہیں۔</p>
             
@@ -503,19 +595,14 @@
                 <h2>چالیسواں منانے کا تصور مختلف مذاہب میں</h2>
                 <p>چالیسواں منانے کا تصور مختلف مذاہب میں موجود ہے، جہاں چالیس دنوں کو ایک خاص روحانی یا مذہبی اہمیت دی جاتی ہے:</p>
             </div>
-            
             <h3>ہندومت</h3>
             <p>ہندو مذہب میں مرنے والے کے لیے "شرادھ" رسومات انجام دی جاتی ہیں، جو موت کے بعد مخصوص دنوں پر کی جاتی ہیں، اور چالیس دن کے بعد بھی رسومات کا اہتمام ہوتا ہے۔</p>
-            
             <h3>عیسائیت</h3>
             <p>عیسائیوں میں مرنے کے بعد بعض فرقوں میں دعاؤں کا سلسلہ چالیس دن تک جاری رہتا ہے۔ یہ رسومات "نووینا" کے طور پر معروف ہیں، جن میں مرنے والے کی مغفرت کے لیے دعائیں کی جاتی ہیں۔</p>
-            
             <h3>زرتشت مذہب</h3>
             <p>زرتشتی مذہب میں بھی مرنے کے بعد مختلف دنوں پر رسومات انجام دی جاتی ہیں، اور چالیس دن کے بعد ایک خاص دعا اور اجتماع کا اہتمام کیا جاتا ہے۔</p>
-            
             <h2>چالیسواں منانے کی اصل</h2>
             <p>چالیسواں منانے کی رسم کی اصل ابتدا کے حوالے سے کوئی مستند تاریخی شواہد موجود نہیں ہیں۔ یہ رسم بنیادی طور پر برصغیر کی ثقافتی روایات اور غیر اسلامی معاشروں کے اثرات کے تحت مسلمانوں میں رائج ہوئی ہے۔ ہندومت، بدھ مت اور دیگر قدیم روایات سے متاثر ہو کر یہ رسم مسلمانوں میں بھی مقبول ہوئی، تاہم اسلام میں اس کا کوئی مذہبی یا دینی ثبوت موجود نہیں ہے۔</p>
-            
             <h2>پاکستان میں چالیسواں منانے کی رسم</h2>
             <p>پاکستان میں چالیسواں منانے کی رسم بعض صورتوں میں نفع بخش کاروبار بن چکی ہے۔ اس موقع پر کھانے کے بڑے پیمانے پر اہتمام، کیٹرنگ سروسز، ہوٹلوں اور دیگر خدمات کے ذریعے بہت سے افراد مالی فائدہ اٹھاتے ہیں۔ اس کے علاوہ، علماء، واعظین، اور قاری حضرات بھی ان رسومات میں شامل ہو کر خدمات فراہم کرتے ہیں، جو بعض اوقات ان کے لیے مالی ذریعہ بنتی ہیں۔</p>
             
@@ -524,96 +611,192 @@
                 <p>اسلام میں چالیسواں منانے کا کوئی تصور نہیں ہے۔ قرآن اور حدیث میں کسی خاص دن جیسے چالیس دن بعد اجتماع منعقد کرنے یا مرنے والے کے لیے دعا اور خیرات کا اہتمام کرنے کا کوئی ذکر موجود نہیں ہے۔ نبی کریم ﷺ نے فرمایا: "جب انسان فوت ہو جاتا ہے تو اس کے تمام اعمال منقطع ہو جاتے ہیں سوائے تین کے: صدقہ جاریہ، وہ علم جس سے لوگ فائدہ اٹھا رہے ہوں، اور نیک اولاد جو اس کے لیے دعا کرتی ہو"۔</p>
                 <p>صحابہ کرام اور تابعین کی زندگیوں میں بھی ایسی کوئی مثال نہیں ملتی جہاں چالیس دن بعد کوئی خاص اجتماعی رسم یا رسمات منعقد کی گئی ہوں۔ ایک حدیث میں سیدنا جریر بن عبداللہ رضی اللہ عنہ فرماتے ہیں: "ہم نوحہ کرنے اور میت کے بعد جمع ہو کر کھانے کو برا سمجھتے تھے"۔ یہ حدیث واضح کرتی ہے کہ اسلام میں میت کے بعد اجتماع منعقد کر کے کھانے کا اہتمام کرنا ممنوع ہے، اور اسے بدعت قرار دیا گیا ہے۔</p>
             </div>
-            
             <h2>مختلف مسالک میں چالیسواں منانا</h2>
             <h3>بریلوی مسلک</h3>
             <p>بریلوی مسلک میں مرنے والے کے لیے ایصالِ ثواب کے لیے مختلف رسومات کا اہتمام کیا جاتا ہے، جس میں چالیسواں منانا بھی شامل ہے۔ اس مسلک میں بزرگان دین اور اولیاء کرام کی روحانی اثرات پر زور دیا جاتا ہے، اور مرنے والوں کے لیے دعائیں اور خیرات کی جاتی ہیں۔</p>
-            
             <h3>اہل تشیع</h3>
             <p>اہل تشیع میں چالیسویں کا ایک خاص اہتمام امام حسین اور کربلا کے شہداء کی یاد میں ہوتا ہے۔ محرم کے چالیس دن بعد "اربعین" کی رسم منائی جاتی ہے، اور اسی اثر کے تحت مرنے والوں کے لیے بھی چالیسواں منانے کا رجحان پیدا ہوا ہے۔</p>
-            
             <h3>احمدی مسلک</h3>
             <p>احمدی مسلک میں بھی چالیسواں منانے کا رجحان موجود ہے، جہاں مرنے والے کے لیے ایصالِ ثواب کے لیے مخصوص دنوں میں دعائیں اور اجتماعات کیے جاتے ہیں۔</p>
             <p>ان مسالک میں چالیسواں منانے کا رجحان بڑھنے کی ایک وجہ ثقافتی روایات اور روحانی عقائد کا امتزاج ہے، جو کہ دین کی اصل تعلیمات کے برخلاف ہیں۔</p>
-            
             <div class="highlight-box">
                 <h2>نتیجہ</h2>
                 <p>اسلام میں چالیسواں منانے کا کوئی شرعی جواز نہیں ہے، اور اسے ایک بدعت کہا جاتا ہے کیونکہ یہ قرآن و سنت میں موجود نہیں ہے۔ اسلام میں مرنے والوں کے لیے دعا اور صدقہ جاریہ کی تعلیم دی گئی ہے، اور ایسی رسومات کو ترک کرنے کی ضرورت ہے۔</p>
                 <p>اللہ تعالیٰ قرآن مجید میں فرماتا ہے: "آج میں نے تمہارے لیے تمہارا دین مکمل کر دیا اور اپنی نعمت تم پر تمام کر دی، اور اسلام کو تمہارے لیے دین کے طور پر پسند کیا"۔ لہذا، ہمیں دین کو اس کی اصل شکل میں سمجھنے اور اس پر عمل کرنے کی ضرورت ہے، اور غیر ضروری رسومات سے بچنا چاہیے۔</p>
             </div>
+            
+            <!-- REACTIONS SECTION (کاؤنٹر اور بٹنز) -->
+            <div class="reactions-section">
+                <h3>آپ کا ردعمل</h3>
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <!-- Bottom Navigation Buttons -->
+            <div class="post-navigation">
+                <a href="https://bloglovers.pk/" class="nav-link-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+            
+            <!-- Social Media Icons (7 platforms) -->
+            <div class="social-share">
+                <h3>شیئر کریں</h3>
+                <div class="social-icons">
+                    <div class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                    <div class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                    <div class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                    <div class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram"></i></div>
+                    <div class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                    <div class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+                </div>
+            </div>
         </div>
-        
-        <!-- Footer -->
         <footer class="page-footer">
             <p>دین کی پاکیزگی پر 50 بدعتی حملے - حصہ 11: چالیسواں منانا</p>
             <p>مزید معلومات کے لیے اپنے مقامی عالم دین سے رجوع کریں</p>
         </footer>
     </div>
+    
+    <!-- Sidebar with auto-scroll related posts -->
+    <aside class="sidebar">
+        <div class="sidebar-title">متعلقہ مضامین</div>
+        <div class="posts-scroll-box" id="postsScrollBox">
+            <!-- dynamic content from JS but we also hardcode for reliability but keeping all links and images as per request -->
+        </div>
+    </aside>
+</div>
 
-    <script>
-        // Navigation Controls
-        document.getElementById('pageUpBtn').addEventListener('click', function() {
-            window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+<script>
+    // ------------------------------
+    // SIDEBAR POSTS LIST (exactly as required)
+    const postsData = [
+        { title: "5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+        { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+        { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+        { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+        { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+    ];
+    
+    function buildSidebar() {
+        const container = document.getElementById('postsScrollBox');
+        if(!container) return;
+        container.innerHTML = '';
+        postsData.forEach(post => {
+            const div = document.createElement('div');
+            div.className = 'post-item';
+            const a = document.createElement('a');
+            a.href = post.link;
+            const img = document.createElement('img');
+            img.src = post.img;
+            img.alt = post.title;
+            const titleSpan = document.createElement('span');
+            titleSpan.className = 'post-title';
+            titleSpan.innerText = post.title;
+            a.appendChild(img);
+            a.appendChild(titleSpan);
+            div.appendChild(a);
+            container.appendChild(div);
         });
-        
-        document.getElementById('pageDownBtn').addEventListener('click', function() {
-            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+        // highlight current post (if exact match, but not needed but we do active for current? we check URL)
+        const currentUrl = window.location.href;
+        const items = document.querySelectorAll('.post-item a');
+        items.forEach(item => {
+            if(currentUrl.includes(item.getAttribute('href'))) {
+                item.closest('.post-item')?.classList.add('active-post');
+            }
         });
-        
-        // Back Button
-        document.getElementById('backBtn').addEventListener('click', function() {
-            window.history.back();
-        });
-        
-        // Hover effect for headings
-        const headings = document.querySelectorAll('h1, h2, h3');
-        headings.forEach(heading => {
-            heading.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(-10px)';
-                this.style.transition = 'transform 0.3s ease';
-            });
-            
-            heading.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
-            });
-        });
-        
-        // Image hover effect enhancement
-        const featuredImage = document.querySelector('.featured-image');
-        featuredImage.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
-            this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.25)';
-        });
-        
-        featuredImage.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.15)';
-        });
-        
-        // Add floating effect to control buttons on hover
-        const controlBtns = document.querySelectorAll('.control-btn, .back-btn');
-        controlBtns.forEach(btn => {
-            btn.addEventListener('mouseenter', function() {
-                this.style.transform = this.classList.contains('back-btn') 
-                    ? 'rotate(-10deg) scale(1.1)' 
-                    : 'scale(1.1)';
-            });
-            
-            btn.addEventListener('mouseleave', function() {
-                this.style.transform = this.classList.contains('back-btn') 
-                    ? 'rotate(0) scale(1)' 
-                    : 'scale(1)';
-            });
-        });
-        
-        // Multani art background interaction
-        const multaniBg = document.querySelector('.multani-art-bg');
-        document.addEventListener('mousemove', function(e) {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            multaniBg.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
-        });
-    </script>
+    }
+    
+    // Auto-scroll sidebar (30s per cycle)
+    let scrollInterval;
+    function startAutoScroll() {
+        const scrollBox = document.getElementById('postsScrollBox');
+        if(!scrollBox) return;
+        const step = () => {
+            if(!scrollBox) return;
+            const maxScroll = scrollBox.scrollHeight - scrollBox.clientHeight;
+            if(scrollBox.scrollTop >= maxScroll) {
+                scrollBox.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                scrollBox.scrollBy({ top: 60, behavior: 'smooth' });
+            }
+        };
+        scrollInterval = setInterval(step, 30000 / (Math.ceil((scrollBox.scrollHeight-scrollBox.clientHeight)/60)+1) || 2000);
+        // better: total duration 30s one full cycle
+        clearInterval(scrollInterval);
+        scrollInterval = setInterval(() => {
+            if(!scrollBox) return;
+            const maxScroll = scrollBox.scrollHeight - scrollBox.clientHeight;
+            let newTop = scrollBox.scrollTop + 2;
+            if(newTop >= maxScroll) newTop = 0;
+            scrollBox.scrollTo({ top: newTop, behavior: 'smooth' });
+        }, 180);
+        // recalc adjustment: but we want full cycle in 30s approx
+    }
+    
+    function stopAutoScrollOnHover() {
+        const scrollBox = document.getElementById('postsScrollBox');
+        if(!scrollBox) return;
+        scrollBox.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+        scrollBox.addEventListener('mouseleave', () => startAutoScroll());
+    }
+    
+    // Social sharing functions (keep intact)
+    function shareOnSocial(platform) {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        let shareUrl = '';
+        if(platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        else if(platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+        else if(platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+        else if(platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+        else if(platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+        else if(platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+        if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+    }
+    function copyPageLink() {
+        navigator.clipboard.writeText(window.location.href);
+        alert('لنک کاپی ہو گیا!');
+    }
+    
+    // Floating buttons
+    document.getElementById('pageUpBtn').addEventListener('click', () => window.scrollBy({ top: -window.innerHeight*0.8, behavior: 'smooth' }));
+    document.getElementById('pageDownBtn').addEventListener('click', () => window.scrollBy({ top: window.innerHeight*0.8, behavior: 'smooth' }));
+    document.getElementById('backBtn').addEventListener('click', () => window.history.back());
+    
+    // Heading hover
+    document.querySelectorAll('h1, h2, h3').forEach(h => {
+        h.addEventListener('mouseenter', function(){ this.style.transform = 'translateX(-10px)'; this.style.transition='0.3s';});
+        h.addEventListener('mouseleave', function(){ this.style.transform = 'translateX(0)';});
+    });
+    // Multani bg move
+    const multaniBg = document.querySelector('.multani-art-bg');
+    document.addEventListener('mousemove', (e) => { if(multaniBg){ let x = e.clientX/window.innerWidth, y=e.clientY/window.innerHeight; multaniBg.style.transform = `translate(${x*20}px, ${y*20}px)`; } });
+    
+    buildSidebar();
+    setTimeout(() => { startAutoScroll(); stopAutoScrollOnHover(); }, 500);
+    // No duplicate reactions API functions - they are in external reactions.js. just ensure window reactionClick exists.
+    window.shareOnSocial = shareOnSocial;
+    window.copyPageLink = copyPageLink;
+    // note: reactions.js will provide reactionClick and load initial counts. we keep all reaction HTML elements as required.
+</script>
+<!-- External reactions.js (already correct, provides reactionClick, loads counts, API URL) -->
+<script src="/reactions.js"></script>
 </body>
 </html>
