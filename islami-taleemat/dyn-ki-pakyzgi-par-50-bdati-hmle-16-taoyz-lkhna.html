@@ -71,13 +71,112 @@
             97% { background: rgba(255, 215, 0, 0.3); }
         }
 
-        /* Main Container */
-        .container {
-            max-width: 900px;
+        /* Layout: Main + Sidebar */
+        .main-wrapper {
+            max-width: 1400px;
             margin: 20px auto;
             padding: 0 15px 80px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
             position: relative;
             z-index: 1;
+        }
+
+        .container {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            max-width: 360px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        .sidebar-card {
+            background: rgba(10, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 30px;
+            padding: 20px 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-title {
+            font-size: 1.9rem;
+            color: #ffd966;
+            text-align: center;
+            border-bottom: 2px solid #ffaa00;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .posts-scroll-container {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            direction: ltr;
+            scroll-behavior: smooth;
+        }
+        .posts-scroll-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        .posts-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255,255,200,0.1);
+            border-radius: 10px;
+        }
+        .posts-scroll-container::-webkit-scrollbar-thumb {
+            background: #ffaa33;
+            border-radius: 10px;
+        }
+
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            padding: 10px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,215,0,0.2);
+            direction: rtl;
+        }
+        .sidebar-post:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateX(-5px);
+            border-color: gold;
+        }
+        .sidebar-post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 1px solid #ffaa33;
+        }
+        .sidebar-post-link {
+            text-decoration: none;
+            color: #f0f0f0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.5;
+            flex: 1;
+            transition: 0.2s;
+        }
+        .sidebar-post-link:hover {
+            color: #ffd966;
+            text-shadow: 0 0 5px gold;
+        }
+        .active-sidebar-post {
+            background: rgba(255, 200, 50, 0.25);
+            border-right: 5px solid gold;
         }
 
         /* Glassmorphism Card */
@@ -96,7 +195,6 @@
             box-shadow: 0 25px 60px rgba(0, 100, 255, 0.3), 0 0 0 2px rgba(255, 215, 0, 0.4) inset;
         }
 
-        /* Heading Size Increase */
         h1 {
             font-size: 3.2rem;
             color: #ffd966;
@@ -125,7 +223,6 @@
             padding-right: 10px;
         }
 
-        /* Text Size Increase */
         p, li {
             font-size: 1.6rem;
             margin-bottom: 18px;
@@ -142,7 +239,6 @@
             margin-bottom: 10px;
         }
 
-        /* Image Style */
         .featured-image {
             width: 100%;
             max-height: 450px;
@@ -161,7 +257,6 @@
             border-color: gold;
         }
 
-        /* Link Styling - Remove Internal Linking (but keep style) */
         a {
             color: #80bfff;
             text-decoration: none;
@@ -174,11 +269,54 @@
             color: #ffcc66;
             border-bottom: 1px solid #ffcc66;
             text-shadow: 0 0 8px gold;
-            transform: translateY(-2px);
+        }
+
+        /* Reactions Panel */
+        .reactions-panel {
+            margin: 35px 0 25px;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+            border-radius: 60px;
+            padding: 15px 10px;
+        }
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 10px;
+        }
+        .reaction-btn {
+            background: rgba(30,30,70,0.8);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 1.5rem;
+            font-family: inherit;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .reaction-btn:hover {
+            transform: scale(1.07);
+            background: #ffaa33;
+            color: #0a0f1a;
+        }
+        .reaction-count {
+            font-size: 1.3rem;
+            background: rgba(0,0,0,0.5);
+            border-radius: 30px;
+            padding: 0 6px;
+            min-width: 28px;
             display: inline-block;
         }
 
-        /* Buttons Container */
+        /* Action Bar Buttons */
         .action-bar {
             display: flex;
             flex-wrap: wrap;
@@ -187,7 +325,6 @@
             margin: 30px 0 20px;
         }
 
-        /* Button Base Style with Hover Effects */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -222,12 +359,6 @@
             box-shadow: 0 15px 30px gold, 0 0 30px #ffaa00;
         }
 
-        .btn:hover i {
-            transform: rotate(360deg) scale(1.2);
-            color: #000;
-        }
-
-        /* Social Buttons Specific */
         .social-share {
             display: flex;
             flex-wrap: wrap;
@@ -252,7 +383,6 @@
             background: #1da1f2;
         }
 
-        /* Floating Up/Down Buttons */
         .float-nav {
             position: fixed;
             bottom: 30px;
@@ -284,48 +414,26 @@
             background: gold;
             transform: scale(1.2) rotate(360deg);
             box-shadow: 0 0 30px gold;
-            border-color: orange;
         }
 
-        /* Back Button Specific */
-        .back-btn {
-            background: rgba(100, 50, 150, 0.8);
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
+        @media (max-width: 800px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { max-width: 100%; position: static; }
             h1 { font-size: 2.4rem; }
             h2 { font-size: 2rem; }
-            h3 { font-size: 1.7rem; }
             p, li { font-size: 1.4rem; }
-            
-            .btn {
-                padding: 8px 16px;
-                font-size: 1.3rem;
-            }
-            
-            .float-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.8rem;
-            }
-            
-            .post-content {
-                padding: 20px 15px;
-            }
+            .btn { padding: 8px 16px; font-size: 1.3rem; }
+            .float-btn { width: 50px; height: 50px; font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
+<div class="main-wrapper">
     <div class="container">
         <div class="post-content">
-            <!-- Title -->
             <h1>تعویز لکھنا</h1>
-            
-            <!-- Image after title (visible full) -->
             <img class="featured-image" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.png" alt="تعویز لکھنا - تصویر">
 
-            <!-- Main Content (Text unchanged) -->
             <p>تعویز ایک قسم کی تحریری یا طغرٰی ہے جو عام طور پر کسی مقدس متن، قرآنی آیات، یا دیگر دعاؤں پر مشتمل ہوتا ہے۔ اسے حفاظت، بیماریوں کے علاج، مصائب سے بچنے، یا خوش قسمتی حاصل کرنے کے لیے لکھا جاتا ہے۔ تعویز کو بعض اوقات گردن میں لٹکایا جاتا ہے، بازو پر باندھا جاتا ہے، یا گھر میں محفوظ کیا جاتا ہے۔ اس عمل کو بعض لوگ اسلامی تعلیمات کے ساتھ جوڑتے ہیں، لیکن حقیقت میں یہ ایک متنازعہ رسم ہے اور اس کے بارے میں اسلام کے مختلف مکاتب فکر میں مختلف رائے پائی جاتی ہے۔</p>
             
             <h2>دور جاہلیت میں تعویز</h2>
@@ -360,16 +468,12 @@
             <h2>مختلف مسالک میں تعویز لکھنا</h2>
             <h3>1. بریلوی مکتب فکر</h3>
             <p>تعویز لکھنا اور استعمال کرنا عام ہے۔ بریلوی حضرات اس عمل کو جائز سمجھتے ہیں اور اسے شریعت کے خلاف نہیں مانتے، بشرطیکہ وہ قرآنی آیات یا نیک دعاؤں پر مشتمل ہو۔</p>
-            
             <h3>2. اہل تشیع</h3>
             <p>اہل تشیع میں بھی تعویز لکھنے کا رواج پایا جاتا ہے، اور ان کے مذہبی علماء بعض تعویذات کو جائز مانتے ہیں، خصوصاً اگر وہ مقدس شخصیات یا ان کے دعاؤں پر مشتمل ہوں۔</p>
-            
             <h3>3. احمدی مکتب فکر</h3>
             <p>احمدیوں میں تعویز کا تصور محدود ہے، اور اس پر بہت زیادہ زور نہیں دیا جاتا۔</p>
-            
             <h3>4. دیوبندی مکتب فکر</h3>
             <p>دیوبندی علماء عمومی طور پر تعویز کے استعمال کو ناپسند کرتے ہیں اور اسے دین سے باہر کی رسم تصور کرتے ہیں۔</p>
-            
             <h3>5. اہل حدیث مکتب فکر</h3>
             <p>اہل حدیث علماء تعویز کو بدعت اور شرک کا ذریعہ مانتے ہیں اور اس کی سخت مذمت کرتے ہیں۔ ان کے نزدیک ہر قسم کے تعویز استعمال کرنا شرعاً ناجائز ہے۔</p>
             
@@ -380,22 +484,153 @@
             <p><a href="#">کسی جانور گائے بکری سے جماع کرنا،</a> <a href="#">بغیر عذر شرعی جماعت کی نماز چھوڑنا</a>، <a href="#">پڑوسی کو تکلیف دینا</a>، <a href="#">وعدہ خلافی کرنا</a>، <a href="#">غیر محرم عورت کی طرف بہ قصد دیکھنا</a>، <a href="#">پکی قبریں بنانا</a>، <a href="#">قل خوانی کرنا</a>، <a href="#">عرس میلے منانا</a></p>
         </div>
 
-        <!-- Social Media Sharing Buttons -->
-        <div class="social-share">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_URL" target="_blank" class="btn social-btn"><i class="fab fa-facebook-f"></i> فیس بک پر شیئر کریں</a>
-            <a href="https://twitter.com/intent/tweet?url=YOUR_URL&text=تعویز%20لکھنا" target="_blank" class="btn social-btn twitter-btn"><i class="fab fa-twitter"></i> ٹویٹر پر شیئر کریں</a>
+        <!-- Reactions Panel (exactly as required) -->
+        <div class="reactions-panel">
+            <div class="reaction-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
         </div>
 
-        <!-- Back Button -->
+        <!-- Social Share 7 Platforms -->
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.html" target="_blank" class="btn social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="https://wa.me/?text=تعویز لکھنا - https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.html" target="_blank" class="btn social-btn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.html&text=تعویز لکھنا" target="_blank" class="btn social-btn twitter-btn"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.html&title=تعویز لکھنا" target="_blank" class="btn social-btn" style="background:#0077b5;"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.html&text=تعویز لکھنا" target="_blank" class="btn social-btn" style="background:#0088cc;"><i class="fab fa-telegram"></i> Telegram</a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.html&media=https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-16-taoyz-lkhna.png&description=تعویز لکھنا" target="_blank" class="btn social-btn" style="background:#bd081c;"><i class="fab fa-pinterest"></i> Pinterest</a>
+            <button class="btn social-btn" id="copyLinkBtn" style="background:#6c757d;"><i class="fas fa-link"></i> کاپی لنک</button>
+        </div>
+
         <div class="action-bar">
+            <a href="https://bloglovers.pk/" class="btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
             <button onclick="window.history.back();" class="btn back-btn"><i class="fas fa-arrow-right"></i> واپس جائیں</button>
         </div>
     </div>
 
-    <!-- Floating Up and Down Buttons -->
-    <div class="float-nav">
-        <button class="float-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});"><i class="fas fa-arrow-up"></i></button>
-        <button class="float-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});"><i class="fas fa-arrow-down"></i></button>
+    <!-- Sidebar with auto-scroll -->
+    <div class="sidebar">
+        <div class="sidebar-card">
+            <div class="sidebar-title"><i class="fas fa-newspaper"></i> متعلقہ مضامین</div>
+            <div class="posts-scroll-container" id="autoScrollSidebar">
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="toham parasti">
+                    <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti" class="sidebar-post-link">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="chughli">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna" class="sidebar-post-link">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="bhik mangna">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna" class="sidebar-post-link">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="zameen qabza">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna" class="sidebar-post-link">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="khudkushi">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna" class="sidebar-post-link">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="aalim amal">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="sidebar-post-link">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="qul khwani">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="sidebar-post-link">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="gyarhwin">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="sidebar-post-link">گیارہویں منانا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="dhage bandhna">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna" class="sidebar-post-link">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="sajda peer">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="sidebar-post-link">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="be hayai">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana" class="sidebar-post-link">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="azab ghar">
+                    <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="sidebar-post-link">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+                </div>
+                <div class="sidebar-post" data-link="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">
+                    <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="mazaq dil">
+                    <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="sidebar-post-link">مذاق میں کسی کا دل دکھانا</a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="float-nav">
+    <button class="float-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});"><i class="fas fa-arrow-up"></i></button>
+    <button class="float-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});"><i class="fas fa-arrow-down"></i></button>
+</div>
+
+<script src="/reactions.js"></script>
+<script>
+    (function() {
+        // Auto-scroll sidebar (30s per full cycle)
+        const container = document.getElementById('autoScrollSidebar');
+        if(container) {
+            let scrollAmount = 0;
+            const step = 1;
+            let scrollInterval = null;
+            function startScroll() {
+                if(scrollInterval) clearInterval(scrollInterval);
+                scrollInterval = setInterval(() => {
+                    if(!container) return;
+                    if(!container.matches(':hover')) {
+                        const maxScroll = container.scrollHeight - container.clientHeight;
+                        if(scrollAmount >= maxScroll) scrollAmount = 0;
+                        else scrollAmount += step;
+                        container.scrollTo({top: scrollAmount, behavior: 'smooth'});
+                    } else {
+                        // pause while hover: update scrollAmount to current position
+                        scrollAmount = container.scrollTop;
+                    }
+                }, 200);
+            }
+            startScroll();
+            container.addEventListener('mouseenter', () => { if(scrollInterval) clearInterval(scrollInterval); });
+            container.addEventListener('mouseleave', () => { scrollAmount = container.scrollTop; startScroll(); });
+        }
+
+        // Copy link functionality
+        const copyBtn = document.getElementById('copyLinkBtn');
+        if(copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('لنک کاپی ہو گیا!');
+                }).catch(() => alert('کاپی نہیں ہو سکا'));
+            });
+        }
+
+        // Highlight current post in sidebar (by matching href)
+        const currentUrl = window.location.href;
+        const sidebarLinks = document.querySelectorAll('.sidebar-post-link');
+        sidebarLinks.forEach(link => {
+            if(currentUrl.includes(link.getAttribute('href'))) {
+                const parentDiv = link.closest('.sidebar-post');
+                if(parentDiv) parentDiv.classList.add('active-sidebar-post');
+            }
+        });
+    })();
+</script>
 </body>
 </html>
