@@ -2,7 +2,7 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>دین کی پاکیزگی پر 50 بدعتی حملے 6- قبروں پر چادریں چڑھانا</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -38,15 +38,24 @@
             100% { background-position: 0% 50%; }
         }
         
-        .container {
-            max-width: 1000px;
+        /* Main container + sidebar layout */
+        .main-layout {
+            max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            position: relative;
+        }
+        
+        .container {
+            flex: 3;
+            min-width: 280px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 25px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             border: 8px solid rgba(255, 255, 255, 0.3);
-            position: relative;
             transition: all 0.3s ease;
         }
         
@@ -55,6 +64,219 @@
             transform: translateY(-5px);
         }
         
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 25px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            border: 5px solid rgba(255, 153, 51, 0.5);
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-header {
+            background: linear-gradient(90deg, #ff9933, #ff6600);
+            padding: 18px;
+            text-align: center;
+            color: white;
+            font-size: 1.6rem;
+            font-weight: bold;
+            border-bottom: 3px solid #0066cc;
+        }
+        
+        .sidebar-scroll-area {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: overflow-y 0.2s;
+            scrollbar-width: thin;
+        }
+        
+        .sidebar-scroll-area::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .sidebar-scroll-area::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .sidebar-scroll-area::-webkit-scrollbar-thumb {
+            background: #ff9933;
+            border-radius: 10px;
+        }
+        
+        .post-list {
+            padding: 10px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #fef7e6;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border-right: 4px solid #ff9933;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .sidebar-item:hover {
+            background: #ffe0b5;
+            transform: translateX(-5px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-item.active {
+            background: linear-gradient(90deg, #ffdd99, #ffcc88);
+            border-right: 6px solid #0066cc;
+            font-weight: bold;
+        }
+        
+        .sidebar-img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #ff9933;
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+        
+        /* Reactions Section */
+        .reactions-section {
+            margin: 35px 0 20px;
+            padding: 20px;
+            background: #fef5e8;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .reactions-title {
+            font-size: 1.7rem;
+            color: #0066cc;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: white;
+            border: none;
+            border-radius: 60px;
+            padding: 10px 18px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #444;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ffeedd;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+        
+        .reaction-count {
+            font-weight: bold;
+            color: #ff6600;
+            margin-right: 5px;
+            font-size: 1.1rem;
+        }
+        
+        /* Nav Buttons After Post */
+        .post-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 35px 0 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(90deg, #0066cc, #0099ff);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 12px rgba(0,102,204,0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(90deg, #ff6600, #ff9933);
+            box-shadow: 0 10px 20px rgba(255,102,0,0.3);
+        }
+        
+        /* Social Icons (7 platforms) */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 15px;
+        }
+        
+        .social-circle {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        }
+        
+        .social-circle:hover {
+            transform: translateY(-5px) scale(1.07);
+        }
+        
+        .header, .footer, .content, .post-image, h1, h2, h3, p, .highlight, .back-btn, .controls {
+            /* keep original styling same */
+        }
+        
+        /* reuse existing styles from original */
         .header {
             background: linear-gradient(90deg, #0066cc, #00aaff);
             color: white;
@@ -69,7 +291,6 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             color: white;
             border-bottom: none;
-            padding-bottom: 0;
         }
         
         .subtitle {
@@ -92,29 +313,12 @@
             transition: all 0.4s ease;
         }
         
-        .post-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-        }
-        
         h2 {
             font-size: 2.2rem;
             color: #0066cc;
             margin: 30px 0 15px 0;
             padding-bottom: 10px;
             border-bottom: 3px solid #ff9933;
-            transition: all 0.3s ease;
-        }
-        
-        h2:hover {
-            color: #ff6600;
-            padding-right: 10px;
-        }
-        
-        h3 {
-            font-size: 1.8rem;
-            color: #0099cc;
-            margin: 25px 0 12px 0;
         }
         
         p {
@@ -130,12 +334,6 @@
             border-radius: 15px;
             border-right: 5px solid #ff9933;
             margin: 25px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .highlight:hover {
-            background: linear-gradient(90deg, rgba(255, 153, 51, 0.3), rgba(0, 102, 204, 0.3));
-            transform: translateX(-10px);
         }
         
         .controls {
@@ -159,16 +357,9 @@
             font-size: 24px;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .control-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(45deg, #ff9933, #0066cc);
         }
         
         .back-btn {
@@ -182,17 +373,9 @@
             border-radius: 50px;
             font-size: 1.3rem;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.4);
-            transition: all 0.3s ease;
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+            font-family: inherit;
             z-index: 1000;
-        }
-        
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(255, 102, 0, 0.6);
-            padding-right: 35px;
-            padding-left: 35px;
+            transition: all 0.3s ease;
         }
         
         .footer {
@@ -200,106 +383,66 @@
             padding: 25px;
             background: linear-gradient(90deg, #0066cc, #00aaff);
             color: white;
-            margin-top: 40px;
             border-top: 5px solid #ff9933;
         }
         
-        .footer p {
-            text-align: center;
-            font-size: 1.3rem;
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
+        @media (max-width: 900px) {
+            .main-layout {
+                flex-direction: column;
             }
-            
-            .container {
-                border-radius: 20px;
-                border-width: 5px;
+            .sidebar {
+                position: static;
+                width: 100%;
             }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            p {
-                font-size: 1.3rem;
-                line-height: 2.1;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-            
-            .controls {
-                left: 10px;
-                gap: 10px;
-            }
-            
-            .control-btn {
-                width: 50px;
-                height: 50px;
+            .controls .control-btn {
+                width: 45px;
+                height: 45px;
                 font-size: 20px;
             }
-            
-            .back-btn {
-                right: 10px;
-                top: 10px;
-                font-size: 1.1rem;
-                padding: 10px 20px;
-            }
-            
-            .post-image {
-                max-height: 350px;
-            }
+            h1 { font-size: 2rem; }
+            p { font-size: 1.3rem; }
         }
         
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.7rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            p {
-                font-size: 1.2rem;
-            }
-            
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-            
-            .controls {
-                left: 5px;
-            }
+            .reaction-btn { padding: 6px 12px; font-size: 1rem; }
+            .social-circle { width: 45px; height: 45px; font-size: 22px; }
+        }
+        
+        /* auto scroll animation for sidebar */
+        @keyframes smoothScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .auto-scroll {
+            animation: smoothScroll 30s linear infinite;
+        }
+        
+        .sidebar-scroll-area.paused {
+            overflow-y: auto;
+        }
+        
+        .sidebar-scroll-area:not(.paused) .post-list {
+            animation: smoothScroll 30s linear infinite;
+        }
+        
+        .sidebar-scroll-area:hover {
+            animation-play-state: paused;
+        }
+        
+        .sidebar-scroll-area:hover .post-list {
+            animation-play-state: paused;
         }
     </style>
 </head>
 <body>
+
     <!-- Back Button -->
     <button class="back-btn" onclick="goBack()">
         <i class="fas fa-arrow-right"></i> واپس جائیں
     </button>
     
-    <!-- Navigation Controls -->
+    <!-- Floating Scroll Buttons -->
     <div class="controls">
         <button class="control-btn" onclick="scrollToTop()">
             <i class="fas fa-chevron-up"></i>
@@ -309,103 +452,229 @@
         </button>
     </div>
     
-    <div class="container">
-        <div class="header">
-            <h1>قبروں پر چادریں چڑھانا</h1>
-            <div class="subtitle">دین کی پاکیزگی پر 50 بدعتی حملے - حصہ 6</div>
+    <div class="main-layout">
+        <!-- Main Article Container -->
+        <div class="container">
+            <div class="header">
+                <h1>قبروں پر چادریں چڑھانا</h1>
+                <div class="subtitle">دین کی پاکیزگی پر 50 بدعتی حملے - حصہ 6</div>
+            </div>
+            
+            <div class="content">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-6-qbron-par-chadryn-chrhana.png" 
+                     alt="قبروں پر چادریں چڑھانا" 
+                     class="post-image">
+                
+                <p>قبروں پر چادریں چڑھانا ایک رواج ہے جس میں لوگ اولیاء اور بزرگانِ دین کی قبروں کو خاص قسم کی چادروں سے ڈھانپتے ہیں۔ یہ عمل زیادہ تر محبت اور عقیدت کے اظہار کے طور پر کیا جاتا ہے، اور اسے اکثر لوگ بزرگان دین کی تعظیم اور برکت کے حصول کا ذریعہ سمجھتے ہیں۔</p>
+                
+                <h2>اسلام میں بدعت کا مفہوم</h2>
+                <p>اسلام میں بدعت (بِدْعَة) ہر اُس نئے عمل کو کہا جاتا ہے جو دین کی اصل تعلیمات میں شامل نہ ہوا اور جسے بعد میں دین کا حصہ بنا لیا جائے۔ نبی اکرم ﷺ اور صحابہ کرام رضوان اللہ علیہم اجمعین کے زمانے میں قبروں پر چادریں چڑھانے کا کوئی ثبوت نہیں ملتا۔ لہٰذا، علماء کی ایک بڑی تعداد اس عمل کو بدعت قرار دیتی ہے کیونکہ یہ دین میں نئی چیزوں کا اضافہ ہے۔</p>
+                
+                <div class="highlight">
+                    <p>رسول اللہ ﷺ نے فرمایا: "جو ہمارے اس دین میں کوئی نئی چیز ایجاد کرے جو اس میں نہیں ہے، وہ رد (مردود) ہے۔" بدعت کا لغوی معنی "نئی چیز" ہے، اور شرعی اصطلاح میں بدعت اُس عمل کو کہا جاتا ہے جو رسول اللہ ﷺ اور صحابہ کرام کے دور میں نہ تھا اور دین کے نام پر بعد میں ایجاد کیا گیا ہو۔ نبی کریم ﷺ نے ہر قسم کی بدعت کو گمراہی قرار دیا ہے: "ہر بدعت گمراہی ہے، اور ہر گمراہی جہنم کی طرف لے جانے والی ہے۔"</p>
+                </div>
+                
+                <h2>علماء کا کردار</h2>
+                <p>یہ تصور کہ مولویوں نے صرف کھانے یا بعض رسومات کو دین کا حصہ بنایا ہے، ایک عمومی تاثر ہے جو بعض لوگوں میں پایا جاتا ہے۔ تاہم، دینِ اسلام کی اصل تعلیمات قرآن و سنت پر مبنی ہیں، اور علمائے کرام کا فرض ہے کہ وہ دین کی پاکیزگی کو بدعات سے بچائیں اور امت کو دینِ اسلام کی اصل تعلیمات کی پیروی کی طرف مائل کریں۔</p>
+                
+                <h2>پاکستان میں قبروں پر چادریں چڑھانے کا کاروبار</h2>
+                <p>پاکستان میں قبروں پر چادریں چڑھانے کا عمل ایک منافع بخش کاروبار بن چکا ہے۔ کئی لوگ اس عمل کو بزنس کے طور پر انجام دیتے ہیں، جہاں مزارات اور قبرستانوں میں چادریں فروخت کی جاتی ہیں اور لوگ انہیں عقیدت کے طور پر قبروں پر چڑھاتے ہیں۔ اس کاروبار میں شامل افراد مریدین اور زائرین کی عقیدت کو استعمال کرتے ہیں، جو کہ بدعتی رسوم کے فروغ کا باعث بن رہا ہے۔</p>
+                
+                <!-- Rest of the original content (preserved fully) -->
+                <h2>قبروں پر چادریں چڑھانے کی تاریخی ابتدا</h2>
+                <p>قبروں پر چادریں چڑھانے کی ابتدا اسلامی تاریخ کے ابتدائی دور میں نہیں ملتی۔ یہ عمل زیادہ تر بعد کے صوفی سلسلوں میں رائج ہوا، جہاں اولیاء اللہ کے مزاروں کی تعظیم کے طور پر چادریں چڑھانے کا رواج شروع ہوا۔ اس عمل کی واضح ابتدا کسی مخصوص فرقے یا دین سے نہیں جڑی، بلکہ وقت گزرنے کے ساتھ مختلف ثقافتوں اور عقائد میں شامل ہوتا گیا۔</p>
+                
+                <h2>دورِ جاہلیت میں</h2>
+                <p>دورِ جاہلیت میں قبروں پر چادریں چڑھانے کا کوئی خاص ثبوت نہیں ملتا۔ جاہلیت کے دور میں قبروں کی تعظیم اور مختلف رسوم موجود تھیں، مگر چادریں چڑھانے جیسی بدعت کا ذکر نہیں ملتا۔ اسلام نے جاہلیت کے تمام رسوم کو ختم کیا جو توحید کے اصولوں کے خلاف تھیں۔</p>
+                
+                <h2>دیگر مذاہب میں</h2>
+                <p>دیگر مذاہب، جیسے ہندو دھرم، عیسائیت، اور بدھ مت میں بھی قبروں اور مزارات کی تعظیم کا تصور پایا جاتا ہے۔ ان مذاہب میں بھی قبرستانوں اور مقدس مقامات پر عقیدت کا اظہار مختلف طریقوں سے کیا جاتا ہے، جیسے کہ قبروں کو سجانا، پھول چڑھانا، یا چادریں چڑھانا۔ یہ عمل زیادہ تر مذہبی عقائد سے کم اور ثقافتی رسوم کا حصہ ہے۔</p>
+                
+                <div class="highlight">
+                    <p>زرتشتی مذہب میں قبروں کی تعظیم کا ایک خاص طریقہ کار تھا، لیکن وہاں چادریں چڑھانے کا رواج موجود نہیں تھا۔ زرتشی مذہب میں مردوں کو دفن کرنے کی بجائے کھلے مقامات پر چھوڑنے کا رواج تھا تاکہ قدرتی طور پر وہ گل جائیں۔</p>
+                </div>
+                
+                <h2>اسلام میں قبروں پر چادریں چڑھانے کا تصور</h2>
+                <p>اسلام میں قبروں پر چادریں چڑھانے کا کوئی واضح تصور موجود نہیں ہے۔ نبی اکرم ﷺ نے قبروں پر کسی بھی قسم کی تعمیر یا اس کی زینت کے بارے میں منع کیا ہے۔ آپ ﷺ نے قبروں کو سادہ رکھنے اور انہیں عبادتی یا تعظیم کا مرکز نہ بنانے کی تعلیم دی ہے۔</p>
+                <p>نبی کریم ﷺ نے فرمایا: "قبروں پر نہ بیٹھو اور ان کی طرف رخ کر کے نماز نہ پڑھو۔" قبروں کو سجانے اور ان پر چادریں چڑھانے کا عمل اسلام میں جائز نہیں سمجھا جاتا، اور یہ بدعت کے دائرے میں آتا ہے۔</p>
+                
+                <h2>صحابہ کرام کے دور میں</h2>
+                <p>صحابہ کرام رضوان اللہ علیہم اجمعین کی زندگی سے قبروں پر چادریں چڑھانے کا کوئی ثبوت نہیں ملتا۔ صحابہ کرام قبروں کو سادہ رکھنے اور انہیں عبادتی یا تعظیم کا مرکز نہ بنانے کی تعلیم دیتے تھے۔ حضرت عمر رضی اللہ عنہ نے قبروں پر کسی بھی قسم کی تعمیر اور زینت کو ناپسند کیا۔</p>
+                
+                <h2>ائمہ کرام کا موقف</h2>
+                <p>ائمہ کرام جیسے امام مالک، امام شافعی، امام احمد بن حنبل، اور امام ابو حنیفہ رحمہم اللہ نے قبروں پر چادریں چڑھانے اور ان کی تعظیم کے خلاف سخت موقف اختیار کیا ہے۔ ان کے نزدیک یہ عمل دین میں نئی چیزوں کا اضافہ اور بدعت کے زمرے میں آتا ہے۔ ائمہ کرام نے لوگوں کو قبروں کو سادہ رکھنے اور بدعتی رسوم سے بچنے کی تلقین کی ہے۔</p>
+                
+                <h2>مختلف مسالک میں</h2>
+                <p>لیکن مسلک بریلوی اور اہل تشیع میں یہ بدعت کے فروغ و شور سے منائی جاتی ہے اور باقاعدہ اس کا خصوصی اہتمام کیا جاتا ہے۔</p>
+                
+                <h2>پاکستان میں قبروں پر چادریں چڑھانے کا رجحان</h2>
+                <p>پاکستان میں قبروں پر چادریں چڑھانے کا رجحان بڑھتا جا رہا ہے، جو کہ عوام میں دین کی اصل تعلیمات سے دوری کا ایک نشان ہے۔ اس کے منفی نتائج میں بدعت کا فروغ، عوام کا دین سے غیر ضروری عقائد کی طرف مائل ہونا، اور قبروں کو عبادت کا مرکز بنانا شامل ہیں۔</p>
+                
+                <div class="highlight">
+                    <h3>اس گناہ سے بچنے کا طریقہ</h3>
+                    <p>اس گناہ سے بچنے کے لیے ہمیں قرآن و سنت کی طرف رجوع کرنا چاہیے اور بدعات سے دور رہنا چاہیے۔ رسول اللہ ﷺ نے ہر قسم کی بدعت سے بچنے کی سخت تاکید کی ہے، اور دین میں صرف وہی عمل کرنا چاہیے جو قرآن و سنت کے مطابق ہو۔</p>
+                    <p>قرآن میں اللہ تعالیٰ فرماتا ہے: "اس کی پیروی کرو جو تمہارے رب کی طرف سے تم پر نازل کیا گیا ہے، اور اس کے علاوہ کسی اور کی پیروی نہ کرو۔"</p>
+                </div>
+                
+                <h2>نتیجہ</h2>
+                <p>قبروں پر چادریں چڑھانا اسلام میں ایک غیر شرعی عمل اور بدعت ہے جس کی کوئی بنیاد قرآن و سنت میں موجود نہیں ہے۔ اس سے بچنے کے لیے ہمیں دین کی اصل تعلیمات کی پیروی کرنی چاہیے اور بدعتی رسومات سے خود کو اور معاشرے کو دور رکھنا چاہیے۔</p>
+                
+                <!-- REACTIONS SECTION (Exactly as required) -->
+                <div class="reactions-section">
+                    <div class="reactions-title">📊 آپ کا ردعمل</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons (Main Page + All Posts) -->
+                <div class="post-navigation">
+                    <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+                </div>
+                
+                <!-- Social Media Icons (7 platforms) -->
+                <div class="social-share">
+                    <h3 style="color:#0066cc; font-size:1.6rem;">شیئر کریں</h3>
+                    <div class="social-icons">
+                        <div class="social-circle" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                        <div class="social-circle" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                        <div class="social-circle" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                        <div class="social-circle" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="social-circle" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></div>
+                        <div class="social-circle" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                        <div class="social-circle" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>مزید اسلامی تعلیمات کے لیے ویب سائٹ وزٹ کریں</p>
+            </div>
         </div>
         
-        <div class="content">
-            <!-- Post Image -->
-            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-6-qbron-par-chadryn-chrhana.png" 
-                 alt="قبروں پر چادریں چڑھانا" 
-                 class="post-image">
-            
-            <p>قبروں پر چادریں چڑھانا ایک رواج ہے جس میں لوگ اولیاء اور بزرگانِ دین کی قبروں کو خاص قسم کی چادروں سے ڈھانپتے ہیں۔ یہ عمل زیادہ تر محبت اور عقیدت کے اظہار کے طور پر کیا جاتا ہے، اور اسے اکثر لوگ بزرگان دین کی تعظیم اور برکت کے حصول کا ذریعہ سمجھتے ہیں۔</p>
-            
-            <h2>اسلام میں بدعت کا مفہوم</h2>
-            <p>اسلام میں بدعت (بِدْعَة) ہر اُس نئے عمل کو کہا جاتا ہے جو دین کی اصل تعلیمات میں شامل نہ ہوا اور جسے بعد میں دین کا حصہ بنا لیا جائے۔ نبی اکرم ﷺ اور صحابہ کرام رضوان اللہ علیہم اجمعین کے زمانے میں قبروں پر چادریں چڑھانے کا کوئی ثبوت نہیں ملتا۔ لہٰذا، علماء کی ایک بڑی تعداد اس عمل کو بدعت قرار دیتی ہے کیونکہ یہ دین میں نئی چیزوں کا اضافہ ہے۔</p>
-            
-            <div class="highlight">
-                <p>رسول اللہ ﷺ نے فرمایا: "جو ہمارے اس دین میں کوئی نئی چیز ایجاد کرے جو اس میں نہیں ہے، وہ رد (مردود) ہے۔" بدعت کا لغوی معنی "نئی چیز" ہے، اور شرعی اصطلاح میں بدعت اُس عمل کو کہا جاتا ہے جو رسول اللہ ﷺ اور صحابہ کرام کے دور میں نہ تھا اور دین کے نام پر بعد میں ایجاد کیا گیا ہو۔ نبی کریم ﷺ نے ہر قسم کی بدعت کو گمراہی قرار دیا ہے: "ہر بدعت گمراہی ہے، اور ہر گمراہی جہنم کی طرف لے جانے والی ہے۔"</p>
+        <!-- Sidebar with auto-scroll -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-book-open"></i> مزید مضامین
             </div>
-            
-            <h2>علماء کا کردار</h2>
-            <p>یہ تصور کہ مولویوں نے صرف کھانے یا بعض رسومات کو دین کا حصہ بنایا ہے، ایک عمومی تاثر ہے جو بعض لوگوں میں پایا جاتا ہے۔ تاہم، دینِ اسلام کی اصل تعلیمات قرآن و سنت پر مبنی ہیں، اور علمائے کرام کا فرض ہے کہ وہ دین کی پاکیزگی کو بدعات سے بچائیں اور امت کو دینِ اسلام کی اصل تعلیمات کی پیروی کی طرف مائل کریں۔</p>
-            
-            <h2>پاکستان میں قبروں پر چادریں چڑھانے کا کاروبار</h2>
-            <p>پاکستان میں قبروں پر چادریں چڑھانے کا عمل ایک منافع بخش کاروبار بن چکا ہے۔ کئی لوگ اس عمل کو بزنس کے طور پر انجام دیتے ہیں، جہاں مزارات اور قبرستانوں میں چادریں فروخت کی جاتی ہیں اور لوگ انہیں عقیدت کے طور پر قبروں پر چڑھاتے ہیں۔ اس کاروبار میں شامل افراد مریدین اور زائرین کی عقیدت کو استعمال کرتے ہیں، جو کہ بدعتی رسوم کے فروغ کا باعث بن رہا ہے۔</p>
-            
-            <h2>قبروں پر چادریں چڑھانے کی تاریخی ابتدا</h2>
-            <p>قبروں پر چادریں چڑھانے کی ابتدا اسلامی تاریخ کے ابتدائی دور میں نہیں ملتی۔ یہ عمل زیادہ تر بعد کے صوفی سلسلوں میں رائج ہوا، جہاں اولیاء اللہ کے مزاروں کی تعظیم کے طور پر چادریں چڑھانے کا رواج شروع ہوا۔ اس عمل کی واضح ابتدا کسی مخصوص فرقے یا دین سے نہیں جڑی، بلکہ وقت گزرنے کے ساتھ مختلف ثقافتوں اور عقائد میں شامل ہوتا گیا۔</p>
-            
-            <h2>دورِ جاہلیت میں</h2>
-            <p>دورِ جاہلیت میں قبروں پر چادریں چڑھانے کا کوئی خاص ثبوت نہیں ملتا۔ جاہلیت کے دور میں قبروں کی تعظیم اور مختلف رسوم موجود تھیں، مگر چادریں چڑھانے جیسی بدعت کا ذکر نہیں ملتا۔ اسلام نے جاہلیت کے تمام رسوم کو ختم کیا جو توحید کے اصولوں کے خلاف تھیں۔</p>
-            
-            <h2>دیگر مذاہب میں</h2>
-            <p>دیگر مذاہب، جیسے ہندو دھرم، عیسائیت، اور بدھ مت میں بھی قبروں اور مزارات کی تعظیم کا تصور پایا جاتا ہے۔ ان مذاہب میں بھی قبرستانوں اور مقدس مقامات پر عقیدت کا اظہار مختلف طریقوں سے کیا جاتا ہے، جیسے کہ قبروں کو سجانا، پھول چڑھانا، یا چادریں چڑھانا۔ یہ عمل زیادہ تر مذہبی عقائد سے کم اور ثقافتی رسوم کا حصہ ہے۔</p>
-            
-            <div class="highlight">
-                <p>زرتشتی مذہب میں قبروں کی تعظیم کا ایک خاص طریقہ کار تھا، لیکن وہاں چادریں چڑھانے کا رواج موجود نہیں تھا۔ زرتشی مذہب میں مردوں کو دفن کرنے کی بجائے کھلے مقامات پر چھوڑنے کا رواج تھا تاکہ قدرتی طور پر وہ گل جائیں۔</p>
+            <div class="sidebar-scroll-area" id="sidebarScrollArea">
+                <div class="post-list" id="postList">
+                    <!-- dynamic posts list will be injected via js to keep html clean but we'll hardcode for reliability -->
+                </div>
             </div>
-            
-            <h2>اسلام میں قبروں پر چادریں چڑھانے کا تصور</h2>
-            <p>اسلام میں قبروں پر چادریں چڑھانے کا کوئی واضح تصور موجود نہیں ہے۔ نبی اکرم ﷺ نے قبروں پر کسی بھی قسم کی تعمیر یا اس کی زینت کے بارے میں منع کیا ہے۔ آپ ﷺ نے قبروں کو سادہ رکھنے اور انہیں عبادتی یا تعظیم کا مرکز نہ بنانے کی تعلیم دی ہے۔</p>
-            
-            <p>نبی کریم ﷺ نے فرمایا: "قبروں پر نہ بیٹھو اور ان کی طرف رخ کر کے نماز نہ پڑھو۔" قبروں کو سجانے اور ان پر چادریں چڑھانے کا عمل اسلام میں جائز نہیں سمجھا جاتا، اور یہ بدعت کے دائرے میں آتا ہے۔</p>
-            
-            <h2>صحابہ کرام کے دور میں</h2>
-            <p>صحابہ کرام رضوان اللہ علیہم اجمعین کی زندگی سے قبروں پر چادریں چڑھانے کا کوئی ثبوت نہیں ملتا۔ صحابہ کرام قبروں کو سادہ رکھنے اور انہیں عبادتی یا تعظیم کا مرکز نہ بنانے کی تعلیم دیتے تھے۔ حضرت عمر رضی اللہ عنہ نے قبروں پر کسی بھی قسم کی تعمیر اور زینت کو ناپسند کیا۔</p>
-            
-            <h2>ائمہ کرام کا موقف</h2>
-            <p>ائمہ کرام جیسے امام مالک، امام شافعی، امام احمد بن حنبل، اور امام ابو حنفیہ رحمہم اللہ نے قبروں پر چادریں چڑھانے اور ان کی تعظیم کے خلاف سخت موقف اختیار کیا ہے۔ ان کے نزدیک یہ عمل دین میں نئی چیزوں کا اضافہ اور بدعت کے زمرے میں آتا ہے۔ ائمہ کرام نے لوگوں کو قبروں کو سادہ رکھنے اور بدعتی رسوم سے بچنے کی تلقین کی ہے۔</p>
-            
-            <h2>مختلف مسالک میں</h2>
-            <p>لیکن مسلک بریلوی اور اہل تشیع میں یہ بدعت کے فروغ و شور سے منائی جاتی ہے اور باقاعدہ اس کا خصوصی اہتمام کیا جاتا ہے۔</p>
-            
-            <h2>پاکستان میں قبروں پر چادریں چڑھانے کا رجحان</h2>
-            <p>پاکستان میں قبروں پر چادریں چڑھانے کا رجحان بڑھتا جا رہا ہے، جو کہ عوام میں دین کی اصل تعلیمات سے دوری کا ایک نشان ہے۔ اس کے منفی نتائج میں بدعت کا فروغ، عوام کا دین سے غیر ضروری عقائد کی طرف مائل ہونا، اور قبروں کو عبادت کا مرکز بنانا شامل ہیں۔</p>
-            
-            <div class="highlight">
-                <h3>اس گناہ سے بچنے کا طریقہ</h3>
-                <p>اس گناہ سے بچنے کے لیے ہمیں قرآن و سنت کی طرف رجوع کرنا چاہیے اور بدعات سے دور رہنا چاہیے۔ رسول اللہ ﷺ نے ہر قسم کی بدعت سے بچنے کی سخت تاکید کی ہے، اور دین میں صرف وہی عمل کرنا چاہیے جو قرآن و سنت کے مطابق ہو۔</p>
-                <p>قرآن میں اللہ تعالیٰ فرماتا ہے: "اس کی پیروی کرو جو تمہارے رب کی طرف سے تم پر نازل کیا گیا ہے، اور اس کے علاوہ کسی اور کی پیروی نہ کرو۔"</p>
-            </div>
-            
-            <h2>نتیجہ</h2>
-            <p>قبروں پر چادریں چڑھانا اسلام میں ایک غیر شرعی عمل اور بدعت ہے جس کی کوئی بنیاد قرآن و سنت میں موجود نہیں ہے۔ اس سے بچنے کے لیے ہمیں دین کی اصل تعلیمات کی پیروی کرنی چاہیے اور بدعتی رسومات سے خود کو اور معاشرے کو دور رکھنا چاہیے۔</p>
-        </div>
-        
-        <div class="footer">
-            <p>مزید اسلامی تعلیمات کے لیے ویب سائٹ وزٹ کریں</p>
         </div>
     </div>
+
+    <!-- reactions.js (external) -->
+    <script src="/reactions.js"></script>
     
     <script>
-        // Navigation Functions
-        function goBack() {
-            window.history.back();
+        // Navigation helper functions
+        function goBack() { window.history.back(); }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+        
+        // Social Sharing functions (keep original style)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            switch(platform) {
+                case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+                case 'whatsapp': shareUrl = `https://wa.me/?text=${title}%20${url}`; break;
+                case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`; break;
+                case 'linkedin': shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`; break;
+                case 'telegram': shareUrl = `https://t.me/share/url?url=${url}&text=${title}`; break;
+                case 'pinterest': shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+                default: return;
+            }
+            window.open(shareUrl, '_blank', 'width=600,height=500');
         }
         
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => { alert('کاپی کرنے میں ناکامی'); });
+        }
+        
+        // Sidebar posts data (exactly given list)
+        const sidebarPosts = [
+            { title: "عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+            { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+            { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+            { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+            { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+            { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+        ];
+        
+        // Current page URL to highlight active item
+        const currentUrl = window.location.href;
+        
+        function buildSidebar() {
+            const listContainer = document.getElementById('postList');
+            if(!listContainer) return;
+            listContainer.innerHTML = '';
+            sidebarPosts.forEach(post => {
+                const isActive = currentUrl.includes(post.link) || (post.link === currentUrl);
+                const activeClass = isActive ? 'active' : '';
+                const itemDiv = document.createElement('a');
+                itemDiv.className = `sidebar-item ${activeClass}`;
+                itemDiv.href = post.link;
+                itemDiv.innerHTML = `
+                    <img class="sidebar-img" src="${post.img}" alt="${post.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/55?text=تصویر'">
+                    <div class="sidebar-title">${post.title}</div>
+                `;
+                listContainer.appendChild(itemDiv);
             });
         }
         
-        function scrollToBottom() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
+        // Auto scroll logic: fixed height 500px, animation
+        function initAutoScroll() {
+            const scrollDiv = document.getElementById('sidebarScrollArea');
+            const postListElem = document.getElementById('postList');
+            if(!scrollDiv || !postListElem) return;
+            // Clone to ensure smooth infinite effect? We'll use CSS animation with duplicate? easier: just enable animation
+            // we need continuous scroll: we set animation on .post-list if content height > scrollDiv height
+            const contentHeight = postListElem.scrollHeight;
+            const containerHeight = 500;
+            if(contentHeight > containerHeight) {
+                // Add duplicate items for seamless loop? simpler: just use CSS animation moving upwards.
+                postListElem.style.animation = 'smoothScroll 30s linear infinite';
+                scrollDiv.addEventListener('mouseenter', () => {
+                    postListElem.style.animationPlayState = 'paused';
+                });
+                scrollDiv.addEventListener('mouseleave', () => {
+                    postListElem.style.animationPlayState = 'running';
+                });
+            } else {
+                postListElem.style.animation = 'none';
+            }
         }
         
-        // Add hover effect to container on page load
+        // Since reactions.js is external, it contains reactionClick, loadReactions etc. 
+        // We must ensure no duplicate internal functions conflict. We removed any local reaction functions.
+        // Wait for DOM and load sidebar
         document.addEventListener('DOMContentLoaded', function() {
-            const container = document.querySelector('.container');
-            container.style.transform = 'translateY(0)';
+            buildSidebar();
+            setTimeout(initAutoScroll, 100);
+            // In case reactions.js auto loads counts, fine.
         });
+        
+        // Additional to handle dynamic active class if needed on link clicks (already on server)
     </script>
 </body>
 </html>
