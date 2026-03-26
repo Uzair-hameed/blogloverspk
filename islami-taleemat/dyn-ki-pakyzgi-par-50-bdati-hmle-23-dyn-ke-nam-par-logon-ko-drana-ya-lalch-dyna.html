@@ -11,10 +11,10 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            line-height: 2.4;
+            line-height: 2;
             direction: rtl;
             text-align: right;
             background: linear-gradient(145deg, #0a1f2e 0%, #1a3b4e 100%);
@@ -23,7 +23,7 @@
             position: relative;
             overflow-x: hidden;
         }
-        
+
         /* انیمیشنڈ بیک گراؤنڈ */
         .animated-bg {
             position: fixed;
@@ -38,16 +38,26 @@
             opacity: 0.9;
             pointer-events: none;
         }
-        
+
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        
-        .main-container {
-            max-width: 900px;
+
+        /* دو کالم لے آؤٹ */
+        .content-wrapper {
+            max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .main-container {
+            flex: 3;
+            min-width: 280px;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(8px);
             border-radius: 30px;
@@ -56,12 +66,100 @@
             border: 2px solid rgba(255, 255, 255, 0.5);
             transition: all 0.3s ease;
         }
-        
+
         .main-container:hover {
             box-shadow: 0 30px 60px rgba(255, 215, 0, 0.3);
             border-color: #ffd700;
         }
-        
+
+        /* سائیڈ بار - آٹو اسکرول والا */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(10, 31, 46, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 20px 15px;
+            border: 1px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: #ffd700;
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ffd700;
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 8px;
+        }
+
+        /* اسکرول کنٹینر */
+        .scroll-posts {
+            max-height: 500px;
+            overflow-y: auto;
+            animation: autoScroll 30s linear infinite;
+            transition: animation-play-state 0.2s;
+            padding-left: 5px;
+        }
+
+        .scroll-posts:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* ہر پوسٹ کا انداز */
+        .side-post {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,240,0.15);
+            margin-bottom: 18px;
+            padding: 10px;
+            border-radius: 20px;
+            transition: 0.2s;
+            border-right: 3px solid transparent;
+        }
+
+        .side-post:hover {
+            background: rgba(255,215,0,0.2);
+            border-right-color: #ffd700;
+        }
+
+        .side-post.active {
+            background: rgba(255,215,0,0.3);
+            border-right-color: #ffaa00;
+        }
+
+        .side-post img {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 2px solid #ffd700;
+        }
+
+        .side-post a {
+            color: #f9f3e2;
+            text-decoration: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .side-post a:hover {
+            color: #ffd700;
+        }
+
         /* بٹن پینل */
         .nav-panel {
             display: flex;
@@ -76,14 +174,14 @@
             backdrop-filter: blur(5px);
             border: 1px solid #fff;
         }
-        
+
         .nav-btn {
             background: linear-gradient(145deg, #ffd700, #ffb347);
             color: #0a1f2e;
             border: none;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             font-family: inherit;
             cursor: pointer;
@@ -92,98 +190,147 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             border: 2px solid transparent;
         }
-        
+
         .nav-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             border-color: #fff;
-            background: linear-gradient(145deg, #ffb347, #ffd700);
         }
-        
+
         .nav-btn.social {
             background: #1da1f2;
             color: white;
-            padding: 10px 15px;
-            font-size: 22px;
+            padding: 8px 14px;
+            font-size: 18px;
         }
-        
+
         .social-panel {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
-        
-        /* مرکزی تصویر */
+
+        /* ملٹی کلر تھیم والے پیراگراف */
+        .post-body p {
+            margin-bottom: 24px;
+            padding: 16px 22px;
+            border-radius: 28px;
+            transition: 0.2s;
+            font-size: 1rem;
+            line-height: 1.85;
+            word-spacing: 0.5px;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        /* مختلف رنگ */
+        .post-body p:nth-child(odd) {
+            background: rgba(255, 245, 210, 0.85);
+            border-right: 5px solid #ff9966;
+        }
+        .post-body p:nth-child(even) {
+            background: rgba(220, 240, 255, 0.85);
+            border-right: 5px solid #66cc99;
+        }
+        .post-body p:nth-child(3n) {
+            background: rgba(245, 225, 245, 0.85);
+            border-right: 5px solid #cc88ff;
+        }
+        .post-body p:nth-child(5n+2) {
+            background: rgba(230, 255, 230, 0.85);
+            border-right: 5px solid #88dd88;
+        }
+
+        .post-body strong {
+            color: #c0392b;
+            font-size: 1.1rem;
+        }
+
         .featured-image {
             width: 100%;
-            margin: 25px 0;
+            margin: 20px 0;
             border-radius: 25px;
             overflow: hidden;
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             border: 4px solid white;
-            transition: 0.3s;
         }
-        
+
         .featured-image img {
             width: 100%;
             height: auto;
             display: block;
-            object-fit: cover;
-            transition: 0.5s;
+            transition: 0.4s;
         }
-        
-        .featured-image:hover img {
-            transform: scale(1.02);
-        }
-        
-        /* عنوان */
+
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.2rem;
             line-height: 1.5;
-            color: #0a2f44;
-            background: linear-gradient(145deg, #fff9e6, #fff);
-            padding: 20px 25px;
-            border-radius: 70px 70px 70px 20px;
+            background: linear-gradient(145deg, #fff2cf, #fff5e6);
+            padding: 15px 22px;
+            border-radius: 60px 60px 60px 20px;
             margin: 20px 0 25px;
-            border-right: 12px solid #ffd700;
-            border-left: 5px solid #4a90e2;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            text-shadow: 2px 2px 0 rgba(255,215,0,0.3);
-            word-spacing: 2px;
+            border-right: 12px solid #ffaa33;
+            border-left: 3px solid #4a90e2;
+            color: #1a4a6f;
         }
-        
-        /* متن */
-        .post-body {
-            font-size: 1.4rem;
-            text-align: justify;
-            word-spacing: 1px;
-            color: #022b40;
+
+        /* Reactions سیکشن */
+        .reactions-section {
+            background: rgba(0,0,0,0.05);
+            padding: 20px 15px;
+            border-radius: 50px;
+            margin: 25px 0;
+            text-align: center;
+            backdrop-filter: blur(4px);
         }
-        
-        .post-body p {
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 20px 25px;
-            border-radius: 30px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 12px;
+        }
+        .reaction-btn {
+            background: #fff9ef;
+            border: none;
+            border-radius: 60px;
+            padding: 8px 18px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
             transition: 0.2s;
-            border: 1px solid rgba(255,215,0,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #2c3e50;
         }
-        
-        .post-body p:hover {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #ffd700;
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ffecb3;
         }
-        
-        .post-body strong {
-            color: #c44536;
-            font-size: 1.5rem;
+        .reaction-count {
+            font-size: 0.9rem;
+            background: #ffd966;
+            padding: 2px 8px;
+            border-radius: 40px;
+            margin-right: 5px;
         }
-        
-        /* اسکرول بٹن */
+
+        /* نیچے نیویگیشن بٹن */
+        .bottom-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 15px;
+            flex-wrap: wrap;
+        }
+
+        /* فلوٹنگ اسکرول */
         .scroll-buttons {
             position: fixed;
             left: 20px;
@@ -193,99 +340,87 @@
             gap: 12px;
             z-index: 99;
         }
-        
         .scroll-btn {
             background: #ffd700;
             color: #0a1f2e;
-            width: 55px;
-            height: 55px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             border: 3px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: 0.3s;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+            transition: 0.2s;
         }
-        
         .scroll-btn:hover {
             background: #4a90e2;
             color: white;
-            transform: scale(1.15);
         }
-        
-        /* فوٹر */
         .footer-note {
             text-align: center;
             margin-top: 30px;
-            padding: 15px;
+            padding: 12px;
             color: white;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             background: rgba(0,0,0,0.2);
             border-radius: 60px;
         }
-        
-        /* موبائل ایڈجسٹمنٹ */
-        @media (max-width: 700px) {
-            h1 {
-                font-size: 2rem;
-                padding: 15px;
+
+        @media (max-width: 900px) {
+            .content-wrapper {
+                flex-direction: column;
             }
-            .post-body {
-                font-size: 1.2rem;
+            .sidebar {
+                position: static;
+                width: 100%;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .post-body p {
+                font-size: 0.95rem;
+                padding: 12px 18px;
             }
             .nav-panel {
                 flex-direction: column;
-                border-radius: 30px;
-            }
-            .social-panel {
-                justify-content: center;
-            }
-            .scroll-buttons {
-                left: 10px;
-                bottom: 15px;
-            }
-            .scroll-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 25px;
             }
         }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6rem;
+        @media (max-width: 550px) {
+            body {
+                padding: 12px;
             }
-            .post-body {
-                font-size: 1.1rem;
+            .reaction-btn {
+                padding: 5px 12px;
+                font-size: 0.9rem;
             }
         }
-        
-        /* لنک ڈیلیٹ */
         a {
             text-decoration: none;
         }
-        
-        /* شئیرنگ بٹن کلرز */
         .whatsapp { background: #25D366 !important; }
         .facebook { background: #1877F2 !important; }
         .twitter { background: #1DA1F2 !important; }
         .telegram { background: #0088cc !important; }
+        .linkedin { background: #0077b5 !important; }
+        .pinterest { background: #bd081c !important; }
+        .copybtn { background: #6c757d !important; }
     </style>
 </head>
 <body>
-    <div class="animated-bg"></div>
-    
-    <div class="scroll-buttons">
-        <div class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
-        <div class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">↓</div>
-    </div>
-    
+<div class="animated-bg"></div>
+
+<div class="scroll-buttons">
+    <div class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
+    <div class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">↓</div>
+</div>
+
+<div class="content-wrapper">
+    <!-- مرکزی مضمون والا حصہ -->
     <div class="main-container">
-        <!-- نیویگیشن پینل -->
         <div class="nav-panel">
             <a href="https://bloglovers.pk/" class="nav-btn">🏠 ہوم پیج</a>
             <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn">◀ واپس (اسلامی تعلیمات)</a>
@@ -296,16 +431,13 @@
                 <a href="https://t.me/share/url?url=https://bloglovers.pk/" target="_blank" class="nav-btn social telegram">T</a>
             </div>
         </div>
-        
-        <!-- تصویر (صرف ایک) عنوان کے بعد -->
+
         <div class="featured-image">
             <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-23-dyn-ke-nam-par-logon-ko-drana-ya-lalch-dyna.png" alt="دین کے نام پر لوگوں کو ڈرانا یا لالچ دینا" loading="lazy" onerror="this.style.display='none'">
         </div>
-        
-        <!-- مرکزی عنوان -->
+
         <h1>دین کی پاکیزگی پر 50 بدعتی حملے 23 - دین کے نام پر لوگوں کو ڈرانا یا لالچ دینا</h1>
-        
-        <!-- مکمل متن (بغیر کسی تبدیلی کے) -->
+
         <div class="post-body">
             <p>دین اسلام محبت، شفقت، اور ہدایت کا دین ہے، جس کا مقصد انسانیت کو امن، سلامتی اور روحانی ترقی کی طرف لے جانا ہے۔ لیکن جب دین کے نام پر لوگوں کو خوفزدہ کیا جائے یا لالچ دیا جائے، تو یہ اسلام کے اصل پیغام سے انحراف کرتا ہے۔ دین کے نام پر ڈرانے سے مراد یہ ہے کہ کسی شخص کو مذہبی عقائد یا اعمال کے حوالے سے ایسے نتائج کا خوف دلانا جو قرآن و سنت میں موجود نہیں ہیں، اور لالچ دینے کا مطلب ہے کہ لوگوں کو دین کی راہ چھوڑنے یا غلط راستے پر چلنے کے لیے دنیاوی مفادات کا لالچ دینا۔</p>
             <p>یہ بدعت اس وقت جنم لیتی ہے جب کچھ لوگ مذہب کو اپنے ذاتی مقاصد کے لیے استعمال کرتے ہیں، چاہے وہ سیاسی، معاشرتی یا معاشی مفادات ہوں۔ دین کے نام پر لوگوں کو ڈرانا یا لالچ دینا، لوگوں کو اپنی مرضی کے مطابق چلانے اور ان پر اپنی طاقت اور اثر و رسوخ برقرار رکھنے کا ایک طریقہ بن جاتا ہے۔</p>
@@ -338,20 +470,87 @@
             <p>اسلام ایک ایسا دین ہے جو محبت، امن، اور ہدایت کا پیغام دیتا ہے۔ دین کے نام پر لوگوں کو ڈرانا یا لالچ دینا اسلامی تعلیمات کے خلاف ہے۔ مسلمانوں کو چاہیے کہ وہ قرآن و سنت کے مطابق اپنی زندگی گزاریں اور کسی بھی بدعتی یا غیر اسلامی رویے کا شکار نہ ہوں۔</p>
             <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
         </div>
-        
-        <!-- سادہ فوٹر -->
+
+        <!-- ری ایکشن سیکشن (موجودہ، ڈپلیکیٹ کوڈ نہیں) -->
+        <div class="reactions-section">
+            <h4 style="color:#2c3e50;">📢 آپ کا ردعمل اہم ہے:</h4>
+            <div class="reaction-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- نیچے نیویگیشن بٹن -->
+        <div class="bottom-nav">
+            <a href="https://bloglovers.pk/" class="nav-btn">🏠 مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn">📚 تمام پوسٹس</a>
+        </div>
         <div class="footer-note">
             📖 اسلام امن و محبت کا دین • براہ کرم وسائل شیئر کریں
         </div>
     </div>
-    
-    <!-- ہموار اسکرول -->
-    <script>
-        // مزید کسی ٹوگل کی ضرورت نہیں۔ کلر فل بیک گراؤنڈ پہلے سے موجود ہے۔
-        // اسکرول بٹن فعال ہیں۔
-        
-        // حروف کی نمائش کے لیے (اختیاری)
-        console.log("پوسٹ کا سائز بڑھا دیا گیا ہے، متن جسٹیفائیڈ ہے۔");
-    </script>
+
+    <!-- سائیڈ بار - خودکار اسکرول والا -->
+    <div class="sidebar">
+        <h3>✨ متعلقہ مضامین</h3>
+        <div class="scroll-posts" id="autoScrollSidebar">
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی"><a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بھیک"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="قبضہ"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عالم کا عمل"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="دھاگے"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="سجدہ"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="بے حیائی"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہی"><a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a></div>
+            <div class="side-post"><img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="دل دکھانا"><a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- reactions.js فائل اور کوئی ڈپلیکیٹ فنکشن نہیں (صرف reactionClick موجود ہوگا اسکرپٹ میں لیکن یہ reactions.js سے آئے گا) -->
+<script src="/reactions.js"></script>
+<script>
+    // محض اسکرول سائیڈ بار میں ڈپلیکیشن کو روکنے کے لیے کوئی بھی ڈپلیکیٹ reactions فنکشن نہیں ڈالے گئے۔
+    // یقینی بنائیں کہ reactions.js میں reactionClick موجود ہے اور API سے ڈیٹا لوڈ ہوتا ہے۔
+    // خودکار اسکرول کے لیے انیمیشن 30s جاری رکھیں - اور ہوور پر رک جائے گا (CSS میں پہلے سے)
+    // ہم ایک ہائی لائٹ active پوسٹ کے لیے (موجودہ پوسٹ کو نمایاں کرنے کے لیے صرف ڈیزائن میں فرق نہیں ہے، لیکن سائیڈ بار میں یہ خودکار ہوگا)
+    // اضافی طور پر کسی بھی redundant loadReactions کو نہیں رکھا۔
+    console.log("صفحہ مکمل طور پر تیار، Reactions.js سے reactionClick استعمال ہوگا۔");
+    // Sidebar auto-scroll infinite loop کے لیے clone کا طریقہ بہتر رکھا
+    const scrollBox = document.getElementById('autoScrollSidebar');
+    if(scrollBox) {
+        const clone = scrollBox.cloneNode(true);
+        clone.id = "autoScrollSidebarClone";
+        scrollBox.parentNode.appendChild(clone);
+        scrollBox.style.animation = "autoScroll 30s linear infinite";
+        clone.style.animation = "autoScroll 30s linear infinite";
+        clone.style.position = "absolute";
+        clone.style.top = "100%";
+        scrollBox.parentNode.style.position = "relative";
+        scrollBox.parentNode.style.overflow = "hidden";
+        scrollBox.parentNode.style.maxHeight = "500px";
+        scrollBox.style.position = "relative";
+        clone.style.position = "absolute";
+        clone.style.top = "100%";
+        clone.style.left = "0";
+        clone.style.width = "100%";
+        scrollBox.parentNode.insertBefore(clone, scrollBox.nextSibling);
+        // ہوور پر دونوں رکیں
+        const both = [scrollBox, clone];
+        both.forEach(el => {
+            el.addEventListener('mouseenter', () => { el.style.animationPlayState = 'paused'; if(clone) clone.style.animationPlayState = 'paused'; });
+            el.addEventListener('mouseleave', () => { el.style.animationPlayState = 'running'; if(clone) clone.style.animationPlayState = 'running'; });
+        });
+    }
+</script>
 </body>
 </html>
