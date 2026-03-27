@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>غفلت میں چھپے 50 گناہ 14 - زنا کرنا</title>
+    <title>غفلت میں چھپے 50 گناہ 14 - زنا کرنا | BlogLovers</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 (Free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Reset & Base */
+        /* -------------------- MULTI COLORING THEME (small font, vibrant) -------------------- */
         * {
             margin: 0;
             padding: 0;
@@ -18,16 +18,15 @@
 
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            line-height: 2.2;
+            line-height: 1.8;
             direction: rtl;
             text-align: right;
-            min-height: 100vh;
+            background: #f1f4f8;
             position: relative;
-            background: linear-gradient(145deg, #f9f9f9 0%, #eaeaea 100%);
-            transition: background 0.3s;
+            font-size: 14px;  /* small base font */
         }
 
-        /* Animated Baby Gray & Orange Background (moving) */
+        /* multi-color background gradient (soft but vibrant) */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -35,357 +34,479 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(45deg, #d3d3d3, #f7d5b3, #f0b27a, #b4b4b4, #fad1a0, #d6d6d6);
-            background-size: 500% 500%;
-            animation: moveBabyBg 22s ease-in-out infinite;
-            opacity: 0.45;
+            background: linear-gradient(135deg, #fdf8e7, #ffe6f0, #e0f3ff, #fde9d9, #d9f0ec);
+            background-size: 400% 400%;
+            animation: softMulti 18s ease infinite;
+            opacity: 0.6;
             pointer-events: none;
         }
 
-        @keyframes moveBabyBg {
+        @keyframes softMulti {
             0% { background-position: 0% 0%; }
-            25% { background-position: 50% 25%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 50% 75%; }
-            100% { background-position: 0% 100%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
 
-        /* Main container */
         .container {
-            max-width: 860px;
+            max-width: 1280px;
             margin: 20px auto 50px auto;
-            padding: 0 15px;
+            padding: 0 20px;
             position: relative;
             z-index: 5;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
         }
 
-        /* Post card with subtle hover effect */
+        /* main content card (multi color elements) */
         .post-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 32px;
-            padding: 30px 25px;
-            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,165,0,0.2);
-            transition: all 0.4s ease;
-            border: 1px solid rgba(255,215,175,0.6);
+            flex: 2;
+            min-width: 280px;
+            background: rgba(255, 250, 240, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 25px 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 180, 80, 0.5);
         }
 
-        .post-card:hover {
-            box-shadow: 0 35px 55px -15px #cc7f4b, 0 0 0 2px #fea82f;
-            background: rgba(255, 255, 255, 0.92);
-            transform: translateY(-6px);
+        /* SIDEBAR (auto-scroll) */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            position: sticky;
+            top: 20px;
+            align-self: start;
         }
 
-        /* Heading styles */
+        .scroll-box {
+            background: #ffffffdb;
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 18px 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-right: 4px solid #f7b05e;
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: all 0.2s;
+            scroll-behavior: smooth;
+        }
+
+        /* auto-scroll animation without JS conflict, using CSS keyframes? but we use JS for precise control. We'll implement marquee-like scroll via JS (30s cycle) and pause on hover */
+        .scroll-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            animation: scrollAuto 30s linear infinite;
+        }
+
+        .scroll-box:hover .scroll-list {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollAuto {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* but we need duplicate items to create seamless loop. We'll implement dynamic via JS for perfect cycle */
+        /* we will control via JS animation to maintain exact 30s cycle with hover pause */
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fffaf3;
+            padding: 12px 12px;
+            border-radius: 22px;
+            transition: all 0.2s;
+            border: 1px solid #ffe0b5;
+            text-decoration: none;
+            color: #2c3e2f;
+        }
+        .sidebar-item:hover {
+            background: #ffefdb;
+            transform: translateX(-5px);
+            border-color: #f39c12;
+        }
+        .sidebar-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 18px;
+            background: #fbe9d2;
+        }
+        .sidebar-title {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #4e3b28;
+        }
+        .active-sidebar {
+            background: #fce4c1;
+            border-right: 4px solid #e67e22;
+            box-shadow: 0 4px 8px #ffd19b;
+        }
+
+        /* multi coloring headings */
         h1 {
-            font-size: 2.2rem;
-            color: #2b3a4a;
+            font-size: 1.85rem;
+            background: linear-gradient(135deg, #c0392b, #e67e22, #f1c40f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
             text-align: center;
-            border-right: 6px solid #f39c12;
-            border-bottom: 2px dashed #c0c0c0;
-            padding-bottom: 15px;
-            margin-top: 10px;
-            margin-bottom: 30px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-shadow: 2px 2px 0 #f0e5d5;
-            background: linear-gradient(to left, #fff8f0, transparent);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            border-bottom: 3px dotted #f7b05e;
+            font-weight: 800;
+            letter-spacing: 0;
         }
 
         h2 {
-            font-size: 1.8rem;
-            color: #b45f2b;
-            background: linear-gradient(145deg, #fce5d7, #fff4e6);
-            display: inline-block;
-            padding: 8px 25px 8px 25px;
-            border-radius: 60px 12px 60px 12px;
-            margin: 25px 0 15px 0;
-            border-right: 5px solid #a0522d;
-            box-shadow: 0 6px 12px rgba(244, 144, 22, 0.2);
-            transition: 0.3s;
-            font-weight: 650;
-        }
-
-        h2:hover {
-            background: #ffe0c4;
-            border-right-color: #e67e22;
-            transform: scale(1.02);
+            font-size: 1.5rem;
+            background: linear-gradient(120deg, #1e6f5c, #289672, #e9c46a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 20px 0 12px 0;
+            padding-right: 12px;
+            border-right: 5px solid #f4a261;
+            font-weight: 700;
         }
 
         h3 {
-            font-size: 1.6rem;
-            color: #4d4d4d;
-            margin: 20px 0 10px 0;
-            padding-right: 15px;
-            border-right: 4px solid #eb984e;
+            font-size: 1.3rem;
+            color: #bc6c25;
+            margin: 15px 0 8px;
+            padding-right: 10px;
+            border-right: 3px solid #f4d58c;
         }
 
-        /* Text */
         p, li {
-            font-size: 1.25rem;
+            font-size: 0.9rem;
+            line-height: 1.75;
             text-align: justify;
-            word-spacing: 1px;
-            color: #1f2a36;
-            margin-bottom: 1.2rem;
+            color: #2c3a2f;
+            margin-bottom: 0.9rem;
+            letter-spacing: 0.2px;
+            word-spacing: normal;
         }
 
-        /* Image styling: after title, full width */
         .featured-image {
             width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 30px;
-            margin: 25px 0 30px 0;
-            display: block;
-            box-shadow: 0 20px 25px -8px rgba(205, 115, 0, 0.5);
-            border: 3px solid #f9cd9c;
-            transition: transform 0.5s, box-shadow 0.5s;
+            border-radius: 24px;
+            margin: 15px 0 20px 0;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            border: 2px solid #ffcd94;
         }
 
-        .featured-image:hover {
-            transform: scale(1.01);
-            box-shadow: 0 30px 35px -8px #b95f1c;
+        /* reactions container */
+        .reactions-wrap {
+            background: #fff7ed;
+            padding: 20px 12px;
+            border-radius: 40px;
+            margin: 30px 0 20px;
+            text-align: center;
+            box-shadow: inset 0 0 0 1px #ffd8ae, 0 8px 15px rgba(0,0,0,0.05);
+        }
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .reaction-btn {
+            background: #fdf3e0;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            font-weight: 500;
+            color: #5a3e2b;
+        }
+        .reaction-btn:hover {
+            background: #f5dbb1;
+            transform: scale(1.05);
+        }
+        .reaction-count {
+            font-weight: bold;
+            background: #fae2bc;
+            padding: 2px 8px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-right: 5px;
         }
 
-        /* Buttons row (Home / Back) */
+        /* navigation row */
         .nav-buttons {
             display: flex;
             gap: 18px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 30px 0 25px 0;
+            margin: 20px 0 25px;
         }
-
         .home-btn, .back-btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 14px 30px;
-            font-size: 1.3rem;
+            gap: 10px;
+            padding: 10px 24px;
+            font-size: 1rem;
             font-weight: bold;
-            border-radius: 60px;
+            border-radius: 50px;
             text-decoration: none;
-            transition: 0.4s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            background: #eaeaea;
-            color: #37474f;
-            border: 1px solid #ffb882;
+            transition: 0.25s;
+            background: #e9ecef;
+            color: #2c3e2f;
+            border: 1px solid #f8c291;
         }
+        .home-btn { background: #2c6e4f; color: white; }
+        .back-btn { background: #e67e22; color: white; }
+        .home-btn:hover, .back-btn:hover { transform: translateY(-3px); filter: brightness(1.05); }
 
-        .home-btn {
-            background: #6d7c8b;
-            color: white;
-        }
-
-        .back-btn {
-            background: #e67e22;
-            color: white;
-        }
-
-        .home-btn i, .back-btn i {
-            font-size: 1.5rem;
-        }
-
-        .home-btn:hover {
-            background: #4a637a;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px #f39c12;
-        }
-
-        .back-btn:hover {
-            background: #cf6d17;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px #b95f1c;
-        }
-
-        /* social share buttons */
+        /* social share 7 platforms */
         .social-share {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
-            margin: 35px 0 20px 0;
+            margin: 30px 0 10px;
         }
-
         .social-btn {
+            background: #f9f3ea;
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: #f5f5f5;
-            padding: 10px 20px;
-            border-radius: 45px;
-            text-decoration: none;
-            color: #2f3640;
-            font-weight: 550;
-            font-size: 1.1rem;
-            border: 1px solid #f1b282;
-            transition: 0.3s;
-            box-shadow: 0 4px 8px #ffd9b0;
+            gap: 8px;
+            color: #3b2c1e;
+            transition: 0.2s;
+            border: 1px solid #ffcd94;
         }
+        .social-btn i { font-size: 1.2rem; }
+        .social-btn:hover { transform: translateY(-3px); background: #ffe0b5; }
 
-        .social-btn i {
-            font-size: 1.5rem;
-        }
-
-        .social-btn:hover {
-            background: #fec89a;
-            transform: scale(1.12) translateY(-4px);
-            color: black;
-            border-color: #f07c19;
-        }
-
-        /* Page up/down buttons (floating) */
+        /* floating scroll */
         .page-controls {
             position: fixed;
             left: 20px;
             bottom: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 14px;
             z-index: 999;
         }
-
         .page-controls a {
-            background: #495c6e;
+            background: #6c4e3a;
             color: white;
-            width: 55px;
-            height: 55px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 10px 18px #ffb46a;
-            transition: 0.3s;
-            border: 2px solid #fbc79e;
+            font-size: 1.7rem;
+            box-shadow: 0 4px 12px #bc8f6b;
+            transition: 0.2s;
         }
+        .page-controls a:hover { background: #f39c12; transform: scale(1.08); }
 
-        .page-controls a:hover {
-            background: #f39c12;
-            color: #1e2b38;
-            transform: scale(1.15);
-            box-shadow: 0 15px 25px #e67e22;
-        }
-
-        /* remove any default link underlines, but keep original text links removed as requested */
-        a:not(.home-btn):not(.back-btn):not(.social-btn):not(.page-controls a) {
+        /* disable external links style except allowed buttons */
+        a:not(.home-btn):not(.back-btn):not(.social-btn):not(.page-controls a):not(.sidebar-item) {
             text-decoration: none;
             border-bottom: 1px dotted #aaa;
             color: inherit;
             pointer-events: none;
             cursor: default;
-            font-weight: normal;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.9rem; }
-            h2 { font-size: 1.6rem; }
-            p { font-size: 1.1rem; }
-            .post-card { padding: 20px 15px; }
-            .nav-buttons { gap: 10px; }
-            .home-btn, .back-btn { padding: 10px 20px; font-size: 1.1rem; }
+        @media (max-width: 800px) {
+            .container { flex-direction: column; }
+            .sidebar { max-width: 100%; position: static; }
+            .scroll-box { height: 420px; }
+            h1 { font-size: 1.6rem; }
         }
-        @media (max-width: 400px) {
-            .social-btn span { display: none; } /* show only icons on very small */
-            .social-btn i { margin: 0; }
-        }
-
-        /* Extra touch: baby orange glow on selection */
-        ::selection {
-            background: #f7b773;
-            color: #1e2f3a;
-        }
+        ::selection { background: #f7b05e; color: #2b2b2b; }
     </style>
 </head>
 <body>
-    <!-- Animated Baby Gray & Orange Background -->
-    <div class="animated-bg"></div>
+<div class="animated-bg"></div>
+<div class="page-controls">
+    <a href="#top" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
+    <a href="#bottom" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
+</div>
 
-    <!-- Floating Page Up/Down -->
-    <div class="page-controls">
-        <a href="#top" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
-        <a href="#bottom" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
+<div class="container" id="top">
+    <!-- Main content -->
+    <div class="post-card">
+        <h1>غفلت میں چھپے 50 گناہ 14 - زنا کرنا</h1>
+        <img class="featured-image" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-14-zna-krna.png" alt="غفلت میں چھپے 50 گناہ 14 - زنا کرنا" onerror="this.style.display='none';">
+
+        <!-- full original text unchanged -->
+        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چودھواں گناہ زنا کرنا ہے۔ اس سے پہلے تواتر سے کئی آرٹیکل جو میں تفصیل سے شیئر کرتا آرہا ہوں، اگر آپ ان کو پڑھنا چاہیے تو دیے گئے ناموں پر کلک کر کے پڑھ سکتے ہیں، ان میں سے، <a href="https://www.bloglovers.pk/2024/09/50-9.html">بھوکوں اور ننگوں کی حیثیت کے مطابق مدد نہ کرنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-10.html">بلاعذر بھیک مانگنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-11.html">کسی جاندار کی تصویر بنانا</a> شامل ہیں۔</p>
+        <p>اسلام ایک ایسا دین ہے جو انسانی معاشرتی اور اخلاقی <a href="https://www.bloglovers.pk/2020/06/35-37.html">حدود کو محفوظ</a> کرنے پر زور دیتا ہے۔ ان حدود میں سے ایک زنا کی ممانعت ہے۔ زنا (بدکاری) ایک سنگین گناہ ہے جس کی حرمت قرآن و سنت میں واضح طور پر بیان کی گئی ہے۔ زنا نہ صرف انسان کی روحانی پاکیزگی کو نقصان پہنچاتا ہے بلکہ اس کے معاشرتی اور اخلاقی نقصانات بھی سنگین ہوتے ہیں۔</p>
+        <p>زنا کا مطلب ہے کسی ایسے مرد یا عورت کے ساتھ <a href="https://www.bloglovers.pk/2020/06/46-50.html">غیرقانونی</a> اور غیر شرعی جنسی تعلق قائم کرنا جس سے نکاح نہ ہوا ہو۔ زنا اسلامی شریعت کے مطابق ایک گناہ کبیرہ ہے، اور اس سے معاشرتی بگاڑ پیدا ہوتا ہے۔ اللہ تعالیٰ نے قرآن مجید میں زنا سے سختی سے منع کیا اور اس کی سخت سزا مقرر کی ہے: "اور زنا کے قریب بھی نہ جاؤ، بے شک یہ بے حیائی ہے اور بہت ہی برا راستہ ہے۔" یہ آیت نہ صرف زنا کرنے کی ممانعت کرتی ہے بلکہ اس کے قریب جانے کو بھی منع کرتی ہے، یعنی ایسے تمام مواقع اور اعمال جو انسان کو زنا کی طرف لے جاتے ہیں۔</p>
+        <h2><strong>زنا کرنے کے بُرے اثرات</strong></h2>
+        <p>زنا کے بُرے اثرات صرف فرد تک محدود نہیں رہتے، بلکہ اس کے اثرات <a href="https://www.bloglovers.pk/2020/06/32-34.html">پورے معاشرے</a> پر پڑتے ہیں۔ ان میں چند اہم اثرات درج ذیل ہیں:</p>
+        <p><strong>روحانی نقصان</strong>: زنا کرنے والا انسان اپنے رب سے دور ہو جاتا ہے۔ گناہوں کا بوجھ انسان کے دل کو سخت کر دیتا ہے، اور وہ اللہ کی رحمت اور مغفرت سے دور ہو جاتا ہے۔</p>
+        <p><strong>اخلاقی تباہی</strong>: زنا انسان کی اخلاقی حس کو تباہ کر دیتا ہے۔ بے حیائی اور غیر اخلاقی حرکتیں معاشرتی بگاڑ کا باعث بنتی ہیں۔</p>
+        <p><strong>خاندانی نظام کی بربادی</strong>: زنا خاندانی <a href="https://www.bloglovers.pk/2020/08/blog-post_16.html">نظام کو کمزور</a> کرتا ہے۔ اس سے معاشرے میں اعتماد کا فقدان ہوتا ہے اور خاندانوں میں بگاڑ پیدا ہوتا ہے۔</p>
+        <p><strong>بیماریاں</strong>: زنا سے مختلف جسمانی بیماریاں جیسے ایڈز اور دیگر جنسی بیماریوں کا پھیلاؤ ہوتا ہے۔</p>
+        <p><strong>عزت و وقار کا خاتمہ</strong>: زنا کرنے والے کی عزت اور وقار معاشرے میں ختم ہو جاتا ہے، اور لوگ اس کی بد اعمالیوں سے نفرت کرتے ہیں۔</p>
+        <h2><strong>زنا کرنے والوں کے لیے عذاب الہیٰ</strong></h2>
+        <p>زنا کے گناہ کی سنگینی کی وجہ سے اللہ تعالیٰ نے زانیوں کے لیے <a href="https://www.bloglovers.pk/2023/11/blog-post_28.html">سخت عذاب</a> مقرر کیا ہے۔ نبی کریم ﷺ نے فرمایا: "تین قسم کے لوگ قیامت کے دن اللہ تعالیٰ کی گفتگو اور نگاہ سے محروم رہیں گے، انہیں پاک نہیں کیا جائے گا اور ان کے لیے دردناک عذاب ہوگا: بوڑھا زانی، جھوٹا بادشاہ، اور متکبر غریب۔" یہ حدیث واضح کرتی ہے کہ زنا ایک ایسا گناہ ہے جس کی سزا دنیا اور آخرت دونوں میں سخت ہے۔</p>
+        <h2><strong>زمانہ جاہلیت کے دور میں زنا کی سزائیں</strong></h2>
+        <p><a href="https://www.bloglovers.pk/2023/12/blog-post.html">زمانہ جاہلیت</a> میں زنا کو معمولی سمجھا جاتا تھا، اور اس کے لیے کوئی خاص سزا مقرر نہیں تھی۔ لوگ کھلے عام زنا کرتے اور اپنی عزت و وقار کی پرواہ نہیں کرتے تھے۔ تاہم، اسلام کے آنے کے بعد زنا کی حرمت کو واضح کیا گیا اور اس کے لیے سخت سزائیں مقرر کی گئیں۔</p>
+        <p>نبی کریم ﷺ کے دور میں زنا کے جرم میں سزا دی جاتی تھی تاکہ معاشرتی برائیوں کو روکا جا سکے۔ حضرت محمد ﷺ نے فرمایا: "زانی جب زنا کرتا ہے تو وہ مومن نہیں ہوتا۔" اس حدیث سے واضح ہوتا ہے کہ زنا ایمان کو کمزور کرتا ہے اور گناہوں کی کثرت کا باعث بنتا ہے۔</p>
+        <h2><strong>زنا کی اقسام</strong></h2>
+        <p>زنا کی مختلف اقسام ہیں جنہیں اسلام میں حرام قرار دیا گیا ہے:</p>
+        <p><strong>زنا بالجبر (زبردستی کا زنا)</strong>: یہ وہ زنا ہے جو زبردستی یا جبر کے ذریعے کیا جاتا ہے۔ یہ سب سے سنگین قسم ہے اور اس کی سخت سزا ہے۔</p>
+        <p><strong>رضامندی کا زنا</strong>: یہ وہ زنا ہے جس میں دونوں فریقین کی رضامندی شامل ہوتی ہے، لیکن یہ بھی اسلامی تعلیمات کے مطابق حرام ہے۔</p>
+        <p><strong>آنکھوں کا زنا</strong>: نبی کریم ﷺ نے فرمایا کہ آنکھوں کا زنا غیر محرم پر نظر ڈالنا ہے۔ اس کی بھی سخت ممانعت ہے۔</p>
+        <p><strong>دل کا زنا</strong>: دل میں بدکاری کا ارادہ کرنا یا اس کے بارے میں سوچنا بھی زنا کی ایک شکل ہے۔</p>
+        <p>ہر قسم کا زنا اسلام میں حرام ہے اور اس سے بچنے کے لیے سخت ہدایات دی گئی ہیں۔</p>
+        <h2><strong>موجودہ دور کی نسل کا زنا سے تباہ و برباد ہونا</strong></h2>
+        <p>موجودہ دور میں میڈیا، انٹرنیٹ، اور سوشل میڈیا کے ذریعے بے حیائی کو فروغ دیا جا رہا ہے۔ نوجوان نسل زنا کی لعنت میں مبتلا ہو رہی ہے اور اس کے منفی اثرات معاشرتی تباہی کا باعث بن رہے ہیں۔ بے حیائی کے مناظر اور مواد تک آسان رسائی نے نوجوانوں کو اس گناہ کی طرف مائل کر دیا ہے۔</p>
+        <p>یہ زنا کی لعنت معاشرتی بگاڑ اور اخلاقی زوال کا باعث بن رہی ہے۔ ہمیں اس سے بچنے کے لیے خود کو اور اپنی نسل کو اسلامی تعلیمات کے مطابق تربیت دینی چاہیے۔</p>
+        <h2><strong>زنا کا کفارہ</strong></h2>
+        <p>اگر کوئی شخص زنا کے گناہ میں مبتلا ہو جائے تو اسے فوراً اللہ تعالیٰ کے حضور توبہ کرنی چاہیے۔ زنا کا کفارہ یہ ہے کہ انسان اپنے گناہ پر سچی توبہ کرے، اللہ سے معافی مانگے اور آئندہ اس گناہ سے بچنے کا پختہ عہد کرے۔ اللہ تعالیٰ قرآن مجید میں فرماتے ہیں: "اور جب وہ کوئی بے حیائی کا کام کرتے ہیں یا اپنی جانوں پر ظلم کرتے ہیں، تو اللہ کو یاد کرتے ہیں اور اپنے گناہوں کی معافی مانگتے ہیں۔" توبہ کے ذریعے اللہ تعالیٰ زنا جیسے گناہ کو معاف کر سکتے ہیں، بشرطیکہ انسان اخلاص کے ساتھ توبہ کرے۔</p>
+        <h2><strong>زنا کو معمولی سمجھ کر گناہ لذت میں برباد ہونا</strong></h2>
+        <p>آج کل کے معاشرے میں زنا کو اکثر معمولی سمجھا جاتا ہے اور لوگ اسے ایک معمولی لذت کا ذریعہ سمجھتے ہیں۔ لیکن یہ یاد رکھنا چاہیے کہ زنا ایک سنگین گناہ ہے جس کی لذت وقتی ہوتی ہے اور اس کے نتائج ہمیشہ کے لیے برباد کرنے والے ہوتے ہیں۔ زنا کو معمولی سمجھنا انسان کو اللہ تعالیٰ کی ناراضگی میں مبتلا کرتا ہے اور آخرت میں سخت سزا کا باعث بنتا ہے۔</p>
+        <h2><strong>ہمارے کالجوں اور یونیورسٹیوں میں نوجوان لڑکے اور لڑکیوں کا ایک ساتھ پڑھنا</strong></h2>
+        <p>ہمارے کالجوں اور یونیورسٹیوں میں نوجوان لڑکے اور لڑکیوں کا ایک ساتھ پڑھنا، بعض اوقات ایسے مواقع پیدا کر دیتا ہے جو زنا جیسی سنگین برائی کی طرف لے جاتے ہیں۔ غیر محرموں کا آزادانہ میل جول، اسلامی حدود کی خلاف ورزی اور اختلاط کے بغیر اصولی تعلیم و تربیت کا فقدان، نوجوانوں کو گمراہ کرنے کا سبب بن سکتا ہے۔ یہ بے حیائی اور غلط راہوں پر چلنے کا دروازہ کھولتا ہے، جس کی وجہ سے نہ صرف فرد بلکہ پورا معاشرہ اخلاقی اور روحانی بگاڑ کا شکار ہو جاتا ہے۔ اس صورت حال کو درست کرنے کے لیے ضروری ہے کہ اسلامی تعلیمات کے مطابق ماحول اور حدود قائم کیے جائیں تاکہ نوجوان نسل گناہ اور فتنے سے محفوظ رہ سکے۔</p>
+        <h2><strong>زنا سے کیسے بچائیں خود کو؟</strong></h2>
+        <p>زنا سے بچنے کے لیے اسلامی تعلیمات پر عمل کرنا ضروری ہے۔ چند اہم طریقے درج ذیل ہیں:</p>
+        <p><strong>نظروں کی حفاظت</strong>: نبی کریم ﷺ نے فرمایا: "آنکھوں کا زنا غیر محرم پر نظر ڈالنا ہے۔" ہمیں اپنی نظریں نیچی رکھنی چاہیے تاکہ ہم زنا کی طرف مائل نہ ہوں۔</p>
+        <p><strong>غیر محرموں سے میل جول کی حدود کا خیال</strong>: اسلام میں مردوں اور عورتوں کے درمیان حدود قائم کی گئی ہیں تاکہ وہ ایک دوسرے کی طرف مائل نہ ہوں۔</p>
+        <p><strong>سچی توبہ</strong>: اگر کوئی شخص زنا کے قریب چلا جائے تو اسے فوراً اللہ سے توبہ کرنی چاہیے اور اپنے گناہ پر ندامت کا اظہار کرنا چاہیے۔</p>
+        <p><strong>اللہ کا خوف</strong>: انسان کے دل میں اللہ کا خوف ہونا چاہیے تاکہ وہ زنا جیسے گناہوں سے دور رہے۔</p>
+        <p><strong>نیک صحبت اختیار کرنا</strong>: نیک اور صالح لوگوں کے ساتھ اٹھنا بیٹھنا انسان کو برے اعمال سے بچاتا ہے۔</p>
+        <p><strong>شادی کا اہتمام</strong>: نبی کریم ﷺ نے فرمایا کہ اگر کوئی شخص زنا سے بچنا چاہتا ہے تو اسے نکاح کرنا چاہیے تاکہ اس کی خواہشات حلال طریقے سے پوری ہوں۔</p>
+        <p>زنا ایک سنگین گناہ ہے جس سے بچنا ہر مسلمان پر لازم ہے۔ زنا کے بُرے اثرات فرد اور معاشرہ دونوں کو برباد کرتے ہیں۔ اللہ تعالیٰ نے قرآن مجید میں زنا کی ممانعت کی ہے اور نبی کریم ﷺ نے اس کی سخت سزا مقرر کی ہے۔ ہمیں زنا سے بچنے کے لیے اسلامی تعلیمات پر عمل کرنا چاہیے اور اللہ سے ہر وقت معافی اور توبہ کرنی چاہیے۔</p>
+        <p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
+
+        <!-- REACTIONS SECTION (as required) -->
+        <div class="reactions-wrap">
+            <div class="reaction-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- nav buttons -->
+        <div class="nav-buttons">
+            <a href="https://bloglovers.pk/" class="home-btn"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="back-btn"><i class="fas fa-arrow-right"></i> تمام پوسٹس</a>
+        </div>
+
+        <!-- social share 7 platforms -->
+        <div class="social-share">
+            <a href="#" class="social-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-facebook-f"></i><span>فیس بک</span></a>
+            <a href="#" class="social-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 14 - زنا کرنا ' + window.location.href),'_blank'); return false;"><i class="fab fa-whatsapp"></i><span>واٹس ایپ</span></a>
+            <a href="#" class="social-btn" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 14 - زنا کرنا')+'&url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-twitter"></i><span>ٹویٹر</span></a>
+            <a href="#" class="social-btn" onclick="window.open('https://telegram.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 14'),'_blank'); return false;"><i class="fab fa-telegram-plane"></i><span>ٹیلی گرام</span></a>
+            <a href="#" class="social-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-linkedin-in"></i><span>لنکڈ ان</span></a>
+            <a href="#" class="social-btn" onclick="window.open('https://pinterest.com/pin/create/button/?url='+encodeURIComponent(window.location.href)+'&description='+encodeURIComponent('غفلت میں چھپے 50 گناہ 14'),'_blank'); return false;"><i class="fab fa-pinterest-p"></i><span>پنٹیرسٹ</span></a>
+            <a href="#" class="social-btn" onclick="copyPageLink(); return false;"><i class="fas fa-link"></i><span>کاپی لنک</span></a>
+        </div>
     </div>
 
-    <!-- Main container -->
-    <div class="container" id="top">
-        <div class="post-card">
+    <!-- Sidebar auto-scroll -->
+    <div class="sidebar">
+        <div class="scroll-box" id="scrollBox">
+            <div class="scroll-list" id="scrollList"></div>
+        </div>
+    </div>
+</div>
+<div id="bottom"></div>
 
-            <!-- Post Title (main heading) -->
-            <h1>غفلت میں چھپے 50 گناہ 14 - زنا کرنا</h1>
+<!-- reactions.js link (keep) -->
+<script src="/reactions.js"></script>
+<script>
+    // ---------- SIDEBAR AUTO-SCROLL (30s cycle, pause on hover) using manual JS to keep 30s per full rotation with duplicate items
+    const postsData = [
+        { title: "5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+        { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+        { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+        { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+        { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+    ];
 
-            <!-- New Image added as per requirement (full visible) -->
-            <img class="featured-image" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-14-zna-krna.png" alt="غفلت میں چھپے 50 گناہ 14 - زنا کرنا" onerror="this.style.display='none';">
+    function buildSidebar() {
+        const list = document.getElementById('scrollList');
+        if(!list) return;
+        // create double items for seamless loop
+        let itemsHtml = '';
+        const doublePosts = [...postsData, ...postsData];
+        doublePosts.forEach(post => {
+            let activeClass = (post.link.includes('ghflt-main-chhpe-50-gnah-14-zna-krna') || post.title.includes('زنا کرنا')) ? 'active-sidebar' : '';
+            itemsHtml += `
+                <a href="${post.link}" class="sidebar-item ${activeClass}">
+                    <img src="${post.img}" class="sidebar-img" alt="${post.title}" onerror="this.src='https://via.placeholder.com/60?text=Post'">
+                    <span class="sidebar-title">${post.title}</span>
+                </a>
+            `;
+        });
+        list.innerHTML = itemsHtml;
+        // auto scroll using keyframes? but we set animation on parent .scroll-list. Already uses animation scrollAuto 30s linear infinite; however height must exceed container.
+        // We'll ensure parent .scroll-list height dynamic.
+        setTimeout(() => {
+            const scrollListEl = document.getElementById('scrollList');
+            const box = document.getElementById('scrollBox');
+            if(scrollListEl && box && scrollListEl.scrollHeight > box.clientHeight) {
+                scrollListEl.style.animation = 'scrollAuto 30s linear infinite';
+            } else {
+                scrollListEl.style.animation = 'none';
+            }
+        }, 100);
+    }
 
-            <!-- Original full text (no word changed, internal links disabled via CSS) -->
-            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چودھواں گناہ زنا کرنا ہے۔ اس سے پہلے تواتر سے کئی آرٹیکل جو میں تفصیل سے شیئر کرتا آرہا ہوں، اگر آپ ان کو پڑھنا چاہیے تو دیے گئے ناموں پر کلک کر کے پڑھ سکتے ہیں، ان میں سے، <a href="https://www.bloglovers.pk/2024/09/50-9.html">بھوکوں اور ننگوں کی حیثیت کے مطابق مدد نہ کرنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-10.html">بلاعذر بھیک مانگنا</a>، <a href="https://www.bloglovers.pk/2024/09/50-11.html">کسی جاندار کی تصویر بنانا</a> شامل ہیں۔</p>
-            <p>اسلام ایک ایسا دین ہے جو انسانی معاشرتی اور اخلاقی <a href="https://www.bloglovers.pk/2020/06/35-37.html">حدود کو محفوظ</a> کرنے پر زور دیتا ہے۔ ان حدود میں سے ایک زنا کی ممانعت ہے۔ زنا (بدکاری) ایک سنگین گناہ ہے جس کی حرمت قرآن و سنت میں واضح طور پر بیان کی گئی ہے۔ زنا نہ صرف انسان کی روحانی پاکیزگی کو نقصان پہنچاتا ہے بلکہ اس کے معاشرتی اور اخلاقی نقصانات بھی سنگین ہوتے ہیں۔</p>
-            <p>زنا کا مطلب ہے کسی ایسے مرد یا عورت کے ساتھ <a href="https://www.bloglovers.pk/2020/06/46-50.html">غیرقانونی</a> اور غیر شرعی جنسی تعلق قائم کرنا جس سے نکاح نہ ہوا ہو۔ زنا اسلامی شریعت کے مطابق ایک گناہ کبیرہ ہے، اور اس سے معاشرتی بگاڑ پیدا ہوتا ہے۔ اللہ تعالیٰ نے قرآن مجید میں زنا سے سختی سے منع کیا اور اس کی سخت سزا مقرر کی ہے: "اور زنا کے قریب بھی نہ جاؤ، بے شک یہ بے حیائی ہے اور بہت ہی برا راستہ ہے۔" یہ آیت نہ صرف زنا کرنے کی ممانعت کرتی ہے بلکہ اس کے قریب جانے کو بھی منع کرتی ہے، یعنی ایسے تمام مواقع اور اعمال جو انسان کو زنا کی طرف لے جاتے ہیں۔</p>
-            <h2><strong>زنا کرنے کے بُرے اثرات</strong></h2>
-            <p>زنا کے بُرے اثرات صرف فرد تک محدود نہیں رہتے، بلکہ اس کے اثرات <a href="https://www.bloglovers.pk/2020/06/32-34.html">پورے معاشرے</a> پر پڑتے ہیں۔ ان میں چند اہم اثرات درج ذیل ہیں:</p>
-            <p><strong>روحانی نقصان</strong>: زنا کرنے والا انسان اپنے رب سے دور ہو جاتا ہے۔ گناہوں کا بوجھ انسان کے دل کو سخت کر دیتا ہے، اور وہ اللہ کی رحمت اور مغفرت سے دور ہو جاتا ہے۔</p>
-            <p><strong>اخلاقی تباہی</strong>: زنا انسان کی اخلاقی حس کو تباہ کر دیتا ہے۔ بے حیائی اور غیر اخلاقی حرکتیں معاشرتی بگاڑ کا باعث بنتی ہیں۔</p>
-            <p><strong>خاندانی نظام کی بربادی</strong>: زنا خاندانی <a href="https://www.bloglovers.pk/2020/08/blog-post_16.html">نظام کو کمزور</a> کرتا ہے۔ اس سے معاشرے میں اعتماد کا فقدان ہوتا ہے اور خاندانوں میں بگاڑ پیدا ہوتا ہے۔</p>
-            <p><strong>بیماریاں</strong>: زنا سے مختلف جسمانی بیماریاں جیسے ایڈز اور دیگر جنسی بیماریوں کا پھیلاؤ ہوتا ہے۔</p>
-            <p><strong>عزت و وقار کا خاتمہ</strong>: زنا کرنے والے کی عزت اور وقار معاشرے میں ختم ہو جاتا ہے، اور لوگ اس کی بد اعمالیوں سے نفرت کرتے ہیں۔</p>
-            <h2><strong>زنا کرنے والوں کے لیے عذاب الہیٰ</strong></h2>
-            <p>زنا کے گناہ کی سنگینی کی وجہ سے اللہ تعالیٰ نے زانیوں کے لیے <a href="https://www.bloglovers.pk/2023/11/blog-post_28.html">سخت عذاب</a> مقرر کیا ہے۔ نبی کریم ﷺ نے فرمایا: "تین قسم کے لوگ قیامت کے دن اللہ تعالیٰ کی گفتگو اور نگاہ سے محروم رہیں گے، انہیں پاک نہیں کیا جائے گا اور ان کے لیے دردناک عذاب ہوگا: بوڑھا زانی، جھوٹا بادشاہ، اور متکبر غریب۔" یہ حدیث واضح کرتی ہے کہ زنا ایک ایسا گناہ ہے جس کی سزا دنیا اور آخرت دونوں میں سخت ہے۔</p>
-            <h2><strong>زمانہ جاہلیت کے دور میں زنا کی سزائیں</strong></h2>
-            <p><a href="https://www.bloglovers.pk/2023/12/blog-post.html">زمانہ جاہلیت</a> میں زنا کو معمولی سمجھا جاتا تھا، اور اس کے لیے کوئی خاص سزا مقرر نہیں تھی۔ لوگ کھلے عام زنا کرتے اور اپنی عزت و وقار کی پرواہ نہیں کرتے تھے۔ تاہم، اسلام کے آنے کے بعد زنا کی حرمت کو واضح کیا گیا اور اس کے لیے سخت سزائیں مقرر کی گئیں۔</p>
-            <p>نبی کریم ﷺ کے دور میں زنا کے جرم میں سزا دی جاتی تھی تاکہ معاشرتی برائیوں کو روکا جا سکے۔ حضرت محمد ﷺ نے فرمایا: "زانی جب زنا کرتا ہے تو وہ مومن نہیں ہوتا۔" اس حدیث سے واضح ہوتا ہے کہ زنا ایمان کو کمزور کرتا ہے اور گناہوں کی کثرت کا باعث بنتا ہے۔</p>
-            <h2><strong>زنا کی اقسام</strong></h2>
-            <p>زنا کی مختلف اقسام ہیں جنہیں اسلام میں حرام قرار دیا گیا ہے:</p>
-            <p><strong>زنا بالجبر (زبردستی کا زنا)</strong>: یہ وہ زنا ہے جو زبردستی یا جبر کے ذریعے کیا جاتا ہے۔ یہ سب سے سنگین قسم ہے اور اس کی سخت سزا ہے۔</p>
-            <p><strong>رضامندی کا زنا</strong>: یہ وہ زنا ہے جس میں دونوں فریقین کی رضامندی شامل ہوتی ہے، لیکن یہ بھی اسلامی تعلیمات کے مطابق حرام ہے۔</p>
-            <p><strong>آنکھوں کا زنا</strong>: نبی کریم ﷺ نے فرمایا کہ آنکھوں کا زنا غیر محرم پر نظر ڈالنا ہے۔ اس کی بھی سخت ممانعت ہے۔</p>
-            <p><strong>دل کا زنا</strong>: دل میں بدکاری کا ارادہ کرنا یا اس کے بارے میں سوچنا بھی زنا کی ایک شکل ہے۔</p>
-            <p>ہر قسم کا زنا اسلام میں حرام ہے اور اس سے بچنے کے لیے سخت ہدایات دی گئی ہیں۔</p>
-            <h2><strong>موجودہ دور کی نسل کا زنا سے تباہ و برباد ہونا</strong></h2>
-            <p>موجودہ دور میں میڈیا، انٹرنیٹ، اور سوشل میڈیا کے ذریعے بے حیائی کو فروغ دیا جا رہا ہے۔ نوجوان نسل زنا کی لعنت میں مبتلا ہو رہی ہے اور اس کے منفی اثرات معاشرتی تباہی کا باعث بن رہے ہیں۔ بے حیائی کے مناظر اور مواد تک آسان رسائی نے نوجوانوں کو اس گناہ کی طرف مائل کر دیا ہے۔</p>
-            <p>یہ زنا کی لعنت معاشرتی بگاڑ اور اخلاقی زوال کا باعث بن رہی ہے۔ ہمیں اس سے بچنے کے لیے خود کو اور اپنی نسل کو اسلامی تعلیمات کے مطابق تربیت دینی چاہیے۔</p>
-            <h2><strong>زنا کا کفارہ</strong></h2>
-            <p>اگر کوئی شخص زنا کے گناہ میں مبتلا ہو جائے تو اسے فوراً اللہ تعالیٰ کے حضور توبہ کرنی چاہیے۔ زنا کا کفارہ یہ ہے کہ انسان اپنے گناہ پر سچی توبہ کرے، اللہ سے معافی مانگے اور آئندہ اس گناہ سے بچنے کا پختہ عہد کرے۔ اللہ تعالیٰ قرآن مجید میں فرماتے ہیں: "اور جب وہ کوئی بے حیائی کا کام کرتے ہیں یا اپنی جانوں پر ظلم کرتے ہیں، تو اللہ کو یاد کرتے ہیں اور اپنے گناہوں کی معافی مانگتے ہیں۔" توبہ کے ذریعے اللہ تعالیٰ زنا جیسے گناہ کو معاف کر سکتے ہیں، بشرطیکہ انسان اخلاص کے ساتھ توبہ کرے۔</p>
-            <h2><strong>زنا کو معمولی سمجھ کر گناہ لذت میں برباد ہونا</strong></h2>
-            <p>آج کل کے معاشرے میں زنا کو اکثر معمولی سمجھا جاتا ہے اور لوگ اسے ایک معمولی لذت کا ذریعہ سمجھتے ہیں۔ لیکن یہ یاد رکھنا چاہیے کہ زنا ایک سنگین گناہ ہے جس کی لذت وقتی ہوتی ہے اور اس کے نتائج ہمیشہ کے لیے برباد کرنے والے ہوتے ہیں۔ زنا کو معمولی سمجھنا انسان کو اللہ تعالیٰ کی ناراضگی میں مبتلا کرتا ہے اور آخرت میں سخت سزا کا باعث بنتا ہے۔</p>
-            <h2><strong>ہمارے کالجوں اور یونیورسٹیوں میں نوجوان لڑکے اور لڑکیوں کا ایک ساتھ پڑھنا</strong></h2>
-            <p>ہمارے کالجوں اور یونیورسٹیوں میں نوجوان لڑکے اور لڑکیوں کا ایک ساتھ پڑھنا، بعض اوقات ایسے مواقع پیدا کر دیتا ہے جو زنا جیسی سنگین برائی کی طرف لے جاتے ہیں۔ غیر محرموں کا آزادانہ میل جول، اسلامی حدود کی خلاف ورزی اور اختلاط کے بغیر اصولی تعلیم و تربیت کا فقدان، نوجوانوں کو گمراہ کرنے کا سبب بن سکتا ہے۔ یہ بے حیائی اور غلط راہوں پر چلنے کا دروازہ کھولتا ہے، جس کی وجہ سے نہ صرف فرد بلکہ پورا معاشرہ اخلاقی اور روحانی بگاڑ کا شکار ہو جاتا ہے۔ اس صورت حال کو درست کرنے کے لیے ضروری ہے کہ اسلامی تعلیمات کے مطابق ماحول اور حدود قائم کیے جائیں تاکہ نوجوان نسل گناہ اور فتنے سے محفوظ رہ سکے۔</p>
-            <h2><strong>زنا سے کیسے بچائیں خود کو؟</strong></h2>
-            <p>زنا سے بچنے کے لیے اسلامی تعلیمات پر عمل کرنا ضروری ہے۔ چند اہم طریقے درج ذیل ہیں:</p>
-            <p><strong>نظروں کی حفاظت</strong>: نبی کریم ﷺ نے فرمایا: "آنکھوں کا زنا غیر محرم پر نظر ڈالنا ہے۔" ہمیں اپنی نظریں نیچی رکھنی چاہیے تاکہ ہم زنا کی طرف مائل نہ ہوں۔</p>
-            <p><strong>غیر محرموں سے میل جول کی حدود کا خیال</strong>: اسلام میں مردوں اور عورتوں کے درمیان حدود قائم کی گئی ہیں تاکہ وہ ایک دوسرے کی طرف مائل نہ ہوں۔</p>
-            <p><strong>سچی توبہ</strong>: اگر کوئی شخص زنا کے قریب چلا جائے تو اسے فوراً اللہ سے توبہ کرنی چاہیے اور اپنے گناہ پر ندامت کا اظہار کرنا چاہیے۔</p>
-            <p><strong>اللہ کا خوف</strong>: انسان کے دل میں اللہ کا خوف ہونا چاہیے تاکہ وہ زنا جیسے گناہوں سے دور رہے۔</p>
-            <p><strong>نیک صحبت اختیار کرنا</strong>: نیک اور صالح لوگوں کے ساتھ اٹھنا بیٹھنا انسان کو برے اعمال سے بچاتا ہے۔</p>
-            <p><strong>شادی کا اہتمام</strong>: نبی کریم ﷺ نے فرمایا کہ اگر کوئی شخص زنا سے بچنا چاہتا ہے تو اسے نکاح کرنا چاہیے تاکہ اس کی خواہشات حلال طریقے سے پوری ہوں۔</p>
-            <p>زنا ایک سنگین گناہ ہے جس سے بچنا ہر مسلمان پر لازم ہے۔ زنا کے بُرے اثرات فرد اور معاشرہ دونوں کو برباد کرتے ہیں۔ اللہ تعالیٰ نے قرآن مجید میں زنا کی ممانعت کی ہے اور نبی کریم ﷺ نے اس کی سخت سزا مقرر کی ہے۔ ہمیں زنا سے بچنے کے لیے اسلامی تعلیمات پر عمل کرنا چاہیے اور اللہ سے ہر وقت معافی اور توبہ کرنی چاہیے۔</p>
-            <p>مزید آرٹیکل پڑھنے کے لیے <a href="https://www.bloglovers.pk">ویب سائٹ</a> وزٹ کریں۔</p>
+    function copyPageLink() {
+        navigator.clipboard.writeText(window.location.href);
+        alert("لنک کاپی کر لیا گیا!");
+    }
 
-            <!-- Home / Back Buttons (exactly as spec) -->
-            <div class="nav-buttons">
-                <a href="https://bloglovers.pk/" class="home-btn"><i class="fas fa-home"></i> ہوم پیج</a>
-                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="back-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
-            </div>
+    window.addEventListener('DOMContentLoaded', () => {
+        buildSidebar();
+        const box = document.getElementById('scrollBox');
+        const listInner = document.getElementById('scrollList');
+        if(box && listInner) {
+            box.addEventListener('mouseenter', () => { listInner.style.animationPlayState = 'paused'; });
+            box.addEventListener('mouseleave', () => { listInner.style.animationPlayState = 'running'; });
+        }
+    });
 
-            <!-- Social Media Sharing Buttons (Multiple platforms) -->
-            <div class="social-share">
-                <a href="#" class="social-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-facebook-f"></i><span>فیس بک</span></a>
-                <a href="#" class="social-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 14 - زنا کرنا ' + window.location.href),'_blank'); return false;"><i class="fab fa-whatsapp"></i><span>واٹس ایپ</span></a>
-                <a href="#" class="social-btn" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 14 - زنا کرنا')+'&url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-twitter"></i><span>ٹویٹر</span></a>
-                <a href="#" class="social-btn" onclick="window.open('https://telegram.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 14'),'_blank'); return false;"><i class="fab fa-telegram-plane"></i><span>ٹیلی گرام</span></a>
-                <a href="#" class="social-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-linkedin-in"></i><span>لنکڈ ان</span></a>
-            </div>
-
-        </div> <!-- end post-card -->
-    </div> <!-- end container -->
-
-    <!-- dummy anchor for bottom -->
-    <div id="bottom" style="position: relative; bottom: 0;"></div>
-
-    <!-- No toggle, no extra image, exactly one image after title. internal links visually disabled but text unchanged. -->
+    // ensure no duplicate reaction functions (reactionClick is from reactions.js). No loadReactions/addReaction defined locally.
+    // Also we remove any potential duplicate API code.
+    if (typeof window.loadReactions === 'function') window.loadReactions = undefined;
+    if (typeof window.updateReactionsUI === 'function') window.updateReactionsUI = undefined;
+    if (typeof window.addReaction === 'function') window.addReaction = undefined;
+</script>
 </body>
 </html>
