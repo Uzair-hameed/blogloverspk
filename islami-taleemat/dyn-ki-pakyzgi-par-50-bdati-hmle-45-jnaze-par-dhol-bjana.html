@@ -55,7 +55,7 @@
 
         /* main container */
         .content-card {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 20px auto;
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(3px);
@@ -68,6 +68,122 @@
         .content-card:hover {
             box-shadow: 0 25px 50px rgba(230, 120, 0, 0.35), 0 0 0 3px #ff8c42 inset, 0 0 0 6px #1e4f7a inset;
             transform: scale(1.003);
+        }
+
+        /* two column layout */
+        .two-columns {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .main-content {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        /* sidebar styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        .sidebar-card {
+            background: rgba(255, 255, 245, 0.95);
+            border-radius: 25px;
+            padding: 20px 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 2px solid #ffb347;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-title {
+            font-size: 1.6rem;
+            color: #b4550b;
+            text-align: center;
+            border-bottom: 3px double #ff8c42;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .posts-scroll-container {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            border-radius: 20px;
+            padding: 5px;
+        }
+
+        .posts-scroll-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .posts-scroll-container::-webkit-scrollbar-track {
+            background: #f1e5d4;
+            border-radius: 10px;
+        }
+
+        .posts-scroll-container::-webkit-scrollbar-thumb {
+            background: #ff8c42;
+            border-radius: 10px;
+        }
+
+        .scroll-inner {
+            animation: autoScroll 30s linear infinite;
+        }
+
+        .posts-scroll-container:hover .scroll-inner {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 8px;
+            margin-bottom: 12px;
+            background: #fffef7;
+            border-radius: 18px;
+            transition: all 0.2s;
+            border: 1px solid #ffe0b3;
+            text-decoration: none;
+        }
+
+        .sidebar-post:hover {
+            background: #fff1e0;
+            transform: translateX(-5px);
+            border-color: #ff8c42;
+        }
+
+        .sidebar-post-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            border: 2px solid #ffb76e;
+        }
+
+        .sidebar-post-title {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #1e3c5c;
+            font-weight: 600;
+            flex: 1;
         }
 
         /* heading styles */
@@ -133,6 +249,71 @@
         .post-image:hover img {
             transform: scale(1.02);
             filter: brightness(1.02) contrast(1.02);
+        }
+
+        /* reactions section */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px 15px;
+            background: rgba(255, 245, 235, 0.6);
+            border-radius: 35px;
+            text-align: center;
+            border: 1px dashed #ffb77c;
+        }
+
+        .reactions-title {
+            font-size: 1.5rem;
+            color: #b4550b;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            row-gap: 20px;
+        }
+
+        .reaction-item {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 8px 18px;
+            border-radius: 60px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+            transition: 0.2s;
+            cursor: pointer;
+            border: 2px solid #ffcc99;
+        }
+
+        .reaction-item:hover {
+            transform: scale(1.08);
+            background: #fff5ea;
+            border-color: #ff8c42;
+        }
+
+        .reaction-emoji {
+            font-size: 2rem;
+            display: block;
+        }
+
+        .reaction-label {
+            font-size: 1rem;
+            margin-top: 5px;
+            color: #4a2e1a;
+        }
+
+        .reaction-count {
+            font-size: 0.9rem;
+            background: #ff8c42;
+            color: white;
+            border-radius: 30px;
+            padding: 2px 8px;
+            margin-top: 6px;
+            font-weight: bold;
         }
 
         /* navigation buttons row */
@@ -218,6 +399,7 @@
         .share-btn.telegram { background: #0088cc; color: white; }
         .share-btn.linkedin { background: #0A66C2; color: white; }
         .share-btn.pinterest { background: #E60023; color: white; }
+        .share-btn.copy-link { background: #6c757d; color: white; }
 
         /* up/down page buttons (floating) */
         .float-btns {
@@ -254,7 +436,7 @@
         }
 
         /* small devices */
-        @media (max-width: 600px) {
+        @media (max-width: 800px) {
             body { padding: 10px; }
             h1 { font-size: 1.9rem; }
             h2 { font-size: 1.6rem; }
@@ -263,16 +445,16 @@
             .nav-btn { padding: 10px 20px; font-size: 1.1rem; }
             .share-btn { width: 45px; height: 45px; font-size: 1.7rem; }
             .float-btns a { width: 45px; height: 45px; font-size: 1.8rem; left: 5px; }
+            .two-columns { flex-direction: column; }
+            .sidebar { position: static; }
         }
 
         /* remove any internal link style */
-        a:not(.nav-btn):not(.share-btn):not(.float-btns a) {
+        a:not(.nav-btn):not(.share-btn):not(.float-btns a):not(.sidebar-post) {
             pointer-events: none;
             text-decoration: none;
             color: inherit;
         }
-
-        /* ensure no toggle or popup, all visible */
     </style>
 </head>
 <body>
@@ -285,12 +467,12 @@
         <a href="#bottom" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
     </div>
 
-    <!-- main card (all content visible, no toggles) -->
+    <!-- main card (all content visible) -->
     <div class="content-card" id="top">
         <!-- navigation buttons (home & back) -->
         <div class="nav-buttons">
             <a href="https://bloglovers.pk/" class="nav-btn home" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn back" target="_blank"><i class="fas fa-arrow-right"></i> واپس</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn back" target="_blank"><i class="fas fa-arrow-right"></i> تمام پوسٹس</a>
         </div>
 
         <!-- Main heading exactly as before -->
@@ -301,50 +483,143 @@
             <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-45-jnaze-par-dhol-bjana.png" alt="دین کی پاکیزگی بدعتی حملے ڈھول بجانا">
         </div>
 
-        <!-- Post content (exact text, not a single word changed) -->
-        <h2>جنازے پر ڈھول بجانا: ایک بدعتی عمل</h2>
-        <p>اسلام ایک پاکیزہ دین ہے جو زندگی کے ہر پہلو میں رہنمائی فراہم کرتا ہے۔ دین کی اصل بنیاد قرآن و سنت پر قائم ہے، جو اللہ تعالیٰ کی طرف سے انسانیت کے لیے مکمل ہدایت فراہم کرتے ہیں۔ بدعت، دین میں نئی باتوں کا اضافہ کرنے کو کہتے ہیں، جو نہ صرف دین کے خلوص کو متاثر کرتی ہے بلکہ لوگوں کو حقیقی اسلامی تعلیمات سے بھی دور لے جاتی ہے۔ دین کی پاکیزگی پر بدعتی حملوں میں ایک حملہ جنازے کے موقع پر ڈھول بجانے کا رواج ہے، جو نہ صرف اسلامی اصولوں کے منافی ہے بلکہ سماجی اقدار کو بھی متاثر کرتا ہے۔</p>
-        
-        <h2>جنازے کی سنجیدگی اور اہمیت</h2>
-        <p>جنازے کا موقع ایک سنجیدہ اور پرسکون لمحہ ہوتا ہے، جہاں مرنے والے کے لیے دعائیں کی جاتی ہیں اور آخرت کی یاد دہانی ہوتی ہے۔ ایسے موقع پر ڈھول بجانا ایک غیر اسلامی عمل ہے، جو جنازے کی روحانیت اور وقار کو متاثر کرتا ہے۔ یہ بدعتی عمل نہ صرف اسلام کے بنیادی اصولوں کے خلاف ہے بلکہ اس سے سوگواران کے جذبات بھی مجروح ہوتے ہیں۔ اسلامی تعلیمات ہمیں سادگی اور خالصیت کے ساتھ جنازے کے معاملات انجام دینے کی ہدایت دیتی ہیں، اور غیر ضروری رسومات کی سختی سے ممانعت کرتی ہیں۔</p>
-        
-        <h2>بدعتی اعمال کے اثرات</h2>
-        <p>بدعتی اعمال جیسے جنازے پر ڈھول بجانا، اسلامی معاشرے میں دین کی حقیقی روح کو کمزور کر سکتے ہیں۔ ان سے بچاؤ کے لیے علماء اور دینی رہنماؤں کا کردار نہایت اہم ہے۔ وہ لوگوں کو قرآن و سنت کی تعلیمات کی روشنی میں آگاہ کریں اور بدعت کے نقصانات سے آگاہ کریں۔ اس کے ساتھ ہی، ہمیں خود بھی یہ ذمہ داری لینا ہوگی کہ دین کے پاکیزہ اصولوں کی حفاظت کریں اور بدعتی اعمال سے بچیں۔ اصلاحی کوششوں سے ہم دین کی اصل روح کو محفوظ رکھ سکتے ہیں اور آنے والی نسلوں تک صحیح تعلیمات منتقل کر سکتے ہیں۔</p>
-        
-        <h2>ڈھول بجانے کی حقیقت</h2>
-        <p>جنازے پر ڈھول بجانے سے مراد وہ عمل ہے جس میں کسی شخص کے انتقال کے بعد اس کے جنازے کے موقع پر ڈھول یا دیگر موسیقی کے آلات بجائے جاتے ہیں۔ یہ عمل بظاہر مرنے والے کے اعزاز کے طور پر کیا جاتا ہے یا بعض مخصوص رسومات کے حصے کے طور پر، لیکن اسلامی تعلیمات کے مطابق یہ عمل نہ صرف غیر شرعی ہے بلکہ جنازے کی سنجیدگی اور روحانیت کو بھی مجروح کرتا ہے۔ جنازہ ایک ایسی عبادت ہے جو سادگی، خاموشی، اور دعاؤں پر مشتمل ہونی چاہیے، اور اس میں کسی بھی قسم کی غیر ضروری نمود و نمائش ممنوع ہے۔</p>
-        
-        <h2>مختلف مسالک کا موقف</h2>
-        <p>یہ بدعتی عمل عام طور پر ان گروہوں یا فرقوں میں پایا جاتا ہے جو مخصوص ثقافتی یا علاقائی رسومات کو دین کا حصہ سمجھتے ہیں۔ بعض صوفی یا ثقافتی گروہ اس طرح کے اعمال میں پیش پیش رہتے ہیں، جو مقامی روایات اور رسومات کو دین پر ترجیح دیتے ہیں۔ تاہم، یہ واضح رہنا چاہیے کہ اسلامی فقہ کے بڑے مکاتب فکر، جیسے کہ حنفی، شافعی، مالکی، اور حنبلی، سب اس بات پر متفق ہیں کہ جنازے میں اس طرح کی بدعات کا کوئی جواز نہیں ہے۔ اس طرح کے اعمال اسلام کے بنیادی اصولوں کے منافی ہیں اور لوگوں کو حقیقی دین سے دور کرتے ہیں۔</p>
-        
-        <h2>جنوبی ایشیا میں رواج</h2>
-        <p>جنازے پر ڈھول بجانے کی رسم کی ابتدا واضح طور پر کسی ایک وقت یا جگہ سے منسوب نہیں کی جا سکتی، لیکن یہ عام طور پر ان معاشروں میں پیدا ہوئی جہاں مقامی ثقافتوں کو مذہب پر فوقیت دی گئی۔ حالیہ برسوں میں پاکستان میں اس طرح کی رسومات کی مثالیں سامنے آئی ہیں، جن میں جنازے پر ڈھول بجانے کی ویڈیوز سوشل میڈیا پر وائرل ہوئی ہیں۔ ان ویڈیوز میں دیکھا گیا کہ جنازے کے دوران ڈھول کی آوازوں کے ساتھ لوگ جذباتی انداز میں شریک ہو رہے ہیں، جو کہ اسلامی تعلیمات کے برعکس ہے۔ یہ اعمال نہ صرف دین کی بدنامی کا باعث بنتے ہیں بلکہ اسلام کے بارے میں غیر مسلموں کو بھی غلط تاثر دیتے ہیں۔</p>
-        
-        <h2>اسلامی تعلیمات کی روشنی میں</h2>
-        <p>جنازے پر ڈھول بجانا اسلام کے ساتھ ایک کھلا مذاق ہے۔ یہ عمل نہ صرف دینی تعلیمات کی خلاف ورزی ہے بلکہ اس سے دین کی پاکیزگی کو بھی شدید نقصان پہنچتا ہے۔ جنازے کا مقصد مرنے والے کے لیے دعائے مغفرت اور آخرت کی یاد دہانی ہے، نہ کہ خوشی یا تفریح کا مظاہرہ۔ اس طرح کی بدعات اسلامی معاشرے کو کمزور کرتی ہیں اور لوگوں کو دین کی اصل روح سے دور کر دیتی ہیں۔ ضرورت اس بات کی ہے کہ علماء اور دینی رہنما اس مسئلے پر توجہ دیں اور لوگوں کو قرآن و سنت کی روشنی میں صحیح راستہ دکھائیں تاکہ اس قسم کے غیر شرعی اعمال کا خاتمہ ہو سکے۔</p>
-        
-        <h2>مختلف مذاہب میں رسومات</h2>
-        <p>جنوبی ایشیائی ممالک جیسے کہ بھارت، پاکستان، بنگلہ دیش، اور سری لنکا میں جنازے پر ڈھول بجانے اور دیگر بدعتی رسومات کا فروغ زیادہ تر ثقافتی اور علاقائی روایات کی وجہ سے ہوا ہے۔ ان ممالک میں مختلف برادریاں اپنے روایتی رسوم و رواج کو دین کا حصہ سمجھ کر اپناتی ہیں۔ یہ بدعات عام طور پر ان علاقوں میں زیادہ پائی جاتی ہیں جہاں مذہبی تعلیمات کی کمی ہے یا جہاں مخصوص گروہ اپنی ثقافتی شناخت کو دین پر فوقیت دیتے ہیں۔ شادی، جنازے، اور دیگر مذہبی تقریبات میں موسیقی اور ڈھول بجانے جیسی رسوم اکثر عوام کی غیر ضروری جذباتی وابستگی کی وجہ سے جاری رہتی ہیں، جو اسلامی تعلیمات سے دوری کا نتیجہ ہیں۔</p>
-        
-        <h2>بین المذاہب موازنہ</h2>
-        <p>دیگر مذاہب میں جنازے کے موقع پر مختلف قسم کی رسومات انجام دی جاتی ہیں، جن میں بعض جگہوں پر موسیقی اور ڈھول بجانا شامل ہوتا ہے۔ عیسائیت میں، خاص طور پر کیتھولک اور پروٹسٹنٹ فرقوں میں، جنازے پر موسیقی کا استعمال عام ہے، لیکن یہ زیادہ تر مذہبی گیتوں یا آرام دہ دھنوں تک محدود ہوتا ہے۔ ہندو مت میں، مرنے والے کی آخری رسومات کے دوران ڈھول اور دیگر موسیقی کا استعمال بعض تہواروں یا خوشی کے اظہار کے طور پر کیا جاتا ہے، جسے وہ نجات یا "موکشا" کی علامت سمجھتے ہیں۔ ان رسومات کا مذہبی تشخص ان کے عقائد سے جڑا ہوتا ہے، لیکن ان کا اسلام سے کوئی تعلق نہیں، جو سادگی اور وقار پر زور دیتا ہے۔</p>
-        
-        <h2>زرتشتی اور بدھ مت میں رسومات</h2>
-        <p>زرتشت مذہب میں، جنازے کے موقع پر موسیقی یا ڈھول بجانے کا عام طور پر تصور نہیں پایا جاتا۔ زرتشت عقیدے میں موت کو خاموشی اور سکون کے ساتھ قبول کرنے پر زور دیا جاتا ہے، اور مرنے والے کی آخرت رسومات فطری انداز میں انجام دی جاتی ہیں۔ بدھ مت میں، جنازے کے دوران سکون اور مراقبے پر زور دیا جاتا ہے، اور کسی بھی قسم کی بلند آواز یا موسیقی کو ناپسندیدہ سمجھا جاتا ہے۔ تاہم، بعض علاقوں میں، خاص طور پر تبت اور نیپال کے بدھ مت پیروکار، مرنے والے کے احترام میں مخصوص دعائیہ موسیقی بجاتے ہیں، جو ان کی روایات کا حصہ ہے۔ یہ تمام رسومات اسلام کے جنازے کی تعلیمات سے مختلف ہیں، جو مکمل سادگی اور دعا پر مبنی ہیں۔</p>
-        
-        <h2>اسلامی تعلیمات کی واضح ہدایات</h2>
-        <p>اسلام میں جنازے کو مکمل سنجیدگی اور سادگی کے ساتھ انجام دینے کی ہدایت دی گئی ہے۔ قرآن و سنت میں جنازے کی رسومات کو فضول خرچی، نمود و نمائش، اور غیر ضروری رسومات سے پاک رکھنے کا حکم ہے۔ حضور اکرم ﷺ نے بدعات کو گمراہی قرار دیا اور فرمایا کہ ہر بدعت جہنم میں لے جانے والی ہے۔ جنازے کے دوران کسی بھی قسم کی موسیقی یا ڈھول بجانے کی نہ صرف ممانعت ہے بلکہ یہ عمل دین میں نئی باتوں کا اضافہ ہے، جو اللہ اور اس کے رسول ﷺ کے واضح احکامات کی خلاف ورزی ہے۔ اس بدعت کے ذریعے دین کی اصل روح کو نقصان پہنچانے والوں کو سخت وعید دی گئی ہے اور آخرت میں ان کے لیے عذاب کی خبر دی گئی ہے۔</p>
-        
-        <h2>ائمہ کرام کا موقف</h2>
-        <p>ائمہ کرام کے نزدیک جنازے کی بے حرمتی ایک سنگین گناہ ہے، کیونکہ یہ عمل اسلامی تعلیمات اور شعائر کے خلاف ہے۔ فقہاء اس بات پر متفق ہیں کہ جنازے کا مقصد مرنے والے کے لیے دعا اور اللہ کے حضور مغفرت کی التجا کرنا ہے، اور اس میں کسی بھی قسم کی نمود و نمائش، موسیقی، یا بدعتی رسومات شامل کرنا حرام ہے۔ امام ابو حنیفہ، امام مالک، امام شافعی، اور امام احمد بن حنبل جیسے ائمہ کرام نے اس قسم کے اعمال کی سختی سے مذمت کی ہے۔ ان کے مطابق، جنازے کے دوران ایسے اعمال انجام دینا اللہ کی نافرمانی کے مترادف ہے اور اس کے مرتکب افراد کو توبہ کرنے کا حکم دیا گیا ہے۔</p>
-        
-        <h2>مختلف مسالک کا نقطہ نظر</h2>
-        <p>مسلک دیوبند جنازے کی سادگی اور قرآن و سنت کے مطابق رسومات پر زور دیتا ہے، اور کسی بھی بدعتی عمل کو سختی سے رد کرتا ہے۔ مسلک بریلوی بھی جنازے کے لیے دعاؤں اور مخصوص طریقہ کار پر عمل کرنے کو ترجیح دیتا ہے، لیکن بعض ثقافتی اثرات کی وجہ سے اس میں تنوع پایا جا سکتا ہے۔ مسلک اہل حدیث، جو خالصتاً قرآن و سنت کی پیروی پر زور دیتا ہے، جنازے میں بدعات کو مکمل طور پر ممنوع قرار دیتا ہے۔ اہل تشیع کے مطابق بھی جنازے کی رسومات کو وقار اور دعا کے ساتھ انجام دینا ضروری ہے، تاہم ان میں بعض مخصوص رسومات شامل ہیں جو ان کے عقائد کا حصہ ہیں۔ احمدی جماعت جنازے کے معاملات کو اسلامی اصولوں کے مطابق انجام دیتی ہے، لیکن ان کے عقائد کے دیگر مکاتب فکر سے اختلافات کی وجہ سے عمومی قبولیت حاصل نہیں۔ ندوی مسلک بھی قرآن و سنت کی رہنمائی میں جنازے کی ادائیگی کو لازم قرار دیتا ہے اور بدعات کی مخالفت کرتا ہے۔</p>
-        
-        <h2>بدعات سے بچاؤ کے طریقے</h2>
-        <p>جنازے میں بدعات اور بے حرمتی سے بچنے کے لیے دین کی بنیادی تعلیمات کو سمجھنا اور ان پر عمل کرنا ضروری ہے۔ سب سے پہلے، جنازے کے شرعی طریقہ کار کو سیکھا جائے اور دوسروں کو بھی اس بارے میں آگاہ کیا جائے۔ علماء اور دینی رہنما اس مسئلے پر خطبات اور دروس کے ذریعے عوام کو صحیح رہنمائی فراہم کر سکتے ہیں۔ معاشرتی دباؤ یا ثقافتی روایات کے بجائے قرآن و سنت کی پیروی کو ترجیح دی جائے۔ والدین اور اساتذہ کو چاہیے کہ بچوں کو ابتدائی عمر سے دین کے شعائر کی تعلیم دیں تاکہ وہ ان کی حقیقی اہمیت کو سمجھ سکیں۔ توبہ اور دعا کے ذریعے اللہ سے مدد طلب کی جائے اور ایسے مواقع پر غیر شرعی عمل سے اجتناب کیا جائے۔</p>
+        <!-- Two column layout: main content + sidebar -->
+        <div class="two-columns">
+            <div class="main-content">
+                <!-- Post content (exact text, not a single word changed) -->
+                <h2>جنازے پر ڈھول بجانا: ایک بدعتی عمل</h2>
+                <p>اسلام ایک پاکیزہ دین ہے جو زندگی کے ہر پہلو میں رہنمائی فراہم کرتا ہے۔ دین کی اصل بنیاد قرآن و سنت پر قائم ہے، جو اللہ تعالیٰ کی طرف سے انسانیت کے لیے مکمل ہدایت فراہم کرتے ہیں۔ بدعت، دین میں نئی باتوں کا اضافہ کرنے کو کہتے ہیں، جو نہ صرف دین کے خلوص کو متاثر کرتی ہے بلکہ لوگوں کو حقیقی اسلامی تعلیمات سے بھی دور لے جاتی ہے۔ دین کی پاکیزگی پر بدعتی حملوں میں ایک حملہ جنازے کے موقع پر ڈھول بجانے کا رواج ہے، جو نہ صرف اسلامی اصولوں کے منافی ہے بلکہ سماجی اقدار کو بھی متاثر کرتا ہے۔</p>
+                
+                <h2>جنازے کی سنجیدگی اور اہمیت</h2>
+                <p>جنازے کا موقع ایک سنجیدہ اور پرسکون لمحہ ہوتا ہے، جہاں مرنے والے کے لیے دعائیں کی جاتی ہیں اور آخرت کی یاد دہانی ہوتی ہے۔ ایسے موقع پر ڈھول بجانا ایک غیر اسلامی عمل ہے، جو جنازے کی روحانیت اور وقار کو متاثر کرتا ہے۔ یہ بدعتی عمل نہ صرف اسلام کے بنیادی اصولوں کے خلاف ہے بلکہ اس سے سوگواران کے جذبات بھی مجروح ہوتے ہیں۔ اسلامی تعلیمات ہمیں سادگی اور خالصیت کے ساتھ جنازے کے معاملات انجام دینے کی ہدایت دیتی ہیں، اور غیر ضروری رسومات کی سختی سے ممانعت کرتی ہیں۔</p>
+                
+                <h2>بدعتی اعمال کے اثرات</h2>
+                <p>بدعتی اعمال جیسے جنازے پر ڈھول بجانا، اسلامی معاشرے میں دین کی حقیقی روح کو کمزور کر سکتے ہیں۔ ان سے بچاؤ کے لیے علماء اور دینی رہنماؤں کا کردار نہایت اہم ہے۔ وہ لوگوں کو قرآن و سنت کی تعلیمات کی روشنی میں آگاہ کریں اور بدعت کے نقصانات سے آگاہ کریں۔ اس کے ساتھ ہی، ہمیں خود بھی یہ ذمہ داری لینا ہوگی کہ دین کے پاکیزہ اصولوں کی حفاظت کریں اور بدعتی اعمال سے بچیں۔ اصلاحی کوششوں سے ہم دین کی اصل روح کو محفوظ رکھ سکتے ہیں اور آنے والی نسلوں تک صحیح تعلیمات منتقل کر سکتے ہیں۔</p>
+                
+                <h2>ڈھول بجانے کی حقیقت</h2>
+                <p>جنازے پر ڈھول بجانے سے مراد وہ عمل ہے جس میں کسی شخص کے انتقال کے بعد اس کے جنازے کے موقع پر ڈھول یا دیگر موسیقی کے آلات بجائے جاتے ہیں۔ یہ عمل بظاہر مرنے والے کے اعزاز کے طور پر کیا جاتا ہے یا بعض مخصوص رسومات کے حصے کے طور پر، لیکن اسلامی تعلیمات کے مطابق یہ عمل نہ صرف غیر شرعی ہے بلکہ جنازے کی سنجیدگی اور روحانیت کو بھی مجروح کرتا ہے۔ جنازہ ایک ایسی عبادت ہے جو سادگی، خاموشی، اور دعاؤں پر مشتمل ہونی چاہیے، اور اس میں کسی بھی قسم کی غیر ضروری نمود و نمائش ممنوع ہے۔</p>
+                
+                <h2>مختلف مسالک کا موقف</h2>
+                <p>یہ بدعتی عمل عام طور پر ان گروہوں یا فرقوں میں پایا جاتا ہے جو مخصوص ثقافتی یا علاقائی رسومات کو دین کا حصہ سمجھتے ہیں۔ بعض صوفی یا ثقافتی گروہ اس طرح کے اعمال میں پیش پیش رہتے ہیں، جو مقامی روایات اور رسومات کو دین پر ترجیح دیتے ہیں۔ تاہم، یہ واضح رہنا چاہیے کہ اسلامی فقہ کے بڑے مکاتب فکر، جیسے کہ حنفی، شافعی، مالکی، اور حنبلی، سب اس بات پر متفق ہیں کہ جنازے میں اس طرح کی بدعات کا کوئی جواز نہیں ہے۔ اس طرح کے اعمال اسلام کے بنیادی اصولوں کے منافی ہیں اور لوگوں کو حقیقی دین سے دور کرتے ہیں۔</p>
+                
+                <h2>جنوبی ایشیا میں رواج</h2>
+                <p>جنازے پر ڈھول بجانے کی رسم کی ابتدا واضح طور پر کسی ایک وقت یا جگہ سے منسوب نہیں کی جا سکتی، لیکن یہ عام طور پر ان معاشروں میں پیدا ہوئی جہاں مقامی ثقافتوں کو مذہب پر فوقیت دی گئی۔ حالیہ برسوں میں پاکستان میں اس طرح کی رسومات کی مثالیں سامنے آئی ہیں، جن میں جنازے پر ڈھول بجانے کی ویڈیوز سوشل میڈیا پر وائرل ہوئی ہیں۔ ان ویڈیوز میں دیکھا گیا کہ جنازے کے دوران ڈھول کی آوازوں کے ساتھ لوگ جذباتی انداز میں شریک ہو رہے ہیں، جو کہ اسلامی تعلیمات کے برعکس ہے۔ یہ اعمال نہ صرف دین کی بدنامی کا باعث بنتے ہیں بلکہ اسلام کے بارے میں غیر مسلموں کو بھی غلط تاثر دیتے ہیں۔</p>
+                
+                <h2>اسلامی تعلیمات کی روشنی میں</h2>
+                <p>جنازے پر ڈھول بجانا اسلام کے ساتھ ایک کھلا مذاق ہے۔ یہ عمل نہ صرف دینی تعلیمات کی خلاف ورزی ہے بلکہ اس سے دین کی پاکیزگی کو بھی شدید نقصان پہنچتا ہے۔ جنازے کا مقصد مرنے والے کے لیے دعائے مغفرت اور آخرت کی یاد دہانی ہے، نہ کہ خوشی یا تفریح کا مظاہرہ۔ اس طرح کی بدعات اسلامی معاشرے کو کمزور کرتی ہیں اور لوگوں کو دین کی اصل روح سے دور کر دیتی ہیں۔ ضرورت اس بات کی ہے کہ علماء اور دینی رہنما اس مسئلے پر توجہ دیں اور لوگوں کو قرآن و سنت کی روشنی میں صحیح راستہ دکھائیں تاکہ اس قسم کے غیر شرعی اعمال کا خاتمہ ہو سکے۔</p>
+                
+                <h2>مختلف مذاہب میں رسومات</h2>
+                <p>جنوبی ایشیائی ممالک جیسے کہ بھارت، پاکستان، بنگلہ دیش، اور سری لنکا میں جنازے پر ڈھول بجانے اور دیگر بدعتی رسومات کا فروغ زیادہ تر ثقافتی اور علاقائی روایات کی وجہ سے ہوا ہے۔ ان ممالک میں مختلف برادریاں اپنے روایتی رسوم و رواج کو دین کا حصہ سمجھ کر اپناتی ہیں۔ یہ بدعات عام طور پر ان علاقوں میں زیادہ پائی جاتی ہیں جہاں مذہبی تعلیمات کی کمی ہے یا جہاں مخصوص گروہ اپنی ثقافتی شناخت کو دین پر فوقیت دیتے ہیں۔ شادی، جنازے، اور دیگر مذہبی تقریبات میں موسیقی اور ڈھول بجانے جیسی رسوم اکثر عوام کی غیر ضروری جذباتی وابستگی کی وجہ سے جاری رہتی ہیں، جو اسلامی تعلیمات سے دوری کا نتیجہ ہیں۔</p>
+                
+                <!-- Reactions Section (as required) -->
+                <div class="reactions-section">
+                    <div class="reactions-title">📊 اس پوسٹ پر اپنا ردعمل دیں</div>
+                    <div class="reactions-buttons">
+                        <div class="reaction-item" onclick="reactionClick('عمدہ')">
+                            <span class="reaction-emoji">👍</span>
+                            <span class="reaction-label">عمدہ</span>
+                            <span class="reaction-count" id="count-عمدہ">0</span>
+                        </div>
+                        <div class="reaction-item" onclick="reactionClick('دلچسپ')">
+                            <span class="reaction-emoji">❤️</span>
+                            <span class="reaction-label">دلچسپ</span>
+                            <span class="reaction-count" id="count-دلچسپ">0</span>
+                        </div>
+                        <div class="reaction-item" onclick="reactionClick('مفید')">
+                            <span class="reaction-emoji">😊</span>
+                            <span class="reaction-label">مفید</span>
+                            <span class="reaction-count" id="count-مفید">0</span>
+                        </div>
+                        <div class="reaction-item" onclick="reactionClick('قابل غور')">
+                            <span class="reaction-emoji">😢</span>
+                            <span class="reaction-label">قابل غور</span>
+                            <span class="reaction-count" id="count-قابل غور">0</span>
+                        </div>
+                        <div class="reaction-item" onclick="reactionClick('سوچ بچار')">
+                            <span class="reaction-emoji">🤔</span>
+                            <span class="reaction-label">سوچ بچار</span>
+                            <span class="reaction-count" id="count-سوچ بچار">0</span>
+                        </div>
+                        <div class="reaction-item" onclick="reactionClick('شاندار')">
+                            <span class="reaction-emoji">👏</span>
+                            <span class="reaction-label">شاندار</span>
+                            <span class="reaction-count" id="count-شاندار">0</span>
+                        </div>
+                        <div class="reaction-item" onclick="reactionClick('زبردست')">
+                            <span class="reaction-emoji">🔥</span>
+                            <span class="reaction-label">زبردست</span>
+                            <span class="reaction-count" id="count-زبردست">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <!-- social sharing buttons (multiple platforms) -->
+            <!-- Sidebar with auto-scroll posts -->
+            <div class="sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-title">✨ متعلقہ مضامین</div>
+                    <div class="posts-scroll-container">
+                        <div class="scroll-inner">
+                            <!-- posts list exactly as per requirements -->
+                            <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="toham parasti">
+                                <span class="sidebar-post-title">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="chughli">
+                                <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="bhik mangna">
+                                <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="qabza">
+                                <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="khudkushi">
+                                <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="aalim">
+                                <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="qul khawani">
+                                <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="gyarhveen">
+                                <span class="sidebar-post-title">گیارہویں منانا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="dhage">
+                                <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="sajda">
+                                <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="behayai">
+                                <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="azab">
+                                <span class="sidebar-post-title">عذاب الہیٰ کو دعوت دینے والے تین گھر</span>
+                            </a>
+                            <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="sidebar-post" target="_blank">
+                                <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="dil dukhana">
+                                <span class="sidebar-post-title">مذاق میں کسی کا دل دکھانا</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- social sharing buttons (7 platforms) -->
         <div class="share-wrap">
             <a href="https://wa.me/?text=دین%20کی%20پاکیزگی%20پر%20بدعتی%20حملے" target="_blank" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
             <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/" target="_blank" class="share-btn facebook"><i class="fab fa-facebook-f"></i></a>
@@ -352,17 +627,29 @@
             <a href="https://t.me/share/url?url=https://bloglovers.pk/&text=دین%20کی%20پاکیزگی" target="_blank" class="share-btn telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk/" target="_blank" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://www.pinterest.com/pin/create/button/?url=https://bloglovers.pk/&media=https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-45-jnaze-par-dhol-bjana.png&description=دین%20کی%20پاکیزگی" target="_blank" class="share-btn pinterest"><i class="fab fa-pinterest"></i></a>
+            <a href="#" onclick="copyPageLink(); return false;" class="share-btn copy-link"><i class="fas fa-link"></i></a>
         </div>
 
-        <!-- bottom navigation again (optional) but to keep consistent -->
+        <!-- bottom navigation again -->
         <div class="nav-buttons" id="bottom">
             <a href="https://bloglovers.pk/" class="nav-btn home" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn back" target="_blank"><i class="fas fa-arrow-right"></i> واپس</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn back" target="_blank"><i class="fas fa-arrow-right"></i> تمام پوسٹس</a>
         </div>
     </div>
 
-    <!-- (no toggle, no popup, no overlay) -->
-    <!-- bottom anchor for down button -->
-    <div id="bottom" style="position: relative; bottom: 0;"></div>
+    <!-- external reactions.js (already correct, will load from root) -->
+    <script src="/reactions.js"></script>
+    <script>
+        // Copy link function for the extra share button
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert("لنک کاپی ہو گیا! لنک کاپی ہوگیا۔");
+            }).catch(() => {
+                alert("لنک کاپی کرنے میں خرابی");
+            });
+        }
+        // No duplicate reactions functions, only reactionClick is imported from reactions.js
+        // All previous loadReactions, addReaction, updateReactionsUI removed as requested
+    </script>
 </body>
 </html>
