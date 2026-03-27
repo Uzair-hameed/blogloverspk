@@ -16,40 +16,38 @@
 
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            background: linear-gradient(145deg, #1b2b1b 0%, #0f3a2f 100%);
+            background: linear-gradient(135deg, #f5eef8 0%, #e6f0e6 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             padding: 15px;
-            line-height: 2;
+            line-height: 1.65;
+            font-size: 14px; /* small base font */
         }
 
-        /* baby parrot green + vibrant black animated background */
-        .animated-bg {
+        /* multi-color playful background */
+        .multi-bg {
             position: fixed;
             top: 0;
             right: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: linear-gradient(217deg, #2b4b2b, #0b0f0b, #1e3b2e, #1f4f2f, #0a1f0a);
-            background-size: 300% 300%;
-            animation: parrotWave 16s ease infinite;
-            opacity: 0.95;
+            background: radial-gradient(circle at 20% 40%, #f9eef7, #e2f0e2, #f3e6ff, #fff0db);
+            background-size: 200% 200%;
+            animation: softFlow 18s ease infinite;
         }
 
-        @keyframes parrotWave {
-            0% { background-position: 0% 20%; }
-            25% { background-position: 40% 80%; }
-            50% { background-position: 100% 30%; }
-            75% { background-position: 60% 70%; }
-            100% { background-position: 0% 20%; }
+        @keyframes softFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 40%; }
+            100% { background-position: 0% 0%; }
         }
 
-        /* floating glowing orbs (hover effect enhancement) */
-        .bg-ornaments {
+        /* floating color orbs */
+        .bg-bubbles {
             position: fixed;
             top: 0;
             right: 0;
@@ -58,246 +56,286 @@
             z-index: -1;
             pointer-events: none;
         }
-
-        .bg-ornaments span {
+        .bg-bubbles span {
             position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(210, 240, 140, 0.1);
+            background: rgba(190, 140, 210, 0.2);
             border-radius: 50%;
-            filter: blur(45px);
-            animation: floatHover 12s infinite alternate;
+            filter: blur(50px);
+            animation: drift 20s infinite alternate;
         }
+        .bg-bubbles span:nth-child(1) { width: 280px; height: 280px; top: 5%; left: 5%; background: #cda9ff40; }
+        .bg-bubbles span:nth-child(2) { width: 400px; height: 400px; bottom: 0%; right: -50px; background: #b3f0b070; animation-duration: 24s; }
+        .bg-bubbles span:nth-child(3) { width: 180px; height: 180px; top: 50%; right: 20%; background: #ffc8e8aa; animation-duration: 15s; }
+        .bg-bubbles span:nth-child(4) { width: 320px; height: 320px; bottom: 20%; left: -80px; background: #fdebb3cc; }
 
-        .bg-ornaments span:nth-child(1) { top: 10%; left: 15%; width: 200px; height: 200px; background: #a7d94822; animation-duration: 14s; }
-        .bg-ornaments span:nth-child(2) { bottom: 15%; right: 10%; width: 280px; height: 280px; background: #4f7a3b33; animation-duration: 19s; }
-        .bg-ornaments span:nth-child(3) { top: 30%; right: 25%; width: 150px; height: 150px; background: #79c04d33; animation-duration: 11s; }
-
-        @keyframes floatHover {
+        @keyframes drift {
             0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            100% { transform: translate(-30px, -40px) scale(1.2); opacity: 0.6; }
+            100% { transform: translate(-40px, 50px) scale(1.3); opacity: 0.7; }
         }
 
-        /* main container */
+        /* main container – clean multi-color card */
         .card-container {
-            max-width: 960px;
+            max-width: 1100px;
             width: 100%;
-            background: rgba(255, 248, 235, 0.96);
-            backdrop-filter: blur(4px);
-            border-radius: 32px;
-            padding: 25px 20px;
+            background: rgba(255, 252, 245, 0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 36px;
+            padding: 20px 20px 30px;
             margin: 15px 0 30px;
-            box-shadow: 0 30px 60px rgba(0, 20, 0, 0.7), 0 0 0 2px #c0e6b0 inset;
-            transition: box-shadow 0.4s;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px #fff8ea, 0 0 0 4px #d9b0ff;
+            transition: all 0.2s;
         }
 
-        .card-container:hover {
-            box-shadow: 0 35px 70px rgba(90, 190, 70, 0.5), 0 0 0 4px #e6ffc4 inset;
-        }
-
-        /* navigation bar (home/back/up/down) */
+        /* multi-color navigation */
         .nav-bar {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            background: #1f3c2c;
-            padding: 12px 20px;
+            background: linear-gradient(95deg, #c084fc, #9b5de5, #f472b6);
+            padding: 10px 20px;
             border-radius: 60px;
-            margin-bottom: 30px;
-            color: white;
-            box-shadow: 0 8px 0 #0b1a0b;
-            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 0 #6a1b9a;
+            gap: 12px;
         }
-
         .nav-group {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .nav-btn {
-            background: #ffde7d;
+            background: #fffaec;
             border: none;
-            color: #1e3a1e;
-            font-size: 1.1rem;
+            color: #7c3aed;
+            font-size: 0.85rem;
             font-weight: bold;
-            padding: 10px 22px;
+            padding: 8px 20px;
             border-radius: 40px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 5px 0 #b48b30;
-            font-family: inherit;
-            border: 1px solid #f7ffb0;
-        }
-
-        .nav-btn i {
-            font-size: 1.2rem;
-        }
-
-        .nav-btn:hover {
-            background: #ffe28f;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #a07522, 0 0 20px #d5ff97;
-        }
-
-        .nav-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #a07522;
-        }
-
-        .page-updown {
-            display: flex;
             gap: 8px;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 3px 0 #b38f40;
+            font-family: inherit;
         }
-
+        .nav-btn i { font-size: 1rem; }
+        .nav-btn:hover { background: #ffe6b3; transform: translateY(-2px); box-shadow: 0 5px 0 #9b6f30; }
         .circle-icon {
-            background: #53a353;
-            width: 48px;
-            height: 48px;
+            background: #f9a8d4;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            box-shadow: 0 5px 0 #1b4c1b;
-            transition: 0.2s;
+            font-size: 1.4rem;
+            color: #4a044e;
+            box-shadow: 0 4px 0 #b9678b;
             cursor: pointer;
-            border: 1px solid #bef5b0;
+            transition: 0.2s;
         }
+        .circle-icon:hover { background: #ffb7e0; transform: scale(1.05); box-shadow: 0 6px 0 #b9678b; }
 
-        .circle-icon:hover {
-            background: #6fc96f;
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 7px 0 #1b4c1b, 0 0 30px #b1ff9e;
-        }
-
-        /* main heading */
+        /* titles & headings — playful multicolor backgrounds */
         h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #234d20;
-            text-align: center;
-            text-shadow: 2px 2px 0 #cce6b0, 4px 4px 0 rgba(0,0,0,0.05);
-            border-bottom: 3px double #74b72e;
-            padding-bottom: 10px;
-            margin: 0 0 15px;
-            line-height: 1.5;
-        }
-
-        /* subheading (h2) */
-        h2 {
             font-size: 1.9rem;
-            color: #d14233;
-            background: linear-gradient(to left, #fef9d7, #ffeab5);
+            font-weight: 700;
+            background: linear-gradient(120deg, #b76fe4, #e679b2);
             display: inline-block;
-            padding: 8px 35px 8px 25px;
-            border-radius: 0 50px 50px 0;
-            margin: 10px 0 20px -20px;
-            box-shadow: -5px 5px 0 #3f6725;
-            text-shadow: 1px 1px 0 white;
-            border-right: 6px solid #ecb33b;
-            letter-spacing: 0.5px;
+            width: auto;
+            padding: 12px 25px;
+            border-radius: 40px 12px 40px 12px;
+            color: white;
+            text-shadow: 2px 2px 0 #3b0764;
+            text-align: center;
+            margin: 0 0 20px;
+            box-shadow: 0 6px 0 #5a2a7a;
+            line-height: 1.3;
+        }
+        h2 {
+            font-size: 1.6rem;
+            background: #ffe0b5;
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 50px;
+            margin: 8px 0 20px -10px;
+            border-right: 10px solid #c084fc;
+            color: #4b2e6b;
+            text-shadow: none;
+            font-weight: 700;
+            box-shadow: -3px 3px 0 #f3b3d2;
         }
 
-        /* image style — full width, visible after title */
+        /* image style */
         .post-image {
             width: 100%;
-            margin: 25px 0 20px;
+            margin: 15px 0 20px;
             border-radius: 28px;
             overflow: hidden;
-            border: 5px solid white;
-            box-shadow: 0 25px 35px -8px #1e3a1e, 0 0 0 3px #d7ffb0;
-            transition: transform 0.5s;
-            background: #c5e0b7;
+            border: 4px solid white;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.2), 0 0 0 2px #d9a7ff;
+            transition: 0.3s;
         }
-
         .post-image img {
             width: 100%;
             height: auto;
             display: block;
-            object-fit: cover;
             border-radius: 24px;
-            transition: 0.4s ease;
         }
 
-        .post-image:hover img {
-            transform: scale(1.02);
-            filter: brightness(1.05) saturate(1.1);
-        }
-
-        /* text styling */
+        /* text style: small font, proper spacing */
         p, li, .text-block {
-            font-size: 1.25rem;
+            font-size: 0.9rem;  /* small but readable */
+            line-height: 1.7;
             text-align: justify;
-            color: #1e2f1a;
-            margin-bottom: 1.2rem;
+            color: #1f2a1b;
+            margin-bottom: 0.9rem;
+            letter-spacing: 0.2px;
             word-spacing: 0.5px;
         }
-
         strong {
-            color: #aa4e2b;
-            font-weight: 700;
+            color: #bc5a7c;
+            font-weight: 800;
         }
 
-        /* all internal links removed — only plain text or external safe */
-        a:not(.nav-btn):not(.social-icon) {
-            color: inherit;
+        /* reaction styles (preserve design but small) */
+        .reactions-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0 20px;
+            background: #fdf4e8;
+            padding: 15px 10px;
+            border-radius: 60px;
+            border: 1px solid #f3c6ff;
+        }
+        .reaction-btn {
+            background: white;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: #4a2c5e;
+            font-weight: 500;
+        }
+        .reaction-btn:hover {
+            transform: scale(1.03);
+            background: #fbe9ff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .reaction-count {
+            font-weight: bold;
+            background: #efe5ff;
+            padding: 0 6px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        /* sidebar - auto scroll */
+        .sidebar-panel {
+            width: 100%;
+            margin: 25px 0 15px;
+            background: #fffaf2;
+            border-radius: 48px;
+            padding: 12px;
+            border: 2px solid #eac7ff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .sidebar-title {
+            font-size: 1.2rem;
+            background: #fbcfe8;
+            display: inline-block;
+            padding: 4px 20px;
+            border-radius: 30px;
+            margin-bottom: 12px;
+            color: #831843;
+        }
+        .scroll-list {
+            height: 500px;
+            overflow-y: auto;
+            padding: 5px;
+            direction: ltr;
+        }
+        .scroll-list ul {
+            direction: rtl;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .scroll-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fef9e6;
+            margin-bottom: 12px;
+            padding: 8px 10px;
+            border-radius: 28px;
+            transition: 0.2s;
+            border-right: 4px solid #d9a2ff;
+        }
+        .scroll-list li.active-post {
+            background: #ede2ff;
+            border-right: 6px solid #b96ef0;
+            box-shadow: 0 0 0 1px #e2b5ff;
+        }
+        .scroll-list img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #c49eff;
+        }
+        .scroll-list a {
             text-decoration: none;
-            pointer-events: none;
-            border-bottom: 1px dotted gray;
+            color: #2f3e2e;
+            font-size: 0.85rem;
+            font-weight: 500;
+            flex: 1;
+            line-height: 1.4;
         }
+        .scroll-list a:hover { color: #aa4e8c; }
 
-        /* social share buttons */
+        /* social share */
         .social-share {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 18px;
+            gap: 16px;
             margin: 30px 0 20px;
-            padding: 20px 10px;
-            background: #cbe6be75;
+            padding: 16px 10px;
+            background: #e7daffb3;
             border-radius: 80px;
-            backdrop-filter: blur(4px);
         }
-
         .social-icon {
-            width: 58px;
-            height: 58px;
+            width: 52px;
+            height: 52px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.1rem;
-            color: #2d5e2d;
-            box-shadow: 0 8px 0 #1b481b, 0 0 0 3px #e7ffbc;
-            transition: all 0.25s;
+            font-size: 1.7rem;
+            color: #5e2e7e;
+            box-shadow: 0 6px 0 #ab8bc0;
+            transition: 0.2s;
             text-decoration: none;
         }
-
         .social-icon:hover {
-            transform: translateY(-6px) scale(1.1);
-            box-shadow: 0 11px 0 #1b481b, 0 0 30px #f9ffb0;
-            background: #fffcd1;
+            transform: translateY(-5px);
+            background: #fff3cf;
+            box-shadow: 0 9px 0 #ab8bc0;
         }
-
-        .social-icon i {
-            transition: 0.2s;
-        }
-
-        .social-icon:hover i {
-            transform: scale(1.15);
-            color: #156515;
-        }
-
-        /* scroll up/down extra buttons (floating) */
         .float-controls {
             position: fixed;
             left: 20px;
@@ -307,141 +345,224 @@
             gap: 12px;
             z-index: 99;
         }
-
         .float-btn {
-            background: #48a848;
-            width: 55px;
-            height: 55px;
+            background: #c28aff;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            color: white;
-            border: 3px solid #dcffb0;
-            font-size: 2rem;
+            color: #2c0e3a;
+            border: 2px solid #fff0c0;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 7px 0 #155015;
+            box-shadow: 0 5px 0 #613c7a;
             transition: 0.2s;
         }
-
-        .float-btn:hover {
-            background: #72d872;
-            transform: scale(1.1);
-            box-shadow: 0 9px 0 #155015;
-        }
-
-        /* footer */
+        .float-btn:hover { background: #e0a9ff; transform: scale(1.05); }
         .footer-note {
             text-align: center;
-            font-size: 1.1rem;
-            color: #f5ffd3;
-            margin: 15px 0 5px;
+            font-size: 0.8rem;
+            color: #452c5c;
+            margin: 10px 0;
+            font-weight: 500;
         }
-
-        /* responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.5rem; }
-            p { font-size: 1.1rem; }
-            .nav-bar { flex-direction: column; }
-            .nav-group { justify-content: center; }
+        .bottom-nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0 10px;
+        }
+        @media (max-width: 700px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.3rem; }
+            p { font-size: 0.85rem; }
+            .scroll-list img { width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body>
-    <!-- Animated background parrot theme + black vibrance -->
-    <div class="animated-bg"></div>
-    <div class="bg-ornaments">
-        <span></span><span></span><span></span>
+<div class="multi-bg"></div>
+<div class="bg-bubbles"><span></span><span></span><span></span><span></span></div>
+
+<div class="float-controls">
+    <button class="float-btn" onclick="window.scrollTo({top:0, behavior:'smooth'});" aria-label="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
+    <button class="float-btn" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});" aria-label="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
+</div>
+
+<div class="card-container">
+    <!-- navigation bar with home/back/scroll -->
+    <div class="nav-bar">
+        <div class="nav-group">
+            <a href="https://bloglovers.pk/" class="nav-btn" target="_blank" rel="noopener"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn" target="_blank" rel="noopener"><i class="fas fa-arrow-right"></i> واپس</a>
+        </div>
+        <div class="page-updown">
+            <button class="circle-icon" onclick="window.scrollTo({top:0, behavior:'smooth'});"><i class="fas fa-chevron-up"></i></button>
+            <button class="circle-icon" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});"><i class="fas fa-chevron-down"></i></button>
+        </div>
     </div>
 
-    <!-- floating up/down (side) -->
-    <div class="float-controls">
-        <button class="float-btn" onclick="window.scrollTo({top:0, behavior:'smooth'});" aria-label="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
-        <button class="float-btn" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});" aria-label="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
+    <!-- MAIN POST TITLE & CONTENT (identical to original with proper heading) -->
+    <h1>غفلت میں چھپے 50 گناہ</h1>
+    <h2>22 - خودکشی کرنا</h2>
+    <div class="post-image">
+        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی سے متعلق تصویر">
     </div>
 
-    <div class="card-container">
-        <!-- navigation panel with home / back / up/down -->
-        <div class="nav-bar">
-            <div class="nav-group">
-                <a href="https://bloglovers.pk/" class="nav-btn" target="_blank" rel="noopener"><i class="fas fa-home"></i> ہوم پیج</a>
-                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn" target="_blank" rel="noopener"><i class="fas fa-arrow-right"></i> واپس</a>
-            </div>
-            <div class="page-updown">
-                <button class="circle-icon" onclick="window.scrollTo({top:0, behavior:'smooth'});"><i class="fas fa-chevron-up"></i></button>
-                <button class="circle-icon" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'});"><i class="fas fa-chevron-down"></i></button>
-            </div>
-        </div>
+    <!-- Original article content preserved word-for-word -->
+    <p>غفلت میں چھپے 50 گناہوں کی فہرست میں بائیسواں گناہ خودکشی کرنا ہے۔ اس سے پہلے تو اتسر سے کئی آرٹیکل جو میں تفصیل سے شئیر کرتا آرہا ہوں اگر آپ انکو پڑھنا چاہیے تو نیچے دیے گئے ویب سائٹ لنک پر کلک کرکے پڑھ سکتے ہیں۔ ان میں سے، کسی جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، سود کھانا، ظلم کرنا، رشوت لینا یا دینا، زنا کرنا وغیرہ۔</p>
+    <p>خودکشی، یعنی اپنے ہاتھوں سے اپنی زندگی کا خاتمہ کرنا، اسلام سمیت دنیا کے تمام بڑے مذاہب میں ایک سنگین گناہ اور ممنوع عمل قرار دیا گیا ہے۔ یہ عمل انسانی زندگی کو ختم کرنے کے خلاف ایک سخت قدم ہے جو اللہ کی طرف سے دی گئی زندگی کو خود سے ختم کرنے کی کوشش سمجھا جاتا ہے۔</p>
+    <p>خودکشی کا مطلب ہے کہ کوئی شخص اپنی زندگی کو خود ختم کرنے کا ارادہ کرے اور اسے عملی جامہ پہنائے۔ یہ فعل اس وقت انجام دیا جاتا ہے جب کوئی فرد زندگی کے مسائل، مشکلات، یا ذہنی دباؤ سے نمٹنے میں ناکام ہو جاتا ہے اور وہ اپنے وجود کو ختم کرنے کو واحد حل سمجھتا ہے۔ اللہ نے ہر انسان کو زندگی عطا کی ہے، اور اس زندگی کا خاتمہ کرنا صرف اللہ کے اختیار میں ہے۔</p>
+    <p>قرآن مجید میں اللہ تعالیٰ فرماتے ہیں: "اور اپنے ہاتھوں سے خود کو ہلاکت میں نہ ڈالو۔" یہ آیت واضح کرتی ہے کہ انسان کو اپنی زندگی کی قدر کرنی چاہیے اور کسی بھی حالت میں اسے ختم کرنے کی کوشش نہیں کرنی چاہیے۔</p>
+    <p><strong>لوگ خودکشی کیوں کرتے ہیں؟ کیا انھیں جینے کا حق نہیں ہوتا؟</strong></p>
+    <p>خودکشی کرنے والے افراد عموماً نفسیاتی مسائل، ذہنی دباؤ، یا مشکلات کا شکار ہوتے ہیں جنہیں وہ حل نہیں کر پاتے۔ ان میں سے کچھ لوگ مالی مسائل، خاندانی دباؤ، سماجی تناؤ، یا معاشرتی عدم مساوات کی وجہ سے اس انتہا پر پہنچتے ہیں۔ بعض افراد محبت میں ناکامی، بے روزگاری، یا شدید ذہنی بیماریوں کی وجہ سے اپنی زندگی ختم کر دیتے ہیں۔ تاہم، اسلام میں ہر انسان کو زندگی کا حق دیا گیا ہے، اور زندگی ایک عظیم نعمت سمجھی جاتی ہے۔ مشکلات کا سامنا صبر اور دعا سے کیا جانا چاہیے۔ اللہ تعالیٰ فرماتے ہیں: "اور ہم تمہیں خوف، بھوک، مال اور جانوں کے نقصان اور پھلوں کی کمی کے ذریعہ آزمائیں گے، اور صبر کرنے والوں کو بشارت دے دو۔" یہ آیت اس بات کو واضح کرتی ہے کہ مشکلات اور آزمائشیں زندگی کا حصہ ہیں، اور صبر کرنے والے اللہ کی طرف سے انعام پاتے ہیں۔</p>
+    <p><strong>دورِ جاہلیت میں خودکشی کا رجحان</strong></p>
+    <p>دور جاہلیت میں بھی لوگ مختلف وجوہات کی بنا پر خودکشی کرتے تھے۔ غربت، ناکامی، یا جنگ میں شکست جیسے عوامل لوگوں کو خودکشی کی طرف مائل کرتے تھے۔ بعض اوقات قبائل کی عزت اور انا کی وجہ سے بھی افراد خودکشی کر لیتے تھے۔ جاہلی دور میں لوگ اپنی زندگی کی قدر کم کرتے تھے اور موت کو مسائل کا حل سمجھتے تھے۔</p>
+    <p><strong>مذاہب عالم میں خودکشی کرنے کی ممانعت</strong></p>
+    <p>دنیا کے تقریباً تمام بڑے مذاہب میں خودکشی کو حرام یا ممنوع قرار دیا گیا ہے۔</p>
+    <p><strong>عیسائیت</strong>: بائبل میں خودکشی کو گناہ سمجھا جاتا ہے اور اس کی سخت ممانعت کی گئی ہے۔ عیسائیت میں زندگی کو خدا کی عطا کردہ نعمت سمجھا جاتا ہے اور اسے ختم کرنا گناہ تصور کیا جاتا ہے۔</p>
+    <p><strong>یہودیت</strong>: یہودی مذہب میں بھی خودکشی کو ممنوع قرار دیا گیا ہے اور اسے خدا کی مرضی کے خلاف ایک قدم سمجھا جاتا ہے۔</p>
+    <p><strong>ہندومت</strong>: ہندو مذہب میں خودکشی کو بھی برا عمل سمجھا جاتا ہے، اور کہا گیا ہے کہ خودکشی کرنے والا شخص دوبارہ جنم میں بھی مشکلات کا سامنا کرے گا۔</p>
+    <p><strong>بدھ مت</strong>: بدھ مت میں بھی خودکشی کو ناپسندیدہ اور غیر اخلاقی عمل سمجھا جاتا ہے، کیونکہ یہ زندگی کو چھوڑنے کا عمل ہے۔</p>
+    <p><strong>اہل مغرب میں خودکشی کی صورت حال</strong></p>
+    <p>مغربی معاشروں میں خودکشی ایک سنگین مسئلہ بن چکی ہے۔ ذہنی دباؤ، معاشرتی تنہائی، اور بعض اوقات مذہبی بیزاری کی وجہ سے مغربی دنیا میں خودکشی کے واقعات میں اضافہ ہو رہا ہے۔ مغربی ممالک میں خودکشی کے اعداد و شمار بہت زیادہ ہیں، خاص طور پر نوجوانوں اور ادھیڑ عمر کے افراد میں۔ خودکشی کے اسباب میں ذہنی امراض، نشہ آور چیزوں کا استعمال، مالی بحران، اور رشتوں میں ناکامی شامل ہیں۔</p>
+    <p><strong>اسلام میں خودکشی کرنے والوں کی کیا وعید بتائی گئی ہے</strong></p>
+    <p>اسلام میں خودکشی کرنا ایک بہت بڑا گناہ ہے اور اس پر سخت وعید آئی ہے۔ نبی کریم ﷺ نے فرمایا: "جس نے خودکشی کی، وہ قیامت کے دن بھی اسی طرح عذاب میں مبتلا ہوگا جس طرح اس نے اپنی زندگی ختم کی۔" اس حدیث سے یہ بات واضح ہوتی ہے کہ خودکشی کرنے والا شخص آخرت میں بھی اسی تکلیف اور عذاب کا سامنا کرے گا جو اس نے دنیا میں اپنے آپ کو دی تھی۔</p>
+    <p>ایک اور حدیث میں نبی کریم ﷺ نے فرمایا: "جو شخص خود کو کسی چیز سے مارے گا (یعنی خودکشی کرے گا)، وہ قیامت کے دن بھی اسی حالت میں ہوگا، اور جہنم میں ہمیشہ کے لیے رہے گا۔"</p>
+    <p>اسلام نے صبر اور اللہ پر بھروسہ کرنے کی تلقین کی ہے۔ قرآن میں اللہ تعالیٰ فرماتے ہیں: "بے شک اللہ صبر کرنے والوں کے ساتھ ہے۔"</p>
+    <p><strong>آج عصر حاضر میں ترقی پذیر ممالک میں خودکشی کی صورت حال خصوصاً پاکستان جیسے ملک میں خودکشی کے مختلف نوعیت</strong></p>
+    <p>ترقی پذیر ممالک میں خودکشی کی صورت حال خاص طور پر فکر انگیز ہے۔ غربت، بے روزگاری، معاشرتی دباؤ، خاندانی مسائل، اور ناانصافی جیسے عوامل لوگوں کو خودکشی کی طرف مائل کرتے ہیں۔ پاکستان جیسے ممالک میں بھی خودکشی کے واقعات میں اضافہ ہو رہا ہے۔</p>
+    <p><strong>مالی مشکلات</strong>: مالی دباؤ اور غربت کی وجہ سے لوگ خودکشی کرنے پر مجبور ہو جاتے ہیں۔ خاص طور پر ان افراد میں جو اپنے خاندان کی کفالت نہیں کر پاتے۔</p>
+    <p><strong>نفسیاتی مسائل</strong>: ذہنی دباؤ، ڈپریشن، اور دیگر نفسیاتی مسائل بھی خودکشی کا ایک بڑا سبب ہیں۔</p>
+    <p><strong>خاندانی مسائل</strong>: خاندانی جھگڑے، ازدواجی مسائل، یا والدین کی ناانصافی بھی خودکشی کی ایک بڑی وجہ بن سکتی ہے۔</p>
+    <p><strong>ہم اس گناہ سے کیسے بچیں؟</strong></p>
+    <p>خودکشی سے بچنے کے لیے ہمیں درج ذیل اقدامات اپنانا چاہیے:</p>
+    <p><strong>اللہ پر بھروسہ</strong>: مشکلات میں صبر کرنا اور اللہ پر بھروسہ رکھنا ضروری ہے۔ اللہ تعالیٰ ہر مشکل کے بعد آسانی پیدا کرتا ہے۔ "پس بے شک ہر مشکل کے ساتھ آسانی ہے۔"</p>
+    <p><strong>خودکشی کے بارے میں آگاہی</strong>: معاشرے میں خودکشی کے خلاف آگاہی پیدا کرنا ضروری ہے، تاکہ لوگ اس گناہ کے سنگین نتائج سے بچ سکیں۔</p>
+    <p><strong>نفسیاتی مدد</strong>: ذہنی دباؤ یا ڈپریشن کے شکار افراد کو پیشہ ورانہ مدد فراہم کی جائے۔ اس کے لیے معاشرتی سطح پر معاونت کا نظام ہونا چاہیے۔</p>
+    <p><strong>خاندان کا کردار</strong>: خاندان کے افراد کو ایک دوسرے کا ساتھ دینا چاہیے، اور مشکلات میں ایک دوسرے کی مدد کرنا چاہیے۔</p>
+    <p><strong>دعا اور ذکر</strong>: دل کو سکون دینے کے لیے اللہ کی یاد اور دعا کو اپنانا چاہیے، تاکہ ذہنی دباؤ اور مشکلات سے بچا جا سکے۔</p>
+    <p>خودکشی ایک سنگین گناہ اور اسلام میں سخت ممنوع عمل ہے۔ ہمیں اپنی زندگی کی قدر کرنی چاہیے اور اللہ کی طرف سے دی گئی مشکلات کا صبر کے ساتھ سامنا کرنا چاہیے۔ خودکشی نہ صرف دنیا میں مشکلات کو حل کرنے کا غلط طریقہ ہے بلکہ آخرت میں بھی شدید عذاب کا باعث بنتی ہے۔ ہمیں اس گناہ سے بچنے کے لیے اللہ پر توکل اور صبر کے ساتھ مشکلات کا سامنا کرنا چاہیے، اور دوسروں کی مدد کرنی چاہیے تاکہ معاشرہ بہتر ہو۔</p>
+    <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
 
-        <!-- MAIN POST CONTENT (exactly same text, no single word change) -->
-        <h1>غفلت میں چھپے 50 گناہ</h1>
-        <h2>22 - خودکشی کرنا</h2>
-
-        <!-- Image placed immediately after title (full width) -->
-        <div class="post-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی سے متعلق تصویر">
-        </div>
-
-        <!-- original content begins (preserved word by word) -->
-        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں بائیسواں گناہ خودکشی کرنا ہے۔ اس سے پہلے تو اتسر سے کئی آرٹیکل جو میں تفصیل سے شئیر کرتا آرہا ہوں اگر آپ انکو پڑھنا چاہیے تو نیچے دیے گئے ویب سائٹ لنک پر کلک کرکے پڑھ سکتے ہیں۔ ان میں سے، کسی جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، سود کھانا، ظلم کرنا، رشوت لینا یا دینا، زنا کرنا وغیرہ۔</p>
-        <p>خودکشی، یعنی اپنے ہاتھوں سے اپنی زندگی کا خاتمہ کرنا، اسلام سمیت دنیا کے تمام بڑے مذاہب میں ایک سنگین گناہ اور ممنوع عمل قرار دیا گیا ہے۔ یہ عمل انسانی زندگی کو ختم کرنے کے خلاف ایک سخت قدم ہے جو اللہ کی طرف سے دی گئی زندگی کو خود سے ختم کرنے کی کوشش سمجھا جاتا ہے۔</p>
-        <!-- old img tag removed, only new one above -->
-        <p>خودکشی کا مطلب ہے کہ کوئی شخص اپنی زندگی کو خود ختم کرنے کا ارادہ کرے اور اسے عملی جامہ پہنائے۔ یہ فعل اس وقت انجام دیا جاتا ہے جب کوئی فرد زندگی کے مسائل، مشکلات، یا ذہنی دباؤ سے نمٹنے میں ناکام ہو جاتا ہے اور وہ اپنے وجود کو ختم کرنے کو واحد حل سمجھتا ہے۔ اللہ نے ہر انسان کو زندگی عطا کی ہے، اور اس زندگی کا خاتمہ کرنا صرف اللہ کے اختیار میں ہے۔</p>
-        <p>قرآن مجید میں اللہ تعالیٰ فرماتے ہیں: "اور اپنے ہاتھوں سے خود کو ہلاکت میں نہ ڈالو۔" یہ آیت واضح کرتی ہے کہ انسان کو اپنی زندگی کی قدر کرنی چاہیے اور کسی بھی حالت میں اسے ختم کرنے کی کوشش نہیں کرنی چاہیے۔</p>
-        <p><strong>لوگ خودکشی کیوں کرتے ہیں؟ کیا انھیں جینے کا حق نہیں ہوتا؟</strong></p>
-        <p>خودکشی کرنے والے افراد عموماً نفسیاتی مسائل، ذہنی دباؤ، یا مشکلات کا شکار ہوتے ہیں جنہیں وہ حل نہیں کر پاتے۔ ان میں سے کچھ لوگ مالی مسائل، خاندانی دباؤ، سماجی تناؤ، یا معاشرتی عدم مساوات کی وجہ سے اس انتہا پر پہنچتے ہیں۔ بعض افراد محبت میں ناکامی، بے روزگاری، یا شدید ذہنی بیماریوں کی وجہ سے اپنی زندگی ختم کر دیتے ہیں۔ تاہم، اسلام میں ہر انسان کو زندگی کا حق دیا گیا ہے، اور زندگی ایک عظیم نعمت سمجھی جاتی ہے۔ مشکلات کا سامنا صبر اور دعا سے کیا جانا چاہیے۔ اللہ تعالیٰ فرماتے ہیں: "اور ہم تمہیں خوف، بھوک، مال اور جانوں کے نقصان اور پھلوں کی کمی کے ذریعہ آزمائیں گے، اور صبر کرنے والوں کو بشارت دے دو۔" یہ آیت اس بات کو واضح کرتی ہے کہ مشکلات اور آزمائشیں زندگی کا حصہ ہیں، اور صبر کرنے والے اللہ کی طرف سے انعام پاتے ہیں۔</p>
-        <p><strong>دورِ جاہلیت میں خودکشی کا رجحان</strong></p>
-        <p>دور جاہلیت میں بھی لوگ مختلف وجوہات کی بنا پر خودکشی کرتے تھے۔ غربت، ناکامی، یا جنگ میں شکست جیسے عوامل لوگوں کو خودکشی کی طرف مائل کرتے تھے۔ بعض اوقات قبائل کی عزت اور انا کی وجہ سے بھی افراد خودکشی کر لیتے تھے۔ جاہلی دور میں لوگ اپنی زندگی کی قدر کم کرتے تھے اور موت کو مسائل کا حل سمجھتے تھے۔</p>
-        <p><strong>مذاہب عالم میں خودکشی کرنے کی ممانعت</strong></p>
-        <p>دنیا کے تقریباً تمام بڑے مذاہب میں خودکشی کو حرام یا ممنوع قرار دیا گیا ہے۔</p>
-        <p><strong>عیسائیت</strong>: بائبل میں خودکشی کو گناہ سمجھا جاتا ہے اور اس کی سخت ممانعت کی گئی ہے۔ عیسائیت میں زندگی کو خدا کی عطا کردہ نعمت سمجھا جاتا ہے اور اسے ختم کرنا گناہ تصور کیا جاتا ہے۔</p>
-        <p><strong>یہودیت</strong>: یہودی مذہب میں بھی خودکشی کو ممنوع قرار دیا گیا ہے اور اسے خدا کی مرضی کے خلاف ایک قدم سمجھا جاتا ہے۔</p>
-        <p><strong>ہندومت</strong>: ہندو مذہب میں خودکشی کو بھی برا عمل سمجھا جاتا ہے، اور کہا گیا ہے کہ خودکشی کرنے والا شخص دوبارہ جنم میں بھی مشکلات کا سامنا کرے گا۔</p>
-        <p><strong>بدھ مت</strong>: بدھ مت میں بھی خودکشی کو ناپسندیدہ اور غیر اخلاقی عمل سمجھا جاتا ہے، کیونکہ یہ زندگی کو چھوڑنے کا عمل ہے۔</p>
-        <p><strong>اہل مغرب میں خودکشی کی صورت حال</strong></p>
-        <p>مغربی معاشروں میں خودکشی ایک سنگین مسئلہ بن چکی ہے۔ ذہنی دباؤ، معاشرتی تنہائی، اور بعض اوقات مذہبی بیزاری کی وجہ سے مغربی دنیا میں خودکشی کے واقعات میں اضافہ ہو رہا ہے۔ مغربی ممالک میں خودکشی کے اعداد و شمار بہت زیادہ ہیں، خاص طور پر نوجوانوں اور ادھیڑ عمر کے افراد میں۔ خودکشی کے اسباب میں ذہنی امراض، نشہ آور چیزوں کا استعمال، مالی بحران، اور رشتوں میں ناکامی شامل ہیں۔</p>
-        <p><strong>اسلام میں خودکشی کرنے والوں کی کیا وعید بتائی گئی ہے</strong></p>
-        <p>اسلام میں خودکشی کرنا ایک بہت بڑا گناہ ہے اور اس پر سخت وعید آئی ہے۔ نبی کریم ﷺ نے فرمایا: "جس نے خودکشی کی، وہ قیامت کے دن بھی اسی طرح عذاب میں مبتلا ہوگا جس طرح اس نے اپنی زندگی ختم کی۔" اس حدیث سے یہ بات واضح ہوتی ہے کہ خودکشی کرنے والا شخص آخرت میں بھی اسی تکلیف اور عذاب کا سامنا کرے گا جو اس نے دنیا میں اپنے آپ کو دی تھی۔</p>
-        <p>ایک اور حدیث میں نبی کریم ﷺ نے فرمایا: "جو شخص خود کو کسی چیز سے مارے گا (یعنی خودکشی کرے گا)، وہ قیامت کے دن بھی اسی حالت میں ہوگا، اور جہنم میں ہمیشہ کے لیے رہے گا۔"</p>
-        <p>اسلام نے صبر اور اللہ پر بھروسہ کرنے کی تلقین کی ہے۔ قرآن میں اللہ تعالیٰ فرماتے ہیں: "بے شک اللہ صبر کرنے والوں کے ساتھ ہے۔"</p>
-        <p><strong>آج عصر حاضر میں ترقی پذیر ممالک میں خودکشی کی صورت حال خصوصاً پاکستان جیسے ملک میں خودکشی کے مختلف نوعیت</strong></p>
-        <p>ترقی پذیر ممالک میں خودکشی کی صورت حال خاص طور پر فکر انگیز ہے۔ غربت، بے روزگاری، معاشرتی دباؤ، خاندانی مسائل، اور ناانصافی جیسے عوامل لوگوں کو خودکشی کی طرف مائل کرتے ہیں۔ پاکستان جیسے ممالک میں بھی خودکشی کے واقعات میں اضافہ ہو رہا ہے۔</p>
-        <p><strong>مالی مشکلات</strong>: مالی دباؤ اور غربت کی وجہ سے لوگ خودکشی کرنے پر مجبور ہو جاتے ہیں۔ خاص طور پر ان افراد میں جو اپنے خاندان کی کفالت نہیں کر پاتے۔</p>
-        <p><strong>نفسیاتی مسائل</strong>: ذہنی دباؤ، ڈپریشن، اور دیگر نفسیاتی مسائل بھی خودکشی کا ایک بڑا سبب ہیں۔</p>
-        <p><strong>خاندانی مسائل</strong>: خاندانی جھگڑے، ازدواجی مسائل، یا والدین کی ناانصافی بھی خودکشی کی ایک بڑی وجہ بن سکتی ہے۔</p>
-        <p><strong>ہم اس گناہ سے کیسے بچیں؟</strong></p>
-        <p>خودکشی سے بچنے کے لیے ہمیں درج ذیل اقدامات اپنانا چاہیے:</p>
-        <p><strong>اللہ پر بھروسہ</strong>: مشکلات میں صبر کرنا اور اللہ پر بھروسہ رکھنا ضروری ہے۔ اللہ تعالیٰ ہر مشکل کے بعد آسانی پیدا کرتا ہے۔ "پس بے شک ہر مشکل کے ساتھ آسانی ہے۔"</p>
-        <p><strong>خودکشی کے بارے میں آگاہی</strong>: معاشرے میں خودکشی کے خلاف آگاہی پیدا کرنا ضروری ہے، تاکہ لوگ اس گناہ کے سنگین نتائج سے بچ سکیں۔</p>
-        <p><strong>نفسیاتی مدد</strong>: ذہنی دباؤ یا ڈپریشن کے شکار افراد کو پیشہ ورانہ مدد فراہم کی جائے۔ اس کے لیے معاشرتی سطح پر معاونت کا نظام ہونا چاہیے۔</p>
-        <p><strong>خاندان کا کردار</strong>: خاندان کے افراد کو ایک دوسرے کا ساتھ دینا چاہیے، اور مشکلات میں ایک دوسرے کی مدد کرنا چاہیے۔</p>
-        <p><strong>دعا اور ذکر</strong>: دل کو سکون دینے کے لیے اللہ کی یاد اور دعا کو اپنانا چاہیے، تاکہ ذہنی دباؤ اور مشکلات سے بچا جا سکے۔</p>
-        <p>خودکشی ایک سنگین گناہ اور اسلام میں سخت ممنوع عمل ہے۔ ہمیں اپنی زندگی کی قدر کرنی چاہیے اور اللہ کی طرف سے دی گئی مشکلات کا صبر کے ساتھ سامنا کرنا چاہیے۔ خودکشی نہ صرف دنیا میں مشکلات کو حل کرنے کا غلط طریقہ ہے بلکہ آخرت میں بھی شدید عذاب کا باعث بنتی ہے۔ ہمیں اس گناہ سے بچنے کے لیے اللہ پر توکل اور صبر کے ساتھ مشکلات کا سامنا کرنا چاہیے، اور دوسروں کی مدد کرنی چاہیے تاکہ معاشرہ بہتر ہو۔</p>
-        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-        <!-- end original content -->
-
-        <!-- multiple social media share buttons -->
-        <div class="social-share">
-            <a href="#" class="social-icon" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-icon" onclick="window.open('https://wa.me/?text='+encodeURIComponent(document.title+' '+window.location.href),'_blank'); return false;"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="social-icon" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" class="social-icon" onclick="window.open('https://telegram.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank'); return false;"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#" class="social-icon" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-icon" onclick="navigator.clipboard.writeText(window.location.href); alert('لنک کاپی ہو گیا');"><i class="fas fa-link"></i></a>
-        </div>
-    </div> <!-- card end -->
-
-    <div class="footer-note">
-        📖 غفلت میں چھپے 50 گناہ • 22- خودکشی کرنا
+    <!-- REACTIONS (exactly required IDs & onclick, counts preserved) -->
+    <div class="reactions-wrapper">
+        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
     </div>
 
-    <!-- remove any internal link behaviour (already removed) but also ensure no link from old content remains clickable -->
-    <script>
-        // optional: disable any stray <a> tags without nav-btn class
-        document.querySelectorAll('a:not(.nav-btn):not(.social-icon)').forEach(link => {
-            link.removeAttribute('href');
+    <!-- SIDEBAR with auto-scroll -->
+    <div class="sidebar-panel">
+        <div class="sidebar-title"><i class="fas fa-book-open"></i> مزید پڑھیں</div>
+        <div class="scroll-list" id="autoScrollList">
+            <ul id="sidebarList">
+                <!-- populated via JS later -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- bottom navigation buttons (main page & all posts) -->
+    <div class="bottom-nav-buttons">
+        <a href="https://bloglovers.pk/" class="nav-btn" target="_blank" rel="noopener"><i class="fas fa-globe"></i> مرکزی صفحہ</a>
+        <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn" target="_blank" rel="noopener"><i class="fas fa-list-ul"></i> تمام پوسٹس</a>
+    </div>
+
+    <!-- Social media icons (7 platforms) -->
+    <div class="social-share">
+        <a href="#" class="social-icon" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon" onclick="window.open('https://wa.me/?text='+encodeURIComponent(document.title+' '+window.location.href),'_blank'); return false;"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-icon" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-icon" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon" onclick="window.open('https://telegram.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank'); return false;"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" class="social-icon" onclick="window.open('https://pinterest.com/pin/create/button/?url='+encodeURIComponent(window.location.href),'_blank'); return false;"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#" class="social-icon" onclick="navigator.clipboard.writeText(window.location.href); alert('لنک کاپی ہو گیا');"><i class="fas fa-link"></i></a>
+    </div>
+</div>
+
+<div class="footer-note">
+    📖 غفلت میں چھپے 50 گناہ • 22- خودکشی کرنا
+</div>
+
+<!-- reactions.js external (existing, but we do NOT duplicate loadReactions etc) -->
+<script src="/reactions.js"></script>
+<script>
+    // SIDEBAR data with required posts
+    const postsData = [
+        { title: "5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+        { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png", active: true },
+        { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+        { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+        { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+        { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+    ];
+
+    function buildSidebar() {
+        const ul = document.getElementById('sidebarList');
+        if (!ul) return;
+        ul.innerHTML = '';
+        postsData.forEach(post => {
+            const li = document.createElement('li');
+            if (post.active) li.classList.add('active-post');
+            const img = document.createElement('img');
+            img.src = post.img;
+            img.alt = post.title;
+            const anchor = document.createElement('a');
+            anchor.href = post.link;
+            anchor.target = '_blank';
+            anchor.rel = 'noopener';
+            anchor.textContent = post.title;
+            li.appendChild(img);
+            li.appendChild(anchor);
+            ul.appendChild(li);
         });
-    </script>
+    }
+
+    // auto scroll logic: 30 seconds per full cycle, hover stop
+    let scrollInterval;
+    const scrollContainer = document.querySelector('.scroll-list');
+    function startAutoScroll() {
+        if (scrollInterval) clearInterval(scrollInterval);
+        scrollInterval = setInterval(() => {
+            if (!scrollContainer) return;
+            const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+            if (scrollTop + clientHeight >= scrollHeight - 2) {
+                scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                scrollContainer.scrollBy({ top: 50, behavior: 'smooth' });
+            }
+        }, 3000);
+    }
+    if (scrollContainer) {
+        scrollContainer.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+        scrollContainer.addEventListener('mouseleave', startAutoScroll);
+        startAutoScroll();
+    }
+
+    buildSidebar();
+
+    // remove any stray internal links (no nav/social)
+    document.querySelectorAll('a:not(.nav-btn):not(.social-icon)').forEach(link => {
+        if (!link.closest('.scroll-list')) link.removeAttribute('href');
+    });
+    // ensure any duplicate reactions code does NOT exist; we rely on /reactions.js only
+    if (typeof window.reactionClick !== 'function') {
+        console.warn("reactionClick not loaded yet — ensure reactions.js is present.");
+    }
+</script>
 </body>
 </html>
