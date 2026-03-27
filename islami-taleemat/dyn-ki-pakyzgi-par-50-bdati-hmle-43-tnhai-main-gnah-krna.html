@@ -6,8 +6,8 @@
     <title>دین کی پاکیزگی پر 50 بدعتی حملے – 43: تنہائی میں گناہ کرنا</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 5 (Social Icons) -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -25,7 +25,7 @@
             padding: 15px;
         }
 
-        /* orange & purple animated moving background theme with hover effects */
+        /* orange & purple animated moving background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -48,10 +48,20 @@
             100% { background-position: 0% 0%; }
         }
 
-        /* main card */
+        /* main container with sidebar */
+        .main-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        /* post card */
         .post-card {
-            max-width: 850px;
-            margin: 20px auto;
+            flex: 3;
+            min-width: 280px;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -68,7 +78,101 @@
             background: rgba(255, 255, 255, 0.95);
         }
 
-        /* Main Heading normal size, worth reading */
+        /* Sidebar styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255, 248, 240, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            padding: 20px 15px;
+            box-shadow: 0 20px 35px -10px rgba(155, 77, 255, 0.3);
+            border: 1px solid #ffc8a2;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            font-size: 1.5rem;
+            background: linear-gradient(145deg, #ff8c42, #b85eff);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 40px;
+            color: white;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .scroll-posts {
+            max-height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: autoScroll 30s linear infinite;
+            transition: animation-play-state 0.2s;
+            scrollbar-width: thin;
+        }
+
+        .scroll-posts:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* inner container to duplicate for seamless loop */
+        .scroll-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.2s;
+            border-right: 4px solid #ff8c42;
+        }
+
+        .sidebar-post:hover {
+            background: #fff0e6;
+            transform: translateX(-5px);
+        }
+
+        .sidebar-post img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 2px solid #b85eff;
+        }
+
+        .sidebar-post a {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #4b2e2e;
+            text-decoration: none;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .sidebar-post a:hover {
+            color: #ff6b4a;
+        }
+
+        .highlight {
+            background: #ffecd6;
+            border-right: 6px solid #ff6b4a;
+        }
+
         h1 {
             font-size: 1.8rem;
             color: #4b2e2e;
@@ -76,23 +180,16 @@
             padding-right: 20px;
             margin: 20px 0 15px;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            text-shadow: 2px 2px 0 #ffe0d0;
         }
 
-        /* Sub heading: different colour & shading */
         h2 {
             font-size: 1.5rem;
             background: linear-gradient(145deg, #7d3cff, #b84aff);
             display: inline-block;
-            padding: 5px 25px 5px 25px;
+            padding: 5px 25px;
             border-radius: 40px 10px 40px 10px;
             color: #fff8e7;
-            box-shadow: 0 10px 18px -5px #b85eff, 0 0 0 2px #ffb47b;
             margin: 30px 0 20px 0;
-            font-weight: 600;
-            border: 1px solid white;
-            text-shadow: 2px 2px 0 #4b0082;
         }
 
         h3 {
@@ -101,10 +198,8 @@
             margin-top: 25px;
             padding-right: 15px;
             border-right: 5px solid #ff8c42;
-            background: linear-gradient(to left, #fff0e6, transparent);
         }
 
-        /* Text size as per page, justify, proper alignment */
         p, li {
             font-size: 1.15rem;
             text-align: justify;
@@ -112,11 +207,6 @@
             margin-bottom: 15px;
         }
 
-        li {
-            margin-right: 20px;
-        }
-
-        /* Buttons container */
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -128,7 +218,6 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
             background: linear-gradient(145deg, #ff8c42, #b85eff);
             color: white;
@@ -138,20 +227,58 @@
             font-weight: bold;
             font-size: 1.1rem;
             border: 2px solid white;
-            box-shadow: 0 8px 20px rgba(185, 94, 255, 0.5), 0 0 0 2px #ffb27a;
             transition: 0.3s;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .btn i {
-            font-size: 1.2rem;
         }
 
         .btn:hover {
             transform: translateY(-5px) scale(1.07);
-            box-shadow: 0 18px 30px #ff6b4a, 0 0 0 3px white;
             background: linear-gradient(145deg, #ff6b4a, #9b4dff);
+        }
+
+        /* Reactions styles */
+        .reactions-container {
+            margin: 30px 0 20px;
+            padding: 20px 0;
+            border-top: 2px dashed #ffb27a;
+            border-bottom: 2px dashed #ffb27a;
+        }
+
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .reaction-btn {
+            background: #f5e6d3;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #4b2e2e;
+        }
+
+        .reaction-btn:hover {
+            transform: scale(1.1);
+            background: #ffdec2;
+        }
+
+        .reaction-count {
+            background: #9b4dff;
+            color: white;
+            border-radius: 40px;
+            padding: 2px 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
         }
 
         .social-group {
@@ -172,7 +299,6 @@
             align-items: center;
             justify-content: center;
             font-size: 1.7rem;
-            box-shadow: 0 5px 15px #ffa559;
             transition: 0.3s;
             border: 2px solid #b85eff;
             text-decoration: none;
@@ -182,10 +308,8 @@
             transform: rotate(10deg) scale(1.15);
             background: #ff6b4a;
             color: white;
-            border-color: white;
         }
 
-        /* up/down page buttons fixed */
         .page-updown {
             position: fixed;
             left: 15px;
@@ -206,69 +330,30 @@
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            box-shadow: 0 10px 20px #ff8c42;
-            border: 2px solid #ffc7a2;
-            transition: 0.25s;
             text-decoration: none;
-            backdrop-filter: blur(5px);
         }
 
         .page-updown a:hover {
             background: #ff6b4a;
-            transform: scale(1.2) translateY(-5px);
+            transform: scale(1.1);
         }
 
-        /* featured image after title (full visible) */
         .featured-image {
-            margin: 25px 0 25px;
+            margin: 25px 0;
             border-radius: 30px;
             overflow: hidden;
             box-shadow: 0 20px 40px #b85eff80;
-            border: 3px solid white;
-            transition: 0.3s;
-            max-width: 100%;
         }
 
         .featured-image img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 27px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
         }
 
-        .featured-image:hover img {
-            transform: scale(1.02);
-        }
-
-        /* override any internal links removed (no auto-links) */
-        a, a[href] {
-            text-decoration: none;
-        }
-
-        /* responsive adjustments */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.6rem; }
-            h2 { font-size: 1.3rem; }
-            .btn { padding: 10px 18px; font-size: 0.95rem; }
-            .post-card { padding: 20px 15px; }
-            .page-updown a { width: 42px; height: 42px; font-size: 1.5rem; }
-        }
-
-        /* list marker style */
-        ul, ol {
-            padding-right: 20px;
-        }
-
-        li::marker {
-            color: #ff6b4a;
-            font-weight: bold;
-        }
-
-        /* extra polish for quotes */
-        strong {
-            color: #b14aff;
+        @media (max-width: 800px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { position: static; width: 100%; }
         }
     </style>
 </head>
@@ -276,93 +361,167 @@
 
 <div class="animated-bg"></div>
 
-<!-- page up/down buttons -->
 <div class="page-updown">
     <a href="#top" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></a>
     <a href="#bottom" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></a>
 </div>
 
-<!-- main content card -->
-<div class="post-card" id="top">
+<div class="main-wrapper">
+    <!-- Main Post Content -->
+    <div class="post-card" id="top">
+        <div class="nav-buttons">
+            <a href="https://bloglovers.pk/" class="btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+        </div>
 
-    <!-- action buttons (home, back) -->
-    <div class="nav-buttons">
-        <a href="https://bloglovers.pk/" class="btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-        <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+        <h1>دین کی پاکیزگی پر 50 بدعتی حملے – 43: تنہائی میں گناہ کرنا</h1>
+
+        <div class="featured-image">
+            <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna.png" alt="تنہائی میں گناہ کرنا">
+        </div>
+
+        <h2>تنہائی میں گناہ کرنا</h2>
+        <p>اسلام دین فطرت ہے جو انسانوں کو زندگی کے ہر پہلو میں رہنمائی فراہم کرتا ہے۔ یہ دین اپنی اصلی شکل میں پاکیزہ، مکمل اور محفوظ ہے، جیسا کہ اللہ تعالیٰ نے قرآن مجید میں فرمایا: <strong>"آج میں نے تمہارے لئے تمہارا دین مکمل کر دیا اور اپنی نعمت تم پر پوری کر دی، اور تمہارے لئے اسلام کو دین کے طور پر پسند کیا"</strong>۔</p>
+        <p>لیکن انسانوں کی کمزوریوں، خواہشات اور شیطانی وسوسوں کی وجہ سے بعض اوقات دین میں ایسی بدعات شامل ہو جاتی ہیں جو اس کی پاکیزگی کو مجروح کرتی ہیں۔ ان بدعات میں ایک انتہائی خطرناک عمل "تنہائی میں گناہ کرنا" ہے، جو دین کی روحانی اور اخلاقی پاکیزگی پر شدید حملہ ہے۔</p>
+        <p>تنہائی میں گناہ کرنا بظاہر ایک چھپا ہوا عمل ہو سکتا ہے، لیکن اس کے اثرات دل اور روح پر گہرے ہوتے ہیں۔ اللہ تعالیٰ نے ہر انسان کے اندر ایک ضمیر رکھا ہے، جو اسے اچھے اور برے کی پہچان دیتا ہے۔ جب کوئی شخص تنہائی میں گناہ کرتا ہے، تو وہ نہ صرف اللہ کی نافرمانی کرتا ہے بلکہ اپنے ضمیر کو بھی دبانے کی کوشش کرتا ہے۔</p>
+        <p>اس عمل سے ایک شخص کے دل پر گناہوں کا زنگ چڑھ جاتا ہے، جس کے نتیجے میں اللہ کی یاد، عبادات میں خشوع، اور برکتیں ختم ہو جاتی ہیں۔ نبی کریم ﷺ نے فرمایا: <strong>"جب بندہ گناہ کرتا ہے تو اس کے دل پر ایک سیاہ نشان لگ جاتا ہے، اور اگر وہ توبہ کرے تو وہ نشان مٹ جاتا ہے، لیکن اگر وہ گناہ کرتا رہے تو یہ نشان بڑھتے بڑھتے پورے دل کو ڈھانپ لیتا ہے"</strong>۔</p>
+        <p>تنہائی میں گناہ کا ایک اور نقصان یہ ہے کہ یہ انسان کو نیکی سے دور کر دیتا ہے اور شیطان کے قریب کر دیتا ہے، جو اسے مزید گناہوں کی طرف مائل کرتا ہے۔</p>
+        <p>تنہائی میں گناہ کرنے سے بچنے کے لیے سب سے پہلا قدم اللہ سے ڈر اور اس کی محبت پیدا کرنا ہے۔ انسان کو یہ یقین رکھنا چاہیے کہ اللہ ہر وقت دیکھ رہا ہے، جیسا کہ قرآن میں فرمایا گیا: <strong>"وہ جانتا ہے جو کچھ تم چھپاتے ہو اور جو کچھ تم ظاہر کرتے ہو"</strong>۔</p>
+        <p>انسان کو تنہائی میں گناہ کے مواقع سے دور رہنے کی کوشش کرنی چاہیے اور اپنے دل کو اللہ کی یاد اور توبہ سے زندہ رکھنا چاہیے۔ نیک صحبت اختیار کرنا، علم دین حاصل کرنا، اور عبادات میں مشغول رہنا بھی اس مسئلے کا اہم حل ہے۔</p>
+        <p>علماء کرام کو چاہیے کہ وہ معاشرے میں اس قسم کی بدعات کے بارے میں آگاہی پیدا کریں اور لوگوں کو دین کی اصل تعلیمات کی طرف واپس لائیں۔ اس طرح دین کی پاکیزگی بحال کی جا سکتی ہے اور بدعات کے حملے روکے جا سکتے ہیں۔</p>
+        
+        <h2>تنہائی میں گناہ کی تعریف</h2>
+        <p>تنہائی میں گناہ کرنے سے مراد وہ اعمال ہیں جو انسان چھپ کر کرتا ہے اور جن میں اللہ کی نافرمانی شامل ہوتی ہے۔ یہ گناہ کسی بھی شکل میں ہو سکتے ہیں، مثلاً جھوٹ بولنا، غیبت کرنا، یا ایسے کام کرنا جو شرعاً حرام ہیں، جیسے فحش مواد دیکھنا، غیر اخلاقی گفتگو کرنا، یا دیگر گناہ جو انسان کے دل و دماغ پر اثر انداز ہوتے ہیں۔</p>
+        <p>قرآن مجید میں اللہ تعالیٰ فرماتا ہے: <strong>"وہ جانتا ہے جو کچھ تم چھپاتے ہو اور جو کچھ تم ظاہر کرتے ہو"</strong>۔ نبی کریم ﷺ نے فرمایا: <strong>"اللہ کے نزدیک سب سے برا شخص وہ ہے جو تنہائی میں اللہ کی حدود کو توڑتا ہے"</strong>۔</p>
+        
+        <h2>جدید دور کے چیلنجز</h2>
+        <p>دورِ حاضر میں ایسے ذرائع اور سہولتیں فراہم کی جا رہی ہیں جو انسان کو اس کے قریبی رشتہ داروں اور سماجی تعلقات سے دور کر رہی ہیں۔ جدید ٹیکنالوجی، سوشل میڈیا، موبائل فونز، اور انٹرنیٹ کی دنیا نے انسان کو ایک ایسے دائرے میں قید کر دیا ہے جہاں وہ اکثر تنہائی کا شکار ہو جاتا ہے۔</p>
+        <p>ان وسائل نے جہاں معلومات تک رسائی کو آسان بنایا ہے، وہیں غیر اخلاقی مواد اور غلط عادات کو فروغ دینے کا ذریعہ بھی بن گئے ہیں۔</p>
+        <p>یہ تنہائی نہ صرف انسان کو اس کے خاندان سے دور کر رہی ہے بلکہ روحانی، ذہنی اور جسمانی نقصان کا سبب بھی بن رہی ہے۔ معاشرتی تعلقات کمزور ہونے سے انسان اپنے مسائل میں اکیلارہ جاتا ہے اور شیطان کے وسوسوں کا آسان شکار بن جاتا ہے۔ جیسا کہ قرآن میں ارشاد ہوتا ہے: <strong>"شیطان تمہیں برائی اور بے حیائی کا حکم دیتا ہے"</strong>۔</p>
+        
+        <h3>جدید دور کے تنہائی کے اسباب:</h3>
+        <ol>
+            <li><strong>سوشل میڈیا اور انٹرنیٹ</strong>: انٹرنیٹ پر دستیاب غیر اخلاقی مواد اور سوشل میڈیا پر غیر ضروری وقت گزارنا انسان کو دوسروں سے دور کر دیتا ہے</li>
+            <li><strong>ورک کلچر اور مصروفیت</strong>: جدید دور میں کام کے دباؤ اور مصروفیت کی وجہ سے لوگ اپنے خاندان اور دوستوں کے لیے وقت نہیں نکال پاتے</li>
+            <li><strong>ڈیجیٹل گیمز</strong>: نوجوانوں میں ڈیجیٹل گیمز کا رجحان بڑھ رہا ہے، جو انہیں حقیقی زندگی سے دور اور ایک خیالی دنیا میں قید کر دیتا ہے</li>
+            <li><strong>ذاتی مسائل اور خاندانی جھگڑے</strong>: خاندانی تعلقات کی کمزوری اور جھگڑوں کی وجہ سے لوگ اکیلے رہنے کو ترجیح دیتے ہیں</li>
+        </ol>
+        
+        <h2>اسلامی تعلیمات</h2>
+        <p>اسلام نے تنہائی میں گناہ کرنے کو سختی سے منع کیا ہے اور اس عمل کو اللہ کے خوف سے بچنے کی تلقین کی ہے۔ اللہ تعالیٰ قرآن مجید میں فرماتا ہے: <strong>"جو لوگ اندھیرے اور روشنی دونوں میں اللہ سے ڈرتے ہیں، ان کے لئے بڑی مغفرت اور اجر عظیم ہے"</strong>۔</p>
+        <p>نبی کریم ﷺ نے فرمایا: <strong>"سات لوگ ایسے ہیں جنہیں قیامت کے دن اللہ اپنی رحمت کے سائے میں جگہ دے گا، جن میں ایک وہ شخص ہے جو تنہائی میں اللہ کو یاد کرے اور اس کی آنکھوں سے آنسو بہیں"</strong>۔</p>
+        
+        <h2>ائمہ کرام کا موقف</h2>
+        <p>ائمہ کرام نے تنہائی میں گناہ کرنے کو منافقت کی علامت قرار دیا ہے کیونکہ ایک مومن کی یہ صفت نہیں کہ وہ تنہائی میں گناہ کرے اور ظاہر میں نیک نظر آئے۔ امام غزالی رحمہ اللہ فرماتے ہیں: <strong>"تنہائی میں گناہ کرنے والا اس حقیقت کو بھول جاتا ہے کہ اللہ اسے دیکھ رہا ہے، اور یہ ایمان کی کمزوری ہے"</strong>۔</p>
+        <p>امام ابن تیمیہ رحمہ اللہ فرماتے ہیں: <strong>"اگر کوئی شخص تنہائی میں گناہ کرتا ہے، تو اسے فوری طور پر اللہ سے توبہ کرنی چاہیے کیونکہ یہ عمل اللہ کے غضب کو بھڑکاتا ہے"</strong>۔</p>
+        
+        <h2>ایسے گناہوں سے بچنے کے طریقے</h2>
+        <ol>
+            <li><strong>اللہ کے خوف کو دل میں بسانا</strong>: انسان کو ہمیشہ یہ یاد رکھنا چاہیے کہ اللہ ہر وقت دیکھ رہا ہے۔ قرآن مجید میں فرمایا گیا: <strong>"اور تم جہاں کہیں ہو، اللہ تمہارے ساتھ ہے"</strong> (الحدید:4)</li>
+            <li><strong>نیک صحبت اختیار کرنا</strong>: نیک لوگوں کی صحبت میں رہنا انسان کو گناہوں سے دور رکھتا ہے</li>
+            <li><strong>عبادات میں مشغول رہنا</strong>: نماز، قرآن کی تلاوت، اور ذکر اللہ سے دل پاکیزہ رہتا ہے اور شیطان کے وسوسے کم ہو جاتے ہیں</li>
+            <li><strong>مصروفیات کا شیڈول بنانا</strong>: غیر ضروری مصروفیات سے بچنے کے لیے وقت کی منصوبہ بندی کریں اور مثبت سرگرمیوں میں حصہ لیں</li>
+            <li><strong>علم دین حاصل کرنا</strong>: دینی علم حاصل کرنے سے انسان کو اپنے اعمال کا شعور ہوتا ہے اور وہ گناہوں سے بچنے کی کوشش کرتا ہے</li>
+            <li><strong>توبہ اور استغفار</strong>: اگر گناہ ہو جائے تو فوراً اللہ سے توبہ کریں اور استغفار کریں۔ نبی کریم ﷺ نے فرمایا: <strong>"گناہوں سے توبہ کرنے والا ایسا ہے جیسے اس نے کوئی گناہ کیا ہی نہ ہو"</strong> (ابن ماجہ)</li>
+        </ol>
+        <p>تنہائی میں گناہوں سے بچنے کے لیے ضروری ہے کہ انسان اپنے ایمان کو مضبوط کرے، اللہ کی محبت اور خوف کو دل میں جگہ دے، اور ان اسباب سے دور رہے جو گناہوں کی طرف لے جاتے ہیں۔</p>
+
+        <!-- Reactions Section (exactly as required) -->
+        <div class="reactions-container">
+            <div style="text-align:center; font-size:1.3rem; font-weight:bold;">📊 آپ کا ردعمل</div>
+            <div class="reaction-buttons">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+        </div>
+
+        <!-- Social Media Icons (7 platforms) -->
+        <div class="social-group" id="bottom">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna" target="_blank" class="social-btn" style="background:#1877f2; color:white;"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna&text=تنہائی میں گناہ کرنا" target="_blank" class="social-btn" style="background:#1DA1F2; color:white;"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/?text=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna" target="_blank" class="social-btn" style="background:#25D366; color:white;"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna" target="_blank" class="social-btn" style="background:#0088cc; color:white;"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna" target="_blank" class="social-btn" style="background:#0077b5; color:white;"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna" target="_blank" class="social-btn" style="background:#bd081c; color:white;"><i class="fab fa-pinterest-p"></i></a>
+            <button class="social-btn" onclick="copyPageLink()" style="background:#6c757d; color:white; cursor:pointer;"><i class="fas fa-link"></i></button>
+        </div>
+
+        <!-- Bottom Navigation buttons (home + all posts) -->
+        <div class="nav-buttons" style="margin-top: 10px;">
+            <a href="https://bloglovers.pk/" class="btn" target="_blank"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="btn" target="_blank"><i class="fas fa-list"></i> تمام پوسٹس</a>
+        </div>
     </div>
 
-    <!-- post main heading (normal size) -->
-    <h1>دین کی پاکیزگی پر 50 بدعتی حملے – 43: تنہائی میں گناہ کرنا</h1>
-
-    <!-- Image placed after title (full image) -->
-    <div class="featured-image">
-        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-43-tnhai-main-gnah-krna.png" alt="تنہائی میں گناہ کرنا | تصویری عنوان">
-    </div>
-
-    <!-- بدلنا نہیں ہے، بالکل وہی متن جیسا تھا -->
-    <h2>تنہائی میں گناہ کرنا</h2>
-    <p>اسلام دین فطرت ہے جو انسانوں کو زندگی کے ہر پہلو میں رہنمائی فراہم کرتا ہے۔ یہ دین اپنی اصلی شکل میں پاکیزہ، مکمل اور محفوظ ہے، جیسا کہ اللہ تعالیٰ نے قرآن مجید میں فرمایا: <strong>"آج میں نے تمہارے لئے تمہارا دین مکمل کر دیا اور اپنی نعمت تم پر پوری کر دی، اور تمہارے لئے اسلام کو دین کے طور پر پسند کیا"</strong>۔</p>
-    <p>لیکن انسانوں کی کمزوریوں، خواہشات اور شیطانی وسوسوں کی وجہ سے بعض اوقات دین میں ایسی بدعات شامل ہو جاتی ہیں جو اس کی پاکیزگی کو مجروح کرتی ہیں۔ ان بدعات میں ایک انتہائی خطرناک عمل "تنہائی میں گناہ کرنا" ہے، جو دین کی روحانی اور اخلاقی پاکیزگی پر شدید حملہ ہے۔</p>
-    <p>تنہائی میں گناہ کرنا بظاہر ایک چھپا ہوا عمل ہو سکتا ہے، لیکن اس کے اثرات دل اور روح پر گہرے ہوتے ہیں۔ اللہ تعالیٰ نے ہر انسان کے اندر ایک ضمیر رکھا ہے، جو اسے اچھے اور برے کی پہچان دیتا ہے۔ جب کوئی شخص تنہائی میں گناہ کرتا ہے، تو وہ نہ صرف اللہ کی نافرمانی کرتا ہے بلکہ اپنے ضمیر کو بھی دبانے کی کوشش کرتا ہے۔</p>
-    <p>اس عمل سے ایک شخص کے دل پر گناہوں کا زنگ چڑھ جاتا ہے، جس کے نتیجے میں اللہ کی یاد، عبادات میں خشوع، اور برکتیں ختم ہو جاتی ہیں۔ نبی کریم ﷺ نے فرمایا: <strong>"جب بندہ گناہ کرتا ہے تو اس کے دل پر ایک سیاہ نشان لگ جاتا ہے، اور اگر وہ توبہ کرے تو وہ نشان مٹ جاتا ہے، لیکن اگر وہ گناہ کرتا رہے تو یہ نشان بڑھتے بڑھتے پورے دل کو ڈھانپ لیتا ہے"</strong>۔</p>
-    <p>تنہائی میں گناہ کا ایک اور نقصان یہ ہے کہ یہ انسان کو نیکی سے دور کر دیتا ہے اور شیطان کے قریب کر دیتا ہے، جو اسے مزید گناہوں کی طرف مائل کرتا ہے۔</p>
-    <p>تنہائی میں گناہ کرنے سے بچنے کے لیے سب سے پہلا قدم اللہ سے ڈر اور اس کی محبت پیدا کرنا ہے۔ انسان کو یہ یقین رکھنا چاہیے کہ اللہ ہر وقت دیکھ رہا ہے، جیسا کہ قرآن میں فرمایا گیا: <strong>"وہ جانتا ہے جو کچھ تم چھپاتے ہو اور جو کچھ تم ظاہر کرتے ہو"</strong>۔</p>
-    <p>انسان کو تنہائی میں گناہ کے مواقع سے دور رہنے کی کوشش کرنی چاہیے اور اپنے دل کو اللہ کی یاد اور توبہ سے زندہ رکھنا چاہیے۔ نیک صحبت اختیار کرنا، علم دین حاصل کرنا، اور عبادات میں مشغول رہنا بھی اس مسئلے کا اہم حل ہے۔</p>
-    <p>علماء کرام کو چاہیے کہ وہ معاشرے میں اس قسم کی بدعات کے بارے میں آگاہی پیدا کریں اور لوگوں کو دین کی اصل تعلیمات کی طرف واپس لائیں۔ اس طرح دین کی پاکیزگی بحال کی جا سکتی ہے اور بدعات کے حملے روکے جا سکتے ہیں۔</p>
-    <h2>تنہائی میں گناہ کی تعریف</h2>
-    <p>تنہائی میں گناہ کرنے سے مراد وہ اعمال ہیں جو انسان چھپ کر کرتا ہے اور جن میں اللہ کی نافرمانی شامل ہوتی ہے۔ یہ گناہ کسی بھی شکل میں ہو سکتے ہیں، مثلاً جھوٹ بولنا، غیبت کرنا، یا ایسے کام کرنا جو شرعاً حرام ہیں، جیسے فحش مواد دیکھنا، غیر اخلاقی گفتگو کرنا، یا دیگر گناہ جو انسان کے دل و دماغ پر اثر انداز ہوتے ہیں۔</p>
-    <p>قرآن مجید میں اللہ تعالیٰ فرماتا ہے: <strong>"وہ جانتا ہے جو کچھ تم چھپاتے ہو اور جو کچھ تم ظاہر کرتے ہو"</strong>۔ نبی کریم ﷺ نے فرمایا: <strong>"اللہ کے نزدیک سب سے برا شخص وہ ہے جو تنہائی میں اللہ کی حدود کو توڑتا ہے"</strong>۔</p>
-    <h2>جدید دور کے چیلنجز</h2>
-    <p>دورِ حاضر میں ایسے ذرائع اور سہولتیں فراہم کی جا رہی ہیں جو انسان کو اس کے قریبی رشتہ داروں اور سماجی تعلقات سے دور کر رہی ہیں۔ جدید ٹیکنالوجی، سوشل میڈیا، موبائل فونز، اور انٹرنیٹ کی دنیا نے انسان کو ایک ایسے دائرے میں قید کر دیا ہے جہاں وہ اکثر تنہائی کا شکار ہو جاتا ہے۔</p>
-    <p>ان وسائل نے جہاں معلومات تک رسائی کو آسان بنایا ہے، وہیں غیر اخلاقی مواد اور غلط عادات کو فروغ دینے کا ذریعہ بھی بن گئے ہیں۔</p>
-    <p>یہ تنہائی نہ صرف انسان کو اس کے خاندان سے دور کر رہی ہے بلکہ روحانی، ذہنی اور جسمانی نقصان کا سبب بھی بن رہی ہے۔ معاشرتی تعلقات کمزور ہونے سے انسان اپنے مسائل میں اکیلارہ جاتا ہے اور شیطان کے وسوسوں کا آسان شکار بن جاتا ہے۔ جیسا کہ قرآن میں ارشاد ہوتا ہے: <strong>"شیطان تمہیں برائی اور بے حیائی کا حکم دیتا ہے"</strong>۔</p>
-    <h3>جدید دور کے تنہائی کے اسباب:</h3>
-    <ol>
-        <li><strong>سوشل میڈیا اور انٹرنیٹ</strong>: انٹرنیٹ پر دستیاب غیر اخلاقی مواد اور سوشل میڈیا پر غیر ضروری وقت گزارنا انسان کو دوسروں سے دور کر دیتا ہے</li>
-        <li><strong>ورک کلچر اور مصروفیت</strong>: جدید دور میں کام کے دباؤ اور مصروفیت کی وجہ سے لوگ اپنے خاندان اور دوستوں کے لیے وقت نہیں نکال پاتے</li>
-        <li><strong>ڈیجیٹل گیمز</strong>: نوجوانوں میں ڈیجیٹل گیمز کا رجحان بڑھ رہا ہے، جو انہیں حقیقی زندگی سے دور اور ایک خیالی دنیا میں قید کر دیتا ہے</li>
-        <li><strong>ذاتی مسائل اور خاندانی جھگڑے</strong>: خاندانی تعلقات کی کمزوری اور جھگڑوں کی وجہ سے لوگ اکیلے رہنے کو ترجیح دیتے ہیں</li>
-    </ol>
-    <h2>اسلامی تعلیمات</h2>
-    <p>اسلام نے تنہائی میں گناہ کرنے کو سختی سے منع کیا ہے اور اس عمل کو اللہ کے خوف سے بچنے کی تلقین کی ہے۔ اللہ تعالیٰ قرآن مجید میں فرماتا ہے: <strong>"جو لوگ اندھیرے اور روشنی دونوں میں اللہ سے ڈرتے ہیں، ان کے لئے بڑی مغفرت اور اجر عظیم ہے"</strong>۔</p>
-    <p>نبی کریم ﷺ نے فرمایا: <strong>"سات لوگ ایسے ہیں جنہیں قیامت کے دن اللہ اپنی رحمت کے سائے میں جگہ دے گا، جن میں ایک وہ شخص ہے جو تنہائی میں اللہ کو یاد کرے اور اس کی آنکھوں سے آنسو بہیں"</strong>۔</p>
-    <h2>ائمہ کرام کا موقف</h2>
-    <p>ائمہ کرام نے تنہائی میں گناہ کرنے کو منافقت کی علامت قرار دیا ہے کیونکہ ایک مومن کی یہ صفت نہیں کہ وہ تنہائی میں گناہ کرے اور ظاہر میں نیک نظر آئے۔ امام غزالی رحمہ اللہ فرماتے ہیں: <strong>"تنہائی میں گناہ کرنے والا اس حقیقت کو بھول جاتا ہے کہ اللہ اسے دیکھ رہا ہے، اور یہ ایمان کی کمزوری ہے"</strong>۔</p>
-    <p>امام ابن تیمیہ رحمہ اللہ فرماتے ہیں: <strong>"اگر کوئی شخص تنہائی میں گناہ کرتا ہے، تو اسے فوری طور پر اللہ سے توبہ کرنی چاہیے کیونکہ یہ عمل اللہ کے غضب کو بھڑکاتا ہے"</strong>۔</p>
-    <h2>ایسے گناہوں سے بچنے کے طریقے</h2>
-    <ol>
-        <li><strong>اللہ کے خوف کو دل میں بسانا</strong>: انسان کو ہمیشہ یہ یاد رکھنا چاہیے کہ اللہ ہر وقت دیکھ رہا ہے۔ قرآن مجید میں فرمایا گیا: <strong>"اور تم جہاں کہیں ہو، اللہ تمہارے ساتھ ہے"</strong> (الحدید:4)</li>
-        <li><strong>نیک صحبت اختیار کرنا</strong>: نیک لوگوں کی صحبت میں رہنا انسان کو گناہوں سے دور رکھتا ہے</li>
-        <li><strong>عبادات میں مشغول رہنا</strong>: نماز، قرآن کی تلاوت، اور ذکر اللہ سے دل پاکیزہ رہتا ہے اور شیطان کے وسوسے کم ہو جاتے ہیں</li>
-        <li><strong>مصروفیات کا شیڈول بنانا</strong>: غیر ضروری مصروفیات سے بچنے کے لیے وقت کی منصوبہ بندی کریں اور مثبت سرگرمیوں میں حصہ لیں</li>
-        <li><strong>علم دین حاصل کرنا</strong>: دینی علم حاصل کرنے سے انسان کو اپنے اعمال کا شعور ہوتا ہے اور وہ گناہوں سے بچنے کی کوشش کرتا ہے</li>
-        <li><strong>توبہ اور استغفار</strong>: اگر گناہ ہو جائے تو فوراً اللہ سے توبہ کریں اور استغفار کریں۔ نبی کریم ﷺ نے فرمایا: <strong>"گناہوں سے توبہ کرنے والا ایسا ہے جیسے اس نے کوئی گناہ کیا ہی نہ ہو"</strong> (ابن ماجہ)</li>
-    </ol>
-    <p>تنہائی میں گناہوں سے بچنے کے لیے ضروری ہے کہ انسان اپنے ایمان کو مضبوط کرے، اللہ کی محبت اور خوف کو دل میں جگہ دے، اور ان اسباب سے دور رہے جو گناہوں کی طرف لے جاتے ہیں۔</p>
-
-    <!-- Multiple Social Media Sharing Buttons -->
-    <div class="social-group" id="bottom">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/&text=تنہائی%20میں%20گناہ%20کرنا" target="_blank" class="social-btn"><i class="fab fa-twitter"></i></a>
-        <a href="https://wa.me/?text=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://t.me/share/url?url=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-telegram-plane"></i></a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/" target="_blank" class="social-btn"><i class="fab fa-pinterest-p"></i></a>
-    </div>
-
-    <!-- duplicate nav buttons at bottom (optional) but good -->
-    <div class="nav-buttons" style="margin-top: 10px;">
-        <a href="https://bloglovers.pk/" class="btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-        <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
+    <!-- Sidebar with auto-scroll posts -->
+    <div class="sidebar">
+        <h3>🔥 مزید اہم مضامین</h3>
+        <div class="scroll-posts">
+            <div class="scroll-inner" id="sidebarPostsList">
+                <!-- posts will be injected via js but we add static list to ensure full content also duplicated for seamless scroll -->
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- tiny bottom anchor for up/down -->
-<div style="height: 5px;"></div>
-
 <script>
-    // Optional: nothing changes in text, all internal links removed (no toggle)
-    // Mobile friendly all set.
+    // Sidebar posts data
+    const postsData = [
+        { title: "5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+        { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+        { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+        { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+        { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+    ];
+
+    function buildSidebar() {
+        const container = document.getElementById('sidebarPostsList');
+        if(!container) return;
+        let html = '';
+        // duplicate list for seamless infinite scroll
+        const doublePosts = [...postsData, ...postsData];
+        doublePosts.forEach(post => {
+            html += `
+                <div class="sidebar-post">
+                    <img src="${post.img}" alt="${post.title}" loading="lazy">
+                    <a href="${post.link}" target="_blank">${post.title}</a>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+    buildSidebar();
+
+    // copy link function for social share
+    window.copyPageLink = function() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            alert("لنک کاپی ہو گیا! ✅");
+        });
+    };
+
+    // Note: reactions.js is externally loaded. All reactionClick functions are defined there.
+    // We ensure that no duplicate internal loadReactions or API calls exist.
+    // The external reactions.js will provide reactionClick and load initial counts.
+    // For safety, we also define empty placeholder if not loaded? but external file exists.
+    // No duplicate functions here.
 </script>
+
+<!-- Load external reactions.js (which contains reactionClick and proper API logic) -->
+<script src="/reactions.js"></script>
+
 </body>
 </html>
