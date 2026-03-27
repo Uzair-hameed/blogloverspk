@@ -20,17 +20,18 @@
 
         body {
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-            line-height: 2.2;
+            line-height: 1.7; /* adjusted for smaller fonts */
             direction: rtl;
             text-align: right;
-            background: linear-gradient(145deg, #f0f9ff 0%, #e6f3fa 100%);
+            /* NEW Multi-color gradient background (purple, light green, sky blue) */
+            background: linear-gradient(135deg, #e0e7ff 0%, #d9f0ec 50%, #c4e6f1 100%);
             min-height: 100vh;
             padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Animated Background */
+        /* Animated Background - softer multi-colors */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -38,10 +39,10 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(45deg, #ffb3b3, #a7e0ff, #b0f0e0, #ffd9b3, #d4b3ff, #b3e0ff);
+            background: linear-gradient(45deg, #c5b4e3, #b4e0d5, #9ac8e8, #d9b48b, #c2e0c0, #b2a8ff);
             background-size: 400% 400%;
-            animation: gradientShift 12s ease infinite;
-            opacity: 0.6;
+            animation: gradientShift 14s ease infinite;
+            opacity: 0.4;
         }
 
         @keyframes gradientShift {
@@ -52,176 +53,276 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Main Container */
+        /* Main Container - fresh white semi-transparent */
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(4px);
+            border-radius: 30px;
+            padding: 25px 20px;
+            box-shadow: 0 20px 40px rgba(100, 70, 150, 0.2);
+            border: 1px solid rgba(255,255,240,0.8);
+            transition: 0.2s;
+        }
+
+        /* Sidebar + main content grid */
+        .content-grid {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .main-article {
+            flex: 2;
+            min-width: 250px;
+        }
+        /* Sidebar Auto-scroll */
+        .sidebar {
+            flex: 1;
+            min-width: 260px;
+            background: rgba(250, 245, 255, 0.85);
+            border-radius: 28px;
+            backdrop-filter: blur(3px);
+            padding: 15px 12px;
+            box-shadow: 0 8px 20px rgba(128, 90, 180, 0.15);
+            border: 1px solid #cfb5ff;
+            height: 500px;
+            overflow-y: hidden;
+            position: relative;
+        }
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #5e2a84;
+            background: #e5d5ff;
+            padding: 8px 12px;
             border-radius: 35px;
-            padding: 30px 25px;
-            box-shadow: 0 25px 50px rgba(0, 150, 200, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.5) inset;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.4s ease;
+            text-align: center;
+            margin-bottom: 18px;
+            border-right: 4px solid #9b6bff;
+        }
+        .scroll-list {
+            height: 420px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            animation: autoScroll 30s linear infinite;
+        }
+        .scroll-list:hover {
+            animation-play-state: paused;
+        }
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        /* inner wrapper to allow smooth infinite scroll */
+        .scroll-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            background: #fef9f0;
+            padding: 8px 10px;
+            border-radius: 24px;
+            transition: 0.2s;
+            border: 1px solid #dcd0ff;
+        }
+        .sidebar-item:hover {
+            background: #ede3ff;
+            transform: translateX(-5px);
+        }
+        .sidebar-item img {
+            width: 45px;
+            height: 45px;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        .sidebar-item a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #2c3e66;
+            line-height: 1.4;
+            flex: 1;
+        }
+        .sidebar-item a:hover {
+            color: #9b4dff;
+        }
+        .current-post {
+            background: #cfb3ff;
+            border-right: 6px solid #a85eff;
         }
 
-        .container:hover {
-            box-shadow: 0 30px 60px rgba(0, 180, 230, 0.5), 0 0 0 3px rgba(255, 215, 0, 0.4) inset;
-            transform: translateY(-5px);
-        }
-
-        /* Header Buttons */
+        /* Nav buttons */
         .nav-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
         }
-
         .nav-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background: linear-gradient(145deg, #0077be, #00a2e8);
+            gap: 8px;
+            background: linear-gradient(145deg, #8b5cf6, #6c47d4);
             color: white;
-            padding: 12px 28px;
-            border-radius: 60px;
+            padding: 8px 20px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 20px rgba(0, 150, 255, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            transition: 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(110, 60, 200, 0.3);
+            border: 1px solid #e9d5ff;
+            transition: 0.2s;
         }
-
         .nav-btn:hover {
-            background: linear-gradient(145deg, #005f99, #0077be);
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 200, 255, 0.7);
-            border-color: #ffd966;
+            background: #5b3cc4;
+            transform: scale(1.02);
         }
 
-        .nav-btn i {
-            font-size: 1.3rem;
+        /* reactions container */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 35px 0 20px;
+            background: rgba(225, 210, 255, 0.4);
+            padding: 15px;
+            border-radius: 70px;
+        }
+        .reaction-btn {
+            background: white;
+            border: none;
+            border-radius: 60px;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: bold;
+            color: #4a2c7a;
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #f2eaff;
+            box-shadow: 0 6px 12px rgba(100, 70, 200, 0.2);
+        }
+        .reaction-count {
+            font-size: 0.8rem;
+            background: #ede0ff;
+            border-radius: 40px;
+            padding: 2px 8px;
+            margin-right: 5px;
         }
 
-        /* Social Share Buttons */
+        /* headings multi coloring backgrounds */
+        h1 {
+            font-size: 1.6rem;
+            color: #2c1e4a;
+            text-align: center;
+            background: linear-gradient(120deg, #f3e5ff, #d9c8ff);
+            display: inline-block;
+            width: auto;
+            padding: 8px 20px;
+            border-radius: 60px;
+            margin: 5px 0 15px;
+            box-shadow: 0 2px 12px #c3a6ff;
+            letter-spacing: 0;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #3b2a5c;
+            background: #cce5ff;
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 35px;
+            margin: 20px 0 12px;
+            border-right: 6px solid #8b5cf6;
+        }
+        h3 {
+            font-size: 1.25rem;
+            color: #1f5e3a;
+            background: #d0f0e4;
+            padding: 6px 15px;
+            border-radius: 28px;
+            margin: 20px 0 12px;
+            display: inline-block;
+        }
+
+        p {
+            font-size: 0.9rem;
+            text-align: justify;
+            margin-bottom: 14px;
+            color: #1f2f3a;
+            background: rgba(255, 248, 235, 0.7);
+            padding: 6px 14px;
+            border-radius: 20px;
+            line-height: 1.7;
+            letter-spacing: 0.2px;
+            word-spacing: 0px;
+        }
+        strong {
+            color: #b1541c;
+            font-size: 0.95rem;
+        }
+        .feature-image {
+            width: 100%;
+            margin: 15px 0 20px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 22px rgba(108, 70, 150, 0.3);
+        }
+        .feature-image img {
+            width: 100%;
+            display: block;
+        }
+        hr {
+            border: 1px dashed #9f7aea;
+            margin: 20px 0;
+        }
+        /* social share */
         .social-share {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 25px 0 20px;
+            margin: 20px 0;
         }
-
         .social-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             color: white;
-            font-size: 1.8rem;
-            transition: 0.3s;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-            border: 2px solid white;
+            font-size: 1.4rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-decoration: none;
         }
-
-        .social-btn.facebook { background: #3b5998; }
+        .social-btn.facebook { background: #1877f2; }
         .social-btn.whatsapp { background: #25D366; }
         .social-btn.twitter { background: #1DA1F2; }
-        .social-btn.pinterest { background: #E60023; }
         .social-btn.linkedin { background: #0077b5; }
         .social-btn.telegram { background: #0088cc; }
-
-        .social-btn:hover {
-            transform: rotate(360deg) scale(1.2);
-            box-shadow: 0 10px 20px rgba(0,210,255,0.6);
-        }
-
-        /* Feature Image */
-        .feature-image {
-            width: 100%;
-            margin: 20px 0 30px;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 160, 210, 0.5);
-            transition: 0.5s;
-            border: 4px solid white;
-        }
-
-        .feature-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.6s;
-        }
-
-        .feature-image:hover img {
-            transform: scale(1.03);
-        }
-
-        /* Headings */
-        h1 {
-            font-size: 2.2rem;
-            color: #024d6e;
-            text-align: center;
-            border-bottom: 4px solid #ffaa33;
-            padding-bottom: 15px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 8px rgba(255, 180, 60, 0.3);
-            letter-spacing: 0.5px;
-        }
-
-        h2 {
-            font-size: 1.9rem;
-            color: #b04500;
-            background: linear-gradient(to right, #fff6e5, #ffe0b9);
-            display: inline-block;
-            padding: 8px 30px 8px 30px;
-            border-radius: 0 50px 50px 0;
-            margin: 25px 0 15px -25px;
-            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.25);
-            border-right: 8px solid #ff9933;
-            text-shadow: 1px 1px 2px white;
-        }
-
-        h3 {
-            font-size: 1.7rem;
-            color: #026b97;
-            border-right: 6px solid #00b4d8;
-            padding-right: 15px;
-            margin: 25px 0 15px;
-        }
-
-        /* Paragraphs */
-        p {
-            font-size: 1.3rem;
-            text-align: justify;
-            margin-bottom: 20px;
-            color: #1a2e3b;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 10px 18px;
-            border-radius: 25px;
-            transition: 0.3s;
-            word-spacing: 1px;
-        }
-
-        p:hover {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 5px 15px rgba(0,160,210,0.2);
-        }
-
-        strong {
-            color: #c04900;
-            font-size: 1.35rem;
-        }
-
-        /* Scroll Buttons */
+        .social-btn.pinterest { background: #bd081c; }
+        .social-btn.copy-link { background: #6c757d; }
+        .social-btn:hover { transform: scale(1.1); filter: brightness(0.95);}
+        
+        /* scroll buttons */
         .scroll-buttons {
             position: fixed;
             left: 20px;
@@ -231,163 +332,193 @@
             gap: 12px;
             z-index: 99;
         }
-
         .scroll-btn {
-            width: 55px;
-            height: 55px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #00a1d6, #0077b3);
+            background: #7b4fe0;
             color: white;
-            border: 3px solid white;
+            border: 2px solid white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: 0 8px 18px rgba(0, 160, 210, 0.6);
-            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-
-        .scroll-btn:hover {
-            background: #ffaa33;
-            transform: scale(1.15);
-            box-shadow: 0 12px 25px #ffb347;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .container { padding: 20px 15px; }
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.6rem; }
-            p { font-size: 1.2rem; }
-            .nav-bar { flex-direction: column; align-items: stretch; }
-            .nav-btn { width: 100%; }
-            .social-btn { width: 45px; height: 45px; font-size: 1.6rem; }
-        }
-
-        @media (min-width: 1200px) {
-            p { font-size: 1.4rem; }
-        }
-
-        hr {
-            border: 2px dashed #81d4fa;
-            margin: 25px 0;
+        .scroll-btn:hover { background: #ffaa44; transform: scale(1.05);}
+        
+        @media (max-width: 750px) {
+            .content-grid { flex-direction: column; }
+            .sidebar { height: auto; max-height: 380px; }
+            .scroll-list { animation: none; height: auto; overflow-y: auto; }
+            .reactions-container { gap: 8px; }
+            .reaction-btn { padding: 3px 10px; font-size: 0.8rem; }
+            h1 { font-size: 1.4rem; }
+            p { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- انیمیشن بیبی پنٹ اور وائبرنٹ اسکائی بلیو بیک گراؤنڈ -->
-    <div class="animated-bg"></div>
+<div class="animated-bg"></div>
+<div class="scroll-buttons">
+    <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+    <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"><i class="fas fa-arrow-down"></i></button>
+</div>
 
-    <!-- اسکرول بٹن (اوپر اور نیچے) -->
-    <div class="scroll-buttons">
-        <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
-        <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"><i class="fas fa-arrow-down"></i></button>
+<div class="container">
+    <div class="nav-bar">
+        <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
+        <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn" target="_blank"><i class="fas fa-layer-group"></i> تمام پوسٹس</a>
     </div>
 
-    <div class="container">
-
-        <!-- نیویگیشن بٹن (ہوم اور بیک) -->
-        <div class="nav-bar">
-            <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس</a>
+    <div class="content-grid">
+        <!-- Main Article Area -->
+        <div class="main-article">
+            <h1>غفلت میں چھپے 50 گناہ</h1>
+            <h2>24 - اللہ کی رحمت سے مایوس ہونا</h2>
+            <div class="feature-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.png" alt="اللہ کی رحمت سے مایوس ہونا">
+            </div>
+            
+            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چوبیسواں گناہ اللہ کی رحمت سے مایوس ہونا ہے۔ اس سے پہلے تو اتسر سے کئی آرٹیکل جو میں تفصیل سے شئیر کرتا آرہا ہوں اگر آپ انکو پڑھنا چاہیے تو نیچے دیے گئے ویب سائٹ لنک پر کلک کرکے پڑھ سکتے ہیں۔ ان میں سے، کسی جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، سود کھانا، ظلم کرنا، رشوت لینا یا دینا، زنا کرنا وغیرہ۔</p>
+            <p>اللہ کی رحمت سے مایوس ہونا ایک ایسا کبیرہ گناہ ہے جس کی قرآن اور احادیث میں سختی سے ممانعت کی گئی ہے۔ اللہ تعالیٰ نے اپنی مخلوق کے لیے رحمت کا دروازہ ہمیشہ کھلا رکھا ہے، اور اس کی رحمت کسی بھی انسان کے لیے اس وقت تک بند نہیں ہوتی جب تک کہ وہ خود اپنی گمراہی میں ڈوبا رہے اور اللہ سے مایوس ہو جائے۔ اس گناہ کی سنگینی یہ ہے کہ یہ انسان کو اللہ سے دور کر دیتا ہے اور انسان کی زندگی میں ناکامیوں اور مایوسیوں کو مزید بڑھا دیتا ہے۔</p>
+            <p>اللہ کی رحمت سے مایوس ہونا اس بات کو ظاہر کرتا ہے کہ انسان اللہ کی بخشش، مغفرت اور مدد پر یقین نہیں رکھتا اور اپنے گناہوں یا مشکلات کو اتنا بڑا سمجھتا ہے کہ اسے اللہ کی قدرت پر بھروسہ ختم ہو جاتا ہے۔ یہ مایوسی انسان کے ایمان کی کمزوری کو ظاہر کرتی ہے اور اس کا دل شیطان کے وسوسوں میں گرفتار ہو جاتا ہے۔</p>
+            <p>اللہ تعالیٰ قرآن مجید میں فرماتا ہے: "اور اللہ کی رحمت سے مایوس نہ ہو، بے شک اللہ کی رحمت سے وہی لوگ مایوس ہوتے ہیں جو کافر ہیں۔" یہ آیت واضح طور پر بیان کرتی ہے کہ اللہ کی رحمت سے مایوس ہونا کفر کے قریب عمل ہے، اور اللہ کے مومن بندے ہمیشہ اس کی رحمت اور مدد پر بھروسہ رکھتے ہیں۔</p>
+            <p><strong>اللہ کی رحمت سے کون لوگ مایوس ہوتے ہیں؟</strong></p>
+            <p>اللہ کی رحمت سے وہ لوگ مایوس ہوتے ہیں جو اپنے ایمان کی کمزوری کی وجہ سے مشکلات اور گناہوں میں مبتلا ہوتے ہیں اور انہیں یہ محسوس ہوتا ہے کہ ان کی معافی ممکن نہیں ہے۔ ایسے لوگ یا تو اپنی مشکلات کو حل کرنے کے لیے اللہ سے دور ہو جاتے ہیں یا اپنے گناہوں کے بوجھ کو اتنا زیادہ سمجھتے ہیں کہ وہ اللہ سے رجوع کرنے کے بجائے مایوسی میں مبتلا ہو جاتے ہیں۔</p>
+            <p>نبی کریم ﷺ نے فرمایا: "جب بندہ کہتا ہے کہ میرا رب مجھ پر رحم نہیں کرے گا، تو اللہ تعالیٰ فرماتا ہے کہ میرا بندہ مجھ سے مایوس ہو گیا ہے، حالانکہ میں اس پر رحم کرنے والا ہوں۔" یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ اللہ تعالیٰ اپنے بندے کی مایوسی کو ناپسند کرتا ہے اور ہمیشہ اسے اپنی طرف بلاتا ہے۔</p>
+            <p><strong>دورِ جاہلیت میں اللہ کی رحمت سے مایوس ہونے والوں کا حال</strong></p>
+            <p>دورِ جاہلیت میں بھی لوگ اللہ کی رحمت سے مایوس ہو کر اپنی زندگیوں کو تباہ کر لیتے تھے۔ جاہلی دور کے لوگ اپنی مشکلات اور مصائب کو حل کرنے کے لیے بتوں اور جھوٹے خداؤں کی طرف رجوع کرتے تھے اور اللہ کی وحدانیت اور رحمت سے غافل ہو جاتے تھے۔ ان کا یہ عمل انہیں مزید گمراہی میں دھکیل دیتا تھا اور وہ اللہ کی رحمت سے دور ہو جاتے تھے۔</p>
+            <p><strong>مذاہب عالم میں اللہ کی رحمت سے مایوس ہونے اور گمراہیوں کے اندھیروں میں روشنی تلاش کرنا</strong></p>
+            <p>دنیا کے مختلف مذاہب میں اللہ کی رحمت سے مایوس ہونے اور اس سے دوری کے نتیجے میں لوگ گمراہی کے اندھیروں میں روشنی تلاش کرنے کی کوشش کرتے ہیں۔ عیسائیت، یہودیت، ہندومت اور دیگر مذاہب میں لوگ جب اپنی مشکلات میں گھِر جاتے ہیں تو بعض اوقات اللہ کی رحمت سے مایوس ہو کر جھوٹے خدا، شیطانی طاقتوں یا دوسروں کی پوجا کرنے لگتے ہیں۔ بائبل میں بھی اللہ کی رحمت سے مایوسی کی ممانعت کی گئی ہے اور انسانوں کو اللہ کی مدد پر بھروسہ رکھنے کی ترغیب دی گئی ہے۔</p>
+            <p><strong>زرتشت لوگوں کا اللہ کی رحمت سے مایوس ہو کر آگ کی پوجا کرنا</strong></p>
+            <p>زرتشت مذہب کے پیروکار بھی اللہ کی رحمت سے مایوس ہو کر آگ کی پوجا کرتے تھے۔ وہ اللہ کی قدرت اور اس کی رحمت پر بھروسہ کرنے کے بجائے آگ کو اپنا خدا مانتے اور اس سے مدد مانگتے تھے۔ ان کا یہ عمل اس بات کو ظاہر کرتا ہے کہ اللہ سے دوری انسان کو کس طرح گمراہی کی طرف لے جا سکتی ہے۔</p>
+            <p><strong>اللہ رب العزت کی ذات اقدس سے مایوس ہونے والوں کی تعداد میں روز بروز اضافہ</strong></p>
+            <p>آج کے دور میں بھی لوگوں کی ایک بڑی تعداد اللہ کی رحمت سے مایوس ہو چکی ہے۔ مشکلات، مصائب اور دنیاوی فتنوں کی وجہ سے لوگ اللہ پر بھروسہ کرنے کے بجائے مایوسی میں مبتلا ہو جاتے ہیں اور انہیں اپنی زندگی میں کوئی راستہ نظر نہیں آتا۔ اس مایوسی کا نتیجہ یہ ہوتا ہے کہ لوگ اللہ کی رحمت کو بھلا کر دنیاوی مسائل میں الجھ جاتے ہیں۔</p>
+            <p><strong>قرب قیامت لوگوں کا اللہ کی ذات سے بھروسہ اٹھ جانا</strong></p>
+            <p>قرب قیامت کی نشانیوں میں سے ایک یہ بھی ہے کہ لوگ اللہ کی ذات سے بھروسہ اٹھا لیں گے اور اس کی رحمت سے مایوس ہو جائیں گے۔ حدیث میں آتا ہے کہ قیامت کے قریب لوگ اتنا مایوس اور مشکلات کا شکار ہوں گے کہ وہ اللہ کی قدرت اور رحمت کو بھلا دیں گے۔</p>
+            <p>نبی کریم ﷺ نے فرمایا: "قیامت کے قریب فتنہ و فساد اتنا زیادہ ہو جائے گا کہ لوگ اللہ کی ذات پر سے بھروسہ کھو بیٹھیں گے اور اپنی مشکلات کو حل کرنے کے لیے غیر اسلامی راستے اپنائیں گے۔"</p>
+            <p><strong>اسلام میں ایسے لوگوں کے بارے میں کیا فرمان ہیں؟</strong></p>
+            <p>اسلام میں اللہ کی رحمت سے مایوس ہونا ایک بہت بڑا گناہ ہے۔ قرآن و سنت میں واضح طور پر بیان کیا گیا ہے کہ اللہ کی رحمت ہر چیز پر غالب ہے اور کوئی بھی انسان اتنا بڑا گناہ نہیں کر سکتا جسے اللہ معاف نہ کر سکے۔</p>
+            <p>اللہ تعالیٰ قرآن مجید میں فرماتا ہے: "کہو: اے میرے بندو! جنہوں نے اپنی جانوں پر زیادتی کی ہے، اللہ کی رحمت سے مایوس نہ ہو، بے شک اللہ تمام گناہوں کو معاف کر دیتا ہے۔" یہ آیت اللہ کی بے پناہ رحمت کو ظاہر کرتی ہے اور انسانوں کو ترغیب دیتی ہے کہ وہ کبھی بھی اللہ کی رحمت سے مایوس نہ ہوں۔</p>
+            <p><strong>اس کبیرہ گناہ کو معمولی سمجھ کر گمراہ ہونا</strong></p>
+            <p>آج کے دور میں بعض لوگ اللہ کی رحمت سے مایوس ہونے کو معمولی سمجھتے ہیں اور اس گناہ کو اتنی اہمیت نہیں دیتے جتنی دینی چاہیے۔ مایوسی کا شکار لوگ اپنی مشکلات کو حل کرنے کے لیے غیر شرعی طریقے اپناتے ہیں اور انہیں یہ سمجھ نہیں آتی کہ اللہ کی رحمت ہر چیز پر حاوی ہے۔ یہ گناہ انسان کو مزید گمراہی کی طرف لے جاتا ہے اور اسے اللہ سے دور کر دیتا ہے۔</p>
+            <p><strong>اس گناہ سے کیسے بچیں؟</strong></p>
+            <p>اللہ کی رحمت سے مایوس ہونے سے بچنے کے لیے ضروری ہے کہ انسان اپنے ایمان کو مضبوط کرے اور اللہ پر مکمل بھروسہ رکھے۔ قرآن مجید کی تلاوت، ذکر و اذکار، اور دعا سے انسان کا دل اللہ کی محبت اور رحمت سے بھر جاتا ہے اور وہ مایوسی سے بچا رہتا ہے۔</p>
+            <p>نبی کریم ﷺ نے فرمایا: "اللہ سے ہمیشہ اچھا گمان رکھو، کیونکہ اللہ اپنے بندے کے گمان کے مطابق اس کے ساتھ معاملہ کرتا ہے۔" یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ اگر ہم اللہ سے اچھا گمان رکھیں گے تو وہ ہمیں اپنی رحمت سے نوازے گا۔</p>
+            <p>اللہ کی رحمت سے مایوس لوگ اکثر گمراہی کے راستے پر چل نکلتے ہیں اور ان کا ایمان کمزور ہو جاتا ہے۔ جب مشکلات اور مصائب میں گھِر کر وہ اللہ کی مدد اور رحمت سے مایوس ہو جاتے ہیں، تو وہ قبر پرستی، پیر پرستی، بت پرستی اور اکابر پرستی جیسے شرک کے کاموں میں مصروف ہو جاتے ہیں۔ ان لوگوں کا یہ عمل اللہ کی وحدانیت اور توحید سے دوری کا نتیجہ ہوتا ہے، جو انہیں مزید گمراہی کی طرف لے جاتا ہے۔</p>
+            <p>پاکستان میں قبر پرستی اور پیر پرستی کا رجحان تیزی سے بڑھ رہا ہے۔ لوگوں کو یہ گمان ہوتا ہے کہ اولیاء اللہ کی قبروں پر جا کر ان سے مدد مانگنے یا پیر صاحب کی خدمت میں جھک کر اپنی مشکلات حل کروانا، اللہ کے قریب ہونے کا ذریعہ ہے۔ یہ ایک بڑی گمراہی ہے کیونکہ اسلام میں اللہ کے سوا کسی سے مدد مانگنے یا اسے طاقتور سمجھنے کی سختی سے منع کی گئی ہے۔ قرآن مجید میں اللہ تعالیٰ فرماتا ہے: "اور اللہ کے سوا نہ تو تمہیں کوئی نقصان پہنچا سکتا ہے اور نہ نفع۔" اس آیت سے واضح ہوتا ہے کہ اللہ کے سوا کسی سے مدد طلب کرنا شرک ہے اور انسان کو اللہ کی قدرت پر مکمل بھروسہ کرنا چاہیے۔</p>
+            <p>مزید برآں، لوگ تعویذ گنڈوں اور شیطانی عملوں کی طرف بھی رجوع کرتے ہیں۔ مشکلات کے حل کے لیے وہ عاملوں اور جادوگروں کے پاس جاتے ہیں جو شیطانی عملوں کے ذریعے مدد کا وعدہ کرتے ہیں۔ یہ بھی ایک بڑی گمراہی ہے کیونکہ تعویذ گنڈے اور شیطانی طاقتیں کبھی بھی انسان کو فلاح نہیں دے سکتیں، بلکہ اسے مزید نقصان پہنچاتی ہیں۔</p>
+            <p>پاکستان میں ایسے شرک اور بدعات کے کاموں کا رجحان دن بدن بڑھتا جا رہا ہے۔ لوگ اپنی مشکلات سے نجات کے لیے اللہ کی رحمت سے منہ پھیر کر گمراہ راستوں کی طرف چلے جا رہے ہیں۔ اس گمراہی کو روکنے کے لیے ضروری ہے کہ لوگوں کو اسلام کی اصل تعلیمات کی طرف بلایا جائے اور انہیں اللہ کی وحدانیت اور رحمت پر بھروسہ کرنے کی ترغیب دی جائے۔</p>
+            <p>اللہ کی رحمت سے مایوس ہونا ایک سنگین گناہ ہے جو انسان کو اللہ سے دور کر دیتا ہے اور اسے گمراہی کے اندھیروں میں دھکیل دیتا ہے۔ قرآن و سنت کی تعلیمات کے مطابق، ہمیں ہمیشہ اللہ کی رحمت پر بھروسہ رکھنا چاہیے اور کبھی بھی مایوسی کا شکار نہیں ہونا چاہیے۔ اس گناہ سے بچنے کے لیے ایمان کو مضبوط کرنا، اللہ کی طرف رجوع کرنا، اور مشکلات میں صبر و شکر کا رویہ اپنانا ضروری ہے۔ اللہ کی رحمت ہر چیز پر حاوی ہے اور وہ ہر گناہ کو معاف کرنے والا ہے۔</p>
+            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+            <hr>
+            
+            <!-- REACTIONS SECTION (exactly as required) -->
+            <div class="reactions-container">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+            
+            <!-- Social Media Share Icons (7 platforms, include copy link) -->
+            <div class="social-share">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.html" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ%2024%20اللہ%20کی%20رحمت%20سے%20مایوس%20ہونا%20https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.html" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.html&text=غفلت%20میں%20چھپے%2050%20گناہ%20-%20اللہ%20کی%20رحمت%20سے%20مایوس%20ہونا" target="_blank" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.html" target="_blank" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.html&text=اللہ کی رحمت سے مایوس ہونا" target="_blank" class="social-btn telegram"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.html&media=https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.png&description=اللہ کی رحمت سے مایوس ہونا" target="_blank" class="social-btn pinterest"><i class="fab fa-pinterest-p"></i></a>
+                <button class="social-btn copy-link" onclick="copyPageLink()"><i class="fas fa-link"></i></button>
+            </div>
+            <div class="nav-bar" style="margin-top: 15px;">
+                <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn" target="_blank"><i class="fas fa-list-ul"></i> تمام پوسٹس</a>
+            </div>
         </div>
-
-        <!-- مرکزی عنوان -->
-        <h1>غفلت میں چھپے 50 گناہ</h1>
-        <h2>24 - اللہ کی رحمت سے مایوس ہونا</h2>
-
-        <!-- فیچر امیج (مکمل وزیبل) -->
-        <div class="feature-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.png" alt="اللہ کی رحمت سے مایوس ہونا">
+        
+        <!-- SIDEBAR with auto-scroll -->
+        <div class="sidebar">
+            <div class="sidebar-title"><i class="fas fa-book-open"></i> مزید پڑھیں</div>
+            <div class="scroll-list">
+                <div class="scroll-wrapper">
+                    <!-- 1 -->
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی">
+                        <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بھیک مانگنا">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="قبضہ">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عالم کا عمل">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="دھاگے باندھنا">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="سجدہ">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="بے حیائی">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="تین گھر">
+                        <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+                    </div>
+                    <div class="sidebar-item">
+                        <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="دل دکھانا">
+                        <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a>
+                    </div>
+                    <!-- duplicate a few for smooth loop illusion (extra) -->
+                </div>
+            </div>
         </div>
-
-        <!-- مکمل مواد بالکل اصلی الفاظ کے ساتھ -->
-        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چوبیسواں گناہ اللہ کی رحمت سے مایوس ہونا ہے۔ اس سے پہلے تو اتسر سے کئی آرٹیکل جو میں تفصیل سے شئیر کرتا آرہا ہوں اگر آپ انکو پڑھنا چاہیے تو نیچے دیے گئے ویب سائٹ لنک پر کلک کرکے پڑھ سکتے ہیں۔ ان میں سے، کسی جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، سود کھانا، ظلم کرنا، رشوت لینا یا دینا، زنا کرنا وغیرہ۔</p>
-
-        <p>اللہ کی رحمت سے مایوس ہونا ایک ایسا کبیرہ گناہ ہے جس کی قرآن اور احادیث میں سختی سے ممانعت کی گئی ہے۔ اللہ تعالیٰ نے اپنی مخلوق کے لیے رحمت کا دروازہ ہمیشہ کھلا رکھا ہے، اور اس کی رحمت کسی بھی انسان کے لیے اس وقت تک بند نہیں ہوتی جب تک کہ وہ خود اپنی گمراہی میں ڈوبا رہے اور اللہ سے مایوس ہو جائے۔ اس گناہ کی سنگینی یہ ہے کہ یہ انسان کو اللہ سے دور کر دیتا ہے اور انسان کی زندگی میں ناکامیوں اور مایوسیوں کو مزید بڑھا دیتا ہے۔</p>
-
-        <p>اللہ کی رحمت سے مایوس ہونا اس بات کو ظاہر کرتا ہے کہ انسان اللہ کی بخشش، مغفرت اور مدد پر یقین نہیں رکھتا اور اپنے گناہوں یا مشکلات کو اتنا بڑا سمجھتا ہے کہ اسے اللہ کی قدرت پر بھروسہ ختم ہو جاتا ہے۔ یہ مایوسی انسان کے ایمان کی کمزوری کو ظاہر کرتی ہے اور اس کا دل شیطان کے وسوسوں میں گرفتار ہو جاتا ہے۔</p>
-
-        <p>اللہ تعالیٰ قرآن مجید میں فرماتا ہے: "اور اللہ کی رحمت سے مایوس نہ ہو، بے شک اللہ کی رحمت سے وہی لوگ مایوس ہوتے ہیں جو کافر ہیں۔" یہ آیت واضح طور پر بیان کرتی ہے کہ اللہ کی رحمت سے مایوس ہونا کفر کے قریب عمل ہے، اور اللہ کے مومن بندے ہمیشہ اس کی رحمت اور مدد پر بھروسہ رکھتے ہیں۔</p>
-
-        <p><strong>اللہ کی رحمت سے کون لوگ مایوس ہوتے ہیں؟</strong></p>
-
-        <p>اللہ کی رحمت سے وہ لوگ مایوس ہوتے ہیں جو اپنے ایمان کی کمزوری کی وجہ سے مشکلات اور گناہوں میں مبتلا ہوتے ہیں اور انہیں یہ محسوس ہوتا ہے کہ ان کی معافی ممکن نہیں ہے۔ ایسے لوگ یا تو اپنی مشکلات کو حل کرنے کے لیے اللہ سے دور ہو جاتے ہیں یا اپنے گناہوں کے بوجھ کو اتنا زیادہ سمجھتے ہیں کہ وہ اللہ سے رجوع کرنے کے بجائے مایوسی میں مبتلا ہو جاتے ہیں۔</p>
-
-        <p>نبی کریم ﷺ نے فرمایا: "جب بندہ کہتا ہے کہ میرا رب مجھ پر رحم نہیں کرے گا، تو اللہ تعالیٰ فرماتا ہے کہ میرا بندہ مجھ سے مایوس ہو گیا ہے، حالانکہ میں اس پر رحم کرنے والا ہوں۔" یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ اللہ تعالیٰ اپنے بندے کی مایوسی کو ناپسند کرتا ہے اور ہمیشہ اسے اپنی طرف بلاتا ہے۔</p>
-
-        <p><strong>دورِ جاہلیت میں اللہ کی رحمت سے مایوس ہونے والوں کا حال</strong></p>
-
-        <p>دورِ جاہلیت میں بھی لوگ اللہ کی رحمت سے مایوس ہو کر اپنی زندگیوں کو تباہ کر لیتے تھے۔ جاہلی دور کے لوگ اپنی مشکلات اور مصائب کو حل کرنے کے لیے بتوں اور جھوٹے خداؤں کی طرف رجوع کرتے تھے اور اللہ کی وحدانیت اور رحمت سے غافل ہو جاتے تھے۔ ان کا یہ عمل انہیں مزید گمراہی میں دھکیل دیتا تھا اور وہ اللہ کی رحمت سے دور ہو جاتے تھے۔</p>
-
-        <p><strong>مذاہب عالم میں اللہ کی رحمت سے مایوس ہونے اور گمراہیوں کے اندھیروں میں روشنی تلاش کرنا</strong></p>
-
-        <p>دنیا کے مختلف مذاہب میں اللہ کی رحمت سے مایوس ہونے اور اس سے دوری کے نتیجے میں لوگ گمراہی کے اندھیروں میں روشنی تلاش کرنے کی کوشش کرتے ہیں۔ عیسائیت، یہودیت، ہندومت اور دیگر مذاہب میں لوگ جب اپنی مشکلات میں گھِر جاتے ہیں تو بعض اوقات اللہ کی رحمت سے مایوس ہو کر جھوٹے خدا، شیطانی طاقتوں یا دوسروں کی پوجا کرنے لگتے ہیں۔ بائبل میں بھی اللہ کی رحمت سے مایوسی کی ممانعت کی گئی ہے اور انسانوں کو اللہ کی مدد پر بھروسہ رکھنے کی ترغیب دی گئی ہے۔</p>
-
-        <p><strong>زرتشت لوگوں کا اللہ کی رحمت سے مایوس ہو کر آگ کی پوجا کرنا</strong></p>
-
-        <p>زرتشت مذہب کے پیروکار بھی اللہ کی رحمت سے مایوس ہو کر آگ کی پوجا کرتے تھے۔ وہ اللہ کی قدرت اور اس کی رحمت پر بھروسہ کرنے کے بجائے آگ کو اپنا خدا مانتے اور اس سے مدد مانگتے تھے۔ ان کا یہ عمل اس بات کو ظاہر کرتا ہے کہ اللہ سے دوری انسان کو کس طرح گمراہی کی طرف لے جا سکتی ہے۔</p>
-
-        <p><strong>اللہ رب العزت کی ذات اقدس سے مایوس ہونے والوں کی تعداد میں روز بروز اضافہ</strong></p>
-
-        <p>آج کے دور میں بھی لوگوں کی ایک بڑی تعداد اللہ کی رحمت سے مایوس ہو چکی ہے۔ مشکلات، مصائب اور دنیاوی فتنوں کی وجہ سے لوگ اللہ پر بھروسہ کرنے کے بجائے مایوسی میں مبتلا ہو جاتے ہیں اور انہیں اپنی زندگی میں کوئی راستہ نظر نہیں آتا۔ اس مایوسی کا نتیجہ یہ ہوتا ہے کہ لوگ اللہ کی رحمت کو بھلا کر دنیاوی مسائل میں الجھ جاتے ہیں۔</p>
-
-        <p><strong>قرب قیامت لوگوں کا اللہ کی ذات سے بھروسہ اٹھ جانا</strong></p>
-
-        <p>قرب قیامت کی نشانیوں میں سے ایک یہ بھی ہے کہ لوگ اللہ کی ذات سے بھروسہ اٹھا لیں گے اور اس کی رحمت سے مایوس ہو جائیں گے۔ حدیث میں آتا ہے کہ قیامت کے قریب لوگ اتنا مایوس اور مشکلات کا شکار ہوں گے کہ وہ اللہ کی قدرت اور رحمت کو بھلا دیں گے۔</p>
-
-        <p>نبی کریم ﷺ نے فرمایا: "قیامت کے قریب فتنہ و فساد اتنا زیادہ ہو جائے گا کہ لوگ اللہ کی ذات پر سے بھروسہ کھو بیٹھیں گے اور اپنی مشکلات کو حل کرنے کے لیے غیر اسلامی راستے اپنائیں گے۔"</p>
-
-        <p><strong>اسلام میں ایسے لوگوں کے بارے میں کیا فرمان ہیں؟</strong></p>
-
-        <p>اسلام میں اللہ کی رحمت سے مایوس ہونا ایک بہت بڑا گناہ ہے۔ قرآن و سنت میں واضح طور پر بیان کیا گیا ہے کہ اللہ کی رحمت ہر چیز پر غالب ہے اور کوئی بھی انسان اتنا بڑا گناہ نہیں کر سکتا جسے اللہ معاف نہ کر سکے۔</p>
-
-        <p>اللہ تعالیٰ قرآن مجید میں فرماتا ہے: "کہو: اے میرے بندو! جنہوں نے اپنی جانوں پر زیادتی کی ہے، اللہ کی رحمت سے مایوس نہ ہو، بے شک اللہ تمام گناہوں کو معاف کر دیتا ہے۔" یہ آیت اللہ کی بے پناہ رحمت کو ظاہر کرتی ہے اور انسانوں کو ترغیب دیتی ہے کہ وہ کبھی بھی اللہ کی رحمت سے مایوس نہ ہوں۔</p>
-
-        <p><strong>اس کبیرہ گناہ کو معمولی سمجھ کر گمراہ ہونا</strong></p>
-
-        <p>آج کے دور میں بعض لوگ اللہ کی رحمت سے مایوس ہونے کو معمولی سمجھتے ہیں اور اس گناہ کو اتنی اہمیت نہیں دیتے جتنی دینی چاہیے۔ مایوسی کا شکار لوگ اپنی مشکلات کو حل کرنے کے لیے غیر شرعی طریقے اپناتے ہیں اور انہیں یہ سمجھ نہیں آتی کہ اللہ کی رحمت ہر چیز پر حاوی ہے۔ یہ گناہ انسان کو مزید گمراہی کی طرف لے جاتا ہے اور اسے اللہ سے دور کر دیتا ہے۔</p>
-
-        <p><strong>اس گناہ سے کیسے بچیں؟</strong></p>
-
-        <p>اللہ کی رحمت سے مایوس ہونے سے بچنے کے لیے ضروری ہے کہ انسان اپنے ایمان کو مضبوط کرے اور اللہ پر مکمل بھروسہ رکھے۔ قرآن مجید کی تلاوت، ذکر و اذکار، اور دعا سے انسان کا دل اللہ کی محبت اور رحمت سے بھر جاتا ہے اور وہ مایوسی سے بچا رہتا ہے۔</p>
-
-        <p>نبی کریم ﷺ نے فرمایا: "اللہ سے ہمیشہ اچھا گمان رکھو، کیونکہ اللہ اپنے بندے کے گمان کے مطابق اس کے ساتھ معاملہ کرتا ہے۔" یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ اگر ہم اللہ سے اچھا گمان رکھیں گے تو وہ ہمیں اپنی رحمت سے نوازے گا۔</p>
-
-        <p>اللہ کی رحمت سے مایوس لوگ اکثر گمراہی کے راستے پر چل نکلتے ہیں اور ان کا ایمان کمزور ہو جاتا ہے۔ جب مشکلات اور مصائب میں گھِر کر وہ اللہ کی مدد اور رحمت سے مایوس ہو جاتے ہیں، تو وہ قبر پرستی، پیر پرستی، بت پرستی اور اکابر پرستی جیسے شرک کے کاموں میں مصروف ہو جاتے ہیں۔ ان لوگوں کا یہ عمل اللہ کی وحدانیت اور توحید سے دوری کا نتیجہ ہوتا ہے، جو انہیں مزید گمراہی کی طرف لے جاتا ہے۔</p>
-
-        <p>پاکستان میں قبر پرستی اور پیر پرستی کا رجحان تیزی سے بڑھ رہا ہے۔ لوگوں کو یہ گمان ہوتا ہے کہ اولیاء اللہ کی قبروں پر جا کر ان سے مدد مانگنے یا پیر صاحب کی خدمت میں جھک کر اپنی مشکلات حل کروانا، اللہ کے قریب ہونے کا ذریعہ ہے۔ یہ ایک بڑی گمراہی ہے کیونکہ اسلام میں اللہ کے سوا کسی سے مدد مانگنے یا اسے طاقتور سمجھنے کی سختی سے منع کی گئی ہے۔ قرآن مجید میں اللہ تعالیٰ فرماتا ہے: "اور اللہ کے سوا نہ تو تمہیں کوئی نقصان پہنچا سکتا ہے اور نہ نفع۔" اس آیت سے واضح ہوتا ہے کہ اللہ کے سوا کسی سے مدد طلب کرنا شرک ہے اور انسان کو اللہ کی قدرت پر مکمل بھروسہ کرنا چاہیے۔</p>
-
-        <p>مزید برآں، لوگ تعویذ گنڈوں اور شیطانی عملوں کی طرف بھی رجوع کرتے ہیں۔ مشکلات کے حل کے لیے وہ عاملوں اور جادوگروں کے پاس جاتے ہیں جو شیطانی عملوں کے ذریعے مدد کا وعدہ کرتے ہیں۔ یہ بھی ایک بڑی گمراہی ہے کیونکہ تعویذ گنڈے اور شیطانی طاقتیں کبھی بھی انسان کو فلاح نہیں دے سکتیں، بلکہ اسے مزید نقصان پہنچاتی ہیں۔</p>
-
-        <p>پاکستان میں ایسے شرک اور بدعات کے کاموں کا رجحان دن بدن بڑھتا جا رہا ہے۔ لوگ اپنی مشکلات سے نجات کے لیے اللہ کی رحمت سے منہ پھیر کر گمراہ راستوں کی طرف چلے جا رہے ہیں۔ اس گمراہی کو روکنے کے لیے ضروری ہے کہ لوگوں کو اسلام کی اصل تعلیمات کی طرف بلایا جائے اور انہیں اللہ کی وحدانیت اور رحمت پر بھروسہ کرنے کی ترغیب دی جائے۔</p>
-
-        <p>اللہ کی رحمت سے مایوس ہونا ایک سنگین گناہ ہے جو انسان کو اللہ سے دور کر دیتا ہے اور اسے گمراہی کے اندھیروں میں دھکیل دیتا ہے۔ قرآن و سنت کی تعلیمات کے مطابق، ہمیں ہمیشہ اللہ کی رحمت پر بھروسہ رکھنا چاہیے اور کبھی بھی مایوسی کا شکار نہیں ہونا چاہیے۔ اس گناہ سے بچنے کے لیے ایمان کو مضبوط کرنا، اللہ کی طرف رجوع کرنا، اور مشکلات میں صبر و شکر کا رویہ اپنانا ضروری ہے۔ اللہ کی رحمت ہر چیز پر حاوی ہے اور وہ ہر گناہ کو معاف کرنے والا ہے۔</p>
-
-        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-
-        <hr>
-
-        <!-- سوشل میڈیا شیئرنگ بٹن -->
-        <div class="social-share">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=bloglovers.pk" target="_blank" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ%20-%20اللہ%20کی%20رحمت%20سے%20مایوس%20ہونا%20https://bloglovers.pk/" target="_blank" class="social-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://twitter.com/intent/tweet?url=bloglovers.pk&text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.pinterest.com/pin/create/button/?url=bloglovers.pk&media=https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-24-allah-ki-rhmt-se-mayos-hona.png&description=اللہ%20کی%20رحمت%20سے%20مایوس%20ہونا" target="_blank" class="social-btn pinterest"><i class="fab fa-pinterest-p"></i></a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=bloglovers.pk" target="_blank" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://t.me/share/url?url=bloglovers.pk&text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="social-btn telegram"><i class="fab fa-telegram-plane"></i></a>
-        </div>
-
-        <!-- نیچے بھی نیویگیشن بٹن (ہوم اور بیک) -->
-        <div class="nav-bar" style="margin-top: 20px;">
-            <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس</a>
-        </div>
-
     </div>
+</div>
 
-    <!-- کوئی بھی ٹوگل آپشن نہیں، بالکل سادہ مخصوص ڈیزائن -->
+<script>
+    // Copy link function
+    function copyPageLink() {
+        navigator.clipboard.writeText(window.location.href);
+        alert("لنک کاپی ہو گیا! Link copied.");
+    }
+    // share on social helper (already used)
+    // Note: reactions.js will be loaded externally. No duplicate reaction functions here.
+    // We only keep share and small helpers.
+</script>
+<!-- reactions.js must be present at root -->
+<script src="/reactions.js"></script>
 </body>
 </html>
