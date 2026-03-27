@@ -30,7 +30,6 @@
             padding: 30px 15px;
         }
 
-        /* متحرک ڈارک ریڈ اور یلو پس منظر */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -50,9 +49,17 @@
             100% { background-position: 0% 50%; }
         }
 
-        .main-container {
-            max-width: 1000px;
+        /* Two column layout */
+        .flex-wrapper {
+            display: flex;
+            gap: 25px;
+            max-width: 1300px;
             margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        .main-container {
+            flex: 2.5;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border-radius: 40px 40px 20px 20px;
@@ -61,7 +68,153 @@
             border: 1px solid #ffaa00;
         }
 
-        /* امیج کنٹینر */
+        /* Sidebar Styles - Fixed height auto-scroll */
+        .sidebar {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            border: 2px solid #daa520;
+            padding: 20px 15px;
+            position: sticky;
+            top: 20px;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+        }
+
+        .sidebar h3 {
+            font-size: 1.6rem;
+            color: #ffd700;
+            text-align: center;
+            border-bottom: 2px solid #b8860b;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            background: none;
+            text-shadow: 1px 1px 0 #8b0000;
+        }
+
+        .sidebar-scroll {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            animation: scrollUp 30s linear infinite;
+        }
+
+        .sidebar-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* inner wrapper for seamless loop */
+        .scroll-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(139, 0, 0, 0.6);
+            border-radius: 50px;
+            padding: 8px 12px;
+            transition: all 0.3s;
+            border: 1px solid #ffaa55;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover {
+            background: #b8860b;
+            transform: translateX(-5px);
+        }
+
+        .sidebar-item img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid gold;
+            background: #2c1810;
+        }
+
+        .sidebar-item span {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff5e0;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        /* active highlight */
+        .sidebar-item.active {
+            background: #daa520;
+            border: 2px solid white;
+            box-shadow: 0 0 10px gold;
+        }
+        .sidebar-item.active span {
+            color: #4d1a1a;
+            text-shadow: none;
+        }
+
+        /* Reactions styles */
+        .reactions-wrapper {
+            margin: 30px 0 20px;
+            background: rgba(139, 69, 19, 0.2);
+            border-radius: 60px;
+            padding: 15px;
+            text-align: center;
+        }
+        .reactions-title {
+            font-size: 1.4rem;
+            color: #8b3c1c;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .reaction-btn {
+            background: linear-gradient(145deg, #2c1810, #3e2a1f);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 1px solid #ffc107;
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #b8860b;
+            color: #1e0a05;
+        }
+        .reaction-count {
+            background: #ffd966;
+            color: #5a2e1a;
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+
         .featured-image {
             width: 100%;
             margin: 20px 0 30px 0;
@@ -88,7 +241,6 @@
             border-radius: 27px;
         }
 
-        /* مرکزی ہیڈنگ */
         h1 {
             color: #ffd700;
             text-align: center;
@@ -104,7 +256,6 @@
             font-weight: 900;
         }
 
-        /* ذیلی ہیڈنگ */
         h2 {
             font-size: 2rem;
             color: #fff;
@@ -130,7 +281,6 @@
             font-weight: bold;
         }
 
-        /* پیراگراف */
         p {
             font-size: 1.5rem;
             text-align: justify;
@@ -140,7 +290,6 @@
             word-spacing: 2px;
         }
 
-        /* بٹن نیویگیشن بار */
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -181,11 +330,6 @@
             background: linear-gradient(45deg, #a52a2a, #daa520);
         }
 
-        .nav-btn i {
-            font-size: 1.3rem;
-        }
-
-        /* سوشل شیئر بٹن */
         .share-section {
             display: flex;
             flex-wrap: wrap;
@@ -225,8 +369,8 @@
         .pinterest { background: #bd081c; }
         .linkedin { background: #0077b5; }
         .telegram { background: #0088cc; }
+        .copy-link { background: #6c757d; cursor: pointer; }
 
-        /* اپ ڈاؤن بٹن */
         .scroll-controls {
             position: fixed;
             bottom: 30px;
@@ -258,27 +402,19 @@
             transform: scale(1.2);
         }
 
-        /* موبائل ریسپانسیو */
+        @media (max-width: 900px) {
+            .flex-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; height: 450px; position: relative; top: 0; }
+            .main-container { width: 100%; }
+        }
         @media (max-width: 700px) {
             .main-container { padding: 20px; }
             h1 { font-size: 2rem; }
             h2 { font-size: 1.7rem; }
             p { font-size: 1.3rem; }
             .nav-btn { padding: 10px 15px; font-size: 1.2rem; min-width: 130px; }
-            .share-btn { width: 50px; height: 50px; font-size: 1.5rem; }
-            .scroll-btn { width: 50px; height: 50px; font-size: 1.5rem; }
         }
 
-        @media (max-width: 400px) {
-            h1 { font-size: 1.7rem; }
-            p { font-size: 1.1rem; }
-        }
-
-        /* لنکس کو ہٹا دیا (انٹرنل) */
-        a {
-            text-decoration: none;
-        }
-        /* پرانے لنکس کو بے اثر */
         .post-content a {
             pointer-events: none;
             color: inherit;
@@ -288,75 +424,161 @@
     </style>
 </head>
 <body>
-    <!-- اینیمیٹڈ ڈارک ریڈ اور یلو بیک گراؤنڈ -->
     <div class="animated-bg"></div>
 
-    <!-- اسکرول اپ ڈاؤن بٹن -->
     <div class="scroll-controls">
         <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
         <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"><i class="fas fa-arrow-down"></i></button>
     </div>
 
-    <div class="main-container">
-        <!-- نیویگیشن بٹن (ہوم + بیک) -->
-        <div class="nav-buttons">
-            <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس</a>
-        </div>
-
-        <!-- پوسٹ کا مواد -->
-        <div class="post-content">
-            <h1>غفلت میں چھپے 50 گناہ 7 - تہمت لگانا</h1>
-
-            <!-- امیج (صرف ایک، ٹائٹل کے بعد) -->
-            <div class="featured-image">
-                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-7-thmt-lgana.png" alt="تہمت لگانا" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=تہمت+کی+تصویر';">
+    <div class="flex-wrapper">
+        <!-- Main Post Container -->
+        <div class="main-container">
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn" target="_blank"><i class="fas fa-list"></i> تمام پوسٹس</a>
             </div>
 
-            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں ساتواں گناہ تہمت لگانا ہے۔ اس سے پہلے چھے آرٹیکل جو میں تفصیل سے شیئر کر چکا ہوں، ان میں سے <a href="#">حقارت سے کسی پر ہنسنا</a>، <a href="#">دھوکا دینا</a>، <a href="#">چغلی کرنا</a>، <a href="#">بدگمانی کرنا</a>، <a href="#">طعنہ دینا</a>، <a href="#">کسی کے عیب تلاش کرنا</a> شامل ہیں۔</p>
-            <p>تہمت لگانا یا افتراء ایک ایسا عمل ہے جس میں کسی شخص پر جھوٹا الزام لگایا جاتا ہے، جس کا مقصد اس کی عزت کو نقصان پہنچانا یا اسے ذلیل و رسوا کرنا ہوتا ہے۔ تہمت میں الزام حقیقت پر مبنی نہیں ہوتا، بلکہ اسے جان بوجھ کر جھوٹ کے ساتھ پھیلایا جاتا ہے۔ یہ گناہ معاشرے میں بد نیتی، عداوت اور فتنہ و فساد کا سبب بنتا ہے۔</p>
-            <p>تہمت لگانے والے شخص کا مقصد دوسروں کو دھوکہ دینا، کسی کی ساکھ کو خراب کرنا یا محض اپنی نفرت اور بغض کو نکالنا ہوتا ہے۔ یہ ایک نہایت قبیح فعل ہے جو انسانیت اور اسلامی اخلاقیات کے سراسر خلاف ہے۔</p>
-            <h2><strong>تہمت ایک بدترین گناہ ہے</strong></h2>
-            <p>تہمت کا <a href="#">گناہ نہایت</a> سنگین ہے کیونکہ یہ کسی کی عزت اور وقار کو نقصان پہنچاتا ہے۔ اللہ تعالیٰ اور اس کے رسول ﷺ نے اس عمل کی سختی سے مذمت کی ہے۔ تہمت لگانے والے کو دنیا اور آخرت میں سخت عذاب کی وعید سنائی گئی ہے۔</p>
-            <p>قرآن مجید میں اللہ تعالیٰ فرماتا ہے: "اور جو لوگ مومن مردوں اور مومن عورتوں کو بغیر کسی جرم کے ایذاء دیتے ہیں، انہوں نے جھوٹ اور واضح گناہ کا بوجھ اٹھایا۔" یہ آیت واضح کرتی ہے کہ جو لوگ مومنوں پر بلا وجہ تہمت لگاتے ہیں، وہ نہ صرف جھوٹے ہوتے ہیں بلکہ سنگین گناہ کے مرتکب بھی ہوتے ہیں۔</p>
-            <h2><strong>معاشرے میں تیزی سے پھیلنے والا بدبودار گناہ</strong></h2>
-            <p>تہمت ایک ایسا گناہ ہے جو معاشرے میں بہت تیزی <a href="#">سے پھیلتا ہے</a>۔ جب کوئی شخص کسی پر جھوٹا الزام لگاتا ہے، تو لوگ بغیر تحقیق کے اس بات کو آگے پھیلا دیتے ہیں۔ یہ گناہ اس وقت اور بھی زیادہ خطرناک ہو جاتا ہے جب سوشل میڈیا اور دیگر ذرائع ابلاغ کے ذریعے افواہیں اور جھوٹ تیزی سے پھیلتے ہیں۔</p>
-            <p>تہمت کی یہ بدبو معاشرتی تعلقات کو خراب کرتی ہے، لوگوں کے درمیان بدگمانی اور نفرت کو فروغ دیتی ہے اور ایک ایسا ماحول پیدا کرتی ہے جہاں لوگ ایک <a href="#">دوسرے پر شک</a> کرنے لگتے ہیں۔ تہمت کا نتیجہ اکثر بے گناہوں کی بدنامی اور ان کی زندگیوں کو برباد کرنے کی صورت میں نکلتا ہے۔</p>
-            <p>نبی اکرم ﷺ نے فرمایا: "جس نے کسی مومن پر وہ بات کہی جو اس میں نہیں تھی، اللہ اسے دوزخ میں ایک جگہ ٹھہرائے گا، یہاں تک کہ وہ اپنے کہے ہوئے سے بری ہو جائے۔" اس حدیث سے <a href="#">معلوم ہوتا ہے</a> کہ تہمت لگانے کی سزا کتنی سخت ہے اور یہ عمل اللہ کے نزدیک کتنا ناپسندیدہ ہے۔</p>
-            <h2><strong>اسلام میں اس کی ممانعت کی گئی ہے</strong></h2>
-            <p>اسلام نے تہمت لگانے کو سختی سے منع کیا ہے <a href="#">کیونکہ</a> یہ گناہ نہ صرف ایک فرد کی عزت کو نقصان پہنچاتا ہے بلکہ پورے معاشرتی ڈھانچے کو بھی متاثر کرتا ہے۔ قرآن و حدیث میں اس گناہ کی سخت ممانعت کی گئی ہے اور تہمت لگانے والوں کو دنیا و آخرت میں سخت عذاب کی وعید سنائی گئی ہے۔</p>
-            <p>قرآن مجید میں سورہ نور میں حضرت عائشہ رضی اللہ عنہا پر لگائے گئے جھوٹے الزام کے حوالے سے اللہ تعالیٰ نے تہمت لگانے والوں کی مذمت کی ہے اور فرمایا: "بیشک وہ لوگ جنہوں نے جھوٹا الزام لگایا، وہ تم میں سے ایک گروہ ہیں۔ اسے اپنے لیے برا نہ سمجھو، بلکہ یہ تمہارے لیے بہتر ہے۔"</p>
-            <p>اللہ تعالیٰ نے اس آیت میں تہمت لگانے والوں کی سخت سرزنش کی ہے اور بتایا کہ جو لوگ جھوٹے الزامات لگاتے ہیں، وہ ایک گناہ گار گروہ کا حصہ ہیں۔</p>
-            <p>آپ ﷺ نے فرمایا: "پاک دامن عورت پر تہمت لگانا سو برس کے عمل کو تباہ کرتا ہے۔"</p>
-            <p>ایک اور مقام پر مزید وضاحت فرمائی: "سات ہلاک کر دینے والی چیزوں سے بچو! صحابہ کرام نے پوچھا؟ کون سی چیزیں: آپ ﷺ نے فرمایا شرک، مال کی حرص، قتل، سود، یتیم کا مال کھانا، معرکے سے بھاگ جانا، مومن عورتوں پر تہمت لگانا"۔</p>
-            <h2><strong>ہم اس گناہ سے کیسے بچائیں خود کو؟</strong></h2>
-            <p>تہمت لگانے کے <a href="#">گناہ سے بچنے</a> کے لیے ہمیں درج ذیل اقدامات کرنے کی ضرورت ہے:</p>
-            <p><strong>غور و فکر کریں</strong>: تہمت لگانے سے پہلے ہمیں غور کرنا چاہیے کہ کیا ہم کسی پر جھوٹا الزام لگا رہے ہیں؟ اگر ہمیں کسی کی برائی یا غلطی کا یقین نہ ہو، تو ہمیں خاموشی اختیار کرنی چاہیے۔</p>
-            <p><strong>تحقیق کریں</strong>: اگر کسی کے بارے میں کوئی بات سنیں، تو فوراً اس پر یقین نہ کریں۔ قرآن مجید میں اللہ تعالیٰ نے فرمایا: "اے ایمان والو! اگر کوئی فاسق تمہارے پاس کوئی خبر لے کر آئے تو <a href="#">تحقیق کر لو</a>۔"</p>
-            <p><strong>حسنِ ظن رکھیں</strong>: ہمیشہ دوسروں کے بارے میں حسنِ ظن رکھیں اور ان کے اعمال کو نیک نیتی کے ساتھ دیکھنے کی کوشش کریں۔ بدگمانی اور تہمت معاشرتی بگاڑ کا سبب بنتی ہے، اس لیے ہمیں دوسروں کے بارے میں اچھا سوچنا چاہیے۔</p>
-            <p><strong>اللہ سے مدد مانگیں</strong>: اللہ تعالیٰ سے دعا کریں کہ وہ ہمیں تہمت لگانے کی بیماری سے محفوظ رکھے اور ہمارے دلوں کو حسد، بغض اور نفرت سے پاک کرے۔</p>
-            <p><strong>اخلاقی تربیت</strong>: اپنے آپ کو اور اپنے بچوں کو اسلامی تعلیمات کے مطابق تربیت دیں تاکہ ہم تہمت جیسے گناہوں سے بچ سکیں۔ رسول اللہ ﷺ نے فرمایا: "بیشک میں اچھے اخلاق کو مکمل کرنے کے لیے بھیجا گیا ہوں۔"</p>
-            <p>خلاصہ یہ کہ تہمت لگانا ایک نہایت سنگین گناہ ہے جس کی مذمت قرآن و حدیث میں کی گئی ہے۔ ہمیں اس گناہ سے بچنے کے لیے اسلامی تعلیمات کو اپنانا چاہیے، دوسروں کے بارے میں حسن ظن رکھنا چاہیے اور بلا تحقیق کوئی بات آگے نہیں پھیلانی چاہیے۔ اللہ تعالیٰ ہمیں اس برائی سے محفوظ رکھے اور ہماری زبانوں کو سچ بولنے کی توفیق عطا فرمائے۔ آمین۔</p>
-            <p>مزید آرٹیکل پڑھنے کے لیے <a href="#">ویب سائٹ</a> وزٹ کریں۔</p>
+            <div class="post-content">
+                <h1>غفلت میں چھپے 50 گناہ 7 - تہمت لگانا</h1>
+                <div class="featured-image">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-7-thmt-lgana.png" alt="تہمت لگانا" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=تہمت+کی+تصویر';">
+                </div>
+                <p>غفلت میں چھپے 50 گناہوں کی فہرست میں ساتواں گناہ تہمت لگانا ہے۔ اس سے پہلے چھے آرٹیکل جو میں تفصیل سے شیئر کر چکا ہوں، ان میں سے <a href="#">حقارت سے کسی پر ہنسنا</a>، <a href="#">دھوکا دینا</a>، <a href="#">چغلی کرنا</a>، <a href="#">بدگمانی کرنا</a>، <a href="#">طعنہ دینا</a>، <a href="#">کسی کے عیب تلاش کرنا</a> شامل ہیں۔</p>
+                <p>تہمت لگانا یا افتراء ایک ایسا عمل ہے جس میں کسی شخص پر جھوٹا الزام لگایا جاتا ہے، جس کا مقصد اس کی عزت کو نقصان پہنچانا یا اسے ذلیل و رسوا کرنا ہوتا ہے۔ تہمت میں الزام حقیقت پر مبنی نہیں ہوتا، بلکہ اسے جان بوجھ کر جھوٹ کے ساتھ پھیلایا جاتا ہے۔ یہ گناہ معاشرے میں بد نیتی، عداوت اور فتنہ و فساد کا سبب بنتا ہے۔</p>
+                <p>تہمت لگانے والے شخص کا مقصد دوسروں کو دھوکہ دینا، کسی کی ساکھ کو خراب کرنا یا محض اپنی نفرت اور بغض کو نکالنا ہوتا ہے۔ یہ ایک نہایت قبیح فعل ہے جو انسانیت اور اسلامی اخلاقیات کے سراسر خلاف ہے۔</p>
+                <h2><strong>تہمت ایک بدترین گناہ ہے</strong></h2>
+                <p>تہمت کا <a href="#">گناہ نہایت</a> سنگین ہے کیونکہ یہ کسی کی عزت اور وقار کو نقصان پہنچاتا ہے۔ اللہ تعالیٰ اور اس کے رسول ﷺ نے اس عمل کی سختی سے مذمت کی ہے۔ تہمت لگانے والے کو دنیا اور آخرت میں سخت عذاب کی وعید سنائی گئی ہے۔</p>
+                <p>قرآن مجید میں اللہ تعالیٰ فرماتا ہے: "اور جو لوگ مومن مردوں اور مومن عورتوں کو بغیر کسی جرم کے ایذاء دیتے ہیں، انہوں نے جھوٹ اور واضح گناہ کا بوجھ اٹھایا۔" یہ آیت واضح کرتی ہے کہ جو لوگ مومنوں پر بلا وجہ تہمت لگاتے ہیں، وہ نہ صرف جھوٹے ہوتے ہیں بلکہ سنگین گناہ کے مرتکب بھی ہوتے ہیں۔</p>
+                <h2><strong>معاشرے میں تیزی سے پھیلنے والا بدبودار گناہ</strong></h2>
+                <p>تہمت ایک ایسا گناہ ہے جو معاشرے میں بہت تیزی <a href="#">سے پھیلتا ہے</a>۔ جب کوئی شخص کسی پر جھوٹا الزام لگاتا ہے، تو لوگ بغیر تحقیق کے اس بات کو آگے پھیلا دیتے ہیں۔ یہ گناہ اس وقت اور بھی زیادہ خطرناک ہو جاتا ہے جب سوشل میڈیا اور دیگر ذرائع ابلاغ کے ذریعے افواہیں اور جھوٹ تیزی سے پھیلتے ہیں۔</p>
+                <p>تہمت کی یہ بدبو معاشرتی تعلقات کو خراب کرتی ہے، لوگوں کے درمیان بدگمانی اور نفرت کو فروغ دیتی ہے اور ایک ایسا ماحول پیدا کرتی ہے جہاں لوگ ایک <a href="#">دوسرے پر شک</a> کرنے لگتے ہیں۔ تہمت کا نتیجہ اکثر بے گناہوں کی بدنامی اور ان کی زندگیوں کو برباد کرنے کی صورت میں نکلتا ہے۔</p>
+                <p>نبی اکرم ﷺ نے فرمایا: "جس نے کسی مومن پر وہ بات کہی جو اس میں نہیں تھی، اللہ اسے دوزخ میں ایک جگہ ٹھہرائے گا، یہاں تک کہ وہ اپنے کہے ہوئے سے بری ہو جائے۔" اس حدیث سے <a href="#">معلوم ہوتا ہے</a> کہ تہمت لگانے کی سزا کتنی سخت ہے اور یہ عمل اللہ کے نزدیک کتنا ناپسندیدہ ہے۔</p>
+                <h2><strong>اسلام میں اس کی ممانعت کی گئی ہے</strong></h2>
+                <p>اسلام نے تہمت لگانے کو سختی سے منع کیا ہے <a href="#">کیونکہ</a> یہ گناہ نہ صرف ایک فرد کی عزت کو نقصان پہنچاتا ہے بلکہ پورے معاشرتی ڈھانچے کو بھی متاثر کرتا ہے۔ قرآن و حدیث میں اس گناہ کی سخت ممانعت کی گئی ہے اور تہمت لگانے والوں کو دنیا و آخرت میں سخت عذاب کی وعید سنائی گئی ہے۔</p>
+                <p>قرآن مجید میں سورہ نور میں حضرت عائشہ رضی اللہ عنہا پر لگائے گئے جھوٹے الزام کے حوالے سے اللہ تعالیٰ نے تہمت لگانے والوں کی مذمت کی ہے اور فرمایا: "بیشک وہ لوگ جنہوں نے جھوٹا الزام لگایا، وہ تم میں سے ایک گروہ ہیں۔ اسے اپنے لیے برا نہ سمجھو، بلکہ یہ تمہارے لیے بہتر ہے۔"</p>
+                <p>اللہ تعالیٰ نے اس آیت میں تہمت لگانے والوں کی سخت سرزنش کی ہے اور بتایا کہ جو لوگ جھوٹے الزامات لگاتے ہیں، وہ ایک گناہ گار گروہ کا حصہ ہیں۔</p>
+                <p>آپ ﷺ نے فرمایا: "پاک دامن عورت پر تہمت لگانا سو برس کے عمل کو تباہ کرتا ہے۔"</p>
+                <p>ایک اور مقام پر مزید وضاحت فرمائی: "سات ہلاک کر دینے والی چیزوں سے بچو! صحابہ کرام نے پوچھا؟ کون سی چیزیں: آپ ﷺ نے فرمایا شرک، مال کی حرص، قتل، سود، یتیم کا مال کھانا، معرکے سے بھاگ جانا، مومن عورتوں پر تہمت لگانا"۔</p>
+                <h2><strong>ہم اس گناہ سے کیسے بچائیں خود کو؟</strong></h2>
+                <p>تہمت لگانے کے <a href="#">گناہ سے بچنے</a> کے لیے ہمیں درج ذیل اقدامات کرنے کی ضرورت ہے:</p>
+                <p><strong>غور و فکر کریں</strong>: تہمت لگانے سے پہلے ہمیں غور کرنا چاہیے کہ کیا ہم کسی پر جھوٹا الزام لگا رہے ہیں؟ اگر ہمیں کسی کی برائی یا غلطی کا یقین نہ ہو، تو ہمیں خاموشی اختیار کرنی چاہیے۔</p>
+                <p><strong>تحقیق کریں</strong>: اگر کسی کے بارے میں کوئی بات سنیں، تو فوراً اس پر یقین نہ کریں۔ قرآن مجید میں اللہ تعالیٰ نے فرمایا: "اے ایمان والو! اگر کوئی فاسق تمہارے پاس کوئی خبر لے کر آئے تو <a href="#">تحقیق کر لو</a>۔"</p>
+                <p><strong>حسنِ ظن رکھیں</strong>: ہمیشہ دوسروں کے بارے میں حسنِ ظن رکھیں اور ان کے اعمال کو نیک نیتی کے ساتھ دیکھنے کی کوشش کریں۔ بدگمانی اور تہمت معاشرتی بگاڑ کا سبب بنتی ہے، اس لیے ہمیں دوسروں کے بارے میں اچھا سوچنا چاہیے۔</p>
+                <p><strong>اللہ سے مدد مانگیں</strong>: اللہ تعالیٰ سے دعا کریں کہ وہ ہمیں تہمت لگانے کی بیماری سے محفوظ رکھے اور ہمارے دلوں کو حسد، بغض اور نفرت سے پاک کرے۔</p>
+                <p><strong>اخلاقی تربیت</strong>: اپنے آپ کو اور اپنے بچوں کو اسلامی تعلیمات کے مطابق تربیت دیں تاکہ ہم تہمت جیسے گناہوں سے بچ سکیں۔ رسول اللہ ﷺ نے فرمایا: "بیشک میں اچھے اخلاق کو مکمل کرنے کے لیے بھیجا گیا ہوں۔"</p>
+                <p>خلاصہ یہ کہ تہمت لگانا ایک نہایت سنگین گناہ ہے جس کی مذمت قرآن و حدیث میں کی گئی ہے۔ ہمیں اس گناہ سے بچنے کے لیے اسلامی تعلیمات کو اپنانا چاہیے، دوسروں کے بارے میں حسن ظن رکھنا چاہیے اور بلا تحقیق کوئی بات آگے نہیں پھیلانی چاہیے۔ اللہ تعالیٰ ہمیں اس برائی سے محفوظ رکھے اور ہماری زبانوں کو سچ بولنے کی توفیق عطا فرمائے۔ آمین۔</p>
+                <p>مزید آرٹیکل پڑھنے کے لیے <a href="#">ویب سائٹ</a> وزٹ کریں۔</p>
+            </div>
+
+            <!-- Reactions Section with correct IDs and onclick -->
+            <div class="reactions-wrapper">
+                <div class="reactions-title"><i class="fas fa-heart"></i> آپ کا ردعمل</div>
+                <div class="reactions-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+
+            <!-- Social Share Icons 7 platforms -->
+            <div class="share-section">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/" class="share-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ%207%20-%20تہمت%20لگانا%20https://bloglovers.pk/" class="share-btn whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://twitter.com/intent/tweet?text=غفلت%20میں%20چھپے%2050%20گناہ%207%20-%20تہمت%20لگانا&url=https://bloglovers.pk/" class="share-btn twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.pinterest.com/pin/create/button/?url=https://bloglovers.pk/&media=https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-7-thmt-lgana.png&description=تہمت%20لگانا" class="share-btn pinterest" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/&title=غفلت%20میں%20چھپے%2050%20گناہ%207" class="share-btn linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://t.me/share/url?url=https://bloglovers.pk/&text=غفلت%20میں%20چھپے%2050%20گناہ%207" class="share-btn telegram" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+                <div class="share-btn copy-link" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+            </div>
         </div>
 
-        <!-- سوشل میڈیا شیئر بٹن -->
-        <div class="share-section">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/" class="share-btn facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ%207%20-%20تہمت%20لگانا%20https://bloglovers.pk/" class="share-btn whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://twitter.com/intent/tweet?text=غفلت%20میں%20چھپے%2050%20گناہ%207%20-%20تہمت%20لگانا&url=https://bloglovers.pk/" class="share-btn twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.pinterest.com/pin/create/button/?url=https://bloglovers.pk/&media=https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-7-thmt-lgana.png&description=تہمت%20لگانا" class="share-btn pinterest" target="_blank"><i class="fab fa-pinterest-p"></i></a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/&title=غفلت%20میں%20چھپے%2050%20گناہ%207" class="share-btn linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://t.me/share/url?url=https://bloglovers.pk/&text=غفلت%20میں%20چھپے%2050%20گناہ%207" class="share-btn telegram" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+        <!-- Sidebar with Auto Scroll -->
+        <div class="sidebar">
+            <h3><i class="fas fa-book-open"></i> متعلقہ پوسٹس</h3>
+            <div class="sidebar-scroll" id="sidebarScroll">
+                <div class="scroll-inner" id="scrollInner">
+                    <!-- dynamic sidebar items via JS to ensure smooth loop? but we populate static with given list and duplicate for seamless loop -->
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- reactions.js (external) -->
+    <script src="/reactions.js"></script>
     <script>
-        // تمام اندرونی لنکس کو بے اثر کرنا (پہلے سے ہی css میں pointer-events: none ہے)
-        // کسی بھی باقی رہ جانے والے لنکس کو روکنے کے لیے
+        // Function to copy page link
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert("لنک کاپی ہو گیا!");
+            });
+        }
+
+        // Disable internal links inside post-content
         document.querySelectorAll('.post-content a').forEach(link => {
             link.addEventListener('click', (e) => e.preventDefault());
         });
+
+        // Build sidebar items list according to requirement
+        const postsList = [
+            { name: "5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+            { name: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+            { name: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+            { name: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+            { name: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+            { name: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+            { name: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+            { name: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+            { name: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+            { name: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+            { name: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+            { name: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+            { name: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+        ];
+
+        const currentUrl = window.location.href;
+        function buildSidebar() {
+            const container = document.getElementById('scrollInner');
+            if (!container) return;
+            container.innerHTML = '';
+            // double items for infinite scroll effect
+            const doubled = [...postsList, ...postsList];
+            doubled.forEach(post => {
+                const isActive = currentUrl.includes(post.link) || (post.link === currentUrl);
+                const itemDiv = document.createElement('a');
+                itemDiv.href = post.link;
+                itemDiv.target = "_blank";
+                itemDiv.className = "sidebar-item";
+                if(isActive) itemDiv.classList.add('active');
+                const img = document.createElement('img');
+                img.src = post.img;
+                img.alt = post.name;
+                img.onerror = function(){ this.src='https://via.placeholder.com/55?text=image'; };
+                const span = document.createElement('span');
+                span.textContent = post.name;
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(span);
+                container.appendChild(itemDiv);
+            });
+        }
+        buildSidebar();
+
+        // Reset animation on hover to pause/resume but keep seamless - we already use CSS pause on hover.
+        // Ensure the scroll animation works correctly with duplicated content.
+        const scrollDiv = document.querySelector('.sidebar-scroll');
+        if(scrollDiv) {
+            // adjust animation speed based on content height (but default 30s works)
+            scrollDiv.style.animation = 'scrollUp 30s linear infinite';
+        }
+        
+        // No duplicate reactions functions here (already removed loadReactions, updateReactionsUI, addReaction, API_URL)
+        // reactionClick will be provided by /reactions.js (external)
+        // Also we need to keep window copyPageLink
+        window.copyPageLink = copyPageLink;
     </script>
 </body>
 </html>
