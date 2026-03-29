@@ -17,134 +17,289 @@
 
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            line-height: 2.2;
+            line-height: 1.8;  /* adjusted for small font readability */
             direction: rtl;
             text-align: right;
-            background: #0b1a2e; /* deep twilight fallback */
+            background: linear-gradient(145deg, #f8f0ff 0%, #e6e9ff 100%);
             min-height: 100vh;
             padding: 20px;
             position: relative;
-            color: #f0f0e0;
+            color: #1e1a2f;
         }
 
-        /* ===== ANIMATED SUNSET BACKGROUND (MOVING GRADIENT + DUSTY GLOW) ===== */
-        .sunset-aura {
+        /* multi-color dynamic background */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
-            background: linear-gradient(124deg, #ff7e5f, #feb47b, #ffb88c, #f5d0a9, #6b5b95, #1e2b3a);
-            background-size: 400% 400%;
-            animation: sunsetDrift 22s ease infinite;
-            opacity: 0.8;
-        }
-
-        @keyframes sunsetDrift {
-            0% { background-position: 0% 70%; }
-            25% { background-position: 30% 30%; }
-            50% { background-position: 80% 20%; }
-            75% { background-position: 40% 60%; }
-            100% { background-position: 0% 70%; }
-        }
-
-        /* floating subtle particles (dust motes) for hover magic */
-        .sunset-aura::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 40%, rgba(255, 220, 150, 0.2) 0%, transparent 25%),
-                        radial-gradient(circle at 80% 70%, rgba(255, 180, 100, 0.25) 0%, transparent 35%);
+            background: radial-gradient(circle at 10% 20%, rgba(200, 150, 255, 0.15), rgba(255, 200, 200, 0.1), rgba(135, 206, 235, 0.1));
+            z-index: -1;
             pointer-events: none;
         }
 
-        /* main card with glassmorphism + hover glow */
+        /* main card with multi-color glass border and light background */
         .post-card {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 30px auto;
-            background: rgba(15, 25, 35, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 40px 40px 30px 30px;
-            padding: 30px 35px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 0 2px rgba(255, 180, 70, 0.2) inset;
-            transition: all 0.5s ease;
-            border: 1px solid rgba(255, 210, 140, 0.3);
+            background: rgba(255, 250, 245, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 48px 48px 40px 40px;
+            padding: 28px 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(128, 90, 210, 0.3), 0 8px 20px rgba(156, 70, 255, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(200, 160, 255, 0.6);
         }
 
         .post-card:hover {
-            box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 0 4px #feb47b inset, 0 0 30px #f5b042;
-            background: rgba(20, 32, 45, 0.85);
-            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 28px 48px rgba(100, 50, 180, 0.2), 0 0 0 2px #c084fc inset;
+            background: rgba(255, 253, 250, 0.96);
         }
 
-        /* headings */
+        /* multi coloring headings */
         h1 {
-            font-size: 2.2rem;
-            color: #ffefcf;
-            text-shadow: 0 2px 10px #e67e22, 2px 4px 12px #00000080;
-            border-bottom: 3px solid #ff9966;
-            padding-bottom: 15px;
-            margin: 10px 0 25px 0;
-            letter-spacing: 1px;
-            line-height: 1.6;
+            font-size: 1.85rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed, #db2777, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            border-right: 6px solid #f97316;
+            padding: 10px 20px 10px 0;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.2px;
+            line-height: 1.5;
         }
 
-        h2, h3 {
-            font-size: 1.8rem;
-            color: #ffe6b3;
-            background: linear-gradient(145deg, #2d4a5e, #1d3342);
+        h2 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, #a21caf, #3b82f6, #ec489a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             display: inline-block;
-            padding: 8px 25px 8px 25px;
-            border-radius: 0 50px 50px 0;
-            box-shadow: -8px 8px 12px #00000040, 0 0 0 2px #ffb86b inset;
-            margin: 25px 0 15px -10px;
-            border-right: 6px solid #ffb26b;
-            text-shadow: 2px 2px 0 #00000050;
+            padding: 4px 20px 4px 12px;
+            border-radius: 0 40px 40px 0;
+            margin: 20px 0 12px -10px;
+            border-right: 5px solid #f97316;
+            letter-spacing: -0.2px;
         }
 
         h3 {
-            font-size: 1.5rem;
-            background: linear-gradient(145deg, #234a61, #0f2f40);
-            border-right-color: #f59e5c;
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #d946ef, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 18px 0 10px;
+            border-right: 4px solid #f59e0b;
+            padding-right: 16px;
         }
 
-        /* paragraph text */
+        /* small font size, proper spacing */
+        p, li, .reaction-text, .reaction-count {
+            font-size: 1rem;
+            line-height: 1.75;
+            letter-spacing: 0.2px;
+            word-spacing: 1px;
+            color: #2c2a3a;
+        }
+
         p {
-            font-size: 1.3rem;
+            margin: 1rem 0;
             text-align: justify;
-            color: #f2e6d5;
-            margin: 1.4rem 0;
-            text-shadow: 0 1px 4px black;
         }
 
-        /* image display after title (full width) */
         .featured-image {
             width: 100%;
-            margin: 20px 0 30px 0;
-            border-radius: 30px;
+            margin: 12px 0 28px 0;
+            border-radius: 32px;
             overflow: hidden;
-            box-shadow: 0 25px 40px -10px black;
-            border: 3px solid #fba76f;
-            transition: transform 0.5s, box-shadow 0.5s;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            border: 2px solid #f0a3c4;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .featured-image img {
             width: 100%;
             height: auto;
             display: block;
-            object-fit: cover;
-            transition: 0.5s;
         }
 
         .featured-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 35px 55px -5px #ffbb88;
+            transform: scale(1.01);
+            box-shadow: 0 18px 35px rgba(160, 100, 210, 0.4);
         }
 
-        /* navigation buttons panel */
+        /* reactions styling - multi color */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin: 35px 0 25px;
+            padding: 15px 10px;
+            background: rgba(236, 215, 255, 0.3);
+            border-radius: 60px;
+            border: 1px solid #d9c5ff;
+        }
+
+        .reaction-btn {
+            background: white;
+            border: none;
+            border-radius: 60px;
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2d4ff;
+            background: linear-gradient(145deg, #ffffff, #faf5ff);
+        }
+
+        .reaction-btn:hover {
+            transform: translateY(-5px);
+            background: #fff0f5;
+            box-shadow: 0 12px 18px rgba(168, 85, 247, 0.2);
+            border-color: #c084fc;
+        }
+
+        .reaction-emoji {
+            font-size: 1.3rem;
+        }
+
+        .reaction-text {
+            font-weight: 600;
+            color: #4c2f7a;
+        }
+
+        .reaction-count {
+            background: #e9e0ff;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #4a1d8c;
+        }
+
+        /* sidebar auto-scroll (right side) */
+        .sidebar-scroll {
+            position: fixed;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 260px;
+            height: 500px;
+            background: rgba(255, 248, 245, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 36px;
+            box-shadow: 0 25px 45px rgba(120, 60, 200, 0.25);
+            border: 1px solid rgba(200, 130, 250, 0.7);
+            overflow: hidden;
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            padding: 12px 0;
+        }
+
+        .sidebar-scroll h4 {
+            text-align: center;
+            font-size: 1.15rem;
+            background: linear-gradient(135deg, #a855f7, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border-bottom: 2px dashed #d8b4fe;
+            padding-bottom: 8px;
+        }
+
+        .scroll-list {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding: 5px 12px;
+        }
+
+        .scroll-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            animation: autoScroll 30s linear infinite;
+        }
+
+        .sidebar-scroll:hover .scroll-list ul {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* duplicate UL trick for infinite scroll */
+        .scroll-list .double-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px;
+            background: rgba(245, 240, 255, 0.7);
+            border-radius: 28px;
+            transition: all 0.2s;
+            border: 1px solid #f0d9ff;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-item img {
+            width: 45px;
+            height: 45px;
+            border-radius: 28px;
+            object-fit: cover;
+            border: 2px solid #f3b3d2;
+        }
+
+        .sidebar-item a {
+            font-size: 0.85rem;
+            color: #2e236b;
+            text-decoration: none;
+            font-weight: 500;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .sidebar-item:hover {
+            background: #f1e5ff;
+            transform: translateX(-5px);
+            border-color: #c2410c;
+        }
+
+        /* main content shift for sidebar */
+        .post-card {
+            margin-right: 300px;
+        }
+
+        @media (max-width: 950px) {
+            .sidebar-scroll { display: none; }
+            .post-card { margin-right: auto; margin-left: auto; }
+        }
+
+        /* navigation panel */
         .nav-panel {
             display: flex;
             flex-wrap: wrap;
@@ -154,67 +309,62 @@
         }
 
         .nav-btn {
-            background: linear-gradient(145deg, #fda85b, #e67e22);
+            background: linear-gradient(145deg, #f4a261, #e76f51);
             color: #1f1a15;
             font-weight: bold;
-            padding: 12px 25px;
+            padding: 10px 25px;
             border-radius: 60px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 12px 20px #00000060, 0 0 0 2px #ffe5c4 inset;
-            transition: all 0.35s;
+            box-shadow: 0 8px 14px rgba(0,0,0,0.2);
+            transition: all 0.3s;
             border: none;
             cursor: pointer;
             font-family: inherit;
         }
 
         .nav-btn i {
-            font-size: 1.3rem;
-            color: #2c1f10;
+            font-size: 1.1rem;
         }
 
         .nav-btn:hover {
-            background: linear-gradient(145deg, #ffbe76, #f39c12);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 30px #000000b0, 0 0 15px #ffcf9a;
-            color: black;
+            background: linear-gradient(145deg, #f4a261, #f4a261);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 22px rgba(0,0,0,0.25);
         }
 
-        /* social share buttons (multiple platforms) */
+        /* social share buttons */
         .social-share {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
             justify-content: center;
-            margin: 35px 0 20px;
+            margin: 25px 0 10px;
         }
 
         .share-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 55px;
-            height: 55px;
-            border-radius: 80px;
-            font-size: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 60px;
+            font-size: 1.5rem;
             color: white;
-            background: #2d3e55;
-            transition: 0.4s;
-            box-shadow: 0 10px 15px #00000070;
-            border: 2px solid #ffd8ae;
+            background: #6c4e9e;
+            transition: 0.3s;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+            border: 1px solid #f7e5c2;
             text-decoration: none;
         }
 
         .share-btn:hover {
-            transform: translateY(-12px) rotate(8deg);
-            filter: drop-shadow(0 0 12px gold);
-            border-color: white;
+            transform: translateY(-8px);
+            filter: drop-shadow(0 0 8px gold);
         }
-
-        .share-btn .fab, .share-btn .fas { transition: 0.2s; }
 
         .share-btn[data-platform="facebook"]:hover { background: #1877f2; }
         .share-btn[data-platform="twitter"]:hover { background: #1da1f2; }
@@ -224,164 +374,172 @@
         .share-btn[data-platform="pinterest"]:hover { background: #e60023; }
         .share-btn[data-platform="email"]:hover { background: #b3421b; }
 
-        /* page up/down buttons fixed */
+        /* floating scroll buttons */
         .page-up, .page-down {
             position: fixed;
-            left: 25px;
-            background: #f39c12;
-            color: #1b1e2a;
-            width: 60px;
-            height: 60px;
+            right: 25px;
+            background: #f97316;
+            color: white;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.3rem;
-            box-shadow: 0 10px 25px black;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 18px black;
             cursor: pointer;
-            transition: 0.4s;
-            border: 3px solid #ffcd94;
+            transition: 0.3s;
+            border: 2px solid #ffd89a;
             z-index: 99;
             text-decoration: none;
-            opacity: 0.8;
+            opacity: 0.85;
         }
-
-        .page-up {
-            bottom: 100px;
-        }
-        .page-down {
-            bottom: 25px;
-        }
-
+        .page-up { bottom: 100px; }
+        .page-down { bottom: 30px; }
         .page-up:hover, .page-down:hover {
-            background: #f5b041;
-            transform: scale(1.2) translateY(-8px);
+            background: #f4a261;
+            transform: scale(1.15);
             opacity: 1;
-            border-color: white;
-            box-shadow: 0 0 30px #f7b731;
         }
 
-        /* links (remove internal linking but style external if any) */
-        a {
-            text-decoration: none;
+        hr {
+            margin: 20px 0;
+            border-color: #e0c4ff;
         }
 
-        /* remove any leftover internal links – we strip them manually, but keep style neutral for leftover */
-        .post-card a:not(.nav-btn):not(.share-btn):not(.page-up):not(.page-down) {
-            color: #ffbc7c;
-            border-bottom: 1px dotted #f57c42;
-            background: transparent;
-            font-weight: 500;
-        }
-
-        /* lists (if appear) */
-        ul, ol {
-            font-size: 1.25rem;
-            padding-right: 2rem;
-            color: #f0dfc0;
-        }
-
-        li {
-            margin: 0.7rem 0;
-        }
-
-        /* override image border for any extra img inside content */
-        .post-card img:not(.featured-image img) {
-            max-width: 100%;
-            border-radius: 20px;
-            margin: 25px auto;
-            display: block;
-        }
-
-        /* ensure all internal draft links become plain text? we'll remove via html later */
-        /* mobile fine-tuning */
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .post-card { padding: 20px; }
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.5rem; }
-            p { font-size: 1.1rem; }
-            .nav-panel { flex-direction: column; align-items: stretch; }
-            .nav-btn { justify-content: center; }
-            .share-btn { width: 45px; height: 45px; font-size: 1.6rem; }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #4b3b6e;
         }
     </style>
 </head>
 <body>
 
-    <!-- animated sunset background -->
-    <div class="sunset-aura"></div>
-
-    <!-- fixed navigation arrows (up/down) -->
-    <a href="#" class="page-up" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
-    <a href="#" class="page-down" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
-
-    <!-- main post card -->
-    <div class="post-card">
-
-        <!-- main heading size normal (worth reading) -->
-        <h1>غفلت میں چھپے 50 گناہ: 37 - غیر اللہ کے نام پر ذبح کرنا</h1>
-
-        <!-- IMAGE: exactly after title, full width, new link (single image) -->
-        <div class="featured-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-37-ghyr-allah-ke-nam-par-zbh-krna.png" alt="غیر اللہ کے نام پر ذبح کرنا">
-        </div>
-
-        <!-- POST CONTENT (exact text, no word changed) -->
-        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں سینتیسواں گناہ غیر اللہ کے نام پر ذبح کرنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-        <p>غیر اللہ کے نام پر ذبح کرنے سے مراد وہ عمل ہے جس میں کسی جانور کو اللہ کے نام کے بجائے کسی اور ہستی، شخصیت، یا مخلوق کے نام پر ذبح کیا جاتا ہے۔ اسلام میں جانوروں کو اللہ کے نام پر ذبح کرنے کا حکم دیا گیا ہے، اور غیر اللہ کے نام پر ذبح کرنے کو سختی سے منع کیا گیا ہے، کیونکہ یہ توحید کی خلاف ورزی ہے اور شرک کے مترادف ہے۔</p>
-        <!-- (the old image tag removed, we already have new one) -->
-
-        <p>اللہ تعالیٰ نے قرآن میں واضح طور پر حکم دیا ہے کہ: "پس تم اس (جانور) میں سے کھاؤ جس پر اللہ کا نام لیا گیا ہو اگر تم اس کی آیات پر ایمان رکھتے ہو۔"</p>
-        <p>اسلام سے پہلے اہل عرب جاہلیت کے دور میں مختلف بتوں، دیوی دیوتاؤں اور اولیاء کے نام پر جانور ذبح کیا کرتے تھے۔ یہ لوگ کعبہ میں رکھے ہوئے بتوں کو خوش کرنے کے لیے ان کے نام پر قربانی کیا کرتے تھے۔ اس عمل کا مقصد ان بتوں سے مدد مانگنا، ان کو خوش کرنا اور اپنی مرادوں کی تکمیل تھا۔</p>
-        <p>اللہ تعالیٰ نے ان کی اس جاہلیت پر سخت تنقید کرتے ہوئے فرمایا: "اور (وہ جانور) جو قربان گاہوں پر غیر اللہ کے نام پر ذبح کیے گئے ہوں۔" یہ واضح حکم اس بات کی دلیل ہے کہ غیر اللہ کے نام پر ذبح کرنا ایک بڑا گناہ اور شرک کے زمرے میں آتا ہے۔</p>
-        <p>غیر اللہ کے نام پر ذبح کرنے کا تصور دیگر مذاہب میں بھی پایا جاتا ہے۔ ہندو مذہب میں دیوی دیوتاؤں کے نام پر جانوروں کی قربانی دی جاتی ہے۔ بدھ مت میں بھی ماضی میں کچھ رسوم تھیں جن میں دیوتاؤں کو خوش کرنے کے لیے قربانی کی جاتی تھی۔ یہودیوں اور عیسائیوں میں بھی کچھ فرقے اور قبائل ایسے تھے جو غیر اللہ کے نام پر ذبح کرنے کی رسومات ادا کرتے تھے۔</p>
-        <p>ایک روایت کے مطابق نبی اکرم ﷺ نے فرمایا: "ایک شخص مکھی غیر اللہ کے نام پر مارنے پر جہنم میں داخل ہوگیا، اور ایک دوسرا شخص مکھی کے نہ مارنے پر جنت میں داخل ہوگیا۔" یہ واقعہ بنی اسرائیل کے ایک شخص کے بارے میں ہے جسے کسی غیر اللہ کے نام پر مکھی مارنے کا کہا گیا تھا، اس نے مکھی ماری اور اس عمل کی پاداش میں جہنم میں چلا گیا۔ یہ واقعہ اس بات کی نشاندہی کرتا ہے کہ اللہ کے علاوہ کسی اور کے نام پر معمولی سا بھی عمل کرنا کتنا سنگین گناہ ہو سکتا ہے۔</p>
-        <p>عیسائیت میں بھی شروع کے دور میں غیر اللہ کے نام پر ذبح کرنے کا رواج پایا جاتا تھا، خاص طور پر قدیم رومی تہذیب میں جو عیسائیت کے ابتدائی دور میں پائی جاتی تھی۔ وہاں پر دیوتاؤں اور مقدس ہستیوں کے نام پر قربانیاں دی جاتی تھیں تاکہ ان کی رضا حاصل کی جا سکے۔ بعد میں، عیسائیت کے بیشتر فرقوں میں اس عمل کو ختم کر دیا گیا، لیکن اب بھی بعض روایات میں اس کی باقیات موجود ہیں۔</p>
-        <p>اسلام نے غیر اللہ کے نام پر ذبح کرنے کو مکمل طور پر منع فرمایا، کیونکہ یہ توحید کی بنیادوں کو کھوکھلا کرتا ہے اور شرک کی طرف لے جاتا ہے۔ اللہ تعالیٰ نے قرآن مجید میں واضح حکم دیا: "پس اللہ کے ساتھ کسی کو شریک نہ ٹھہراؤ۔" یہی وجہ ہے کہ اسلام میں کسی بھی جانور کو ذبح کرتے وقت صرف اللہ کا نام لینا ضروری ہے، اور اگر غیر اللہ کا نام لیا جائے تو وہ جانور حرام ہو جاتا ہے۔ نبی اکرم ﷺ نے فرمایا: "جس شخص نے غیر اللہ کے نام پر ذبح کی، وہ لعنت کا مستحق ہے۔"</p>
-        <p>اسلامی مکاتب فکر جیسے دیوبند، بریلوی، اہل تشیع اور اہل حدیث سبھی غیر اللہ کے نام پر ذبح کرنے کو گناہ اور شرک سمجھتے ہیں، لیکن بعض فرقے مختلف رسوم کے دوران اس کو جائز سمجھنے کی کوشش کرتے ہیں۔</p>
-        <p><strong>دیوبند</strong>: اس مکتب فکر میں غیر اللہ کے نام پر ذبح کرنا مکمل طور پر حرام اور شرک قرار دیا جاتا ہے۔</p>
-        <p><strong>بریلوی</strong>: بعض بریلوی علماء کا ماننا ہے کہ اگر نیت اللہ کے لیے ہو اور نذر و نیاز اولیاء کے نام پر دی جائے تو وہ جائز ہے، لیکن یہ عمل اسلام کی تعلیمات کے خلاف ہے۔</p>
-        <p><strong>اہل حدیث</strong>: اہل حدیث مکتب فکر میں بھی غیر اللہ کے نام پر ذبح کرنا شرک اور حرام سمجھا جاتا ہے۔</p>
-        <p><strong>اہل تشیع</strong>: اہل تشیع میں بھی غیر اللہ کے نام پر ذبح کرنے کو ناپسندیدہ اور ناجائز سمجھا جاتا ہے۔</p>
-        <p>پاکستان میں مختلف رسومات اور تقریبات کے دوران غیر اللہ کے نام پر ذبح کرنے کا رواج پایا جاتا ہے، خاص طور پر عرس، مزاروں، اور پیر صاحب کے نام پر جانور ذبح کیے جاتے ہیں۔ لوگ اس عمل کو اس نیت سے انجام دیتے ہیں کہ ان کی مرادیں پوری ہوں گی یا ان کو برکت ملے گی، جو کہ سراسر اسلام کے احکامات کے خلاف ہے۔</p>
-        <p>یہ گناہ لوگوں کی نظروں میں معمولی اس لیے بن گیا ہے کہ معاشرے میں بدعات اور رسوم و رواج کو اسلام کی اصل تعلیمات پر فوقیت دی گئی ہے۔ عرس، مزاروں پر منتیں، پیر صاحب کو خوش کرنے کے لیے جانوروں کی قربانی جیسے اعمال کو لوگ نیکی سمجھ کر انجام دیتے ہیں، حالانکہ یہ شرک کی راہ پر لے جانے والے اعمال ہیں۔</p>
-        <p>"محفل میلاد پر، کونڈے، نیاز، اور دیگر بدعتی رسومات سرانجام دینے کے لیے غیر اللہ کے نام پر ذبح کیے جاتے ہیں۔ یہ تمام اعمال اسلام کی اصل روح کے خلاف ہیں اور اس سے بچنا ضروری ہے۔</p>
-        <p><strong>توحید کا علم حاصل کریں</strong>: سب سے پہلے توحید کی تعلیمات کو سمجھیں اور شرک سے بچیں۔</p>
-        <p><strong>اسلامی تعلیمات پر عمل کریں</strong>: قرآن و سنت کے مطابق عمل کرنا ضروری ہے۔</p>
-        <p><strong>بدعات سے بچیں</strong>: بدعتی رسومات سے دور رہیں جو دین میں اضافے کے مترادف ہیں۔</p>
-        <p><strong>شرعی علماء کی رہنمائی</strong>: دینی علماء سے رہنمائی حاصل کریں جو قرآن و حدیث کی روشنی میں مسائل کا حل بتاتے ہیں۔</p>
-        <p>اللہ ہمیں شرک اور بدعات سے محفوظ رکھے اور ہمیں صحیح اسلامی تعلیمات پر عمل کرنے کی توفیق دے۔ آمین!</p>
-        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-
-        <!-- ALL internal linking removed as requested — the following links originally pointed to blogspot drafts, they are kept as plain text without hyperlinks. Also no anchor tags remain except navigation & share. The text remains same. -->
-        <p>جوا کھیلنا، بیوی کو خاوند کے خلاف بھڑکانا، لعنت کرنا، احسان جتلانا، دیوث بننا، میلاد منانا، حلالہ کرنا یا کروانا، ہم جنس پرستی</p>
-        <p>جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، سود کھانا، ظلم کرنا، رشوت لینا یا دینا، زنا کرنا</p>
-
-        <!-- HOME & BACK buttons (homepage / back category) -->
-        <div class="nav-panel">
-            <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</a>
-        </div>
-
-        <!-- multiple social media sharing buttons -->
-        <div class="social-share">
-            <a href="#" class="share-btn" data-platform="facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="share-btn" data-platform="twitter" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.title)+'%20'+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" class="share-btn" data-platform="whatsapp" onclick="window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(document.title+' '+window.location.href),'_blank')"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="share-btn" data-platform="telegram" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank')"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#" class="share-btn" data-platform="linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="share-btn" data-platform="pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url='+encodeURIComponent(window.location.href)+'&media=&description='+encodeURIComponent(document.title),'_blank')"><i class="fab fa-pinterest-p"></i></a>
-            <a href="#" class="share-btn" data-platform="email" onclick="window.location.href='mailto:?subject='+encodeURIComponent(document.title)+'&body='+encodeURIComponent(window.location.href)"><i class="fas fa-envelope"></i></a>
+<!-- FIXED SIDEBAR (auto-scroll) -->
+<div class="sidebar-scroll">
+    <h4><i class="fas fa-book-open"></i> مزید پڑھیں</h4>
+    <div class="scroll-list">
+        <div class="double-list" id="sidebarList">
+            <!-- items will be injected via js but also static for fallback, but we build via JS for simplicity to ensure smooth -->
         </div>
     </div>
+</div>
 
-    <!-- tiny script to smooth scroll (extra) -->
-    <script>
-        (function() {
-            // ensure any stray # links don't cause page jump, but fine.
-            // also remove potential inline events from old draft blogger (already sanitized)
-        })();
-    </script>
+<!-- floating arrows -->
+<a href="#" class="page-up" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+<a href="#" class="page-down" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
+
+<div class="post-card">
+    <h1>غفلت میں چھپے 50 گناہ: 37 - غیر اللہ کے نام پر ذبح کرنا</h1>
+
+    <div class="featured-image">
+        <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-37-ghyr-allah-ke-nam-par-zbh-krna.png" alt="غیر اللہ کے نام پر ذبح کرنا">
+    </div>
+
+    <!-- main content -->
+    <p>غفلت میں چھپے 50 گناہوں کی فہرست میں سینتیسواں گناہ غیر اللہ کے نام پر ذبح کرنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+    <p>غیر اللہ کے نام پر ذبح کرنے سے مراد وہ عمل ہے جس میں کسی جانور کو اللہ کے نام کے بجائے کسی اور ہستی، شخصیت، یا مخلوق کے نام پر ذبح کیا جاتا ہے۔ اسلام میں جانوروں کو اللہ کے نام پر ذبح کرنے کا حکم دیا گیا ہے، اور غیر اللہ کے نام پر ذبح کرنے کو سختی سے منع کیا گیا ہے، کیونکہ یہ توحید کی خلاف ورزی ہے اور شرک کے مترادف ہے۔</p>
+    <p>اللہ تعالیٰ نے قرآن میں واضح طور پر حکم دیا ہے کہ: "پس تم اس (جانور) میں سے کھاؤ جس پر اللہ کا نام لیا گیا ہو اگر تم اس کی آیات پر ایمان رکھتے ہو۔"</p>
+    <p>اسلام سے پہلے اہل عرب جاہلیت کے دور میں مختلف بتوں، دیوی دیوتاؤں اور اولیاء کے نام پر جانور ذبح کیا کرتے تھے۔ یہ لوگ کعبہ میں رکھے ہوئے بتوں کو خوش کرنے کے لیے ان کے نام پر قربانی کیا کرتے تھے۔ اس عمل کا مقصد ان بتوں سے مدد مانگنا، ان کو خوش کرنا اور اپنی مرادوں کی تکمیل تھا۔</p>
+    <p>اللہ تعالیٰ نے ان کی اس جاہلیت پر سخت تنقید کرتے ہوئے فرمایا: "اور (وہ جانور) جو قربان گاہوں پر غیر اللہ کے نام پر ذبح کیے گئے ہوں۔" یہ واضح حکم اس بات کی دلیل ہے کہ غیر اللہ کے نام پر ذبح کرنا ایک بڑا گناہ اور شرک کے زمرے میں آتا ہے۔</p>
+    <p>غیر اللہ کے نام پر ذبح کرنے کا تصور دیگر مذاہب میں بھی پایا جاتا ہے۔ ہندو مذہب میں دیوی دیوتاؤں کے نام پر جانوروں کی قربانی دی جاتی ہے۔ بدھ مت میں بھی ماضی میں کچھ رسوم تھیں جن میں دیوتاؤں کو خوش کرنے کے لیے قربانی کی جاتی تھی۔ یہودیوں اور عیسائیوں میں بھی کچھ فرقے اور قبائل ایسے تھے جو غیر اللہ کے نام پر ذبح کرنے کی رسومات ادا کرتے تھے۔</p>
+    <p>ایک روایت کے مطابق نبی اکرم ﷺ نے فرمایا: "ایک شخص مکھی غیر اللہ کے نام پر مارنے پر جہنم میں داخل ہوگیا، اور ایک دوسرا شخص مکھی کے نہ مارنے پر جنت میں داخل ہوگیا۔" یہ واقعہ بنی اسرائیل کے ایک شخص کے بارے میں ہے جسے کسی غیر اللہ کے نام پر مکھی مارنے کا کہا گیا تھا، اس نے مکھی ماری اور اس عمل کی پاداش میں جہنم میں چلا گیا۔ یہ واقعہ اس بات کی نشاندہی کرتا ہے کہ اللہ کے علاوہ کسی اور کے نام پر معمولی سا بھی عمل کرنا کتنا سنگین گناہ ہو سکتا ہے۔</p>
+    <p>عیسائیت میں بھی شروع کے دور میں غیر اللہ کے نام پر ذبح کرنے کا رواج پایا جاتا تھا، خاص طور پر قدیم رومی تہذیب میں جو عیسائیت کے ابتدائی دور میں پائی جاتی تھی۔ وہاں پر دیوتاؤں اور مقدس ہستیوں کے نام پر قربانیاں دی جاتی تھیں تاکہ ان کی رضا حاصل کی جا سکے۔ بعد میں، عیسائیت کے بیشتر فرقوں میں اس عمل کو ختم کر دیا گیا، لیکن اب بھی بعض روایات میں اس کی باقیات موجود ہیں۔</p>
+    <p>اسلام نے غیر اللہ کے نام پر ذبح کرنے کو مکمل طور پر منع فرمایا، کیونکہ یہ توحید کی بنیادوں کو کھوکھلا کرتا ہے اور شرک کی طرف لے جاتا ہے۔ اللہ تعالیٰ نے قرآن مجید میں واضح حکم دیا: "پس اللہ کے ساتھ کسی کو شریک نہ ٹھہراؤ۔" یہی وجہ ہے کہ اسلام میں کسی بھی جانور کو ذبح کرتے وقت صرف اللہ کا نام لینا ضروری ہے، اور اگر غیر اللہ کا نام لیا جائے تو وہ جانور حرام ہو جاتا ہے۔ نبی اکرم ﷺ نے فرمایا: "جس شخص نے غیر اللہ کے نام پر ذبح کی، وہ لعنت کا مستحق ہے۔"</p>
+    <p>اسلامی مکاتب فکر جیسے دیوبند، بریلوی، اہل تشیع اور اہل حدیث سبھی غیر اللہ کے نام پر ذبح کرنے کو گناہ اور شرک سمجھتے ہیں، لیکن بعض فرقے مختلف رسوم کے دوران اس کو جائز سمجھنے کی کوشش کرتے ہیں۔</p>
+    <p><strong>دیوبند</strong>: اس مکتب فکر میں غیر اللہ کے نام پر ذبح کرنا مکمل طور پر حرام اور شرک قرار دیا جاتا ہے۔</p>
+    <p><strong>بریلوی</strong>: بعض بریلوی علماء کا ماننا ہے کہ اگر نیت اللہ کے لیے ہو اور نذر و نیاز اولیاء کے نام پر دی جائے تو وہ جائز ہے، لیکن یہ عمل اسلام کی تعلیمات کے خلاف ہے۔</p>
+    <p><strong>اہل حدیث</strong>: اہل حدیث مکتب فکر میں بھی غیر اللہ کے نام پر ذبح کرنا شرک اور حرام سمجھا جاتا ہے۔</p>
+    <p><strong>اہل تشیع</strong>: اہل تشیع میں بھی غیر اللہ کے نام پر ذبح کرنے کو ناپسندیدہ اور ناجائز سمجھا جاتا ہے۔</p>
+    <p>پاکستان میں مختلف رسومات اور تقریبات کے دوران غیر اللہ کے نام پر ذبح کرنے کا رواج پایا جاتا ہے، خاص طور پر عرس، مزاروں، اور پیر صاحب کے نام پر جانور ذبح کیے جاتے ہیں۔ لوگ اس عمل کو اس نیت سے انجام دیتے ہیں کہ ان کی مرادیں پوری ہوں گی یا ان کو برکت ملے گی، جو کہ سراسر اسلام کے احکامات کے خلاف ہے۔</p>
+    <p>یہ گناہ لوگوں کی نظروں میں معمولی اس لیے بن گیا ہے کہ معاشرے میں بدعات اور رسوم و رواج کو اسلام کی اصل تعلیمات پر فوقیت دی گئی ہے۔ عرس، مزاروں پر منتیں، پیر صاحب کو خوش کرنے کے لیے جانوروں کی قربانی جیسے اعمال کو لوگ نیکی سمجھ کر انجام دیتے ہیں، حالانکہ یہ شرک کی راہ پر لے جانے والے اعمال ہیں۔</p>
+    <p>"محفل میلاد پر، کونڈے، نیاز، اور دیگر بدعتی رسومات سرانجام دینے کے لیے غیر اللہ کے نام پر ذبح کیے جاتے ہیں۔ یہ تمام اعمال اسلام کی اصل روح کے خلاف ہیں اور اس سے بچنا ضروری ہے۔</p>
+    <p><strong>توحید کا علم حاصل کریں</strong>: سب سے پہلے توحید کی تعلیمات کو سمجھیں اور شرک سے بچیں۔</p>
+    <p><strong>اسلامی تعلیمات پر عمل کریں</strong>: قرآن و سنت کے مطابق عمل کرنا ضروری ہے۔</p>
+    <p><strong>بدعات سے بچیں</strong>: بدعتی رسومات سے دور رہیں جو دین میں اضافے کے مترادف ہیں۔</p>
+    <p><strong>شرعی علماء کی رہنمائی</strong>: دینی علماء سے رہنمائی حاصل کریں جو قرآن و حدیث کی روشنی میں مسائل کا حل بتاتے ہیں۔</p>
+    <p>اللہ ہمیں شرک اور بدعات سے محفوظ رکھے اور ہمیں صحیح اسلامی تعلیمات پر عمل کرنے کی توفیق دے۔ آمین!</p>
+    <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+    <p>جوا کھیلنا، بیوی کو خاوند کے خلاف بھڑکانا، لعنت کرنا، احسان جتلانا، دیوث بننا، میلاد منانا، حلالہ کرنا یا کروانا، ہم جنس پرستی</p>
+    <p>جاندار کو آگ میں جلانا، پیشاب کے چھینٹوں سے نہ بچنا، سود کھانا، ظلم کرنا، رشوت لینا یا دینا، زنا کرنا</p>
+
+    <!-- REACTIONS SECTION (exactly as required) -->
+    <div class="reactions-container">
+        <button class="reaction-btn" onclick="reactionClick('عمدہ')"><span class="reaction-emoji">👍</span><span class="reaction-text">عمدہ</span><span class="reaction-count" id="count-عمدہ">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('دلچسپ')"><span class="reaction-emoji">❤️</span><span class="reaction-text">دلچسپ</span><span class="reaction-count" id="count-دلچسپ">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('مفید')"><span class="reaction-emoji">😊</span><span class="reaction-text">مفید</span><span class="reaction-count" id="count-مفید">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('قابل غور')"><span class="reaction-emoji">😢</span><span class="reaction-text">قابل غور</span><span class="reaction-count" id="count-قابل غور">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')"><span class="reaction-emoji">🤔</span><span class="reaction-text">سوچ بچار</span><span class="reaction-count" id="count-سوچ بچار">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('شاندار')"><span class="reaction-emoji">👏</span><span class="reaction-text">شاندار</span><span class="reaction-count" id="count-شاندار">0</span></button>
+        <button class="reaction-btn" onclick="reactionClick('زبردست')"><span class="reaction-emoji">🔥</span><span class="reaction-text">زبردست</span><span class="reaction-count" id="count-زبردست">0</span></button>
+    </div>
+
+    <!-- navigation buttons -->
+    <div class="nav-panel">
+        <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+        <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+    </div>
+
+    <!-- social sharing -->
+    <div class="social-share">
+        <a href="#" class="share-btn" data-platform="facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="share-btn" data-platform="twitter" onclick="window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(document.title)+'%20'+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="share-btn" data-platform="whatsapp" onclick="window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(document.title+' '+window.location.href),'_blank')"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="share-btn" data-platform="telegram" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank')"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" class="share-btn" data-platform="linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(window.location.href),'_blank')"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="share-btn" data-platform="pinterest" onclick="window.open('https://pinterest.com/pin/create/button/?url='+encodeURIComponent(window.location.href)+'&media=&description='+encodeURIComponent(document.title),'_blank')"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#" class="share-btn" data-platform="email" onclick="window.location.href='mailto:?subject='+encodeURIComponent(document.title)+'&body='+encodeURIComponent(window.location.href)"><i class="fas fa-envelope"></i></a>
+    </div>
+    <footer>© bloglovers.pk | اسلامی تعلیمات</footer>
+</div>
+
+<!-- include reactions.js (external) -->
+<script src="/reactions.js"></script>
+
+<!-- sidebar dynamic auto-scroll & items injection (no duplicates of reaction functions) -->
+<script>
+    // Sidebar posts data
+    const sidebarPosts = [
+        { title: "5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی", link: "https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti", img: "https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" },
+        { title: "غفلت میں چھپے 50 گناہ 3- چغلی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" },
+        { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+        { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" },
+        { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+        { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+    ];
+
+    function buildSidebar() {
+        const container = document.getElementById('sidebarList');
+        if(!container) return;
+        let itemsHtml = '';
+        // double items for seamless infinite scroll
+        const doubleArray = [...sidebarPosts, ...sidebarPosts];
+        doubleArray.forEach(post => {
+            itemsHtml += `
+                <div class="sidebar-item">
+                    <img src="${post.img}" alt="${post.title}" loading="lazy">
+                    <a href="${post.link}">${post.title}</a>
+                </div>
+            `;
+        });
+        container.innerHTML = itemsHtml;
+    }
+    buildSidebar();
+
+    // ensure any duplicate reaction functions are not present; but we only load reactions.js 
+    // which has reactionClick. No internal loadReactions etc. 
+    // also no API_URL duplicate.
+    console.log("Page ready with reactions sidebar");
+</script>
 </body>
 </html>
