@@ -7,12 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @font-face {
-            font-family: 'Jameel Noori Nastaleeq';
-            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'),
-                url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2');
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -20,347 +14,515 @@
         }
 
         body {
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-            line-height: 2.2;
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
             direction: rtl;
             text-align: right;
-            min-height: 100vh;
-            background: linear-gradient(145deg, #e1f5fe 0%, #b3e5fc 100%);
-            animation: bgMove 20s infinite alternate ease-in-out;
-            padding: 15px;
+            background: #f4f9ff; /* soft base */
+            padding: 20px;
+            line-height: 1.7;
+            font-size: 15px; /* small base font */
+            color: #1e2a32;
         }
 
-        @keyframes bgMove {
-            0% { background: linear-gradient(145deg, #b3e5fc, #81d4fa); }
-            50% { background: linear-gradient(225deg, #a6c8ff, #7aa3e0); }
-            100% { background: linear-gradient(145deg, #b3e5fc, #81d4fa); }
-        }
-
-        /* animated background with hover effects */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(10, 20, 30, 0.03) 0%, transparent 30%),
-                        radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: 0;
-            transition: opacity 0.4s;
-        }
-
+        /* main container with soft glass effect */
         .main-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
             position: relative;
             z-index: 2;
-            max-width: 950px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(3px);
-            border-radius: 40px 40px 30px 30px;
-            box-shadow: 0 20px 40px rgba(0, 20, 30, 0.4);
+        }
+
+        /* main content column */
+        .content-col {
+            flex: 2;
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
             padding: 25px 30px;
-            border: 1px solid rgba(255,255,240,0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s;
+            box-shadow: 0 15px 35px rgba(100, 70, 150, 0.12);
+            transition: all 0.2s;
+            border: 1px solid rgba(210, 180, 240, 0.4);
         }
 
-        .main-wrapper:hover {
-            box-shadow: 0 25px 50px rgba(0, 40, 50, 0.5);
-            transform: translateY(-5px);
+        /* sidebar column */
+        .sidebar-col {
+            flex: 1;
+            min-width: 280px;
+            max-width: 360px;
         }
 
-        /* header image after title */
-        .post-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
+        /* ----- multi-color theme for headings, titles, backgrounds ----- */
         .post-header h1 {
-            font-size: 2.4rem;
-            color: #0a2f44;
-            text-shadow: 2px 2px 0 #c2e9fb, 4px 4px 0 rgba(0,20,30,0.1);
-            border-bottom: 3px solid #2c3e50;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            background: linear-gradient(135deg, #0a2f44, #1b4f72);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.85rem; /* smaller than before but readable */
             font-weight: 800;
+            background: linear-gradient(125deg, #2c3e66, #9b59b6, #f06292);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: none;
+            border-bottom: 3px solid #e0b3ff;
+            display: inline-block;
+            padding-bottom: 8px;
+            letter-spacing: -0.3px;
         }
 
         .featured-image {
-            width: 100%;
-            margin: 30px 0 20px;
-            border-radius: 30px;
+            margin: 20px 0 25px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 15px 25px -8px #023047;
-            transition: all 0.3s;
-            border: 3px solid white;
+            box-shadow: 0 12px 22px rgba(0,0,0,0.1);
+            border: 2px solid white;
         }
-
         .featured-image img {
             width: 100%;
-            height: auto;
             display: block;
-            transition: transform 0.6s;
+            transition: transform 0.4s;
         }
-
         .featured-image:hover img {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
 
-        /* subheading */
-        h2, h3 {
-            color: #035c7c;
-            background: linear-gradient(to right, #f0fbff, #d4f0fd);
-            padding: 8px 20px;
-            border-radius: 0 50px 50px 0;
-            margin: 30px 0 20px;
-            font-size: 2rem;
-            border-right: 8px solid #0b4f6c;
-            box-shadow: 0 5px 12px rgba(2, 70, 100, 0.15);
+        /* multi-coloring for h2, h3 with varied backgrounds */
+        h2 {
+            font-size: 1.65rem;
+            padding: 10px 20px;
+            margin: 35px 0 20px;
+            border-radius: 50px 12px 12px 50px;
             display: inline-block;
-            clear: both;
+            width: auto;
+            background: linear-gradient(95deg, #c5e0ff, #f8ceec);
+            border-right: 7px solid #a569bd;
+            color: #1f3a4b;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
         h3 {
-            font-size: 1.8rem;
-            background: #e9f7fe;
-            border-right-color: #ff9f4b;
+            font-size: 1.5rem;
+            background: #fae6f0;
+            border-right: 6px solid #ff9f4b;
+            padding: 7px 18px;
+            border-radius: 40px 8px 8px 40px;
+            margin: 30px 0 15px;
+            display: inline-block;
+            color: #2c3e50;
         }
 
         p {
-            font-size: 1.5rem;
+            font-size: 1rem;  /* small font as requested */
+            line-height: 1.75;
+            margin-bottom: 1.2rem;
             text-align: justify;
-            margin-bottom: 20px;
-            color: #102026;
-            word-spacing: 2px;
+            word-spacing: 0.5px;
+            color: #1f2e38;
         }
 
-        /* navigation buttons */
+        /* reactions container */
+        .reactions-wrap {
+            background: rgba(255,245,250,0.7);
+            border-radius: 70px;
+            padding: 15px 20px;
+            margin: 30px 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            border: 1px solid #ffcdff;
+        }
+        .reaction-btn {
+            background: white;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 14px;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.1s linear;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2c3e66;
+            font-weight: 500;
+        }
+        .reaction-btn:hover {
+            transform: scale(0.96);
+            background: #ffe0f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .reaction-count {
+            font-weight: bold;
+            background: #f0e6ff;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-right: 5px;
+        }
+
+        /* navigation row */
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
             justify-content: space-between;
             align-items: center;
-            margin: 40px 0 25px;
+            margin: 35px 0 20px;
         }
-
         .nav-btn {
-            background: #0d3b4c;
+            background: #6c5b7b;
             color: white;
-            padding: 12px 30px;
-            border-radius: 60px;
+            padding: 8px 24px;
+            border-radius: 40px;
             text-decoration: none;
-            font-size: 1.5rem;
+            font-size: 1rem;
             font-weight: bold;
-            box-shadow: 0 8px 0 #05202b, 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: 0.15s ease;
+            box-shadow: 0 4px 0 #3d2c4a;
+            transition: 0.1s linear;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid #9ad6f0;
         }
-
         .nav-btn:hover {
-            transform: translateY(5px);
-            box-shadow: 0 3px 0 #05202b, 0 12px 24px rgba(0, 30, 40, 0.3);
-            background: #0f5066;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #3d2c4a;
+            background: #8e7b9e;
         }
-
         .home-btn {
-            background: #0a6e4b;
-            box-shadow: 0 8px 0 #064e35, 0 10px 20px rgba(0, 70, 40, 0.3);
+            background: #488a7c;
+            box-shadow: 0 4px 0 #2c5a4f;
         }
 
-        .home-btn:hover {
-            background: #0e885d;
-        }
-
-        .scroll-buttons {
+        /* share section */
+        .share-section {
+            margin: 30px 0 15px;
+            background: #f9edff;
+            border-radius: 70px;
+            padding: 12px 20px;
             display: flex;
-            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+        }
+        .share-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6a1b9a;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: white;
+            color: #4a2c6d;
+            font-size: 1.4rem;
+            transition: 0.1s;
+            text-decoration: none;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.1);
+        }
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background: #f1e2ff;
         }
 
-        .scroll-btn {
-            background: #242424;
-            color: #eaeef2;
-            width: 50px;
-            height: 50px;
+        /* sidebar card - auto scroll */
+        .sidebar-card {
+            background: rgba(255, 248, 245, 0.95);
+            border-radius: 32px;
+            padding: 18px 16px;
+            box-shadow: 0 20px 30px rgba(156, 39, 176, 0.1);
+            backdrop-filter: blur(2px);
+            border: 1px solid #ffe0f5;
+            position: sticky;
+            top: 20px;
+        }
+        .sidebar-title {
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #b8e1fc, #fbc8e8);
+            padding: 8px 16px;
+            border-radius: 60px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1f3b4a;
+            font-weight: bold;
+        }
+        .scroll-list {
+            height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-left: 5px;
+            animation: autoScroll 30s linear infinite;
+        }
+        .scroll-list:hover {
+            animation-play-state: paused;
+        }
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        /* make animation work with duplicate trick? we'll use inner wrapper */
+        .scroll-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .scroll-list {
+            animation: scrollCycle 40s linear infinite;
+        }
+        /* improved continuous scroll */
+        .scroll-wrapper {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        .scroll-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            animation: scrollUp 35s linear infinite;
+        }
+        .scroll-list:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffffd9;
+            padding: 8px 10px;
+            border-radius: 32px;
+            transition: 0.1s;
+            border: 1px solid #e9cfec;
+        }
+        .post-item img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 2px solid #d9b4e6;
+        }
+        .post-item a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2c3e66;
+            line-height: 1.45;
+            flex: 1;
+        }
+        .post-item a:hover {
+            color: #b34180;
+        }
+        .highlight {
+            background: #ffe6f0;
+            border-right: 4px solid #ff80bf;
+        }
+
+        /* floating scroll buttons (original requirement keep) */
+        .floating-scroll {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+        .float-btn {
+            background: #aa7bc7;
+            width: 48px;
+            height: 48px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            color: white;
+            font-size: 26px;
             cursor: pointer;
-            box-shadow: 0 5px 0 #111, 0 6px 18px black;
-            transition: 0.1s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: 0.08s linear;
             border: none;
         }
-
-        .scroll-btn:hover {
-            transform: translateY(4px);
-            box-shadow: 0 1px 0 #111, 0 8px 16px rgba(0,0,0,0.4);
-            background: #3f3f3f;
+        .float-btn:hover {
+            background: #c58fda;
+            transform: scale(0.96);
         }
-
-        /* social share buttons */
-        .share-section {
-            margin: 30px 0;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 100px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            border: 1px solid white;
-            backdrop-filter: blur(10px);
+        @media (max-width: 800px) {
+            body { padding: 12px; }
+            .content-col { padding: 18px; }
+            h2 { font-size: 1.45rem; }
+            p { font-size: 0.95rem; }
         }
-
-        .share-title {
-            font-size: 1.8rem;
-            color: #043b4e;
-            font-weight: bold;
-        }
-
-        .social-icon {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border-radius: 50px;
-            background: white;
-            color: #135d7a;
-            font-size: 28px;
-            line-height: 50px;
-            text-align: center;
-            box-shadow: 0 6px 0 #979fa3;
-            transition: 0.1s ease;
-            margin: 0 5px;
-        }
-
-        .social-icon:hover {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #6f7b84;
-            color: #001c28;
-        }
-
-        /* remove all internal links: hide existing <a> inside content */
-        .post-content a {
-            display: none !important;
-        }
-
-        /* keep only our custom nav links */
-        .post-content a.keep-link {
-            display: none; /* not used */
-        }
-
-        /* image and general styling */
-        hr {
-            opacity: 0.2;
-        }
-
-        /* mobile */
-        @media (max-width: 700px) {
-            .main-wrapper { padding: 15px; }
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.8rem; }
-            p { font-size: 1.3rem; }
-            .nav-btn { font-size: 1.2rem; padding: 8px 18px; }
-        }
+        hr { opacity: 0.2; margin: 15px 0; }
+        .post-content a:not(.keep-link) { display: none; }
+        /* hide any old reaction duplicates etc */
     </style>
 </head>
 <body>
+
 <div class="main-wrapper">
+    <!-- Main content column -->
+    <div class="content-col">
+        <div class="post-header">
+            <h1>غفلت میں چھپے 50 گناہ 40۔ لغو گفتگو کرنا</h1>
+            <div class="featured-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-40-lgho-gftgo-krna.png" alt="لغو گفتگو">
+            </div>
+        </div>
 
-    <!-- post header with main heading and image after title -->
-    <div class="post-header">
-        <h1>غفلت میں چھپے 50 گناہ 40۔ لغو گفتگو کرنا</h1>
-        <!-- Image placed exactly after title (full width) -->
-        <div class="featured-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-40-lgho-gftgo-krna.png" alt="لغو گفتگو">
+        <!-- reactions section (exactly as requested IDs and onclick) -->
+        <div class="reactions-wrap">
+            <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+        </div>
+
+        <!-- post content exactly same (original text preserved) -->
+        <div class="post-content">
+            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چالیسواں گناہ لغو گفتگو کرنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+            <p>اسلامی معاشرتی نظام میں ہر عمل کا ایک مخصوص مقصد ہوتا ہے۔ ہماری گفتگو بھی اس کا حصہ ہے۔ قرآن و سنت میں ہر قسم کی گفتگو کے بارے میں رہنمائی فراہم کی گئی ہے۔ اس میں خاص طور پر لغو گفتگو، یعنی ایسی گفتگو جو بے فائدہ، بے مقصد، اور اکثر نقصان دہ ہو، کا ذکر آیا ہے۔ لغو گفتگو ہماری زندگی میں ایک سنگین مسئلہ ہے جو کہ ہمیں اپنی ذمہ داریوں سے غافل کر دیتی ہے۔</p>
+            <h2>لغو گفتگو کی تعریف</h2>
+            <p>لغو گفتگو سے مراد ایسی باتیں کرنا ہیں جو بے مقصد، فضول، یا غیر اہم ہوں۔ اس میں بہت سی ایسی گفتگو شامل ہو سکتی ہے جو وقت کی ضیاع کرتی ہے اور سماجی یا اخلاقی طور پر نقصان دہ ثابت ہوتی ہے۔</p>
+            <h2>لغو گفتگو کی اقسام</h2>
+            <p>لغو گفتگو کی کئی اقسام ہیں، جن میں شامل ہیں:</p>
+            <p><strong>افواہیں پھیلانا</strong>: بغیر کسی ٹھوس ثبوت کے کسی کی زندگی یا کردار پر بات کرنا۔</p>
+            <p><strong>غیبت</strong>: کسی کی غیر موجودگی میں اس کے بارے میں منفی باتیں کرنا۔</p>
+            <p><strong>چسکے لینا</strong>: دوسروں کی ذاتی زندگیوں میں دخل اندازی کرنا۔</p>
+            <p><strong>پرتشدد گفتگو</strong>: ایسی گفتگو جو لوگوں کے درمیان نفرتیں اور عداوت پیدا کرے۔</p>
+            <h2>مرد و عورت کے حوالے سے</h2>
+            <p>یہ کہنا مناسب نہیں کہ یہ صرف عورتوں میں پایا جاتا ہے، بلکہ یہ ایک عمومی مسئلہ ہے۔ تاہم، بعض اوقات یہ دیکھا گیا ہے کہ خواتین ایک دوسرے سے زیادہ گفتگو کرتی ہیں، اور اگر اس گفتگو کا مقصد بے مقصد ہو تو یہ لغو گفتگو میں شمار ہو سکتی ہے۔ معاشرتی رویے اور ثقافتی عوامل بھی اس میں اہم کردار ادا کرتے ہیں۔</p>
+            <h2>تاریخی پس منظر</h2>
+            <p>زمانہ جاہلیت میں بھی لغو گفتگو کی موجودگی تھی۔ لوگ عموماً اپنے آپس کی باتوں میں افواہیں پھیلانے اور دوسروں کی زندگیوں میں دخل اندازی کرتے تھے۔ قرآن نے اس بارے میں سخت تنبیہ کی ہے۔ اللہ تعالیٰ فرماتے ہیں:</p>
+            <p>"اور جو لغو باتوں کے پاس سے گزرتے ہیں تو بزرگانہ طریقے سے گزر جاتے ہیں"</p>
+            <p>یہ آیت یہ بتاتی ہے کہ حق کی پہچان رکھنے والوں کے لیے لغو گفتگو میں حصہ لینا صحیح نہیں۔</p>
+            <h2>دیگر مذاہب میں</h2>
+            <p>مختلف مذاہب میں بھی لغو گفتگو کی ممانعت کی گئی ہے۔ عیسائیت میں بھی غیبت اور افواہوں کے بارے میں سخت ہدایات موجود ہیں۔ عیسائی مذہب میں یہ تعلیم دی گئی ہے کہ: "تمہارا کلام ہمیشہ خوشگوار ہو، نمک سے بھرپور ہو، تاکہ تم جان سکو کہ تمہیں ہر ایک کو جواب کیسے دینا چاہیے۔" یہ ہدایات اس بات کی نشاندہی کرتی ہیں کہ تمام مذاہب میں لغو گفتگو سے بچنے کی تاکید کی گئی ہے۔</p>
+            <h2>پاکستان میں صورت حال</h2>
+            <p>جنوبی ایشیائی ممالک میں، خاص طور پر پاکستان میں، لغو گفتگو کا رجحان بڑھتا جا رہا ہے۔ لوگوں کے درمیان بے مقصد بات چیت اور افواہیں پھیلانے کا سلسلہ عام ہو گیا ہے۔ اس کی ایک بڑی وجہ سوشل میڈیا کا بڑھتا ہوا استعمال ہے، جہاں لوگ اپنی رائے دینے کے بجائے دوسروں کی زندگیوں میں دخل اندازی کرتے ہیں۔</p>
+            <h2>اسلامی تعلیمات</h2>
+            <p>اسلام میں لغو گفتگو کی سختی سے ممانعت کی گئی ہے۔ قرآن میں اللہ تعالیٰ فرماتے ہیں: "اور لوگوں سے نرمی اور خوش خلقی کے ساتھ بات کرو"۔ اور مومنوں کی صفات بیان کرتے ہوئے فرمایا: "اور وہ لوگ لغو باتوں سے دور رہتے ہیں۔"</p>
+            <p>پھر دوسرے مقام پر مزید وضاحت فرمائی: "اور جب لغو باتوں کے پاس سے گزرتے ہیں تو بزرگی سے گزر جاتے ہیں"۔ یہ آیات ہمیں بتاتی ہیں کہ ہمیں ایک دوسرے کی غیبت اور افواہوں سے بچنا چاہیے۔ مزید یہ کہ مومن انسان ایسی ہر چیز سے دور رہتے ہیں، ایسی محفلیں جہاں اس قسم کے معاملات ہو، مومن اس میں شریک نہیں ہوتے۔</p>
+            <h2>نقصانات</h2>
+            <p>لغو گفتگو انسان کو اپنی ذمہ داریوں سے غافل کر دیتی ہے۔ جب ہم وقت کا بڑا حصہ بے فائدہ باتوں میں گزارتے ہیں تو ہم اپنی زندگی کے اہم مقاصد سے دور ہو جاتے ہیں۔</p>
+            <h2>احادیث کی روشنی میں</h2>
+            <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "جو شخص اللہ اور قیامت کے دن پر ایمان رکھتا ہے، اسے چاہیے کہ وہ اچھا بولے یا خاموش رہے"۔</p>
+            <p>ایک اور مقام پر مزید وضاحت فرمائی: "فضول باتوں کو چھوڑ دینا، آدمی کے اسلام کی اچھائی کی دلیل ہے۔"</p>
+            <p>دوسرے مقام پر پھر وضاحت فرمائی: "انسان کی اکثر خطائیں اس کی زبان سے سرزد ہوتی ہیں۔"</p>
+            <p>دوسری روایت میں مزید وضاحت فرمائی: "جو شخص اللہ اور قیامت کے دن پر ایمان رکھتا ہو اسے چاہیے کہ خیر و بھلائی کی بات کرے یا پھر خاموش رہے۔"</p>
+            <h2>پاکستان میں بڑھتا رجحان</h2>
+            <p>پاکستان میں لغو گفتگو کا رجحان بڑھتا جا رہا ہے کیونکہ لوگ اپنی روزمرہ زندگی میں سوشل میڈیا کا استعمال زیادہ کر رہے ہیں۔ سوشل میڈیا پر ایسے بہت سے گروپ اور پیجز موجود ہیں جو غیر ضروری اور بے مقصد باتوں کو بڑھاوا دیتے ہیں۔ اس سے نہ صرف فرد بلکہ معاشرے پر بھی منفی اثرات مرتب ہوتے ہیں۔</p>
+            <h2>یونیورسٹیوں کی صورت حال</h2>
+            <p>پاکستان کی موجودہ یونیورسٹیوں کی صورت حال اور نوجوان نسل کا لغو گفتگو میں مصروف عمل رہنا واقعی ایک تشویشناک مسئلہ ہے۔ یہ صورت حال مختلف پہلوؤں سے معاشرتی ترقی میں رکاوٹ بن رہی ہے۔ یہاں کچھ اہم نکات پر بات کی گئی ہے:</p>
+            <p><strong>تعلیمی معیار میں کمی</strong>: پاکستان کی یونیورسٹیوں میں تعلیمی معیار میں کمی آ رہی ہے۔ نصاب کا عدم معیاری ہونا، پڑھانے کے طریقوں میں جدت کی کمی، اور جدید ٹیکنالوجی کا غیر مؤثر استعمال اس کی بنیادی وجوہات ہیں۔</p>
+            <p><strong>نوجوان نسل کا رجحان</strong>: نوجوان نسل کا لغو گفتگو میں مصروف رہنا معاشرتی روایات اور اخلاقیات کے لیے خطرہ ہے۔ اس طرح کی گفتگو نہ صرف ان کی ذاتی ترقی میں رکاوٹ ہے بلکہ یہ معاشرتی تعلقات میں بھی بگاڑ پیدا کر رہی ہے۔</p>
+            <p><strong>سوشل میڈیا کا اثر</strong>: سوشل میڈیا پر غیر سنجیدہ مواد کی بھرمار نے نوجوانوں کے ذہنوں میں منفی اثرات ڈالے ہیں۔ اس کی وجہ سے حقیقی مسائل کی طرف توجہ کم ہوتی جا رہی ہے، جبکہ فضول گفتگو کو فروغ مل رہا ہے۔</p>
+            <p><strong>نفسیاتی اثرات</strong>: لغو گفتگو اور غیر سنجیدہ رویے نوجوانوں کی نفسیاتی صحت پر بھی منفی اثر ڈال رہے ہیں۔ ان کے اندر خود اعتمادی کی کمی اور معاشرتی تنہائی پیدا ہو رہی ہے۔</p>
+            <h2>حل</h2>
+            <p>اس مسئلے کا حل تعلیمی اداروں میں بہتر تربیت، نئے نصاب کا نفاذ، اور طلباء کے لیے ایسے پروگرامز کا انعقاد ہے جو انہیں مثبت گفتگو اور خیالات کی طرف راغب کریں۔</p>
+            <p>نوجوانوں کو چاہیے کہ وہ اپنے وقت کا صحیح استعمال کریں اور اپنے خیالات کو مثبت اور تعمیری گفتگو میں تبدیل کریں۔ انہیں اپنے معاشرتی ذمہ داریوں کا احساس بھی دلانا ضروری ہے۔</p>
+            <h2>عمومی رویہ</h2>
+            <p>بہت سے لوگ لغو گفتگو کو معمولی سمجھتے ہیں کیونکہ یہ عام بات چیت کا حصہ لگتا ہے۔ لیکن حقیقت یہ ہے کہ یہ ایک سنگین گناہ ہے جو کہ معاشرتی ناپسندیدگی اور باہمی دشمنی کا باعث بنتا ہے۔</p>
+            <h2>بچنے کے طریقے</h2>
+            <p><strong>خود احتسابی</strong>: ہمیں اپنی گفتگو پر غور کرنا چاہیے اور سوچنا چاہیے کہ کیا ہم اپنی گفتگو کے ذریعے دوسروں کی مدد کر رہے ہیں یا انہیں نقصان پہنچا رہے ہیں۔</p>
+            <p><strong>تعلیم</strong>: دین کی تعلیمات کو سمجھنا اور دوسروں کو بھی آگاہ کرنا۔</p>
+            <p><strong>مثبت گفتگو</strong>: ہمیشہ مثبت اور تعمیری گفتگو کا انتخاب کرنا۔</p>
+            <p><strong>سوشل میڈیا کا محتاط استعمال</strong>: سوشل میڈیا پر صرف معیاری اور فائدہ مند مواد کا اشتراک کرنا۔</p>
+            <h2>خلاصہ</h2>
+            <p>لغو گفتگو ایک سنگین گناہ ہے جو ہماری زندگیوں میں منفی اثرات مرتب کرتا ہے۔ اس کے روکنے کے لیے ہمیں اپنی گفتگو کا احتساب کرنا چاہیے اور اسلامی تعلیمات کی روشنی میں اپنی بات چیت کو بہتر بنانا چاہیے۔ اللہ تعالیٰ ہمیں اپنی زبانوں کو صحیح طور پر استعمال کرنے کی توفیق عطا فرمائے۔ آمین۔</p>
+            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+        </div>
+
+        <!-- navigation buttons -->
+        <div class="nav-buttons">
+            <a href="https://bloglovers.pk/" class="nav-btn home-btn"><i class="fas fa-home"></i> ہوم پیج</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-arrow-right"></i> تمام پوسٹس</a>
+        </div>
+
+        <!-- social media share icons 7 platforms -->
+        <div class="share-section">
+            <span class="share-title"><i class="fas fa-share-alt"></i> شئیر کریں:</span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-40-lgho-gftgo-krna.html" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ%20لغو%20گفتگو%20https://bloglovers.pk" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk&text=لغو%20گفتگو%20غفلت%20کے%20گناہ" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk&text=لغو%20گفتگو" target="_blank" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk" target="_blank" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+            <button onclick="copyPageLink()" class="social-icon" style="border:none; cursor:pointer;"><i class="fas fa-link"></i></button>
         </div>
     </div>
 
-    <!-- post content area (text exactly as given, no changes, no toggle) -->
-    <div class="post-content">
-        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں چالیسواں گناہ لغو گفتگو کرنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-        <p>اسلامی معاشرتی نظام میں ہر عمل کا ایک مخصوص مقصد ہوتا ہے۔ ہماری گفتگو بھی اس کا حصہ ہے۔ قرآن و سنت میں ہر قسم کی گفتگو کے بارے میں رہنمائی فراہم کی گئی ہے۔ اس میں خاص طور پر لغو گفتگو، یعنی ایسی گفتگو جو بے فائدہ، بے مقصد، اور اکثر نقصان دہ ہو، کا ذکر آیا ہے۔ لغو گفتگو ہماری زندگی میں ایک سنگین مسئلہ ہے جو کہ ہمیں اپنی ذمہ داریوں سے غافل کر دیتی ہے۔</p>
-        <h2>لغو گفتگو کی تعریف</h2>
-        <p>لغو گفتگو سے مراد ایسی باتیں کرنا ہیں جو بے مقصد، فضول، یا غیر اہم ہوں۔ اس میں بہت سی ایسی گفتگو شامل ہو سکتی ہے جو وقت کی ضیاع کرتی ہے اور سماجی یا اخلاقی طور پر نقصان دہ ثابت ہوتی ہے۔</p>
-        <h2>لغو گفتگو کی اقسام</h2>
-        <p>لغو گفتگو کی کئی اقسام ہیں، جن میں شامل ہیں:</p>
-        <p><strong>افواہیں پھیلانا</strong>: بغیر کسی ٹھوس ثبوت کے کسی کی زندگی یا کردار پر بات کرنا۔</p>
-        <p><strong>غیبت</strong>: کسی کی غیر موجودگی میں اس کے بارے میں منفی باتیں کرنا۔</p>
-        <p><strong>چسکے لینا</strong>: دوسروں کی ذاتی زندگیوں میں دخل اندازی کرنا۔</p>
-        <p><strong>پرتشدد گفتگو</strong>: ایسی گفتگو جو لوگوں کے درمیان نفرتیں اور عداوت پیدا کرے۔</p>
-        <h2>مرد و عورت کے حوالے سے</h2>
-        <p>یہ کہنا مناسب نہیں کہ یہ صرف عورتوں میں پایا جاتا ہے، بلکہ یہ ایک عمومی مسئلہ ہے۔ تاہم، بعض اوقات یہ دیکھا گیا ہے کہ خواتین ایک دوسرے سے زیادہ گفتگو کرتی ہیں، اور اگر اس گفتگو کا مقصد بے مقصد ہو تو یہ لغو گفتگو میں شمار ہو سکتی ہے۔ معاشرتی رویے اور ثقافتی عوامل بھی اس میں اہم کردار ادا کرتے ہیں۔</p>
-        <h2>تاریخی پس منظر</h2>
-        <p>زمانہ جاہلیت میں بھی لغو گفتگو کی موجودگی تھی۔ لوگ عموماً اپنے آپس کی باتوں میں افواہیں پھیلانے اور دوسروں کی زندگیوں میں دخل اندازی کرتے تھے۔ قرآن نے اس بارے میں سخت تنبیہ کی ہے۔ اللہ تعالیٰ فرماتے ہیں:</p>
-        <p>"اور جو لغو باتوں کے پاس سے گزرتے ہیں تو بزرگانہ طریقے سے گزر جاتے ہیں"</p>
-        <p>یہ آیت یہ بتاتی ہے کہ حق کی پہچان رکھنے والوں کے لیے لغو گفتگو میں حصہ لینا صحیح نہیں۔</p>
-        <h2>دیگر مذاہب میں</h2>
-        <p>مختلف مذاہب میں بھی لغو گفتگو کی ممانعت کی گئی ہے۔ عیسائیت میں بھی غیبت اور افواہوں کے بارے میں سخت ہدایات موجود ہیں۔ عیسائی مذہب میں یہ تعلیم دی گئی ہے کہ: "تمہارا کلام ہمیشہ خوشگوار ہو، نمک سے بھرپور ہو، تاکہ تم جان سکو کہ تمہیں ہر ایک کو جواب کیسے دینا چاہیے۔" یہ ہدایات اس بات کی نشاندہی کرتی ہیں کہ تمام مذاہب میں لغو گفتگو سے بچنے کی تاکید کی گئی ہے۔</p>
-        <h2>پاکستان میں صورت حال</h2>
-        <p>جنوبی ایشیائی ممالک میں، خاص طور پر پاکستان میں، لغو گفتگو کا رجحان بڑھتا جا رہا ہے۔ لوگوں کے درمیان بے مقصد بات چیت اور افواہیں پھیلانے کا سلسلہ عام ہو گیا ہے۔ اس کی ایک بڑی وجہ سوشل میڈیا کا بڑھتا ہوا استعمال ہے، جہاں لوگ اپنی رائے دینے کے بجائے دوسروں کی زندگیوں میں دخل اندازی کرتے ہیں۔</p>
-        <h2>اسلامی تعلیمات</h2>
-        <p>اسلام میں لغو گفتگو کی سختی سے ممانعت کی گئی ہے۔ قرآن میں اللہ تعالیٰ فرماتے ہیں: "اور لوگوں سے نرمی اور خوش خلقی کے ساتھ بات کرو"۔ اور مومنوں کی صفات بیان کرتے ہوئے فرمایا: "اور وہ لوگ لغو باتوں سے دور رہتے ہیں۔"</p>
-        <p>پھر دوسرے مقام پر مزید وضاحت فرمائی: "اور جب لغو باتوں کے پاس سے گزرتے ہیں تو بزرگی سے گزر جاتے ہیں"۔ یہ آیات ہمیں بتاتی ہیں کہ ہمیں ایک دوسرے کی غیبت اور افواہوں سے بچنا چاہیے۔ مزید یہ کہ مومن انسان ایسی ہر چیز سے دور رہتے ہیں، ایسی محفلیں جہاں اس قسم کے معاملات ہو، مومن اس میں شریک نہیں ہوتے۔</p>
-        <h2>نقصانات</h2>
-        <p>لغو گفتگو انسان کو اپنی ذمہ داریوں سے غافل کر دیتی ہے۔ جب ہم وقت کا بڑا حصہ بے فائدہ باتوں میں گزارتے ہیں تو ہم اپنی زندگی کے اہم مقاصد سے دور ہو جاتے ہیں۔</p>
-        <h2>احادیث کی روشنی میں</h2>
-        <p>ایک روایت کے مطابق آپ ﷺ نے فرمایا: "جو شخص اللہ اور قیامت کے دن پر ایمان رکھتا ہے، اسے چاہیے کہ وہ اچھا بولے یا خاموش رہے"۔</p>
-        <p>ایک اور مقام پر مزید وضاحت فرمائی: "فضول باتوں کو چھوڑ دینا، آدمی کے اسلام کی اچھائی کی دلیل ہے۔"</p>
-        <p>دوسرے مقام پر پھر وضاحت فرمائی: "انسان کی اکثر خطائیں اس کی زبان سے سرزد ہوتی ہیں۔"</p>
-        <p>دوسری روایت میں مزید وضاحت فرمائی: "جو شخص اللہ اور قیامت کے دن پر ایمان رکھتا ہو اسے چاہیے کہ خیر و بھلائی کی بات کرے یا پھر خاموش رہے۔"</p>
-        <h2>پاکستان میں بڑھتا رجحان</h2>
-        <p>پاکستان میں لغو گفتگو کا رجحان بڑھتا جا رہا ہے کیونکہ لوگ اپنی روزمرہ زندگی میں سوشل میڈیا کا استعمال زیادہ کر رہے ہیں۔ سوشل میڈیا پر ایسے بہت سے گروپ اور پیجز موجود ہیں جو غیر ضروری اور بے مقصد باتوں کو بڑھاوا دیتے ہیں۔ اس سے نہ صرف فرد بلکہ معاشرے پر بھی منفی اثرات مرتب ہوتے ہیں۔</p>
-        <h2>یونیورسٹیوں کی صورت حال</h2>
-        <p>پاکستان کی موجودہ یونیورسٹیوں کی صورت حال اور نوجوان نسل کا لغو گفتگو میں مصروف عمل رہنا واقعی ایک تشویشناک مسئلہ ہے۔ یہ صورت حال مختلف پہلوؤں سے معاشرتی ترقی میں رکاوٹ بن رہی ہے۔ یہاں کچھ اہم نکات پر بات کی گئی ہے:</p>
-        <p><strong>تعلیمی معیار میں کمی</strong>: پاکستان کی یونیورسٹیوں میں تعلیمی معیار میں کمی آ رہی ہے۔ نصاب کا عدم معیاری ہونا، پڑھانے کے طریقوں میں جدت کی کمی، اور جدید ٹیکنالوجی کا غیر مؤثر استعمال اس کی بنیادی وجوہات ہیں۔</p>
-        <p><strong>نوجوان نسل کا رجحان</strong>: نوجوان نسل کا لغو گفتگو میں مصروف رہنا معاشرتی روایات اور اخلاقیات کے لیے خطرہ ہے۔ اس طرح کی گفتگو نہ صرف ان کی ذاتی ترقی میں رکاوٹ ہے بلکہ یہ معاشرتی تعلقات میں بھی بگاڑ پیدا کر رہی ہے۔</p>
-        <p><strong>سوشل میڈیا کا اثر</strong>: سوشل میڈیا پر غیر سنجیدہ مواد کی بھرمار نے نوجوانوں کے ذہنوں میں منفی اثرات ڈالے ہیں۔ اس کی وجہ سے حقیقی مسائل کی طرف توجہ کم ہوتی جا رہی ہے، جبکہ فضول گفتگو کو فروغ مل رہا ہے۔</p>
-        <p><strong>نفسیاتی اثرات</strong>: لغو گفتگو اور غیر سنجیدہ رویے نوجوانوں کی نفسیاتی صحت پر بھی منفی اثر ڈال رہے ہیں۔ ان کے اندر خود اعتمادی کی کمی اور معاشرتی تنہائی پیدا ہو رہی ہے۔</p>
-        <h2>حل</h2>
-        <p>اس مسئلے کا حل تعلیمی اداروں میں بہتر تربیت، نئے نصاب کا نفاذ، اور طلباء کے لیے ایسے پروگرامز کا انعقاد ہے جو انہیں مثبت گفتگو اور خیالات کی طرف راغب کریں۔</p>
-        <p>نوجوانوں کو چاہیے کہ وہ اپنے وقت کا صحیح استعمال کریں اور اپنے خیالات کو مثبت اور تعمیری گفتگو میں تبدیل کریں۔ انہیں اپنے معاشرتی ذمہ داریوں کا احساس بھی دلانا ضروری ہے۔</p>
-        <h2>عمومی رویہ</h2>
-        <p>بہت سے لوگ لغو گفتگو کو معمولی سمجھتے ہیں کیونکہ یہ عام بات چیت کا حصہ لگتا ہے۔ لیکن حقیقت یہ ہے کہ یہ ایک سنگین گناہ ہے جو کہ معاشرتی ناپسندیدگی اور باہمی دشمنی کا باعث بنتا ہے۔</p>
-        <h2>بچنے کے طریقے</h2>
-        <p><strong>خود احتسابی</strong>: ہمیں اپنی گفتگو پر غور کرنا چاہیے اور سوچنا چاہیے کہ کیا ہم اپنی گفتگو کے ذریعے دوسروں کی مدد کر رہے ہیں یا انہیں نقصان پہنچا رہے ہیں۔</p>
-        <p><strong>تعلیم</strong>: دین کی تعلیمات کو سمجھنا اور دوسروں کو بھی آگاہ کرنا۔</p>
-        <p><strong>مثبت گفتگو</strong>: ہمیشہ مثبت اور تعمیری گفتگو کا انتخاب کرنا۔</p>
-        <p><strong>سوشل میڈیا کا محتاط استعمال</strong>: سوشل میڈیا پر صرف معیاری اور فائدہ مند مواد کا اشتراک کرنا۔</p>
-        <h2>خلاصہ</h2>
-        <p>لغو گفتگو ایک سنگین گناہ ہے جو ہماری زندگیوں میں منفی اثرات مرتب کرتا ہے۔ اس کے روکنے کے لیے ہمیں اپنی گفتگو کا احتساب کرنا چاہیے اور اسلامی تعلیمات کی روشنی میں اپنی بات چیت کو بہتر بنانا چاہیے۔ اللہ تعالیٰ ہمیں اپنی زبانوں کو صحیح طور پر استعمال کرنے کی توفیق عطا فرمائے۔ آمین۔</p>
-        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-        <!-- all internal links hidden via css, no change to text -->
-    </div>
-
-    <!-- navigation row + page up/down -->
-    <div class="nav-buttons">
-        <a href="https://bloglovers.pk/" class="nav-btn home-btn"><i class="fas fa-home"></i> ہوم پیج</a>
-        <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn"><i class="fas fa-arrow-right"></i> واپس</a>
-        <div class="scroll-buttons">
-            <button class="scroll-btn" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="fas fa-arrow-up"></i></button>
-            <button class="scroll-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});"><i class="fas fa-arrow-down"></i></button>
+    <!-- sidebar with auto-scroll and posts list -->
+    <div class="sidebar-col">
+        <div class="sidebar-card">
+            <div class="sidebar-title">📖 مزید پڑھیں</div>
+            <div class="scroll-wrapper">
+                <div class="scroll-list" id="autoScrollList">
+                    <div class="scroll-inner">
+                        <!-- duplicated items for seamless scroll effect -->
+                        <!-- 10 posts + duplicate for infinite -->
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt=""><a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ کرنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے باندھنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a></div>
+                        <!-- duplicate for smooth infinite -->
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt=""><a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a></div>
+                        <div class="post-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt=""><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- social media share buttons (multiple platforms) -->
-    <div class="share-section">
-        <span class="share-title"><i class="fas fa-share-alt"></i> شئیر کریں:</span>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=bloglovers.pk" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://wa.me/?text=غفلت%20میں%20چھپے%2050%20گناہ%20لغو%20گفتگو%20bloglovers.pk" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://twitter.com/intent/tweet?url=bloglovers.pk&text=غفلت%20میں%20چھپے%2050%20گناہ" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url=bloglovers.pk" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://t.me/share/url?url=bloglovers.pk&text=لغو%20گفتگو" target="_blank" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-    </div>
+<!-- floating scroll buttons -->
+<div class="floating-scroll">
+    <button class="float-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+    <button class="float-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"><i class="fas fa-arrow-down"></i></button>
+</div>
 
-</div> <!-- main wrapper end -->
-
-<!-- (internal links hidden by CSS, image added after title, no double image) -->
+<script src="/reactions.js"></script>
+<script>
+    // only copy link function, no duplicate reactions
+    function copyPageLink() {
+        const dummy = document.createElement('input');
+        const url = window.location.href;
+        dummy.value = url;
+        document.body.appendChild(dummy);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        alert('لنک کاپی ہوگیا!');
+    }
+    // No loadReactions, updateReactionsUI, addReaction or API_URL here — removed duplicates.
+</script>
 </body>
 </html>
