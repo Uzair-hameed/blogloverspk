@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <!-- فونٹawesome 6 (مفت) برائے آئیکنز -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- reactions.js (پہلے سے موجود درست فائل) -->
+    <script src="/reactions.js"></script>
     <style>
         * {
             margin: 0;
@@ -17,161 +19,262 @@
 
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            line-height: 2;
+            line-height: 1.7;
             direction: rtl;
             text-align: right;
-            background: linear-gradient(145deg, #d4f0fc 0%, #a1d9f0 35%, #63b4cf 70%, #2c7a9e 100%);
+            background: linear-gradient(135deg, #2c1a4a 0%, #1e3b3a 50%, #4a2c2a 100%);
             background-attachment: fixed;
-            background-size: 300% 300%;
-            animation: aquaFlow 16s ease infinite;
             min-height: 100vh;
-            padding: 1.5rem 1rem;
+            padding: 1.2rem 1rem;
             position: relative;
         }
 
-        @keyframes aquaFlow {
-            0% { background-position: 0% 30%; }
-            25% { background-position: 50% 70%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 50% 20%; }
-            100% { background-position: 0% 30%; }
-        }
-
-        /* مرکزی لفافہ */
+        /* مرکزی لفافہ — نیا ملٹی کلر تھیم */
         .elegant-wrapper {
-            max-width: 950px;
+            max-width: 1200px;
             margin: 2rem auto;
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 248, 235, 0.94);
             backdrop-filter: blur(2px);
-            border-radius: 42px 42px 32px 32px;
-            box-shadow: 0 30px 50px rgba(1, 63, 82, 0.5), 0 8px 20px rgba(0,60,80,0.4);
-            padding: 2rem 2.2rem;
-            border: 2px solid #bef0ff;
-            transition: all 0.25s;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem 2rem;
+            border: 1px solid rgba(255, 200, 100, 0.6);
+            transition: all 0.2s;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        .elegant-wrapper:hover {
-            box-shadow: 0 40px 65px #01516d, 0 0 0 3px #b3f0ff;
-            background: rgba(255, 255, 255, 0.96);
+        /* مواد کا حصہ (بائیں یا پہلے) */
+        .main-content {
+            flex: 3;
+            min-width: 250px;
         }
 
-        /* عنوان مرکزی — سائز نارمل مگر خوب صورت */
-        h1 {
-            font-size: 2.1rem;
-            color: #024e6b;
-            text-shadow: 2px 2px 0 #bbe4fa;
-            border-bottom: 4px double #31b7d6;
-            padding-bottom: 0.7rem;
-            margin: 0.5rem 0 1.5rem 0;
-            line-height: 1.7;
-            letter-spacing: 0.01em;
-            font-weight: 700;
-            text-align: center;
-            background: linear-gradient(to left, #dcf5ff, #f2fcff);
-            border-radius: 60px 10px 60px 10px;
-            transition: 0.3s;
+        /* سائیڈ بار (دائیں جانب) */
+        .sidebar-auto {
+            flex: 1.2;
+            min-width: 260px;
+            background: linear-gradient(145deg, #fff3e0, #ffe6cc);
+            border-radius: 32px;
+            padding: 1.2rem 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-right: 6px solid #ff8c42;
+            height: 500px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            position: sticky;
+            top: 1rem;
         }
 
-        h1:hover {
-            letter-spacing: 0.03em;
-            background: #e5f9ff;
-            border-bottom-color: #f33387;
-        }
-
-        /* ذیلی عنوان — مختلف رنگ، شیڈنگ */
-        h2 {
-            font-size: 1.7rem;
-            color: #b13e7c;
-            background: linear-gradient(145deg, #f2f9ff, #ccf1ff);
+        .sidebar-auto h3 {
+            font-size: 1.3rem;
+            color: #7b2cbf;
+            background: #ffd966;
             display: inline-block;
-            padding: 0.3rem 1.2rem 0.3rem 2rem;
-            border-radius: 0 50px 10px 50px;
-            margin: 1.2rem 0 1rem 0;
-            border-right: 7px solid #1e7e9c;
-            box-shadow: -5px 5px 8px rgba(0, 128, 128, 0.3);
-            text-shadow: 0 1px 2px white;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* سکرولنگ کنٹینر اندرونی */
+        .scroll-posts {
+            max-height: 420px;
+            overflow-y: auto;
+            animation: autoScroll 30s linear infinite;
+        }
+
+        .scroll-posts:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .sidebar-post {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            background: rgba(255, 245, 220, 0.8);
+            padding: 0.5rem;
+            border-radius: 20px;
+            transition: 0.2s;
+            border: 1px solid #ffb347;
+        }
+
+        .sidebar-post:hover {
+            background: #ffedc9;
+            transform: scale(1.01);
+        }
+
+        .sidebar-post img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 2px solid #ff884d;
+        }
+
+        .sidebar-post a {
+            font-size: 0.9rem;
+            color: #5a2d82;
+            text-decoration: none;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .sidebar-post a:hover {
+            color: #c96f0e;
+            text-decoration: underline;
+        }
+
+        /* چھوٹے فونٹ سائز کے ساتھ نیا کلر تھیم */
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(120deg, #7b2cbf, #ff914d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            border-bottom: 3px solid #ff914d;
+            padding-bottom: 0.4rem;
+            margin: 0.2rem 0 1rem 0;
+            font-weight: 700;
+            display: inline-block;
+            width: auto;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            background: #ffb347;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            color: #2d1b42;
+            margin: 1rem 0 0.6rem 0;
+            border-right: 5px solid #9b4dff;
         }
 
         h3 {
-            font-size: 1.5rem;
-            color: #1c6f8c;
-            border-right: 5px dotted #21a1c9;
-            padding-right: 1.2rem;
-            margin: 1rem 0 0.8rem;
+            font-size: 1.25rem;
+            color: #c25d00;
+            border-right: 4px solid #ffa559;
+            padding-right: 0.8rem;
+            margin: 0.8rem 0 0.4rem;
         }
 
-        /* متن مکمل justify اور خوش خط */
         p, li, .text-block {
             text-align: justify;
-            font-size: 1.3rem;
-            line-height: 2.1;
-            color: #013845;
-            word-spacing: 0.5px;
-            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #1e2a32;
+            word-spacing: normal;
+            letter-spacing: 0.01em;
+            margin-bottom: 0.8rem;
         }
 
-        /* امیج کا خوبصورت فریم */
+        /* تصویر کا خوبصورت فریم */
         .featured-image {
             text-align: center;
-            margin: 1.8rem 0 2.5rem 0;
+            margin: 1rem 0 1.5rem 0;
         }
 
         .featured-image img {
             max-width: 100%;
-            width: 100%;
-            height: auto;
-            border-radius: 32px;
-            box-shadow: 0 25px 35px -10px #02455a, 0 0 0 4px #b7ecff, 0 0 0 8px #fefefe;
-            transition: 0.3s ease-in;
-            background: white;
+            border-radius: 28px;
+            box-shadow: 0 12px 20px -8px #402a1e;
+            border: 3px solid #ffb86b;
         }
 
-        .featured-image img:hover {
-            transform: scale(1.01);
-            box-shadow: 0 30px 45px -5px #023b4f, 0 0 0 6px #ffdc9a, 0 0 0 12px #b1eaff;
-        }
-
-        /* نیویگیشن بٹن + سوشل بار */
+        /* نیویگیشن بٹن */
         .nav-bar {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0 2.2rem 0;
+            gap: 0.8rem;
+            margin: 1.5rem 0 1rem 0;
         }
 
         .nav-btn {
-            background: linear-gradient(130deg, #47b8d6, #116f8f);
+            background: linear-gradient(130deg, #9b4dff, #ff6a2e);
             border: none;
-            padding: 0.9rem 2rem;
-            border-radius: 120px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
             color: white;
-            font-size: 1.3rem;
+            font-size: 0.9rem;
             font-weight: bold;
-            box-shadow: 0 10px 0 #03455c, 0 8px 18px #01657c;
+            box-shadow: 0 4px 0 #5a2a6e;
             cursor: pointer;
-            transition: 0.18s linear;
+            transition: 0.15s;
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
-            border: 1px solid #c3f0ff;
+            gap: 0.5rem;
             font-family: 'Noto Nastaliq Urdu', sans-serif;
         }
 
         .nav-btn i {
-            font-size: 1.5rem;
-            color: #ffeeab;
+            font-size: 1rem;
         }
 
         .nav-btn:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 0 #023644, 0 12px 25px #0a708b;
-            background: linear-gradient(145deg, #5ac6e3, #1483a6);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 0 #422b55;
+            background: linear-gradient(145deg, #b06eff, #ff874d);
         }
 
-        .nav-btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #045066;
+        /* ری ایکشن بٹن سیکشن */
+        .reactions-section {
+            margin: 1.8rem 0 1rem;
+            background: #fef2e0;
+            border-radius: 60px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #ffb347;
+        }
+
+        .reaction-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .reaction-btn {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border: 1px solid #ff9f4a;
+            border-radius: 60px;
+            padding: 0.3rem 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Noto Nastaliq Urdu', serif;
+            background: #fff1e0;
+        }
+
+        .reaction-btn span:first-child {
+            font-size: 1.1rem;
+        }
+
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ffddb0;
+            border-color: #ff7b2c;
+        }
+
+        .reaction-count {
+            font-weight: bold;
+            color: #c2571a;
+            min-width: 24px;
         }
 
         /* سوشل میڈیا شیئرز */
@@ -179,211 +282,276 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.9rem;
-            margin: 2.5rem 0 1.5rem 0;
-            background: rgba(161, 233, 255, 0.45);
-            padding: 1rem 1.5rem;
-            border-radius: 90px;
-            border: 1px dashed #066277;
+            gap: 0.6rem;
+            margin: 1.5rem 0 1rem;
+            background: #e8d9ff;
+            padding: 0.7rem 1rem;
+            border-radius: 60px;
         }
 
         .social-btn {
             background: white;
-            color: #045b77;
-            width: 3.5rem;
-            height: 3.5rem;
+            color: #6c3b9e;
+            width: 2.6rem;
+            height: 2.6rem;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.9rem;
-            box-shadow: 0 5px 0 #016477, 0 6px 14px #023e55;
+            font-size: 1.3rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
             transition: 0.2s;
-            border: 2px solid #b6f2ff;
+            cursor: pointer;
         }
 
         .social-btn:hover {
-            transform: scale(1.15) rotate(3deg);
-            background: #fee284;
-            color: #023f56;
-            box-shadow: 0 8px 0 #014255;
+            transform: scale(1.1);
+            background: #ffc485;
+            color: #3c1361;
         }
 
-        /* اپ اور ڈاون بٹن */
+        /* فلوٹنگ اسکرول بٹن */
         .page-updown {
             position: fixed;
             left: 20px;
             bottom: 30px;
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.6rem;
             z-index: 999;
         }
 
         .updown-btn {
-            background: #0d5f7a;
-            width: 3.8rem;
-            height: 3.8rem;
-            border-radius: 40px;
+            background: #ff884d;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            color: #fef9d3;
-            box-shadow: 0 7px 0 #013e52, 0 8px 16px #0000004d;
+            font-size: 1.6rem;
+            color: white;
+            box-shadow: 0 5px 0 #8b3c1a;
             cursor: pointer;
-            transition: 0.15s;
-            border: 2px solid #b6fbff;
+            transition: 0.1s;
+            border: 1px solid #ffc285;
         }
 
         .updown-btn:hover {
-            background: #21adcf;
-            color: white;
-            transform: scale(1.07);
-            box-shadow: 0 9px 0 #023343;
+            background: #aa5eff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 0 #4f2b6e;
         }
 
-        /* تمام اندرونی لنک ہٹانے کے لیے (لیکن عمومی بٹن الگ ہیں) */
-        a.internal {
-            display: none;
-        }
-
-        /* فوٹر وضاحت */
         .clean-footer {
             text-align: center;
-            font-size: 1.2rem;
-            color: #054257;
-            margin-top: 2rem;
-            border-top: 2px solid #24aac9;
-            padding-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #3c2a3e;
+            margin-top: 1.5rem;
+            border-top: 1px dashed #ffa559;
+            padding-top: 1rem;
         }
 
-        /* موبائل دوستانہ */
-        @media (max-width: 700px) {
-            .elegant-wrapper { padding: 1.2rem; }
-            h1 { font-size: 1.8rem; }
-            p { font-size: 1.2rem; }
-            .nav-btn { padding: 0.5rem 1.2rem; font-size: 1.1rem; }
-            .social-btn { width: 2.9rem; height: 2.9rem; font-size: 1.5rem; }
+        /* موبائل موافق */
+        @media (max-width: 850px) {
+            .elegant-wrapper {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .sidebar-auto {
+                width: 100%;
+                position: static;
+                height: 400px;
+            }
+            h1 { font-size: 1.5rem; }
+            p { font-size: 0.9rem; }
         }
 
-        @media (max-width: 450px) {
-            h1 { font-size: 1.6rem; }
-            h2 { font-size: 1.5rem; }
-        }
-
-        /* باقی تمام اندرونی روابط چھپائیں */
-        a[href*="draft.blogger.com"], a[href*="blogger.com"] {
+        /* چھپی لنکس کو ہٹانا */
+        a.internal, a[href*="draft.blogger.com"] {
             display: none !important;
         }
-
-        /* ہم نے تمام مطلوبہ بٹن رکھے ہیں، کوئی ٹوگل نہیں */
+        /* سائیڈ بار اسکرول ریپ */
+        .scroll-posts {
+            animation: autoScroll 30s linear infinite;
+        }
     </style>
 </head>
 <body>
 
-    <!-- اپ اور ڈاؤن فکسڈ بٹن -->
+    <!-- فلوٹنگ اپ ڈاؤن -->
     <div class="page-updown">
         <div class="updown-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-arrow-up"></i></div>
         <div class="updown-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-arrow-down"></i></div>
     </div>
 
     <div class="elegant-wrapper">
+        <!-- مرکزی مواد والا حصہ -->
+        <div class="main-content">
+            <!-- ہوم اور بیک بٹن (اوپر) -->
+            <div class="nav-bar">
+                <a href="https://bloglovers.pk/"><button class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</button></a>
+                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html"><button class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</button></a>
+            </div>
 
-        <!-- ہوم اور بیک بٹن (بالکل اوپر) -->
-        <div class="nav-bar">
-            <a href="https://bloglovers.pk/"><button class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</button></a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html"><button class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</button></a>
+            <h1>غفلت میں چھپے 50 گناہ 49۔ اصحاب رسول کو گالی دینا</h1>
+
+            <!-- فیچر امیج -->
+            <div class="featured-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-49-ashab-rsol-ko-gali-dyna.png" alt="اصحاب رسول کو گالی دینا - گناہ">
+            </div>
+
+            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں انچاسواں گناہ اصحاب رسول کو گالی دینا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+            <p>اصحاب رسول ﷺ یعنی صحابہ کرام وہ عظیم ہستیاں ہیں جنہوں نے رسول اللہ ﷺ کے ساتھ ایمان لایا، ان کی پیروی کی، اور اسلام کی راہ میں جدوجہد کی۔ صحابہ کرام کو گالی دینا یا ان کی بے حرمتی کرنا اسلامی تعلیمات کے خلاف ایک سنگین گناہ ہے۔ قرآن کریم اور احادیث میں صحابہ کرام کی عظمت اور مقام کی بار بار وضاحت کی گئی ہے۔</p>
+            
+            <h2>قرآن کریم میں صحابہ کرام کا مقام</h2>
+            <p>اللہ تعالیٰ قرآن میں فرماتے ہیں: "محمد (ﷺ) اللہ کے رسول ہیں اور جو لوگ ان کے ساتھ ہیں وہ کافروں کے مقابلے میں سخت ہیں اور آپس میں رحم دل ہیں۔" صحابہ کرام کی محبت اور احترام مسلمانوں پر واجب ہے۔ ان کی بے حرمتی کرنا نہ صرف ایک گناہ ہے بلکہ اسلام کی بنیادی اقدار اور رسول اللہ ﷺ کی حرمت کی خلاف ورزی بھی ہے۔</p>
+            
+            <h2>گناہ کی نوعیت</h2>
+            <p>اسلام میں گناہ کا تعلق صنف سے نہیں بلکہ اعمال سے ہوتا ہے۔ اصحاب رسول ﷺ کو گالی دینے کا عمل مردوں اور عورتوں دونوں کے لیے ممنوع ہے۔ اسلام نے گالی دینے یا بے حرمتی کرنے کو مرد یا عورت کے ساتھ خاص نہیں کیا بلکہ سب کے لیے یکساں ممانعت کی گئی ہے۔ حدیث مبارکہ میں ہے: "میرے صحابہ کے بارے میں اللہ سے ڈرو، میرے بعد انہیں ہدف نہ بنانا۔" یہ حدیث تمام مسلمانوں کو مخاطب کرتی ہے، چاہے وہ مرد ہوں یا عورت۔</p>
+            
+            <h2>معاشرتی اثرات</h2>
+            <p>اصحاب رسول ﷺ کو گالی دینے سے معاشرتی انتشار اور فرقہ واریت پھیلتی ہے۔ صحابہ کرام کی بے حرمتی سے مسلمانوں کے درمیان اختلافات جنم لیتے ہیں، اور یہ عمل امت کو تقسیم کرنے کا باعث بنتا ہے۔ اللہ تعالیٰ نے مسلمانوں کو ایک امت اور ایک بھائی چارہ بنانے کی تاکید کی ہے: "اور تم سب اللہ کی رسی کو مضبوطی سے تھام لو اور فرقے فرقے نہ بنو۔" جب صحابہ کرام کو نشانہ بنایا جاتا ہے تو یہ امت کے درمیان نفرت، دشمنی اور اختلاف کو بڑھا دیتا ہے۔</p>
+            
+            <h2>خاندانی تعلقات پر اثرات</h2>
+            <p>جب کسی خاندانی یا دوستوں کے درمیان اصحاب رسول ﷺ کو گالی دینے کا عمل سرزد ہوتا ہے، تو یہ تعلقات میں فرقہ واریت اور اختلافات کا سبب بنتا ہے۔ اسلامی معاشرے میں اتحاد و اتفاق کی بڑی اہمیت ہے، اور ایسی باتیں تعلقات میں دراڑ ڈالنے کا باعث بنتی ہیں۔</p>
+            <p>حدیث شریف میں ہے: "مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ ہوں۔" یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ زبان سے ہونے والے فتنہ اور فساد کو روکنا ضروری ہے، ورنہ رشتہ داروں اور دوستوں کے درمیان تعلقات خراب ہو سکتے ہیں۔</p>
+            
+            <h2>دور جاہلیت کے مقابلے میں</h2>
+            <p>دور جاہلیت میں لوگ عموماً شخصی اختلافات کی بنیاد پر گالی گلوچ کرتے تھے۔ جب اسلام آیا تو نبی کریم ﷺ نے اس عمل کو روکا اور صحابہ کرام کو ایک دوسرے کی عزت کرنے کا درس دیا۔ نبی ﷺ نے فرمایا: "کسی مسلمان کو گالی دینا فسق ہے اور اس سے لڑنا کفر ہے۔" اسلام نے گالی گلوچ اور بے حرمتی کو جاہلیت کے دور کے اعمال قرار دیا اور مسلمانوں کو بھائی چارے اور محبت کا پیغام دیا۔</p>
+            
+            <h2>دیگر مذاہب میں</h2>
+            <p>دیگر مذاہب میں بھی مقدس شخصیات اور ان کے پیروکاروں کی عزت و تکریم کی تعلیمات دی گئی ہیں۔ مثلاً، مسیحیت میں حضرت عیسیٰ علیہ السلام اور ان کے حواریوں کی عزت و احترام لازمی ہے۔ یہودی مذہب میں بھی حضرت موسیٰ علیہ السلام اور ان کے ساتھیوں کی بے حرمتی کو ایک بڑا گناہ سمجھا جاتا ہے۔</p>
+            
+            <h2>اسلام میں سنگینی</h2>
+            <p>اسلام میں اصحاب رسول ﷺ کی بے حرمتی ایک سنگین گناہ ہے۔ نبی کریم ﷺ نے فرمایا: "میرے صحابہ کو برا مت کہو، کیونکہ اگر تم میں سے کوئی احد پہاڑ کے برابر سونا بھی خرچ کرے تو ان کے ایک مد کے نصف مد کے برابر بھی نہیں پہنچ سکتا۔"</p>
+            <p>فقہاء کے مطابق، صحابہ کرام کی بے حرمتی کرنے والا شخص فاسق ہو سکتا ہے، اور اس کا ایمان خطرے میں ہوتا ہے۔ بعض علما کے نزدیک، صحابہ کرام کو گالی دینے والے کے لیے شدید سزا ہے، اور اس پر اللہ کا عذاب نازل ہو سکتا ہے۔</p>
+            
+            <h2>ائمہ کرام کا موقف</h2>
+            <p>ائمہ کرام یعنی امام ابو حنیفہؒ، امام مالکؒ، امام شافعیؒ، اور امام احمد بن حنبلؒ نے صحابہ کرام کی بے حرمتی کو حرام قرار دیا ہے اور اس عمل کو فسق اور گمراہی کی علامت سمجھا ہے۔ امام مالکؒ نے فرمایا: "جو شخص صحابہ کرام کو برا بھلا کہتا ہے، وہ دین میں فتنہ پیدا کرتا ہے۔" ائمہ کرام نے اس بات پر زور دیا کہ صحابہ کرام کے بارے میں احترام و ادب کا خیال رکھا جائے۔</p>
+            
+            <h2>اہل تشیع کے بعض افراد میں</h2>
+            <p>اہل تشیع کے بعض افراد میں تاریخی واقعات اور سیاسی اختلافات کی بنا پر کچھ صحابہ کرام کو تنقید کا نشانہ بنایا جاتا ہے۔ تاہم، یہ رویہ تمام اہل تشیع میں یکساں نہیں ہے، اور بہت سے اہل تشیع علما اس عمل کی مذمت کرتے ہیں۔ مختلف فرقوں کے درمیان سیاسی اور تاریخی وجوہات کی بنا پر یہ اختلافات پیدا ہوئے، لیکن اسلام کی بنیادی تعلیمات صحابہ کرام کے احترام کی تلقین کرتی ہیں۔</p>
+            
+            <h2>موجودہ دور میں چیلنج</h2>
+            <p>موجودہ دور میں سوشل میڈیا اور غیر ذمہ دارانہ معلومات کے پھیلاؤ نے لوگوں کو بے حرمتی اور گالی گلوچ میں مبتلا کر دیا ہے۔ بعض افراد دینی معلومات کی کمی کی وجہ سے صحابہ کرام کی عزت کا خیال نہیں رکھتے اور انہیں تنقید کا نشانہ بناتے ہیں۔ اس معاملے میں عوام الناس کو اسلامی تعلیمات کے بارے میں بہتر آگاہی فراہم کرنے کی ضرورت ہے۔</p>
+            
+            <h2>حل کے طریقے</h2>
+            <p><strong>اسلامی تعلیمات کو سمجھیں</strong>: قرآن و سنت کو پڑھ کر صحابہ کرام کے مقام و مرتبے کو سمجھیں اور ان کا احترام کریں۔</p>
+            <p><strong>تقویٰ اختیار کریں</strong>: اللہ کا خوف دل میں رکھیں اور زبان کو بے حرمتی سے بچائیں۔</p>
+            <p><strong>علماء سے رجوع کریں</strong>: صحیح عقائد اور معلومات کے لیے علماء کی رہنمائی حاصل کریں۔</p>
+            <p><strong>اتحاد اور محبت کو فروغ دیں</strong>: فرقہ وارانہ اختلافات کو ختم کر کے امت مسلمہ میں اتحاد کو فروغ دیں۔</p>
+            
+            <h2>حدیث نبویہ کی روشنی میں</h2>
+            <p>نبی کریم ﷺ نے فرمایا: "مسلمانوں کو باہم جوڑو اور فرقے فرقے نہ بنو۔" یہ حدیث ہمیں اس بات کی ترغیب دیتی ہے کہ ہم اپنے درمیان محبت اور اتحاد پیدا کریں اور اصحاب رسول ﷺ کی بے حرمتی سے بچیں۔</p>
+            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+
+            <!-- ری ایکشن سسٹم (مکمل طور پر reactions.js کے ساتھ ہم آہنگ) -->
+            <div class="reactions-section">
+                <div style="font-weight: bold; font-size: 1rem; margin-bottom: 0.5rem;">📊 آپ کا ردعمل</div>
+                <div class="reaction-buttons">
+                    <div class="reaction-btn" onclick="reactionClick('عمدہ')"><span>👍</span> <span>عمدہ</span> <span class="reaction-count" id="count-عمدہ">0</span></div>
+                    <div class="reaction-btn" onclick="reactionClick('دلچسپ')"><span>❤️</span> <span>دلچسپ</span> <span class="reaction-count" id="count-دلچسپ">0</span></div>
+                    <div class="reaction-btn" onclick="reactionClick('مفید')"><span>😊</span> <span>مفید</span> <span class="reaction-count" id="count-مفید">0</span></div>
+                    <div class="reaction-btn" onclick="reactionClick('قابل غور')"><span>😢</span> <span>قابل غور</span> <span class="reaction-count" id="count-قابل غور">0</span></div>
+                    <div class="reaction-btn" onclick="reactionClick('سوچ بچار')"><span>🤔</span> <span>سوچ بچار</span> <span class="reaction-count" id="count-سوچ بچار">0</span></div>
+                    <div class="reaction-btn" onclick="reactionClick('شاندار')"><span>👏</span> <span>شاندار</span> <span class="reaction-count" id="count-شاندار">0</span></div>
+                    <div class="reaction-btn" onclick="reactionClick('زبردست')"><span>🔥</span> <span>زبردست</span> <span class="reaction-count" id="count-زبردست">0</span></div>
+                </div>
+            </div>
+
+            <!-- سوشل میڈیا آئیکونز (7 پلیٹ فارمز) -->
+            <div class="social-share">
+                <div class="social-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'_blank')"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 49۔ اصحاب رسول کو گالی دینا - ' + location.href),'_blank')"><i class="fab fa-whatsapp"></i></div>
+                <div class="social-btn" onclick="window.open('https://twitter.com/intent/tweet?text=غفلت میں چھپے 50 گناہ 49۔ اصحاب رسول کو گالی دینا&url='+encodeURIComponent(location.href),'_blank')"><i class="fab fa-x-twitter"></i></div>
+                <div class="social-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href),'_blank')"><i class="fab fa-linkedin-in"></i></div>
+                <div class="social-btn" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(location.href)+'&text=غفلت میں چھپے 50 گناہ','_blank')"><i class="fab fa-telegram-plane"></i></div>
+                <div class="social-btn" onclick="window.open('https://pinterest.com/pin/create/button/?url='+encodeURIComponent(location.href)+'&description=غفلت میں چھپے 50 گناہ','_blank')"><i class="fab fa-pinterest-p"></i></div>
+                <div class="social-btn" onclick="navigator.clipboard.writeText(location.href); alert('لنک کاپی ہوگیا');"><i class="fas fa-link"></i></div>
+            </div>
+
+            <!-- نیچے نیویگیشن بٹن (مرکزی صفحہ + تمام پوسٹس) -->
+            <div class="nav-bar">
+                <a href="https://bloglovers.pk/"><button class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</button></a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html"><button class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</button></a>
+            </div>
+            <div class="clean-footer">
+                📿 غفلت میں چھپے 50 گناہ — قسط 49 | اصحاب رسول کو گالی دینا
+            </div>
         </div>
 
-        <!-- پوسٹ کا مرکزی مواد (بالکل اصلی متن، کوئی لفظ نہیں بدلا) -->
-        <h1>غفلت میں چھپے 50 گناہ 49۔ اصحاب رسول کو گالی دینا</h1>
-
-        <!-- === نئی شامل کردہ امیج (عنوان کے فوراً بعد) === -->
-        <div class="featured-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-49-ashab-rsol-ko-gali-dyna.png" alt="غفلت میں چھپے 50 گناہ — اصحاب رسول کو گالی دینا" title="صحابہ کرام کا احترام">
+        <!-- سائیڈ بار آٹو اسکرول (انٹرنل لنکنگ) -->
+        <div class="sidebar-auto">
+            <h3><i class="fas fa-scroll"></i> مزید پڑھیں</h3>
+            <div class="scroll-posts">
+                <!-- 1 -->
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی">
+                    <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="چغلی کرنا">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="بلاعذر بھیک">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="زمین قبضہ">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna">غفلت میں چھپے 50 گناہ 12 - زمین پر قبضہ</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="خودکشی">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="عالم عمل نہ کرنا">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا عمل نہ کرنا</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں منانا">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="قبروں پر دھاگے">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna">دین کی پاکیزگی پر 27 - قبروں پر دھاگے</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="پیر کی عقیدت">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی 29 - پیر کی عقیدت میں سجدہ</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="بے حیائی پھیلانا">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana">دین کی پاکیزگی 42 - بے حیائی پھیلانا</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہیٰ تین گھر">
+                    <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+                </div>
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="مذاق میں دل دکھانا">
+                    <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a>
+                </div>
+                <!-- ڈپلیکیٹ اثر کے لیے دوبارہ شروع (آٹو سکرول کے لیے) -->
+                <div class="sidebar-post">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="توہم پرستی">
+                    <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</a>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <p>غفلت میں چھپے 50 گناہوں کی فہرست میں انچاسواں گناہ اصحاب رسول کو گالی دینا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-        <p>اصحاب رسول ﷺ یعنی صحابہ کرام وہ عظیم ہستیاں ہیں جنہوں نے رسول اللہ ﷺ کے ساتھ ایمان لایا، ان کی پیروی کی، اور اسلام کی راہ میں جدوجہد کی۔ صحابہ کرام کو گالی دینا یا ان کی بے حرمتی کرنا اسلامی تعلیمات کے خلاف ایک سنگین گناہ ہے۔ قرآن کریم اور احادیث میں صحابہ کرام کی عظمت اور مقام کی بار بار وضاحت کی گئی ہے۔</p>
-        
-        <h2>قرآن کریم میں صحابہ کرام کا مقام</h2>
-        <p>اللہ تعالیٰ قرآن میں فرماتے ہیں: "محمد (ﷺ) اللہ کے رسول ہیں اور جو لوگ ان کے ساتھ ہیں وہ کافروں کے مقابلے میں سخت ہیں اور آپس میں رحم دل ہیں۔" صحابہ کرام کی محبت اور احترام مسلمانوں پر واجب ہے۔ ان کی بے حرمتی کرنا نہ صرف ایک گناہ ہے بلکہ اسلام کی بنیادی اقدار اور رسول اللہ ﷺ کی حرمت کی خلاف ورزی بھی ہے۔</p>
-        
-        <h2>گناہ کی نوعیت</h2>
-        <p>اسلام میں گناہ کا تعلق صنف سے نہیں بلکہ اعمال سے ہوتا ہے۔ اصحاب رسول ﷺ کو گالی دینے کا عمل مردوں اور عورتوں دونوں کے لیے ممنوع ہے۔ اسلام نے گالی دینے یا بے حرمتی کرنے کو مرد یا عورت کے ساتھ خاص نہیں کیا بلکہ سب کے لیے یکساں ممانعت کی گئی ہے۔ حدیث مبارکہ میں ہے: "میرے صحابہ کے بارے میں اللہ سے ڈرو، میرے بعد انہیں ہدف نہ بنانا۔" یہ حدیث تمام مسلمانوں کو مخاطب کرتی ہے، چاہے وہ مرد ہوں یا عورت۔</p>
-        
-        <h2>معاشرتی اثرات</h2>
-        <p>اصحاب رسول ﷺ کو گالی دینے سے معاشرتی انتشار اور فرقہ واریت پھیلتی ہے۔ صحابہ کرام کی بے حرمتی سے مسلمانوں کے درمیان اختلافات جنم لیتے ہیں، اور یہ عمل امت کو تقسیم کرنے کا باعث بنتا ہے۔ اللہ تعالیٰ نے مسلمانوں کو ایک امت اور ایک بھائی چارہ بنانے کی تاکید کی ہے: "اور تم سب اللہ کی رسی کو مضبوطی سے تھام لو اور فرقے فرقے نہ بنو۔" جب صحابہ کرام کو نشانہ بنایا جاتا ہے تو یہ امت کے درمیان نفرت، دشمنی اور اختلاف کو بڑھا دیتا ہے۔</p>
-        
-        <h2>خاندانی تعلقات پر اثرات</h2>
-        <p>جب کسی خاندانی یا دوستوں کے درمیان اصحاب رسول ﷺ کو گالی دینے کا عمل سرزد ہوتا ہے، تو یہ تعلقات میں فرقہ واریت اور اختلافات کا سبب بنتا ہے۔ اسلامی معاشرے میں اتحاد و اتفاق کی بڑی اہمیت ہے، اور ایسی باتیں تعلقات میں دراڑ ڈالنے کا باعث بنتی ہیں۔</p>
-        <p>حدیث شریف میں ہے: "مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ ہوں۔" یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ زبان سے ہونے والے فتنہ اور فساد کو روکنا ضروری ہے، ورنہ رشتہ داروں اور دوستوں کے درمیان تعلقات خراب ہو سکتے ہیں۔</p>
-        
-        <h2>دور جاہلیت کے مقابلے میں</h2>
-        <p>دور جاہلیت میں لوگ عموماً شخصی اختلافات کی بنیاد پر گالی گلوچ کرتے تھے۔ جب اسلام آیا تو نبی کریم ﷺ نے اس عمل کو روکا اور صحابہ کرام کو ایک دوسرے کی عزت کرنے کا درس دیا۔ نبی ﷺ نے فرمایا: "کسی مسلمان کو گالی دینا فسق ہے اور اس سے لڑنا کفر ہے۔" اسلام نے گالی گلوچ اور بے حرمتی کو جاہلیت کے دور کے اعمال قرار دیا اور مسلمانوں کو بھائی چارے اور محبت کا پیغام دیا۔</p>
-        
-        <h2>دیگر مذاہب میں</h2>
-        <p>دیگر مذاہب میں بھی مقدس شخصیات اور ان کے پیروکاروں کی عزت و تکریم کی تعلیمات دی گئی ہیں۔ مثلاً، مسیحیت میں حضرت عیسیٰ علیہ السلام اور ان کے حواریوں کی عزت و احترام لازمی ہے۔ یہودی مذہب میں بھی حضرت موسیٰ علیہ السلام اور ان کے ساتھیوں کی بے حرمتی کو ایک بڑا گناہ سمجھا جاتا ہے۔</p>
-        
-        <h2>اسلام میں سنگینی</h2>
-        <p>اسلام میں اصحاب رسول ﷺ کی بے حرمتی ایک سنگین گناہ ہے۔ نبی کریم ﷺ نے فرمایا: "میرے صحابہ کو برا مت کہو، کیونکہ اگر تم میں سے کوئی احد پہاڑ کے برابر سونا بھی خرچ کرے تو ان کے ایک مد کے نصف مد کے برابر بھی نہیں پہنچ سکتا۔"</p>
-        <p>فقہاء کے مطابق، صحابہ کرام کی بے حرمتی کرنے والا شخص فاسق ہو سکتا ہے، اور اس کا ایمان خطرے میں ہوتا ہے۔ بعض علما کے نزدیک، صحابہ کرام کو گالی دینے والے کے لیے شدید سزا ہے، اور اس پر اللہ کا عذاب نازل ہو سکتا ہے۔</p>
-        
-        <h2>ائمہ کرام کا موقف</h2>
-        <p>ائمہ کرام یعنی امام ابو حنیفہؒ، امام مالکؒ، امام شافعیؒ، اور امام احمد بن حنبلؒ نے صحابہ کرام کی بے حرمتی کو حرام قرار دیا ہے اور اس عمل کو فسق اور گمراہی کی علامت سمجھا ہے۔ امام مالکؒ نے فرمایا: "جو شخص صحابہ کرام کو برا بھلا کہتا ہے، وہ دین میں فتنہ پیدا کرتا ہے۔" ائمہ کرام نے اس بات پر زور دیا کہ صحابہ کرام کے بارے میں احترام و ادب کا خیال رکھا جائے۔</p>
-        
-        <h2>اہل تشیع کے بعض افراد میں</h2>
-        <p>اہل تشیع کے بعض افراد میں تاریخی واقعات اور سیاسی اختلافات کی بنا پر کچھ صحابہ کرام کو تنقید کا نشانہ بنایا جاتا ہے۔ تاہم، یہ رویہ تمام اہل تشیع میں یکساں نہیں ہے، اور بہت سے اہل تشیع علما اس عمل کی مذمت کرتے ہیں۔ مختلف فرقوں کے درمیان سیاسی اور تاریخی وجوہات کی بنا پر یہ اختلافات پیدا ہوئے، لیکن اسلام کی بنیادی تعلیمات صحابہ کرام کے احترام کی تلقین کرتی ہیں۔</p>
-        
-        <h2>موجودہ دور میں چیلنج</h2>
-        <p>موجودہ دور میں سوشل میڈیا اور غیر ذمہ دارانہ معلومات کے پھیلاؤ نے لوگوں کو بے حرمتی اور گالی گلوچ میں مبتلا کر دیا ہے۔ بعض افراد دینی معلومات کی کمی کی وجہ سے صحابہ کرام کی عزت کا خیال نہیں رکھتے اور انہیں تنقید کا نشانہ بناتے ہیں۔ اس معاملے میں عوام الناس کو اسلامی تعلیمات کے بارے میں بہتر آگاہی فراہم کرنے کی ضرورت ہے۔</p>
-        
-        <h2>حل کے طریقے</h2>
-        <p><strong>اسلامی تعلیمات کو سمجھیں</strong>: قرآن و سنت کو پڑھ کر صحابہ کرام کے مقام و مرتبے کو سمجھیں اور ان کا احترام کریں۔</p>
-        <p><strong>تقویٰ اختیار کریں</strong>: اللہ کا خوف دل میں رکھیں اور زبان کو بے حرمتی سے بچائیں۔</p>
-        <p><strong>علماء سے رجوع کریں</strong>: صحیح عقائد اور معلومات کے لیے علماء کی رہنمائی حاصل کریں۔</p>
-        <p><strong>اتحاد اور محبت کو فروغ دیں</strong>: فرقہ وارانہ اختلافات کو ختم کر کے امت مسلمہ میں اتحاد کو فروغ دیں۔</p>
-        
-        <h2>حدیث نبویہ کی روشنی میں</h2>
-        <p>نبی کریم ﷺ نے فرمایا: "مسلمانوں کو باہم جوڑو اور فرقے فرقے نہ بنو۔" یہ حدیث ہمیں اس بات کی ترغیب دیتی ہے کہ ہم اپنے درمیان محبت اور اتحاد پیدا کریں اور اصحاب رسول ﷺ کی بے حرمتی سے بچیں۔</p>
-        <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-
-        <!-- اندرونی لنکس (جو ہٹانے تھے) اب مخفی ہیں، لیکن متن میں موجود ہیں بطور مثال ڈسپلے نہیں ہوں گے -->
-        <p style="display:none;">یہ لنکس نہیں دکھیں گے</p>
-        <!-- اصل میں ان کو چھپانے کے لیئے a.internal استعمال کیا لیکن سلیکٹر سے مخفی کر دیا -->
-        <p><a href="#" class="internal" style="display:none;">جوا کھیلنا</a> <a href="#" style="display:none;">بیوی کو خاوند کے خلاف بھڑکانا</a></p>
-        <!-- مگر متن تبدیل نہیں کیا جا سکتا، لہٰذا صرف بصری طور پر ان لنکس کو نان کلک ایبل اور پوشیدہ کر دیا گیا ہے۔
-         درج ذیل اصل والے لنکس کو چھپانے کے لیے css اصول پہلے سے موجود ہے۔ -->
-        <p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">جوا کھیلنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">بیوی کو خاوند کے خلاف بھڑکانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">لعنت کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">احسان جتلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">دیوث بننا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">میلاد منانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">حلالہ کرنا یا کروانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">ہم جنس پرستی</a></p>
-        <p><a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">جاندار کو آگ میں جلانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">سود کھانا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">ظلم کرنا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">رشوت لینا یا دینا</a>، <a href="https://draft.blogger.com/blog/post/edit/2511073612590763516/8802455619767430311" style="display:none;">زنا کرنا</a></p>
-
-        <!-- سوشل میڈیا شیئر بٹن (ملٹی پلیٹ فارم) -->
-        <div class="social-share">
-            <span class="social-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'_blank')"><i class="fab fa-facebook-f"></i></span>
-            <span class="social-btn" onclick="window.open('https://wa.me/?text='+encodeURIComponent('غفلت میں چھپے 50 گناہ 49۔ اصحاب رسول کو گالی دینا - ' + location.href),'_blank')"><i class="fab fa-whatsapp"></i></span>
-            <span class="social-btn" onclick="window.open('https://twitter.com/intent/tweet?text=غفلت میں چھپے 50 گناہ 49۔ اصحاب رسول کو گالی دینا&url='+encodeURIComponent(location.href),'_blank')"><i class="fab fa-x-twitter"></i></span>
-            <span class="social-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href),'_blank')"><i class="fab fa-linkedin-in"></i></span>
-            <span class="social-btn" onclick="window.open('https://t.me/share/url?url='+encodeURIComponent(location.href)+'&text=غفلت میں چھپے 50 گناہ','_blank')"><i class="fab fa-telegram-plane"></i></span>
-        </div>
-
-        <!-- دو بٹن نیچے بھی رہنے دیے (ہوم اور بیک) -->
-        <div class="nav-bar" style="margin-top: 0.5rem;">
-            <a href="https://bloglovers.pk/"><button class="nav-btn"><i class="fas fa-home"></i> ہوم پیج</button></a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html"><button class="nav-btn"><i class="fas fa-arrow-right"></i> واپس (اسلامی تعلیمات)</button></a>
-        </div>
-
-        <div class="clean-footer">
-            📿 غفلت میں چھپے 50 گناہ — قسط 49
-        </div>
-
-    </div> <!-- wrapper -->
-
+    <!-- کوئی ڈپلیکیٹ ری ایکشن فنکشنز نہیں ہیں، صرف reactions.js سے reactionClick کام کرے گا -->
     <script>
-        // کوئی ٹوگل نہیں، بس ہموار اسکرول
-        // ہوم/بیک بٹن پہلے سے کام کر رہے ہیں
-        // سوشل بٹن اسی طرح اوپن ہوں گے
+        // ہموار اسکرول اور کوئی ٹکراؤ نہیں، reactions.js پہلے سے موجود ہے
+        // اس میں کوئی loadReactions / addReaction نہیں بنایا گیا۔
+        // سوشل میڈیا کاپی لنک کا فنکشن دیا گیا
     </script>
-
 </body>
 </html>
