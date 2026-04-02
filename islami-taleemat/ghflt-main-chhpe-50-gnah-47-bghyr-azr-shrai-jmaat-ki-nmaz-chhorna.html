@@ -16,17 +16,18 @@
 
         body {
             font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
-            line-height: 2.2;
+            line-height: 1.7;
             direction: rtl;
             text-align: right;
-            background: linear-gradient(145deg, #d9f0f7 0%, #b5e4f0 100%);
+            background: #f4f0fa;  /* fallback, multi-color dynamic bg */
             min-height: 100vh;
-            padding: 15px;
+            padding: 20px 15px;
             position: relative;
-            color: #033b48;
+            color: #1e1a2f;
+            font-size: 15px;  /* چھوٹا فونٹ سائز */
         }
 
-        /* ایکوا بلیو متحرک تھیم بیک گراؤنڈ */
+        /* متحرک ملٹی کلر بیک گراؤنڈ (purple, orange, aqua green) */
         body::before {
             content: '';
             position: fixed;
@@ -34,205 +35,285 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(125deg, #a0e7f0, #6ad4e8, #87e0f0, #b2f0f5, #4ecfdc);
+            background: linear-gradient(135deg, #6a4c9c, #ff9a3c, #2cbfb0, #aa6dc9, #f39c12);
             background-size: 400% 400%;
-            animation: aquaFlow 18s ease infinite;
+            animation: vibrantFlow 20s ease infinite;
             z-index: -2;
-            opacity: 0.45;
+            opacity: 0.35;
         }
 
-        @keyframes aquaFlow {
-            0% { background-position: 0% 30%; }
-            50% { background-position: 100% 70%; }
-            100% { background-position: 0% 30%; }
+        @keyframes vibrantFlow {
+            0% { background-position: 0% 20%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 80%; }
+            75% { background-position: 0% 60%; }
+            100% { background-position: 0% 20%; }
         }
 
-        /* وائبرنٹ وائٹ کارڈ کنٹینر */
+        /* کارڈ کنٹینر - ہلکا سفید/شفاف */
         .card-container {
-            max-width: 950px;
-            margin: 25px auto;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(2px);
-            border-radius: 40px 40px 30px 30px;
-            box-shadow: 0 30px 60px rgba(2, 80, 110, 0.4), 0 10px 25px rgba(0, 160, 170, 0.5);
+            max-width: 1200px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.93);
+            backdrop-filter: blur(3px);
+            border-radius: 48px 48px 40px 40px;
+            box-shadow: 0 25px 50px rgba(90, 40, 120, 0.35), 0 8px 20px rgba(0,0,0,0.1);
             overflow: hidden;
-            padding: 25px 25px 35px 25px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            transition: all 0.3s ease;
+            padding: 20px 25px 35px 25px;
+            border: 1px solid rgba(255,245,200,0.7);
+            transition: 0.25s;
         }
 
-        .card-container:hover {
-            box-shadow: 0 40px 70px rgba(2, 110, 140, 0.6);
-            transform: translateY(-6px);
-            background: rgba(255, 255, 255, 0.96);
+        /* لے آؤٹ: دو کالم (مین مواد + سائیڈبار) */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .main-content {
+            flex: 2;
+            min-width: 260px;
+        }
+        .sidebar {
+            flex: 1;
+            min-width: 260px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            max-width: 330px;
         }
 
-        /* تمام عنوانات */
-        h1 {
-            font-size: 1.9rem;
-            color: #015a6b;
-            border-right: 10px solid #33c7cf;
-            padding-right: 20px;
-            margin: 30px 0 25px 0;
+        /* سائیڈ بار اسٹائل */
+        .sidebar-card {
+            background: rgba(255, 248, 235, 0.95);
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 18px 12px;
+            box-shadow: 0 12px 28px rgba(106, 76, 156, 0.25);
+            border-right: 6px solid #ff8c42;
+            border-left: 1px solid #ffbc7a;
+        }
+        .sidebar-title {
+            font-size: 1.35rem;
             font-weight: 750;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 3px rgba(0,170,200,0.2);
-            background: linear-gradient(to left, #e0f7fa, transparent);
-            border-radius: 0 50px 50px 0;
+            background: linear-gradient(135deg, #7b4bbd, #f28c38);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed #ffaa55;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .scroll-posts {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-left: 5px;
+            scroll-behavior: smooth;
+        }
+        /* آٹو اسکرول انیمیشن */
+        @keyframes autoScrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 480px)); }
+        }
+        .auto-scroll-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            animation: autoScrollPosts 30s linear infinite;
+        }
+        .scroll-posts:hover .auto-scroll-wrapper {
+            animation-play-state: paused;
+        }
+        .sidebar-post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffffcc;
+            padding: 8px 12px;
+            border-radius: 28px;
+            transition: 0.2s;
+            border: 1px solid #ffe0b5;
+            text-decoration: none;
+            color: #2d2b3a;
+        }
+        .sidebar-post-item:hover {
+            background: #ffecce;
+            transform: translateX(-5px);
+            box-shadow: 0 6px 12px #c99f6e40;
+        }
+        .sidebar-post-img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 2px solid #ffaa66;
+            background: white;
+        }
+        .sidebar-post-title {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            font-weight: 600;
+            color: #5a3a78;
+        }
+        .current-post-highlight {
+            background: #f7e5c2;
+            border-right: 6px solid #ff6a2c;
+            box-shadow: 0 2px 10px #ffaa6640;
         }
 
-        h2 {
+        /* عنوانات: مختلف رنگوں کے ساتھ */
+        h1 {
             font-size: 1.7rem;
-            color: #1d6f7c;
-            background: rgba(0, 190, 200, 0.1);
-            padding: 8px 20px;
-            border-radius: 0 30px 30px 0;
-            border-right: 6px solid #ff8a7a;
-            box-shadow: 0 3px 8px rgba(0,160,180,0.2);
-            margin: 35px 0 20px 0;
+            background: linear-gradient(125deg, #8b5cf6, #f97316);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-right: 8px solid #f97316;
+            padding-right: 18px;
+            margin: 20px 0 20px 0;
+            font-weight: 750;
+            letter-spacing: -0.3px;
+        }
+        h2 {
+            font-size: 1.45rem;
+            background: linear-gradient(95deg, #2b9b8c, #e67e22);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            padding: 6px 18px;
+            border-radius: 0 40px 40px 0;
+            border-right: 6px solid #f39c12;
+            margin: 30px 0 15px 0;
             font-weight: 700;
         }
-
         h3 {
-            font-size: 1.5rem;
-            color: #2b6d7a;
-            border-bottom: 2px dashed #3dc5d0;
-            padding-bottom: 6px;
-            margin-top: 30px;
-        }
-
-        /* متن کی سائز اور جسٹیفائی */
-        p {
             font-size: 1.3rem;
-            line-height: 2.4;
-            text-align: justify;
-            text-justify: inter-word;
-            margin: 25px 0;
-            color: #023e4c;
-            word-spacing: 1px;
+            color: #b85c1a;
+            border-bottom: 2px solid #5bc0be;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            font-weight: 650;
         }
-
-        /* تصویر مکمل ظاہر */
+        p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            text-align: justify;
+            margin: 18px 0;
+            color: #2b2738;
+            word-spacing: 0px;
+        }
         .post-image {
             width: 100%;
-            max-width: 100%;
-            margin: 20px auto 30px auto;
-            display: flex;
-            justify-content: center;
-            border-radius: 30px;
+            margin: 15px 0 20px 0;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 20px 30px -5px rgba(1, 90, 100, 0.6);
-            transition: 0.4s ease;
-            border: 4px solid white;
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.2);
+            border: 3px solid white;
         }
-
         .post-image img {
             width: 100%;
-            height: auto;
-            object-fit: cover;
             display: block;
-            transition: transform 0.6s;
         }
 
-        .post-image:hover img {
-            transform: scale(1.02);
-        }
-
-        /* نیویگیشن بٹن بار */
+        /* نیویگیشن بٹنز */
         .nav-buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: center;
             gap: 12px;
-            margin: 15px 0 25px 0;
+            margin: 20px 0 20px 0;
         }
-
         .nav-btn {
-            background: #21b6c7;
+            background: #9b59b6;
             color: white;
-            padding: 12px 28px;
-            border-radius: 60px;
+            padding: 8px 20px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 6px 0 #127482, 0 8px 18px #2ea9b9;
-            transition: 0.2s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 0 #6c3483;
+            transition: 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid #cef4ff;
+            gap: 8px;
+            border: none;
         }
+        .nav-btn i { font-size: 1rem; }
+        .nav-btn:hover { transform: translateY(-2px); background: #af6cd4; box-shadow: 0 6px 0 #5e2a7a;}
 
-        .nav-btn i {
-            font-size: 1.3rem;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 0 #0e5f6b, 0 15px 25px #20a5b5;
-            background: #1fc1d3;
-        }
-
-        .nav-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #0b5c66;
-        }
-
-        .page-controls {
-            display: flex;
-            gap: 12px;
-        }
-
-        /* سوشل شیئر بٹنز */
-        .share-section {
-            background: #d3f2f7;
-            border-radius: 80px;
-            padding: 14px 20px;
-            margin: 30px 0 15px 0;
+        /* Reactions سیکشن */
+        .reactions-container {
+            background: #fdf3e0;
+            border-radius: 60px;
+            padding: 16px 12px;
+            margin: 25px 0 20px;
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
             justify-content: center;
             gap: 18px;
-            box-shadow: 0 5px 0 #b0dae3;
+            align-items: center;
+            box-shadow: 0 6px 14px #c2a0d9;
+        }
+        .reaction-btn {
+            background: white;
+            border: none;
+            border-radius: 60px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px #cfb3e2;
+            font-family: inherit;
+        }
+        .reaction-btn:hover { transform: scale(1.05); background: #ffe6c7; }
+        .reaction-count {
+            background: #ffd966;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
-        .share-text {
-            font-size: 1.2rem;
-            color: #014652;
-            font-weight: 700;
+        /* سوشل میڈیا شیئر */
+        .share-section {
+            background: #e2d5fc;
+            border-radius: 80px;
+            padding: 12px 20px;
+            margin: 25px 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
-
         .share-icons {
             display: flex;
-            gap: 22px;
+            gap: 18px;
             flex-wrap: wrap;
         }
-
         .share-icons a {
-            font-size: 2rem;
-            color: #017787;
-            transition: all 0.25s;
-            width: 50px;
-            height: 50px;
+            font-size: 1.7rem;
+            transition: 0.2s;
+            text-decoration: none;
+            width: 44px;
+            height: 44px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 40px;
+            border-radius: 50%;
             background: white;
-            text-decoration: none;
-            box-shadow: 0 4px 8px #78d2df;
         }
+        .share-icons a:hover { transform: scale(1.15); opacity: 0.9;}
 
-        .share-icons a:hover {
-            transform: scale(1.2) rotate(4deg);
-            background: #00b4c5;
-            color: white;
-            box-shadow: 0 10px 18px #026f7a;
-        }
-
-        /* اپ ڈاؤن بٹنز */
         .float-buttons {
             position: fixed;
             left: 20px;
@@ -242,167 +323,217 @@
             gap: 12px;
             z-index: 99;
         }
-
         .float-buttons a {
-            background: #0cc0d0;
+            background: #f97316;
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            box-shadow: 0 8px 0 #06818f, 0 8px 20px #055f69;
-            transition: 0.2s;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 0 #b94b0e;
+            transition: 0.15s;
             text-decoration: none;
-            border: 1px solid #baf2ff;
         }
+        .float-buttons a:hover { background: #ff8c42; transform: scale(1.05);}
 
-        .float-buttons a:hover {
-            background: #14d2e6;
-            transform: scale(1.1);
-        }
-
-        /* تمام لنک انٹرنل ہٹا دیے گئے صرف مخصوص ہی رہیں گے (ہوم/ بیک) */
-        .post-content a:not(.nav-btn):not(.share-icons a) {
-            pointer-events: none;
-            color: #023e4c;
-            text-decoration: none;
-            border-bottom: 1px dotted #47919e;
-        }
-
-        /* موبائل دوستانہ */
-        @media (max-width: 650px) {
-            h1 { font-size: 1.6rem; }
-            h2 { font-size: 1.5rem; }
-            p { font-size: 1.2rem; line-height: 2.2; }
-            .nav-buttons { flex-direction: column; align-items: stretch; }
-            .nav-btn { justify-content: center; }
-            .page-controls { justify-content: center; }
-            .share-icons a { width: 40px; height: 40px; font-size: 1.7rem; }
-        }
-
-        @media (max-width: 450px) {
+        @media (max-width: 850px) {
+            .two-columns { flex-direction: column; }
+            .sidebar { max-width: 100%; position: static; }
+            .scroll-posts { height: auto; max-height: 400px; }
+            .auto-scroll-wrapper { animation: none; }
             .card-container { padding: 15px; }
-            .share-section { flex-direction: column; gap: 8px; }
         }
-
-        /* دیگر خوبصورتی */
-        hr {
-            border: 1px solid #9de2ec;
-            margin: 15px 0;
-        }
-
-        .spacer {
-            height: 5px;
-            background: linear-gradient(90deg, #33ccff, #a0f0f5, #33ccff);
-            width: 100%;
-            border-radius: 10px;
-        }
+        hr { margin: 10px 0; border-color: #e2b8ff; }
+        .spacer { height: 4px; background: linear-gradient(90deg, #f97316, #9b59b6, #2cbfb0); border-radius: 5px; margin: 10px 0;}
+        .footer-note { text-align: center; font-size: 0.7rem; color: #5e5670; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- فلوٹ بٹن: اوپر / نیچے -->
-    <div class="float-buttons">
-        <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
-        <a href="#" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
+<div class="float-buttons">
+    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+    <a href="#" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
+</div>
+
+<div class="card-container">
+    <!-- Top Navigation -->
+    <div class="nav-buttons">
+        <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
+        <div class="page-controls">
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn" target="_blank"><i class="fas fa-list"></i> تمام پوسٹس</a>
+        </div>
     </div>
 
-    <div class="card-container">
+    <div class="two-columns">
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="post-image">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-47-bghyr-azr-shrai-jmaat-ki-nmaz-chhorna.png" alt="غفلت میں چھپے 50 گناہ - جماعت کی نماز چھوڑنا" loading="lazy">
+            </div>
+            <div class="post-content">
+                <h1>غفلت میں چھپے 50 گناہ 47۔ بغیر عذر شرعی جماعت کی نماز چھوڑنا</h1>
+                <p>غفلت میں چھپے 50 گناہوں کی فہرست میں سینتالیسواں گناہ بغیر عذر شرعی جماعت کی نماز چھوڑنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
+                <p>نماز اسلام کا بنیادی رکن اور بندے کا اللہ سے براہ راست تعلق کا ذریعہ ہے۔ قرآن و حدیث میں نماز کی اہمیت کو انتہائی واضح الفاظ میں بیان کیا گیا ہے، اور اسے ایمان کی علامت اور مسلمان کی پہچان قرار دیا گیا ہے۔ نماز کی عدم ادائیگی یا باجماعت نماز چھوڑنا ایک ایسا عمل ہے جو دین میں غفلت اور روحانی زوال کا باعث بنتا ہے۔ اس مضمون میں ہم نماز کی اہمیت، بغیر عذر شرعی جماعت کی نماز چھوڑنے کی مذمت اور موجودہ دور میں اس رجحان کے اسباب پر غور کریں گے۔</p>
+                <h2>نماز کی اہمیت</h2>
+                <p>اسلام میں نماز کو خصوصی حیثیت حاصل ہے اور قرآن مجید میں متعدد مقامات پر نماز کے قیام کا حکم دیا گیا ہے۔ اللہ تعالیٰ قرآن مجید میں فرماتا ہے: "بے شک نماز مومنوں پر مقررہ وقتوں میں فرض ہے۔" اس آیت سے واضح ہوتا ہے کہ نماز ایک مقررہ وقت کی پابندی کے ساتھ فرض کی گئی ہے اور اسے کسی صورت نہیں چھوڑا جا سکتا۔ نماز کو قیامت کے دن اعمال کا حساب شروع کرنے کے وقت اولین سوال بنایا جائے گا۔</p>
+                <p>حضرت محمد ﷺ نے فرمایا: "نماز دین کا ستون ہے۔ جس نے نماز قائم کی اس نے دین کو قائم کیا، اور جس نے نماز ترک کی اس نے دین کو ڈھا دیا۔" یہ حدیث اس حقیقت کو مزید واضح کرتی ہے کہ نماز دین کی بنیاد ہے، اور اس کے ترک کرنے والے کو دین کی بنیاد سے غافل قرار دیا گیا ہے۔</p>
+                <h2>جماعت کی نماز کی فضیلت</h2>
+                <p>اسلام میں جماعت کے ساتھ نماز پڑھنا ایک اہم عمل ہے اور اسے فرد کے ایمان کی مضبوطی اور دین سے تعلق کی نشانی سمجھا جاتا ہے۔ حضرت محمد ﷺ نے جماعت کی نماز کی فضیلت بیان کرتے ہوئے فرمایا: "جماعت کے ساتھ نماز پڑھنا انفرادی نماز پڑھنے سے ستائیس گنا زیادہ افضل ہے۔" اس حدیث سے جماعت کے ساتھ نماز کی اہمیت واضح ہوتی ہے۔</p>
+                <h2>بغیر عذر شرعی جماعت چھوڑنے کا گناہ</h2>
+                <p>بغیر کسی شرعی عذر کے جماعت کی نماز چھوڑنا ایک گناہ ہے اور اس کی مذمت احادیث میں آئی ہے۔ ایسے لوگ جو عذر شرعی کے بغیر جماعت کو چھوڑ دیتے ہیں، ان کی نماز میں وہ برکت اور اجر نہیں جو جماعت کے ساتھ نماز پڑھنے میں ہے۔</p>
+                <h2>کفار مکہ کا رویہ</h2>
+                <p>کفار مکہ نے نماز کے معاملے میں مسلمانوں کو پریشان کرنے کی کوشش کی اور دین اسلام کی روشنی سے دور رکھنے کے لیے رکاوٹیں کھڑی کیں۔ قرآن میں اللہ تعالیٰ کفار مکہ کے کردار کو بیان کرتا ہے: "پس ہلاکت ہے اُن نمازیوں کے لیے جو اپنی نماز سے غافل ہیں۔" یہ آیات ان لوگوں کے بارے میں ہیں جو نماز کو یا تو بالکل نہیں پڑھتے یا اس کے وقت اور طریقے سے غفلت برتتے ہیں۔ کفار مکہ نماز کو معمولی سمجھتے تھے اور اس کی اہمیت کو نظر انداز کرتے تھے، جبکہ اسلام میں نماز دین کا ستون ہے اور اس کے بغیر ایمان کامل نہیں۔</p>
+                <h2>موجودہ دور میں صورت حال</h2>
+                <p>موجودہ دور میں بغیر عذر شرعی جماعت کی نماز چھوڑنا ایک عام رجحان بن چکا ہے۔ اس کی کئی وجوہات ہیں، جن میں سب سے بڑی وجہ دنیاوی مصروفیات اور دینی معاملات میں غفلت ہے۔ لوگ اپنی روزمرہ کی مصروفیات میں اتنا مگن ہو گئے ہیں کہ نماز جیسا اہم فریضہ بھول جاتے ہیں۔ اس کے علاوہ، سوشل میڈیا، تفریحی پروگراموں، فلموں اور میوزک کنسرٹس نے لوگوں کی توجہ دینی فرائض سے ہٹا دی ہے۔</p>
+                <p>ایک اور وجہ دینی علم کی کمی اور روحانی تربیت کا فقدان ہے۔ لوگوں میں یہ شعور نہیں کہ نماز ان کی زندگی میں کتنی اہمیت رکھتی ہے اور اس کے نہ پڑھنے کے دنیوی و اخروی نتائج کیا ہو سکتے ہیں۔</p>
+                <h2>مساجد کی ویرانی</h2>
+                <p>آج کے دور میں مساجد کی ویرانی ایک المناک حقیقت ہے۔ جہاں ایک طرف مساجد خالی ہیں، وہیں دوسری طرف اسٹیج شوز، میوزک کنسرٹس، فلموں اور سوشل میڈیا جیسے شیطانی محفلوں کا عروج ہے۔ لوگ دین سے دور اور دنیاوی لذتوں کی طرف مائل ہو چکے ہیں۔ حضرت محمد ﷺ نے فرمایا: "ایک وقت آئے گا جب لوگ مساجد کو آباد کرنے کے بجائے دنیاوی لذتوں کی طرف مائل ہو جائیں گے۔" یہ حدیث ہمارے زمانے کی صحیح عکاسی کرتی ہے، جہاں لوگوں نے اپنی روحانی اور دینی ذمہ داریوں کو نظر انداز کر دیا ہے اور دنیاوی تفریحات کو اپنا مقصد بنا لیا ہے۔</p>
+                <h2>نماز ترک کرنے کے نقصانات</h2>
+                <p>نماز کی عدم ادائیگی نہ صرف روحانی نقصان کا باعث بنتی ہے بلکہ دنیاوی معاملات میں بھی مشکلات کا سبب بنتی ہے۔ حضرت محمد ﷺ نے فرمایا: "جو نماز کو ترک کرتا ہے، اس کی روزی میں تنگی پیدا کر دی جاتی ہے اور اس کے دل میں بے سکونی بھر دی جاتی ہے۔" اس حدیث سے واضح ہوتا ہے کہ نماز نہ پڑھنے سے انسان کی روزی میں تنگی آتی ہے اور اس کی زندگی میں بے سکونی یا مشکلات بڑھ جاتی ہیں۔ اللہ تعالیٰ نماز کے ذریعے بندے کو دنیا و آخرت میں سکون اور کامیابی عطا فرماتا ہے، اور جو شخص نماز چھوڑ دیتا ہے، وہ اللہ کی رحمت سے محروم ہو جاتا ہے۔</p>
+                <h2>پیروں اور فقیروں کی طرف رجوع</h2>
+                <p>آج کل ایک اور بدقسمتی یہ ہے کہ لوگ دین کی بنیادی تعلیمات اور نماز جیسی عبادات سے غافل ہو کر پیروں اور فقیروں کے ڈیروں کی طرف رجوع کرتے ہیں۔ اس رجحان کی وجہ دینی علم کی کمی اور روحانی تربیت کا فقدان ہے۔ لوگ یہ سمجھنے لگے ہیں کہ پیروں اور فقیروں کے پاس جا کر ان کی مشکلات حل ہو جائیں گی، حالانکہ دین اسلام میں سب سے بڑی مددگار اللہ کی ذات ہے اور نماز کے ذریعے اللہ سے مدد طلب کرنا ہے۔</p>
+                <p>قرآن مجید میں ارشاد ہوتا ہے: "اے ایمان والو! صبر اور نماز کے ذریعے اللہ سے مدد مانگو۔" یہ آیت ہمیں یہ سکھاتی ہے کہ نماز کے ذریعے اللہ کی مدد حاصل کی جا سکتی ہے، نہ کہ پیروں اور فقیروں کے ذریعے۔</p>
+                <h2>جماعت کی نماز چھوڑنے کی وعید</h2>
+                <p>اسلام میں جماعت کی نماز کو چھوڑنا شدید گناہ قرار دیا گیا ہے، خصوصاً جب کوئی عذر شرعی موجود نہ ہو۔ حضرت محمد ﷺ نے فرمایا: "مجھے تم پر جماعت کی نماز چھوڑنے والے منافقوں سے زیادہ کسی چیز کا خوف نہیں۔" یہ حدیث واضح کرتی ہے کہ جماعت کی نماز کو بغیر کسی شرعی عذر کے چھوڑنے والا شخص نفاق کے قریب ہے۔ اسلام میں جماعت کے ساتھ نماز نہ پڑھنے والوں کے لیے سخت وعیدیں آئی ہیں، اور ان کے لیے توبہ کا راستہ کھلا ہے، لیکن انہیں جلد از جلد اس گناہ سے بچنا چاہیے۔</p>
+                <h2>عمومی رویہ</h2>
+                <p>آج کل لوگوں نے جماعت کی نماز چھوڑنے کو ایک معمولی گناہ سمجھ لیا ہے۔ اس کی وجہ یہ ہے کہ دین کی بنیادی تعلیمات سے دوری اور دنیاوی معاملات میں مشغولیت نے لوگوں کو غافل کر دیا ہے۔ حضرت محمد ﷺ نے فرمایا: "لوگوں میں سے سب سے بدترین شخص وہ ہے جس کا دل نماز سے غافل ہو۔" یہ حدیث ہمیں یاد دلاتی ہے کہ نماز کو معمولی سمجھنا دراصل اللہ سے دوری اور دین سے غفلت کا نتیجہ ہے۔ ہمیں اس گناہ کو معمولی سمجھنے کی بجائے اپنی زندگیوں میں نماز کو اولین ترجیح دینی چاہیے۔</p>
+                <h2>خلاصہ</h2>
+                <p>نماز دین کا ستون اور انسان کی زندگی کا ایک لازمی حصہ ہے۔ بغیر عذر شرعی جماعت کی نماز چھوڑنا اسلام میں شدید گناہ قرار دیا گیا ہے اور اس کے دنیاوی اور اخروی نقصانات واضح ہیں۔ موجودہ دور میں اس گناہ کا رجحان بڑھ چکا ہے، جس کی بنیادی وجہ دین سے دوری اور دنیاوی لذتوں میں مشغولیت ہے۔ ہمیں اپنی زندگیوں میں نماز کو اولیت دینا چاہیے اور اس گناہ سے بچنا چاہیے۔</p>
+                <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
+            </div>
 
-        <!-- ہوم پیج + بیک پیج بٹن (نیچے بھی ہیں) -->
-        <div class="nav-buttons">
-            <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <div class="page-controls">
-                <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس (اسلامی تالی مات)</a>
+            <!-- Reactions بٹنز (برقرار, ڈپلیکیٹ کوڈ نہیں) -->
+            <div class="reactions-container">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+
+            <!-- سوشل میڈیا شیئر 7 پلیٹ فارم -->
+            <div class="share-section">
+                <span class="share-text"><i class="fas fa-share-alt"></i> شیئر کریں:</span>
+                <div class="share-icons">
+                    <a href="#" onclick="socialShare('facebook')" style="color:#1877f2"><i class="fab fa-facebook"></i></a>
+                    <a href="#" onclick="socialShare('whatsapp')" style="color:#25D366"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" onclick="socialShare('twitter')" style="color:#1DA1F2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" onclick="socialShare('linkedin')" style="color:#0077b5"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" onclick="socialShare('telegram')" style="color:#0088cc"><i class="fab fa-telegram"></i></a>
+                    <a href="#" onclick="socialShare('pinterest')" style="color:#bd081c"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" onclick="copyPageLink()" style="color:#6c757d"><i class="fas fa-link"></i></a>
+                </div>
             </div>
         </div>
 
-        <!-- مکمل تصویر (ٹائٹل کے بعد) -->
-        <div class="post-image">
-            <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-47-bghyr-azr-shrai-jmaat-ki-nmaz-chhorna.png" alt="غفلت میں چھپے 50 گناہ - جماعت کی نماز چھوڑنا" loading="lazy">
-        </div>
-
-        <!-- اصل پوسٹ مواد (بالکل وہی متن، کوئی تبدیلی نہیں) -->
-        <div class="post-content">
-            <h1>غفلت میں چھپے 50 گناہ 47۔ بغیر عذر شرعی جماعت کی نماز چھوڑنا</h1>
-            <p>غفلت میں چھپے 50 گناہوں کی فہرست میں سینتالیسواں گناہ بغیر عذر شرعی جماعت کی نماز چھوڑنا ہے۔ اگر آپ مزید آرٹیکل پڑھنا چاہیں تو نیچے دیے گئے لنک پر کلک کر کے پڑھ سکتے ہیں۔</p>
-            <p>نماز اسلام کا بنیادی رکن اور بندے کا اللہ سے براہ راست تعلق کا ذریعہ ہے۔ قرآن و حدیث میں نماز کی اہمیت کو انتہائی واضح الفاظ میں بیان کیا گیا ہے، اور اسے ایمان کی علامت اور مسلمان کی پہچان قرار دیا گیا ہے۔ نماز کی عدم ادائیگی یا باجماعت نماز چھوڑنا ایک ایسا عمل ہے جو دین میں غفلت اور روحانی زوال کا باعث بنتا ہے۔ اس مضمون میں ہم نماز کی اہمیت، بغیر عذر شرعی جماعت کی نماز چھوڑنے کی مذمت اور موجودہ دور میں اس رجحان کے اسباب پر غور کریں گے۔</p>
-            <h2>نماز کی اہمیت</h2>
-            <p>اسلام میں نماز کو خصوصی حیثیت حاصل ہے اور قرآن مجید میں متعدد مقامات پر نماز کے قیام کا حکم دیا گیا ہے۔ اللہ تعالیٰ قرآن مجید میں فرماتا ہے: "بے شک نماز مومنوں پر مقررہ وقتوں میں فرض ہے۔" اس آیت سے واضح ہوتا ہے کہ نماز ایک مقررہ وقت کی پابندی کے ساتھ فرض کی گئی ہے اور اسے کسی صورت نہیں چھوڑا جا سکتا۔ نماز کو قیامت کے دن اعمال کا حساب شروع کرنے کے وقت اولین سوال بنایا جائے گا۔</p>
-            <p>حضرت محمد ﷺ نے فرمایا: "نماز دین کا ستون ہے۔ جس نے نماز قائم کی اس نے دین کو قائم کیا، اور جس نے نماز ترک کی اس نے دین کو ڈھا دیا۔" یہ حدیث اس حقیقت کو مزید واضح کرتی ہے کہ نماز دین کی بنیاد ہے، اور اس کے ترک کرنے والے کو دین کی بنیاد سے غافل قرار دیا گیا ہے۔</p>
-            <h2>جماعت کی نماز کی فضیلت</h2>
-            <p>اسلام میں جماعت کے ساتھ نماز پڑھنا ایک اہم عمل ہے اور اسے فرد کے ایمان کی مضبوطی اور دین سے تعلق کی نشانی سمجھا جاتا ہے۔ حضرت محمد ﷺ نے جماعت کی نماز کی فضیلت بیان کرتے ہوئے فرمایا: "جماعت کے ساتھ نماز پڑھنا انفرادی نماز پڑھنے سے ستائیس گنا زیادہ افضل ہے۔" اس حدیث سے جماعت کے ساتھ نماز کی اہمیت واضح ہوتی ہے۔</p>
-            <h2>بغیر عذر شرعی جماعت چھوڑنے کا گناہ</h2>
-            <p>بغیر کسی شرعی عذر کے جماعت کی نماز چھوڑنا ایک گناہ ہے اور اس کی مذمت احادیث میں آئی ہے۔ ایسے لوگ جو عذر شرعی کے بغیر جماعت کو چھوڑ دیتے ہیں، ان کی نماز میں وہ برکت اور اجر نہیں جو جماعت کے ساتھ نماز پڑھنے میں ہے۔</p>
-            <h2>کفار مکہ کا رویہ</h2>
-            <p>کفار مکہ نے نماز کے معاملے میں مسلمانوں کو پریشان کرنے کی کوشش کی اور دین اسلام کی روشنی سے دور رکھنے کے لیے رکاوٹیں کھڑی کیں۔ قرآن میں اللہ تعالیٰ کفار مکہ کے کردار کو بیان کرتا ہے: "پس ہلاکت ہے اُن نمازیوں کے لیے جو اپنی نماز سے غافل ہیں۔" یہ آیات ان لوگوں کے بارے میں ہیں جو نماز کو یا تو بالکل نہیں پڑھتے یا اس کے وقت اور طریقے سے غفلت برتتے ہیں۔ کفار مکہ نماز کو معمولی سمجھتے تھے اور اس کی اہمیت کو نظر انداز کرتے تھے، جبکہ اسلام میں نماز دین کا ستون ہے اور اس کے بغیر ایمان کامل نہیں۔</p>
-            <h2>موجودہ دور میں صورت حال</h2>
-            <p>موجودہ دور میں بغیر عذر شرعی جماعت کی نماز چھوڑنا ایک عام رجحان بن چکا ہے۔ اس کی کئی وجوہات ہیں، جن میں سب سے بڑی وجہ دنیاوی مصروفیات اور دینی معاملات میں غفلت ہے۔ لوگ اپنی روزمرہ کی مصروفیات میں اتنا مگن ہو گئے ہیں کہ نماز جیسا اہم فریضہ بھول جاتے ہیں۔ اس کے علاوہ، سوشل میڈیا، تفریحی پروگراموں، فلموں اور میوزک کنسرٹس نے لوگوں کی توجہ دینی فرائض سے ہٹا دی ہے۔</p>
-            <p>ایک اور وجہ دینی علم کی کمی اور روحانی تربیت کا فقدان ہے۔ لوگوں میں یہ شعور نہیں کہ نماز ان کی زندگی میں کتنی اہمیت رکھتی ہے اور اس کے نہ پڑھنے کے دنیوی و اخروی نتائج کیا ہو سکتے ہیں۔</p>
-            <h2>مساجد کی ویرانی</h2>
-            <p>آج کے دور میں مساجد کی ویرانی ایک المناک حقیقت ہے۔ جہاں ایک طرف مساجد خالی ہیں، وہیں دوسری طرف اسٹیج شوز، میوزک کنسرٹس، فلموں اور سوشل میڈیا جیسے شیطانی محفلوں کا عروج ہے۔ لوگ دین سے دور اور دنیاوی لذتوں کی طرف مائل ہو چکے ہیں۔ حضرت محمد ﷺ نے فرمایا: "ایک وقت آئے گا جب لوگ مساجد کو آباد کرنے کے بجائے دنیاوی لذتوں کی طرف مائل ہو جائیں گے۔" یہ حدیث ہمارے زمانے کی صحیح عکاسی کرتی ہے، جہاں لوگوں نے اپنی روحانی اور دینی ذمہ داریوں کو نظر انداز کر دیا ہے اور دنیاوی تفریحات کو اپنا مقصد بنا لیا ہے۔</p>
-            <h2>نماز ترک کرنے کے نقصانات</h2>
-            <p>نماز کی عدم ادائیگی نہ صرف روحانی نقصان کا باعث بنتی ہے بلکہ دنیاوی معاملات میں بھی مشکلات کا سبب بنتی ہے۔ حضرت محمد ﷺ نے فرمایا: "جو نماز کو ترک کرتا ہے، اس کی روزی میں تنگی پیدا کر دی جاتی ہے اور اس کے دل میں بے سکونی بھر دی جاتی ہے۔" اس حدیث سے واضح ہوتا ہے کہ نماز نہ پڑھنے سے انسان کی روزی میں تنگی آتی ہے اور اس کی زندگی میں بے سکونی یا مشکلات بڑھ جاتی ہیں۔ اللہ تعالیٰ نماز کے ذریعے بندے کو دنیا و آخرت میں سکون اور کامیابی عطا فرماتا ہے، اور جو شخص نماز چھوڑ دیتا ہے، وہ اللہ کی رحمت سے محروم ہو جاتا ہے۔</p>
-            <h2>پیروں اور فقیروں کی طرف رجوع</h2>
-            <p>آج کل ایک اور بدقسمتی یہ ہے کہ لوگ دین کی بنیادی تعلیمات اور نماز جیسی عبادات سے غافل ہو کر پیروں اور فقیروں کے ڈیروں کی طرف رجوع کرتے ہیں۔ اس رجحان کی وجہ دینی علم کی کمی اور روحانی تربیت کا فقدان ہے۔ لوگ یہ سمجھنے لگے ہیں کہ پیروں اور فقیروں کے پاس جا کر ان کی مشکلات حل ہو جائیں گی، حالانکہ دین اسلام میں سب سے بڑی مددگار اللہ کی ذات ہے اور نماز کے ذریعے اللہ سے مدد طلب کرنا ہے۔</p>
-            <p>قرآن مجید میں ارشاد ہوتا ہے: "اے ایمان والو! صبر اور نماز کے ذریعے اللہ سے مدد مانگو۔" یہ آیت ہمیں یہ سکھاتی ہے کہ نماز کے ذریعے اللہ کی مدد حاصل کی جا سکتی ہے، نہ کہ پیروں اور فقیروں کے ذریعے۔</p>
-            <h2>جماعت کی نماز چھوڑنے کی وعید</h2>
-            <p>اسلام میں جماعت کی نماز کو چھوڑنا شدید گناہ قرار دیا گیا ہے، خصوصاً جب کوئی عذر شرعی موجود نہ ہو۔ حضرت محمد ﷺ نے فرمایا: "مجھے تم پر جماعت کی نماز چھوڑنے والے منافقوں سے زیادہ کسی چیز کا خوف نہیں۔" یہ حدیث واضح کرتی ہے کہ جماعت کی نماز کو بغیر کسی شرعی عذر کے چھوڑنے والا شخص نفاق کے قریب ہے۔ اسلام میں جماعت کے ساتھ نماز نہ پڑھنے والوں کے لیے سخت وعیدیں آئی ہیں، اور ان کے لیے توبہ کا راستہ کھلا ہے، لیکن انہیں جلد از جلد اس گناہ سے بچنا چاہیے۔</p>
-            <h2>عمومی رویہ</h2>
-            <p>آج کل لوگوں نے جماعت کی نماز چھوڑنے کو ایک معمولی گناہ سمجھ لیا ہے۔ اس کی وجہ یہ ہے کہ دین کی بنیادی تعلیمات سے دوری اور دنیاوی معاملات میں مشغولیت نے لوگوں کو غافل کر دیا ہے۔ حضرت محمد ﷺ نے فرمایا: "لوگوں میں سے سب سے بدترین شخص وہ ہے جس کا دل نماز سے غافل ہو۔" یہ حدیث ہمیں یاد دلاتی ہے کہ نماز کو معمولی سمجھنا دراصل اللہ سے دوری اور دین سے غفلت کا نتیجہ ہے۔ ہمیں اس گناہ کو معمولی سمجھنے کی بجائے اپنی زندگیوں میں نماز کو اولین ترجیح دینی چاہیے۔</p>
-            <h2>خلاصہ</h2>
-            <p>نماز دین کا ستون اور انسان کی زندگی کا ایک لازمی حصہ ہے۔ بغیر عذر شرعی جماعت کی نماز چھوڑنا اسلام میں شدید گناہ قرار دیا گیا ہے اور اس کے دنیاوی اور اخروی نقصانات واضح ہیں۔ موجودہ دور میں اس گناہ کا رجحان بڑھ چکا ہے، جس کی بنیادی وجہ دین سے دوری اور دنیاوی لذتوں میں مشغولیت ہے۔ ہمیں اپنی زندگیوں میں نماز کو اولیت دینا چاہیے اور اس گناہ سے بچنا چاہیے۔</p>
-            <p>مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں۔</p>
-            <p><a href="#">جوا کھیلنا</a>، <a href="#">بیوی کو خاوند کے خلاف بھڑکانا</a>، <a href="#">لعنت کرنا</a>، <a href="#">احسان جتلانا</a>، <a href="#">دیوث بننا،</a> <a href="#">میلاد منانا</a>، <a href="#">حلالہ کرنا یا کروانا</a>، <a href="#">ہم جنس پرستی</a></p>
-            <p><a href="#">جاندار کو آگ میں جلانا</a>، <a href="#">پیشاب کے چھینٹوں سے نہ بچنا،</a> <a href="#">سود کھانا</a>، <a href="#">ظلم کرنا</a>، <a href="#">رشوت لینا یا دینا</a>، <a href="#">زنا کرنا</a></p>
-        </div>
-
-        <!-- سوشل میڈیا شئیرنگ بٹن + دوبارہ نیویگیشن -->
-        <div class="share-section">
-            <span class="share-text"><i class="fas fa-share-alt"></i> اسے شیئر کریں:</span>
-            <div class="share-icons">
-                <a href="#" onclick="alert('فیس بک شیئر ڈیمو')"><i class="fab fa-facebook"></i></a>
-                <a href="#" onclick="alert('واٹس ایپ شیئر ڈیمو')"><i class="fab fa-whatsapp"></i></a>
-                <a href="#" onclick="alert('ٹویٹر شیئر ڈیمو')"><i class="fab fa-x-twitter"></i></a>
-                <a href="#" onclick="alert('ٹیلی گرام شیئر ڈیمو')"><i class="fab fa-telegram"></i></a>
-                <a href="#" onclick="alert('لنکڈ ان ڈیمو')"><i class="fab fa-linkedin"></i></a>
+        <!-- سائیڈ بار (آٹو اسکرول) -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">📚 مزید اہم مضامین</div>
+                <div class="scroll-posts" id="scrollPostsSidebar">
+                    <div class="auto-scroll-wrapper" id="autoScrollWrapper">
+                        <!-- پوسٹس کی فہرست -->
+                        <a href="https://bloglovers.pk/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/asr-hazir-ke-10-bare-gunah-7-toham-parasti.jpg" alt="toham parasti">
+                            <span class="sidebar-post-title">5 عصر حاضر کے 10 بڑے گناہ 7- توہم پرستی</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-3-chghli-krna.png" alt="chughli">
+                            <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 3- چغلی کرنا</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-10-blaazr-bhyk-mangna.png" alt="bheek">
+                            <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 10 - بلاعذر بھیک مانگنا</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-12-ksi-aur-ki-zmyn-par-qbzh-krna.png" alt="qabza">
+                            <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 12 - کسی اور کی زمین پر قبضہ</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-22-khod-kshi-krna.png" alt="khudkushi">
+                            <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ 22 - خودکشی کرنا</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="aalim">
+                            <span class="sidebar-post-title">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="qul khawani">
+                            <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="gyarhween">
+                            <span class="sidebar-post-title">گیارہویں منانا</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-27bzrgon-ki-qbron-par-dhage-bandhna.png" alt="dhage">
+                            <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے 27 - بزرگوں کی قبروں پر دھاگے</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="sajda">
+                            <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-42-logon-main-be-hyai-phylana.png" alt="behayai">
+                            <span class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے – 42: لوگوں میں بے حیائی پھیلانا</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="azab">
+                            <span class="sidebar-post-title">عذاب الہیٰ کو دعوت دینے والے تین گھر</span>
+                        </a>
+                        <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="sidebar-post-item" target="_blank">
+                            <img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="dil dukhana">
+                            <span class="sidebar-post-title">مذاق میں کسی کا دل دکھانا</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- دوبارہ ہوم اور بیک پیج بٹن -->
-        <div class="nav-buttons" style="margin-top: 5px;">
-            <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
-            <a href="https://bloglovers.pk/category-pages/islami-taleemat.html" class="nav-btn" target="_blank"><i class="fas fa-arrow-right"></i> واپس (اسلامی تالی مات)</a>
-        </div>
-
-        <div class="spacer"></div>
-        <hr>
-        <p style="text-align: center; font-size: 1rem;">© بلاگ لورز - بہتر انداز میں پیش کردہ</p>
     </div>
 
-    <!-- تمام اندرونی روابط کو غیر فعال کرنے کے لیے جاوا اسکرپٹ کا ہلکا سا اضافہ (ماسوائے بٹن) -->
-    <script>
-        (function() {
-            // تمام لنکس پر کلک روکنے کے لیے (سوائے نیم بٹن والے)
-            document.querySelectorAll('.post-content a').forEach(link => {
-                // اگر لنک میں nav-btn کلاس نہیں اور share-icons میں نہیں تو روک دو
-                if (!link.closest('.nav-buttons') && !link.closest('.share-icons')) {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        alert('یہ لنک اندرونی حوالے کے لیے ہے۔ براہ کرم ہوم یا بیک بٹن استعمال کریں۔');
-                    });
-                }
-            });
+    <!-- Bottom Navigation buttons -->
+    <div class="nav-buttons" style="margin-top: 20px;">
+        <a href="https://bloglovers.pk/" class="nav-btn" target="_blank"><i class="fas fa-home"></i> ہوم پیج</a>
+        <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn" target="_blank"><i class="fas fa-arrow-right"></i> تمام پوسٹس</a>
+    </div>
+    <div class="spacer"></div>
+    <div class="footer-note">© بلاگ لورز - بہتر انداز میں پیش کردہ</div>
+</div>
 
-            // شیئر بٹن ڈیمو (اختیاری)
-            window.socialShare = function(platform) {
-                alert(platform + ' پر شیئر کرنے کی فیچر جلدی آرہا ہے');
-            };
-        })();
-    </script>
-
+<!-- reactions.js فائل (حقیقی API والی) -->
+<script src="/reactions.js"></script>
+<script>
+    // ڈپلیکیٹ Reactions فنکشنز نہیں ہیں، صرف سوشل میڈیا ہینڈلرز
+    function socialShare(platform) {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        let shareLink = '';
+        if(platform === 'facebook') shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        else if(platform === 'whatsapp') shareLink = `https://wa.me/?text=${title}%20${url}`;
+        else if(platform === 'twitter') shareLink = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+        else if(platform === 'linkedin') shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        else if(platform === 'telegram') shareLink = `https://t.me/share/url?url=${url}&text=${title}`;
+        else if(platform === 'pinterest') shareLink = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+        if(shareLink) window.open(shareLink, '_blank', 'width=600,height=500');
+        else alert('شیئرنگ فیچر دستیاب ہے');
+    }
+    function copyPageLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہوگیا!')).catch(()=>alert('کاپی نہ ہوسکا'));
+    }
+    // ہوور پر آٹو اسکرول رکنا چاہیے پہلے ہی CSS سے ہوگا
+    // موجودہ پوسٹ کو نمایاں کرنے کے لیے (یہ پوسٹ خود جماعت نماز والی ہے)
+    document.querySelectorAll('.sidebar-post-item').forEach(item => {
+        if(item.href && item.href.includes(window.location.pathname)) {
+            item.classList.add('current-post-highlight');
+        }
+    });
+    // اگر reactions.js میں reactionClick موجود ہے تو ٹھیک ہے، ورنہ کوئی فال بیک نہیں، ورنہ یہاں سے اعلان نہیں کر رہے۔
+    // پوری طرح reactions.js پر انحصار
+</script>
 </body>
 </html>
