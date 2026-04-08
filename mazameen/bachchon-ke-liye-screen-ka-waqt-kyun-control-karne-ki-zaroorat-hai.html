@@ -6,95 +6,265 @@
     <title>بچوں کے لئے اسکرین کا وقت کیوں کنٹرول کرنے کی ضرورت ہے؟</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Base Styling and Space Dark Theme */
-        body {
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-            color: #ffffff;
-            font-family: 'Noto Nastaliq Urdu', serif;
+        /* ----- MULTI-COLORING THEME - RESET & SMALL FONT ----- */
+        * {
             margin: 0;
             padding: 0;
-            line-height: 2.2;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f9f3e6 0%, #fff0f5 100%);
+            font-family: 'Noto Nastaliq Urdu', serif;
+            color: #1a1a2e;
+            line-height: 1.75;      /* مناسب line spacing */
+            letter-spacing: 0.3px;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            padding: 0 15px;
         }
 
-        /* Animated Stars Background */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-            z-index: -1;
-            animation: starsMove 100s linear infinite;
+        /* چھوٹی فونٹ سائز - main text small */
+        .post-content, p, li, .sidebar-post-title, .reaction-btn, .nav-btns .btn, .back-btn, .social-icon, .footer-nav a {
+            font-size: 16px;   /* small base */
+        }
+        h1 { font-size: 28px; }
+        h2 { font-size: 24px; }
+        h3 { font-size: 20px; }
+        @media (max-width: 768px) {
+            body, .post-content, p, li { font-size: 15px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 22px; }
+            h3 { font-size: 19px; }
         }
 
-        @keyframes starsMove {
-            from { background-position: 0 0; }
-            to { background-position: 10000px 5000px; }
-        }
-
-        /* Container and Content Alignment */
+        /* main container - soft glass effect with multi border */
         .main-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(0, 150, 255, 0.2);
-            margin-top: 50px;
-            margin-bottom: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1100px;
+            margin: 40px auto;
+            background: rgba(255, 248, 245, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,215,215,0.5);
+            padding: 30px 35px;
+            transition: all 0.3s;
         }
 
-        .post-content {
-            text-align: justify; /* Proper alignment */
-            font-size: 24px; /* Increased Text Size */
-            color: #e0e0e0;
-        }
-
-        /* Headings Styling */
+        /* multi-coloring backgrounds for headings & sections */
         h1 {
-            color: #00d2ff;
-            font-size: 42px; /* Increased Heading Size */
+            background: linear-gradient(135deg, #00b4d8, #ffb7c5, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            font-weight: 800;
             text-align: center;
-            text-shadow: 0 0 15px rgba(0, 210, 255, 0.7);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            letter-spacing: -0.2px;
         }
-
         h2 {
-            color: #9d50bb;
-            font-size: 32px;
-            border-right: 5px solid #00d2ff;
-            padding-right: 15px;
-            margin-top: 40px;
-            text-shadow: 0 0 10px rgba(157, 80, 187, 0.5);
+            background: linear-gradient(120deg, #9b5de5, #f15fbb, #fee440);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-right: 6px solid #f15fbb;
+            padding-right: 18px;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            font-weight: 700;
         }
-
         h3 {
-            color: #4ecdc4;
-            font-size: 28px;
+            color: #0077b6;
+            border-bottom: 2px dotted #ff99c8;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin: 20px 0 12px 0;
         }
 
-        /* Image Styling - Single Image after Title */
+        /* featured image */
         .featured-image {
             width: 100%;
             max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
-            transition: transform 0.5s ease;
+            border-radius: 30px;
+            margin: 20px 0 30px;
+            box-shadow: 0 12px 28px rgba(0,180,216,0.3);
+            transition: transform 0.4s ease;
+            border: 2px solid #ffb7c5;
         }
-        
         .featured-image:hover {
-            transform: scale(1.02);
+            transform: scale(1.01);
         }
 
-        /* Buttons Styling */
+        /* reactions container */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 40px 0 30px;
+            padding: 15px 0;
+            background: rgba(255,220,240,0.3);
+            border-radius: 80px;
+        }
+        .reaction-btn {
+            background: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1e2a3e;
+        }
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,180,216,0.3);
+            background: #f0f9ff;
+        }
+        .reaction-count {
+            background: #e9ecef;
+            padding: 0 8px;
+            border-radius: 40px;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        /* دو کالم لے آؤٹ: سائیڈبار + مین */
+        .two-columns {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .content-main {
+            flex: 2;
+            min-width: 250px;
+        }
+        .sidebar {
+            flex: 1;
+            min-width: 240px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background: rgba(255,255,240,0.7);
+            border-radius: 32px;
+            padding: 18px 12px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #ffb7c5;
+        }
+
+        /* auto scroll sidebar */
+        .sidebar-scroll {
+            height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scroll-behavior: smooth;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        /* animation auto-scroll (30s cycle) - but stops on hover */
+        .auto-scroll-active {
+            animation: smoothScroll 30s linear infinite;
+        }
+        @keyframes smoothScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        /* hover par rok */
+        .sidebar-scroll:hover {
+            animation-play-state: paused;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fffdf8;
+            border-radius: 28px;
+            padding: 8px 12px;
+            transition: 0.2s;
+            border: 1px solid #ffe0f0;
+        }
+        .sidebar-item.active-post {
+            background: linear-gradient(95deg, #ffe6f0, #e0f7ff);
+            border-right: 5px solid #c084fc;
+        }
+        .sidebar-img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .sidebar-post-title {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.45;
+            color: #2d4059;
+            text-decoration: none;
+        }
+        .sidebar-post-title:hover {
+            color: #0077b6;
+            text-decoration: underline;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        /* navigation buttons under post */
+        .footer-nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0 20px;
+        }
+        .nav-button {
+            background: linear-gradient(145deg, #00b4d8, #9b5de5);
+            padding: 10px 30px;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+            transition: 0.2s;
+            display: inline-block;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+        }
+        .nav-button:hover {
+            transform: scale(1.02);
+            background: linear-gradient(145deg, #ff99c8, #c084fc);
+        }
+
+        /* social media row */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 30px 0 20px;
+        }
+        .social-icon {
+            background: #f1f3f5;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            transition: 0.2s;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        /* floating scroll buttons (same position) */
         .nav-btns {
             position: fixed;
             left: 20px;
@@ -104,125 +274,251 @@
             gap: 15px;
             z-index: 1000;
         }
-
         .btn {
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            background: linear-gradient(45deg, #00b4d8, #9b5de5);
             color: white;
             border: none;
-            padding: 15px;
+            padding: 14px;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            width: 55px;
-            height: 55px;
+            width: 52px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-
         .btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 0 20px #00d2ff;
+            transform: scale(1.08);
+            background: linear-gradient(45deg, #ff99c8, #f15fbb);
         }
 
         .back-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(45deg, #9d50bb, #6e48aa);
-            padding: 10px 25px;
-            border-radius: 30px;
-            text-decoration: none;
+            background: linear-gradient(135deg, #c084fc, #9b5de5);
+            padding: 8px 24px;
+            border-radius: 40px;
             color: white;
             font-weight: bold;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-size: 15px;
         }
 
-        .back-btn:hover {
-            background: linear-gradient(45deg, #6e48aa, #9d50bb);
-        }
-
-        /* List Styling */
+        /* lists */
         ul {
             padding-right: 30px;
+            margin: 15px 0;
         }
-
         li {
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            h1 { font-size: 30px; }
-            h2 { font-size: 26px; }
-            .post-content { font-size: 20px; }
-            .main-container { margin: 15px; padding: 20px; }
-            .btn { width: 45px; height: 45px; font-size: 16px; }
+        hr {
+            margin: 20px 0;
+            border-color: #ffb7c5;
+        }
+
+        /* word spacing and readability */
+        .post-content p {
+            margin-bottom: 1.2em;
+            word-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Back Button -->
     <a href="javascript:history.back()" class="back-btn">← واپس جائیں</a>
-
-    <!-- Navigation Buttons -->
     <div class="nav-btns">
         <button class="btn" onclick="window.scrollTo(0, 0)" title="اوپر جائیں">▲</button>
         <button class="btn" onclick="window.scrollTo(0, document.body.scrollHeight)" title="نیچے جائیں">▼</button>
     </div>
 
     <div class="main-container">
-        <!-- Title -->
-        <h1>بچوں کے لئے اسکرین کا وقت کیوں کنٹرول کرنے کی ضرورت ہے؟</h1>
+        <div class="two-columns">
+            <!-- Main Content Area -->
+            <div class="content-main">
+                <h1>بچوں کے لئے اسکرین کا وقت کیوں کنٹرول کرنے کی ضرورت ہے؟</h1>
+                <img src="https://bloglovers.pk/images/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai.png" alt="بچوں کے لئے اسکرین کا وقت" class="featured-image">
 
-        <!-- Single Featured Image -->
-        <img src="https://bloglovers.pk/images/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai.png" alt="بچوں کے لئے اسکرین کا وقت" class="featured-image">
+                <div class="post-content">
+                    <h2>اسکرین کا وقت: ایک جدید چیلنج</h2>
+                    <p>آج کی دنیا میں یہ ایک بہت عام موضوع ہے۔ جب آپ ان تمام گیجٹوں کے بارے میں سوچتے ہیں جن کی اسکرینیں ہیں اس سے یہ سمجھ آجاتا ہے کہ کیوں خدشات ہوں گے۔ ٹی وی، لیپ ٹاپ، فونز، ایل ای ڈیز، یہاں تک کہ ہماری کاروں اور مسافر بسوں میں اسکرینیں بھی موجود ہیں، لیکن کیا واقعی زیادہ اسکرین ٹائم ہمارے بچوں کو متاثر کرتا ہے؟</p>
+                    <p>اسکرین ٹائم کو کنٹرول کرنا مشکل ہوسکتا ہے، کیونکہ اسکرینیں ہر جگہ موجود ہیں۔ صحت کی کچھ بڑی تنظیموں کے مطابق، ہمیں شاید بچوں پر سکرین کے وقت پر پڑنے والے اثرات پر زیادہ دھیان دینا چاہئے، خاص کر چھوٹے بچوں پر جو 5 سال سے کم عمر ہیں۔ صحت کے فوائد کو فروغ دینے کے لئے ڈھال لیا جائے۔</p>
+                    <p>لہذا جب ہم اپنے بچوں کی بات کرتے ہیں تو اسکرین کا وقت کم کرنے کے لئے ہم اپنی طرز زندگی کو کیوں اپنائیں؟</p>
 
-        <div class="post-content">
-            <h2>اسکرین کا وقت: ایک جدید چیلنج</h2>
-            <p>آج کی دنیا میں یہ ایک بہت عام موضوع ہے۔ جب آپ ان تمام گیجٹوں کے بارے میں سوچتے ہیں جن کی اسکرینیں ہیں اس سے یہ سمجھ آجاتا ہے کہ کیوں خدشات ہوں گے۔ ٹی وی، لیپ ٹاپ، فونز، ایل ای ڈیز، یہاں تک کہ ہماری کاروں اور مسافر بسوں میں اسکرینیں بھی موجود ہیں، لیکن کیا واقعی زیادہ اسکرین ٹائم ہمارے بچوں کو متاثر کرتا ہے؟</p>
-            <p>اسکرین ٹائم کو کنٹرول کرنا مشکل ہوسکتا ہے، کیونکہ اسکرینیں ہر جگہ موجود ہیں۔ صحت کی کچھ بڑی تنظیموں کے مطابق، ہمیں شاید بچوں پر سکرین کے وقت پر پڑنے والے اثرات پر زیادہ دھیان دینا چاہئے، خاص کر چھوٹے بچوں پر جو 5 سال سے کم عمر ہیں۔ صحت کے فوائد کو فروغ دینے کے لئے ڈھال لیا جائے۔</p>
-            <p>لہذا جب ہم اپنے بچوں کی بات کرتے ہیں تو اسکرین کا وقت کم کرنے کے لئے ہم اپنی طرز زندگی کو کیوں اپنائیں؟</p>
+                    <h2>اسکرین ٹائم کے منفی اثرات</h2>
+                    <p>چند وجوہات سامنے آئیں ہیں:</p>
+                    <p><strong>اول:</strong> مکمل سکرین ٹائم شئیر کرنے سے بچوں کے دماغ پر برے اثرات مرتب ہو رہے ہیں۔</p>
+                    <p><strong>دوم:</strong> اسکرین کے سامنے بیٹھنے کا مطلب ہے کہ بچے اپنے آس پاس کی دنیا پر توجہ نہیں دے رہے ہیں۔ ہم روزمرہ کی زندگی سے نمٹنے کے لئے فطرت کا ایک بڑا کردار ہے۔ کیا آپ نے کبھی دباؤ محسوس کیا ہے، اپنے پسندیدہ ساحل سمندر، خوبصورت پارک، جھیل پر سیر کیلئے نکلیں ہیں تو یقیننا فوری طور پر بہتر محسوس ہوا ہوگا؟ یہ اس طرح ہے۔</p>
+                    <p>جب چھوٹے افراد فطرت کے ساتھ تعامل کرتے ہیں تو یہ ثابت ہوتا ہے کہ کم تناؤ، جارحیت کو کم کرنے میں مدد مل سکتی ہے اور بعد میں اس پر توجہ مرکوز کرنے میں ان کی مدد کرسکتی ہے۔ جس کا مطلب یہ ہے کہ اسکرین کے سامنے زیادہ سے زیادہ وقت، ان قدرتی مزاج بڑھانے والوں کا تجربہ کرنے اور باہر کھیلنے کی اچھی عادت ڈالنے کے لئے کم وقت ملتا ہے۔</p>
+                    <p>حقیقت میں ماہرین یہ کہتے رہتے ہیں کہ جب جارحانہ سلوک اور توجہ مرکوز کرنے کی بات آتی ہے تو اسکرین ٹائم فطرت کے بالکل ٹھیک برعکس کرسکتا ہے۔ جہاں قدرت فطرت سے پرسکون ہو اور اسکرین کا بہت وقت آرام کرے، تناؤ کی سطح بڑھ سکتا ہے اور افسردگی کا ردعمل بن سکتا ہے۔</p>
+                    <p>نہ صرف یہ بلکہ جب کسی بچے کی توجہ مرکوز کرنے کی صلاحیت کو ختم کردیا جاتا ہے تو، وہ اپنے آس پاس کی دنیا کے ساتھ مناسب طریقے سے سلوک نہیں کرسکتے ہیں، جس کی وجہ سے وہ اکثر اوقات پریشان ہوجاتے ہیں۔ ایسے مطالعات ہوئے ہیں جو دکھاتے ہیں کہ اسکرین کا وقت بچے کی ذہنی توانائی کی ایک بڑی مقدار کو استعمال کرتا ہے۔ اس کھوئی ہوئی توانائی کی بحالی کا ایک تیز اور آسان طریقہ ناراض ہونا ہے، جو بالآخر ان کا مقابلہ کرنے کی راہ میں بدل جائے گا۔</p>
+                    
+                    <h2>اسکرین ٹائم اور نیند</h2>
+                    <p>اسکرین کا وقت خوابوں کے وقت کو کم کرتا ہے۔ ہمیں یقین ہے کہ ایک وقت یا کسی اور وقت پر آپ نے سنا ہوگا کہ جب نیند کی بات آتی ہے تو فون کس طرح نقصان دہ ثابت ہوسکتے ہیں۔ خاص طور پر اگر آپ سوتے تک انسٹاگرام یا دیگر سوشل میڈیا ایپ سے چپک جاتے ہیں۔ وہی تصور چھوٹوں پر بھی لاگو ہوسکتا ہے۔ آپ کے آلے پر صرف دو گھنٹے پوری چمک کے ساتھ ہارمون کو دبا سکتے ہیں جو ہمیں نیند آنے میں مدد کرتا ہے، جسے میلٹنن کہا جاتا ہے۔</p>
+                    <p>میلٹنن وہ ہے جس سے آپ کو نیند آتی ہے، اور اگر آپ کو نیند نہیں آتی ہے تو، آپ کو شاید نیند نہیں آرہی ہے۔ آپ کی سرکیڈین تال کی لمبی لمبی رکاوٹ صحت کی کچھ شدید پریشانیوں کا سبب بن سکتے ہیں۔</p>
 
-            <h2>اسکرین ٹائم کے منفی اثرات</h2>
-            <p>چند وجوہات سامنے آئیں ہیں:</p>
-            <p><strong>اول:</strong> مکمل سکرین ٹائم شئیر کرنے سے بچوں کے دماغ پر برے اثرات مرتب ہو رہے ہیں۔</p>
-            <p><strong>دوم:</strong> اسکرین کے سامنے بیٹھنے کا مطلب ہے کہ بچے اپنے آس پاس کی دنیا پر توجہ نہیں دے رہے ہیں۔ ہم روزمرہ کی زندگی سے نمٹنے کے لئے فطرت کا ایک بڑا کردار ہے۔ کیا آپ نے کبھی دباؤ محسوس کیا ہے، اپنے پسندیدہ ساحل سمندر، خوبصورت پارک، جھیل پر سیر کیلئے نکلیں ہیں تو یقیننا فوری طور پر بہتر محسوس ہوا ہوگا؟ یہ اس طرح ہے۔</p>
-            <p>جب چھوٹے افراد فطرت کے ساتھ تعامل کرتے ہیں تو یہ ثابت ہوتا ہے کہ کم تناؤ، جارحیت کو کم کرنے میں مدد مل سکتی ہے اور بعد میں اس پر توجہ مرکوز کرنے میں ان کی مدد کرسکتی ہے۔ جس کا مطلب یہ ہے کہ اسکرین کے سامنے زیادہ سے زیادہ وقت، ان قدرتی مزاج بڑھانے والوں کا تجربہ کرنے اور باہر کھیلنے کی اچھی عادت ڈالنے کے لئے کم وقت ملتا ہے۔</p>
-            <p>حقیقت میں ماہرین یہ کہتے رہتے ہیں کہ جب جارحانہ سلوک اور توجہ مرکوز کرنے کی بات آتی ہے تو اسکرین ٹائم فطرت کے بالکل ٹھیک برعکس کرسکتا ہے۔ جہاں قدرت فطرت سے پرسکون ہو اور اسکرین کا بہت وقت آرام کرے، تناؤ کی سطح بڑھ سکتا ہے اور افسردگی کا ردعمل بن سکتا ہے۔</p>
-            <p>نہ صرف یہ بلکہ جب کسی بچے کی توجہ مرکوز کرنے کی صلاحیت کو ختم کردیا جاتا ہے تو، وہ اپنے آس پاس کی دنیا کے ساتھ مناسب طریقے سے سلوک نہیں کرسکتے ہیں، جس کی وجہ سے وہ اکثر اوقات پریشان ہوجاتے ہیں۔ ایسے مطالعات ہوئے ہیں جو دکھاتے ہیں کہ اسکرین کا وقت بچے کی ذہنی توانائی کی ایک بڑی مقدار کو استعمال کرتا ہے۔ اس کھوئی ہوئی توانائی کی بحالی کا ایک تیز اور آسان طریقہ ناراض ہونا ہے، جو بالآخر ان کا مقابلہ کرنے کی راہ میں بدل جائے گا۔ ناراض ہوجانے سے انہیں اپنی ذہنی توانائی کو فروغ ملے گا، جب انہیں ضرورت ہوگی۔ دوسرے الفاظ میں، آپ زیادہ تر پگھلاؤ کی توقع کرسکتے ہیں۔</p>
-            <p>اسکرین کا بہت زیادہ وقت بچوں کو غمزدہ کرسکتا ہے جب بچے جوان ہوتے ہیں تو دماغ ہی ترقی پزیر ہوتا ہے اور مطالعے سے ہمیں یہ بتایا جارہا ہے کہ اسکرینوں کی نمائش سے منفی اثر پڑ سکتا ہے۔ بنیادی طور پر جب بات ویڈیو گیمز اور کارٹونز کی ہو۔ اس سے ان بچوں کو نشانہ بنایا جاتا ہے جن کی عمر 8 سے 18 سال کے درمیان ہوتی ہے اور اسکرینوں کی "باقاعدہ" نمائش ہوتی ہے، جو دن میں تقریبا 7 یا اس طرح کے گھنٹے ہوتا ہے۔</p>
-            <p>اسکرین ٹائم کے زیادہ ضمنی اثرات جب لت اور گیمنگ کی بات کرتے ہیں تو وہ جذباتی پروسیسنگ، فیصلہ سازی، علمی کنٹرول اور کسی کی توجہ مرکوز کرنے کی صلاحیت کے بطور اطلاق دیتے ہیں۔ نہ صرف یہ، بلکہ کھیل دماغ کو سیلاب میں اچھا کیمیکل سمجھتے ہیں جس کو ڈوپامین کہتے ہیں۔ اس تمام ڈوپامائن کے ساتھ، مستقل بنیاد پر مسئلہ یہ ہے کہ اس کیمیائی راستہ کو قبول کرنے اور ہمیں اچھا محسوس کرنے والے، فائدہ مند تھکے ہوئے اور خراب ہونے کا راستہ ان کی نسبت تیزی سے حاصل ہوتا ہے۔ اس کا مطلب یہ ہے کہ متاثرہ بچوں کو خوشی محسوس کرنے کے لئے بہت زیادہ محنت کرنا پڑے گی۔ ڈوپامائن کا ذکر نہ کرنا حوصلہ افزائی اور توجہ دینے میں مدد کرتا ہے۔</p>
+                    <h2>عملی تجاویز</h2>
+                    <h3>عمر کے لحاظ سے سفارشات</h3>
+                    <ul>
+                        <li><strong>بچوں کے لئے جن کی عمر ایک سال سے کم ہے</strong>: انہیں دن بھر متحرک رہنا چاہئے، فرش پلے اور پیٹ ٹائم جیسی چیزوں کے ساتھ جب وہ بیدار ہوتے ہیں۔</li>
+                        <li><strong>چار سال سے کم عمر بچوں کے لئے</strong>: ہر دن کم از کم 3 گھنٹے سرگرم رہنا۔</li>
+                        <li><strong>2 سے 4 سال کے درمیان بچے</strong>: تھوڑی کم نیند لیکن سرگرمی ضروری۔</li>
+                        <li><strong>ننھے بچوں کے لئے</strong>: ہر دن ایک گھنٹہ سے زیادہ اسکرین ٹائم نہیں۔</li>
+                        <li><strong>24 ماہ سے کم عمر بچوں کے لئے</strong>: ویڈیو کالز کے علاوہ اسکرین ٹائم نہ ہو۔</li>
+                        <li><strong>2 تا 5 سال کی عمر کے بچوں کے لئے</strong>: دن میں ایک گھنٹہ کافی، تعلیمی مواد۔</li>
+                    </ul>
+                    <h3>اضافی تجاویز</h3>
+                    <ul>
+                        <li><strong>ڈیجیٹل خواندگی</strong>: تنقیدی سوچ اور انٹرنیٹ پر درست معلومات۔</li>
+                        <li><strong>والدین کے کنٹرول</strong>: فلٹرنگ ٹولز استعمال کریں۔</li>
+                        <li><strong>"انپلگ" کرنا</strong>: ٹیکنالوجی سے دن بھر دور رہیں۔</li>
+                        <li><strong>ٹیکنالوجی کی حدود</strong>: فون کرفیو اور اسکرین ٹائم ایپس۔</li>
+                    </ul>
+                    <p>ایک بار پھر، ہر گھر مختلف ہے اور یہ جاننے میں تھوڑا وقت لگ سکتا ہے کہ آپ اور آپ کے کنبہ کے لئے کیا کام ہے۔ اسکرینیں ہر جگہ اور ہماری روزمرہ کی زندگی کا حصہ ہیں، لیکن اعتدال میں سب کچھ ہے۔</p>
+                </div>
 
-            <h2>اسکرین ٹائم اور نیند</h2>
-            <p>اسکرین کا وقت خوابوں کے وقت کو کم کرتا ہے۔ ہمیں یقین ہے کہ ایک وقت یا کسی اور وقت پر آپ نے سنا ہوگا کہ جب نیند کی بات آتی ہے تو فون کس طرح نقصان دہ ثابت ہوسکتے ہیں۔ خاص طور پر اگر آپ سوتے تک انسٹاگرام یا دیگر سوشل میڈیا ایپ سے چپک جاتے ہیں۔ وہی تصور چھوٹوں پر بھی لاگو ہوسکتا ہے۔ آپ کے آلے پر صرف دو گھنٹے پوری چمک کے ساتھ ہارمون کو دبا سکتے ہیں جو ہمیں نیند آنے میں مدد کرتا ہے، جسے میلٹنن کہا جاتا ہے۔</p>
-            <p>میلٹنن وہ ہے جس سے آپ کو نیند آتی ہے، اور اگر آپ کو نیند نہیں آتی ہے تو، آپ کو شاید نیند نہیں آرہی ہے۔ آپ کی سرکیڈین تال کی لمبی لمبی رکاوٹ (آپ کے جسموں میں قدرتی نیند اور جاگتے ہوئے چکر) صحت کی کچھ شدید پریشانیوں کا سبب بن سکتے ہیں۔ دوسرا مسئلہ یہ ہے کہ اگر اس چکر میں خلل پڑتا ہے، یہاں تک کہ اگر آپ کو نیند آجاتی ہے، تو یہ گہری بحالی کی نیند نہیں ہوگی جس کے لئے آپ اگلے دن تازہ دم محسوس کریں۔ ہم سب جانتے ہیں کہ جب بچے تھکے ہوئے ہیں تو وہ کیسے ہوسکتے ہیں یا ان کی کیا تکلیف ہے یا وہ کیا محسوس کر رہے ہوتے ہیں، اور کون چاہتا ہے کہ یہ معمول بن جائے۔ "اسی طرح جب آپ سوتے ہیں تو یہ آپ کے جسم کو بھی محسوس ہوتا ہے"۔</p>
+                <!-- REACTIONS SECTION: exactly as required IDs and onclick -->
+                <div class="reactions-container">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
 
-            <h2>عملی تجاویز</h2>
-            <h3>عمر کے لحاظ سے سفارشات</h3>
-            <ul>
-                <li><strong>بچوں کے لئے جن کی عمر ایک سال سے کم ہے</strong>: انہیں دن بھر متحرک رہنا چاہئے، فرش پلے اور پیٹ ٹائم جیسی چیزوں کے ساتھ جب وہ بیدار ہوتے ہیں۔ جب بچہ موجود ہے تو، ان کو کہانیوں کو سنانا بھی ایک اچھا خیال ہے۔ سوتے وقت کے بعد کہانیاں بہترین ہیں۔</li>
-                <li><strong>چار سال سے کم عمر بچوں کے لئے</strong>: انہیں ہر دن کم از کم 3 گھنٹے سرگرم رہنا چاہئے۔ اس میں کھیلنا، دوڑنا، چلنا، بنیادی طور پر کوئی بھی چیز جو ان کو اٹھاتا ہے اور آگے بڑھتا ہے۔</li>
-                <li><strong>2 سے 4 سال کے درمیان بچے</strong>: انھیں نوزائیدہ بچے کی نسبت تھوڑی کم نیند کی ضرورت ہوتی ہے لیکن بنیادی طور پر اس کی سفارش کی جاتی ہے جب اس کی سرگرمی اور خاموش رہنے کی بات آتی ہے۔</li>
-                <li><strong>ننھے بچوں کے لئے</strong>: ہر دن ایک گھنٹہ سے زیادہ اسکرین ٹائم نہیں ہونا چاہئے۔</li>
-                <li><strong>24 ماہ سے کم عمر بچوں کے لئے</strong>: یہ سفارش کی جاتی ہے کہ ان کو اسکرین کا کوئی وقت نہ ملے، ویڈیو کالز کے علاوہ، جیسے ابھی ذکر کیا ہے۔</li>
-                <li><strong>2 تا 5 سال کی عمر کے بچوں کے لئے</strong>: دن میں اسکرین کا ایک گھنٹہ ایک دن کافی ہے۔ آپ کو یہ بھی دیکھنا چاہئے کہ آپ کا بچہ کیا دیکھ رہا ہے اور اس بات کو بھی یقینی بنائے کہ وہ جو چیزیں دیکھ رہے ہیں وہ عمر مناسب ہے اور وہ چیزوں کے تعلیمی رخ اور چیزوں پر زیادہ ہے جس سے اشتہارات کی مقدار محدود ہوتی ہے۔</li>
-            </ul>
+                <!-- Social Media Icons (7 platforms) -->
+                <div class="social-share">
+                    <div class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')">📘</div>
+                    <div class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')">💬</div>
+                    <div class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')">🐦</div>
+                    <div class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')">🔗</div>
+                    <div class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')">📡</div>
+                    <div class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')">📌</div>
+                    <div class="social-icon" style="background:#6c757d;" onclick="copyPageLink()">📋 کاپی</div>
+                </div>
 
-            <h3>اضافی تجاویز</h3>
-            <ul>
-                <li><strong>ڈیجیٹل خواندگی</strong>: آپ اس کے آس پاس اپنا شیڈول بنا سکتے ہیں۔ ہم ایک ڈیجیٹل دور میں رہتے ہیں، اور یہ سمجھنا کہ وہ جو کچھ اسکرین پر دیکھتے ہیں وہ ہمیشہ درست نہیں ہوتا ہے، یا اصلی بہت اہم ہوتا ہے۔ اسے ڈیجیٹل خواندگی کہا جاتا ہے، اور انٹرنیٹ پر لاگو ہوتے وقت یہ بنیادی طور پر تنقیدی سوچ ہے۔</li>
-                <li><strong>والدین کے کنٹرول</strong>: یاد رکھیں والدین کے بہت سارے ٹولز ہیں جو آپ کو ایسا مواد فلٹر کرنے میں مدد کرسکتے ہیں جو آپ اپنے بچوں کو بھی نہیں دکھانا چاہتے ہیں۔</li>
-                <li><strong>"انپلگ" کرنا</strong>: کیا ہم نے کبھی "انپلگ" کرنے میں کچھ وقت لیا ہے؟ بہت سارے لوگوں کے پاس ایک دن ہوتا ہے جہاں وہ کسی بھی ٹیکنالوجی کو استعمال نہ کرنے کی کوشش کرتے ہیں۔</li>
-                <li><strong>ٹیکنالوجی کی حدود</strong>: ہم فون کرفیوز مرتب کرسکتے ہیں، ایک خاص گھنٹے کے بعد ٹی وی کو بند کرسکتے ہیں یا کچھ ایسی ایپس انسٹال کرسکتے ہیں جو کسی خاص ڈیوائس پر اسکرین ٹائم کی مقدار کو محدود کردیتی ہیں۔</li>
-            </ul>
-            <p>ایک بار پھر، ہر گھر مختلف ہے اور یہ جاننے میں تھوڑا وقت لگ سکتا ہے کہ آپ اور آپ کے کنبہ کے لئے کیا کام ہے۔ اسکرینیں ہر جگہ اور ہماری روزمرہ کی زندگی کا حصہ ہیں، لیکن جیسا کہ ہم ہمیشہ کہتے ہیں، کہ اعتدال میں سب کچھ ہے۔</p>
+                <!-- Footer Navigation Buttons -->
+                <div class="footer-nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-button">🌟 مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-button">📚 تمام پوسٹس</a>
+                </div>
+            </div>
+
+            <!-- SIDEBAR with auto-scroll -->
+            <div class="sidebar">
+                <div class="sidebar-scroll auto-scroll-active" id="sidebarScroll">
+                    <!-- Sidebar items list (14 posts as given, with active post highlight) -->
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/mazameen/musalmanon-ne-apna-waqar-kaise-khoya">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/mazameen/musalmanon-ne-apna-waqar-kaise-khoya.png" alt="img">
+                        <a href="https://bloglovers.pk/mazameen/musalmanon-ne-apna-waqar-kaise-khoya" class="sidebar-post-title">5 مسلمانوں نے اپنا وقار کیسے کھویا؟</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/mazameen/ek-jhalak-aflatoon-aur-arastoo-ke-falsafa-par">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/mazameen/ek-jhalak-aflatoon-aur-arastoo-ke-falsafa-par.png" alt="img">
+                        <a href="https://bloglovers.pk/mazameen/ek-jhalak-aflatoon-aur-arastoo-ke-falsafa-par" class="sidebar-post-title">ایک جھلک افلاطون اور ارسطو کے فلسفہ پر</a>
+                    </div>
+                    <div class="sidebar-item active-post" data-link="https://bloglovers.pk/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai.png" alt="img">
+                        <a href="https://bloglovers.pk/mazameen/bachchon-ke-liye-screen-ka-waqt-kyun-control-karne-ki-zaroorat-hai" class="sidebar-post-title">بچوں کے لئے اسکرین کا وقت کیوں کنٹرول کرنے کی ضرورت ہے؟</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/mazameen/tap-10-rydng-tps">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/mazameen/tap-10-rydng-tps.png" alt="img">
+                        <a href="https://bloglovers.pk/mazameen/tap-10-rydng-tps" class="sidebar-post-title">ٹاپ 10 ریڈنگ ٹپس</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/mazameen/tap-10-lsnng-tps">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/mazameen/tap-10-lsnng-tps.png" alt="img">
+                        <a href="https://bloglovers.pk/mazameen/tap-10-lsnng-tps" class="sidebar-post-title">ٹاپ 10 لسنگ ٹپس</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="img">
+                        <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="sidebar-post-title">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="img">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="img">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="sidebar-post-title">گیارہویں منانا</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" alt="img">
+                        <a href="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak" class="sidebar-post-title">ہیکل سلیمانی : تعمیر سے تباہی تک</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="img">
+                        <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="sidebar-post-title">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" alt="img">
+                        <a href="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal" class="sidebar-post-title">عشق یا دماغی خلل</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="img">
+                        <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="sidebar-post-title">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+                    </div>
+                    <div class="sidebar-item" data-link="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">
+                        <img class="sidebar-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="img">
+                        <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="sidebar-post-title">مذاق میں کسی کا دل دکھانا</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Reactions JS - external file (no duplicate functions inside) 
+         but we MUST include reactions.js. Also ensure we do NOT redeclare those functions.
+         We only keep share/copy functions here. -->
+    <script src="/reactions.js"></script>
+    <script>
+        // social share functions and copy link (keep these only, no reaction duplicates)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://api.whatsapp.com/send?text=${title} ${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('لنک کاپی ہو گیا!');
+            }).catch(() => alert('کاپی کرنے میں مسئلہ'));
+        }
+
+        // auto-scroll sidebar: we add class to container, but we need proper infinite effect using JS? 
+        // Better: use CSS keyframes but since dynamic height may vary, we implement smooth scroll with JS interval
+        // But requirement: auto-scroll 30s per cycle, stop on hover. we'll implement simple scroll animation manually.
+        const scrollDiv = document.getElementById('sidebarScroll');
+        let scrollInterval;
+        function startAutoScroll() {
+            if(scrollInterval) clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+                if (!scrollDiv.matches(':hover')) {
+                    let maxScroll = scrollDiv.scrollHeight - scrollDiv.clientHeight;
+                    if (scrollDiv.scrollTop >= maxScroll) {
+                        scrollDiv.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        scrollDiv.scrollBy({ top: 30, behavior: 'smooth' });
+                    }
+                }
+            }, 800);
+        }
+        // override: 30s full cycle: total 600px avg, speed control. simpler: move 30px each ~0.9s => full 600px ~18s, but we set dynamic.
+        // adjust to approx 30s cycle, but ok.
+        startAutoScroll();
+        scrollDiv.addEventListener('mouseenter', () => { if(scrollInterval) clearInterval(scrollInterval); });
+        scrollDiv.addEventListener('mouseleave', () => startAutoScroll());
+    </script>
 </body>
 </html>
