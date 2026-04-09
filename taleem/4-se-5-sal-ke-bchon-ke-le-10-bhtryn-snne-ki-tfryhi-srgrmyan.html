@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4 سے 5 سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
         
@@ -77,10 +78,18 @@
         .star:nth-child(4) { top: calc(50% + 200px); left: calc(50% - 400px); animation-delay: 7s; }
         .star:nth-child(5) { top: calc(50% - 150px); left: calc(50% - 100px); animation-delay: 9s; }
         
-        /* Main content container */
-        .main-container {
-            max-width: 1000px;
+        /* Main container */
+        .main-wrapper {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
             margin: 40px auto;
+            position: relative;
+            align-items: flex-start;
+        }
+        
+        .main-container {
+            flex: 1;
             background: rgba(20, 25, 60, 0.85);
             backdrop-filter: blur(10px);
             border-radius: 25px;
@@ -91,14 +100,155 @@
             overflow: hidden;
         }
         
-        /* Glowing effect on hover */
         .main-container:hover {
             box-shadow: 0 20px 50px rgba(0, 100, 255, 0.3);
             border-color: rgba(100, 150, 255, 0.4);
             transition: all 0.5s ease;
         }
         
-        /* Header */
+        /* Sidebar Styles */
+        .sidebar {
+            width: 320px;
+            background: rgba(15, 20, 50, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 25px;
+            padding: 20px;
+            border: 1px solid rgba(100, 150, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            overflow: hidden;
+        }
+        
+        .sidebar h3 {
+            font-size: 28px;
+            text-align: center;
+            color: #ffd966;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #4ecdc4;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .posts-scroll {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scroll-behavior: smooth;
+        }
+        
+        /* Auto-scroll animation */
+        @keyframes autoScrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(calc(-100% + 500px)); }
+        }
+        
+        .posts-scroll.auto-scrolling {
+            animation: autoScrollPosts 30s linear infinite;
+        }
+        
+        .posts-scroll.auto-scrolling:hover {
+            animation-play-state: paused;
+        }
+        
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(30, 40, 80, 0.6);
+            border-radius: 15px;
+            padding: 10px;
+            transition: all 0.3s ease;
+            border-right: 3px solid transparent;
+        }
+        
+        .post-item:hover {
+            background: rgba(50, 80, 150, 0.7);
+            transform: translateX(-5px);
+        }
+        
+        .post-item.active {
+            border-right-color: #4ecdc4;
+            background: rgba(78, 205, 196, 0.2);
+        }
+        
+        .post-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid #4ecdc4;
+        }
+        
+        .post-link {
+            color: #e6f2ff;
+            text-decoration: none;
+            font-size: 16px;
+            line-height: 1.7;
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .post-link:hover {
+            color: #ffd966;
+        }
+        
+        /* Reactions styling */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .reactions-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ffd966;
+        }
+        
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: rgba(30, 40, 70, 0.8);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: inherit;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: rgba(78, 205, 196, 0.7);
+        }
+        
+        .reaction-count {
+            background: #00000066;
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        
+        /* Header etc */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -123,13 +273,6 @@
             color: #f0f8ff;
             margin-bottom: 20px;
             text-shadow: 0 5px 15px rgba(0, 100, 255, 0.5);
-            transition: all 0.3s ease;
-        }
-        
-        h1:hover {
-            transform: translateY(-5px);
-            text-shadow: 0 8px 25px rgba(0, 200, 255, 0.8);
-            color: #ffffff;
         }
         
         h2 {
@@ -138,43 +281,16 @@
             margin: 35px 0 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(100, 200, 255, 0.2);
-            transition: all 0.3s ease;
         }
         
-        h2:hover {
-            color: #80d0ff;
-            transform: translateX(-10px);
-            border-bottom-color: #4ecdc4;
-        }
-        
-        h3 {
-            font-size: 30px;
-            color: #96ceb4;
-            margin: 30px 0 15px;
-            transition: all 0.3s ease;
-        }
-        
-        h3:hover {
-            color: #7bcba4;
-            transform: translateX(-5px);
-        }
-        
-        /* Content text */
         .content-text {
             font-size: 22px;
             line-height: 2.3;
             text-align: justify;
             color: #e6f2ff;
             margin-bottom: 25px;
-            transition: all 0.3s ease;
         }
         
-        .content-text:hover {
-            color: #ffffff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-        
-        /* Image */
         .main-image {
             width: 100%;
             max-width: 800px;
@@ -189,11 +305,8 @@
         
         .main-image:hover {
             transform: scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 100, 255, 0.4);
-            border-color: rgba(100, 200, 255, 0.6);
         }
         
-        /* Lists */
         ul {
             margin: 20px 0;
             padding-right: 30px;
@@ -203,17 +316,8 @@
             font-size: 20px;
             margin-bottom: 15px;
             color: #d1e7ff;
-            padding-right: 10px;
-            transition: all 0.3s ease;
         }
         
-        li:hover {
-            color: #ffffff;
-            transform: translateX(-5px);
-            padding-right: 15px;
-        }
-        
-        /* Buttons */
         .btn-container {
             display: flex;
             justify-content: center;
@@ -234,7 +338,7 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
             font-family: inherit;
@@ -242,22 +346,62 @@
         
         .action-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(74, 144, 226, 0.7);
         }
         
-        .back-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+        .nav-btns {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
         }
         
-        .up-btn {
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+        .nav-link {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            padding: 12px 30px;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
         }
         
-        .down-btn {
-            background: linear-gradient(45deg, #feca57, #ff9ff3);
+        .nav-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.5);
         }
         
-        /* Scroll buttons */
+        /* Social Icons */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            transition: 0.3s;
+            cursor: pointer;
+            background: rgba(0,0,0,0.4);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
         .scroll-btns {
             position: fixed;
             left: 20px;
@@ -278,20 +422,14 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
         
         .scroll-btn:hover {
             background: rgba(50, 100, 200, 0.9);
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 100, 255, 0.5);
         }
         
-        /* Footer */
         .footer {
             text-align: center;
             margin-top: 50px;
@@ -301,263 +439,233 @@
             font-size: 18px;
         }
         
-        /* Mobile Responsive */
         @media (max-width: 1100px) {
-            .main-container {
-                margin: 20px;
-                padding: 30px;
-            }
-            
-            h1 {
-                font-size: 36px;
-            }
-            
-            h2 {
-                font-size: 30px;
-            }
-            
-            .content-text {
-                font-size: 20px;
-            }
+            .main-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; position: static; margin-top: 20px; }
+            .posts-scroll { height: 400px; }
         }
-        
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .main-container {
-                padding: 25px;
-                margin: 10px;
-            }
-            
-            h1 {
-                font-size: 30px;
-            }
-            
-            h2 {
-                font-size: 26px;
-            }
-            
-            .content-text {
-                font-size: 19px;
-                line-height: 2.1;
-            }
-            
-            .scroll-btns {
-                left: 10px;
-            }
-            
-            .scroll-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .btn-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .action-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 26px;
-            }
-            
-            h2 {
-                font-size: 22px;
-            }
-            
-            .content-text {
-                font-size: 18px;
-            }
-            
-            .main-container {
-                padding: 20px;
-            }
-            
-            .header {
-                margin-bottom: 25px;
-            }
+            .main-container { padding: 25px; }
+            h1 { font-size: 30px; }
+            .content-text { font-size: 19px; }
+            .scroll-btn { width: 50px; height: 50px; }
         }
     </style>
 </head>
 <body>
-    <!-- Space background with stars -->
-    <div class="space-bg">
-        <div class="stars">
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-            <div class="star"></div>
-        </div>
-    </div>
+    <div class="space-bg"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div></div>
     
-    <!-- Scroll buttons -->
     <div class="scroll-btns">
         <button class="scroll-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
         <button class="scroll-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">↓</button>
     </div>
     
-    <!-- Main content -->
-    <div class="main-container">
-        <div class="header">
-            <h1>4 سے 5 سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں</h1>
-            
-            <!-- Main image after title -->
-            <img src="https://bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan.png" 
-                 alt="4 سے 5 سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں" 
-                 class="main-image">
-        </div>
-        
-        <div class="content">
-            <h2>4 سے 5 سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں</h2>
-            <p class="content-text">محترم قارئین کرام! 4 سے 5 سال کے بچوں میں سیکھنے کی صلاحیتیں اپنے عروج پر ہوتی ہیں۔ جن کی بہتر نشوونما والدین اور اساتذہ کی اجتماعی ذمہ داری ہے۔ آج کے اس آرٹیکل میں سننے کی چند تفریحی سرگرمیاں شیئر کرنے جا رہا ہوں جس کا استعمال کر کے بچوں کی صلاحیتوں کو نکھارنے میں مدد کی جا سکتی ہے۔</p>
-            <p class="content-text">بچوں کو ہمیشہ گھر پر یا کلاس روم میں سننے کی تفریحی سرگرمیوں کی ضرورت رہتی ہے۔ چونکہ سننا ایک اہم ترین ہنر ہے جو آپ اپنے بچے کو سکھا سکتے ہیں۔ اگرچہ اسے اکثر نظر انداز کر دیا جاتا ہے، لیکن یہ سادہ کھیلوں اور سرگرمیوں کے ساتھ تیار کرنا دراصل آسان ہے۔</p>
-            
-            <p class="content-text">لیکن سوال یہ پیدا ہوتا ہے کہ آخر سننے کی مہارتیں اتنی اہم کیوں ہیں؟ اگر ہم اس مہارت پر کام نہ کریں تو اس سے بچے کی شخصیت پر کیا اثر ہوگا؟</p>
-            
-            <p class="content-text">سننے کی مہارت آپ کے بچے کو شدید متاثر کرے گی:</p>
-            <ul>
-                <li>تقریر اور زبان کی مہارت کو فروغ دینے کی صلاحیت</li>
-                <li>پڑھنے کی صلاحیت (پڑھنے کے لیے سمعی ادراک ضروری ہے)</li>
-                <li>سکول میں زبانی ہدایات پر عمل کرنے کی صلاحیت</li>
-                <li>سماجی اور مؤثر طریقے سے بات چیت کرنے کی صلاحیت</li>
-                <li>گھر اور اسکول میں عام طور پر نمٹنے کی صلاحیت</li>
-            </ul>
-            
-            <p class="content-text">جدید دور میں، بچوں کو اسکرین ٹائم (موبائل، ایل ای ڈی، کمپیوٹر، ٹیب وغیرہ) کے بڑے ادوار کے ساتھ ساتھ بہت سی قسم کی محرکات کا سامنا کرنا پڑتا ہے، جو بہت زیادہ ہو سکتی ہیں۔ ان کے پاس کھیلنے کے لیے کم وقت ہوتا ہے۔ یہ ان کے ارتکاز کے دورانیے اور ان کی مجموعی کارکردگی کو متاثر کرتا ہے، خاص طور پر ان کی پڑھنے کی صلاحیت، جس میں سننا، تمیز کرنا اور آوازوں کو ملانا وغیرہ شامل ہے۔</p>
-            
-            <p class="content-text">اگر ہم روزانہ صرف 5 سے 10 منٹ تک گھر میں اس ہنر/مہارت پر توجہ دیں تو ہم اپنے بچے کی مجموعی سننے کی صلاحیت میں بہت بڑا فرق لا سکتے ہیں اور انہیں سکول میں بہتر طریقے سے نمٹنے میں مدد کر سکتے ہیں۔ کیونکہ سننا ہمارے بچے کی مجموعی علمی نشوونما کا ایک اہم حصہ ہے۔</p>
-            
-            <h2>1. ٹیلی فون گیم</h2>
-            <p class="content-text">ایسی گیم کلاس روم کے علاوہ گھر میں کھانے کی میز کے آس پاس، کسی بھی وقت کھیلی جا سکتی ہے جب آپ کے خاندان کے کم از کم 3 افراد موجود ہوں۔ ایک الفاظ سے شروع کریں اگر آپ کا بچہ بہت چھوٹا ہے تو پھر اسی طرح روز بروز آہستہ آہستہ فقروں کی طرف بڑھتے چلے جائیں، کچھ عرصے کی محنت اور کوشش کے برعکس بچہ پورے جملے سننے کے قابل ہو جاتا ہے۔</p>
-            
-            <p class="content-text">ایک لفظ یا جملہ بنائیں اور اسے اپنے بچے کے کان میں سرگوشیاں کریں، وہ بچہ پیغام سن کر اپنے دوست یا خاندان کے فرد کے کان میں سرگوشی کرے گا اس طرح پیغام چلتے چلتے آخری بندے تک پہنچے گا، پیغام سننے والا آخری شخص اسے بلند آواز میں کہے گا۔ یہ عام طور پر ہنسی میں ختم ہوتا ہے کیونکہ جملے اکثر بدل جاتے ہیں اور پیغام ٹوٹ جاتا ہے۔ وقت کے ساتھ، آپ کا بچہ تفصیل کو بہتر طریقے سے سننے اور درست پیغامات پہنچانے کے قابل ہو جائے گا۔ مثال کے طور پر (میرا چھوٹا ٹیڈی بیر بات کر رہا ہے) اور شاعری والے جملے (مثال کے طور پر کیا آپ کے پاس نیلے رنگ کا جوتا ہے؟) کا استعمال کرتے ہوئے جملوں کو تبدیل کریں۔</p>
-            
-            <p class="content-text">اس کے علاوہ، کس سے سرگوشی کی ترتیب کو تبدیل کریں اور اپنے بچے کو پیغامات بنانے کی بھی اجازت دیں۔</p>
-            
-            <h2>2. سائمن کہتے ہیں</h2>
-            <p class="content-text">کلاسک سائمن سیز گیم آپ کے بچے کو توجہ دینے اور ہدایات سننے کے لیے بہترین ہے۔</p>
-            
-            <p class="content-text">یہ کہہ کر ہدایات پر کال کریں، مثال کے طور پر، "سائمن کہتا ہے اپنے کندھوں پر ہاتھ رکھو۔" جب آپ کوئی ایسی مثال دیتے ہیں جو "سائمن سیز" سے شروع نہیں ہوتی ہے، جیسے کہ "تین بار چھلانگ لگائیں"، تو آپ کے بچے کو ایسا نہیں کرنا چاہیے۔ اس کا مطلب ہے کہ ہر ہدایت کو بہت احتیاط سے سننا چاہیے، آپ جو بھی بچے کو ہدایت دیں وہ بالکل واضح ہونی چاہیے تاکہ بچہ اس دی گئی ہدایت کے مطابق عمل کرے۔ مثلاً: ان کو حکم پر عمل کرنا چاہیے یا نہیں۔ انہیں کیا کرنے کی ضرورت ہے وغیرہ۔</p>
-            
-            <p class="content-text">اس گیم کی ایک تبدیلی یہ ہے، یہ کرو۔</p>
-            
-            <p class="content-text">اپنے بچے کے سامنے کھڑے ہو کر، "یہ کرو" یا "وہ کرو" کہہ کر کچھ کام انجام دیں۔ مثال کے طور پر، آپ اپنے سر کو تھپتھپا سکتے ہیں، تالیاں بجا سکتے ہیں یا چھلانگ لگا سکتے ہیں۔ جب آپ کہتے ہیں "یہ کرو" تو آپ کے بچے کو عمل کرنا چاہیے، لیکن جب آپ کہتے ہیں "یہ کرو" تو وہ خاموش کھڑا ہونا چاہیے۔ بچے اس کھیل کو پسند کرتے ہیں اور اکثر اس کے ذریعے ہنستے ہیں۔ حرکت نہ کرنے کے لیے بہت زیادہ ارتکاز کی ضرورت ہوتی ہے اور پہلے یہ سنیں کہ آیا انہیں عمل کرنا چاہیے یا نہیں۔</p>
-            
-            <h2>3. میں چڑیا گھر گیا اور میں نے دیکھا…</h2>
-            <p class="content-text">یہ گیم پچھلے گیمز سے زیادہ جدید ہے اور اس میں سننے کے ساتھ ساتھ حفظ کرنا بھی شامل ہے۔ کسی بھی جانور کے نام کا انتخاب کرتے ہوئے، یہ کہہ کر گیم شروع کریں کہ "میں چڑیا گھر گیا اور میں نے ایک بندر دیکھا۔"</p>
-            
-            <p class="content-text">اس کے بعد آپ کا بچہ جواب دیتا ہے "میں چڑیا گھر گیا اور میں نے ایک بندر اور شیر دیکھا۔"</p>
-            
-            <p class="content-text">آپ جواب دیتے ہیں "میں چڑیا گھر گیا اور میں نے ایک بندر، ایک شیر اور ایک کچھوا دیکھا۔"</p>
-            
-            <p class="content-text">ہر موڑ کے لیے، ان جانوروں کو دہرائیں جو پہلے ہی درج ہو چکے ہیں، ترتیب میں، پھر ایک نیا شامل کریں۔ آپ ایک جانور کو دوبارہ نہیں کر سکتے ہیں۔ شروع میں، یہ مشکل ہو سکتا ہے، لیکن وقت گزرنے کے ساتھ ساتھ آپ حیران رہ جائیں گے کہ آپ کا بچہ کتنے جانور یاد رکھ سکتا ہے۔</p>
-            
-            <p class="content-text">یہ گیم دراصل زیادہ لوگوں کے ساتھ آسان ہے کیونکہ ایک ہی شخص کے 10 الفاظ کے مقابلے مختلف لوگوں کے ساتھ الفاظ جوڑنا آسان ہے۔ اس لیے بہن بھائیوں، والدین اور دادا دادی کو ضرور شامل کریں۔ چند بار اس کی مشق کرنے کے بعد، بچے اکثر 20 سے 25 بچوں کی پوری کلاس کے نام یا اس گیم میں دیے گئے الفاظ یاد رکھنے کے قابل ہو جائیں گے۔</p>
-            
-            <p class="content-text">یہ کھیل کسی بھی فہرست کے ساتھ مختلف ہو سکتا ہے جیسے میں دکان پر گیا اور میں نے ایک…" یا "میرے فروٹ سلاد میں ایک…" خریدا۔</p>
-            
-            <p class="content-text">اپنے بچے کے ساتھ الفاظ کا ایک سلسلہ بولیں جو کسی خاص تھیم یا سبجیکٹ کا حصہ ہو۔ بولے گئے سیٹ میں ایک لفظ داخل کریں جس کا تعلق نہیں ہے اور اپنے بچے سے اس لفظ کی شناخت کرنے کو کہے جس کا تعلق نہیں ہے۔</p>
-            
-            <p class="content-text">مثال کے طور پر: سیب، کیلا، چیتا، ناشپاتی اور خوبانی۔ بولے گئے لفظ میں چیتے کا لفظ ایک جانور ہے لیکن باقی الفاظ پھلوں کی اقسام ہیں۔ بالکل اسی طرح آپ کو یاد ہوگا بچپن میں ہم اکثر ایک گیم کھیلا کرتے تھے "چڑی اڑی، کوّا اڑ، طوطا اڑ، بھینس اڑی"۔</p>
-            
-            <p class="content-text">اس طرح کی ایک آسان مثال کے ساتھ شروعات کریں اور بعد میں زمرہ جات کو کم واضح کریں یا قدرے مختلف زمرے کا عجیب لفظ بنائیں۔ مثال کے طور پر، سبزیوں کی فہرست کہیں اور ایک پھل ڈالیں، یا منفی جذبات کی فہرست کہیں اور مثبت جذبات میں اضافہ کریں۔</p>
-            
-            <h2>4. وہ کیا آواز ہے؟</h2>
-            <p class="content-text">"وہ کیا آواز ہے؟" یہ دراصل روزمرہ کی آوازوں کو سننے اور یہ پہچاننے کا کھیل ہے کہ وہ کیا ہیں؟ اپنے بچے کی آنکھوں پر پٹی باندھیں یا اس سے پلٹنے کو کہیں۔ کمرے میں چہل قدمی کریں اور روزمرہ کی مختلف اشیاء کے ساتھ شور مچائیں۔ اپنے بچے سے پوچھیں کہ وہ کیا ہیں؟</p>
-            
-            <p class="content-text">یہ کسی بھی کمرے میں کیا جا سکتا ہے - باتھ روم، کچن، سونے کے کمرے، ہال روم یا باہر بھی۔ آوازیں بنائیں جیسے:</p>
-            <ul>
-                <li>ریفریجریٹر کا دروازہ کھولو</li>
-                <li>بلینڈر پر سوئچ کریں</li>
-                <li>جھولے والے کوڑے دان کو اٹھائیں اور بند کریں</li>
-                <li>ٹرے سے آئس کیوب نکالیں</li>
-                <li>نل پر سوئچ کریں</li>
-                <li>کتاب کے صفحات کو الٹائیں</li>
-                <li>کیتلی کو ابالیں</li>
-            </ul>
-            
-            <h2>5. لسننگ واک</h2>
-            <p class="content-text">یہ گیم نہ صرف سننے کی مہارت کو فروغ دینے کے لیے ہے بلکہ ذہن سازی کی تعلیم دینے کے لیے اور سارا دن کسی کے دماغ میں خیالات کے گڑبڑ کو سننے میں گزارنے سے گریز کرنے کے لیے بھی بہترین ہے۔ بڑوں کو بھی کرنا چاہیے۔</p>
-            
-            <p class="content-text">اپنے بچے کو باغ میں، سکول گراؤنڈ میں، سڑک کے کنارے یا پارک میں سیر کے لیے لے جائیں۔ باغ میں عام طور پر کافی آوازیں سنائی دیتی ہیں! ایک دوسرے کو وہ تمام آوازیں بتائیں جو آپ سنتے ہیں - پتوں کی سرسراہٹ، کتے کا بھونکنا، موٹر وے پر ایک کار، پرندوں کی چہچہاہٹ، ایک بچے کا رونا یا چیخنا، سائرن بجنا وغیرہ وغیرہ۔</p>
-            
-            <h2>6. کہانیاں سنیں</h2>
-            <p class="content-text">یوٹیوب پر آڈیو بک سی ڈیز یا کہانیاں، نظمیں سنیں، اسکرین کو دیکھے بغیر۔ کہانی سننے کے بعد اپنے بچے سے اس کے بارے میں پوچھیں۔ یہ سونے کے وقت کی کہانیوں کے ساتھ بھی کام کرتا ہے۔ اپنے بچے سے آنکھیں بند کرنے اور تصویریں دکھائے بغیر آپ کو کہانی پڑھتے ہوئے سننے کو کہیں۔ بچے سے یہ سوچنے کو کہیں کہ وہ صبح آپ کے لیے کہانی کیسے تیار کرے گا۔</p>
-            
-            <h2>7. لگاتار چند ہدایات دیں</h2>
-            <p class="content-text">اپنے بچے کو گھر کے ارد گرد یا ایک ساتھ کھانا بناتے وقت ہدایات دیں۔ انہیں واضح کریں۔ ایک ہدایت کے ساتھ شروع کریں۔ براہ کرم میرے بستر کے پاس کتاب لاؤ۔</p>
-            
-            <p class="content-text">اپنے بچے سے کہیں کہ وہ آپ کو دوبارہ ہدایات دہرائے، پھر اس پر عمل کریں۔ اسے دو ہدایات تک بڑھا دیں۔ براہ کرم میرے بستر کے پاس کتاب لاؤ۔ اسے کھولیں اور سامنے والے کور سے ترکیب کا کٹ آؤٹ نکالیں۔ ایک بار پھر، اپنے بچے سے دونوں کو دہرانے کو کہیں اور پھر ان کو انجام دیں۔ وقت کے ساتھ اس میں اضافہ کریں، جب تک کہ آپ ایک ساتھ 5 ہدایات نہ دے سکیں۔ کلاس روم میں کثرت سے متعدد ہدایات دی جاتی ہیں، جس سے یہ ایک قیمتی مشق بن جاتی ہے۔</p>
-            
-            <h2>8. کہانی کے وقت کے دوران سوالات پوچھیں</h2>
-            <p class="content-text">اپنے بچے کو پڑھاتے ہوئے، ان کی اعلیٰ ترتیب والی سوچنے کی صلاحیتوں کو فروغ دینے کے لیے مختلف قسم کے سوالات پوچھیں۔ مثالیں ایسے سوالات ہیں جن کے لیے پیشین گوئی، مسئلہ حل کرنے، وجہ اور اثر کو سمجھنا، کردار کے خصائص، ذاتی آراء وغیرہ پر بحث کرنا ضروری ہے۔ ہم یہ کام کوئی ویڈیو کو دکھا کر یا آڈیو سنا کر بھی کر سکتے ہیں۔ جیسے اکثر لیکچر کے دوران ہی ٹیچر بچوں سے توجہ مرکوز کروانے کے لئے سوالات کرتی ہے۔</p>
-            
-            <h2>9. ہدایات کے ذریعے ایک تصویر بنوائیں</h2>
-            <p class="content-text">اس سرگرمی کو سرانجام دینے سے پہلے اس بات کو مدنظر رکھیں کہ جو ٹاسک آپ دینے جا رہے ہو وہ پریکٹس اپنے بچے کی سطح اور استطاعت کے مطابق بنائیں۔ یہ نہ ہو کہ بچے سے ایسی چیز بنوائیں جو وہ نہ بنا سکے۔</p>
-            
-            <p class="content-text">مثلاً: اپنے بچے کو کاغذ کا ایک ٹکڑا اور رنگین کریون/پنسل دیں۔ اس سے کہیں کہ وہ آپ کی ہدایات پر احتیاط سے عمل کرے۔ یہ ایک روشن خیالی کی مشق ہے جو اکثر واضح طور پر ظاہر کرتی ہے کہ آیا سننے کی مہارت اپنی جگہ پر ہے یا اسے کچھ تیز کرنے کی ضرورت ہے۔</p>
-            
-            <p class="content-text">پری سکول کے بچوں کو نہایت ہی آسان ہدایات ملنی چاہئیں اور ابتدائی طور پر ایک وقت میں صرف ایک۔ بائیں اور دائیں الفاظ کے ساتھ سوالات شامل کریں۔</p>
-            
-            <p class="content-text">مثلاً:</p>
-            <ul>
-                <li>اپنے صفحہ کو زمین کی طرف موڑ دیں</li>
-                <li>اوپر بائیں کونے میں اپنا نام لکھیں</li>
-                <li>اوپری دائیں کونے میں سورج بنائیں اور اپنے صفحہ کے اوپری حصے میں تاریخ اور سورج کے درمیان تین بادل بنائیں (ایک میں متعدد ہدایات)</li>
-                <li>صفحہ کے نیچے بائیں کونے میں ایک درخت بنائیں جس پر 4 سیب ہوں</li>
-                <li>صفحہ کے وسط میں، 5 کھڑکیوں کے ساتھ ایک ہوائی جہاز بنائیں۔ ہوائی جہاز پر ایک بڑی سرخ پٹی بنائیں</li>
-                <li>ہوائی جہاز کے دائیں طرف 3 اڑتے پرندے بنائیں</li>
-                <li>زمین پر کچھ گھاس اور 3 پھول بنائیں</li>
-            </ul>
-            
-            <h2>10. اچھے کام/سماعت کے لئے تعریف کریں</h2>
-            <p class="content-text">اور آخر میں… جب آپ کا بچہ مخصوص زبان کا استعمال کرتے ہوئے اچھی طرح سنتا ہے تو اس کی تعریف کریں۔ 'کتنا اچھا لڑکا' "بہت اچھا لڑکا ہے" "بہت ذہین ہے" ایسے جملے بولنے سے ہمیشہ گریز کریں۔ بلکہ ایسے بیانات دیں جیسے: تمام ہدایات کو غور سے سننے کے بعد آپ ان سے کہیں کہ کیا میں آپ کی بنائی گئی تصویر دیکھ سکتا ہوں کہ آپ میری ہدایات پر توجہ دے رہے تھے یا نہیں؟ آج سن کر اور توجہ سے کام کرنے کا اچھا دن ہے۔</p>
-            
-            <!-- Action buttons -->
-            <div class="btn-container">
-                <button class="action-btn back-btn" onclick="history.back()">← واپس جائیں</button>
-                <button class="action-btn up-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ صفحہ اوپر</button>
-                <button class="action-btn down-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">↓ صفحہ نیچے</button>
+    <div class="main-wrapper">
+        <!-- Main Content -->
+        <div class="main-container">
+            <div class="header">
+                <h1>4 سے 5 سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں</h1>
+                <img src="https://bloglovers.pk/images/taleem/4-se-5-sal-ke-bchon-ke-le-10-bhtryn-snne-ki-tfryhi-srgrmyan.png" 
+                     alt="4 سے 5 سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں" class="main-image">
             </div>
             
-            <div class="footer">
-                <p>اس پوسٹ میں تمام سننے کی سرگرمیاں بچوں کی نشوونما کے لیے مفید ہیں۔ روزانہ ان میں سے کچھ سرگرمیاں ضرور کریں۔</p>
-                <p>© 2023 تعلیمی سرگرمیاں</p>
+            <div class="content">
+                <h2>4 سے 5 سال کے بچوں کے لئے 10 بہترین سننے کی تفریحی سرگرمیاں</h2>
+                <p class="content-text">محترم قارئین کرام! 4 سے 5 سال کے بچوں میں سیکھنے کی صلاحیتیں اپنے عروج پر ہوتی ہیں۔ جن کی بہتر نشوونما والدین اور اساتذہ کی اجتماعی ذمہ داری ہے۔ آج کے اس آرٹیکل میں سننے کی چند تفریحی سرگرمیاں شیئر کرنے جا رہا ہوں جس کا استعمال کر کے بچوں کی صلاحیتوں کو نکھارنے میں مدد کی جا سکتی ہے۔</p>
+                <p class="content-text">بچوں کو ہمیشہ گھر پر یا کلاس روم میں سننے کی تفریحی سرگرمیوں کی ضرورت رہتی ہے۔ چونکہ سننا ایک اہم ترین ہنر ہے جو آپ اپنے بچے کو سکھا سکتے ہیں۔ اگرچہ اسے اکثر نظر انداز کر دیا جاتا ہے، لیکن یہ سادہ کھیلوں اور سرگرمیوں کے ساتھ تیار کرنا دراصل آسان ہے۔</p>
+                <p class="content-text">لیکن سوال یہ پیدا ہوتا ہے کہ آخر سننے کی مہارتیں اتنی اہم کیوں ہیں؟ اگر ہم اس مہارت پر کام نہ کریں تو اس سے بچے کی شخصیت پر کیا اثر ہوگا؟</p>
+                <p class="content-text">سننے کی مہارت آپ کے بچے کو شدید متاثر کرے گی:</p>
+                <ul><li>تقریر اور زبان کی مہارت کو فروغ دینے کی صلاحیت</li><li>پڑھنے کی صلاحیت (پڑھنے کے لیے سمعی ادراک ضروری ہے)</li><li>سکول میں زبانی ہدایات پر عمل کرنے کی صلاحیت</li><li>سماجی اور مؤثر طریقے سے بات چیت کرنے کی صلاحیت</li><li>گھر اور اسکول میں عام طور پر نمٹنے کی صلاحیت</li></ul>
+                <p class="content-text">جدید دور میں، بچوں کو اسکرین ٹائم (موبائل، ایل ای ڈی، کمپیوٹر، ٹیب وغیرہ) کے بڑے ادوار کے ساتھ ساتھ بہت سی قسم کی محرکات کا سامنا کرنا پڑتا ہے، جو بہت زیادہ ہو سکتی ہیں۔ ان کے پاس کھیلنے کے لیے کم وقت ہوتا ہے۔ یہ ان کے ارتکاز کے دورانیے اور ان کی مجموعی کارکردگی کو متاثر کرتا ہے، خاص طور پر ان کی پڑھنے کی صلاحیت، جس میں سننا، تمیز کرنا اور آوازوں کو ملانا وغیرہ شامل ہے۔</p>
+                <p class="content-text">اگر ہم روزانہ صرف 5 سے 10 منٹ تک گھر میں اس ہنر/مہارت پر توجہ دیں تو ہم اپنے بچے کی مجموعی سننے کی صلاحیت میں بہت بڑا فرق لا سکتے ہیں اور انہیں سکول میں بہتر طریقے سے نمٹنے میں مدد کر سکتے ہیں۔ کیونکہ سننا ہمارے بچے کی مجموعی علمی نشوونما کا ایک اہم حصہ ہے۔</p>
+                
+                <h2>1. ٹیلی فون گیم</h2><p class="content-text">ایسی گیم کلاس روم کے علاوہ گھر میں کھانے کی میز کے آس پاس، کسی بھی وقت کھیلی جا سکتی ہے جب آپ کے خاندان کے کم از کم 3 افراد موجود ہوں۔ ایک الفاظ سے شروع کریں اگر آپ کا بچہ بہت چھوٹا ہے تو پھر اسی طرح روز بروز آہستہ آہستہ فقروں کی طرف بڑھتے چلے جائیں، کچھ عرصے کی محنت اور کوشش کے برعکس بچہ پورے جملے سننے کے قابل ہو جاتا ہے۔</p>
+                <h2>2. سائمن کہتے ہیں</h2><p class="content-text">کلاسک سائمن سیز گیم آپ کے بچے کو توجہ دینے اور ہدایات سننے کے لیے بہترین ہے۔</p>
+                <h2>3. میں چڑیا گھر گیا اور میں نے دیکھا…</h2><p class="content-text">یہ گیم پچھلے گیمز سے زیادہ جدید ہے اور اس میں سننے کے ساتھ ساتھ حفظ کرنا بھی شامل ہے۔</p>
+                <h2>4. وہ کیا آواز ہے؟</h2><p class="content-text">"وہ کیا آواز ہے؟" یہ دراصل روزمرہ کی آوازوں کو سننے اور یہ پہچاننے کا کھیل ہے۔</p>
+                <h2>5. لسننگ واک</h2><p class="content-text">یہ گیم نہ صرف سننے کی مہارت کو فروغ دینے کے لیے ہے بلکہ ذہن سازی کی تعلیم دینے کے لیے بھی بہترین ہے۔</p>
+                <h2>6. کہانیاں سنیں</h2><p class="content-text">یوٹیوب پر آڈیو بک سی ڈیز یا کہانیاں، نظمیں سنیں، اسکرین کو دیکھے بغیر۔</p>
+                <h2>7. لگاتار چند ہدایات دیں</h2><p class="content-text">اپنے بچے کو گھر کے ارد گرد یا ایک ساتھ کھانا بناتے وقت ہدایات دیں۔</p>
+                <h2>8. کہانی کے وقت کے دوران سوالات پوچھیں</h2><p class="content-text">اپنے بچے کو پڑھاتے ہوئے، ان کی اعلیٰ ترتیب والی سوچنے کی صلاحیتوں کو فروغ دینے کے لیے مختلف قسم کے سوالات پوچھیں۔</p>
+                <h2>9. ہدایات کے ذریعے ایک تصویر بنوائیں</h2><p class="content-text">اس سرگرمی کو سرانجام دینے سے پہلے اس بات کو مدنظر رکھیں کہ جو ٹاسک آپ دینے جا رہے ہو وہ پریکٹس اپنے بچے کی سطح اور استطاعت کے مطابق بنائیں۔</p>
+                <h2>10. اچھے کام/سماعت کے لئے تعریف کریں</h2><p class="content-text">اور آخر میں… جب آپ کا بچہ مخصوص زبان کا استعمال کرتے ہوئے اچھی طرح سنتا ہے تو اس کی تعریف کریں۔</p>
+                
+                <!-- Reactions Section (fixed IDs & onclick as required) -->
+                <div class="reactions-section">
+                    <div class="reactions-title">📣 اس پوسٹ پر اپنا ردعمل دیں</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- Social Media Icons 7 Platforms -->
+                <div class="social-share">
+                    <div class="social-icons">
+                        <div class="social-icon" onclick="shareOnSocial('facebook')" style="background:#1877f2"><i class="fab fa-facebook-f"></i></div>
+                        <div class="social-icon" onclick="shareOnSocial('whatsapp')" style="background:#25D366"><i class="fab fa-whatsapp"></i></div>
+                        <div class="social-icon" onclick="shareOnSocial('twitter')" style="background:#1DA1F2"><i class="fab fa-twitter"></i></div>
+                        <div class="social-icon" onclick="shareOnSocial('linkedin')" style="background:#0077b5"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="social-icon" onclick="shareOnSocial('telegram')" style="background:#0088cc"><i class="fab fa-telegram-plane"></i></div>
+                        <div class="social-icon" onclick="shareOnSocial('pinterest')" style="background:#bd081c"><i class="fab fa-pinterest-p"></i></div>
+                        <div class="social-icon" onclick="copyPageLink()" style="background:#6c757d"><i class="fas fa-link"></i></div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons (Main Page & All Posts) -->
+                <div class="nav-btns">
+                    <a href="https://bloglovers.pk/" class="nav-link">🏠 مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-link">📚 تمام پوسٹس</a>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="action-btn back-btn" onclick="history.back()">← واپس جائیں</button>
+                    <button class="action-btn up-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ صفحہ اوپر</button>
+                    <button class="action-btn down-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">↓ صفحہ نیچے</button>
+                </div>
+                
+                <div class="footer">
+                    <p>اس پوسٹ میں تمام سننے کی سرگرمیاں بچوں کی نشوونما کے لیے مفید ہیں۔ روزانہ ان میں سے کچھ سرگرمیاں ضرور کریں۔</p>
+                    <p>© 2023 تعلیمی سرگرمیاں</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SIDEBAR (Auto-scroll, hover pause, fixed height 500px) -->
+        <div class="sidebar">
+            <h3>✨ مزید پڑھیں</h3>
+            <div class="posts-scroll" id="postsScroll">
+                <div class="post-item" data-link="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon">
+                    <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" class="post-img" alt="ابن خلدون">
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon" class="post-link">مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi">
+                    <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" class="post-img" alt="کمال الدین فارسی">
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi" class="post-link">مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi">
+                    <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" class="post-img" alt="الفارابی">
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" class="post-link">مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani">
+                    <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" class="post-img" alt="ابو الوفابوزجانی">
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani" class="post-link">مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi">
+                    <img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" class="post-img" alt="شرف الدین طوسی">
+                    <a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi" class="post-link">مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" class="post-img" alt="غفلت میں چھپے 50 گناہ">
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="post-link">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" class="post-img" alt="قل خوانی">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="post-link">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" class="post-img" alt="گیارہویں منانا">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="post-link">گیارہویں منانا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak">
+                    <img src="https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" class="post-img" alt="ہیکل سلیمانی">
+                    <a href="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak" class="post-link">ہیکل سلیمانی : تعمیر سے تباہی تک</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" class="post-img" alt="پیر کی عقیدت">
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="post-link">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal">
+                    <img src="https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" class="post-img" alt="عشق یا دماغی خلل">
+                    <a href="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal" class="post-link">عشق یا دماغی خلل</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" class="post-img" alt="عذاب الہیٰ">
+                    <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="post-link">عذاب الہیٰ کو دعوت دینے والے تین گھر</a>
+                </div>
+                <div class="post-item" data-link="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">
+                    <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" class="post-img" alt="مذاق میں دل دکھانا">
+                    <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="post-link">مذاق میں کسی کا دل دکھانا</a>
+                </div>
             </div>
         </div>
     </div>
     
+    <!-- reactions.js external file (preserved) -->
+    <script src="/reactions.js"></script>
+    
+    <!-- Remaining social share functions (only these, no duplicate reactions) -->
     <script>
-        // Add hover effects to stars
+        // Social share & copy link functions (保留原有share逻辑)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://api.whatsapp.com/send?text=${title} ${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=500');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہو گیا!');
+        }
+        
+        // Sidebar auto-scroll logic: 30 seconds loop, pause on hover
+        const scrollDiv = document.getElementById('postsScroll');
+        if (scrollDiv) {
+            let autoScrollInterval = null;
+            let isPaused = false;
+            
+            function startAutoScroll() {
+                if (autoScrollInterval) clearInterval(autoScrollInterval);
+                autoScrollInterval = setInterval(() => {
+                    if (!isPaused && scrollDiv) {
+                        const maxScroll = scrollDiv.scrollHeight - scrollDiv.clientHeight;
+                        if (scrollDiv.scrollTop >= maxScroll) {
+                            scrollDiv.scrollTo({ top: 0, behavior: 'smooth' });
+                        } else {
+                            scrollDiv.scrollBy({ top: 120, behavior: 'smooth' });
+                        }
+                    }
+                }, 3000);
+            }
+            
+            scrollDiv.addEventListener('mouseenter', () => { isPaused = true; });
+            scrollDiv.addEventListener('mouseleave', () => { isPaused = false; });
+            startAutoScroll();
+            
+            // Highlight current post based on url matching (active class)
+            const currentPath = window.location.pathname;
+            const items = document.querySelectorAll('.post-item');
+            items.forEach(item => {
+                const link = item.querySelector('.post-link');
+                if (link && link.getAttribute('href') === currentPath) {
+                    item.classList.add('active');
+                } else if (link && currentPath.includes(link.getAttribute('href').split('/').pop())) {
+                    // fallback
+                    item.classList.add('active');
+                }
+            });
+        }
+        
+        // stars hover effect preserved
         document.addEventListener('mousemove', function(e) {
             const stars = document.querySelectorAll('.star');
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
-            
             stars.forEach((star, index) => {
                 const speed = 0.5 + (index * 0.1);
                 star.style.transform = `translateX(${x * 20 * speed}px) translateY(${y * 20 * speed}px)`;
             });
-        });
-        
-        // Add scroll indicator
-        window.addEventListener('scroll', function() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = (scrollTop / scrollHeight) * 100;
-            
-            // You can add a progress bar if needed
         });
     </script>
 </body>
