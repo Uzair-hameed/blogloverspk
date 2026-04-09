@@ -145,7 +145,176 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
         }
         
-        /* Buttons Styling */
+        /* Reactions Container */
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px 0 30px;
+            padding: 20px;
+            background: rgba(30, 40, 60, 0.5);
+            border-radius: 50px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        .reaction-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(20, 25, 45, 0.8);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-family: inherit;
+            font-size: 1.2rem;
+            color: #e0e0ff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: rgba(74, 144, 226, 0.6);
+        }
+        .reaction-count {
+            font-weight: bold;
+            margin-right: 5px;
+            color: #ffd966;
+        }
+        
+        /* Sidebar - Auto Scroll */
+        .sidebar-auto {
+            position: fixed;
+            left: 20px;
+            top: 100px;
+            width: 280px;
+            height: 500px;
+            background: rgba(10, 15, 35, 0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(78, 205, 196, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        .sidebar-title {
+            background: linear-gradient(90deg, #4a90e2, #2ecc71);
+            padding: 12px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+        }
+        .posts-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            scroll-behavior: smooth;
+        }
+        .posts-scroll:hover {
+            animation-play-state: paused;
+        }
+        @keyframes autoScrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        .auto-scroll-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: autoScrollPosts 30s linear infinite;
+        }
+        .posts-scroll:hover .auto-scroll-list {
+            animation-play-state: paused;
+        }
+        .sidebar-post-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(30, 40, 70, 0.7);
+            border-radius: 12px;
+            padding: 8px;
+            transition: 0.2s;
+            border-right: 3px solid transparent;
+        }
+        .sidebar-post-item.active {
+            border-right-color: #4ecdc4;
+            background: rgba(78, 205, 196, 0.2);
+        }
+        .sidebar-post-item img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #4a90e2;
+        }
+        .sidebar-post-item a {
+            text-decoration: none;
+            color: #f0f0ff;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+        .sidebar-post-item a:hover {
+            color: #4ecdc4;
+        }
+        
+        /* Navigation Buttons (Bottom) */
+        .bottom-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        .nav-bottom-btn {
+            background: linear-gradient(45deg, #4a90e2, #2ecc71);
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-bottom-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(78,205,196,0.6);
+        }
+        
+        /* Social Icons */
+        .social-share-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Floating Scroll Buttons */
         .navigation-buttons {
             position: fixed;
             left: 20px;
@@ -156,7 +325,6 @@
             gap: 15px;
             z-index: 1000;
         }
-        
         .nav-btn {
             width: 60px;
             height: 60px;
@@ -172,12 +340,9 @@
             align-items: center;
             justify-content: center;
         }
-        
         .nav-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.7);
         }
-        
         .back-btn {
             position: fixed;
             bottom: 20px;
@@ -197,13 +362,10 @@
             justify-content: center;
             z-index: 1000;
         }
-        
         .back-btn:hover {
             transform: scale(1.1) rotate(-10deg);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.7);
         }
         
-        /* Special Highlight Sections */
         .highlight-box {
             background: rgba(30, 40, 80, 0.6);
             border-right: 5px solid #4ecdc4;
@@ -212,83 +374,10 @@
             margin: 25px 0;
             transition: transform 0.3s, background 0.3s;
         }
-        
         .highlight-box:hover {
             transform: translateX(-10px);
             background: rgba(40, 50, 90, 0.8);
         }
-        
-        /* Responsive Design */
-        @media (max-width: 1100px) {
-            .navigation-buttons {
-                left: 10px;
-            }
-            
-            .nav-btn, .back-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .main-container {
-                padding: 25px;
-                margin: 20px auto;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            .content-section {
-                font-size: 1.2rem;
-            }
-            
-            .navigation-buttons {
-                position: fixed;
-                bottom: 80px;
-                top: auto;
-                left: 50%;
-                transform: translateX(-50%);
-                flex-direction: row;
-                gap: 20px;
-            }
-            
-            .back-btn {
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .main-container {
-                padding: 20px;
-            }
-        }
-        
-        /* Footer Styling */
         .footer-note {
             text-align: center;
             margin-top: 50px;
@@ -297,48 +386,50 @@
             color: #96ceb4;
             font-size: 1.1rem;
         }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: rgba(20, 25, 45, 0.8); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(45deg, #4a90e2, #2ecc71); border-radius: 5px; }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        @media (max-width: 1100px) {
+            .sidebar-auto { display: none; }
+            .navigation-buttons { left: 10px; }
+            .nav-btn, .back-btn { width: 50px; height: 50px; }
         }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(20, 25, 45, 0.8);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #4a90e2, #2ecc71);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, #2ecc71, #4a90e2);
+        @media (max-width: 768px) {
+            .main-container { padding: 25px; margin: 20px auto; }
+            h1 { font-size: 2rem; }
+            .reactions-container { gap: 8px; }
+            .reaction-btn { padding: 4px 12px; font-size: 1rem; }
+            .navigation-buttons { position: fixed; bottom: 80px; top: auto; left: 50%; transform: translateX(-50%); flex-direction: row; }
+            .back-btn { bottom: 20px; left: 50%; transform: translateX(-50%); }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Space Background -->
     <div id="space-bg"></div>
     
-    <!-- Navigation Buttons -->
+    <!-- Floating Scroll Buttons -->
     <div class="navigation-buttons">
         <button class="nav-btn" id="pageUpBtn" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
         <button class="nav-btn" id="pageDownBtn" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
     </div>
-    
-    <!-- Back Button -->
     <button class="back-btn" id="backBtn" title="واپس جائیں"><i class="fas fa-home"></i></button>
     
-    <!-- Main Content Container -->
+    <!-- Auto Scroll Sidebar -->
+    <div class="sidebar-auto">
+        <div class="sidebar-title">📚 دیگر اہم تحاریر</div>
+        <div class="posts-scroll">
+            <div class="auto-scroll-list" id="sidebarPostsList">
+                <!-- dynamically filled but static data also hardcoded for reliability -->
+            </div>
+        </div>
+    </div>
+    
     <div class="main-container">
         <div class="header-section">
             <h1>مسلم تاریخ کی 50 اہم شخصیات 21: شرف الدین طوسی</h1>
-            
-            <!-- Featured Image -->
             <img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" 
-                 alt="شرف الدین طوسی" 
-                 class="featured-image">
+                 alt="شرف الدین طوسی" class="featured-image">
         </div>
         
         <div class="content-section">
@@ -352,78 +443,64 @@
             
             <h2>ریاضیاتی خدمات</h2>
             <p>شرف الدین طوسی نے ریاضی کے متعدد شعبوں میں اہم کام کیے:</p>
-            
             <h3>1. الجبرا (Algebra)</h3>
-            <ul>
-                <li>انہوں نے الجبرائی مساواتوں کو حل کرنے کے نئے طریقے ایجاد کیے</li>
-                <li>تیسری درجے کی مساواتوں (Cubic equations) پر کام کیا</li>
-                <li>عددی تحلیل (Numerical analysis) کے طریقے متعارف کرائے</li>
-            </ul>
-            
+            <ul><li>انہوں نے الجبرائی مساواتوں کو حل کرنے کے نئے طریقے ایجاد کیے</li><li>تیسری درجے کی مساواتوں (Cubic equations) پر کام کیا</li><li>عددی تحلیل (Numerical analysis) کے طریقے متعارف کرائے</li></ul>
             <h3>2. ہندسہ (Geometry)</h3>
-            <ul>
-                <li>انہوں نے ہندسی مسائل پر اہم کام کیا</li>
-                <li>کروی ہندسہ (Spherical geometry) پر تحقیق کی</li>
-                <li>تعمیراتی ہندسہ (Architectural geometry) میں نئی تکنیکس ایجاد کیں</li>
-            </ul>
-            
+            <ul><li>انہوں نے ہندسی مسائل پر اہم کام کیا</li><li>کروی ہندسہ (Spherical geometry) پر تحقیق کی</li><li>تعمیراتی ہندسہ (Architectural geometry) میں نئی تکنیکس ایجاد کیں</li></ul>
             <h3>3. مثلثات (Trigonometry)</h3>
-            <ul>
-                <li>انہوں نے مثلثات کے نئے فارمولے دریافت کیے</li>
-                <li>سائن، کوسائن اور ٹینجنٹ کے درمیان تعلق قائم کیا</li>
-                <li>کروی مثلثات (Spherical trigonometry) پر اہم کام کیا</li>
-            </ul>
+            <ul><li>انہوں نے مثلثات کے نئے فارمولے دریافت کیے</li><li>سائن، کوسائن اور ٹینجنٹ کے درمیان تعلق قائم کیا</li><li>کروی مثلثات (Spherical trigonometry) پر اہم کام کیا</li></ul>
             
             <div class="highlight-box">
                 <h2>مشہور تصانیف</h2>
-                <p>شرف الدین طوسی کی مشہور کتابوں میں شامل ہیں:</p>
-                <ol>
-                    <li><strong>رسالة فی الجبر والمقابلة</strong> (الجبرا اور موازنہ پر رسالہ)</li>
-                    <li><strong>کتاب فی الهندسة</strong> (ہندسہ پر کتاب)</li>
-                    <li><strong>زیج ایلخانی</strong> (ایک فلکیاتی جدول)</li>
-                    <li><strong>تشریح الافلاک</strong> (آسمانی اجسام کی وضاحت)</li>
-                </ol>
+                <ol><li><strong>رسالة فی الجبر والمقابلة</strong> (الجبرا اور موازنہ پر رسالہ)</li><li><strong>کتاب فی الهندسة</strong> (ہندسہ پر کتاب)</li><li><strong>زیج ایلخانی</strong> (ایک فلکیاتی جدول)</li><li><strong>تشریح الافلاک</strong> (آسمانی اجسام کی وضاحت)</li></ol>
             </div>
             
             <h2>فلکیاتی خدمات</h2>
-            <p>ریاضی کے علاوہ شرف الدین طوسی نے فلکیات کے میدان میں بھی اہم کام کیے:</p>
-            <ol>
-                <li><strong>سیاروں کی حرکات:</strong> انہوں نے سیاروں کی حرکت کا مطالعہ کیا</li>
-                <li><strong>فلکیاتی جدول:</strong> انہوں نے درست فلکیاتی جدول تیار کیے</li>
-                <li><strong>رصدگاہ:</strong> انہوں نے مراغہ رصدگاہ میں اہم کردار ادا کیا</li>
-            </ol>
+            <ol><li><strong>سیاروں کی حرکات:</strong> انہوں نے سیاروں کی حرکت کا مطالعہ کیا</li><li><strong>فلکیاتی جدول:</strong> انہوں نے درست فلکیاتی جدول تیار کیے</li><li><strong>رصدگاہ:</strong> انہوں نے مراغہ رصدگاہ میں اہم کردار ادا کیا</li></ol>
             
             <h2>تدریسی خدمات</h2>
-            <p>شرف الدین طوسی نے اپنی زندگی کا بڑا حصہ تدریس میں گزارا۔ ان کے شاگردوں میں شامل تھے:</p>
-            <ul>
-                <li><strong>قطب الدین شیرازی</strong> (مشہور طبیب اور ماہر فلکیات)</li>
-                <li><strong>نجم الدین کاتب</strong> (مشہور ریاضی دان)</li>
-                <li><strong>کمال الدین فارسی</strong> (ماہر طبیعیات)</li>
-            </ul>
+            <ul><li><strong>قطب الدین شیرازی</strong> (مشہور طبیب اور ماہر فلکیات)</li><li><strong>نجم الدین کاتب</strong> (مشہور ریاضی دان)</li><li><strong>کمال الدین فارسی</strong> (ماہر طبیعیات)</li></ul>
             <p>انہوں نے ایک باقاعدہ مدرسہ قائم کیا جہاں ریاضی، فلکیات اور دیگر علوم پڑھائے جاتے تھے۔</p>
             
             <div class="highlight-box">
                 <h2>مراغہ رصدگاہ</h2>
-                <p>شرف الدین طوسی <strong>مراغہ رصدگاہ</strong> کے اہم ارکان میں سے تھے۔ اس رصدگاہ میں انہوں نے:</p>
-                <ul>
-                    <li>فلکیاتی مشاہدات کیے</li>
-                    <li>نئے آلات ایجاد کیے</li>
-                    <li>شاگردوں کو تربیت دی</li>
-                    <li>علمی تحقیق کی نگرانی کی</li>
-                </ul>
+                <ul><li>فلکیاتی مشاہدات کیے</li><li>نئے آلات ایجاد کیے</li><li>شاگردوں کو تربیت دی</li><li>علمی تحقیق کی نگرانی کی</li></ul>
             </div>
             
             <h2>انتقال اور ورثہ</h2>
-            <p>شرف الدین طوسی کا انتقال <strong>1244ء</strong> میں ہوا۔ ان کے علمی ورثے کی چند نمایاں جہتیں:</p>
-            <ol>
-                <li><strong>ریاضی کی ترقی:</strong> انہوں نے ریاضی کے متعدد شعبوں میں بنیادی کام کیا</li>
-                <li><strong>تدریسی روایت:</strong> انہوں نے ایک علمی سلسلہ قائم کیا جو صدیوں تک جاری رہا</li>
-                <li><strong>بین الشعبائی تحقیق:</strong> انہوں نے ریاضی، فلکیات اور طبیعیات کے درمیان ربط قائم کیا</li>
-            </ol>
-            <p><strong>چاند کا گڑھا:</strong> چاند پر ایک گڑھا &quot;طوسی&quot; کے نام سے منسوب ہے جو ان کی سائنسی خدمات کا اعتراف ہے۔</p>
+            <ol><li><strong>ریاضی کی ترقی:</strong> انہوں نے ریاضی کے متعدد شعبوں میں بنیادی کام کیا</li><li><strong>تدریسی روایت:</strong> انہوں نے ایک علمی سلسلہ قائم کیا جو صدیوں تک جاری رہا</li><li><strong>بین الشعبائی تحقیق:</strong> انہوں نے ریاضی، فلکیات اور طبیعیات کے درمیان ربط قائم کیا</li></ol>
+            <p><strong>چاند کا گڑھا:</strong> چاند پر ایک گڑھا "طوسی" کے نام سے منسوب ہے جو ان کی سائنسی خدمات کا اعتراف ہے۔</p>
             
             <div class="highlight-box">
                 <p><strong>نتیجہ:</strong> شرف الدین طوسی نے ریاضی اور فلکیات کے میدان میں ایسی خدمات انجام دیں جو صدیوں تک سائنسی ترقی کی بنیاد بنی رہیں۔ ان کا کام اسلامی سائنس کے سنہری دور کا اہم حصہ ہے اور جدید ریاضی کی ترقی میں ان کا کردار ناقابل فراموش ہے۔</p>
+            </div>
+            
+            <!-- Reactions Section exactly as requested -->
+            <div class="reactions-container">
+                <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+            </div>
+            
+            <!-- Bottom Navigation Links -->
+            <div class="bottom-nav-links">
+                <a href="https://bloglovers.pk/" class="nav-bottom-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-bottom-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+            </div>
+            
+            <!-- Social Media Icons (7 platforms) -->
+            <div class="social-share-icons">
+                <div class="social-icon" style="background:#1877f2" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-icon" style="background:#25D366" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                <div class="social-icon" style="background:#1DA1F2" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                <div class="social-icon" style="background:#0077b5" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                <div class="social-icon" style="background:#0088cc" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></div>
+                <div class="social-icon" style="background:#bd081c" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                <div class="social-icon" style="background:#6c757d" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
             </div>
             
             <div class="footer-note">
@@ -431,104 +508,119 @@
             </div>
         </div>
     </div>
-
+    
+    <script src="/reactions.js"></script>
     <script>
-        // Create animated stars for space background
+        // Stars background
         function createStars() {
             const spaceBg = document.getElementById('space-bg');
             const starCount = 150;
-            
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
-                // Random position
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                // Random size
-                const size = Math.random() * 3 + 1;
-                
-                // Random animation delay
-                const delay = Math.random() * 5;
-                
-                // Set styles
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.animationDelay = `${delay}s`;
-                
-                // Random brightness
-                const brightness = Math.random() * 0.8 + 0.2;
-                star.style.opacity = brightness;
-                
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.opacity = Math.random() * 0.8 + 0.2;
                 spaceBg.appendChild(star);
             }
         }
         
-        // Navigation functions
-        document.getElementById('pageUpBtn').addEventListener('click', function() {
-            window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
-        });
+        // Sidebar data
+        const sidebarPosts = [
+            { title: "مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات14-الفارابی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی", link: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi", img: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" },
+            { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+            { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+            { title: "ہیکل سلیمانی : تعمیر سے تباہی تک", link: "https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak", img: "https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+            { title: "عشق یا دماغی خلل", link: "https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal", img: "https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" },
+            { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+            { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+        ];
         
-        document.getElementById('pageDownBtn').addEventListener('click', function() {
-            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-        });
-        
-        document.getElementById('backBtn').addEventListener('click', function() {
-            // In a real scenario, this would go back to the main page
-            // For demonstration, we'll just scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Page up with arrow up
-            if (e.key === 'ArrowUp' && !e.ctrlKey) {
-                e.preventDefault();
-                window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
-            }
-            
-            // Page down with arrow down
-            if (e.key === 'ArrowDown' && !e.ctrlKey) {
-                e.preventDefault();
-                window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-            }
-            
-            // Home button with 'H' key
-            if (e.key === 'h' || e.key === 'H') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-        
-        // Initialize stars when page loads
-        window.addEventListener('DOMContentLoaded', function() {
-            createStars();
-            
-            // Add a subtle parallax effect to stars on scroll
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const spaceBg = document.getElementById('space-bg');
-                const rate = scrolled * -0.5;
-                spaceBg.style.transform = `translate3d(0px, ${rate}px, 0px)`;
+        function buildSidebar() {
+            const container = document.getElementById('sidebarPostsList');
+            if(!container) return;
+            container.innerHTML = '';
+            sidebarPosts.forEach(post => {
+                const div = document.createElement('div');
+                div.className = 'sidebar-post-item';
+                if(post.link === window.location.href || post.title.includes('شرف الدین طوسی')) div.classList.add('active');
+                const img = document.createElement('img');
+                img.src = post.img;
+                img.alt = post.title;
+                const link = document.createElement('a');
+                link.href = post.link;
+                link.innerText = post.title.substring(0, 40);
+                div.appendChild(img);
+                div.appendChild(link);
+                container.appendChild(div);
             });
-        });
-        
-        // Mobile responsive adjustments
-        function adjustForMobile() {
-            const navButtons = document.querySelector('.navigation-buttons');
-            const backButton = document.getElementById('backBtn');
-            
-            if (window.innerWidth <= 768) {
-                // For mobile, ensure buttons are visible
-                navButtons.style.display = 'flex';
-                backButton.style.display = 'flex';
-            }
+            // Duplicate for seamless loop (double items for smooth infinite)
+            sidebarPosts.forEach(post => {
+                const div = document.createElement('div');
+                div.className = 'sidebar-post-item';
+                const img = document.createElement('img');
+                img.src = post.img;
+                img.alt = post.title;
+                const link = document.createElement('a');
+                link.href = post.link;
+                link.innerText = post.title.substring(0,40);
+                div.appendChild(img);
+                div.appendChild(link);
+                container.appendChild(div);
+            });
         }
         
-        window.addEventListener('resize', adjustForMobile);
-        window.addEventListener('load', adjustForMobile);
+        // Social sharing functions (preserved)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if(platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if(platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if(platform === 'linkedin') shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`;
+            else if(platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if(platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=450');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی کر لیا گیا!');
+        }
+        
+        // Scroll & navigation
+        document.getElementById('pageUpBtn')?.addEventListener('click', () => window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' }));
+        document.getElementById('pageDownBtn')?.addEventListener('click', () => window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' }));
+        document.getElementById('backBtn')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowUp') { e.preventDefault(); window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' }); }
+            if(e.key === 'ArrowDown') { e.preventDefault(); window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' }); }
+            if(e.key === 'h' || e.key === 'H') window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Ensure reactionClick is defined (provided by reactions.js but we keep social ones)
+        // reactions.js will override reactionClick if needed, but we keep our own as fallback? No, we rely on external.
+        // However we do not define loadReactions/updateReactionsUI/addReaction/API_URL — removed duplicates as instructed.
+        window.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            buildSidebar();
+            // Parallax effect
+            window.addEventListener('scroll', () => {
+                const spaceBg = document.getElementById('space-bg');
+                if(spaceBg) spaceBg.style.transform = `translate3d(0px, ${window.pageYOffset * -0.5}px, 0px)`;
+            });
+        });
     </script>
 </body>
 </html>
