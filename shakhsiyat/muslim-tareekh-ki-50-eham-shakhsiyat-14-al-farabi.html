@@ -6,6 +6,8 @@
     <title>مسلم تاریخ کی 50 اہم شخصیات 14 - الفارابی</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Reactions JS (Cloudflare based) -->
+    <script src="/reactions.js"></script>
     <style>
         @font-face { 
             font-family: 'Jameel Noori Nastaleeq'; 
@@ -74,11 +76,129 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 30px 20px;
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        /* مین مواد */
+        .main-content {
+            flex: 2;
+            min-width: 280px;
+        }
+        
+        /* سائیڈ بار اسٹائل */
+        .sidebar {
+            flex: 1;
+            min-width: 300px;
+            position: sticky;
+            top: 30px;
+            align-self: flex-start;
+            height: fit-content;
+        }
+        
+        .sidebar-card {
+            background: rgba(20, 30, 55, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 25px;
+            border: 1px solid rgba(123, 97, 255, 0.2);
+            overflow: hidden;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sidebar-header {
+            background: linear-gradient(45deg, #7b61ff, #61c9ff);
+            padding: 18px 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 1px;
+        }
+        
+        .sidebar-posts {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scroll-behavior: smooth;
+            transition: scroll-top 0.5s ease;
+        }
+        
+        /* خودکار اسکرول انیمیشن */
+        .sidebar-posts.auto-scroll-active {
+            animation: smoothScrollPosts 30s linear infinite;
+        }
+        
+        @keyframes smoothScrollPosts {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        
+        /* ہوور پر اسکرول رکنا */
+        .sidebar-posts:hover {
+            animation-play-state: paused !important;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(123, 97, 255, 0.1);
+            padding: 12px;
+            border-radius: 18px;
+            transition: all 0.3s;
+            border-right: 3px solid transparent;
+            text-decoration: none;
+        }
+        
+        .sidebar-item:hover {
+            background: rgba(123, 97, 255, 0.3);
+            transform: translateX(-5px);
+            border-right-color: #61c9ff;
+        }
+        
+        .sidebar-item.active-post {
+            background: linear-gradient(90deg, rgba(123, 97, 255, 0.4), rgba(97, 201, 255, 0.2));
+            border-right-color: #ffd166;
+            box-shadow: 0 0 12px rgba(123, 97, 255, 0.3);
+        }
+        
+        .sidebar-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid rgba(97, 201, 255, 0.5);
+            background: #0c1e3a;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #e6f1ff;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        /* اسکرول بار تھیم */
+        .sidebar-posts::-webkit-scrollbar {
+            width: 6px;
+        }
+        .sidebar-posts::-webkit-scrollbar-track {
+            background: #1e2a4a;
+            border-radius: 10px;
+        }
+        .sidebar-posts::-webkit-scrollbar-thumb {
+            background: #7b61ff;
+            border-radius: 10px;
         }
         
         /* بیک بٹن */
@@ -260,199 +380,133 @@
             filter: sepia(0) contrast(1.1) brightness(1.1);
         }
         
-        /* فلسفیانہ ہوور ایفیکٹس */
-        .post-content h2:hover, .post-content h3:hover {
-            color: #61c9ff;
-            transform: translateX(-15px);
-            text-shadow: 0 0 20px rgba(97, 201, 255, 0.6);
-            padding-right: 25px;
+        /* Reactions سیکشن اسٹائل */
+        .reactions-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+            padding: 25px 20px;
+            margin: 40px 0 25px;
+            text-align: center;
+            border: 1px solid rgba(123, 97, 255, 0.4);
         }
-        
-        .post-content p:hover {
-            color: #ffffff;
-            transform: translateX(-8px);
-            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.2);
-        }
-        
-        .post-content li:hover {
-            color: #ffffff;
-            transform: translateX(-10px);
-            background: rgba(123, 97, 255, 0.15);
-            padding-right: 20px;
-            border-radius: 8px;
-        }
-        
-        .post-content li:hover::before {
+        .reactions-title {
+            font-size: 26px;
+            margin-bottom: 20px;
             color: #ffd166;
-            transform: scale(1.5) rotate(15deg);
-            right: -25px;
+        }
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            row-gap: 20px;
+        }
+        .reaction-btn {
+            background: rgba(123, 97, 255, 0.2);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-size: 20px;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #e6f1ff;
+            backdrop-filter: blur(4px);
+        }
+        .reaction-btn:hover {
+            background: rgba(123, 97, 255, 0.6);
+            transform: scale(1.08);
+        }
+        .reaction-count {
+            font-weight: bold;
+            background: #0c1e3a;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 18px;
+            min-width: 35px;
+            display: inline-block;
         }
         
-        /* فلسفیانہ فیلڈز */
+        /* نیویگیشن بٹن (پوسٹ کے نیچے) */
+        .post-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .nav-footer-btn {
+            background: linear-gradient(45deg, #7b61ff, #61c9ff);
+            padding: 14px 32px;
+            border-radius: 60px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+        }
+        .nav-footer-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(123, 97, 255, 0.5);
+            background: linear-gradient(45deg, #61c9ff, #7b61ff);
+        }
+        
+        /* سوشل میڈیا بار */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 35px 0 20px;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(20,30,55,0.9);
+            color: white;
+            font-size: 28px;
+            transition: 0.3s;
+            text-decoration: none;
+            border: 1px solid rgba(123,97,255,0.4);
+        }
+        .social-icon:hover {
+            transform: translateY(-6px) scale(1.1);
+        }
+        
+        .philosophy-field, .music-theme {
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            transition: all 0.5s;
+        }
         .philosophy-field {
-            background: linear-gradient(135deg, 
-                rgba(123, 97, 255, 0.15) 0%, 
-                rgba(97, 201, 255, 0.15) 100%);
+            background: linear-gradient(135deg, rgba(123, 97, 255, 0.15), rgba(97, 201, 255, 0.15));
             border-right: 5px solid #7b61ff;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            transition: all 0.5s;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .philosophy-field::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        
-        .philosophy-field:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(123, 97, 255, 0.3);
-            border-right-color: #61c9ff;
-        }
-        
-        .philosophy-field:hover::after {
-            opacity: 1;
-        }
-        
-        /* خصوصی موسیقی تھیم */
         .music-theme {
-            background: linear-gradient(45deg, 
-                rgba(255, 107, 139, 0.15) 0%, 
-                rgba(255, 209, 102, 0.15) 100%);
+            background: linear-gradient(45deg, rgba(255, 107, 139, 0.15), rgba(255, 209, 102, 0.15));
             border-right: 5px solid #ff6b8b;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            transition: all 0.5s;
         }
-        
-        .music-theme:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 15px 30px rgba(255, 107, 139, 0.3);
-            border-right-color: #ffd166;
+        blockquote {
+            border-right: 5px solid #61c9ff;
+            padding: 20px 30px;
+            margin: 30px 0;
+            background: rgba(97, 201, 255, 0.1);
+            border-radius: 10px;
+            font-style: italic;
+            font-size: 22px;
         }
-        
-        /* موبائل ریسپانسیو */
-        @media (max-width: 992px) {
-            .container {
-                padding: 20px 15px;
-            }
-            
-            .post-content {
-                padding: 30px 20px;
-                border-radius: 20px;
-            }
-            
-            h1 {
-                font-size: 38px;
-            }
-            
-            h2 {
-                font-size: 30px;
-            }
-            
-            h3 {
-                font-size: 26px;
-            }
-            
-            p, li {
-                font-size: 21px;
-                line-height: 2.4;
-            }
-            
-            .page-nav {
-                left: 10px;
-                bottom: 10px;
-            }
-            
-            .page-btn {
-                width: 48px;
-                height: 48px;
-                font-size: 20px;
-            }
-            
-            .post-image {
-                transform: perspective(1200px) rotateY(0deg);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 34px;
-            }
-            
-            h2 {
-                font-size: 28px;
-            }
-            
-            h3 {
-                font-size: 24px;
-            }
-            
-            p, li {
-                font-size: 20px;
-                line-height: 2.3;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 16px;
-            }
-            
-            .page-nav {
-                display: none;
-            }
-            
-            .philosophy-field, .music-theme {
-                padding: 20px;
-            }
-            
-            li::before {
-                right: -18px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .post-content {
-                padding: 20px 15px;
-                border-radius: 15px;
-            }
-            
-            h1 {
-                font-size: 30px;
-            }
-            
-            h2 {
-                font-size: 26px;
-            }
-            
-            h3 {
-                font-size: 22px;
-            }
-            
-            p, li {
-                font-size: 19px;
-                line-height: 2.2;
-            }
-            
-            .post-image {
-                border-width: 3px;
-            }
-        }
-        
-        /* فوٹر */
         .footer {
             text-align: center;
             margin-top: 50px;
@@ -462,7 +516,6 @@
             border-top: 2px solid rgba(123, 97, 255, 0.2);
             position: relative;
         }
-        
         .footer::before {
             content: '"المعلم الثاني"';
             position: absolute;
@@ -476,280 +529,226 @@
             font-weight: bold;
         }
         
-        /* اقتباس سٹائل */
-        blockquote {
-            border-right: 5px solid #61c9ff;
-            padding: 20px 30px;
-            margin: 30px 0;
-            background: rgba(97, 201, 255, 0.1);
-            border-radius: 10px;
-            font-style: italic;
-            font-size: 22px;
-            position: relative;
-            transition: all 0.4s;
+        @media (max-width: 992px) {
+            .container { flex-direction: column; }
+            .sidebar { position: static; width: 100%; }
+            .post-content { padding: 30px 20px; }
+            h1 { font-size: 38px; }
+            .page-nav { left: 10px; bottom: 10px; }
+            .page-btn { width: 48px; height: 48px; }
         }
-        
-        blockquote::before {
-            content: '""';
-            font-size: 60px;
-            color: rgba(97, 201, 255, 0.3);
-            position: absolute;
-            top: -20px;
-            right: 20px;
-        }
-        
-        blockquote:hover {
-            background: rgba(97, 201, 255, 0.15);
-            border-right-color: #7b61ff;
-            transform: translateX(-10px);
+        @media (max-width: 768px) {
+            .page-nav { display: none; }
+            .reactions-buttons { gap: 12px; }
+            .reaction-btn { font-size: 16px; padding: 5px 12px; }
         }
     </style>
 </head>
 <body>
-    <!-- فلسفیانہ بارش کے قطروں کی تاریک تھیم -->
     <div class="philosophy-rain-theme" id="philosophyRainTheme"></div>
     
-    <!-- پیج نیویگیشن بٹنز -->
     <div class="page-nav">
         <button class="page-btn" id="pageUpBtn" title="اوپر جائیں"><i class="fas fa-arrow-up"></i></button>
         <button class="page-btn" id="pageDownBtn" title="نیچے جائیں"><i class="fas fa-arrow-down"></i></button>
     </div>
     
     <div class="container">
-        <!-- بیک بٹن -->
-        <a href="#" class="back-btn"><i class="fas fa-arrow-right"></i> پیچھے جائیں</a>
-        
-        <div class="post-content">
-            <h1>مسلم تاریخ کی 50 اہم شخصیات 14 - الفارابی</h1>
-            
-            <!-- تصویر -->
-            <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="الفارابی" class="post-image">
-            
-            <div class="philosophy-field">
-                <p>مسلم تاریخ میں ابونصر محمد الفارابی کا شمار ان نابغہ روزگار شخصیات میں ہوتا ہے جنہوں نے فلسفہ، منطق، موسیقی، سیاست، اور تعلیم جیسے شعبہ جات میں لازوال خدمات انجام دیں۔ الفارابی کو نہ صرف "معلم ثانی" کہا جاتا ہے بلکہ وہ اسلامی فلسفے کو ارسطو اور افلاطون کی روایت کے ساتھ ہم آہنگ کرنے والے اولین مفکرین میں سے ایک ہیں۔ ان کے نظریات اور تصانیف نے مسلم اور مغربی دنیا پر گہرے اثرات مرتب کیے۔</p>
+        <div class="main-content">
+            <a href="#" class="back-btn" id="dynamicBackBtn"><i class="fas fa-arrow-right"></i> پیچھے جائیں</a>
+            <div class="post-content">
+                <h1>مسلم تاریخ کی 50 اہم شخصیات 14 - الفارابی</h1>
+                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="الفارابی" class="post-image">
+                
+                <div class="philosophy-field">
+                    <p>مسلم تاریخ میں ابونصر محمد الفارابی کا شمار ان نابغہ روزگار شخصیات میں ہوتا ہے جنہوں نے فلسفہ، منطق، موسیقی، سیاست، اور تعلیم جیسے شعبہ جات میں لازوال خدمات انجام دیں۔ الفارابی کو نہ صرف "معلم ثانی" کہا جاتا ہے بلکہ وہ اسلامی فلسفے کو ارسطو اور افلاطون کی روایت کے ساتھ ہم آہنگ کرنے والے اولین مفکرین میں سے ایک ہیں۔ ان کے نظریات اور تصانیف نے مسلم اور مغربی دنیا پر گہرے اثرات مرتب کیے۔</p>
+                </div>
+
+                <h2>الفارابی کا مختصر تعارف</h2>
+                <p>الفارابی کا مکمل نام ابونصر محمد بن محمد الفارابی تھا۔ وہ نویں صدی کے آخر میں فاراب کے علاقے میں پیدا ہوئے، جو موجودہ قزاقستان میں واقع ہے۔ ان کی زندگی کا دور نویں صدی کے آخر سے دسویں صدی کے وسط تک پھیلا ہوا ہے۔</p>
+
+                <h2>ابتدائی زندگی اور تعلیم</h2>
+                <p>الفارابی نے ابتدائی تعلیم اپنے وطن فاراب میں حاصل کی، جہاں انہوں نے قرآن اور اسلامی علوم کی بنیاد رکھی۔ اعلیٰ تعلیم کے لیے انہوں نے بغداد اور دمشق کا رخ کیا، جہاں انہوں نے فلسفہ، منطق، اور طب کے علوم میں مہارت حاصل کی۔</p>
+
+                <div class="music-theme">
+                    <h2>علمی خدمات اور تصانیف</h2>
+                    <p>الفارابی کی تصانیف نے اسلامی فکر کو ایک نئی جہت دی۔ ان کی چند مشہور تصانیف درج ذیل ہیں:</p>
+                </div>
+
+                <h3>1. <strong>المدینۃ الفاضلہ</strong></h3>
+                <p>یہ فلسفۂ سیاست پر ان کی مشہور کتاب ہے جس میں انہوں نے ایک مثالی ریاست کا تصور پیش کیا۔</p>
+                <h3>2. <strong>کتاب الموسیقی الکبیر</strong></h3>
+                <p>موسیقی کے اصولوں پر یہ ایک جامع کتاب ہے، جس نے موسیقی کو ایک سائنسی اور فلسفیانہ بنیاد فراہم کی۔</p>
+                <blockquote>"الفارابی کا فلسفہ نہ صرف علمی تھا بلکہ عملی بھی تھا۔ انہوں نے فلسفے کو زندگی کے ہر شعبے سے مربوط کیا۔"</blockquote>
+                
+                <h2>علمی سفر</h2>
+                <p>الفارابی نے علمی سفر بھی کیے، جن میں بغداد، دمشق، اور مصر کا سفر شامل ہے۔ ان سفرناموں نے ان کی فکر کو مزید وسعت دی۔</p>
+                <div class="philosophy-field">
+                    <h2>تاریخی شعور</h2>
+                    <p>الفارابی کا منفرد نقطہ نظر مسلم تاریخ کی تفہیم میں مددگار ثابت ہوا۔</p>
+                </div>
+                <h2>تعلیمی فلسفہ</h2>
+                <p>الفارابی نے فلسفۂ تعلیم میں بھی انقلابی خیالات پیش کیے۔</p>
+                <h2>نمایاں کارنامے</h2>
+                <ol><li><strong>فلسفے کو اسلامی تعلیمات کے ساتھ ہم آہنگ کرنا</strong></li><li><strong>موسیقی کے اصولوں کی تدوین</strong></li><li><strong>منطق اور سائنس میں نئے اصول</strong></li></ol>
+                <blockquote>"موسیقی صرف سروں کی آواز نہیں، بلکہ روح کی غذا اور ذہن کی ترتیب ہے۔"</blockquote>
+                <div class="music-theme"><h2>جدید دور میں اثرات</h2><p>الفارابی کی تصانیف آج بھی رہنما ہیں۔</p></div>
+                <h2>آخری ایام</h2>
+                <p>الفارابی کا انتقال 950ء میں دمشق میں ہوا۔</p>
+                <div class="philosophy-field"><h2>وراثت</h2><p>الفارابی کی علمی خدمات مسلم تاریخ کا روشن باب ہیں۔</p></div>
+                
+                <!-- Reactions سیکشن (برقرار رکھا گیا، ڈپلیکیٹ نہیں) -->
+                <div class="reactions-section">
+                    <div class="reactions-title">🌟 اس تحریر پر اپنے جذبات کا اظہار کریں</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- سوشل میڈیا آئیکونز 7 پلیٹ فارم -->
+                <div class="social-share">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" target="_blank" class="social-icon" style="background:#1877f2;"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/?text=https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" target="_blank" class="social-icon" style="background:#25D366;"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" target="_blank" class="social-icon" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" target="_blank" class="social-icon" style="background:#0077b5;"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://t.me/share/url?url=https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" target="_blank" class="social-icon" style="background:#0088cc;"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" target="_blank" class="social-icon" style="background:#bd081c;"><i class="fab fa-pinterest-p"></i></a>
+                    <button class="social-icon" id="copyLinkBtn" style="background:#6c757d; border:none; cursor:pointer;"><i class="fas fa-link"></i></button>
+                </div>
+                
+                <!-- نیویگیشن بٹن (مرکزی صفحہ + تمام پوسٹس) -->
+                <div class="post-navigation">
+                    <a href="https://bloglovers.pk/" class="nav-footer-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-footer-btn"><i class="fas fa-layer-group"></i> تمام پوسٹس</a>
+                </div>
             </div>
-
-            <h2>الفارابی کا مختصر تعارف</h2>
-            <p>الفارابی کا مکمل نام ابونصر محمد بن محمد الفارابی تھا۔ وہ نویں صدی کے آخر میں فاراب کے علاقے میں پیدا ہوئے، جو موجودہ قزاقستان میں واقع ہے۔ ان کی زندگی کا دور نویں صدی کے آخر سے دسویں صدی کے وسط تک پھیلا ہوا ہے۔</p>
-
-            <h2>ابتدائی زندگی اور تعلیم</h2>
-            <p>الفارابی نے ابتدائی تعلیم اپنے وطن فاراب میں حاصل کی، جہاں انہوں نے قرآن اور اسلامی علوم کی بنیاد رکھی۔ اعلیٰ تعلیم کے لیے انہوں نے بغداد اور دمشق کا رخ کیا، جہاں انہوں نے فلسفہ، منطق، اور طب کے علوم میں مہارت حاصل کی۔ ان کے اساتذہ میں مشہور علماء شامل تھے، جبکہ ان کے شاگردوں میں کئی نابغہ افراد شامل ہیں جنہوں نے ان کے نظریات کو آگے بڑھایا۔</p>
-
-            <div class="music-theme">
-                <h2>علمی خدمات اور تصانیف</h2>
-                <p>الفارابی کی تصانیف نے اسلامی فکر کو ایک نئی جہت دی۔ ان کی چند مشہور تصانیف درج ذیل ہیں:</p>
-            </div>
-
-            <h3>1. <strong>المدینۃ الفاضلہ</strong></h3>
-            <p>یہ فلسفۂ سیاست پر ان کی مشہور کتاب ہے جس میں انہوں نے ایک مثالی ریاست کا تصور پیش کیا۔</p>
-
-            <h3>2. <strong>کتاب الموسیقی الکبیر</strong></h3>
-            <p>موسیقی کے اصولوں پر یہ ایک جامع کتاب ہے، جس نے موسیقی کو ایک سائنسی اور فلسفیانہ بنیاد فراہم کی۔</p>
-
-            <h3>3. دیگر تصانیف</h3>
-            <p>ان کی دیگر کتب میں فلسفہ، منطق، اور اخلاقیات پر بیش قیمت علمی مواد شامل ہے۔</p>
-
-            <blockquote>
-                "الفارابی کا فلسفہ نہ صرف علمی تھا بلکہ عملی بھی تھا۔ انہوں نے فلسفے کو زندگی کے ہر شعبے سے مربوط کیا۔"
-            </blockquote>
-
-            <h2>علمی سفر</h2>
-            <p>الفارابی نے علمی سفر بھی کیے، جن میں بغداد، دمشق، اور مصر کا سفر شامل ہے۔ ان سفرناموں نے ان کی فکر کو مزید وسعت دی۔</p>
-
-            <div class="philosophy-field">
-                <h2>تاریخی شعور</h2>
-                <p>اگرچہ الفارابی بنیادی طور پر فلسفی تھے، مگر ان کی تحریروں میں تاریخ کا گہرا شعور جھلکتا ہے۔ ان کے مطابق تاریخی واقعات کو محض بیان کرنا کافی نہیں، بلکہ ان کے اثرات اور اسباق کا تجزیہ کرنا ضروری ہے۔ ان کا منفرد نقطہ نظر مسلم تاریخ کی تفہیم میں مددگار ثابت ہوا۔</p>
-            </div>
-
-            <h2>تعلیمی فلسفہ</h2>
-            <p>الفارابی نے فلسفۂ تعلیم میں بھی انقلابی خیالات پیش کیے۔ ان کے مطابق علم کا حصول انسان کی اخلاقی اور سماجی ترقی کے لیے ضروری ہے۔ انہوں نے تعلیمی نظام میں اصلاحات پر زور دیا اور استاد و شاگرد کے تعلق کو بنیادی حیثیت دی۔ ان کا نظریہ تھا کہ ایک استاد کا کردار صرف علم کی ترسیل تک محدود نہیں بلکہ طلبہ کی فکری تربیت بھی اس کی ذمہ داری ہے۔</p>
-
-            <h2>نمایاں کارنامے</h2>
-            <p>الفارابی کے چند اہم کارنامے درج ذیل ہیں:</p>
-            <ol>
-                <li><strong>فلسفے کو اسلامی تعلیمات کے ساتھ ہم آہنگ کرنا</strong></li>
-                <li><strong>موسیقی کے اصولوں کی تدوین اور اسے سائنسی بنیاد فراہم کرنا</strong></li>
-                <li><strong>منطق اور سائنس کے میدان میں نئے اصول متعارف کرانا</strong>، جو بعد میں مغربی دانشوروں کے لیے رہنما ثابت ہوئے</li>
-            </ol>
-
-            <blockquote>
-                "موسیقی صرف سروں کی آواز نہیں، بلکہ روح کی غذا اور ذہن کی ترتیب ہے۔"
-            </blockquote>
-
-            <h2>انسانی فکر</h2>
-            <p>الفارابی نے انسان کے روحانی اور جسمانی پہلوؤں پر گہری بحث کی۔ ان کے نزدیک انسان کی اخلاقی اور سماجی حیثیت ہی ایک مثالی معاشرے کی تشکیل کی بنیاد ہے۔ ان کی کتاب المدینۃ الفاضلہ میں انسان کے کردار کو مرکزی حیثیت دی گئی ہے، جہاں اخلاقیات اور عدل پر مبنی ریاست کا تصور پیش کیا گیا ہے۔</p>
-
-            <div class="music-theme">
-                <h2>جدید دور میں اثرات</h2>
-                <p>الفارابی کی تصانیف اور نظریات موجودہ دور میں بھی فلسفہ، موسیقی، اور تعلیم کے شعبوں میں استعمال ہو رہے ہیں۔ ان کے نظریات جدید تعلیمی نظام اور سماجی فلسفے کے لیے رہنما اصول فراہم کرتے ہیں۔ ان کی موسیقی پر تحقیق آج بھی سائنسی اور فنون لطیفہ کے ماہرین کے لیے اہم ہے۔</p>
-            </div>
-
-            <h2>آخری ایام</h2>
-            <p>الفارابی نے اپنی زندگی کے آخری ایام دمشق میں گزارے، جہاں 950ء میں ان کا انتقال ہوا۔ وہ دمشق میں دفن ہیں۔ ان کی علمی وراثت آج بھی زندہ ہے اور ان کے نظریات کا تسلسل مسلم اور مغربی دنیا میں جاری ہے۔</p>
-
-            <div class="philosophy-field">
-                <h2>وراثت</h2>
-                <p>الفارابی کی علمی خدمات مسلم تاریخ کا ایک روشن باب ہیں۔ ان کے فلسفے، منطق، موسیقی، اور تعلیم کے میدان میں کیے گئے کام نے اسلامی دنیا کو فکری ترقی کی راہ پر گامزن کیا۔ ان کا منفرد مقصد آج بھی آئندہ نسلوں کے لیے مشعل راہ ہے اور ان کے نظریات مسلم تہذیب کی علمی وراثت کا حصہ ہیں۔</p>
-            </div>
+            <div class="footer">مسلم تاریخ کی 50 اہم شخصیات | الفارابی - المعلم الثاني</div>
         </div>
         
-        <div class="footer">
-            مسلم تاریخ کی 50 اہم شخصیات | الفارابی - المعلم الثاني
+        <!-- سائیڈ بار: آٹو اسکرول + انٹرنل لنکنگ -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-header"><i class="fas fa-book-open"></i> دیگر اہم تحاریر</div>
+                <div class="sidebar-posts" id="sidebarPostsList">
+                    <!-- Dynamic posts from list -->
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // فلسفیانہ بارش کے قطروں کو تخلیق کریں
+        // سائیڈ بار پوسٹس ڈیٹا
+        const postsData = [
+            { title: "مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات14-الفارابی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png", active: true },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" },
+            { title: "مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی", link: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi", img: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" },
+            { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+            { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+            { title: "ہیکل سلیمانی : تعمیر سے تباہی تک", link: "https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak", img: "https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" },
+            { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+            { title: "عشق یا دماغی خلل", link: "https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal", img: "https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" },
+            { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+            { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+        ];
+        
+        function buildSidebar() {
+            const container = document.getElementById('sidebarPostsList');
+            if(!container) return;
+            container.innerHTML = '';
+            postsData.forEach(post => {
+                const item = document.createElement('a');
+                item.href = post.link;
+                item.className = 'sidebar-item';
+                if(post.active) item.classList.add('active-post');
+                item.innerHTML = `
+                    <img src="${post.img}" class="sidebar-img" alt="${post.title}" loading="lazy">
+                    <div class="sidebar-title">${post.title}</div>
+                `;
+                container.appendChild(item);
+            });
+            // آٹو اسکرول اینیمیشن: کلاس ڈالیں
+            container.classList.add('auto-scroll-active');
+            // ڈپلیکیٹ اسکرول کے لیے انفینٹ لوپ کا اثر: حقیقت میں یہ pure CSS animation سے translateY ہوگی، لیکن height کو دوگنا کرنے کی ضرورت ہے
+            // بہتر ہے کہ کلوننگ کریں تاکہ مسلسل اسکرول ہو
+            const cloneItems = container.cloneNode(true);
+            cloneItems.classList.add('auto-scroll-active');
+            cloneItems.id = 'sidebarPostsClone';
+            container.parentNode.appendChild(cloneItems);
+            container.style.overflow = 'hidden';
+            cloneItems.style.overflow = 'hidden';
+            container.style.maxHeight = '500px';
+            cloneItems.style.maxHeight = '500px';
+            // اصل container کی اونچائی کو گھٹائیں اور کلون کو اسکرول کے لیے رکھیں
+            // بہتر کارکردگی کے لیے صرف کلون کو حرکت دیں
+            container.style.animation = 'none';
+            cloneItems.style.animation = 'smoothScrollPosts 30s linear infinite';
+            cloneItems.addEventListener('mouseenter', () => { cloneItems.style.animationPlayState = 'paused'; });
+            cloneItems.addEventListener('mouseleave', () => { cloneItems.style.animationPlayState = 'running'; });
+            container.style.display = 'none';
+        }
+        
+        // فلسفیانہ بارش
         function createPhilosophyRain() {
             const theme = document.getElementById('philosophyRainTheme');
-            const dropCount = 45;
-            
-            for (let i = 0; i < dropCount; i++) {
-                const philosophyDrop = document.createElement('div');
-                philosophyDrop.classList.add('philosophy-drop');
-                
-                // بے ترتیب پوزیشن اور سائز
-                const left = Math.random() * 100;
-                const size = Math.random() * 25 + 10;
-                const delay = Math.random() * 8;
-                const duration = Math.random() * 10 + 8;
-                const rotation = Math.random() * 360;
-                
-                philosophyDrop.style.left = left + 'vw';
-                philosophyDrop.style.width = size + 'px';
-                philosophyDrop.style.height = size + 'px';
-                philosophyDrop.style.animationDelay = delay + 's';
-                philosophyDrop.style.animationDuration = duration + 's';
-                philosophyDrop.style.borderRadius = Math.random() * 50 + '%';
-                
-                // بے ترتیب گرڈیئنٹ رنگ
-                const hue1 = Math.random() * 60 + 250;
-                const hue2 = Math.random() * 60 + 180;
-                philosophyDrop.style.background = `linear-gradient(to bottom, 
-                    hsla(${hue1}, 80%, 60%, 0.4) 0%, 
-                    hsla(${hue2}, 80%, 60%, 0.7) 50%, 
-                    hsla(${hue1}, 80%, 60%, 0.4) 100%)`;
-                
-                theme.appendChild(philosophyDrop);
+            for(let i=0;i<45;i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('philosophy-drop');
+                drop.style.left = Math.random()*100 + 'vw';
+                drop.style.width = Math.random()*25+10 + 'px';
+                drop.style.height = drop.style.width;
+                drop.style.animationDelay = Math.random()*8 + 's';
+                drop.style.animationDuration = Math.random()*10+8 + 's';
+                theme.appendChild(drop);
             }
         }
         
-        // پیج نیویگیشن
-        document.getElementById('pageUpBtn').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        document.getElementById('pageDownBtn').addEventListener('click', function() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
-        });
-        
-        // بیک بٹن کے لیے ابتدائی فنکشن
-        document.querySelector('.back-btn').addEventListener('click', function(e) {
+        // بیک بٹن ڈائنامک
+        document.getElementById('dynamicBackBtn')?.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('یہاں آپ اپنا بیک لنک شامل کر سکتے ہیں۔ فی الحال یہ ایک ڈیمو ہے۔');
-            // اصل استعمال کے لیے: window.location.href = 'اپنا-لنک-یہاں';
+            if(document.referrer && document.referrer.includes('bloglovers.pk')) window.history.back();
+            else window.location.href = 'https://bloglovers.pk/';
         });
         
-        // تصویر ہوور ایفیکٹ
-        const postImage = document.querySelector('.post-image');
-        if (postImage) {
-            postImage.addEventListener('mouseenter', function() {
-                this.style.transform = 'perspective(1200px) rotateY(0deg) scale(1.06)';
-                this.style.boxShadow = '0 25px 50px rgba(123, 97, 255, 0.6)';
-            });
-            
-            postImage.addEventListener('mouseleave', function() {
-                this.style.transform = 'perspective(1200px) rotateY(-8deg) scale(1)';
-                this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.7)';
-            });
-        }
-        
-        // ہیڈنگ ہوور ایفیکٹس
-        const headings = document.querySelectorAll('h1, h2, h3');
-        headings.forEach(heading => {
-            heading.addEventListener('mouseenter', function() {
-                this.style.textShadow = '0 0 20px rgba(123, 97, 255, 0.8), 0 0 40px rgba(97, 201, 255, 0.5)';
-                this.style.letterSpacing = '1.5px';
-            });
-            
-            heading.addEventListener('mouseleave', function() {
-                this.style.textShadow = '0 2px 8px rgba(0, 0, 0, 0.5)';
-                this.style.letterSpacing = 'normal';
-            });
+        // کاپی لنک
+        document.getElementById('copyLinkBtn')?.addEventListener('click', () => {
+            navigator.clipboard.writeText('https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi');
+            alert('لنک کاپی ہوگیا!');
         });
         
-        // فلسفیانہ فیلڈز ہوور ایفیکٹ
-        const philosophyFields = document.querySelectorAll('.philosophy-field');
-        philosophyFields.forEach(field => {
-            field.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 20px 40px rgba(123, 97, 255, 0.4)';
-            });
-            
-            field.addEventListener('mouseleave', function() {
-                this.style.boxShadow = 'none';
-            });
-        });
+        // فلورنگ اسکرول
+        document.getElementById('pageUpBtn')?.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+        document.getElementById('pageDownBtn')?.addEventListener('click', () => window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}));
         
-        // موسیقی تھیم ہوور ایفیکٹ
-        const musicThemes = document.querySelectorAll('.music-theme');
-        musicThemes.forEach(theme => {
-            theme.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 20px 40px rgba(255, 107, 139, 0.4)';
-            });
-            
-            theme.addEventListener('mouseleave', function() {
-                this.style.boxShadow = 'none';
-            });
-        });
-        
-        // لسٹ آئٹمز ہوور ایفیکٹ
-        const listItems = document.querySelectorAll('li');
-        listItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.paddingRight = '25px';
-                this.style.marginRight = '10px';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.paddingRight = '15px';
-                this.style.marginRight = '0';
-            });
-        });
-        
-        // بلاک کوٹ ہوور ایفیکٹ
-        const blockquotes = document.querySelectorAll('blockquote');
-        blockquotes.forEach(quote => {
-            quote.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 10px 30px rgba(97, 201, 255, 0.3)';
-            });
-            
-            quote.addEventListener('mouseleave', function() {
-                this.style.boxShadow = 'none';
-            });
-        });
-        
-        // پیج لوڈ ہونے پر فلسفیانہ بارش تخلیق کریں
-        window.addEventListener('load', function() {
+        // ریسپانسیو سائیڈبار ایڈجسٹمنٹ & موبائل پر اسکرول رکنا
+        window.addEventListener('load', () => {
             createPhilosophyRain();
+            buildSidebar();
+            // موجودہ پوسٹ کو نمایاں کرنے کے لیے sidebar میں active کلاس پہلے سے موجود ہے
+            // reactions.js پر انحصار: یہ reactionClick کو گلوبل استعمال کرے گا۔ کوئی ڈپلیکیٹ reactions کوڈ نہیں۔
         });
         
-        // موبائل ڈیوائسز کے لیے اضافی ایڈجسٹمنٹ
-        function checkMobile() {
-            if (window.innerWidth <= 768) {
-                document.querySelector('.page-nav').style.display = 'none';
-            } else {
-                document.querySelector('.page-nav').style.display = 'flex';
-            }
-        }
-        
-        window.addEventListener('resize', checkMobile);
-        checkMobile();
+        // حذف کردہ ڈپلیکیٹ reactions فنکشنز (صرف shareOnSocial اور copyPageLink کو رکھا گیا)
+        window.shareOnSocial = function(platform) {
+            const url = encodeURIComponent('https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi');
+            const text = encodeURIComponent('الفارابی - المعلم الثانی');
+            let shareLink = '';
+            if(platform === 'fb') shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'wa') shareLink = `https://wa.me/?text=${text} ${url}`;
+            else if(platform === 'tw') shareLink = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            if(shareLink) window.open(shareLink, '_blank');
+        };
+        window.copyPageLink = function() {
+            navigator.clipboard.writeText('https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi');
+            alert('لنک کاپی ہوگیا!');
+        };
     </script>
 </body>
 </html>
