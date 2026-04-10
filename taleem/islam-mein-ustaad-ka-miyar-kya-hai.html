@@ -2,8 +2,8 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اسلام میں استاد کا معیار کیا ہے؟</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>اسلام میں استاد کا معیار کیا ہے؟ | BlogLovers</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -65,29 +65,137 @@
         }
         
         @keyframes rainFall {
-            0% {
-                transform: translateY(-100px) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(100vh) translateX(20px);
-                opacity: 0;
-            }
+            0% { transform: translateY(-100px) translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
         }
         
         /* Main Container */
         .main-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .content-wrapper {
+            flex: 2;
+            min-width: 0;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background: rgba(10, 25, 47, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 20px 15px;
+            border: 1px solid rgba(56, 173, 169, 0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            height: auto;
+        }
+        
+        .sidebar-title {
+            color: #fff;
+            font-size: 1.6rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .posts-scroll-container {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            direction: rtl;
+            scroll-behavior: smooth;
+            position: relative;
+            animation: autoScroll 30s linear infinite;
+        }
+        
+        .posts-scroll-container:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        
+        .posts-scroll-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        
+        .sidebar-post {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 10px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .sidebar-post:hover {
+            background: rgba(56, 173, 169, 0.2);
+            border-color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-post-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .sidebar-post-title {
+            font-size: 0.95rem;
+            color: #f0f0f0;
+            line-height: 1.5;
+            text-decoration: none;
+            font-weight: bold;
+            flex: 1;
+        }
+        
+        .sidebar-post-title a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        
+        .sidebar-post-title a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hide scrollbar for cleaner look */
+        .posts-scroll-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .posts-scroll-container::-webkit-scrollbar-track {
+            background: #1e2a47;
+            border-radius: 10px;
+        }
+        .posts-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
         }
         
         /* Header */
@@ -112,17 +220,6 @@
             position: relative;
         }
         
-        .page-title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            right: 0;
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to left, var(--accent-color), transparent);
-        }
-        
-        /* Post Image */
         .post-image {
             width: 100%;
             max-height: 450px;
@@ -139,7 +236,6 @@
             box-shadow: 0 20px 40px rgba(56, 173, 169, 0.3);
         }
         
-        /* Post Content */
         .post-content {
             background: var(--card-bg);
             padding: 40px;
@@ -165,7 +261,6 @@
             margin-bottom: 25px;
             text-align: justify;
             color: #333;
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
         }
         
         h2 {
@@ -192,7 +287,88 @@
             font-weight: 700;
         }
         
-        /* Buttons */
+        /* Reactions Section */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 25px 20px;
+            background: #f8f9fc;
+            border-radius: 28px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .reactions-title {
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: #0a3d62;
+        }
+        
+        .reactions-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .reaction-btn {
+            background: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #eef2f7;
+        }
+        
+        .reaction-count {
+            background: #e2e8f0;
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+        
+        /* Navigation buttons (below post) */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-custom-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        }
+        
+        .nav-custom-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(56,173,169,0.4);
+        }
+        
+        /* Floating scroll buttons */
         .action-buttons {
             position: fixed;
             left: 20px;
@@ -222,11 +398,41 @@
         
         .action-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(56, 173, 169, 0.5);
+        }
+        
+        /* Social Icons (7 platforms) */
+        .social-share {
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            transition: 0.2s;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
         }
         
         .back-btn-container {
-            text-align: right;
             margin-bottom: 20px;
         }
         
@@ -242,18 +448,16 @@
             font-weight: bold;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .back-btn:hover {
             transform: translateX(-10px);
-            box-shadow: 0 8px 20px rgba(56, 173, 169, 0.4);
         }
         
         /* Color Fill Feature */
         .color-fill-trigger {
             text-align: center;
-            margin: 30px 0;
+            margin: 20px 0;
         }
         
         .fill-btn {
@@ -269,38 +473,10 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .fill-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #45b7d1, #4ecdc4, #ff6b6b);
-            z-index: -1;
-            transition: transform 0.5s ease;
-            transform: translateX(100%);
-        }
-        
-        .fill-btn:hover::before {
-            transform: translateX(0);
         }
         
         .fill-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
-        }
-        
-        .fill-instruction {
-            color: #ddd;
-            font-size: 1rem;
-            margin-top: 10px;
-            opacity: 0.8;
         }
         
         .color-fill-bg {
@@ -335,7 +511,6 @@
             100% { background-position: 0% 50%; } 
         }
         
-        /* Footer Link */
         .footer-link {
             text-align: center;
             padding: 20px;
@@ -352,309 +527,205 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
         }
         
-        .website-link:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.5);
-        }
-        
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .main-container {
-                padding: 15px;
+                flex-direction: column;
             }
-            
-            .page-title {
-                font-size: 2.2rem;
+            .sidebar {
+                max-width: 100%;
+                position: relative;
+                top: 0;
             }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            .post-content {
-                padding: 25px;
-            }
-            
-            .post-content p, .post-content li {
-                font-size: 1.2rem;
-            }
-            
             .action-buttons {
                 left: 10px;
-                gap: 10px;
             }
-            
-            .action-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-            
-            .fill-btn {
-                padding: 12px 25px;
-                font-size: 1.1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.8rem;
-            }
-            
-            h2 {
-                font-size: 1.5rem;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            .post-content p, .post-content li {
-                font-size: 1.1rem;
-                line-height: 2;
-            }
-            
-            .action-buttons {
-                left: 5px;
-            }
-            
-            .action-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
+            .post-content p {
+                font-size: 1.15rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Rain Animation -->
     <div class="rain-container" id="rainContainer"></div>
+    <div class="color-fill-bg" id="colorFillBg"><div class="color-fill-gradient"></div></div>
     
-    <!-- Color Fill Background -->
-    <div class="color-fill-bg" id="colorFillBg">
-        <div class="color-fill-gradient"></div>
-    </div>
-    
-    <!-- Navigation Buttons -->
     <div class="action-buttons">
-        <button class="action-btn" id="pageUpBtn" title="اوپر جائیں">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-        <button class="action-btn" id="pageDownBtn" title="نیچے جائیں">
-            <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="action-btn" id="pageUpBtn" title="اوپر جائیں"><i class="fas fa-chevron-up"></i></button>
+        <button class="action-btn" id="pageDownBtn" title="نیچے جائیں"><i class="fas fa-chevron-down"></i></button>
     </div>
     
-    <!-- Main Content -->
     <div class="main-container">
-        <!-- Back Button -->
-        <div class="back-btn-container">
-            <a href="javascript:history.back()" class="back-btn">
-                <i class="fas fa-arrow-right"></i>
-                واپس جائیں
-            </a>
-        </div>
-        
-        <!-- Header -->
-        <div class="header">
-            <h1 class="page-title">اسلام میں استاد کا معیار کیا ہے؟</h1>
+        <div class="content-wrapper">
+            <div class="back-btn-container">
+                <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-right"></i> واپس جائیں</a>
+            </div>
+            <div class="header">
+                <h1 class="page-title">اسلام میں استاد کا معیار کیا ہے؟</h1>
+                <div class="color-fill-trigger">
+                    <button class="fill-btn" id="colorFillBtn"><i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں</button>
+                    <p class="fill-instruction" style="color:#ccc; font-size:0.9rem;">براہ کرم بٹن کو دبا کر رکھیں تاکہ رنگوں والا پس منظر دیکھ سکیں۔</p>
+                </div>
+            </div>
+            <img src="https://bloglovers.pk/images/taleem/islam-mein-ustaad-ka-miyar-kya-hai.png" alt="اسلام میں استاد کا معیار" class="post-image">
+            <div class="post-content">
+                <p>اسلام میں استاد کا مقام بہت بلند اور محترم ہے، کیونکہ وہ علم کا ذریعہ ہیں اور علم کو انسانیت تک پہنچانے کا فریضہ انجام دیتے ہیں۔ قرآن و سنت میں استاد کے کردار، مقام، اور معیار کے بارے میں متعدد آیات اور احادیث موجود ہیں جو اس بات پر زور دیتی ہیں کہ استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ استاد ایک معمار ہے جو نئی نسل کی ذہنی، علمی اور روحانی تعمیر کرتا ہے۔</p>
+                <p>اس مضمون میں ہم دیکھیں گے کہ اسلام میں استاد کا معیار کیا ہے اور اس کے فرائض کیا ہیں، اور اس پر قرآن و سنت میں کیا ہدایات دی گئی ہیں۔</p>
+                <h2>علم کا حامل ہونا</h2>
+                <p>اللہ تعالیٰ فرماتا ہے:<br><strong>"اللہ اُن لوگوں کے درجات بلند فرماتا ہے جو ایمان لائے اور جنہیں علم عطا ہوا۔"</strong><br>یہ آیت واضح کرتی ہے کہ علم اللہ کے نزدیک ایک اعلیٰ مرتبہ ہے، اور استاد کو علم کے اس مقام کو سمجھتے ہوئے اپنی ذمہ داریوں کو انجام دینا چاہیے۔</p>
+                <h2>حکمت اور دانائی کا حامل ہونا</h2>
+                <p>اللہ تعالیٰ نے قرآن میں حضرت لقمان کو حکمت عطا کرنے کا ذکر کیا:<br><strong>"اور ہم نے لقمان کو حکمت عطا کی تھی کہ اللہ کا شکر کرو۔"</strong></p>
+                <h2>تقویٰ اور دیانتداری</h2>
+                <p>نبی کریم ﷺ نے فرمایا:<br><strong>"تم میں سے بہترین شخص وہ ہے جو دوسروں کو قرآن سکھاتا ہے اور خود بھی اسے سیکھتا ہے۔"</strong></p>
+                <h2>نرمی اور شفقت کا مظاہرہ کرنا</h2>
+                <p>اللہ تعالیٰ قرآن میں فرماتا ہے:<br><strong>"پس، اللہ کی رحمت کے باعث آپ ان کے لیے نرم دل ہیں۔"</strong></p>
+                <h2>انصاف اور عدل کا مظاہرہ کرنا</h2>
+                <p>قرآن میں اللہ تعالیٰ فرماتا ہے:<br><strong>"اور جب تم لوگوں کے درمیان فیصلہ کرو تو انصاف سے کرو۔"</strong></p>
+                <h2>طلبہ کی تربیت اور اصلاح کا خیال رکھنا</h2>
+                <p>نبی کریم ﷺ نے فرمایا:<br><strong>"بیشک میں اخلاق کی تکمیل کے لیے بھیجا گیا ہوں۔"</strong></p>
+                <h2>صبر اور تحمل کا مظاہرہ کرنا</h2>
+                <p>آپ ﷺ نے فرمایا:<br><strong>"نرمی جس چیز میں ہوتی ہے، اسے خوبصورت بنا دیتی ہے، اور جس چیز سے نرمی نکال لی جائے، وہ بدصورت ہو جاتی ہے۔"</strong></p>
+                <h2>استاد کا خود سیکھنے کا شوق ہونا</h2>
+                <p>نبی کریم ﷺ نے فرمایا:<br><strong>"علم حاصل کرو ماں کی گود سے قبر تک۔"</strong></p>
+                <h2>طلبہ کی حوصلہ افزائی کرنا</h2>
+                <h2>استاد کا اپنی نیت درست رکھنا</h2>
+                <p>نبی کریم ﷺ نے فرمایا:<br><strong>"اعمال کا دارومدار نیتوں پر ہے۔"</strong></p>
+                <p>اسلام میں استاد کا معیار بہت بلند ہے۔ ایک استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ اسے نرمی، صبر، انصاف، اور محبت سے اپنے طلبہ کی تعلیم و تربیت کرنی چاہیے۔</p>
+            </div>
             
-            <!-- Color Fill Feature -->
-            <div class="color-fill-trigger">
-                <button class="fill-btn" id="colorFillBtn">
-                    <i class="fas fa-palette"></i>
-                    اس پوسٹ کو رنگوں کے ساتھ پڑھیں
-                </button>
-                <p class="fill-instruction">براہ کرم بٹن کو دبا کر رکھیں تاکہ رنگوں والا پس منظر دیکھ سکیں۔ چھوڑنے پر واپس آجائیں گے۔</p>
+            <!-- Reactions Section with exact IDs and onclick -->
+            <div class="reactions-section">
+                <div class="reactions-title">📊 آپ کا ردعمل</div>
+                <div class="reactions-container">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <!-- Social Media Icons (7 platforms) -->
+            <div class="social-share">
+                <h4 style="color:white;">سوشل میڈیا پر شیئر کریں</h4>
+                <div class="social-icons">
+                    <div class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+                    <div class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></div>
+                    <div class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></div>
+                    <div class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></div>
+                    <div class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></div>
+                    <div class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></div>
+                </div>
+            </div>
+            
+            <!-- Navigation buttons (Home & All Posts) -->
+            <div class="nav-buttons">
+                <a href="https://bloglovers.pk/" class="nav-custom-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-custom-btn"><i class="fas fa-list-ul"></i> تمام پوسٹس</a>
             </div>
         </div>
         
-        <!-- Post Image -->
-        <img src="https://bloglovers.pk/images/taleem/islam-mein-ustaad-ka-miyar-kya-hai.png" alt="اسلام میں استاد کا معیار" class="post-image">
-        
-        <!-- Post Content -->
-        <div class="post-content">
-            <p>اسلام میں استاد کا مقام بہت بلند اور محترم ہے، کیونکہ وہ علم کا ذریعہ ہیں اور علم کو انسانیت تک پہنچانے کا فریضہ انجام دیتے ہیں۔ قرآن و سنت میں استاد کے کردار، مقام، اور معیار کے بارے میں متعدد آیات اور احادیث موجود ہیں جو اس بات پر زور دیتی ہیں کہ استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ استاد ایک معمار ہے جو نئی نسل کی ذہنی، علمی اور روحانی تعمیر کرتا ہے۔</p>
-            <p>اس مضمون میں ہم دیکھیں گے کہ اسلام میں استاد کا معیار کیا ہے اور اس کے فرائض کیا ہیں، اور اس پر قرآن و سنت میں کیا ہدایات دی گئی ہیں۔</p>
-            
-            <h2>علم کا حامل ہونا</h2>
-            <p>اسلام میں استاد کے لیے اولین شرط یہ ہے کہ وہ علم کا حامل ہو۔ قرآن مجید میں اللہ تعالیٰ نے علم کی اہمیت اور قدر کو کئی مقامات پر بیان کیا ہے۔ استاد کو اس بات کا شعور ہونا چاہیے کہ وہ جو کچھ سکھاتا ہے، وہ علم کا بہترین حصہ ہونا چاہیے اور وہ خود بھی علم میں کمال رکھتا ہو۔</p>
-            <p>اللہ تعالیٰ فرماتا ہے:<br><strong>"اللہ اُن لوگوں کے درجات بلند فرماتا ہے جو ایمان لائے اور جنہیں علم عطا ہوا۔"</strong><br>یہ آیت واضح کرتی ہے کہ علم اللہ کے نزدیک ایک اعلیٰ مرتبہ ہے، اور استاد کو علم کے اس مقام کو سمجھتے ہوئے اپنی ذمہ داریوں کو انجام دینا چاہیے۔</p>
-            
-            <h2>حکمت اور دانائی کا حامل ہونا</h2>
-            <p>استاد کو علم کے ساتھ ساتھ حکمت اور دانائی کا بھی حامل ہونا چاہیے۔ حکمت کا مطلب ہے کہ استاد کو یہ سمجھ ہو کہ کس موقع پر کیا کہنا ہے اور کس طرح علم کو طلبہ تک پہنچانا ہے۔ اللہ تعالیٰ نے قرآن میں حضرت لقمان کو حکمت عطا کرنے کا ذکر کیا:<br><strong>"اور ہم نے لقمان کو حکمت عطا کی تھی کہ اللہ کا شکر کرو۔"</strong></p>
-            <p>حکمت وہ خوبی ہے جو استاد کو ایک عام معلم سے ممتاز کرتی ہے۔ ایک استاد کو چاہیے کہ وہ اپنے طلبہ کے ذہنی و فکری سطح کو سمجھ کر انہیں علم دے اور ان کی تربیت کرے۔</p>
-            
-            <h2>تقویٰ اور دیانتداری</h2>
-            <p>استاد کو نہ صرف علمی لحاظ سے ممتاز ہونا چاہیے بلکہ اخلاقی لحاظ سے بھی بلند ہونا چاہیے۔ وہ تقویٰ، دیانتداری، اور اخلاص کے اصولوں پر عمل پیرا ہو۔ نبی کریم ﷺ نے فرمایا:<br><strong>"تم میں سے بہترین شخص وہ ہے جو دوسروں کو قرآن سکھاتا ہے اور خود بھی اسے سیکھتا ہے۔"</strong></p>
-            <p>یہ حدیث ہمیں یہ بتاتی ہے کہ ایک استاد کو صرف علم دینا ہی نہیں بلکہ خود بھی عمل میں بہترین ہونا چاہیے۔ استاد کی دیانتداری، سچائی اور اخلاقی اصول طلبہ پر گہرے اثرات ڈالتی ہے۔</p>
-            
-            <h2>نرمی اور شفقت کا مظاہرہ کرنا</h2>
-            <p>اسلام میں استاد کو طلبہ کے ساتھ نرمی اور شفقت کا برتاؤ کرنے کی تاکید کی گئی ہے۔ سختی اور جبر سے تعلیم دینا اسلامی تعلیمات کے منافی ہے۔ نبی کریم ﷺ کو اللہ تعالیٰ نے بطور معلم بھیجا، اور آپ ﷺ نے ہمیشہ شفقت اور نرمی سے تعلیم دی۔</p>
-            <p>اللہ تعالیٰ قرآن میں فرماتا ہے:<br><strong>"پس، اللہ کی رحمت کے باعث آپ ان کے لیے نرم دل ہیں۔"</strong><br>یہ آیت رسول اللہ ﷺ کے اخلاق و کردار کو بیان کرتی ہے، اور استاد کو بھی اپنے طلبہ کے ساتھ اسی نرمی اور محبت کا مظاہرہ کرنا چاہیے۔</p>
-            
-            <h2>انصاف اور عدل کا مظاہرہ کرنا</h2>
-            <p>استاد کو طلبہ کے درمیان کسی قسم کا امتیاز نہیں کرنا چاہیے اور ان کے ساتھ انصاف سے پیش آنا چاہیے۔ عدل اور انصاف کا تقاضا یہ ہے کہ استاد ہر طالب علم کو اس کی صلاحیتوں کے مطابق سکھائے اور کسی کے ساتھ زیادتی نہ کرے۔</p>
-            <p>قرآن میں اللہ تعالیٰ فرماتا ہے:<br><strong>"اور جب تم لوگوں کے درمیان فیصلہ کرو تو انصاف سے کرو۔"</strong><br>یہ اصول استاد کے لیے بھی اہم ہے کہ وہ اپنے طلبہ کے ساتھ انصاف کرے، ان کے حقوق کا خیال رکھے، اور ہر ایک کو علم کے لحاظ سے یکساں مواقع فراہم کرے۔</p>
-            
-            <h2>طلبہ کی تربیت اور اصلاح کا خیال رکھنا</h2>
-            <p>اسلام میں استاد کا کام صرف تعلیم دینا نہیں بلکہ طلبہ کی تربیت اور اصلاح کرنا بھی ہے۔ استاد کو چاہیے کہ وہ طلبہ کو اخلاقی اصولوں کی تعلیم دے اور ان کی کردار سازی کرے۔ نبی کریم ﷺ نے فرمایا:<br><strong>"بیشک میں اخلاق کی تکمیل کے لیے بھیجا گیا ہوں۔"</strong></p>
-            <p>یہ حدیث استاد کے کردار کی وضاحت کرتی ہے کہ وہ صرف علم نہیں دیتا بلکہ اپنے طلبہ کے اخلاق و کردار کو بھی سنوارتا ہے۔ استاد کو طلبہ کو اسلامی اصولوں کے مطابق زندگی گزارنے کی تربیت دینی چاہیے۔</p>
-            
-            <h2>صبر اور تحمل کا مظاہرہ کرنا</h2>
-            <p>تعلیم کے عمل میں صبر اور تحمل بہت ضروری ہے۔ ایک استاد کو چاہیے کہ وہ طلبہ کی غلطیوں کو برداشت کرے اور انہیں درست طریقے سے اصلاح کرنے کا موقع دے۔ نبی کریم ﷺ نے ہمیشہ صبر اور بردباری کا مظاہرہ کیا اور اپنے صحابہ کو بھی اسی کا درس دیا۔</p>
-            <p>آپ ﷺ نے فرمایا:<br><strong>"نرمی جس چیز میں ہوتی ہے، اسے خوبصورت بنا دیتی ہے، اور جس چیز سے نرمی نکال لی جائے، وہ بدصورت ہو جاتی ہے۔"</strong><br>یہ اصول استاد پر بھی لاگو ہوتا ہے کہ وہ نرمی اور صبر سے اپنے طلبہ کی تربیت کرے اور ان کی غلطیوں کو اصلاح کے ساتھ درست کرے۔</p>
-            
-            <h2>استاد کا خود سیکھنے کا شوق ہونا</h2>
-            <p>ایک معیاری استاد وہ ہے جو خود بھی سیکھنے کا شوق رکھتا ہو۔ اسلام میں علم کا حصول ایک مسلسل عمل ہے، اور استاد کو اپنے علم کو بڑھانے اور اپ ڈیٹ کرنے کی کوشش کرتے رہنا چاہیے۔ نبی کریم ﷺ نے فرمایا:<br><strong>"علم حاصل کرو ماں کی گود سے قبر تک۔"</strong></p>
-            <p>یہ حدیث اس بات کی طرف اشارہ کرتی ہے کہ استاد کو ہر وقت خود سیکھنے کی کوشش کرنی چاہیے تاکہ وہ اپنے طلبہ کو بہتر تعلیم دے سکے۔</p>
-            
-            <h2>طلبہ کی حوصلہ افزائی کرنا</h2>
-            <p>اسلام میں استاد کا ایک اہم فریضہ یہ بھی ہے کہ وہ اپنے طلبہ کی حوصلہ افزائی کرے اور انہیں علم حاصل کرنے میں دلچسپی پیدا کرے۔ نبی کریم ﷺ نے ہمیشہ اپنے صحابہ کی حوصلہ افزائی کی اور انہیں علم حاصل کرنے کی ترغیب دی۔</p>
-            <p>استاد کو چاہیے کہ وہ اپنے طلبہ کی کوششوں کو سراہائے اور ان کی علمی پیشرفت کی حوصلہ افزائی کرے تاکہ وہ بہتر انداز میں سیکھ سکیں۔</p>
-            
-            <h2>استاد کا اپنی نیت درست رکھنا</h2>
-            <p>اسلام میں نیت کی اہمیت بہت زیادہ ہے، اور استاد کو چاہیے کہ وہ تعلیم دیتے وقت اپنی نیت کو درست رکھے۔ اسے صرف اللہ کی رضا کے لیے تعلیم دینا چاہیے اور دنیاوی فوائد یا شہرت کے لیے نہیں۔ نبی کریم ﷺ نے فرمایا:<br><strong>"اعمال کا دارومدار نیتوں پر ہے۔"</strong></p>
-            <p>استاد کو ہر وقت اپنی نیت کو درست رکھنا چاہیے اور طلبہ کو علم دینا صرف اللہ کی رضا کے لیے ہونا چاہیے۔</p>
-            
-            <p>اسلام میں استاد کا معیار بہت بلند ہے۔ ایک استاد کو علم، حکمت، تقویٰ، اور بہترین اخلاق کا حامل ہونا چاہیے۔ اسے نرمی، صبر، انصاف، اور محبت سے اپنے طلبہ کی تعلیم و تربیت کرنی چاہیے اور ان کی اخلاقی و روحانی رہنمائی کرنی چاہیے۔ قرآن و سنت کی روشنی میں استاد کا مقام واضح ہے اور اس کے فرائض کو بہترین انداز میں انجام دینے کے لیے اللہ اور اس کے رسول ﷺ کی تعلیمات کو مدنظر رکھنا ضروری ہے۔</p>
-        </div>
-        
-        <!-- Footer Link -->
-        <div class="footer-link">
-            <a href="https://www.bloglovers.pk" class="website-link" target="_blank">
-                <i class="fas fa-globe"></i>
-                مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں
-            </a>
+        <!-- Sidebar with auto-scroll posts -->
+        <div class="sidebar">
+            <div class="sidebar-title">✨ دیگر اہم مضامین</div>
+            <div class="posts-scroll-container" id="autoScrollSidebar">
+                <div class="posts-scroll-wrapper">
+                    <!-- list of 13 posts as provided -->
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" alt="ibn e khaldoon"><div class="sidebar-post-title"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon">مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" alt="kamal ud din"><div class="sidebar-post-title"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi">مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="al farabi"><div class="sidebar-post-title"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi">مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" alt="buzjani"><div class="sidebar-post-title"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani">مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" alt="tusi"><div class="sidebar-post-title"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi">مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="gunah"><div class="sidebar-post-title"><a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="qul khwani"><div class="sidebar-post-title"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="gyarhwin"><div class="sidebar-post-title"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" alt="sulaimani"><div class="sidebar-post-title"><a href="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak">ہیکل سلیمانی : تعمیر سے تباہی تک</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="sajda"><div class="sidebar-post-title"><a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" alt="ishq"><div class="sidebar-post-title"><a href="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal">عشق یا دماغی خلل</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="azab"><div class="sidebar-post-title"><a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a></div></div>
+                    <div class="sidebar-post"><img class="sidebar-post-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="mazaq"><div class="sidebar-post-title"><a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a></div></div>
+                </div>
+            </div>
         </div>
     </div>
     
+    <div class="footer-link">
+        <a href="https://www.bloglovers.pk" class="website-link" target="_blank"><i class="fas fa-globe"></i> مزید آرٹیکل پڑھنے کے لیے ویب سائٹ وزٹ کریں</a>
+    </div>
+    
+    <!-- external reactions.js (already correct) -->
+    <script src="/reactions.js"></script>
     <script>
-        // Create Rain Animation
+        // Rain creation
         function createRain() {
             const rainContainer = document.getElementById('rainContainer');
-            const rainCount = 80;
-            
-            for (let i = 0; i < rainCount; i++) {
+            for (let i = 0; i < 80; i++) {
                 const raindrop = document.createElement('div');
                 raindrop.classList.add('raindrop');
-                
-                // Random properties
-                const left = Math.random() * 100;
-                const animationDuration = 1 + Math.random() * 2;
-                const animationDelay = Math.random() * 2;
-                const height = 30 + Math.random() * 70;
-                
-                raindrop.style.left = `${left}%`;
-                raindrop.style.animationDuration = `${animationDuration}s`;
-                raindrop.style.animationDelay = `${animationDelay}s`;
-                raindrop.style.height = `${height}px`;
-                
+                raindrop.style.left = Math.random() * 100 + '%';
+                raindrop.style.animationDuration = (1 + Math.random() * 2) + 's';
+                raindrop.style.animationDelay = Math.random() * 2 + 's';
+                raindrop.style.height = (30 + Math.random() * 70) + 'px';
                 rainContainer.appendChild(raindrop);
             }
         }
         
-        // Color Fill Feature - Hold to activate
-        let colorFillTimer;
-        let isColorFillActive = false;
+        // Color fill hold feature
+        let colorFillTimer, isColorFillActive = false;
+        const fillBtn = document.getElementById('colorFillBtn');
+        const fillBg = document.getElementById('colorFillBg');
+        const activateFill = () => { fillBg.classList.add('active'); isColorFillActive = true; fillBtn.innerHTML = '<i class="fas fa-palette"></i> رنگوں کا پس منظر چل رہا ہے'; };
+        const deactivateFill = () => { fillBg.classList.remove('active'); isColorFillActive = false; fillBtn.innerHTML = '<i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں'; };
+        fillBtn.addEventListener('mousedown', () => { colorFillTimer = setTimeout(activateFill, 800); });
+        fillBtn.addEventListener('mouseup', () => { clearTimeout(colorFillTimer); if(isColorFillActive) deactivateFill(); });
+        fillBtn.addEventListener('mouseleave', () => { clearTimeout(colorFillTimer); if(isColorFillActive) deactivateFill(); });
+        fillBtn.addEventListener('touchstart', (e) => { e.preventDefault(); colorFillTimer = setTimeout(activateFill, 800); });
+        fillBtn.addEventListener('touchend', (e) => { e.preventDefault(); clearTimeout(colorFillTimer); if(isColorFillActive) deactivateFill(); });
         
-        const colorFillBtn = document.getElementById('colorFillBtn');
-        const colorFillBg = document.getElementById('colorFillBg');
+        // Scroll buttons
+        document.getElementById('pageUpBtn').addEventListener('click', () => window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' }));
+        document.getElementById('pageDownBtn').addEventListener('click', () => window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' }));
         
-        colorFillBtn.addEventListener('mousedown', function() {
-            colorFillTimer = setTimeout(() => {
-                colorFillBg.classList.add('active');
-                isColorFillActive = true;
-                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> رنگوں کا پس منظر چل رہا ہے';
-                colorFillBtn.style.background = 'linear-gradient(45deg, #4ecdc4, #ff6b6b)';
-            }, 800); // Hold for 800ms to activate
-        });
+        // Social share functions (only keep these, no reaction duplicates)
+        function shareOnSocial(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if (platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if (shareUrl) window.open(shareUrl, '_blank', 'width=600,height=450');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہو گیا!');
+        }
         
-        colorFillBtn.addEventListener('mouseup', function() {
-            clearTimeout(colorFillTimer);
-            if (isColorFillActive) {
-                colorFillBg.classList.remove('active');
-                isColorFillActive = false;
-                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں';
-                colorFillBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1)';
-            }
-        });
+        // Auto-scroll sidebar logic: keep animation but pause on hover. using CSS animation on container, but to avoid double scroll we manage wrapper infinite.
+        // Already done via CSS: .posts-scroll-container animation autoScroll, but to ensure seamless scroll we duplicate items? no, the content is enough height.
+        // But container height 500px and content scrolls with translate. On hover pause. Good.
+        const scrollDiv = document.querySelector('.posts-scroll-container');
+        if(scrollDiv) {
+            const wrapper = scrollDiv.querySelector('.posts-scroll-wrapper');
+            // Clone first few posts to make infinite seamless (optional but better)
+            const cloneItems = () => {
+                const items = [...wrapper.children];
+                items.forEach(item => { wrapper.appendChild(item.cloneNode(true)); });
+            };
+            cloneItems(); // duplicate for smooth endless
+        }
         
-        colorFillBtn.addEventListener('mouseleave', function() {
-            clearTimeout(colorFillTimer);
-            if (isColorFillActive) {
-                colorFillBg.classList.remove('active');
-                isColorFillActive = false;
-                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں';
-                colorFillBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1)';
-            }
-        });
-        
-        // Touch events for mobile
-        colorFillBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            colorFillTimer = setTimeout(() => {
-                colorFillBg.classList.add('active');
-                isColorFillActive = true;
-                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> رنگوں کا پس منظر چل رہا ہے';
-                colorFillBtn.style.background = 'linear-gradient(45deg, #4ecdc4, #ff6b6b)';
-            }, 800);
-        });
-        
-        colorFillBtn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            clearTimeout(colorFillTimer);
-            if (isColorFillActive) {
-                colorFillBg.classList.remove('active');
-                isColorFillActive = false;
-                colorFillBtn.innerHTML = '<i class="fas fa-palette"></i> اس پوسٹ کو رنگوں کے ساتھ پڑھیں';
-                colorFillBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1)';
-            }
-        });
-        
-        // Page Up and Down Buttons
-        const pageUpBtn = document.getElementById('pageUpBtn');
-        const pageDownBtn = document.getElementById('pageDownBtn');
-        
-        pageUpBtn.addEventListener('click', function() {
-            window.scrollBy({
-                top: -window.innerHeight * 0.8,
-                behavior: 'smooth'
-            });
-        });
-        
-        pageDownBtn.addEventListener('click', function() {
-            window.scrollBy({
-                top: window.innerHeight * 0.8,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            createRain();
-            
-            // Add hover effects to headings
-            const headings = document.querySelectorAll('h2');
-            headings.forEach(heading => {
-                heading.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateX(-10px)';
-                    this.style.transition = 'transform 0.3s ease';
-                });
-                
-                heading.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateX(0)';
-                });
-            });
+        createRain();
+        document.querySelectorAll('h2').forEach(h => {
+            h.addEventListener('mouseenter', function() { this.style.transform = 'translateX(-10px)'; this.style.transition = '0.3s'; });
+            h.addEventListener('mouseleave', function() { this.style.transform = 'translateX(0)'; });
         });
     </script>
 </body>
