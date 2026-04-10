@@ -2,11 +2,14 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اورآن لائن ایجوکیشن کا عہد</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اور آن لائن ایجوکیشن کا عہد</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
+        @font-face { 
+            font-family: 'Jameel Noori Nastaleeq'; 
+            src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); 
+        }
         
         /* AI Animated Theme */
         .ai-theme-bg {
@@ -161,22 +164,6 @@
             box-shadow: 0 12px 30px rgba(106, 17, 203, 0.6); 
         }
 
-        .trigger-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s;
-        }
-
-        .trigger-btn:hover::after {
-            transform: rotate(45deg) translate(50%, 50%);
-        }
-
         .post-content { 
             max-width: 900px; 
             margin: 40px auto; 
@@ -268,7 +255,7 @@
 
         .page-nav {
             position: fixed;
-            right: 20px;
+            left: 20px;
             bottom: 100px;
             z-index: 1000;
             display: flex;
@@ -297,237 +284,435 @@
             box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
         }
 
-        /* Mobile Responsive */
+        /* Reactions Styles */
+        .reactions-section {
+            margin: 40px 0 30px;
+            padding: 20px 0;
+            border-top: 2px dashed #e0e0e0;
+            border-bottom: 2px dashed #e0e0e0;
+            text-align: center;
+        }
+        .reactions-title {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .reaction-btn {
+            background: #f1f2f6;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .reaction-btn:hover {
+            transform: translateY(-3px);
+            background: #e0e0e0;
+        }
+        .reaction-count {
+            background: #fff;
+            border-radius: 30px;
+            padding: 0 8px;
+            font-size: 0.9rem;
+            margin-right: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Sidebar - internal linking */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            float: left;
+            width: 280px;
+            margin-left: 30px;
+            background: white;
+            border-radius: 24px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 5;
+            height: 500px;
+            overflow-y: hidden;
+            transition: all 0.3s;
+        }
+        .sidebar h4 {
+            text-align: center;
+            border-bottom: 2px solid #6a11cb;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .sidebar-scroll {
+            height: 420px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #6a11cb;
+            border-radius: 10px;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            padding: 8px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            background: #fafafa;
+            text-decoration: none;
+            color: #333;
+        }
+        .sidebar-item:hover {
+            background: #e9ecef;
+            transform: translateX(-5px);
+        }
+        .sidebar-item img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 0;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+        .sidebar-item span {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        /* post footer navigation */
+        .post-footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+        .nav-footer-btn {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1.1rem;
+        }
+        .nav-footer-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106,17,203,0.4);
+        }
+
+        /* social icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            color: white;
+            font-size: 22px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* layout responsive */
+        .main-with-sidebar {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+        }
+        .post-container {
+            flex: 1;
+            min-width: 0;
+        }
+        @media (max-width: 992px) {
+            .sidebar { display: none; }
+            .main-with-sidebar { display: block; }
+        }
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             h2 { font-size: 1.8rem; }
             h3 { font-size: 1.5rem; }
             p, li { font-size: 1.1rem; line-height: 2.0; }
-            
-            .post-content { 
-                padding: 25px; 
-                margin: 20px auto;
-            }
-            
-            .post-content-overlay { 
-                width: 95%; 
-                padding: 25px; 
-            }
-            
-            .trigger-btn { 
-                padding: 12px 30px; 
-                font-size: 16px; 
-            }
-            
-            .back-btn {
-                top: 15px;
-                right: 15px;
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            
-            .page-nav {
-                right: 15px;
-                bottom: 80px;
-            }
-            
-            .page-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
+            .post-content { padding: 25px; margin: 20px; }
+            .post-content-overlay { width: 95%; padding: 25px; }
+            .trigger-btn { padding: 12px 30px; font-size: 16px; }
+            .back-btn { top: 15px; right: 15px; padding: 10px 20px; font-size: 14px; }
+            .page-nav { left: 15px; bottom: 80px; }
+            .page-btn { width: 45px; height: 45px; font-size: 20px; }
         }
-
-        @media (max-width: 480px) {
-            body { padding: 10px; }
-            .post-content { padding: 20px; }
-            h1 { font-size: 1.8rem; }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <!-- AI Theme Background -->
-    <div class="ai-theme-bg" id="aiThemeBg"></div>
 
-    <!-- Back Button -->
-    <button class="back-btn" onclick="window.history.back()">← واپس جائیں</button>
+<div class="ai-theme-bg" id="aiThemeBg"></div>
 
-    <!-- Page Navigation Buttons -->
-    <div class="page-nav">
-        <button class="page-btn" onclick="scrollToTop()">↑</button>
-        <button class="page-btn" onclick="scrollToBottom()">↓</button>
-    </div>
+<!-- Back Button -->
+<button class="back-btn" onclick="window.history.back()">← واپس جائیں</button>
 
-    <div style="text-align: center; margin: 50px 0;">
-        <button class="trigger-btn" onclick="openColorFillPost()">
-            📖 اس پوسٹ کو خصوصی موڈ میں پڑھیں
-        </button>
-    </div>
+<!-- Floating Scroll Buttons -->
+<div class="page-nav">
+    <button class="page-btn" onclick="scrollToTop()">↑</button>
+    <button class="page-btn" onclick="scrollToBottom()">↓</button>
+</div>
 
-    <div class="post-content">
-        <h1>کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اورآن لائن ایجوکیشن کا عہد</h1>
-        
-        <!-- Image after title -->
-        <img src="https://bloglovers.pk/images/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd.png" 
-             alt="کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر" 
-             title="پاکستان میں آن لائن تعلیم کا سفر">
+<div style="text-align: center; margin: 30px 0 10px;">
+    <button class="trigger-btn" onclick="openColorFillPost()">📖 اس پوسٹ کو خصوصی موڈ میں پڑھیں</button>
+</div>
 
-        <h3>کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اور آن لائن ایجوکیشن کا عہد</h3>
-        <p>دنیا بھر میں ٹیکنالوجی کے تیز رفتار ارتقاء نے تعلیم کے دائرے کو یکسر تبدیل کر دیا ہے۔ آن لائن تعلیم، یا ای-لرننگ، روایتی تعلیمی نظام کا ایک متبادل اور جدید شکل بن کر ابھری ہے، جس میں انٹرنیٹ اور ڈیجیٹل ذرائع کے ذریعے علم کی منتقلی ممکن ہوتی ہے۔ پاکستان، جہاں آبادی کا ایک بڑا حصہ نوجوانوں پر مشتمل ہے، کے لیے ای-لرننگ ایک بے پناہ موقع ہے، لیکن ساتھ ہی یہ متعدد چیلنجز بھی پیش کرتی ہے۔ یہ مضمون پاکستان میں آن لائن تعلیم کے موجودہ منظر نامے، اس کے مواقع، چیلنجز، اور مستقبل کے امکانات پر تفصیلی روشنی ڈالے گا۔</p>
-        <h3>آن لائن تعلیم کا تصور اور عالمی منظر نامہ</h3>
-        <p>آن لائن تعلیم سے مراد وہ تعلیمی عمل ہے جہاں طلباء اور اساتذہ جسمانی طور پر ایک جگہ موجود ہوئے بغیر، انٹرنیٹ کے ذریعے تعلیمی مواد تک رسائی حاصل کرتے ہیں اور باہمی تعامل کرتے ہیں۔ اس میں ویڈیو لیکچرز، آن لائن کویز، تفاعلی فارمز، اور ورچوئل کلاس رومز شامل ہیں۔ کووڈ-19 کی عالمی وبا نے اس رجحان کو تیز کر دیا، جس کے بعد دنیا بھر کے تعلیمی اداروں نے ہائبرڈ یا مکمل طور پر آن لائن ماڈلز کو اپنانا شروع کیا۔</p>
-        <h3>پاکستان میں آن لائن تعلیم موجودہ صورتحال</h3>
-        <p>پاکستان میں ای-لرننگ کا سفر نسبتاً نیا ہے، لیکن اس میں تیزی سے اضافہ ہو رہا ہے۔ دیہی اور شہری دونوں علاقوں میں، اسمارٹ فونز اور انٹرنیٹ کی دستیابی نے اسے فروغ دیا ہے۔ متعدد نجی ادارے، جیسے کہ ٹیلی سکول، علی بابا انسٹیٹیوٹ آف سائنس اینڈ ٹیکنالوجی، اور کورسیرا اور ایڈیکس جیسی عالمی پلیٹ فارمز کے ساتھ شراکت داروں نے مقامی سطح پر آن لائن کورسز متعارف کرائے ہیں۔ حکومت پاکستان نے بھی ڈیجیٹل پاکستان کے ویژن کے تحت ای-لرننگ کو فروغ دینے کے لیے اقدامات کا آغاز کیا ہے۔</p>
-        <p>تاہم، یہ سفر ابھی ابتدائی مراحل میں ہے۔ روایتی تعلیم پر انحصار اب بھی غالب ہے، اور آن لائن تعلیم کو مکمل طور پر اپنانے کے لیے بنیادی ڈھانچے، معیاری مواد، اور عوامی اعتماد کی ضرورت ہے۔</p>
-        <h3>پاکستان میں آن لائن تعلیم کے مواقع</h3>
-        <h4>رسائی اور وسعت</h4>
-        <p>پاکستان کے پہاڑی اور دور دراز دیہی علاقوں میں معیاری تعلیمی اداروں کا حصول مشکل ہے۔ آن لائن تعلیم ان علاقوں کے طلباء کو ملک کے بہترین اساتذہ اور بین الاقوامی تعلیمی وسائل تک براہ راست رسائی فراہم کر سکتی ہے، جو تعلیمی عدم مساوات کو ختم کرنے میں اہم کردار ادا کرے گی۔</p>
-        <h4>معیشت اور لاگت کی کارکردگی</h4>
-        <p>روایتی تعلیم کے مقابلے میں آن لائن تعلیم زیادہ سستی ہے۔ طلباء کو نقل و حمل، رہائش، اور مہنگے نصابی کتب پر ہونے والے اخراجات سے چھٹکارا ملتا ہے۔ یہ غریب اور متوسط طبقے کے لیے اعلیٰ تعلیم کے حصول کے راستے کھولتی ہے۔</p>
-        <h4>لچک اور سہولت</h4>
-        <p>ای-لرننگ طلباء کو یہ سہولت فراہم کرتی ہے کہ وہ اپنی رفتار اور اپنی سہولت کے وقت سیکھ سکیں۔ یہ خصوصیت ان طلباء کے لیے بہترین ہے جو روزگار کے ساتھ ساتھ تعلیم جاری رکھنا چاہتے ہیں یا گھریلو ذمہ داریوں میں مصروف ہیں۔</p>
-        <h4>مہارتوں کی ترقی اور روزگار</h4>
-        <p>آن لائن پلیٹ فارمز پر ڈیجیٹل مارکیٹنگ، پروگرامنگ، گرافک ڈیزائننگ، اور فری لانسنگ جیسی جدید مہارتوں کے ہزاروں کورسز دستیاب ہیں۔ یہ نوجوانوں کو جدید مارکیٹ کی ضروریات کے مطابق خود کو تیار کرنے اور فری لانس مارکیٹس (جیسے فیور، اپ ورک) کے ذریعے روزگار حاصل کرنے کا موقع دیتے ہیں۔</p>
-        <h4>معیار کی بہتری</h4>
-        <p>بین الاقوامی معیار کے تعلیمی مواد تک رسائی پاکستانی طلباء کے علم اور نقطہ نظر کو وسیع کر سکتی ہے۔ اساتذہ بھی عالمی تدریسی طریقوں سے استفادہ کر سکتے ہیں، جس سے ملک میں تعلیمی معیار پر مثبت اثر پڑے گا۔</p>
-        <h4>ڈیٹا اور تجزیات کے ذریعے بہتری</h4>
-        <p>آن لائن سسٹمز طلباء کی کارکردگی پر ڈیٹا اکٹھا کر سکتے ہیں۔ اس ڈیٹا کے تجزیے سے اساتذہ کو یہ سمجھنے میں مدد ملتی ہے کہ کون سے طلباء پیچھے رہ رہے ہیں اور کون سے موضوعات مشکل ہیں، جس سے ذاتی نوعیت کی تعلیم (Personalized Learning) ممکن ہوتی ہے۔</p>
-        <h3>پاکستان میں آن لائن تعلیم کے چیلنجز</h3>
-        <h4>ڈیجیٹل تقسیم (Digital Divide)</h4>
-        <p>یہ سب سے بڑا چیلنج ہے۔ ملک کے بڑے حصوں، خاص طور پر دیہی علاقوں میں، تیز رفتار اور سستا انٹرنیٹ دستیاب نہیں ہے۔ بجلی کی لوڈ شیڈنگ بھی ایک بڑی رکاوٹ ہے۔ مزید برآں، بہت سے غریب خاندانوں کے پاس اسمارٹ فونز، لیپ ٹاپ یا ٹیبلیٹ جیسے ضروری ڈیجیٹل آلات تک رسائی نہیں ہے۔</p>
-        <h4>معیار اور نظم و ضبط کا فقدان</h4>
-        <p>آن لائن تعلیم کے معیار کو ریگولیٹ کرنا ایک مشکل کام ہے۔ بہت سے غیر معیاری اور غیر تسلیم شدہ کورسز بھی منڈی میں موجود ہیں۔ مزید برآں، طلباء میں خود نظم و ضبط (self-discipline) کی کمی ہوتی ہے، جس کی وجہ سے وہ روایتی کلاس روم جیسے ماحول کے بغیر مستقل مزاجی سے پڑھائی نہیں کر پاتے۔</p>
-        <h4>اساتذہ کی تیاری</h4>
-        <p>روایتی طریقے سے پڑھانے والے بہت سے اساتذہ جدید ٹیکنالوجی اور آن لائن تدریسی طریقوں سے ناواقف ہیں۔ انہیں مؤثر آن لائن تدریس کے لیے خصوصی تربیت (ٹیچر ٹریننگ) کی ضرورت ہے۔</p>
-        <h4>ثقافتی اور نفسیاتی رکاوٹیں</h4>
-        <p>معاشرے کے ایک بڑے طبقے کو آن لائن تعلیم پر اعتماد نہیں ہے۔ ان کا خیال ہے کہ یہ روایتی تعلیم جتنی مؤثر یا معیاری نہیں ہو سکتی۔ نیز، طلباء میں سماجی میل جول کی کمی اور کلاس روم کی روایتی سرگرمیوں کے بغیر تنہائی کا احساس پیدا ہو سکتا ہے۔</p>
-        <h4>امتحانات اور تشخیص کی سقم</h4>
-        <p>آن لائن امتحانات لینا اور نقل (cheating) کو روکنا ایک بہت بڑا چیلنج ہے۔ یہ یقینی بنانا مشکل ہے کہ امتحان دینے والا وہی طالب علم ہے اور اسے باہری مدد حاصل نہیں ہو رہی۔</p>
-        <h4>فنی مسائل</h4>
-        <p>پلیٹ فارمز کا استعمال کرنے میں دشواری، تکنیکی خرابیاں، اور سائبر سیکیورٹی کے خدشات بھی آن لائن تعلیم کے راستے کی رکاوٹیں ہیں۔</p>
-        <h3>مستقبل کے لیے تجاویز اور راستے</h3>
-        <p>پاکستان میں آن لائن تعلیم کے مستقبل کو روشن بنانے کے لیے مندرجہ ذیل اقدامات ناگزیر ہیں:</p>
-        <ol>
-            <li><strong>بنیادی ڈھانچے میں سرمایہ کاری:</strong> حکومت اور نجی شعبے کو مل کر ملک بھر میں ہائی سپیڈ انٹرنیٹ کی رسائی کو یقینی بنانا چاہیے اور ڈیجیٹل آلات تک رسائی کو آسان اور سستا بنانا چاہیے۔</li>
+<div class="main-with-sidebar">
+    <!-- Sidebar auto-scroll -->
+    <aside class="sidebar">
+        <h4>🔥 مزید پڑھیں</h4>
+        <div class="sidebar-scroll" id="sidebarScroll">
+            <!-- Sidebar items according to required list -->
+            <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" alt="ابن خلدون">
+                <span>مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</span>
+            </a>
+            <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" alt="کمال الدین فارسی">
+                <span>مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</span>
+            </a>
+            <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="الفارابی">
+                <span>مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</span>
+            </a>
+            <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" alt="ابو الوفابوزجانی">
+                <span>مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی</span>
+            </a>
+            <a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" alt="شرف الدین طوسی">
+                <span>مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</span>
+            </a>
+            <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="غفلت">
+                <span>غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</span>
+            </a>
+            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی">
+                <span>دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</span>
+            </a>
+            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں منانا">
+                <span>گیارہویں منانا</span>
+            </a>
+            <a href="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" alt="ہیکل سلیمانی">
+                <span>ہیکل سلیمانی : تعمیر سے تباہی تک</span>
+            </a>
+            <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="پیر کی عقیدت">
+                <span>دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</span>
+            </a>
+            <a href="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" alt="عشق یا دماغی خلل">
+                <span>عشق یا دماغی خلل</span>
+            </a>
+            <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہیٰ">
+                <span>عذاب الہیٰ کو دعوت دینے والے تین گھر</span>
+            </a>
+            <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="sidebar-item">
+                <img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="مذاق میں دل دکھانا">
+                <span>مذاق میں کسی کا دل دکھانا</span>
+            </a>
+        </div>
+    </aside>
+
+    <div class="post-container">
+        <div class="post-content" id="mainPostContent">
+            <h1>کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اورآن لائن ایجوکیشن کا عہد</h1>
+            <img src="https://bloglovers.pk/images/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd.png" 
+                 alt="کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر" 
+                 title="پاکستان میں آن لائن تعلیم کا سفر">
+
+            <h3>کلاس روم سے کلاؤڈ تک پاکستان کا تعلیمی سفر اور آن لائن ایجوکیشن کا عہد</h3>
+            <p>دنیا بھر میں ٹیکنالوجی کے تیز رفتار ارتقاء نے تعلیم کے دائرے کو یکسر تبدیل کر دیا ہے۔ آن لائن تعلیم، یا ای-لرننگ، روایتی تعلیمی نظام کا ایک متبادل اور جدید شکل بن کر ابھری ہے، جس میں انٹرنیٹ اور ڈیجیٹل ذرائع کے ذریعے علم کی منتقلی ممکن ہوتی ہے۔ پاکستان، جہاں آبادی کا ایک بڑا حصہ نوجوانوں پر مشتمل ہے، کے لیے ای-لرننگ ایک بے پناہ موقع ہے، لیکن ساتھ ہی یہ متعدد چیلنجز بھی پیش کرتی ہے۔ یہ مضمون پاکستان میں آن لائن تعلیم کے موجودہ منظر نامے، اس کے مواقع، چیلنجز، اور مستقبل کے امکانات پر تفصیلی روشنی ڈالے گا۔</p>
+            <h3>آن لائن تعلیم کا تصور اور عالمی منظر نامہ</h3>
+            <p>آن لائن تعلیم سے مراد وہ تعلیمی عمل ہے جہاں طلباء اور اساتذہ جسمانی طور پر ایک جگہ موجود ہوئے بغیر، انٹرنیٹ کے ذریعے تعلیمی مواد تک رسائی حاصل کرتے ہیں اور باہمی تعامل کرتے ہیں۔ اس میں ویڈیو لیکچرز، آن لائن کویز، تفاعلی فارمز، اور ورچوئل کلاس رومز شامل ہیں۔ کووڈ-19 کی عالمی وبا نے اس رجحان کو تیز کر دیا، جس کے بعد دنیا بھر کے تعلیمی اداروں نے ہائبرڈ یا مکمل طور پر آن لائن ماڈلز کو اپنانا شروع کیا۔</p>
+            <h3>پاکستان میں آن لائن تعلیم موجودہ صورتحال</h3>
+            <p>پاکستان میں ای-لرننگ کا سفر نسبتاً نیا ہے، لیکن اس میں تیزی سے اضافہ ہو رہا ہے۔ دیہی اور شہری دونوں علاقوں میں، اسمارٹ فونز اور انٹرنیٹ کی دستیابی نے اسے فروغ دیا ہے۔ متعدد نجی ادارے، جیسے کہ ٹیلی سکول، علی بابا انسٹیٹیوٹ آف سائنس اینڈ ٹیکنالوجی، اور کورسیرا اور ایڈیکس جیسی عالمی پلیٹ فارمز کے ساتھ شراکت داروں نے مقامی سطح پر آن لائن کورسز متعارف کرائے ہیں۔ حکومت پاکستان نے بھی ڈیجیٹل پاکستان کے ویژن کے تحت ای-لرننگ کو فروغ دینے کے لیے اقدامات کا آغاز کیا ہے۔</p>
+            <p>تاہم، یہ سفر ابھی ابتدائی مراحل میں ہے۔ روایتی تعلیم پر انحصار اب بھی غالب ہے، اور آن لائن تعلیم کو مکمل طور پر اپنانے کے لیے بنیادی ڈھانچے، معیاری مواد، اور عوامی اعتماد کی ضرورت ہے۔</p>
+            <h3>پاکستان میں آن لائن تعلیم کے مواقع</h3>
+            <h4>رسائی اور وسعت</h4>
+            <p>پاکستان کے پہاڑی اور دور دراز دیہی علاقوں میں معیاری تعلیمی اداروں کا حصول مشکل ہے۔ آن لائن تعلیم ان علاقوں کے طلباء کو ملک کے بہترین اساتذہ اور بین الاقوامی تعلیمی وسائل تک براہ راست رسائی فراہم کر سکتی ہے، جو تعلیمی عدم مساوات کو ختم کرنے میں اہم کردار ادا کرے گی۔</p>
+            <h4>معیشت اور لاگت کی کارکردگی</h4>
+            <p>روایتی تعلیم کے مقابلے میں آن لائن تعلیم زیادہ سستی ہے۔ طلباء کو نقل و حمل، رہائش، اور مہنگے نصابی کتب پر ہونے والے اخراجات سے چھٹکارا ملتا ہے۔ یہ غریب اور متوسط طبقے کے لیے اعلیٰ تعلیم کے حصول کے راستے کھولتی ہے۔</p>
+            <h4>لچک اور سہولت</h4>
+            <p>ای-لرننگ طلباء کو یہ سہولت فراہم کرتی ہے کہ وہ اپنی رفتار اور اپنی سہولت کے وقت سیکھ سکیں۔ یہ خصوصیت ان طلباء کے لیے بہترین ہے جو روزگار کے ساتھ ساتھ تعلیم جاری رکھنا چاہتے ہیں یا گھریلو ذمہ داریوں میں مصروف ہیں۔</p>
+            <h4>مہارتوں کی ترقی اور روزگار</h4>
+            <p>آن لائن پلیٹ فارمز پر ڈیجیٹل مارکیٹنگ، پروگرامنگ، گرافک ڈیزائننگ، اور فری لانسنگ جیسی جدید مہارتوں کے ہزاروں کورسز دستیاب ہیں۔ یہ نوجوانوں کو جدید مارکیٹ کی ضروریات کے مطابق خود کو تیار کرنے اور فری لانس مارکیٹس (جیسے فیور، اپ ورک) کے ذریعے روزگار حاصل کرنے کا موقع دیتے ہیں۔</p>
+            
+            <!-- Reactions Section (exactly as required) -->
+            <div class="reactions-section">
+                <div class="reactions-title">📣 اس تحریر پر اپنا ردعمل دیں</div>
+                <div class="reactions-buttons">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+            </div>
+            
+            <h3>مستقبل کے لیے تجاویز اور راستے</h3>
+            <ol><li><strong>بنیادی ڈھانچے میں سرمایہ کاری:</strong> حکومت اور نجی شعبے کو مل کر ملک بھر میں ہائی سپیڈ انٹرنیٹ کی رسائی کو یقینی بنانا چاہیے اور ڈیجیٹل آلات تک رسائی کو آسان اور سستا بنانا چاہیے۔</li>
             <li><strong>مستند پلیٹ فارمز کی ترقی:</strong> معیاری اور مقامی زبانوں (اردو، سندھی، پشتو، وغیرہ) میں تعلیمی مواد پر مشتمل قومی ای-لرننگ پلیٹ فارمز تیار کیے جائیں۔</li>
             <li><strong>اساتذہ کی تربیت:</strong> اساتذہ کے لیے باقاعدہ تربیتی پروگراموں کا انعقاد کیا جائے تاکہ وہ آن لائن تدریس کے جدید ترین آلات اور طریقوں سے آگاہ ہو سکیں۔</li>
             <li><strong>پالیسی اور ریگولیشن:</strong> حکومت کو آن لائن تعلیمی اداروں اور کورسز کے معیار کو ریگولیٹ کرنے اور انہیں تسلیم شدہ ڈگریاں دینے کے لیے واضح پالیسیاں اور قوانین بنانے چاہئیں۔</li>
             <li><strong>عوامی آگاہی مہم:</strong> آن لائن تعلیم کے فوائد اور اہمیت کے بارے میں عوام میں آگاہی پیدا کی جائے تاکہ اسے قبول عام مل سکے۔</li>
             <li><strong>ہائبرڈ ماڈل کو اپنانا:</strong> مستقبل قریب میں ہائبرڈ تعلیمی ماڈل (روایتی اور آن لائن تعلیم کا امتزاج) سب سے زیادہ موثر اور قابل عمل حل ثابت ہو سکتا ہے۔</li>
-        </ol>
-        <p>آن لائن تعلیم پاکستان کے لیے ایک ایسا طاقتور ہتھیار ہے جو ملک کی تعلیمی اور معاشی تقدیر بدل سکتا ہے۔ یہ نوجوان نسل کو عالمی سطح پر مقابلہ کرنے کے قابل بنا سکتا ہے۔ اگرچہ چیلنجز بہت ہیں، لیکن ان پر قابو پانا ناممکن نہیں ہے۔ اس کے لیے حکومت، نجی شعبے، تعلیمی اداروں، اور عوام کے باہمی تعاون اور مستقل کوششوں کی ضرورت ہے۔ مناسب منصوبہ بندی، سرمایہ کاری، اور عزم کے ساتھ، پاکستان آن لائن تعلیم کی طاقت کو بروئے کار لا کر مستقبل کی تعلیم کی راہ متعین کر سکتا ہے۔</p>
-        <h3>یاد رکھنے کے لیے اہم نکات (Points to Remember)</h3>
-        <ol>
-            <li>آن لائن تعلیم پاکستان میں تعلیم تک یکساں رسائی کا ایک طاقتور ذریعہ ہے۔</li>
-            <li>ڈیجیٹل تقسیم (انٹرنیٹ اور آلات تک رسائی کی کمی) سب سے بڑی رکاوٹ ہے۔</li>
-            <li>لاگت کی کارکردگی اور لچک ای-لرننگ کے اہم فوائد ہیں، خاص طور پر کام کرنے والے طلباء کے لیے۔</li>
-            <li>معیاری تعلیمی مواد اور اساتذہ کی تربیت کا ہونا انتہائی ضروری ہے۔</li>
-            <li>آن لائن امتحانات اور تشخیص کے نظام کو مضبوط بنانے کی ضرورت ہے۔</li>
-            <li>عوامی اعتماد پیدا کرنا اور ثقافتی رکاوٹوں کو دور کرنا۔</li>
-            <li>مستقبل قریب میں، ہائبرڈ لرننگ ماڈل (روایتی + آن لائن) سب سے زیادہ عملی حل ہے۔</li>
-            <li>پاکستان کے نوجوانوں کو جدید مہارتوں سے آراستہ کرنے میں ای-لرننگ ایک اہم کردار ادا کر سکتی ہے۔</li>
-        </ol>
+            </ol>
+            <p>آن لائن تعلیم پاکستان کے لیے ایک ایسا طاقتور ہتھیار ہے جو ملک کی تعلیمی اور معاشی تقدیر بدل سکتا ہے۔ یہ نوجوان نسل کو عالمی سطح پر مقابلہ کرنے کے قابل بنا سکتا ہے۔ اگرچہ چیلنجز بہت ہیں، لیکن ان پر قابو پانا ناممکن نہیں ہے۔</p>
+        </div>
+
+        <!-- Post footer navigation buttons -->
+        <div class="post-footer-nav">
+            <a href="https://bloglovers.pk/" class="nav-footer-btn">🏠 مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-footer-btn">📚 تمام پوسٹس</a>
+        </div>
+
+        <!-- Social Media Icons (7 platforms) -->
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr.html" target="_blank" class="social-icon" style="background:#1877f2;">📘</a>
+            <a href="https://wa.me/?text=https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr.html" target="_blank" class="social-icon" style="background:#25D366;">💬</a>
+            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr.html" target="_blank" class="social-icon" style="background:#1DA1F2;">🐦</a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr.html" target="_blank" class="social-icon" style="background:#0077b5;">🔗</a>
+            <a href="https://t.me/share/url?url=https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr.html" target="_blank" class="social-icon" style="background:#0088cc;">📲</a>
+            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr.html" target="_blank" class="social-icon" style="background:#bd081c;">📌</a>
+            <button onclick="copyPageLink()" class="social-icon" style="background:#6c757d; border:none; cursor:pointer;">🔗</button>
+        </div>
+        <footer>© 2025 bloglovers.pk | تعلیم و آگاہی</footer>
     </div>
+</div>
 
-    <div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
-    <div class="post-content-overlay" id="postOverlay">
-        <button class="close-btn-special" onclick="closeColorFillPost()"></button>
-        <div id="postContent"></div>
-    </div>
+<div class="color-fill-container" id="colorFillBg"><div class="color-fill-background"></div></div>
+<div class="post-content-overlay" id="postOverlay">
+    <button class="close-btn-special" onclick="closeColorFillPost()"></button>
+    <div id="postContent"></div>
+</div>
 
-    <script>
-        // Create AI Theme Particles
-        function createParticles() {
-            const bg = document.getElementById('aiThemeBg');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('light-particle');
-                
-                // Random position
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.top = Math.random() * 100 + 'vh';
-                
-                // Random size
-                const size = 2 + Math.random() * 4;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                // Random animation delay
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                
-                // Random opacity
-                particle.style.opacity = 0.3 + Math.random() * 0.5;
-                
-                bg.appendChild(particle);
-            }
+<script>
+    // Helper functions: scroll, particles, overlay
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
+
+    function createParticles() {
+        const bg = document.getElementById('aiThemeBg');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('light-particle');
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.width = (2 + Math.random() * 4) + 'px';
+            particle.style.height = (2 + Math.random() * 4) + 'px';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.opacity = 0.3 + Math.random() * 0.5;
+            bg.appendChild(particle);
         }
+    }
 
-        // Open Color Fill Post
-        function openColorFillPost() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('colorFillBg').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Add hover effect to images in overlay
-            setTimeout(() => {
-                const overlayImages = document.querySelectorAll('#postContent img');
-                overlayImages.forEach(img => {
-                    img.addEventListener('mouseenter', () => {
-                        img.style.transform = 'scale(1.05)';
-                    });
-                    img.addEventListener('mouseleave', () => {
-                        img.style.transform = 'scale(1)';
-                    });
-                });
-            }, 100);
+    function openColorFillPost() {
+        const originalHTML = document.getElementById('mainPostContent').cloneNode(true);
+        document.getElementById('postContent').innerHTML = originalHTML.innerHTML;
+        document.getElementById('colorFillBg').classList.add('active');
+        document.getElementById('postOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeColorFillPost() {
+        document.getElementById('colorFillBg').classList.remove('active');
+        document.getElementById('postOverlay').classList.remove('active');
+        document.body.style.overflow = 'auto';
+        setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        createParticles();
+        document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeColorFillPost(); });
+        
+        // Sidebar auto-scroll (30 seconds per cycle, stop on hover)
+        const sidebarDiv = document.getElementById('sidebarScroll');
+        if(sidebarDiv) {
+            let scrollInterval;
+            const startAutoScroll = () => {
+                scrollInterval = setInterval(() => {
+                    if(sidebarDiv && !sidebarDiv.matches(':hover')) {
+                        let maxScroll = sidebarDiv.scrollHeight - sidebarDiv.clientHeight;
+                        if(sidebarDiv.scrollTop >= maxScroll) sidebarDiv.scrollTop = 0;
+                        else sidebarDiv.scrollTop += 1.8;
+                    }
+                }, 50);
+            };
+            startAutoScroll();
+            sidebarDiv.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+            sidebarDiv.addEventListener('mouseleave', startAutoScroll);
         }
+    });
 
-        // Close Color Fill Post
-        function closeColorFillPost() {
-            document.getElementById('colorFillBg').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { 
-                document.getElementById('postContent').innerHTML = ''; 
-            }, 500);
-        }
+    // Social copy link function
+    function copyPageLink() {
+        const dummy = document.createElement('input');
+        const pageUrl = "https://bloglovers.pk/taleem/klas-rom-se-klad-tak-pakstan-ka-talymi-sfr-aur-aan-lan-ayjokyshn-ka-ahd.html";
+        dummy.value = pageUrl;
+        document.body.appendChild(dummy);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        alert('لنک کاپی ہو گیا!');
+    }
 
-        // Scroll Functions
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function scrollToBottom() {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            
-            // Keyboard shortcuts
-            document.addEventListener('keydown', function(e) { 
-                if (e.key === 'Escape') closeColorFillPost(); 
-            });
-            
-            // Close on background click
-            document.getElementById('colorFillBg').addEventListener('click', closeColorFillPost);
-            
-            // Add hover effect to main content images
-            const images = document.querySelectorAll('.post-content img');
-            images.forEach(img => {
-                img.addEventListener('mouseenter', () => {
-                    img.style.transform = 'scale(1.03)';
-                });
-                img.addEventListener('mouseleave', () => {
-                    img.style.transform = 'scale(1)';
-                });
-            });
-        });
-    </script>
+    // Note: reactions.js will be loaded externally which provides reactionClick and handles counts/API
+    // We do NOT define loadReactions, updateReactionsUI, addReaction or API_URL here.
+    // reactions.js is included right before closing body.
+</script>
+<script src="/reactions.js"></script>
 </body>
 </html>
