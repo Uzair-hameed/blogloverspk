@@ -3,733 +3,547 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دورِ حاضر کے اساتذہ کو کیسا ہونا چاہیے؟</title>
+    <title>دورِ حاضر کے اساتذہ کو کیسا ہونا چاہیے؟ | BlogLovers</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- reactions.js (already exists, will be loaded) -->
+    <script src="/reactions.js" defer></script>
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        :root {
-            --primary-dark: #1a1a2e;
-            --secondary-dark: #16213e;
-            --accent-color: #0f4c75;
-            --highlight-color: #00b7c2;
-            --text-light: #f1f1f1;
-            --text-muted: #a0a0a0;
-        }
-        
-        .ai-dark-theme {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            pointer-events: none;
-            background: linear-gradient(45deg, var(--primary-dark), var(--secondary-dark), #0f3460, #1a1a2e);
-            background-size: 400% 400%;
-            animation: aiThemeFlow 20s ease infinite;
-        }
-        
-        @keyframes aiThemeFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .ai-dark-theme::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(15, 76, 117, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(0, 183, 194, 0.2) 0%, transparent 50%);
-            animation: pulseEffect 10s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulseEffect {
-            0% { opacity: 0.5; }
-            100% { opacity: 0.8; }
-        }
-        
-        .ai-dark-theme.active {
-            opacity: 1;
-            z-index: 9998;
-        }
-        
-        .post-content-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .post-content-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .overlay-header {
-            position: sticky;
-            top: 0;
-            background: linear-gradient(90deg, var(--accent-color), var(--highlight-color));
-            color: var(--text-light);
-            padding: 18px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10001;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        .back-btn {
-            background: rgba(255, 255, 255, 0.15);
-            color: var(--text-light);
-            border: none;
-            padding: 10px 22px;
-            border-radius: 30px;
-            font-size: 17px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            font-family: inherit;
-            backdrop-filter: blur(5px);
-        }
-        
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateX(-5px);
-            box-shadow: 0 5px 15px rgba(0, 183, 194, 0.4);
-        }
-        
-        .close-btn {
-            background: rgba(255, 255, 255, 0.15);
-            color: var(--text-light);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 26px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
-        }
-        
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: rotate(90deg);
-            box-shadow: 0 5px 15px rgba(0, 183, 194, 0.4);
-        }
-        
+
+        /* Multi-coloring theme: Navy blue, baby orange, purple, yellow */
         body {
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-            line-height: 1.9;
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1e2a47 100%);
+            color: #f0f3f8;
+            line-height: 1.75;
+            font-size: 16px;  /* small base font size */
             direction: rtl;
             text-align: right;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #2c3e50, #34495e, #2c3e50);
-            color: var(--text-light);
-            min-height: 100vh;
-            font-size: 19px;
+            padding: 25px 20px;
         }
-        
-        .trigger-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--accent-color), var(--highlight-color));
-            color: var(--text-light);
-            padding: 16px 38px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 25px 0;
-            box-shadow: 0 8px 25px rgba(15, 76, 117, 0.5);
-            transition: all 0.4s;
-            border: none;
-            cursor: pointer;
-            font-size: 19px;
-            font-family: inherit;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .trigger-btn:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0, 183, 194, 0.6);
-        }
-        
-        .trigger-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .trigger-btn:hover::before {
-            left: 100%;
-        }
-        
-        .post-content {
-            max-width: 950px;
+
+        /* main container */
+        .main-wrapper {
+            max-width: 1350px;
             margin: 0 auto;
-            background: rgba(26, 26, 46, 0.85);
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            text-align: justify;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        h1, h2, h3 {
-            color: var(--highlight-color);
-            padding-bottom: 12px;
-            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
             position: relative;
         }
-        
-        h1 {
-            text-align: center;
-            font-size: 36px;
-            padding: 20px 0;
-            margin-bottom: 25px;
-            border-bottom: 3px solid var(--highlight-color);
+
+        /* article content */
+        .article-content {
+            flex: 2.5;
+            min-width: 280px;
+            background: rgba(10, 20, 35, 0.75);
+            backdrop-filter: blur(3px);
+            border-radius: 32px;
+            padding: 30px 35px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,215,0,0.2);
         }
-        
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 150px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--highlight-color), transparent);
-        }
-        
-        h2 {
-            font-size: 30px;
-            border-right: 4px solid var(--accent-color);
-            padding-right: 15px;
-            margin-top: 35px;
-        }
-        
-        h3 {
-            font-size: 26px;
-            border-right: 3px solid var(--accent-color);
-            padding-right: 12px;
-        }
-        
-        p, li {
-            font-size: 21px;
-            margin-bottom: 18px;
-            text-align: justify;
-            line-height: 2.0;
-            color: var(--text-light);
-        }
-        
-        .content-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            display: block;
-            margin: 30px auto;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .content-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 45px rgba(0, 183, 194, 0.3);
-            border-color: rgba(0, 183, 194, 0.3);
-        }
-        
-        ol, ul {
-            padding-right: 25px;
-            margin-bottom: 25px;
-        }
-        
-        li {
-            margin-bottom: 12px;
-            position: relative;
-            padding-right: 10px;
-            transition: all 0.3s;
-        }
-        
-        ul li::before {
-            content: "•";
-            color: var(--highlight-color);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-right: 8px;
-            font-size: 26px;
-        }
-        
-        ol {
-            counter-reset: list-counter;
-        }
-        
-        ol li {
-            counter-increment: list-counter;
-        }
-        
-        ol li::before {
-            content: counter(list-counter) ".";
-            color: var(--highlight-color);
-            font-weight: bold;
-            position: absolute;
-            right: -30px;
-            font-size: 22px;
-        }
-        
-        .page-nav-buttons {
-            position: fixed;
-            left: 25px;
-            bottom: 25px;
+
+        /* SIDEBAR styles (auto-scroll) */
+        .sidebar {
+            flex: 1.2;
+            min-width: 280px;
+            background: linear-gradient(135deg, #102a43, #0b1c2f);
+            border-radius: 28px;
+            padding: 20px 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-right: 3px solid #ffa559;
+            height: 500px;
+            position: sticky;
+            top: 30px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            z-index: 1000;
         }
-        
-        .page-btn {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent-color), var(--highlight-color));
-            color: var(--text-light);
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(15, 76, 117, 0.5);
-            transition: all 0.3s;
+
+        .sidebar h3 {
+            font-size: 1.35rem;
+            background: linear-gradient(90deg, #ffb347, #ff8c42);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+            color: #0a0f1f;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-scroll {
+            overflow-y: auto;
+            flex: 1;
+            padding-left: 5px;
+            scroll-behavior: smooth;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: #2a3b55;
+            border-radius: 5px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #ffaa55;
+            border-radius: 5px;
+        }
+
+        .sidebar-item {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+            border-right: 2px solid transparent;
         }
-        
-        .page-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 12px 25px rgba(0, 183, 194, 0.6);
+        .sidebar-item:hover {
+            background: rgba(255, 165, 90, 0.2);
+            border-right-color: #ffa559;
+            transform: translateX(-4px);
         }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-                font-size: 18px;
-            }
-            
-            .post-content {
-                padding: 25px;
-                border-radius: 15px;
-            }
-            
-            h1 {
-                font-size: 28px;
-            }
-            
-            h2 {
-                font-size: 24px;
-            }
-            
-            h3 {
-                font-size: 22px;
-            }
-            
-            p, li {
-                font-size: 19px;
-                line-height: 1.8;
-            }
-            
-            .trigger-btn {
-                padding: 14px 30px;
-                font-size: 18px;
-            }
-            
-            .page-nav-buttons {
-                left: 15px;
-                bottom: 15px;
-            }
-            
-            .page-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .overlay-header {
-                padding: 15px 20px;
-            }
-            
-            .back-btn {
-                padding: 8px 18px;
-                font-size: 16px;
-            }
-            
-            .close-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 22px;
-            }
+        .sidebar-item img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 18px;
+            background: #f4f4f4;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 24px;
-            }
-            
-            h2 {
-                font-size: 22px;
-            }
-            
-            p, li {
-                font-size: 18px;
-            }
-            
-            .post-content {
-                padding: 20px;
-            }
-            
-            .page-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
+        .sidebar-item a {
+            text-decoration: none;
+            color: #ffefcf;
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1.5;
+            transition: color 0.2s;
         }
-        
-        .header-container {
+        .sidebar-item a:hover {
+            color: #ffbb77;
+            text-decoration: underline;
+        }
+
+        /* auto-scroll animation */
+        @keyframes autoScrollSidebar {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+        .auto-scroll-active {
+            animation: autoScrollSidebar 30s linear infinite;
+        }
+        .sidebar-scroll:hover .auto-scroll-active {
+            animation-play-state: paused;
+        }
+
+        /* Headings multi-coloring backgrounds */
+        h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(120deg, #2c3e66, #1f3a5f, #2a4177);
+            padding: 18px 20px;
+            border-radius: 60px;
             text-align: center;
-            margin: 35px 0;
-            position: relative;
+            margin: 0 0 25px 0;
+            color: #ffecb3;
+            box-shadow: 0 8px 0 #0b1424;
+            letter-spacing: 1px;
+            border: 1px solid #ffbf69;
         }
-        
-        .header-container::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            right: 50%;
-            transform: translateX(50%);
-            width: 120px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--highlight-color), transparent);
-            border-radius: 2px;
+        h2 {
+            font-size: 1.65rem;
+            background: #2e1e4e;
+            background: linear-gradient(95deg, #442d72, #2e1a5c);
+            padding: 12px 20px;
+            margin: 35px 0 18px 0;
+            border-radius: 50px;
+            border-right: 6px solid #ffb347;
+            color: #fae67a;
+            display: inline-block;
+            width: auto;
+            letter-spacing: 0.3px;
         }
-        
-        .post-overlay-content {
-            padding: 30px;
-            max-width: 950px;
-            margin: 0 auto;
-            color: var(--text-light);
+        h3 {
+            font-size: 1.45rem;
+            background: #1a3f55;
+            background: linear-gradient(85deg, #0f4c5c, #0a384b);
+            padding: 8px 18px;
+            margin: 25px 0 15px 0;
+            border-radius: 40px;
+            border-right: 4px solid #ffaa55;
+            color: #f8e3b0;
         }
-        
-        .ai-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background-color: var(--highlight-color);
+
+        p {
+            font-size: 0.95rem;   /* small size */
+            line-height: 1.85;
+            word-spacing: 0.5px;
+            letter-spacing: 0.2px;
+            margin-bottom: 1.2rem;
+            color: #f2efe7;
+            text-align: justify;
+        }
+        li {
+            font-size: 0.93rem;
+            line-height: 1.8;
+            margin-bottom: 0.6rem;
+        }
+        .content-image {
+            max-width: 100%;
+            border-radius: 28px;
+            margin: 25px auto;
+            display: block;
+            border: 3px solid #ffb347;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Reactions container */
+        .reactions-container {
+            background: rgba(0,0,0,0.25);
+            padding: 18px 20px;
+            border-radius: 60px;
+            margin: 35px 0 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .reaction-btn {
+            background: #1f2a44;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: white;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ff914d;
+            color: #0a0f1f;
+        }
+        .reaction-count {
+            background: #00000055;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 35px 0 20px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: linear-gradient(100deg, #2c3e66, #1f3a5f);
+            padding: 10px 28px;
+            border-radius: 40px;
+            color: #ffefcf;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            border: 1px solid #ffb347;
+        }
+        .nav-btn:hover {
+            background: #ffa559;
+            color: #0a1428;
+            transform: translateY(-3px);
+        }
+
+        /* social media icons (7 platforms) */
+        .social-share {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0 10px;
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            z-index: -1;
+            font-size: 1.6rem;
+            transition: 0.2s;
+            text-decoration: none;
+            color: white;
+            background: #1f2a44;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.3);
         }
-        
-        strong {
-            color: var(--highlight-color);
+        .social-icon:hover {
+            transform: translateY(-6px) scale(1.07);
         }
-        
-        /* Special hover effects for content items */
-        .hover-glow {
-            transition: all 0.3s;
+        .fb { background: #1877f2; }
+        .wa { background: #25D366; }
+        .tw { background: #1DA1F2; }
+        .li { background: #0077b5; }
+        .tg { background: #0088cc; }
+        .pt { background: #bd081c; }
+        .cp { background: #6c757d; }
+
+        /* floating scroll buttons */
+        .floating-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
         }
-        
-        .hover-glow:hover {
-            text-shadow: 0 0 10px rgba(0, 183, 194, 0.5);
+        .scroll-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff9a4a, #bf6f00);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            transition: 0.2s;
         }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .scroll-btn:hover {
+            transform: scale(1.1);
+            background: #ffaa55;
         }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(26, 26, 46, 0.5);
-            border-radius: 5px;
+
+        /* footer */
+        .footer-note {
+            text-align: center;
+            margin-top: 45px;
+            font-size: 0.75rem;
+            color: #b9c7d9;
+            border-top: 1px dashed #ffaa5544;
+            padding-top: 20px;
         }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, var(--accent-color), var(--highlight-color));
-            border-radius: 5px;
+
+        @media (max-width: 900px) {
+            .main-wrapper { flex-direction: column; }
+            .sidebar { height: 420px; position: relative; top: 0; }
+            .article-content { padding: 20px; }
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.4rem; }
+            p { font-size: 0.9rem; }
         }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, var(--highlight-color), var(--accent-color));
+        @media (max-width: 550px) {
+            body { padding: 12px; }
+            .reaction-btn { padding: 5px 10px; font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
-    <div class="header-container">
-        <button class="trigger-btn" onclick="openAIDarkTheme()">
-            <i class="fas fa-robot"></i> AI تاریک تھیم کے ساتھ پڑھیں
-        </button>
-    </div>
 
-    <div class="post-content">
-        
+<div class="main-wrapper">
+    <!-- MAIN POST CONTENT (article) -->
+    <div class="article-content">
         <h1>دورِ حاضر کے اساتذہ کو کیسا ہونا چاہیے؟</h1>
-        
-        <img src="https://bloglovers.pk/images/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye.png" alt="دورِ حاضر کے اساتذہ" class="content-image">
+        <img src="https://bloglovers.pk/images/taleem/door-e-hazir-ke-asatza-ko-kaisa-hona-chahiye.png" alt="اساتذہ کی اہمیت" class="content-image">
         
         <p>اساتذہ کسی بھی معاشرے کی تعمیر و ترقی میں اہم کردار ادا کرتے ہیں، کیونکہ وہ نئی نسل کی تعلیم و تربیت اور شخصیت سازی کے ذمہ دار ہوتے ہیں۔ دور حاضر میں جہاں دنیا تیزی سے بدل رہی ہے اور جدید ٹیکنالوجی اور معلومات کے ذرائع میں انقلاب آ چکا ہے، اساتذہ کے کردار میں بھی بنیادی تبدیلیاں آنا ضروری ہو چکی ہیں۔ موجودہ دور کے اساتذہ کو صرف تعلیمی مواد پہنچانے والے نہیں بلکہ ایک رہنما، رہبر، اور طلبہ کی شخصیت کے معمار کے طور پر دیکھا جانا چاہیے۔</p>
-        
         <p>اس مضمون میں ہم دیکھیں گے کہ موجودہ دور کے اساتذہ کو کیسا ہونا چاہیے، ان کی خصوصیات کیا ہونی چاہئیں، اور ان کے کردار میں کس طرح کی تبدیلیاں لانی ضروری ہیں تاکہ وہ بدلتی دنیا میں مؤثر اور کامیاب رہ سکیں۔</p>
         
-        <h2 class="hover-glow">1. علم اور معلومات کا وسیع ذخیرہ ہونا</h2>
+        <h2>1. علم اور معلومات کا وسیع ذخیرہ ہونا</h2>
         <p>دور حاضر میں معلومات کا بہاؤ بے حد تیز ہو چکا ہے، اور مختلف ذرائع جیسے انٹرنیٹ، سوشل میڈیا، اور ڈیجیٹل ٹیکنالوجی نے تعلیم کے دائرے کو وسیع کر دیا ہے۔ اساتذہ کو جدید دنیا کے تقاضوں کے مطابق اپنا علم اپ ڈیٹ رکھنا ضروری ہے۔ وہ نئے علمی اور تحقیقی ذرائع سے آگاہ ہوں اور اپنے طلبہ کو درست اور معتبر معلومات فراہم کریں۔</p>
         <p>آج کے استاد کو اپنے مضمون میں ماہر ہونے کے ساتھ ساتھ عمومی طور پر دوسرے مضامین اور موضوعات کے بارے میں بھی آگاہی ہونی چاہیے تاکہ وہ اپنے طلبہ کے سوالات کا بہتر جواب دے سکیں اور ان کی رہنمائی کر سکیں۔</p>
         
-        <h2 class="hover-glow">2. جدید ٹیکنالوجی کا استعمال</h2>
+        <h2>2. جدید ٹیکنالوجی کا استعمال</h2>
         <p>آج کا زمانہ ڈیجیٹل ایجوکیشن کا ہے، اور اساتذہ کو ٹیکنالوجی کے استعمال میں ماہر ہونا چاہیے۔ جدید ٹیکنالوجی جیسے کمپیوٹرز، اسمارٹ بورڈز، تعلیمی ایپس، اور آن لائن لیکچر سسٹمز کو سمجھنا اور استعمال کرنا ضروری ہے۔ اساتذہ کو ڈیجیٹل کلاس رومز اور آن لائن لرننگ پلیٹ فارمز کے بارے میں آگاہی ہونی چاہیے تاکہ وہ طلبہ کو ہر ممکن مدد فراہم کر سکیں۔</p>
         <p>اساتذہ کو یہ سمجھنا ضروری ہے کہ ٹیکنالوجی صرف ایک ذریعہ ہے، اور اس کا مقصد تعلیم کو بہتر اور آسان بنانا ہے۔ جدید تعلیمی ٹولز کے ذریعے استاد اپنے طلبہ کو بہتر انداز میں سکھا سکتے ہیں اور انہیں عالمی معیار کے مطابق تعلیم فراہم کر سکتے ہیں۔</p>
         
-        <h2 class="hover-glow">3. اخلاقی تربیت اور کردار سازی</h2>
+        <h2>3. اخلاقی تربیت اور کردار سازی</h2>
         <p>دور حاضر کے اساتذہ کا کام صرف علم دینا نہیں بلکہ طلبہ کی اخلاقی اور کردار سازی پر بھی توجہ دینا ہے۔ آج کے معاشرتی مسائل اور چیلنجز کے پیش نظر اساتذہ کو طلبہ کو اچھے اخلاق، دیانت داری، اور معاشرتی ذمہ داریوں کے بارے میں تعلیم دینا ضروری ہے۔</p>
         <p>اساتذہ کو اپنے عمل سے ایک نمونہ پیش کرنا چاہیے، کیونکہ بچے اپنے اساتذہ سے زیادہ سیکھتے ہیں۔ وہ استاد جو ایمانداری، خلوص، صبر، اور محبت کا مظاہرہ کرتا ہے، طلبہ پر مثبت اثر ڈالتا ہے۔</p>
         
-        <h2 class="hover-glow">4. مواصلاتی مہارت (Communication Skills)</h2>
+        <h2>4. مواصلاتی مہارت (Communication Skills)</h2>
         <p>آج کے استاد کو مؤثر کمیونیکیشن اسکلز کا مالک ہونا چاہیے۔ صرف اچھا علم ہونا کافی نہیں ہے، بلکہ اس علم کو بہترین انداز میں پہنچانا بھی ضروری ہے۔ استاد کو اپنے خیالات، نظریات، اور تعلیمات کو اس انداز میں بیان کرنا آنا چاہیے کہ طلبہ اسے سمجھ سکیں اور اس پر عمل پیرا ہو سکیں۔</p>
         <p>اساتذہ کو کلاس روم میں سوالات کا خیر مقدم کرنا چاہیے اور طلبہ کو ان کے خیالات اور سوالات کا جواب دینے کے لیے ماحول فراہم کرنا چاہیے۔</p>
         
-        <h2 class="hover-glow">5. تحمل اور صبر کا مظاہرہ کرنا</h2>
+        <h2>5. تحمل اور صبر کا مظاہرہ کرنا</h2>
         <p>آج کے دور میں جہاں طلبہ مختلف پس منظر سے آتے ہیں اور ہر طالب علم کی سیکھنے کی رفتار اور طرز مختلف ہوتی ہے، اساتذہ کو صبر و تحمل کا مظاہرہ کرنا چاہیے۔ ہر طالب علم کی سیکھنے کی صلاحیت ایک جیسی نہیں ہوتی، لہٰذا استاد کو چاہیے کہ وہ ہر بچے کی صلاحیتوں کو سمجھ کر اسے اس کے مطابق تعلیم دے۔</p>
         <p>اساتذہ کو اپنے رویے میں لچکدار ہونا چاہیے اور بچوں کو غلطیوں سے سیکھنے کا موقع دینا چاہیے۔ صبر اور تحمل استاد کی بنیادی خوبیوں میں شمار ہوتے ہیں، کیونکہ یہ طالب علموں کو سیکھنے کا حوصلہ دیتے ہیں اور ان کی خود اعتمادی میں اضافہ کرتے ہیں۔</p>
         
-        <h2 class="hover-glow">6. موٹیویشن اور حوصلہ افزائی</h2>
+        <h2>6. موٹیویشن اور حوصلہ افزائی</h2>
         <p>دور حاضر کے استاد کو طلبہ کے لیے ایک موٹیویٹر (Motivator) ہونا چاہیے۔ وہ طلبہ کو ان کی صلاحیتوں پر یقین دلائے اور انہیں اپنی زندگی کے مقصد کو سمجھنے میں مدد کرے۔ استاد کا کام صرف نصاب مکمل کرنا نہیں بلکہ طلبہ کو ان کی صلاحیتوں کو پہچاننے میں مدد دینا بھی ہے۔</p>
         <p>اساتذہ کو ایسے مواقع پیدا کرنے چاہئیں جن سے طلبہ اپنی تخلیقی صلاحیتوں کا اظہار کر سکیں۔ انہیں نئے چیلنجز کا سامنا کرنے اور اپنی کمزوریوں پر قابو پانے کا حوصلہ دینا چاہیے۔</p>
         
-        <h2 class="hover-glow">7. تنقیدی سوچ کو فروغ دینا</h2>
+        <h2>7. تنقیدی سوچ کو فروغ دینا</h2>
         <p>جدید دور میں طلبہ کو تنقیدی سوچ (Critical Thinking) کی تربیت دینا بے حد ضروری ہے۔ آج کے اساتذہ کا کام صرف یہ نہیں کہ وہ طلبہ کو مخصوص معلومات فراہم کریں، بلکہ انہیں یہ سکھائیں کہ کس طرح خود سے سوچنا، سوالات اٹھانا اور حقائق کو پرکھنا ہے۔</p>
         <p>اساتذہ کو طلبہ کو اس قابل بنانا چاہیے کہ وہ مسائل کا حل خود تلاش کریں اور مختلف نظریات پر غور کریں۔ انہیں یہ سکھانا چاہیے کہ کسی مسئلے کو مختلف زاویوں سے کیسے دیکھا جائے اور اسے حل کرنے کے لیے کیا تدابیر اپنائی جائیں۔</p>
         
-        <h2 class="hover-glow">8. مساوات اور غیر جانبداری کا مظاہرہ</h2>
+        <h2>8. مساوات اور غیر جانبداری کا مظاہرہ</h2>
         <p>آج کے دور میں معاشرتی اور طبقاتی فرق بہت زیادہ بڑھ چکا ہے۔ اساتذہ کو اپنی کلاس میں تمام طلبہ کے ساتھ مساوی سلوک کرنا چاہیے، خواہ وہ کسی بھی طبقے، مذہب یا رنگ سے تعلق رکھتے ہوں۔ استاد کو ہر طالب علم کو برابر سمجھنا اور ان کی ضروریات کا خیال رکھنا چاہیے۔</p>
         <p>اساتذہ کو چاہیے کہ وہ اپنی کلاس میں غیر جانبداری کا مظاہرہ کریں اور کسی طالب علم کے ساتھ امتیازی سلوک نہ کریں۔ اس سے طلبہ میں خود اعتمادی بڑھے گی اور وہ بہتر طور پر اپنی صلاحیتوں کا اظہار کر سکیں گے۔</p>
         
-        <h2 class="hover-glow">9. زندگی کی مہارتیں سکھانا (Life Skills)</h2>
+        <h2>9. زندگی کی مہارتیں سکھانا (Life Skills)</h2>
         <p>دور حاضر میں اساتذہ کو صرف نصابی مواد پر نہیں بلکہ طلبہ کی زندگی کی بنیادی مہارتوں پر بھی توجہ دینی چاہیے۔ زندگی کی مہارتوں (Life Skills) میں وقت کی پابندی، سماجی تعلقات، مالی منصوبہ بندی، اور مشکل حالات میں مثبت سوچ کا مظاہرہ کرنا شامل ہیں۔</p>
         <p>اساتذہ کو اپنی تدریس میں ایسی مہارتیں شامل کرنی چاہئیں جو طلبہ کو عملی زندگی میں کامیاب بنائیں۔ اس طرح کے اساتذہ طلبہ کو نہ صرف علم دیتے ہیں بلکہ انہیں معاشرتی زندگی میں کامیاب ہونے کے قابل بھی بناتے ہیں۔</p>
         
-        <h2 class="hover-glow">10. استاد کا رول ماڈل ہونا</h2>
+        <h2>10. استاد کا رول ماڈل ہونا</h2>
         <p>دور حاضر میں استاد کا کردار صرف معلومات دینے والا نہیں بلکہ ایک رول ماڈل (Role Model) ہونا چاہیے۔ طلبہ اپنے اساتذہ کو دیکھ کر سیکھتے ہیں اور ان کے عمل سے اثر لیتے ہیں۔ اساتذہ کو چاہیے کہ وہ طلبہ کے سامنے ایک مثالی شخصیت کے طور پر ابھریں۔</p>
         <p>اساتذہ کو اپنی ذاتی اور پیشہ ورانہ زندگی میں ایمانداری، دیانت داری، اور اخلاقی اصولوں پر عمل پیرا ہونا چاہیے تاکہ طلبہ ان سے سبق حاصل کریں۔</p>
         
-        <h2 class="hover-glow">11. تسلسل اور ترقی کی طرف رہنمائی</h2>
+        <h2>11. تسلسل اور ترقی کی طرف رہنمائی</h2>
         <p>دور حاضر کے اساتذہ کو سیکھنے کے عمل میں تسلسل پر زور دینا چاہیے۔ تعلیم کا مقصد صرف کتابی علم دینا نہیں، بلکہ طلبہ کو زندگی کے ہر مرحلے میں سیکھنے کی رغبت دینا ہے۔ اساتذہ کو اپنے طلبہ کو اس طرح تیار کرنا چاہیے کہ وہ ہمیشہ ترقی کی طرف قدم بڑھاتے رہیں اور اپنی معلومات اور صلاحیتوں میں اضافہ کرتے رہیں۔</p>
         
-        <h2 class="hover-glow">12. عالمی شعور (Global Awareness)</h2>
+        <h2>12. عالمی شعور (Global Awareness)</h2>
         <p>آج کا دور گلوبلائزیشن کا دور ہے جہاں دنیا ایک گلوبل ولیج بن چکی ہے۔ موجودہ دور کے استاد کو عالمی شعور کا مالک ہونا چاہیے۔ انہیں طلبہ کو دنیا کے مختلف موضوعات، ثقافتوں اور عالمی مسائل سے آگاہ کرنا چاہیے تاکہ طلبہ نہ صرف اپنے ملک بلکہ عالمی سطح پر بھی ایک باشعور اور ذمہ دار شہری بن سکیں۔</p>
+        
+        <!-- REACTIONS SECTION (exactly as required) -->
+        <div class="reactions-container">
+            <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+            <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+        </div>
 
+        <!-- NAVIGATION BUTTONS -->
+        <div class="nav-buttons">
+            <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+            <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list"></i> تمام پوسٹس</a>
+        </div>
+
+        <!-- SOCIAL MEDIA ICONS (7 platforms) -->
+        <div class="social-share">
+            <a href="#" class="social-icon fb" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon wa" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-icon tw" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon li" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon tg" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="social-icon pt" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#" class="social-icon cp" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+        </div>
+        <div class="footer-note">
+            © BlogLovers.pk | تعلیم و آگہی کی روشنی
+        </div>
     </div>
 
-    <div class="page-nav-buttons">
-        <button class="page-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
-        <button class="page-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
+    <!-- SIDEBAR with auto-scroll (10 posts) -->
+    <div class="sidebar">
+        <h3><i class="fas fa-book-open"></i> مزید پڑھیں</h3>
+        <div class="sidebar-scroll" id="sidebarScroll">
+            <div id="sidebarItemsContainer" class="auto-scroll-active">
+                <!-- dynamic items will be injected but preserved inline -->
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="ai-dark-theme" id="aiDarkTheme"></div>
+<div class="floating-buttons">
+    <button class="scroll-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+    <button class="scroll-btn" onclick="scrollToBottom()"><i class="fas fa-arrow-down"></i></button>
+</div>
+
+<script>
+    // ---------- SIDEBAR POSTS (exactly as required) ----------
+    const sidebarPosts = [
+        { title: "مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" },
+        { title: "مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" },
+        { title: "مسلم تاریخ کی 50 اہم شخصیات14-الفارابی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" },
+        { title: "مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی", link: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani", img: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" },
+        { title: "مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی", link: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi", img: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" },
+        { title: "غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا", link: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna", img: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" },
+        { title: "گیارہویں منانا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" },
+        { title: "ہیکل سلیمانی : تعمیر سے تباہی تک", link: "https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak", img: "https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" },
+        { title: "دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا", link: "https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna", img: "https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" },
+        { title: "عشق یا دماغی خلل", link: "https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal", img: "https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" },
+        { title: "عذاب الہیٰ کو دعوت دینے والے تین گھر", link: "https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr", img: "https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" },
+        { title: "مذاق میں کسی کا دل دکھانا", link: "https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana", img: "https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" }
+    ];
+
+    function buildSidebar() {
+        const container = document.getElementById('sidebarItemsContainer');
+        if(!container) return;
+        container.innerHTML = '';
+        sidebarPosts.forEach(post => {
+            const div = document.createElement('div');
+            div.className = 'sidebar-item';
+            div.innerHTML = `
+                <img src="${post.img}" alt="thumb" loading="lazy">
+                <a href="${post.link}">${post.title}</a>
+            `;
+            container.appendChild(div);
+        });
+    }
+    buildSidebar();
+
+    // auto-scroll functionality: 30s cycle (height is 500px, duplicate items for seamless? we just rely on css animation)
+    // we need duplicate content for infinite scroll effect? simple: using css animation on the container with all items.
+    // but items container height depends, we can clone to make it seamless.
+    const sidebarScrollDiv = document.getElementById('sidebarItemsContainer');
+    if(sidebarScrollDiv) {
+        // duplicate items to create seamless loop
+        const clone = sidebarScrollDiv.cloneNode(true);
+        clone.classList.add('auto-scroll-active');
+        sidebarScrollDiv.parentNode.appendChild(clone);
+        sidebarScrollDiv.style.display = 'none';
+        // Now we have two containers, let's keep one with auto-scroll
+        // but we need to manage hover pause: hover on parent
+        const scrollParent = document.querySelector('.sidebar-scroll');
+        const animatedDiv = clone;
+        scrollParent.addEventListener('mouseenter', () => { animatedDiv.style.animationPlayState = 'paused'; });
+        scrollParent.addEventListener('mouseleave', () => { animatedDiv.style.animationPlayState = 'running'; });
+        // adjust keyframe dynamic? already set 30s
+    }
+
+    // ---------- SOCIAL SHARE & COPY (retain original functions) ----------
+    function shareOnSocial(platform) {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        let shareLink = '';
+        if(platform === 'facebook') shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        else if(platform === 'whatsapp') shareLink = `https://api.whatsapp.com/send?text=${title} ${url}`;
+        else if(platform === 'twitter') shareLink = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+        else if(platform === 'linkedin') shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        else if(platform === 'telegram') shareLink = `https://t.me/share/url?url=${url}&text=${title}`;
+        else if(platform === 'pinterest') shareLink = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+        if(shareLink) window.open(shareLink, '_blank', 'width=600,height=500');
+    }
+    function copyPageLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('لنک کاپی ہو گیا!');
+        }).catch(() => alert('کاپی کرنے میں مسئلہ'));
+    }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
     
-    <div class="post-content-overlay" id="postOverlay">
-        <div class="overlay-header">
-            <button class="back-btn" onclick="closeAIDarkTheme()">
-                <i class="fas fa-arrow-right"></i> واپس جائیں
-            </button>
-            <div style="font-weight: bold; font-size: 22px; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">AI تاریک تھیم - مکمل پوسٹ</div>
-            <button class="close-btn" onclick="closeAIDarkTheme()">×</button>
-        </div>
-        <div class="post-overlay-content">
-            <div id="postContent"></div>
-        </div>
-    </div>
-
-    <script>
-        function openAIDarkTheme() {
-            const originalContent = document.querySelector('.post-content').innerHTML;
-            document.getElementById('postContent').innerHTML = originalContent;
-            document.getElementById('aiDarkTheme').classList.add('active');
-            document.getElementById('postOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Scroll to top of overlay
-            document.getElementById('postOverlay').scrollTop = 0;
-            
-            // Create AI particles
-            createAIParticles();
+    // ensure reactions.js handles reactionClick but we also provide fallback warning if not loaded
+    window.reactionClick = window.reactionClick || function(reaction) {
+        console.log(`Reaction clicked: ${reaction} but reactions.js may not be loaded. API ready.`);
+        // still increment UI locally as fallback
+        const countSpan = document.getElementById(`count-${reaction}`);
+        if(countSpan) {
+            let curr = parseInt(countSpan.innerText) || 0;
+            countSpan.innerText = curr+1;
         }
-        
-        function closeAIDarkTheme() {
-            document.getElementById('aiDarkTheme').classList.remove('active');
-            document.getElementById('postOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('postContent').innerHTML = ''; }, 500);
-            
-            // Remove AI particles
-            removeAIParticles();
-        }
-        
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        function scrollToBottom() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
-        }
-        
-        // AI Particle Effect
-        function createAIParticles() {
-            const particleCount = 50;
-            const colors = ['#00b7c2', '#0f4c75', '#1a1a2e'];
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('ai-particle');
-                
-                // Random properties
-                const size = Math.random() * 5 + 2;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const duration = Math.random() * 10 + 5;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}%`;
-                particle.style.top = `${posY}%`;
-                particle.style.backgroundColor = color;
-                particle.style.animation = `moveParticle ${duration}s linear ${delay}s infinite`;
-                
-                document.body.appendChild(particle);
-                
-                // Remove particle after animation
-                setTimeout(() => {
-                    if (particle.parentNode) {
-                        particle.parentNode.removeChild(particle);
-                    }
-                }, (duration + delay) * 1000);
-            }
-        }
-        
-        function removeAIParticles() {
-            const particles = document.querySelectorAll('.ai-particle');
-            particles.forEach(particle => {
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            });
-        }
-        
-        // Add CSS for particle animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes moveParticle {
-                0% {
-                    transform: translate(0, 0);
-                    opacity: 0;
-                }
-                10% {
-                    opacity: 1;
-                }
-                90% {
-                    opacity: 1;
-                }
-                100% {
-                    transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        document.addEventListener('keydown', function(e) { 
-            if (e.key === 'Escape') closeAIDarkTheme(); 
-        });
-        
-        // Add hover effects to content items
-        document.querySelectorAll('li').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = 'rgba(15, 76, 117, 0.2)';
-                this.style.paddingRight = '15px';
-                this.style.borderRadius = '8px';
-                this.style.transition = 'all 0.3s';
-                this.style.transform = 'translateX(-5px)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = '';
-                this.style.paddingRight = '';
-                this.style.transform = '';
-            });
-        });
-        
-        // Add hover effects to paragraphs
-        document.querySelectorAll('p').forEach(para => {
-            para.addEventListener('mouseenter', function() {
-                this.style.paddingRight = '10px';
-                this.style.borderRight = '3px solid rgba(0, 183, 194, 0.3)';
-                this.style.transition = 'all 0.3s';
-            });
-            
-            para.addEventListener('mouseleave', function() {
-                this.style.paddingRight = '';
-                this.style.borderRight = '';
-            });
-        });
-        
-        // Add glow effect to headings on hover
-        document.querySelectorAll('h1, h2, h3').forEach(heading => {
-            heading.addEventListener('mouseenter', function() {
-                this.style.textShadow = '0 0 15px rgba(0, 183, 194, 0.7)';
-                this.style.transition = 'text-shadow 0.3s';
-            });
-            
-            heading.addEventListener('mouseleave', function() {
-                this.style.textShadow = '';
-            });
-        });
-    </script>
+    };
+</script>
 </body>
 </html>
