@@ -7,638 +7,549 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @font-face { font-family: 'Jameel Noori Nastaleeq'; src: local('Jameel Noori Nastaleeq'), local('Alvi Nastaleeq'), url('https://fonts.gstatic.com/s/notonastaliqurdu/v15/lJ10KjO7S8YCNtIqOzWh_H07YcZt8g.woff2') format('woff2'); }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #2ecc71;
-            --accent-color: #e74c3c;
-            --dark-color: #1a1a2e;
-            --light-color: #f8f9fa;
-            --text-color: #333;
-            --text-light: #666;
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --sky-blue: #7ec8e0;
+            --baby-orange: #ffb347;
+            --purple: #b19cd9;
+            --yellow: #ffe066;
+            --soft-bg: #fff9ef;
+            --card-bg: #ffffffd9;
+            --text-dark: #2d3e50;
+            --shadow-sm: 0 6px 14px rgba(0, 0, 0, 0.05);
         }
-        
+
         body {
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-            line-height: 2.2;
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+            background: linear-gradient(145deg, #fef7e6 0%, #e9f4fa 100%);
+            color: #2c3e2f;
+            line-height: 1.9;
             direction: rtl;
             text-align: right;
-            margin: 0;
+            font-size: 15px; /* small base font */
+            word-spacing: normal;
+            letter-spacing: 0.01em;
             padding: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            color: var(--text-color);
-            transition: var(--transition);
-            position: relative;
-            overflow-x: hidden;
+            margin: 0;
         }
-        
-        body.dark-theme {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #e0e0e0;
-        }
-        
+
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 20px 18px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
-        
-        /* Header Styles */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            position: relative;
+
+        /* main content + sidebar layout */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .post-main {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        /* sidebar styles */
+        .sidebar {
+            flex: 1;
+            min-width: 260px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background: var(--card-bg);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            box-shadow: var(--shadow-sm);
             overflow: hidden;
-        }
-        
-        .dark-theme .header {
-            background: rgba(30, 30, 46, 0.9);
-            color: #e0e0e0;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to left, #ff6b6b, #4ecdc4, #45b7d1);
-        }
-        
-        h1 {
-            color: #2c3e50;
-            border-bottom: 3px solid #4a90e2;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            font-size: 2.8rem;
-            text-align: center;
-            line-height: 1.4;
-        }
-        
-        .dark-theme h1 {
-            color: #fff;
-            border-bottom-color: #6c5ce7;
-        }
-        
-        h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-size: 2.2rem;
-        }
-        
-        .dark-theme h2 {
-            color: #ddd;
-            border-bottom-color: #444;
-        }
-        
-        h3 {
-            color: #34495e;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        .dark-theme h3 {
-            color: #ccc;
-        }
-        
-        /* Post Content */
-        .post-content {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-            text-align: justify;
-            font-size: 1.3rem;
-            line-height: 2.4;
-        }
-        
-        .dark-theme .post-content {
-            background: rgba(30, 30, 46, 0.9);
-            color: #e0e0e0;
-        }
-        
-        .post-content p {
-            margin-bottom: 25px;
-            text-align: justify;
-        }
-        
-        .post-content ol {
-            padding-right: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .post-content li {
-            margin-bottom: 15px;
-        }
-        
-        /* Main Image */
-        .main-image {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 25px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border: 5px solid white;
-            transition: var(--transition);
-        }
-        
-        .dark-theme .main-image {
-            border-color: #444;
-        }
-        
-        .main-image:hover {
-            transform: scale(1.01);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-        }
-        
-        /* Control Buttons */
-        .control-buttons {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            border: 1px solid rgba(126, 200, 224, 0.4);
+            height: 500px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            z-index: 100;
         }
-        
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
+
+        .sidebar h3 {
+            background: linear-gradient(95deg, var(--sky-blue), var(--purple));
+            padding: 14px 20px;
+            margin: 0;
+            font-size: 1.4rem;
+            color: #1e2f3a;
+            border-bottom: 3px solid var(--yellow);
+            text-align: center;
+        }
+
+        .sidebar-scroll {
+            overflow-y: auto;
+            flex: 1;
+            scroll-behavior: smooth;
+            animation: autoScroll 30s linear infinite;
+        }
+
+        .sidebar-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes autoScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .sidebar-list {
+            display: flex;
+            flex-direction: column;
+            padding: 12px 0;
+        }
+
+        .sidebar-item {
             display: flex;
             align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0e2c5;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #2c3e50;
+        }
+
+        .sidebar-item:hover {
+            background: #fff3e0;
+            transform: translateX(-5px);
+        }
+
+        .sidebar-item img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--baby-orange);
+        }
+
+        .sidebar-item span {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* post card */
+        .post-card {
+            background: rgba(255, 252, 240, 0.92);
+            border-radius: 36px;
+            padding: 28px 30px;
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(2px);
+            border: 1px solid #ffe2b5;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(120deg, #4b6a9b, #9b59b6, #e67e22);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--baby-orange);
+            line-height: 1.4;
+            letter-spacing: normal;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            background: linear-gradient(100deg, #2c7da0, #b980f0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 35px 0 18px 0;
+            padding-right: 10px;
+            border-right: 7px solid var(--yellow);
+            line-height: 1.4;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            color: #c4450c;
+            margin: 28px 0 15px 0;
+            padding: 5px 12px;
+            background: #fff0db;
+            display: inline-block;
+            border-radius: 40px;
+            line-height: 1.4;
+        }
+
+        .post-content p {
+            margin-bottom: 1.4rem;
+            text-align: justify;
+            font-size: 0.95rem;
+            line-height: 1.85;
+            word-spacing: normal;
+        }
+
+        .main-image {
+            width: 100%;
+            border-radius: 28px;
+            margin: 20px 0;
+            box-shadow: 0 12px 22px rgba(0,0,0,0.1);
+            transition: 0.2s;
+            border: 2px solid white;
+        }
+
+        /* reactions section */
+        .reactions-section {
+            margin: 35px 0 20px;
+            padding: 18px 15px;
+            background: #fef2df;
+            border-radius: 48px;
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            gap: 18px;
+            border: 1px solid var(--sky-blue);
         }
-        
-        .control-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+
+        .reaction-btn {
+            background: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
-        
-        .back-btn {
+
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: var(--yellow);
+        }
+
+        .reaction-count {
+            font-weight: bold;
+            background: #eee5d8;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+
+        /* navigation buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 35px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--sky-blue), var(--purple));
+            padding: 12px 24px;
+            border-radius: 60px;
+            text-decoration: none;
+            color: #1e2f3f;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--baby-orange), var(--yellow));
+            color: #2c3e50;
+        }
+
+        /* social icons */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin: 25px 0 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            transition: 0.2s;
+            text-decoration: none;
+            box-shadow: 0 5px 9px rgba(0,0,0,0.1);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        .float-buttons {
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .float-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 30px;
+            background: linear-gradient(145deg, #ffb66e, #ff8c42);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+
+        .float-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .back-top-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
+            background: #ffaa66;
+            padding: 8px 20px;
+            border-radius: 40px;
             text-decoration: none;
+            color: #2d2b1f;
             font-weight: bold;
-            box-shadow: var(--shadow);
+            z-index: 999;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-            z-index: 100;
+            gap: 6px;
         }
-        
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-        }
-        
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 30px;
-            background: #ddd;
-            border-radius: 50px;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .theme-toggle::after {
-            content: '🌙';
-            position: absolute;
-            top: 3px;
-            right: 5px;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        
-        .dark-theme .theme-toggle {
-            background: #444;
-        }
-        
-        .dark-theme .theme-toggle::after {
-            content: '☀️';
-            transform: translateX(-30px);
-        }
-        
-        /* Planets Animation */
-        .planets-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.1;
-            transition: opacity 0.5s ease;
-        }
-        
-        body.dark-theme .planets-container {
-            opacity: 0.7;
-        }
-        
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            transition: all 5s linear;
-        }
-        
-        .planet:hover {
-            transform: scale(1.5);
-            opacity: 0.8;
-        }
-        
-        .planet-1 {
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle at 30% 30%, #ff9a9e, #fad0c4);
-            top: 15%;
-            left: 10%;
-            box-shadow: 0 0 40px #ff9a9e;
-        }
-        
-        .planet-2 {
-            width: 70px;
-            height: 70px;
-            background: radial-gradient(circle at 30% 30%, #a1c4fd, #c2e9fb);
-            top: 60%;
-            left: 85%;
-            box-shadow: 0 0 30px #a1c4fd;
-        }
-        
-        .planet-3 {
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle at 30% 30%, #ffecd2, #fcb69f);
-            top: 80%;
-            left: 15%;
-            box-shadow: 0 0 25px #ffecd2;
-        }
-        
-        .planet-4 {
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at 30% 30%, #667eea, #764ba2);
-            top: 30%;
-            left: 75%;
-            box-shadow: 0 0 50px #667eea;
-        }
-        
-        /* Footer */
+
         .footer {
             text-align: center;
-            padding: 30px;
             margin-top: 40px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            font-size: 1.1rem;
-            color: var(--text-light);
+            padding: 20px;
+            background: #fcf3e2;
+            border-radius: 30px;
+            font-size: 0.8rem;
         }
-        
-        .dark-theme .footer {
-            background: rgba(30, 30, 46, 0.9);
-            color: #aaa;
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 992px) {
-            .container {
-                padding: 15px;
+
+        @media (max-width: 860px) {
+            .content-wrapper {
+                flex-direction: column;
             }
-            
-            h1 {
-                font-size: 2.2rem;
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                top: 0;
             }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            .post-content {
-                padding: 25px;
-                font-size: 1.2rem;
-                line-height: 2.2;
-            }
-            
-            .control-buttons {
+            .float-buttons {
                 left: 10px;
-                gap: 10px;
-            }
-            
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .control-buttons {
-                position: fixed;
                 bottom: 20px;
-                top: auto;
-                left: 50%;
-                transform: translateX(-50%);
-                flex-direction: row;
-                gap: 10px;
             }
-            
-            .back-btn {
-                top: 10px;
-                right: 10px;
-                padding: 8px 15px;
-                font-size: 0.8rem;
+            .post-card {
+                padding: 18px;
             }
-            
-            .theme-toggle {
-                top: 10px;
-                left: 10px;
-            }
-            
-            .planets-container {
-                display: none;
-            }
-            
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
-            
-            .post-content {
-                padding: 20px;
-                font-size: 1.1rem;
-                line-height: 2.0;
+            h2 {
+                font-size: 1.35rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <div class="theme-toggle" id="themeToggle"></div>
-    
-    <!-- Back Button -->
-    <a href="#" class="back-btn" id="backButton">
-        <i class="fas fa-arrow-right"></i> واپس جائیں
-    </a>
-    
-    <!-- Control Buttons -->
-    <div class="control-buttons">
-        <button class="control-btn" id="pageUpBtn">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-        <button class="control-btn" id="pageDownBtn">
-            <i class="fas fa-chevron-down"></i>
-        </button>
-    </div>
-    
-    <!-- Planets Animation -->
-    <div class="planets-container" id="planetsContainer">
-        <div class="planet planet-1"></div>
-        <div class="planet planet-2"></div>
-        <div class="planet planet-3"></div>
-        <div class="planet planet-4"></div>
-    </div>
-    
-    <div class="container">
-        <div class="header">
-            <h1>سلطنتِ عثمانیہ کا زوال کیا صرف جنگ ہی وجہ تھی؟</h1>
-        </div>
-        
-        <div class="post-content">
-            <!-- Main Image after title -->
-            <img src="https://bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" alt="سلطنت عثمانیہ کا زوال" class="main-image">
-            
-            <p>سلطنتِ عثمانیہ، جسے تاریخ میں ایک عظیم الشان اور طویل العمر سلطنت کا درجہ حاصل ہے، ایک زمانے میں تین براعظموں پر پھیلی ہوئی تھی اور اس کا دبدبہ دنیا بھر میں قائم تھا۔ یہ سلطنت صدیوں تک نہ صرف سیاسی بلکہ ثقافتی اور مذہبی اعتبار سے بھی ایک عظیم مرکز کی حیثیت رکھتی تھی۔ لیکن انیسویں اور بیسویں صدی کے اوائل میں اس کا زوال اتنا تیز اور واضح ہوا کہ دنیا کی تاریخ کا ایک اہم موڑ بن گیا۔ عام طور پر یہ سمجھا جاتا ہے کہ پہلی جنگ عظیم سلطنتِ عثمانیہ کے خاتمے کی سب سے بڑی وجہ تھی۔ یہ بات جزوی طور پر درست ہے کہ جنگ نے سلطنت کو تباہی کے دہانے پر پہنچا دیا، لیکن حقیقت یہ ہے کہ جنگ محض ایک چنگاری تھی جو ایک ایسے بارود کے ڈھیر کو بھڑکا گئی جو صدیوں سے تیار ہو رہا تھا۔ سلطنتِ عثمانیہ کا زوال محض ایک فوجی شکست کا نتیجہ نہیں تھا، بلکہ یہ ایک پیچیدہ اور کثیرالجہتی عمل تھا جس کی جڑیں معاشی، انتظامی، سماجی اور نظریاتی پسماندگی میں گہری تھیں۔</p>
-            <p>زوال کے اسباب کو سمجھنے کے لیے یہ دیکھنا ضروری ہے کہ سلطنت اپنے عروج کے بعد کن اندرونی اور بیرونی چیلنجز کا شکار ہوئی۔ زوال کا عمل اچانک رونما نہیں ہوا بلکہ یہ ایک طویل المدتی تاریخی داستان ہے جس میں بہت سے عوامل شامل تھے۔</p>
-            
-            <h2>بیرونی عوامل کا کردار</h2>
-            <p>سلطنتِ عثمانیہ کے زوال میں بیرونی قوتوں کا کردار نہایت اہم اور فیصلہ کن تھا۔ یورپی طاقتیں، خاص طور پر برطانیہ، فرانس اور روس، سلطنت کو "یورپ کا بیمار" قرار دے چکے تھے اور اس کے وسیع علاقوں پر اپنا تسلط قائم کرنے کے درپے تھے۔</p>
-            
-            <h3>یورپی طاقتوں کی توسیع پسندی</h3>
-            <p>سترھویں اور اٹھارہویں صدیوں میں یورپ میں صنعتی انقلاب اور قومی ریاستوں کا عروج ہوا۔ اس کے برعکس عثمانی سلطنت روایتی معاشی اور فوجی ڈھانچے میں جکڑی ہوئی تھی۔ یورپی طاقتیں اپنی بڑھتی ہوئی فوجی اور معاشی طاقت کی بنیاد پر عثمانی علاقوں پر قبضہ کرنے لگیں۔ روس نے بحیرہ اسود اور قفقاز کے علاقوں پر بارہا حملے کیے اور سلطنت سے متعدد جنگیں لڑیں۔</p>
-            
-            <h3>معاشی استحصال</h3>
-            <p>یورپی طاقتوں نے "غیر مساوی معاہدوں" کے ذریعے سلطنت کو معاشی طور پر مفلوج کر دیا۔ 1838ء میں برطانیہ کے ساتھ ہونے والا معاہدہ بلطا لیمن ایک ایسا ہی فیصلہ کن معاہدہ تھا، جس نے عثمانی مارکیٹ کو یورپی مصنوعات کے لیے کھول دیا۔ اس کے نتیجے میں مقامی صنعتیں، جنہیں سلطنت کی طرف سے کوئی خاص تحفظ حاصل نہیں تھا، یورپی درآمدات کا مقابلہ نہ کر سکیں اور تباہ ہو گئیں۔ سلطنت قرضوں کے بوجھ تلے دبتی چلی گئی اور آخرکار یورپی ممالک کے مالی کنٹرول میں آگئی۔</p>
-            
-            <h3>قوم پرستی کی لہر</h3>
-            <p>فرانسیسی انقلاب کے بعد پورے یورپ میں قوم پرستی کی لہر دوڑ گئی، جس کا اثر عثمانی سلطنت کے یورپی حصوں پر بھی پڑا۔ یونان، سربیا، بلغاریہ، رومانیہ جیسے خطوں میں مقامی آبادیوں نے قومی آزادی کی تحریکیں چلائیں۔ سلطنت، جس میں مختلف نسلی اور مذہبی گروہوں کا ایک مرکب تھا، ان علیحدگی پسند تحریکوں کو دبانے میں ناکام رہی۔ یورپی طاقتوں نے ان تحریکوں کو سیاسی اور فوجی حمایت فراہم کر کے سلطنت کو مزید کمزور کیا۔</p>
-            
-            <h2>اندرونی کمزوریاں: زوال کی بنیادی جڑیں</h2>
-            <p>بیرونی دباؤ کے باوجود، اگر سلطنت کا اندرونی ڈھانچہ مضبوط ہوتا تو شاید وہ ان چیلنجز کا مقابلہ کر پاتی۔ لیکن سلطنت اندرونی طور پر انتہائی کمزور ہو چکی تھی۔</p>
-            
-            <h3>انتظامی اور معاشی بدانتظامی</h3>
-            <p>مرکزی حکومت کی گرفت دور دراز کے صوبوں پر ڈھیلی پڑ گئی تھی۔ مرکزیت کمزور ہونے کی وجہ سے مقامی گورنر اور جاگیردار (آغاوں) نے اپنی طاقت بڑھا لی، جس سے محصولات کی وصولی میں مشکلات پیدا ہوئیں۔ خزانہ خالی ہو گیا اور فوج کو جدید ہتھیار بنانے کے لیے وسائل میسر نہ آسکے۔ کرنسی کی قدر میں مسلسل کمی واقع ہوئی، جس سے معاشی عدم استحکام پیدا ہوا۔</p>
-            
-            <h3>فوجی پسماندگی</h3>
-            <p>ایک زمانے میں عثمانی فوج دنیا کی سب سے جدید فوج سمجھی جاتی تھی، لیکن یورپ میں فوجی نظریات اور ٹیکنالوجی میں ہونے والی ترقی کے سامنے وہ کہیں پیچھے رہ گئی۔ جدید توپوں، بحری جہازوں اور جنگی حکمت عملی کے معاملے میں عثمانی فوج یورپی فوجوں کے مقابلے میں فرسودہ ثابت ہوئی۔ جدیدیت کی کوششوں، جیسے کہ تنظیمات کے دور میں فوجی اصلاحات، میں جزوی کامیابی تو ملی لیکن یہ کافی نہ تھی۔</p>
-            
-            <h3>علمی و فکری جمود</h3>
-            <p>جب یورپ نشاۃ ثانیہ، روشن خیالی اور سائنسی انقلاب سے گزر رہا تھا، عثمانی معاشرہ روایتی علوم تک محدود رہا۔ جدید سائنس، فلسفہ اور سیاسی نظریات سے مناسب استفادہ نہیں کیا گیا۔ یہ فکری جمود تخلیقی سوچ، سائنسی ایجادات اور موثر انتظامی نظریات کی راہ میں رکاوٹ بنا، جس کا نتیجہ معاشرتی اور تہذیبی پسماندگی کی شکل میں نکلا۔</p>
-            
-            <h3>نظریاتی بحران: پان عثمانیت اور پان اسلامیت</h3>
-            <p>سلطنت کے آخری دور میں زوال کو روکنے کے لیے دو نظریاتی راستے اپنائے گئے۔ پان عثمانیت کے تحت تمام نسلی گروہوں کو ایک عثمانی قومیت کے تحت متحد کرنے کی کوشش کی گئی، لیکن قوم پرستی کی لہر کے سامنے یہ کوشش ناکام رہی۔ اس کے بعد سلطنت نے پان اسلامیت کو اپنایا، جس کا مقصد دنیا بھر کے مسلمانوں کو خلیفہ کی قیادت میں متحد کرنا تھا۔ تاہم، یہ پالیسی بھی سلطنت کے غیر مسلم رعایا میں علیحدگی پسندی کو ہوا دینے اور یورپی طاقتوں کے لیے مداخلت کا بہانہ فراہم کرنے کا باعث بنی۔</p>
-            
-            <h2>پہلی جنگ عظیم: آخری دھکا</h2>
-            <p>ان تمام تر اندرونی اور بیرونی عوامل کے بعد، پہلی جنگ عظیم وہ قیامت خیز واقعہ ثابت ہوئی جس نے سلطنت کے باقی ماندہ ڈھانچے کو مکمل طور پر زمین بوس کر دیا۔</p>
-            
-            <h3>غیر ضروری جنگ میں داخلہ</h3>
-            <p>سلطنت کی قیادت نے جرمنی کے ساتھ اتحاد کر کے جنگ میں داخل ہونے کا فیصلہ کیا، جو ایک بہت بڑی سیاسی غلطی ثابت ہوئی۔ یہ فیصلہ کئی محاذوں پر ایک نازک وقت پر لڑائی میں الجھنے کا باعث بنا۔</p>
-            
-            <h3>جنگی تباہی</h3>
-            <p>جنگ کے دوران عثمانی فوج کو متعدد محاذوں پر شدید شکستیں ہوئیں۔ چننال کے معرکے، گلی پولی کی مہم اور مشرق وسطیٰ میں ہونے والی لڑائیاں نہ صرف جانی و مالی اعتبار سے تباہ کن ثابت ہوئیں بلکہ سلطنت کے قلب تک کو ہلا کر رکھ دیا۔</p>
-            
-            <h3>عرب بغاوت</h3>
-            <p>برطانیہ کی حوصلہ افزائی اور حمایت سے شروع ہونے والی عرب بغاوت نے سلطنت کو اندر سے کھوکھلا کر دیا۔ شریف حسین کی قیادت میں عرب قبائل نے عثمانی حکومت کے خلاف بغاوت کر دی، جس سے سلطنت کی جنگی کوششوں کو شدید دھچکا لگا اور اس کے عرب علاقوں پر کنٹرول ختم ہو گیا۔</p>
-            
-            <h3>سیاسی تقسیم</h3>
-            <p>جنگ کے خاتمے پر فاتحی طاقتوں نے سلطنت کے باقی ماندہ علاقوں کو آپس میں تقسیم کرنے کے منصوبے بنا لیے، جو بعد میں سائیکس پیکٹ جیسے معاہدوں میں واضح ہوئے۔ معاہدہ سیورے کے ذریعے سلطنت کو عملاً ختم کر کے اس کے علاقوں پر قبضے کی راہ ہموار ہو گئی۔</p>
-            
-            <h2>نتیجہ</h2>
-            <p>یہ کہنا کہ صرف جنگ ہی سلطنتِ عثمانیہ کے زوال کی وجہ تھی، تاریخ کے ساتھ زیادتی ہوگی۔ جنگ دراصل ایک ایسے مرض کی آخری علامت تھی جو صدیوں سے سلطنت کے جسم میں سرایت کر چکا تھا۔ زوال کی حقیقی وجوہات اندرونی تھیں: معاشی بدحالی، انتظامی نااہلی، فکری جمود، اور ایک کثیرالقومی سلطنت کو جدید دور کے تقاضوں کے مطابق ڈھال نہ سکنا۔ بیرونی طاقتوں نے ان کمزوریوں کا بھرپور فائدہ اٹھایا اور سلطنت کے حصے بخرے کر دیے۔ پہلی جنگ عظیم نے ان تمام عوامل کو یکجا کر کے ایک ایسا دھماکہ کیا جس سے سلطنت کا وجود ہمیشہ کے لیے ختم ہو گیا۔ اس لیے سلطنتِ عثمانیہ کا زوال ایک مرکب کا نتیجہ تھا، جس میں جنگ ایک اہم، لیکن حتمی جزو کے طور پر سامنے آئی۔</p>
-            
-            <h2>یاد رکھنے کے لیے چند اہم نکات</h2>
-            <ol>
-                <li>سلطنتِ عثمانیہ کا زوال ایک طویل المدتی اور تدریجی عمل تھا، جس کی شروعات اس کے عروج کے دور میں ہی ہو گئی تھی۔</li>
-                <li>محض فوجی شکست ہی زوال کی واحد وجہ نہیں تھی بلکہ معاشی، انتظامی اور سماجی عوامل زیادہ اہم تھے۔</li>
-                <li>یورپی طاقتوں کی معاشی و سیاسی توسیع پسندی اور عثمانی معیشت پر کنٹرول نے سلطنت کو اندر سے کمزور کیا۔</li>
-                <li>قوم پرستی کی لہر نے سلطنت کے یورپی حصوں میں علیحدگی پسند تحریکوں کو جنم دیا، جسے روکنا سلطنت کے بس سے باہر تھا۔</li>
-                <li>فکری و علمی جمود نے سلطنت کو جدید دور کے تقاضوں سے ہم آہنگ ہونے سے روکا۔</li>
-                <li>پہلی جنگ عظیم نے ان تمام کمزوریوں کو عیاں کرتے ہوئے سلطنت کو دیوالیہ تک پہنچا دیا اور اس کے وجود کو ختم کرنے کا کام مکمل کیا۔</li>
-            </ol>
-            <p>تاریخ سے سبق یہ ملتا ہے کہ کسی بھی ریاست کی بقا کے لیے معاشی استحکام، انتظامی دیانتداری، فکری اجتہاد اور وقت کے ساتھ بدلنے کی صلاحیت نہایت ضروری ہے۔</p>
-        </div>
-        
-        <div class="footer">
-            <p>© 2025 تاریخ کے مطالعہ - سبق آموز مضامین</p>
-            <p>اس مضمون کو پڑھنے کا شکریہ</p>
-        </div>
-    </div>
 
-    <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const planetsContainer = document.getElementById('planetsContainer');
-        
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-theme');
-            
-            // Animate planets on theme change
-            if (body.classList.contains('dark-theme')) {
-                animatePlanets();
-            }
-        });
-        
-        // Back Button
-        const backButton = document.getElementById('backButton');
-        backButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('واپس جانے کا عمل: آپ تاریخ کے دیگر مضامین میں جا سکتے ہیں۔');
-            // In a real scenario, this would redirect to the previous page
-            // window.history.back();
-        });
-        
-        // Page Up/Down Buttons
-        const pageUpBtn = document.getElementById('pageUpBtn');
-        const pageDownBtn = document.getElementById('pageDownBtn');
-        
-        pageUpBtn.addEventListener('click', () => {
-            window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
-        });
-        
-        pageDownBtn.addEventListener('click', () => {
-            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-        });
-        
-        // Planets Animation
-        function animatePlanets() {
-            const planets = document.querySelectorAll('.planet');
-            
-            planets.forEach(planet => {
-                // Random movement for planets
-                const randomX = Math.random() * 80 + 10;
-                const randomY = Math.random() * 80 + 10;
+<!-- back button (same as before) -->
+<a href="#" class="back-top-btn" id="backButton">
+    <i class="fas fa-arrow-right"></i> واپس جائیں
+</a>
+
+<!-- floating scroll buttons -->
+<div class="float-buttons">
+    <button class="float-btn" id="pageUpBtn"><i class="fas fa-chevron-up"></i></button>
+    <button class="float-btn" id="pageDownBtn"><i class="fas fa-chevron-down"></i></button>
+</div>
+
+<div class="container">
+    <div class="content-wrapper">
+        <!-- MAIN POST CONTENT -->
+        <div class="post-main">
+            <div class="post-card">
+                <h1>سلطنتِ عثمانیہ کا زوال کیا صرف جنگ ہی وجہ تھی؟</h1>
+                <img src="https://bloglovers.pk/images/tareekh/sltnt-asmanyh-ka-zoal-kya-srf-jng-hi-wjh-thi.png" alt="سلطنت عثمانیہ کا زوال" class="main-image">
                 
-                planet.style.left = `${randomX}%`;
-                planet.style.top = `${randomY}%`;
-                
-                // Add hover effect
-                planet.addEventListener('mouseenter', () => {
-                    planet.style.transform = 'scale(1.5)';
-                    planet.style.boxShadow = `0 0 60px ${getComputedStyle(planet).backgroundImage.includes('ff9a9e') ? '#ff9a9e' : '#a1c4fd'}`;
-                });
-                
-                planet.addEventListener('mouseleave', () => {
-                    planet.style.transform = 'scale(1)';
-                    planet.style.boxShadow = `0 0 30px ${getComputedStyle(planet).backgroundImage.includes('ff9a9e') ? '#ff9a9e' : '#a1c4fd'}`;
-                });
-            });
-            
-            // Continuous slow movement
-            setInterval(() => {
-                planets.forEach(planet => {
-                    const currentLeft = parseFloat(planet.style.left);
-                    const currentTop = parseFloat(planet.style.top);
+                <div class="post-content">
+                    <p>سلطنتِ عثمانیہ، جسے تاریخ میں ایک عظیم الشان اور طویل العمر سلطنت کا درجہ حاصل ہے، ایک زمانے میں تین براعظموں پر پھیلی ہوئی تھی اور اس کا دبدبہ دنیا بھر میں قائم تھا۔ یہ سلطنت صدیوں تک نہ صرف سیاسی بلکہ ثقافتی اور مذہبی اعتبار سے بھی ایک عظیم مرکز کی حیثیت رکھتی تھی۔ لیکن انیسویں اور بیسویں صدی کے اوائل میں اس کا زوال اتنا تیز اور واضح ہوا کہ دنیا کی تاریخ کا ایک اہم موڑ بن گیا۔ عام طور پر یہ سمجھا جاتا ہے کہ پہلی جنگ عظیم سلطنتِ عثمانیہ کے خاتمے کی سب سے بڑی وجہ تھی۔ یہ بات جزوی طور پر درست ہے کہ جنگ نے سلطنت کو تباہی کے دہانے پر پہنچا دیا، لیکن حقیقت یہ ہے کہ جنگ محض ایک چنگاری تھی جو ایک ایسے بارود کے ڈھیر کو بھڑکا گئی جو صدیوں سے تیار ہو رہا تھا۔ سلطنتِ عثمانیہ کا زوال محض ایک فوجی شکست کا نتیجہ نہیں تھا، بلکہ یہ ایک پیچیدہ اور کثیرالجہتی عمل تھا جس کی جڑیں معاشی، انتظامی، سماجی اور نظریاتی پسماندگی میں گہری تھیں۔</p>
+                    <p>زوال کے اسباب کو سمجھنے کے لیے یہ دیکھنا ضروری ہے کہ سلطنت اپنے عروج کے بعد کن اندرونی اور بیرونی چیلنجز کا شکار ہوئی۔ زوال کا عمل اچانک رونما نہیں ہوا بلکہ یہ ایک طویل المدتی تاریخی داستان ہے جس میں بہت سے عوامل شامل تھے۔</p>
                     
-                    const newLeft = (currentLeft + (Math.random() - 0.5) * 0.5) % 100;
-                    const newTop = (currentTop + (Math.random() - 0.5) * 0.5) % 100;
+                    <h2>بیرونی عوامل کا کردار</h2>
+                    <p>سلطنتِ عثمانیہ کے زوال میں بیرونی قوتوں کا کردار نہایت اہم اور فیصلہ کن تھا۔ یورپی طاقتیں، خاص طور پر برطانیہ، فرانس اور روس، سلطنت کو "یورپ کا بیمار" قرار دے چکے تھے اور اس کے وسیع علاقوں پر اپنا تسلط قائم کرنے کے درپے تھے۔</p>
                     
-                    planet.style.left = `${newLeft}%`;
-                    planet.style.top = `${newTop}%`;
-                });
-            }, 100);
+                    <h3>یورپی طاقتوں کی توسیع پسندی</h3>
+                    <p>سترھویں اور اٹھارہویں صدیوں میں یورپ میں صنعتی انقلاب اور قومی ریاستوں کا عروج ہوا۔ اس کے برعکس عثمانی سلطنت روایتی معاشی اور فوجی ڈھانچے میں جکڑی ہوئی تھی۔ یورپی طاقتیں اپنی بڑھتی ہوئی فوجی اور معاشی طاقت کی بنیاد پر عثمانی علاقوں پر قبضہ کرنے لگیں۔ روس نے بحیرہ اسود اور قفقاز کے علاقوں پر بارہا حملے کیے اور سلطنت سے متعدد جنگیں لڑیں۔</p>
+                    
+                    <h3>معاشی استحصال</h3>
+                    <p>یورپی طاقتوں نے "غیر مساوی معاہدوں" کے ذریعے سلطنت کو معاشی طور پر مفلوج کر دیا۔ 1838ء میں برطانیہ کے ساتھ ہونے والا معاہدہ بلطا لیمن ایک ایسا ہی فیصلہ کن معاہدہ تھا، جس نے عثمانی مارکیٹ کو یورپی مصنوعات کے لیے کھول دیا۔ اس کے نتیجے میں مقامی صنعتیں، جنہیں سلطنت کی طرف سے کوئی خاص تحفظ حاصل نہیں تھا، یورپی درآمدات کا مقابلہ نہ کر سکیں اور تباہ ہو گئیں۔ سلطنت قرضوں کے بوجھ تلے دبتی چلی گئی اور آخرکار یورپی ممالک کے مالی کنٹرول میں آگئی۔</p>
+                    
+                    <h3>قوم پرستی کی لہر</h3>
+                    <p>فرانسیسی انقلاب کے بعد پورے یورپ میں قوم پرستی کی لہر دوڑ گئی، جس کا اثر عثمانی سلطنت کے یورپی حصوں پر بھی پڑا۔ یونان، سربیا، بلغاریہ، رومانیہ جیسے خطوں میں مقامی آبادیوں نے قومی آزادی کی تحریکیں چلائیں۔ سلطنت، جس میں مختلف نسلی اور مذہبی گروہوں کا ایک مرکب تھا، ان علیحدگی پسند تحریکوں کو دبانے میں ناکام رہی۔ یورپی طاقتوں نے ان تحریکوں کو سیاسی اور فوجی حمایت فراہم کر کے سلطنت کو مزید کمزور کیا۔</p>
+                    
+                    <h2>اندرونی کمزوریاں: زوال کی بنیادی جڑیں</h2>
+                    <p>بیرونی دباؤ کے باوجود، اگر سلطنت کا اندرونی ڈھانچہ مضبوط ہوتا تو شاید وہ ان چیلنجز کا مقابلہ کر پاتی۔ لیکن سلطنت اندرونی طور پر انتہائی کمزور ہو چکی تھی۔</p>
+                    
+                    <h3>انتظامی اور معاشی بدانتظامی</h3>
+                    <p>مرکزی حکومت کی گرفت دور دراز کے صوبوں پر ڈھیلی پڑ گئی تھی۔ مرکزیت کمزور ہونے کی وجہ سے مقامی گورنر اور جاگیردار (آغاوں) نے اپنی طاقت بڑھا لی، جس سے محصولات کی وصولی میں مشکلات پیدا ہوئیں۔ خزانہ خالی ہو گیا اور فوج کو جدید ہتھیار بنانے کے لیے وسائل میسر نہ آسکے۔ کرنسی کی قدر میں مسلسل کمی واقع ہوئی، جس سے معاشی عدم استحکام پیدا ہوا۔</p>
+                    
+                    <h3>فوجی پسماندگی</h3>
+                    <p>ایک زمانے میں عثمانی فوج دنیا کی سب سے جدید فوج سمجھی جاتی تھی، لیکن یورپ میں فوجی نظریات اور ٹیکنالوجی میں ہونے والی ترقی کے سامنے وہ کہیں پیچھے رہ گئی۔ جدید توپوں، بحری جہازوں اور جنگی حکمت عملی کے معاملے میں عثمانی فوج یورپی فوجوں کے مقابلے میں فرسودہ ثابت ہوئی۔ جدیدیت کی کوششوں، جیسے کہ تنظیمات کے دور میں فوجی اصلاحات، میں جزوی کامیابی تو ملی لیکن یہ کافی نہ تھی۔</p>
+                    
+                    <h3>علمی و فکری جمود</h3>
+                    <p>جب یورپ نشاۃ ثانیہ، روشن خیالی اور سائنسی انقلاب سے گزر رہا تھا، عثمانی معاشرہ روایتی علوم تک محدود رہا۔ جدید سائنس، فلسفہ اور سیاسی نظریات سے مناسب استفادہ نہیں کیا گیا۔ یہ فکری جمود تخلیقی سوچ، سائنسی ایجادات اور موثر انتظامی نظریات کی راہ میں رکاوٹ بنا، جس کا نتیجہ معاشرتی اور تہذیبی پسماندگی کی شکل میں نکلا۔</p>
+                    
+                    <h3>نظریاتی بحران: پان عثمانیت اور پان اسلامیت</h3>
+                    <p>سلطنت کے آخری دور میں زوال کو روکنے کے لیے دو نظریاتی راستے اپنائے گئے۔ پان عثمانیت کے تحت تمام نسلی گروہوں کو ایک عثمانی قومیت کے تحت متحد کرنے کی کوشش کی گئی، لیکن قوم پرستی کی لہر کے سامنے یہ کوشش ناکام رہی۔ اس کے بعد سلطنت نے پان اسلامیت کو اپنایا، جس کا مقصد دنیا بھر کے مسلمانوں کو خلیفہ کی قیادت میں متحد کرنا تھا۔ تاہم، یہ پالیسی بھی سلطنت کے غیر مسلم رعایا میں علیحدگی پسندی کو ہوا دینے اور یورپی طاقتوں کے لیے مداخلت کا بہانہ فراہم کرنے کا باعث بنی۔</p>
+                    
+                    <h2>پہلی جنگ عظیم: آخری دھکا</h2>
+                    <p>ان تمام تر اندرونی اور بیرونی عوامل کے بعد، پہلی جنگ عظیم وہ قیامت خیز واقعہ ثابت ہوئی جس نے سلطنت کے باقی ماندہ ڈھانچے کو مکمل طور پر زمین بوس کر دیا۔</p>
+                    
+                    <h3>غیر ضروری جنگ میں داخلہ</h3>
+                    <p>سلطنت کی قیادت نے جرمنی کے ساتھ اتحاد کر کے جنگ میں داخل ہونے کا فیصلہ کیا، جو ایک بہت بڑی سیاسی غلطی ثابت ہوئی۔ یہ فیصلہ کئی محاذوں پر ایک نازک وقت پر لڑائی میں الجھنے کا باعث بنا۔</p>
+                    
+                    <h3>جنگی تباہی</h3>
+                    <p>جنگ کے دوران عثمانی فوج کو متعدد محاذوں پر شدید شکستیں ہوئیں۔ چننال کے معرکے، گلی پولی کی مہم اور مشرق وسطیٰ میں ہونے والی لڑائیاں نہ صرف جانی و مالی اعتبار سے تباہ کن ثابت ہوئیں بلکہ سلطنت کے قلب تک کو ہلا کر رکھ دیا۔</p>
+                    
+                    <h3>عرب بغاوت</h3>
+                    <p>برطانیہ کی حوصلہ افزائی اور حمایت سے شروع ہونے والی عرب بغاوت نے سلطنت کو اندر سے کھوکھلا کر دیا۔ شریف حسین کی قیادت میں عرب قبائل نے عثمانی حکومت کے خلاف بغاوت کر دی، جس سے سلطنت کی جنگی کوششوں کو شدید دھچکا لگا اور اس کے عرب علاقوں پر کنٹرول ختم ہو گیا۔</p>
+                    
+                    <h3>سیاسی تقسیم</h3>
+                    <p>جنگ کے خاتمے پر فاتحی طاقتوں نے سلطنت کے باقی ماندہ علاقوں کو آپس میں تقسیم کرنے کے منصوبے بنا لیے، جو بعد میں سائیکس پیکٹ جیسے معاہدوں میں واضح ہوئے۔ معاہدہ سیورے کے ذریعے سلطنت کو عملاً ختم کر کے اس کے علاقوں پر قبضے کی راہ ہموار ہو گئی۔</p>
+                    
+                    <h2>نتیجہ</h2>
+                    <p>یہ کہنا کہ صرف جنگ ہی سلطنتِ عثمانیہ کے زوال کی وجہ تھی، تاریخ کے ساتھ زیادتی ہوگی۔ جنگ دراصل ایک ایسے مرض کی آخری علامت تھی جو صدیوں سے سلطنت کے جسم میں سرایت کر چکا تھا۔ زوال کی حقیقی وجوہات اندرونی تھیں: معاشی بدحالی، انتظامی نااہلی، فکری جمود، اور ایک کثیرالقومی سلطنت کو جدید دور کے تقاضوں کے مطابق ڈھال نہ سکنا۔ بیرونی طاقتوں نے ان کمزوریوں کا بھرپور فائدہ اٹھایا اور سلطنت کے حصے بخرے کر دیے۔ پہلی جنگ عظیم نے ان تمام عوامل کو یکجا کر کے ایک ایسا دھماکہ کیا جس سے سلطنت کا وجود ہمیشہ کے لیے ختم ہو گیا۔ اس لیے سلطنتِ عثمانیہ کا زوال ایک مرکب کا نتیجہ تھا، جس میں جنگ ایک اہم، لیکن حتمی جزو کے طور پر سامنے آئی۔</p>
+                    
+                    <h2>یاد رکھنے کے لیے چند اہم نکات</h2>
+                    <ol style="padding-right: 30px;">
+                        <li>سلطنتِ عثمانیہ کا زوال ایک طویل المدتی اور تدریجی عمل تھا، جس کی شروعات اس کے عروج کے دور میں ہی ہو گئی تھی۔</li>
+                        <li>محض فوجی شکست ہی زوال کی واحد وجہ نہیں تھی بلکہ معاشی، انتظامی اور سماجی عوامل زیادہ اہم تھے۔</li>
+                        <li>یورپی طاقتوں کی معاشی و سیاسی توسیع پسندی اور عثمانی معیشت پر کنٹرول نے سلطنت کو اندر سے کمزور کیا۔</li>
+                        <li>قوم پرستی کی لہر نے سلطنت کے یورپی حصوں میں علیحدگی پسند تحریکوں کو جنم دیا، جسے روکنا سلطنت کے بس سے باہر تھا۔</li>
+                        <li>فکری و علمی جمود نے سلطنت کو جدید دور کے تقاضوں سے ہم آہنگ ہونے سے روکا۔</li>
+                        <li>پہلی جنگ عظیم نے ان تمام کمزوریوں کو عیاں کرتے ہوئے سلطنت کو دیوالیہ تک پہنچا دیا اور اس کے وجود کو ختم کرنے کا کام مکمل کیا۔</li>
+                    </ol>
+                    <p>تاریخ سے سبق یہ ملتا ہے کہ کسی بھی ریاست کی بقا کے لیے معاشی استحکام، انتظامی دیانتداری، فکری اجتہاد اور وقت کے ساتھ بدلنے کی صلاحیت نہایت ضروری ہے۔</p>
+                </div>
+
+                <!-- Reactions section (exactly as required) -->
+                <div class="reactions-section">
+                    <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                    <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                </div>
+
+                <!-- Navigation buttons -->
+                <div class="nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-list-ul"></i> تمام پوسٹس</a>
+                </div>
+
+                <!-- Social media icons (7 platforms) -->
+                <div class="social-share">
+                    <a href="#" class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR with auto-scroll and required posts -->
+        <div class="sidebar">
+            <h3><i class="fas fa-book-open"></i> مزید پڑھیں</h3>
+            <div class="sidebar-scroll">
+                <div class="sidebar-list">
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon" class="sidebar-item"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" alt="ابن خلدون"><span>مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</span></a>
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi" class="sidebar-item"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" alt="کمال الدین فارسی"><span>مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</span></a>
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi" class="sidebar-item"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="الفارابی"><span>مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</span></a>
+                    <a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani" class="sidebar-item"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" alt="ابو الوفابوزجانی"><span>مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی</span></a>
+                    <a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi" class="sidebar-item"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" alt="شرف الدین طوسی"><span>مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</span></a>
+                    <a href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna" class="sidebar-item"><img src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="غفلت میں چھپے 50 گناہ"><span>غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</span></a>
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna" class="sidebar-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="قل خوانی"><span>دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</span></a>
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana" class="sidebar-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="گیارہویں منانا"><span>گیارہویں منانا</span></a>
+                    <a href="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak" class="sidebar-item"><img src="https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" alt="ہیکل سلیمانی"><span>ہیکل سلیمانی : تعمیر سے تباہی تک</span></a>
+                    <a href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna" class="sidebar-item"><img src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="پیر کی عقیدت"><span>دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</span></a>
+                    <a href="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal" class="sidebar-item"><img src="https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" alt="عشق یا دماغی خلل"><span>عشق یا دماغی خلل</span></a>
+                    <a href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr" class="sidebar-item"><img src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="عذاب الہیٰ"><span>عذاب الہیٰ کو دعوت دینے والے تین گھر</span></a>
+                    <a href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana" class="sidebar-item"><img src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="مذاق میں دل دکھانا"><span>مذاق میں کسی کا دل دکھانا</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>© 2025 تاریخ کے مطالعہ - سبق آموز مضامین</p>
+        <p>اس مضمون کو پڑھنے کا شکریہ</p>
+    </div>
+</div>
+
+<!-- reactions.js (external) plus social functions, but NO duplicate reaction code -->
+<script src="/reactions.js"></script>
+<script>
+    // Social sharing functions (preserved as required)
+    function shareOnSocial(platform) {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent(document.title);
+        let shareLink = '';
+        switch(platform) {
+            case 'facebook': shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+            case 'whatsapp': shareLink = `https://wa.me/?text=${title}%20${url}`; break;
+            case 'twitter': shareLink = `https://twitter.com/intent/tweet?text=${title}&url=${url}`; break;
+            case 'linkedin': shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+            case 'telegram': shareLink = `https://t.me/share/url?url=${url}&text=${title}`; break;
+            case 'pinterest': shareLink = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`; break;
+            default: return;
         }
-        
-        // Initialize planets animation
-        animatePlanets();
-        
-        // Add some interactivity to the main image
-        const mainImage = document.querySelector('.main-image');
-        if (mainImage) {
-            mainImage.addEventListener('click', () => {
-                mainImage.style.transform = mainImage.style.transform === 'scale(1.8)' ? 'scale(1)' : 'scale(1.8)';
-                mainImage.style.transition = 'transform 0.5s ease';
-                mainImage.style.zIndex = '1000';
-            });
-            
-            // Click outside to zoom out
-            document.addEventListener('click', (e) => {
-                if (e.target !== mainImage && mainImage.style.transform === 'scale(1.8)') {
-                    mainImage.style.transform = 'scale(1)';
-                }
-            });
-        }
-        
-        // Mobile responsive adjustments
-        function adjustForMobile() {
-            if (window.innerWidth <= 768) {
-                // Hide planets on mobile for better performance
-                planetsContainer.style.display = 'none';
-            } else {
-                planetsContainer.style.display = 'block';
-            }
-        }
-        
-        window.addEventListener('resize', adjustForMobile);
-        adjustForMobile(); // Initial check
-    </script>
+        window.open(shareLink, '_blank', 'width=600,height=500');
+    }
+    function copyPageLink() {
+        navigator.clipboard.writeText(window.location.href);
+        alert('لنک کاپی ہو گیا!');
+    }
+
+    // floating scroll buttons
+    document.getElementById('pageUpBtn').addEventListener('click', () => window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' }));
+    document.getElementById('pageDownBtn').addEventListener('click', () => window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' }));
+    document.getElementById('backButton').addEventListener('click', (e) => { e.preventDefault(); window.history.back(); });
+
+    // Mobile detection: just keep sidebar scroll default (auto-scroll via CSS)
+    // Ensure no duplicate reaction functions from earlier. All reaction logic is inside /reactions.js
+    // The reactionClick function is defined externally.
+</script>
 </body>
 </html>
