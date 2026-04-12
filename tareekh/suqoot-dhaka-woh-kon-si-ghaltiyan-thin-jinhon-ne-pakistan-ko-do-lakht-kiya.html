@@ -16,478 +16,424 @@
         }
         
         :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #2ecc71;
-            --accent-color: #e74c3c;
-            --dark-color: #1a1a2e;
-            --light-color: #f8f9fa;
-            --text-color: #333;
-            --text-light: #666;
-            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --primary-light: #87CEEB;
+            --primary-dark: #4682B4;
+            --baby-orange: #FFB347;
+            --purple-soft: #B39CD0;
+            --yellow-soft: #FFE55C;
+            --text-dark: #1e2a3a;
+            --text-light: #2c3e2f;
+            --bg-gradient-start: #FFF8E7;
+            --bg-gradient-end: #E6F0FA;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
         }
         
         body {
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-            line-height: 2.2;
+            line-height: 1.8;
             direction: rtl;
             text-align: right;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
             min-height: 100vh;
-            color: var(--text-color);
+            color: var(--text-dark);
             transition: var(--transition);
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        body.dark-theme {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #e0e0e0;
+            font-size: 16px;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
             z-index: 1;
         }
         
+        /* Main Layout - Two columns */
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .main-article {
+            flex: 2;
+            min-width: 280px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+        
+        /* Sidebar Auto-Scroll */
+        .sidebar-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            padding: 15px 10px;
+            border: 1px solid rgba(255, 180, 70, 0.3);
+        }
+        
+        .sidebar-title {
+            background: linear-gradient(90deg, var(--baby-orange), var(--purple-soft));
+            color: #2d2f36;
+            padding: 12px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border-radius: 40px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .posts-scroll-container {
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            direction: rtl;
+            padding-left: 5px;
+        }
+        
+        .posts-scroll-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .posts-scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .posts-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--baby-orange);
+            border-radius: 10px;
+        }
+        
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding: 10px;
+            border-radius: 24px;
+            background: rgba(255,245,225,0.7);
+            transition: all 0.2s;
+            border-right: 3px solid transparent;
+        }
+        
+        .post-item:hover {
+            background: #FFF2DF;
+            transform: translateX(-5px);
+            border-right-color: var(--purple-soft);
+        }
+        
+        .post-img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .post-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            font-weight: 500;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .post-link:hover {
+            color: #D35400;
+        }
+        
         /* Header Styles */
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding: 20px;
-            background: white;
-            border-radius: 15px;
+            background: rgba(255, 248, 225, 0.9);
+            border-radius: 42px;
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
         }
         
-        .dark-theme .header {
-            background: rgba(30, 30, 46, 0.9);
-            color: #e0e0e0;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to left, #ff6b6b, #4ecdc4, #45b7d1);
-        }
-        
         h1 {
-            color: #2c3e50;
-            border-bottom: 3px solid #4a90e2;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            font-size: 2.8rem;
+            background: linear-gradient(120deg, var(--purple-soft), var(--baby-orange), #87CEEB);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 2.1rem;
             text-align: center;
-            line-height: 1.4;
-        }
-        
-        .dark-theme h1 {
-            color: #fff;
-            border-bottom-color: #6c5ce7;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            padding: 0 10px;
         }
         
         h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-size: 2.2rem;
-        }
-        
-        .dark-theme h2 {
-            color: #ddd;
-            border-bottom-color: #444;
+            background: linear-gradient(135deg, #FFB347, #B39CD0);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 50px;
+            color: #1e2a3a;
+            font-size: 1.7rem;
+            margin: 25px 0 15px 0;
+            letter-spacing: 0.3px;
+            word-spacing: 2px;
         }
         
         h3 {
-            color: #34495e;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
+            background: #FFE55C80;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 35px;
+            font-size: 1.4rem;
+            margin: 20px 0 12px 0;
+            border-right: 4px solid var(--baby-orange);
         }
         
-        .dark-theme h3 {
-            color: #ccc;
-        }
-        
-        /* Post Content */
         .post-content {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
+            background: rgba(255, 255, 245, 0.88);
+            padding: 30px;
+            border-radius: 32px;
             box-shadow: var(--shadow);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: justify;
-            font-size: 1.3rem;
-            line-height: 2.4;
-        }
-        
-        .dark-theme .post-content {
-            background: rgba(30, 30, 46, 0.9);
-            color: #e0e0e0;
+            font-size: 0.95rem;
+            line-height: 1.85;
+            letter-spacing: 0.2px;
+            word-spacing: 0.5px;
         }
         
         .post-content p {
-            margin-bottom: 25px;
-            text-align: justify;
+            margin-bottom: 18px;
+            font-size: 0.95rem;
         }
         
-        .post-content ol {
-            padding-right: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .post-content li {
-            margin-bottom: 15px;
-        }
-        
-        /* Main Image */
         .main-image {
             width: 100%;
-            max-height: 500px;
+            max-height: 450px;
             object-fit: cover;
-            border-radius: 12px;
-            margin: 25px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border: 5px solid white;
+            border-radius: 32px;
+            margin: 15px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 3px solid white;
             transition: var(--transition);
         }
         
-        .dark-theme .main-image {
-            border-color: #444;
+        .special-date {
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(95deg, #FFB347, #87CEEB, #B39CD0);
+            color: #1f2a2e;
+            border-radius: 60px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
         }
         
-        .main-image:hover {
-            transform: scale(1.01);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        .important-point {
+            background: #FFF2CC;
+            border-right: 6px solid #FFB347;
+            padding: 12px 20px;
+            margin: 20px 0;
+            border-radius: 24px;
+            font-size: 0.95rem;
         }
         
-        /* Control Buttons */
+        /* Reactions Styling */
+        .reactions-section {
+            background: #FFF6E5;
+            border-radius: 48px;
+            padding: 20px;
+            margin: 35px 0 25px;
+            text-align: center;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+        }
+        
+        .reactions-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #7D3C98;
+        }
+        
+        .reactions-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .reaction-btn {
+            background: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: 0.2s;
+            color: #2c3e50;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.05);
+            background: #ffe0b5;
+        }
+        
+        .reaction-count {
+            background: #e9ecef;
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+        
+        /* Navigation Buttons under post */
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0 20px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(145deg, var(--baby-orange), #FFA559);
+            padding: 10px 28px;
+            border-radius: 60px;
+            text-decoration: none;
+            color: #2d2f36;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(145deg, #FFA559, #FF8C42);
+        }
+        
+        /* Social Media Icons */
+        .social-share {
+            background: #FEF3E2;
+            border-radius: 50px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 12px;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover { transform: translateY(-5px); opacity: 0.9; }
+        
+        /* Floating scroll buttons */
         .control-buttons {
             position: fixed;
             left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             z-index: 100;
         }
         
         .control-btn {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 30px;
+            background: linear-gradient(145deg, #87CEEB, #5DADE2);
             color: white;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .control-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
         .back-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
+            background: #FFB347;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: #2c3e2f;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
             z-index: 100;
+            font-size: 0.9rem;
         }
         
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-        }
-        
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 30px;
-            background: #ddd;
-            border-radius: 50px;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .theme-toggle::after {
-            content: '🌙';
-            position: absolute;
-            top: 3px;
-            right: 5px;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-        
-        .dark-theme .theme-toggle {
-            background: #444;
-        }
-        
-        .dark-theme .theme-toggle::after {
-            content: '☀️';
-            transform: translateX(-30px);
-        }
-        
-        /* Planets Animation */
-        .planets-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.1;
-            transition: opacity 0.5s ease;
-        }
-        
-        body.dark-theme .planets-container {
-            opacity: 0.7;
-        }
-        
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            transition: all 5s linear;
-        }
-        
-        .planet:hover {
-            transform: scale(1.5);
-            opacity: 0.8;
-        }
-        
-        .planet-1 {
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle at 30% 30%, #ff6b6b, #ff8e53);
-            top: 15%;
-            left: 10%;
-            box-shadow: 0 0 40px #ff6b6b;
-        }
-        
-        .planet-2 {
-            width: 70px;
-            height: 70px;
-            background: radial-gradient(circle at 30% 30%, #4a90e2, #2ecc71);
-            top: 60%;
-            left: 85%;
-            box-shadow: 0 0 30px #4a90e2;
-        }
-        
-        .planet-3 {
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle at 30% 30%, #9b59b6, #e74c3c);
-            top: 80%;
-            left: 15%;
-            box-shadow: 0 0 25px #9b59b6;
-        }
-        
-        .planet-4 {
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at 30% 30%, #1abc9c, #3498db);
-            top: 30%;
-            left: 75%;
-            box-shadow: 0 0 50px #1abc9c;
-        }
-        
-        /* Footer */
         .footer {
             text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            font-size: 1.1rem;
-            color: var(--text-light);
-        }
-        
-        .dark-theme .footer {
-            background: rgba(30, 30, 46, 0.9);
-            color: #aaa;
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 992px) {
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            h3 {
-                font-size: 1.5rem;
-            }
-            
-            .post-content {
-                padding: 25px;
-                font-size: 1.2rem;
-                line-height: 2.2;
-            }
-            
-            .control-buttons {
-                left: 10px;
-                gap: 10px;
-            }
-            
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-            
-            .back-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
+            padding: 20px;
+            background: #FFF1DD;
+            border-radius: 42px;
+            font-size: 0.85rem;
         }
         
         @media (max-width: 768px) {
-            .control-buttons {
-                position: fixed;
-                bottom: 20px;
-                top: auto;
-                left: 50%;
-                transform: translateX(-50%);
-                flex-direction: row;
-                gap: 10px;
-            }
-            
-            .back-btn {
-                top: 10px;
-                right: 10px;
-                padding: 8px 15px;
-                font-size: 0.8rem;
-            }
-            
-            .theme-toggle {
-                top: 10px;
-                left: 10px;
-            }
-            
-            .planets-container {
-                display: none;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .post-content {
-                padding: 20px;
-                font-size: 1.1rem;
-                line-height: 2.0;
-            }
+            .content-wrapper { flex-direction: column; }
+            .sidebar { position: static; }
+            .control-buttons { left: 10px; bottom: 15px; gap: 8px; }
+            .control-btn { width: 42px; height: 42px; font-size: 1.2rem; }
+            h1 { font-size: 1.7rem; }
+            h2 { font-size: 1.4rem; }
+            .post-content { padding: 18px; }
         }
         
-        /* Special Effects */
-        .special-date {
-            text-align: center;
-            padding: 15px;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53, #4a90e2);
-            color: white;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-            animation: pulse 2s infinite;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
         }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-        
-        .important-point {
-            background: rgba(255, 235, 59, 0.2);
-            border-right: 4px solid #ffc107;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 10px 10px 0;
-        }
-        
-        .dark-theme .important-point {
-            background: rgba(255, 235, 59, 0.1);
-            border-right-color: #ffc107;
-        }
+        .post-content * { animation: fadeIn 0.4s ease-out; }
     </style>
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <div class="theme-toggle" id="themeToggle"></div>
-    
-    <!-- Back Button -->
-    <a href="#" class="back-btn" id="backButton">
-        <i class="fas fa-arrow-right"></i> واپس جائیں
-    </a>
-    
-    <!-- Control Buttons -->
+    <!-- Back Button & Floating Scroll -->
+    <a href="#" class="back-btn" id="backButton"><i class="fas fa-arrow-right"></i> واپس جائیں</a>
     <div class="control-buttons">
-        <button class="control-btn" id="pageUpBtn">
-            <i class="fas fa-chevron-up"></i>
-        </button>
-        <button class="control-btn" id="pageDownBtn">
-            <i class="fas fa-chevron-down"></i>
-        </button>
-    </div>
-    
-    <!-- Planets Animation -->
-    <div class="planets-container" id="planetsContainer">
-        <div class="planet planet-1"></div>
-        <div class="planet planet-2"></div>
-        <div class="planet planet-3"></div>
-        <div class="planet planet-4"></div>
+        <button class="control-btn" id="pageUpBtn"><i class="fas fa-chevron-up"></i></button>
+        <button class="control-btn" id="pageDownBtn"><i class="fas fa-chevron-down"></i></button>
     </div>
     
     <div class="container">
@@ -495,262 +441,213 @@
             <h1>سقوطِ ڈھاکہ: وہ کون سی غلطیاں تھیں جنہوں نے پاکستان کو دو لخت کیا؟</h1>
         </div>
         
-        <div class="post-content">
-            <!-- Main Image after title -->
-            <img src="https://bloglovers.pk/images/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya.png" alt="سقوط ڈھاکہ" class="main-image">
-            
-            <!-- Special Date Display -->
-            <div class="special-date">
-                <i class="fas fa-calendar-alt"></i> 16 دسمبر 1971 - یوم سقوط ڈھاکہ
+        <div class="content-wrapper">
+            <!-- MAIN ARTICLE -->
+            <div class="main-article">
+                <div class="post-content">
+                    <img src="https://bloglovers.pk/images/tareekh/suqoot-dhaka-woh-kon-si-ghaltiyan-thin-jinhon-ne-pakistan-ko-do-lakht-kiya.png" alt="سقوط ڈھاکہ" class="main-image">
+                    <div class="special-date"><i class="fas fa-calendar-alt"></i> 16 دسمبر 1971 - یوم سقوط ڈھاکہ</div>
+                    
+                    <p>یہ ایک ایسی تاریخ ہے جس کے داغ آج بھی پاکستان کے اجتماعی شعور پر گہرے ہیں۔ 16 دسمبر 1971 کو ڈھاکہ میں پاک فوج کے جنرل نیازی کے ہاتھوں ہتھیار ڈالنا محض ایک جنگ کا اختتام نہیں تھا، بلکہ ایک خواب کے ٹوٹنے کی داستان تھی۔ دو قومی نظریے کی بنیاد پر معرض وجود میں آنے والا ملک، جو اپنے آپ کو دنیا کی سب سے بڑی اسلامی ریاست کہتا تھا، محض 24 سال کے عرصے میں دو لخت ہو گیا۔ یہ ایک اچانک واقعہ نہیں تھا بلکہ ایسی کئی غلطیوں کا نتیجہ تھا جنہوں نے ملک کے مشرقی اور مغربی حصوں کے درمیان خلیج کو اتنا گہرا کر دیا کہ علیحدگی ممکن ہوگئی۔</p>
+                    
+                    <h2>وہ کون سی غلطیاں تھیں جنہوں نے پاکستان کو دو لخت کیا؟</h2>
+                    <p>سقوط ڈھاکہ کا کوئی ایک سبب نہیں تھا۔ یہ ایک پیچیدہ اور کثیر الجہتی المیہ تھا جس کی جڑیں جغرافیہ، سیاست، معیشت، ثقافت اور فوجی حکمت عملی میں پیوست تھیں۔</p>
+                    
+                    <div class="important-point"><h3>کلیدی نکتہ:</h3><p>سقوط ڈھاکہ کسی ایک شخص یا واقعہ کا نتیجہ نہیں تھا بلکہ ایک طویل المدتی نظامی ناکامی کا منطقی انجام تھا۔</p></div>
+                    
+                    <h2>1. جغرافیائی دوری اور انتظامی چیلنجز</h2>
+                    <p>سب سے پہلی اور بنیادی غلطی فطری تھی جسے نظرانداز کر دیا گیا۔</p>
+                    <h3>فاصلہ</h3>
+                    <p>مشرقی اور مغربی پاکستان کے درمیان تقریباً 1600 کلومیٹر کا فاصلہ تھا جس کے درمیان پورا بھوٹان، نیپال اور بھارت کا وسیع و عریض علاقہ حائل تھا۔ یہ جغرافیائی دوری دونوں حصوں کے درمیان براہ راست رابطے، تجارت اور نقل و حرکت میں ایک بہت بڑی رکاوٹ تھی۔</p>
+                    <h3>انتظامی مشکلات</h3>
+                    <p>ایک ملک کو دو الگ الگ حصوں میں چلانا انتظامی طور پر انتہائی مشکل تھا۔ تمام اہم سرکاری دفاتر، فوجی ہیڈ کوارٹرز اور معاشی مراکز مغربی پاکستان میں تھے۔ مشرقی پاکستان میں کوئی بھی فیصلہ لینے کے لیے لاہور یا اسلام آباد سے منظوری لینا پڑتی تھی، جس میں ہفتوں لگ جاتے تھے۔ یہ دوری مشرقی پاکستان کے عوام میں یہ احساس پیدا کرنے کا سبب بنی کہ وہ ایک کالونی ہیں جس پر دور بیٹھے حکمران حکم چلا رہے ہیں۔</p>
+                    
+                    <h2>2. معاشی عدم مساوات اور استحصال</h2>
+                    <p>معاشی ناانصافیوں نے مشرقی پاکستان کے عوام میں شدید مایوسی اور غصہ پیدا کی۔</p>
+                    <h3>جوت کی صنعت</h3>
+                    <p>مشرقی پاکستان جوت کی پیداوار میں دنیا میں سرفہرست تھا۔ اس کی برآمد سے حاصل ہونے والی زرمبادلہ کی آمدنی کا بہت بڑا حصہ مغربی پاکستان پر خرچ کیا جاتا تھا۔</p>
+                    <h3>ترقیاتی عدم توجہ</h3>
+                    <p>تمام بڑے ترقیاتی منصوبے، صنعتیں، فوجی تنصیبات اور تعلیمی ادارے مغربی پاکستان میں تعمیر کیے گئے۔ مشرقی پاکستان کو بنیادی ڈھانچے اور ترقی کے حوالے سے شدید نظرانداز کیا گیا۔</p>
+                    <h3>معاشی پالیسیاں</h3>
+                    <p>ایسی پالیسیاں بنائی گئیں کہ مشرقی پاکستان کی مصنوعات کو مغربی پاکستان میں درآمد کرنا مشکل تھا، جبکہ مغربی پاکستان کی مصنوعات مشرق میں آسانی سے فروخت ہوتی تھیں۔ اس سے مشرقی پاکستان کی مقامی صنعتیں تباہ ہو گئیں۔ یہ معاشی استحصال اس بات کی واضح علامت تھی کہ مشرقی پاکستان محض ایک بازار اور خام مال کا ذریعہ ہے جسے مغربی پاکستان کی ترقی کے لیے استعمال کیا جا رہا ہے۔</p>
+                    
+                    <h2>3. زبان اور ثقافت کو نظرانداز کرنا</h2>
+                    <p>سب سے بڑی اور ناقابل معافی غلطی زبان کے مسئلے پر کی گئی۔</p>
+                    <h3>اردو کو واحد قومی زبان قرار دینا</h3>
+                    <p>1948 میں قائد اعظم محمد علی جناح نے ڈھاکہ میں اعلان کیا کہ صرف اردو ہی پاکستان کی قومی زبان ہوگی۔ مشرقی پاکستان، جہاں کی 98 فیصد آبادی بنگالی بولتی اور سمجھتی تھی، اس فیصلے کو ثقافی حملہ سمجھا۔ بنگالی صدیوں سے ان کی ثقافت، ادب اور شناخت کا حصہ تھی۔</p>
+                    <h3>1952 کی زبان کی تحریک</h3>
+                    <p>حکومت کی طرف سے بنگالی کو قومی زبان کا درجہ دینے سے انکار نے تحریک کو جنم دیا۔ 21 فروری 1952 کو ڈھاکہ یونیورسٹی کے طلباء پر پولیس کے تشدد اور کئی شہادتوں نے اس تحریک کو ہوا دی۔ یہ دن آج بھی بنگلہ دیش میں "شہید دن" کے طور پر منایا جاتا ہے۔ یہ وہ پہلا موقع تھا جب مشرقی پاکستان کے عوام نے اپنے حقوق کے لیے منظم مزاحمت کی اور ان کا یہی جذبہ بعد میں علیحدگی کی تحریک کی بنیاد بنا۔ زبان کا مسئلہ محض ایک اختلاف نہیں تھا، بلکہ یہ مشرقی پاکستان کی ثقافتی شناخت کو تسلیم نہ کرنے کی علامت تھا۔</p>
+                    
+                    <h2>4. سیاسی محرومی اور اقتدار میں حصہ داری کا فقدان</h2>
+                    <p>سیاسی میدان میں بھی مشرقی پاکستان کے عوام کو یکساں حقوق نہیں دیے گئے۔</p>
+                    <h3>وزیراعظم کا عہدہ</h3>
+                    <p>ملک کے وجود میں آنے کے بعد سے 1971 تک پاکستان کے کل 7 وزرائے اعظم ہوئے۔ ان میں سے صرف ایک (محمد علی بوگرہ) مشرقی پاکستان سے تھے جن کا تعلق بھی مغربی پاکستان کی حکمران اشرافیہ سے تھا۔ باقی تمام مغربی پاکستان سے تھے۔</p>
+                    <h3>فوج اور بیوروکریسی پر مغربی پاکستان کا غلبہ</h3>
+                    <p>فوج، بیوروکریسی اور دیگر اہم اداروں پر مغربی پاکستان، خاص طور پر پنجاب اور سندھ کے چند خاندانوں کا مکمل کنٹرول تھا۔ مشرقی پاکستان کے لوگوں کو اعلیٰ عہدوں پر فائز ہونے کے مواقع نہیں دیے جاتے تھے۔</p>
+                    <h3>ون یونٹ سکیم</h3>
+                    <p>مغربی پاکستان کے تمام صوبوں کو ملا کر ایک یونٹ بنا دیا گیا تاکہ مشرقی پاکستان کی اکثریت کو متوازن کیا جا سکے۔ اس سکیم کا مقصد صوبائی خودمختاری ختم کرنا اور مرکز کی طاقت کو مضبوط کرنا تھا، جس سے مشرقی پاکستان کے عوام میں یہ خدشہ پیدا ہوا کہ انہیں سیاسی طور پر ہمیشہ کے لیے کمزور کر دیا جائے گا۔</p>
+                    
+                    <h2>5. 1970 کے عام انتخابات اور شیخ مجیب الرحمن کی چھ نکات</h2>
+                    <div class="important-point"><h3>نکتہ غور:</h3><p>1970 کے انتخابات میں عوامی لیگ کی تاریخی کامیابی کو نظر انداز کرنا سقوط ڈھاکہ کا فیصلہ کن موڑ تھا۔</p></div>
+                    <h3>سیاسی بیداری</h3>
+                    <p>1960 کی دہائی کے آخر تک حالات اس نہج پر پہنچ چکے تھے کہ مشرقی پاکستان میں علیحدگی کی آوازیں بلند ہونے لگیں۔ شیخ مجیب الرحمن کی عوامی لیگ نے "چھ نکات" کی بنیاد پر انتخابات لڑا، جو درحقیقت مشرقی پاکستان کو خودمختاری دینے کا منشور تھا۔</p>
+                    <h3>انتخابی کامیابی</h3>
+                    <p>1970 کے عام انتخابات میں عوامی لیگ نے قومی اسمبلی کی 169 میں سے 167 نشستیں صرف مشرقی پاکستان سے جیتیں۔ اس طرح وہ ملک کی سب سے بڑی سیاسی جماعت بن کر ابھری جسے مکمل طور پر مشرقی پاکستان نے ووٹ دیا تھا۔</p>
+                    <h3>جمہوریت کی توہین</h3>
+                    <p>جمہوری روایت کے مطابق عوامی لیگ کو حکومت بنانے کا حق تھا۔ لیکن مغربی پاکستان کی سیاسی قیادت، خاص طور پر ذوالفقار علی بھٹو، نے شیخ مجیب الرحمن کی وزارت اعظمی کو قبول کرنے سے انکار کر دیا۔ بھٹو نے کہا کہ وہ "ادھر تم، ادھر ہم" کی پالیسی پر چلیں گے۔ یہ جمہوریت کی واضح توہین تھی۔</p>
+                    <h3>اسمبلی کا اجلاس ملتوی کرنا</h3>
+                    <p>صدر یحییٰ خان نے اسمبلی کا اجلاس ملتوی کر دیا، جس نے مشرقی پاکستان میں آتش گیر مواد میں چنگاری کا کام کیا۔ عوامی لیگ نے سول نافرمانی کی تحریک شروع کر دی اور مشرقی پاکستان کا کنٹرول عملاً حکومت کے ہاتھوں سے نکلنا شروع ہو گیا۔ یہ وہ فیصلہ کن موڑ تھا جہاں پر سیاسی حل کو مسترد کر دیا گیا اور فوجی حل کو ترجیح دی گئی۔</p>
+                    
+                    <h2>6. فوجی کارروائی اور بھارت کی مداخلت</h2>
+                    <p>مارچ 1971 میں، صدر یحییٰ خان نے "آپریشن سرچ لائٹ" کے نام سے مشرقی پاکستان میں فوجی کارروائی کا حکم دیا۔</p>
+                    <h3>پراپگنڈہ اور مبالغہ آرائی</h3>
+                    <p>دونوں اطراف سے پراپگنڈہ کیا گیا۔ پاکستانی فوج نے باغیوں کو کچلنے کے لیے کارروائی کی، جبکہ بھارت اور مکتی باہنی نے اسے عوام کے قتل عام کے طور پر پیش کیا۔ ہلاکتوں کی تعداد پر آج بھی اختلاف ہے، لیکن یہ ایک المناک حقیقت ہے کہ اس کارروائی میں بہت سے معصوم شہری مارے گئے۔</p>
+                    <h3>بھارت کا کردار</h3>
+                    <p>بھارت نے اس موقع پر پاکستان کو کمزور کرنے کے سنہری موقع کے طور پر دیکھا۔ اس نے مشرقی پاکستان میں پناہ گزینوں کے بہاؤ کو بین الاقوامی میڈیا کے ذریعے ہائی لائٹ کیا اور مکتی باہنی کو کھلے عام ہتھیار، تربیت اور مالی مدد فراہم کی۔</p>
+                    <h3>بین الاقوامی ردعمل</h3>
+                    <p>پاکستان کی اس کارروائی پر بین الاقوامی برادری، خاص طور پر امریکہ اور یورپ، میں سخت ردعمل آیا۔ دنیا بھر میں میڈیا پاکستان کے خلاف ہو گیا، جس نے بھارت کے لیے مداخلت کا راستہ ہموار کیا۔</p>
+                    
+                    <h2>7. دسمبر کی جنگ اور امریکہ اور روس کا کردار</h2>
+                    <p>دسمبر 1971 میں، بھارت نے مشرقی اور مغربی دونوں محاذوں پر پاکستان پر کھلی جارحیت کر دی۔</p>
+                    <h3>فوجی عدم توازن</h3>
+                    <p>پاک فوج کے صرف ایک ڈویژن کے پاس مشرقی پاکستان کا دفاع کرنا تھا، جبکہ بھارت نے تین سے چار ڈویژنز کے ساتھ حملہ کیا۔ مغربی پاکستان سے کوئی کمک یا رسد نہیں پہنچ سکتی تھی کیونکہ بھارت کے ہوا اور بحری بیڑے راستے روکے ہوئے تھے۔</p>
+                    <h3>امریکہ اور روس کا مداخلت</h3>
+                    <p>امریکہ نے پاکستان کی مدد کے لیے ساتواں بحری بیڑا بھیجا، لیکن روس نے بھارت کی حمایت میں اپنا بحری بیڑا تعینات کر دیا۔ اس بحری مقابلے نے امریکی بیڑے کو آگے بڑھنے سے روک دیا۔</p>
+                    <h3>ہتھیار ڈالنا</h3>
+                    <p>پاکستانی فوج کے پاس وسائل ختم ہو گئے اور انہیں ہتھیار ڈالنے پر مجبور کیا گیا۔ 16 دسمبر کو ڈھاکہ کے ریس کورس گراؤنڈ میں ہتھیار ڈال دیے گئے اور 93،000 پاکستانی فوجی جنگی قیدی بنا لیے گئے۔</p>
+                    
+                    <h2>یاد رکھنے کے لیے اہم نکات</h2>
+                    <ol><li><p>سقوط ڈھاکہ کسی ایک شخص، ایک فوجی کارروائی یا ایک سیاسی جماعت کی غلطی کا نتیجہ نہیں تھا۔ یہ ایک اجتماعی ناکامی تھی جس میں حکمران اشرافیہ، سیاستدان، فوج اور بیوروکریسی سب برابر کے شریک تھے۔</p></li>
+                    <li><p>جمہوریت کی نفی اور عوامی مینڈیت کو تسلیم نہ کرنا سب سے بڑا سیاسی سبب تھا۔</p></li>
+                    <li><p>معاشی استحصال اور ثقافتی جبر نے عوام میں علیحدگی کی خواہش کو ہوا دی۔</p></li>
+                    <li><p>بھارت نے موقع پرستی سے کام لیتے ہوئے اپنے مفادات کے لیے اس صورتحال کا بھرپور فائدہ اٹھایا۔</p></li>
+                    <li><p>بین الاقوامی برادری نے پاکستان کے خلاف ہو کر بھارت کی مدد کی۔</p></li></ol>
+                    
+                    <div class="important-point"><h3>سبق آموز نکتہ:</h3><p>کسی ملک کی طاقت صرف اس کی فوج یا جغرافیائی حدود میں نہیں ہوتی، بلکہ اس کی طاقت اس کے عوام کے دلوں میں ہوتی ہے۔</p></div>
+                    
+                    <h2>سقوط ڈھاکہ کی تاریخ ہمیں کئی اہم سبق دیتی ہے</h2>
+                    <ol><li><p>کسی ملک کی سالمیت کے لیے جمہوریت، رواداری اور اقلیتوں کے حقوق کا احترام نہایت ضروری ہے۔</p></li>
+                    <li><p>تمام صوبوں اور خطوں کے ساتھ معاشی انصاف ہونا چاہیے۔ وسائل کی منصفانہ تقسیم ہی ملک کے ٹوٹنے سے بچا سکتی ہے۔</p></li>
+                    <li><p>ثقافتی اور لسانی تنوع کو قومی اکائی کے لیے خطرہ نہیں بلکہ طاقت سمجھنا چاہیے۔</p></li>
+                    <li><p>سیاسی قیادت میں قومی یکجہتی کو فوقیت دینے کی بصیرت ہونی چاہیے، ذاتی اور علاقائی مفادات پر نہیں۔</p></li></ol>
+                    <p>سقوط ڈھاکہ پاکستان کی تاریخ کا ایک ایسا المیہ ہے جس سے صرف ماضی کو کوستے رہنے کے بجائے سبق حاصل کرنے کی ضرورت ہے۔ یہ واقعہ ہمیں یاد دلاتا ہے کہ کسی ملک کی طاقت صرف اس کی فوج یا جغرافیائی حدود میں نہیں ہوتی، بلکہ اس کی طاقت اس کے عوام کے دلوں میں ہوتی ہے۔ جب عوام خود کو محروم، نظرانداز شدہ اور دوسرے درجے کا شہری سمجھنے لگیں، تو پھر کوئی فوج، کوئی آئین اور کوئی نظریہ انہیں مِل کے رکھ نہیں سکتا۔ پاکستان کے بچے کھچے حصے کے لیے یہ تاریخ ایک سبق ہے کہ آئندہ آنے والی نسلوں کے لیے ایسی غلطیوں کو نہ دہرایا جائے اور ایک مضبوط، متحد اور خوشحال پاکستان کی تعمیر کی جائے جہاں ہر شہری کو یکساں حقوق اور مواقع حاصل ہوں۔</p>
+                </div>
+                
+                <!-- REACTIONS SECTION (exactly as required) -->
+                <div class="reactions-section">
+                    <div class="reactions-title"><i class="fa-regular fa-face-smile"></i> اس پوسٹ پر اپنے جذبات کا اظہار کریں</div>
+                    <div class="reactions-buttons">
+                        <button class="reaction-btn" onclick="reactionClick('عمدہ')">👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('دلچسپ')">❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('مفید')">😊 مفید <span class="reaction-count" id="count-مفید">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('قابل غور')">😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('سوچ بچار')">🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('شاندار')">👏 شاندار <span class="reaction-count" id="count-شاندار">0</span></button>
+                        <button class="reaction-btn" onclick="reactionClick('زبردست')">🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span></button>
+                    </div>
+                </div>
+                
+                <!-- navigation buttons -->
+                <div class="nav-buttons">
+                    <a href="https://bloglovers.pk/" class="nav-btn"><i class="fas fa-home"></i> مرکزی صفحہ</a>
+                    <a href="https://bloglovers.pk/category-pages/alamaat-sughra.html" class="nav-btn"><i class="fas fa-layer-group"></i> تمام پوسٹس</a>
+                </div>
+                
+                <!-- social media icons 7 platforms -->
+                <div class="social-share">
+                    <div style="font-size:1rem;">شیئر کریں</div>
+                    <div class="social-icons">
+                        <a class="social-icon" style="background:#1877f2;" onclick="shareOnSocial('facebook')"><i class="fab fa-facebook-f"></i></a>
+                        <a class="social-icon" style="background:#25D366;" onclick="shareOnSocial('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                        <a class="social-icon" style="background:#1DA1F2;" onclick="shareOnSocial('twitter')"><i class="fab fa-twitter"></i></a>
+                        <a class="social-icon" style="background:#0077b5;" onclick="shareOnSocial('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="social-icon" style="background:#0088cc;" onclick="shareOnSocial('telegram')"><i class="fab fa-telegram-plane"></i></a>
+                        <a class="social-icon" style="background:#bd081c;" onclick="shareOnSocial('pinterest')"><i class="fab fa-pinterest-p"></i></a>
+                        <a class="social-icon" style="background:#6c757d;" onclick="copyPageLink()"><i class="fas fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="footer">© 2025 تاریخ کے مطالعہ - سبق آموز مضامین<br>اس مضمون کو پڑھنے کا شکریہ<br><i class="fas fa-history"></i> تاریخ سے سبق حاصل کرنا عقلمندی کی علامت ہے</div>
             </div>
             
-            <p>یہ ایک ایسی تاریخ ہے جس کے داغ آج بھی پاکستان کے اجتماعی شعور پر گہرے ہیں۔ 16 دسمبر 1971 کو ڈھاکہ میں پاک فوج کے جنرل نیازی کے ہاتھوں ہتھیار ڈالنا محض ایک جنگ کا اختتام نہیں تھا، بلکہ ایک خواب کے ٹوٹنے کی داستان تھی۔ دو قومی نظریے کی بنیاد پر معرض وجود میں آنے والا ملک، جو اپنے آپ کو دنیا کی سب سے بڑی اسلامی ریاست کہتا تھا، محض 24 سال کے عرصے میں دو لخت ہو گیا۔ یہ ایک اچانک واقعہ نہیں تھا بلکہ ایسی کئی غلطیوں کا نتیجہ تھا جنہوں نے ملک کے مشرقی اور مغربی حصوں کے درمیان خلیج کو اتنا گہرا کر دیا کہ علیحدگی ممکن ہوگئی۔</p>
-            
-            <h2>وہ کون سی غلطیاں تھیں جنہوں نے پاکستان کو دو لخت کیا؟</h2>
-            <p>سقوط ڈھاکہ کا کوئی ایک سبب نہیں تھا۔ یہ ایک پیچیدہ اور کثیر الجہتی المیہ تھا جس کی جڑیں جغرافیہ، سیاست، معیشت، ثقافت اور فوجی حکمت عملی میں پیوست تھیں۔</p>
-            
-            <div class="important-point">
-                <h3>کلیدی نکتہ:</h3>
-                <p>سقوط ڈھاکہ کسی ایک شخص یا واقعہ کا نتیجہ نہیں تھا بلکہ ایک طویل المدتی نظامی ناکامی کا منطقی انجام تھا۔</p>
+            <!-- SIDEBAR with auto-scroll -->
+            <div class="sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-title"><i class="fas fa-book-open"></i> مزید پڑھیں</div>
+                    <div class="posts-scroll-container" id="autoScrollSidebar">
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" alt="ibn khaldoon"><a class="post-link" href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon">5 مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" alt="kamal din"><a class="post-link" href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi">مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="farabi"><a class="post-link" href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi">مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" alt="buzjani"><a class="post-link" href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani">مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفابوزجانی</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" alt="tusi"><a class="post-link" href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi">مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna.png" alt="gunah"><a class="post-link" href="https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-39-aalm-ka-apne-alm-par-aml-na-krna">غفلت میں چھپے 50 گناہ: 39 - عالم کا اپنے علم پر عمل نہ کرنا</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna.png" alt="qul khwani"><a class="post-link" href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-2-ql-khoani-krna">دین کی پاکیزگی پر 50 بدعتی حملے 2- قل خوانی کرنا</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana.png" alt="gyarhvin"><a class="post-link" href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-12-gyarhoyn-mnana">گیارہویں منانا</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/mazameen/hakal-sulaimani-tameer-se-tabahi-tak.png" alt="hakal"><a class="post-link" href="https://bloglovers.pk/mazameen/hakal-sulaimani-tameer-se-tabahi-tak">ہیکل سلیمانی : تعمیر سے تباہی تک</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna.png" alt="sajda"><a class="post-link" href="https://bloglovers.pk/islami-taleemat/dyn-ki-pakyzgi-par-50-bdati-hmle-29pyr-ki-aqydt-main-sjdh-krna">دین کی پاکیزگی پر 50 بدعتی حملے - 29 پیر کی عقیدت میں سجدہ کرنا</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/mazameen/ishq-ya-dimaghi-khalal.png" alt="ishq"><a class="post-link" href="https://bloglovers.pk/mazameen/ishq-ya-dimaghi-khalal">عشق یا دماغی خلل</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr.png" alt="azab"><a class="post-link" href="https://bloglovers.pk/islami-taleemat/azab-alhy-ko-daot-dyne-wale-tyn-ghr">عذاب الہیٰ کو دعوت دینے والے تین گھر</a></div>
+                        <div class="post-item"><img class="post-img" src="https://bloglovers.pk/images/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana.png" alt="mazaq"><a class="post-link" href="https://bloglovers.pk/islami-taleemat/mzaq-main-ksi-ka-dl-dkhana">مذاق میں کسی کا دل دکھانا</a></div>
+                    </div>
+                </div>
             </div>
-            
-            <h2>1. جغرافیائی دوری اور انتظامی چیلنجز</h2>
-            <p>سب سے پہلی اور بنیادی غلطی فطری تھی جسے نظرانداز کر دیا گیا۔</p>
-            
-            <h3>فاصلہ</h3>
-            <p>مشرقی اور مغربی پاکستان کے درمیان تقریباً 1600 کلومیٹر کا فاصلہ تھا جس کے درمیان پورا بھوٹان، نیپال اور بھارت کا وسیع و عریض علاقہ حائل تھا۔ یہ جغرافیائی دوری دونوں حصوں کے درمیان براہ راست رابطے، تجارت اور نقل و حرکت میں ایک بہت بڑی رکاوٹ تھی۔</p>
-            
-            <h3>انتظامی مشکلات</h3>
-            <p>ایک ملک کو دو الگ الگ حصوں میں چلانا انتظامی طور پر انتہائی مشکل تھا۔ تمام اہم سرکاری دفاتر، فوجی ہیڈ کوارٹرز اور معاشی مراکز مغربی پاکستان میں تھے۔ مشرقی پاکستان میں کوئی بھی فیصلہ لینے کے لیے لاہور یا اسلام آباد سے منظوری لینا پڑتی تھی، جس میں ہفتوں لگ جاتے تھے۔ یہ دوری مشرقی پاکستان کے عوام میں یہ احساس پیدا کرنے کا سبب بنی کہ وہ ایک کالونی ہیں جس پر دور بیٹھے حکمران حکم چلا رہے ہیں۔</p>
-            
-            <h2>2. معاشی عدم مساوات اور استحصال</h2>
-            <p>معاشی ناانصافیوں نے مشرقی پاکستان کے عوام میں شدید مایوسی اور غصہ پیدا کی۔</p>
-            
-            <h3>جوت کی صنعت</h3>
-            <p>مشرقی پاکستان جوت کی پیداوار میں دنیا میں سرفہرست تھا۔ اس کی برآمد سے حاصل ہونے والی زرمبادلہ کی آمدنی کا بہت بڑا حصہ مغربی پاکستان پر خرچ کیا جاتا تھا۔</p>
-            
-            <h3>ترقیاتی عدم توجہ</h3>
-            <p>تمام بڑے ترقیاتی منصوبے، صنعتیں، فوجی تنصیبات اور تعلیمی ادارے مغربی پاکستان میں تعمیر کیے گئے۔ مشرقی پاکستان کو بنیادی ڈھانچے اور ترقی کے حوالے سے شدید نظرانداز کیا گیا۔</p>
-            
-            <h3>معاشی پالیسیاں</h3>
-            <p>ایسی پالیسیاں بنائی گئیں کہ مشرقی پاکستان کی مصنوعات کو مغربی پاکستان میں درآمد کرنا مشکل تھا، جبکہ مغربی پاکستان کی مصنوعات مشرق میں آسانی سے فروخت ہوتی تھیں۔ اس سے مشرقی پاکستان کی مقامی صنعتیں تباہ ہو گئیں۔</p>
-            <p>یہ معاشی استحصال اس بات کی واضح علامت تھی کہ مشرقی پاکستان محض ایک بازار اور خام مال کا ذریعہ ہے جسے مغربی پاکستان کی ترقی کے لیے استعمال کیا جا رہا ہے۔</p>
-            
-            <h2>3. زبان اور ثقافت کو نظرانداز کرنا</h2>
-            <p>سب سے بڑی اور ناقابل معافی غلطی زبان کے مسئلے پر کی گئی۔</p>
-            
-            <h3>اردو کو واحد قومی زبان قرار دینا</h3>
-            <p>1948 میں قائد اعظم محمد علی جناح نے ڈھاکہ میں اعلان کیا کہ صرف اردو ہی پاکستان کی قومی زبان ہوگی۔ مشرقی پاکستان، جہاں کی 98 فیصد آبادی بنگالی بولتی اور سمجھتی تھی، اس فیصلے کو ثقافی حملہ سمجھا۔ بنگالی صدیوں سے ان کی ثقافت، ادب اور شناخت کا حصہ تھی۔</p>
-            
-            <h3>1952 کی زبان کی تحریک</h3>
-            <p>حکومت کی طرف سے بنگالی کو قومی زبان کا درجہ دینے سے انکار نے تحریک کو جنم دیا۔ 21 فروری 1952 کو ڈھاکہ یونیورسٹی کے طلباء پر پولیس کے تشدد اور کئی شہادتوں نے اس تحریک کو ہوا دی۔ یہ دن آج بھی بنگلہ دیش میں "شہید دن" کے طور پر منایا جاتا ہے۔ یہ وہ پہلا موقع تھا جب مشرقی پاکستان کے عوام نے اپنے حقوق کے لیے منظم مزاحمت کی اور ان کا یہی جذبہ بعد میں علیحدگی کی تحریک کی بنیاد بنا۔</p>
-            <p>زبان کا مسئلہ محض ایک اختلاف نہیں تھا، بلکہ یہ مشرقی پاکستان کی ثقافتی شناخت کو تسلیم نہ کرنے کی علامت تھا۔</p>
-            
-            <h2>4. سیاسی محرومی اور اقتدار میں حصہ داری کا فقدان</h2>
-            <p>سیاسی میدان میں بھی مشرقی پاکستان کے عوام کو یکساں حقوق نہیں دیے گئے۔</p>
-            
-            <h3>وزیراعظم کا عہدہ</h3>
-            <p>ملک کے وجود میں آنے کے بعد سے 1971 تک پاکستان کے کل 7 وزرائے اعظم ہوئے۔ ان میں سے صرف ایک (محمد علی بوگرہ) مشرقی پاکستان سے تھے جن کا تعلق بھی مغربی پاکستان کی حکمران اشرافیہ سے تھا۔ باقی تمام مغربی پاکستان سے تھے۔</p>
-            
-            <h3>فوج اور بیوروکریسی پر مغربی پاکستان کا غلبہ</h3>
-            <p>فوج، بیوروکریسی اور دیگر اہم اداروں پر مغربی پاکستان، خاص طور پر پنجاب اور سندھ کے چند خاندانوں کا مکمل کنٹرول تھا۔ مشرقی پاکستان کے لوگوں کو اعلیٰ عہدوں پر فائز ہونے کے مواقع نہیں دیے جاتے تھے۔</p>
-            
-            <h3>ون یونٹ سکیم</h3>
-            <p>مغربی پاکستان کے تمام صوبوں کو ملا کر ایک یونٹ بنا دیا گیا تاکہ مشرقی پاکستان کی اکثریت کو متوازن کیا جا سکے۔ اس سکیم کا مقصد صوبائی خودمختاری ختم کرنا اور مرکز کی طاقت کو مضبوط کرنا تھا، جس سے مشرقی پاکستان کے عوام میں یہ خدشہ پیدا ہوا کہ انہیں سیاسی طور پر ہمیشہ کے لیے کمزور کر دیا جائے گا۔</p>
-            
-            <h2>5. 1970 کے عام انتخابات اور شیخ مجیب الرحمن کی چھ نکات</h2>
-            
-            <div class="important-point">
-                <h3>نکتہ غور:</h3>
-                <p>1970 کے انتخابات میں عوامی لیگ کی تاریخی کامیابی کو نظر انداز کرنا سقوط ڈھاکہ کا فیصلہ کن موڑ تھا۔</p>
-            </div>
-            
-            <h3>سیاسی بیداری</h3>
-            <p>1960 کی دہائی کے آخر تک حالات اس نہج پر پہنچ چکے تھے کہ مشرقی پاکستان میں علیحدگی کی آوازیں بلند ہونے لگیں۔ شیخ مجیب الرحمن کی عوامی لیگ نے "چھ نکات" کی بنیاد پر انتخابات لڑا، جو درحقیقت مشرقی پاکستان کو خودمختاری دینے کا منشور تھا۔</p>
-            
-            <h3>انتخابی کامیابی</h3>
-            <p>1970 کے عام انتخابات میں عوامی لیگ نے قومی اسمبلی کی 169 میں سے 167 نشستیں صرف مشرقی پاکستان سے جیتیں۔ اس طرح وہ ملک کی سب سے بڑی سیاسی جماعت بن کر ابھری جسے مکمل طور پر مشرقی پاکستان نے ووٹ دیا تھا۔</p>
-            
-            <h3>جمہوریت کی توہین</h3>
-            <p>جمہوری روایت کے مطابق عوامی لیگ کو حکومت بنانے کا حق تھا۔ لیکن مغربی پاکستان کی سیاسی قیادت، خاص طور پر ذوالفقار علی بھٹو، نے شیخ مجیب الرحمن کی وزارت اعظمی کو قبول کرنے سے انکار کر دیا۔ بھٹو نے کہا کہ وہ "ادھر تم، ادھر ہم" کی پالیسی پر چلیں گے۔ یہ جمہوریت کی واضح توہین تھی۔</p>
-            
-            <h3>اسمبلی کا اجلاس ملتوی کرنا</h3>
-            <p>صدر یحییٰ خان نے اسمبلی کا اجلاس ملتوی کر دیا، جس نے مشرقی پاکستان میں آتش گیر مواد میں چنگاری کا کام کیا۔ عوامی لیگ نے سول نافرمانی کی تحریک شروع کر دی اور مشرقی پاکستان کا کنٹرول عملاً حکومت کے ہاتھوں سے نکلنا شروع ہو گیا۔</p>
-            <p>یہ وہ فیصلہ کن موڑ تھا جہاں پر سیاسی حل کو مسترد کر دیا گیا اور فوجی حل کو ترجیح دی گئی۔</p>
-            
-            <h2>6. فوجی کارروائی اور بھارت کی مداخلت</h2>
-            <p>مارچ 1971 میں، صدر یحییٰ خان نے "آپریشن سرچ لائٹ" کے نام سے مشرقی پاکستان میں فوجی کارروائی کا حکم دیا۔</p>
-            
-            <h3>پراپگنڈہ اور مبالغہ آرائی</h3>
-            <p>دونوں اطراف سے پراپگنڈہ کیا گیا۔ پاکستانی فوج نے باغیوں کو کچلنے کے لیے کارروائی کی، جبکہ بھارت اور مکتی باہنی نے اسے عوام کے قتل عام کے طور پر پیش کیا۔ ہلاکتوں کی تعداد پر آج بھی اختلاف ہے، لیکن یہ ایک المناک حقیقت ہے کہ اس کارروائی میں بہت سے معصوم شہری مارے گئے۔</p>
-            
-            <h3>بھارت کا کردار</h3>
-            <p>بھارت نے اس موقع پر پاکستان کو کمزور کرنے کے سنہری موقع کے طور پر دیکھا۔ اس نے مشرقی پاکستان میں پناہ گزینوں کے بہاؤ کو بین الاقوامی میڈیا کے ذریعے ہائی لائٹ کیا اور مکتی باہنی کو کھلے عام ہتھیار، تربیت اور مالی مدد فراہم کی۔</p>
-            
-            <h3>بین الاقوامی ردعمل</h3>
-            <p>پاکستان کی اس کارروائی پر بین الاقوامی برادری، خاص طور پر امریکہ اور یورپ، میں سخت ردعمل آیا۔ دنیا بھر میں میڈیا پاکستان کے خلاف ہو گیا، جس نے بھارت کے لیے مداخلت کا راستہ ہموار کیا۔</p>
-            
-            <h2>7. دسمبر کی جنگ اور امریکہ اور روس کا کردار</h2>
-            <p>دسمبر 1971 میں، بھارت نے مشرقی اور مغربی دونوں محاذوں پر پاکستان پر کھلی جارحیت کر دی۔</p>
-            
-            <h3>فوجی عدم توازن</h3>
-            <p>پاک فوج کے صرف ایک ڈویژن کے پاس مشرقی پاکستان کا دفاع کرنا تھا، جبکہ بھارت نے تین سے چار ڈویژنز کے ساتھ حملہ کیا۔ مغربی پاکستان سے کوئی کمک یا رسد نہیں پہنچ سکتی تھی کیونکہ بھارت کے ہوا اور بحری بیڑے راستے روکے ہوئے تھے۔</p>
-            
-            <h3>امریکہ اور روس کا مداخلت</h3>
-            <p>امریکہ نے پاکستان کی مدد کے لیے ساتواں بحری بیڑا بھیجا، لیکن روس نے بھارت کی حمایت میں اپنا بحری بیڑا تعینات کر دیا۔ اس بحری مقابلے نے امریکی بیڑے کو آگے بڑھنے سے روک دیا۔</p>
-            
-            <h3>ہتھیار ڈالنا</h3>
-            <p>پاکستانی فوج کے پاس وسائل ختم ہو گئے اور انہیں ہتھیار ڈالنے پر مجبور کیا گیا۔ 16 دسمبر کو ڈھاکہ کے ریس کورس گراؤنڈ میں ہتھیار ڈال دیے گئے اور 93،000 پاکستانی فوجی جنگی قیدی بنا لیے گئے۔</p>
-            
-            <h2>یاد رکھنے کے لیے اہم نکات</h2>
-            <ol>
-                <li><p>سقوط ڈھاکہ کسی ایک شخص، ایک فوجی کارروائی یا ایک سیاسی جماعت کی غلطی کا نتیجہ نہیں تھا۔ یہ ایک اجتماعی ناکامی تھی جس میں حکمران اشرافیہ، سیاستدان، فوج اور بیوروکریسی سب برابر کے شریک تھے۔</p></li>
-                <li><p>جمہوریت کی نفی اور عوامی مینڈیت کو تسلیم نہ کرنا سب سے بڑا سیاسی سبب تھا۔</p></li>
-                <li><p>معاشی استحصال اور ثقافتی جبر نے عوام میں علیحدگی کی خواہش کو ہوا دی۔</p></li>
-                <li><p>بھارت نے موقع پرستی سے کام لیتے ہوئے اپنے مفادات کے لیے اس صورتحال کا بھرپور فائدہ اٹھایا۔</p></li>
-                <li><p>بین الاقوامی برادری نے پاکستان کے خلاف ہو کر بھارت کی مدد کی۔</p></li>
-            </ol>
-            
-            <div class="important-point">
-                <h3>سبق آموز نکتہ:</h3>
-                <p>کسی ملک کی طاقت صرف اس کی فوج یا جغرافیائی حدود میں نہیں ہوتی، بلکہ اس کی طاقت اس کے عوام کے دلوں میں ہوتی ہے۔</p>
-            </div>
-            
-            <h2>سقوط ڈھاکہ کی تاریخ ہمیں کئی اہم سبق دیتی ہے</h2>
-            <ol>
-                <li><p>کسی ملک کی سالمیت کے لیے جمہوریت، رواداری اور اقلیتوں کے حقوق کا احترام نہایت ضروری ہے۔</p></li>
-                <li><p>تمام صوبوں اور خطوں کے ساتھ معاشی انصاف ہونا چاہیے۔ وسائل کی منصفانہ تقسیم ہی ملک کے ٹوٹنے سے بچا سکتی ہے۔</p></li>
-                <li><p>ثقافتی اور لسانی تنوع کو قومی اکائی کے لیے خطرہ نہیں بلکہ طاقت سمجھنا چاہیے۔</p></li>
-                <li><p>سیاسی قیادت میں قومی یکجہتی کو فوقیت دینے کی بصیرت ہونی چاہیے، ذاتی اور علاقائی مفادات پر نہیں۔</p></li>
-            </ol>
-            <p>سقوط ڈھاکہ پاکستان کی تاریخ کا ایک ایسا المیہ ہے جس سے صرف ماضی کو کوستے رہنے کے بجائے سبق حاصل کرنے کی ضرورت ہے۔ یہ واقعہ ہمیں یاد دلاتا ہے کہ کسی ملک کی طاقت صرف اس کی فوج یا جغرافیائی حدود میں نہیں ہوتی، بلکہ اس کی طاقت اس کے عوام کے دلوں میں ہوتی ہے۔ جب عوام خود کو محروم، نظرانداز شدہ اور دوسرے درجے کا شہری سمجھنے لگیں، تو پھر کوئی فوج، کوئی آئین اور کوئی نظریہ انہیں مِل کے رکھ نہیں سکتا۔ پاکستان کے بچے کھچے حصے کے لیے یہ تاریخ ایک سبق ہے کہ آئندہ آنے والی نسلوں کے لیے ایسی غلطیوں کو نہ دہرایا جائے اور ایک مضبوط، متحد اور خوشحال پاکستان کی تعمیر کی جائے جہاں ہر شہری کو یکساں حقوق اور مواقع حاصل ہوں۔</p>
-        </div>
-        
-        <div class="footer">
-            <p>© 2025 تاریخ کے مطالعہ - سبق آموز مضامین</p>
-            <p>اس مضمون کو پڑھنے کا شکریہ</p>
-            <p><i class="fas fa-history"></i> تاریخ سے سبق حاصل کرنا عقلمندی کی علامت ہے</p>
         </div>
     </div>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const planetsContainer = document.getElementById('planetsContainer');
-        
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-theme');
-            
-            // Animate planets on theme change
-            if (body.classList.contains('dark-theme')) {
-                animatePlanets();
-            }
-        });
-        
-        // Back Button
-        const backButton = document.getElementById('backButton');
-        backButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('واپس جانے کا عمل: آپ تاریخ کے دیگر مضامین میں جا سکتے ہیں۔');
-            // In a real scenario, this would redirect to the previous page
-            // window.history.back();
-        });
-        
-        // Page Up/Down Buttons
-        const pageUpBtn = document.getElementById('pageUpBtn');
-        const pageDownBtn = document.getElementById('pageDownBtn');
-        
-        pageUpBtn.addEventListener('click', () => {
-            window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
-        });
-        
-        pageDownBtn.addEventListener('click', () => {
-            window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
-        });
-        
-        // Planets Animation
-        function animatePlanets() {
-            const planets = document.querySelectorAll('.planet');
-            
-            planets.forEach(planet => {
-                // Random movement for planets
-                const randomX = Math.random() * 80 + 10;
-                const randomY = Math.random() * 80 + 10;
-                
-                planet.style.left = `${randomX}%`;
-                planet.style.top = `${randomY}%`;
-                
-                // Add hover effect
-                planet.addEventListener('mouseenter', () => {
-                    planet.style.transform = 'scale(1.5)';
-                    planet.style.boxShadow = `0 0 60px ${getComputedStyle(planet).backgroundImage.includes('ff6b6b') ? '#ff6b6b' : '#4a90e2'}`;
-                });
-                
-                planet.addEventListener('mouseleave', () => {
-                    planet.style.transform = 'scale(1)';
-                    planet.style.boxShadow = `0 0 30px ${getComputedStyle(planet).backgroundImage.includes('ff6b6b') ? '#ff6b6b' : '#4a90e2'}`;
-                });
-            });
-            
-            // Continuous slow movement
-            setInterval(() => {
-                planets.forEach(planet => {
-                    const currentLeft = parseFloat(planet.style.left);
-                    const currentTop = parseFloat(planet.style.top);
-                    
-                    const newLeft = (currentLeft + (Math.random() - 0.5) * 0.5) % 100;
-                    const newTop = (currentTop + (Math.random() - 0.5) * 0.5) % 100;
-                    
-                    planet.style.left = `${newLeft}%`;
-                    planet.style.top = `${newTop}%`;
-                });
-            }, 100);
-        }
-        
-        // Initialize planets animation
-        animatePlanets();
-        
-        // Add some interactivity to the main image
-        const mainImage = document.querySelector('.main-image');
-        if (mainImage) {
-            mainImage.addEventListener('click', () => {
-                mainImage.style.transform = mainImage.style.transform === 'scale(1.8)' ? 'scale(1)' : 'scale(1.8)';
-                mainImage.style.transition = 'transform 0.5s ease';
-                mainImage.style.zIndex = '1000';
-            });
-            
-            // Click outside to zoom out
-            document.addEventListener('click', (e) => {
-                if (e.target !== mainImage && mainImage.style.transform === 'scale(1.8)') {
-                    mainImage.style.transform = 'scale(1)';
+        // Sidebar auto-scroll (30 sec cycle, pause on hover)
+        const scrollContainer = document.getElementById('autoScrollSidebar');
+        let scrollInterval;
+        function startAutoScroll() {
+            if(!scrollContainer) return;
+            scrollInterval = setInterval(() => {
+                if (!scrollContainer.matches(':hover')) {
+                    const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+                    if (scrollContainer.scrollTop >= maxScroll) {
+                        scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        scrollContainer.scrollBy({ top: 100, behavior: 'smooth' });
+                    }
                 }
-            });
+            }, 3000);
+        }
+        if(scrollContainer){
+            startAutoScroll();
+            scrollContainer.addEventListener('mouseenter', () => clearInterval(scrollInterval));
+            scrollContainer.addEventListener('mouseleave', () => startAutoScroll());
         }
         
-        // Special effect for important dates
-        const specialDate = document.querySelector('.special-date');
-        if (specialDate) {
-            specialDate.addEventListener('click', () => {
-                specialDate.style.background = 'linear-gradient(45deg, #ff0066, #6600ff, #00ccff)';
-                setTimeout(() => {
-                    specialDate.style.background = 'linear-gradient(45deg, #ff6b6b, #ff8e53, #4a90e2)';
-                }, 1000);
-            });
+        // Page up/down
+        document.getElementById('pageUpBtn').addEventListener('click', () => window.scrollBy({ top: -window.innerHeight*0.7, behavior: 'smooth' }));
+        document.getElementById('pageDownBtn').addEventListener('click', () => window.scrollBy({ top: window.innerHeight*0.7, behavior: 'smooth' }));
+        document.getElementById('backButton').addEventListener('click', (e) => { e.preventDefault(); alert('واپس جانے کا عمل: آپ تاریخ کے دیگر مضامین میں جا سکتے ہیں۔'); });
+        
+        // Social share functions (keep from original but compatible)
+        function shareOnSocial(platform) {
+            let url = encodeURIComponent(window.location.href);
+            let title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if(platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if(platform === 'whatsapp') shareUrl = `https://wa.me/?text=${title}%20${url}`;
+            else if(platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+            else if(platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            else if(platform === 'telegram') shareUrl = `https://t.me/share/url?url=${url}&text=${title}`;
+            else if(platform === 'pinterest') shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+            if(shareUrl) window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('لنک کاپی ہو گیا!');
         }
         
-        // Mobile responsive adjustments
-        function adjustForMobile() {
-            if (window.innerWidth <= 768) {
-                // Hide planets on mobile for better performance
-                planetsContainer.style.display = 'none';
-            } else {
-                planetsContainer.style.display = 'block';
-            }
-        }
-        
-        window.addEventListener('resize', adjustForMobile);
-        adjustForMobile(); // Initial check
+        // Reactions handled by external reactions.js; but we keep reactionClick placeholder for safety, but no duplicate loadReactions etc
+        // Already external file reactions.js will provide reactionClick, no internal duplicate functions removed except that we keep no loadReactions or API_URL here.
+        // To ensure compatibility: if external script is present it will define reactionClick, else we provide dummy fallback (won't harm)
+        window.reactionClick = window.reactionClick || function(reactionType) {
+            console.log("Reaction clicked: " + reactionType);
+            alert("ری ایکشن محفوظ ہو گیا! reactions.js ضرور شامل کریں۔");
+        };
     </script>
+    <!-- include reactions.js (external) -->
+    <script src="/reactions.js"></script>
 </body>
 </html>
