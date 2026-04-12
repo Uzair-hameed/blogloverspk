@@ -732,7 +732,7 @@
     <script>
         AOS.init({ duration: 600, once: true });
 
-        // Worker API Base URL - براہ راست Worker سے منسلک
+        // Worker API Base URL
         const WORKER_URL = 'https://aged-unit-8ce7.uzairhameed01.workers.dev';
         
         // Typewriter
@@ -902,32 +902,52 @@
             });
         }
 
+        // ========================================
+        // NEW FOLLOW BUTTON FUNCTION - FIXED
+        // ========================================
         async function followSite() {
             const btn = document.getElementById('footerFollowBtn');
             const hasFollowed = localStorage.getItem('hasFollowedToday');
-            if (hasFollowed === new Date().toDateString()) {
-                showToast('آپ پہلے فالو کر چکے ہیں!', 'warning');
+            const today = new Date().toDateString();
+            
+            if (hasFollowed === today) {
+                showToast('آپ پہلے ہی فالو کر چکے ہیں!', 'warning');
                 return;
             }
+            
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+            
             try {
-                const response = await fetch(`${WORKER_URL}/api/follow`, { method: 'POST' });
+                const response = await fetch(`${WORKER_URL}/api/follow`, { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
                 if (response.ok) {
-                    localStorage.setItem('hasFollowedToday', new Date().toDateString());
-                    showToast('شکریہ! آپ نے فالو کر لیا ❤️', 'success');
+                    localStorage.setItem('hasFollowedToday', today);
+                    showToast('شکریہ! آپ نے فالو کر لیا! ❤️', 'success');
                     loadHomeStats();
                     btn.innerHTML = '<i class="fas fa-check"></i> فالو کر لیا';
-                    setTimeout(() => { btn.innerHTML = originalText; }, 3000);
+                    setTimeout(() => { 
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }, 3000);
                 } else {
                     throw new Error('Failed');
                 }
-            } catch(e) {
+            } catch(error) {
+                console.error('Follow error:', error);
                 btn.innerHTML = originalText;
-                showToast('کچھ غلط ہو گیا', 'error');
+                btn.disabled = false;
+                showToast('کچھ غلط ہو گیا، دوبارہ کوشش کریں', 'error');
             }
         }
 
+        // ========================================
+        // SHARE BUTTON FUNCTION
+        // ========================================
         async function shareSite() {
             const url = window.location.href;
             if (navigator.share) {
@@ -945,6 +965,9 @@
             }
         }
 
+        // ========================================
+        // TOAST FUNCTION
+        // ========================================
         function showToast(msg, type) {
             const toast = document.createElement('div');
             toast.innerHTML = `<span>${msg}</span>`;
