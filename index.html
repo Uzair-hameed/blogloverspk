@@ -305,7 +305,7 @@
         }
         .trending-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 15px;
         }
         .trending-card {
@@ -313,7 +313,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 15px;
+            padding: 12px;
             text-decoration: none;
             color: var(--text-main);
             transition: all 0.3s;
@@ -329,8 +329,8 @@
             margin-bottom: 5px;
         }
         .trending-title {
-            font-size: 0.9em;
-            margin-bottom: 10px;
+            font-size: 0.85em;
+            margin-bottom: 8px;
             line-height: 1.4;
         }
         .trending-stats {
@@ -338,6 +338,12 @@
             gap: 12px;
             font-size: 0.7em;
             color: var(--text-muted);
+        }
+        .trending-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
         }
 
         .category-section {
@@ -555,6 +561,7 @@
             .footer-col h4::after { right: 50%; transform: translateX(50%); }
             .social-icons, .footer-buttons { justify-content: center; }
             .section-title { font-size: 1.2em; }
+            .trending-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -733,7 +740,7 @@
         AOS.init({ duration: 600, once: true });
 
         // Worker API Base URL
-   const WORKER_URL = 'https://aged-unit-8ce7.uzairhameed01.workers.dev';
+        const WORKER_URL = 'https://aged-unit-8ce7.uzairhameed01.workers.dev';
         
         // Typewriter
         const typeText = "خوش آمدید .. علم اور ادب کی دنیا میں";
@@ -791,19 +798,56 @@
             }
         }
 
+        // Trending posts with images and Urdu titles
         function renderTrending(posts) {
             const container = document.getElementById('trendingGrid');
             container.innerHTML = '';
+            
+            // Urdu titles and images mapping
+            const postDetails = {
+                "aqwal-taleem-ki-roshni-par-50-aqwal-zareen": {
+                    title: "اقوالِ زریں - تعلیم کی روشنی میں 50 اقوال",
+                    image: "https://bloglovers.pk/images/aqwal/50-aqwal-zareen.jpg"
+                },
+                "alamaat-kubra-5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl": {
+                    title: "علامات کبریٰ - دجال سے پہلے پیش آنے والے واقعات",
+                    image: "https://bloglovers.pk/images/alamaat-kubra/dajjal-se-qabl.jpg"
+                },
+                "alamaat-kubra-ap-saw-ne-ummat-ko-zameen-ke-dhans-jane-ki-kya-waeed-sunai": {
+                    title: "زمین دھنسنے کی وعید - حضورﷺ کا ارشاد",
+                    image: "https://bloglovers.pk/images/alamaat-kubra/zameen-dhansna.jpg"
+                },
+                "alamaat-sughra-aap-ka-is-dnya-main-tshryf-lana": {
+                    title: "علامات صغریٰ - آپﷺ کا اس دنیا میں تشریف لانا",
+                    image: "https://bloglovers.pk/images/alamaat-sughra/tshryf-lana.jpg"
+                },
+                "alamaat-sughra-ap-saw-ne-halal-aur-haraam-maal-ke-bare-mein-kya-farmaya": {
+                    title: "حلال اور حرام مال - حضورﷺ کا فرمان",
+                    image: "https://bloglovers.pk/images/alamaat-sughra/halal-haraam.jpg"
+                }
+            };
+            
             posts.forEach((post, i) => {
+                const details = postDetails[post.slug] || {
+                    title: post.title || post.slug.replace(/-/g, ' '),
+                    image: "https://bloglovers.pk/images/default-thumbnail.jpg"
+                };
+                
                 const card = document.createElement('a');
                 card.href = post.url || `https://bloglovers.pk/posts/${post.slug}.html`;
                 card.className = 'trending-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('data-aos-delay', i * 50);
                 card.innerHTML = `
-                    <div class="trending-rank">#${i+1} ${i===0 ? '🔥' : ''}</div>
-                    <div class="trending-title">${post.title || 'پوسٹ'}</div>
-                    <div class="trending-stats">
-                        <span><i class="fas fa-eye"></i> ${formatNumber(post.views)}</span>
-                        <span><i class="fas fa-heart"></i> ${formatNumber(post.total_reactions)}</span>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <img src="${details.image}" alt="${details.title}" class="trending-thumb" onerror="this.src='https://bloglovers.pk/images/default-thumbnail.jpg'">
+                        <div style="flex: 1;">
+                            <div class="trending-rank">#${i+1} ${i===0 ? '🔥' : ''}</div>
+                            <div class="trending-title">${details.title}</div>
+                            <div class="trending-stats">
+                                <span><i class="fas fa-heart"></i> ${formatNumber(post.total_reactions)}</span>
+                            </div>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -820,7 +864,7 @@
             ul.className = 'trending-today-list';
             posts.forEach(post => {
                 const li = document.createElement('li');
-                li.innerHTML = `<a href="${post.url || `https://bloglovers.pk/posts/${post.slug}.html`}"><i class="fas fa-arrow-left"></i> ${post.title || 'پوسٹ'}</a>`;
+                li.innerHTML = `<a href="${post.url || `https://bloglovers.pk/posts/${post.slug}.html`}"><i class="fas fa-arrow-left"></i> ${post.title || post.slug.replace(/-/g, ' ')}</a>`;
                 ul.appendChild(li);
             });
             container.innerHTML = '';
@@ -902,9 +946,6 @@
             });
         }
 
-        // ========================================
-        // NEW FOLLOW BUTTON FUNCTION - FIXED
-        // ========================================
         async function followSite() {
             const btn = document.getElementById('footerFollowBtn');
             const hasFollowed = localStorage.getItem('hasFollowedToday');
@@ -920,34 +961,23 @@
             btn.disabled = true;
             
             try {
-                const response = await fetch(`${WORKER_URL}/api/follow`, { 
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                
+                const response = await fetch(`${WORKER_URL}/api/follow`, { method: 'POST' });
                 if (response.ok) {
                     localStorage.setItem('hasFollowedToday', today);
                     showToast('شکریہ! آپ نے فالو کر لیا! ❤️', 'success');
                     loadHomeStats();
                     btn.innerHTML = '<i class="fas fa-check"></i> فالو کر لیا';
-                    setTimeout(() => { 
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    }, 3000);
+                    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 3000);
                 } else {
                     throw new Error('Failed');
                 }
             } catch(error) {
-                console.error('Follow error:', error);
                 btn.innerHTML = originalText;
                 btn.disabled = false;
                 showToast('کچھ غلط ہو گیا، دوبارہ کوشش کریں', 'error');
             }
         }
 
-        // ========================================
-        // SHARE BUTTON FUNCTION
-        // ========================================
         async function shareSite() {
             const url = window.location.href;
             if (navigator.share) {
@@ -965,9 +995,6 @@
             }
         }
 
-        // ========================================
-        // TOAST FUNCTION
-        // ========================================
         function showToast(msg, type) {
             const toast = document.createElement('div');
             toast.innerHTML = `<span>${msg}</span>`;
