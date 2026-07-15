@@ -1,529 +1,714 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اسلامی سوالات | بلاگ لوورز</title>
-    <!-- Font Awesome 6 (social icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* ===== FONTS ===== */
-        @font-face {
-            font-family: 'Jameel Noori Nastaleeq';
-            src: url('https://cdn.jsdelivr.net/gh/ihsan-ch/urdu-fonts@main/fonts/JameelNooriNastaleeq.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اسلامی سوالات - کیٹگری پیج | بلاگ لوورز</title>
+  <!-- Font Awesome 6 (social icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <style>
+    /* ===== FONTS ===== */
+    @font-face {
+      font-family: 'Jameel Noori Nastaleeq';
+      src: url('https://cdn.jsdelivr.net/gh/ihsan-ch/urdu-fonts@main/fonts/JameelNooriNastaleeq.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+    }
+    body {
+      background: #0b0e1a;
+      color: #e8f0f0;
+      font-size: 16px;
+      line-height: 1.8;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 60px;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    /* dark neon gradient overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 20% 30%, #1a1f3a 0%, #0b0e1a 80%);
+      z-index: -2;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 80% 70%, rgba(100, 70, 200, 0.15) 0%, transparent 60%);
+      z-index: -1;
+      pointer-events: none;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-        }
+    /* ===== particles container ===== */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-        body {
-            background: linear-gradient(125deg, #d8f0f7 0%, #b8e2c8 60%, #9fd3b3 100%);
-            color: #013a3a;
-            font-size: 14px;
-            line-height: 1.8;
-            min-height: 100vh;
-            position: relative;
-            padding-bottom: 70px;
-            scroll-behavior: smooth;
-        }
+    /* ===== glass header ===== */
+    header {
+      background: rgba(10, 14, 30, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 12px 25px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #6a4f9b;
+      box-shadow: 0 10px 30px -8px #2a1f4e;
+      border-radius: 0 0 40px 40px;
+    }
+    .home-btn {
+      background: linear-gradient(145deg, #2a1f4e, #1f1a3a);
+      color: #e6d7ff;
+      padding: 8px 22px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border: 1px solid #7a5fc0;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 18px #4a2f8a;
+      letter-spacing: 0.3px;
+    }
+    .home-btn:hover {
+      background: #6a4f9b;
+      color: #fff;
+      border-color: #b394ff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px #6a4f9b;
+    }
+    .logo-text {
+      font-size: 1.9rem;
+      font-weight: bold;
+      color: #d4c2ff;
+      text-shadow: 0 0 20px #7a5fc0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-text i { color: #f7d44a; }
 
-        /* ===== SOFT FLOATING CLOUDS EFFECT ===== */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 80% 20%, rgba(255,255,220,0.4) 0%, rgba(170, 230, 180, 0.2) 80%);
-            pointer-events: none;
-            z-index: -1;
-        }
+    /* ===== social floating ===== */
+    .social-share-float {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: rgba(15, 20, 40, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 18px 10px;
+      border-radius: 50px;
+      border: 1px solid #6a4f9b;
+      z-index: 99;
+      box-shadow: 0 0 30px #2a1f4e;
+    }
+    .social-share-float a, .social-share-float button {
+      background: transparent;
+      border: none;
+      font-size: 1.7rem;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #b394ff;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(30, 30, 60, 0.6);
+      text-decoration: none;
+      box-shadow: 0 0 10px #3a2a6a;
+    }
+    .social-share-float a:hover, .social-share-float button:hover {
+      color: #f7d44a;
+      background: #4a2f8a;
+      transform: rotate(360deg) scale(1.1);
+      box-shadow: 0 0 30px #b394ff;
+    }
 
-        /* ===== HEADER (elegant glass) ===== */
-        header {
-            background: rgba(255, 255, 250, 0.55);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 12px 25px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #b3d9c0;
-            box-shadow: 0 10px 25px -8px #466b5e;
-            border-radius: 0 0 40px 40px;
-        }
+    /* ===== up/down ===== */
+    .page-up-down {
+      position: fixed;
+      left: 22px;
+      bottom: 35px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 99;
+    }
+    .up-btn, .down-btn {
+      background: #1f1a3a;
+      border: 2px solid #6a4f9b;
+      color: #d4c2ff;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 0 20px #2a1f4e;
+      text-decoration: none;
+    }
+    .up-btn:hover, .down-btn:hover {
+      background: #6a4f9b;
+      color: #f7d44a;
+      border-color: #b394ff;
+      transform: scale(1.08);
+      box-shadow: 0 0 35px #6a4f9b;
+    }
 
-        .home-btn {
-            background: #c4e3d5;  /* soft mint */
-            color: #015d5a;
-            padding: 8px 22px;
-            border-radius: 60px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border: 1px solid #a2d0b0;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 6px 14px rgba(89, 150, 120, 0.4);
-            letter-spacing: 0.3px;
-        }
+    /* ===== breadcrumb ===== */
+    .breadcrumb {
+      max-width: 1300px;
+      margin: 20px auto 5px;
+      padding: 0 20px;
+      font-size: 1rem;
+      color: #b394ff;
+      background: transparent;
+    }
+    .breadcrumb a {
+      color: #d4c2ff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .breadcrumb a:hover { color: #f7d44a; text-shadow: 0 0 10px #f7d44a; }
+    .breadcrumb span { color: #f7d44a; }
 
-        .home-btn:hover {
-            background: #a2d0b0;
-            color: #ffffff;
-            border-color: #c4e3d5;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 20px rgba(54, 110, 90, 0.5);
-        }
+    /* ===== hero ===== */
+    .hero-section {
+      max-width: 1300px;
+      margin: 15px auto 25px;
+      padding: 20px 25px;
+      background: rgba(15, 20, 45, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 60px;
+      border: 1px solid #6a4f9b;
+      box-shadow: 0 0 50px #1a1f3a;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section .hero-icon {
+      font-size: 4rem;
+      color: #f7d44a;
+      text-shadow: 0 0 30px #f7d44a;
+    }
+    .hero-section h1 {
+      font-size: 2.6rem;
+      color: #f0eaff;
+      text-shadow: 0 0 30px #6a4f9b;
+      margin: 5px 0;
+    }
+    .hero-section p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 10px auto;
+      color: #d4d4f0;
+    }
+    .typewriter-box {
+      background: rgba(30, 30, 70, 0.5);
+      border-radius: 60px;
+      padding: 12px 30px;
+      display: inline-block;
+      border: 1px solid #7a5fc0;
+      margin-top: 12px;
+      font-size: 1.3rem;
+      color: #f7d44a;
+      min-height: 60px;
+      box-shadow: 0 0 30px #3a2a6a;
+    }
+    #typewriter {
+      display: inline;
+      border-left: 2px solid #f7d44a;
+      padding-right: 6px;
+    }
 
-        .logo-text {
-            font-size: 1.9rem;
-            font-weight: bold;
-            color: #075e5b;
-            text-shadow: 3px 3px 0 #cfeae0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    /* ===== stats cards ===== */
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1300px;
+      margin: 10px auto 30px;
+      padding: 0 20px;
+    }
+    .stat-card {
+      background: rgba(15, 20, 45, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid #6a4f9b;
+      border-radius: 40px;
+      padding: 12px 30px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 0 30px #1a1f3a;
+      transition: 0.3s;
+    }
+    .stat-card:hover { border-color: #f7d44a; box-shadow: 0 0 40px #6a4f9b; }
+    .stat-card i { font-size: 2rem; color: #f7d44a; }
+    .stat-card .stat-num { font-size: 1.6rem; font-weight: bold; color: #fff; }
 
-        /* ===== SOCIAL FLOATING (elegant) ===== */
-        .social-share-float {
-            position: fixed;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            background: rgba(250, 255, 245, 0.6);
-            backdrop-filter: blur(8px);
-            padding: 18px 10px;
-            border-radius: 50px;
-            border: 1px solid #b8d9cb;
-            z-index: 99;
-            box-shadow: 0 15px 30px rgba(20, 90, 70, 0.25);
-        }
+    /* ===== posts grid ===== */
+    .container {
+      max-width: 1300px;
+      margin: 20px auto;
+      padding: 15px;
+      position: relative;
+      z-index: 2;
+    }
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 40px 25px;
+    }
+    .post-card {
+      background: rgba(15, 20, 45, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 40px 40px 30px 30px;
+      overflow: hidden;
+      border: 2px solid #3a2a6a;
+      box-shadow: 0 20px 30px -5px #0a0e1a;
+      transition: all 0.35s ease;
+      transform: translateY(0);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+    }
+    .post-card:hover {
+      transform: translateY(-16px) scale(1.01);
+      box-shadow: 0 35px 40px -8px #2a1f4e, 0 0 40px #4a2f8a;
+      border-color: #b394ff;
+    }
+    .img-container {
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+      margin: 12px 12px 0 12px;
+      border-radius: 30px 30px 18px 18px;
+      box-shadow: inset 0 0 20px #1a1f3a;
+    }
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.8s;
+      display: block;
+      border-radius: 30px 30px 18px 18px;
+    }
+    .post-card:hover .img-container img {
+      transform: scale(1.15) rotate(2deg);
+    }
+    .card-content {
+      padding: 18px 10px 22px;
+      text-align: center;
+    }
+    .post-title {
+      font-size: 1.1rem;
+      color: #e0d6ff;
+      margin-bottom: 6px;
+      line-height: 1.7;
+      font-weight: bold;
+      text-shadow: 0 0 10px #2a1f4e;
+      background: rgba(30, 30, 70, 0.3);
+      padding: 8px 8px;
+      border-radius: 60px;
+      border: 1px solid #4a2f8a;
+    }
 
-        .social-share-float a, .social-share-float button {
-            background: transparent;
-            border: none;
-            font-size: 1.7rem;
-            cursor: pointer;
-            transition: 0.3s;
-            color: #1b7a6b;
-            width: 46px;
-            height: 46px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255,255,250,0.7);
-            text-decoration: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
+    /* ===== reactions ===== */
+    .reactions-section {
+      max-width: 1300px;
+      margin: 30px auto 20px;
+      padding: 25px;
+      background: rgba(15, 20, 45, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      border: 1px solid #6a4f9b;
+      text-align: center;
+    }
+    .reactions-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+    .reaction-item {
+      background: rgba(30, 30, 70, 0.5);
+      padding: 10px 24px;
+      border-radius: 60px;
+      border: 1px solid #4a2f8a;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: 0.3s;
+      cursor: pointer;
+      color: #d4c2ff;
+      font-size: 1.2rem;
+    }
+    .reaction-item:hover {
+      background: #4a2f8a;
+      border-color: #f7d44a;
+      box-shadow: 0 0 30px #6a4f9b;
+      color: #fff;
+    }
+    .reaction-item i { font-size: 2rem; color: #f7d44a; }
+    .reaction-count { font-weight: bold; color: #fff; }
 
-        .social-share-float a:hover, .social-share-float button:hover {
-            color: #f0ffe0;
-            background: #2a8875;
-            transform: rotate(360deg) scale(1.1);
-            box-shadow: 0 0 22px #c2f0c2;
-        }
+    /* ===== footer ===== */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(10, 14, 30, 0.8);
+      backdrop-filter: blur(6px);
+      margin-top: 50px;
+      border-top: 2px solid #6a4f9b;
+      color: #b394ff;
+      border-radius: 60px 60px 0 0;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin: 15px 0;
+    }
+    .footer-links a {
+      color: #d4c2ff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .footer-links a:hover { color: #f7d44a; text-shadow: 0 0 10px #f7d44a; }
 
-        /* ===== UP/DOWN MINIMAL ===== */
-        .page-up-down {
-            position: fixed;
-            left: 22px;
-            bottom: 35px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 99;
-        }
-
-        .up-btn, .down-btn {
-            background: #cae5da;
-            border: 2px solid #9cc2b2;
-            color: #01504a;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 10px 18px rgba(56, 110, 90, 0.3);
-            text-decoration: none;
-        }
-
-        .up-btn:hover, .down-btn:hover {
-            background: #9cc2b2;
-            color: #f4fff0;
-            border-color: #cae5da;
-            transform: scale(1.08);
-        }
-
-        /* ===== MAIN SLIDER (soft, rounded) ===== */
-        .slider-container {
-            max-width: 950px;
-            margin: 25px auto 20px;
-            border-radius: 48px;
-            overflow: hidden;
-            box-shadow: 0 30px 35px -8px rgba(42, 100, 80, 0.5);
-            border: 4px solid #fffbe6;
-            height: 280px;
-            position: relative;
-        }
-
-        .slider {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.1);
-        }
-
-        .slide {
-            min-width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.85) contrast(1.05) saturate(1.2);
-        }
-
-        .slide-caption {
-            position: absolute;
-            bottom: 22px;
-            right: 25px;
-            background: rgba(235, 255, 235, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 8px 28px;
-            border-radius: 60px;
-            color: #01544b;
-            font-size: 1.5rem;
-            border: 1px solid #b3e0c5;
-            box-shadow: 0 8px 20px #b1dfc0;
-            font-weight: bold;
-        }
-
-        /* ===== SPINNING ICONS (playful) ===== */
-        .spinning-icons {
-            display: flex;
-            justify-content: center;
-            gap: 35px;
-            margin: 35px 0 20px;
-            flex-wrap: wrap;
-        }
-
-        .spin-icon {
-            font-size: 2.5rem;
-            color: #277a68;
-            animation: floatSpin 10s infinite alternate ease-in-out;
-            background: rgba(250, 255, 235, 0.8);
-            width: 80px;
-            height: 80px;
-            border-radius: 40% 60% 40% 60%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px dotted #b0e5cf;
-            box-shadow: 0 15px 20px -5px #479f86;
-            transition: 0.3s;
-        }
-
-        .spin-icon:hover {
-            animation: none;
-            transform: scale(1.3) rotate(20deg);
-            background: #b0e5cf;
-            color: #004d40;
-            border: 3px solid #4f9e89;
-        }
-
-        @keyframes floatSpin {
-            0% { transform: rotate(0deg) translateY(0); }
-            100% { transform: rotate(360deg) translateY(-15px); }
-        }
-
-        /* ===== POSTS GRID (modern, appealing thumbnails) ===== */
-        .container {
-            max-width: 1300px;
-            margin: 20px auto;
-            padding: 15px;
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 40px 25px;
-        }
-
-        /* ===== NEW THUMBNAIL STYLE (elegant cards with soft shadow & frame) ===== */
-        .post-card {
-            background: rgba(255, 255, 250, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 40px 40px 30px 30px;
-            overflow: hidden;
-            border: 2px solid rgba(255, 250, 220, 0.9);
-            box-shadow: 0 20px 30px -5px rgba(46, 110, 90, 0.4);
-            transition: all 0.35s ease;
-            transform: translateY(0);
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .post-card::after {
-            content: '';
-            position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border-radius: 30px;
-            border: 2px dashed rgba(159, 211, 179, 0.4);
-            pointer-events: none;
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .post-card:hover::after {
-            opacity: 1;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-        }
-
-        .post-card:hover {
-            transform: translateY(-16px) scale(1.01);
-            box-shadow: 0 35px 40px -8px #1e6b5c;
-            border-color: #c2f0d0;
-            background: rgba(255, 255, 250, 0.9);
-        }
-
-        .img-container {
-            height: 180px;
-            overflow: hidden;
-            position: relative;
-            margin: 12px 12px 0 12px;
-            border-radius: 30px 30px 18px 18px;
-            box-shadow: inset 0 0 20px #c1e0d0;
-        }
-
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.8s;
-            display: block;
-            border-radius: 30px 30px 18px 18px;
-        }
-
-        .post-card:hover .img-container img {
-            transform: scale(1.18) rotate(2deg);
-        }
-
-        .card-content {
-            padding: 18px 10px 22px;
-            text-align: center;
-        }
-
-        .post-title {
-            font-size: 1.1rem;
-            color: #025f53;
-            margin-bottom: 6px;
-            line-height: 1.7;
-            font-weight: bold;
-            text-shadow: 0 1px 3px white;
-            background: rgba(255, 255, 240, 0.5);
-            padding: 8px 8px;
-            border-radius: 60px;
-            border: 1px solid #b3dec5;
-            backdrop-filter: blur(2px);
-        }
-
-        /* NO post link under title — entire card clickable (handled by js) */
-
-        /* ===== REMOVED BOTTOM SCROLLER / MINI SLIDER (extra) ===== */
-
-        /* ===== FOOTER minimal ===== */
-        footer {
-            text-align: center;
-            padding: 22px;
-            background: rgba(170, 220, 190, 0.5);
-            backdrop-filter: blur(4px);
-            margin-top: 50px;
-            border-top: 2px solid #b3dcc0;
-            color: #035f53;
-            font-size: 1rem;
-            border-radius: 60px 60px 0 0;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 700px) {
-            .slider-container { height: 190px; }
-            .slide-caption { font-size: 1.1rem; padding: 6px 18px; }
-            .logo-text { font-size: 1.4rem; }
-            .home-btn span { display: none; }
-            .social-share-float { right: 8px; gap: 10px; padding: 12px 6px; }
-            .social-share-float a { font-size: 1.4rem; width: 38px; height: 38px; }
-            .page-up-down { left: 12px; bottom: 25px; }
-            .up-btn, .down-btn { width: 44px; height: 44px; font-size: 1.6rem; }
-            .posts-grid { gap: 25px; }
-        }
-    </style>
+    /* ===== responsive ===== */
+    @media (max-width: 700px) {
+      .hero-section h1 { font-size: 2rem; }
+      .typewriter-box { font-size: 1rem; padding: 10px 20px; }
+      .logo-text { font-size: 1.4rem; }
+      .home-btn span { display: none; }
+      .social-share-float { right: 8px; gap: 10px; padding: 12px 6px; }
+      .social-share-float a { font-size: 1.4rem; width: 38px; height: 38px; }
+      .page-up-down { left: 12px; bottom: 25px; }
+      .up-btn, .down-btn { width: 44px; height: 44px; font-size: 1.6rem; }
+      .posts-grid { gap: 25px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- SOCIAL SHARE (all platforms) -->
-<div class="social-share-float">
+  <!-- particles -->
+  <div id="particles-js"></div>
+
+  <!-- social share -->
+  <div class="social-share-float">
     <a href="#" onclick="sharePage('facebook')" title="Facebook"><i class="fab fa-facebook-f"></i></a>
     <a href="#" onclick="sharePage('twitter')" title="Twitter"><i class="fab fa-twitter"></i></a>
     <a href="#" onclick="sharePage('whatsapp')" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     <a href="#" onclick="sharePage('telegram')" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
     <a href="#" onclick="sharePage('linkedin')" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     <button onclick="sharePage('copy')" title="کاپی لنک"><i class="fas fa-link"></i></button>
-</div>
+  </div>
 
-<!-- UP & DOWN BUTTONS -->
-<div class="page-up-down">
+  <!-- up/down -->
+  <div class="page-up-down">
     <a href="#" class="up-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
     <a href="#" class="down-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
-</div>
+  </div>
 
-<!-- HEADER with home button (https://bloglovers.pk) without www -->
-<header>
+  <!-- header -->
+  <header>
     <a href="https://bloglovers.pk" class="home-btn"><i class="fas fa-home"></i> <span>بلاگ لوورز</span></a>
-    <div class="logo-text"><i class="fas fa-mosque" style="color:#1d8c6e;"></i> اسلامی سوالات</div>
+    <div class="logo-text"><i class="fas fa-mosque"></i> اسلامی سوالات</div>
     <div style="width:50px;"></div>
-</header>
+  </header>
 
-<!-- MAIN SLIDER (images from posts) -->
-<div class="slider-container">
-    <div class="slider" id="mainSlider">
-        <!-- slides injected via js -->
+  <!-- breadcrumb -->
+  <div class="breadcrumb" data-aos="fade-right">
+    <a href="https://bloglovers.pk/">ہوم</a> / <span>اسلامی سوالات</span>
+  </div>
+
+  <!-- hero -->
+  <section class="hero-section" data-aos="fade-up">
+    <div class="hero-icon">⚡</div>
+    <h1>اسلامی سوالات</h1>
+    <p>اس کیٹگری میں اسلامی تعلیمات، قرآن، نماز، اور روحانی موضوعات پر مبنی دلچسپ سوالات اور جوابات شامل ہیں۔</p>
+    <div class="typewriter-box">
+      <span id="typewriter"></span>
     </div>
-</div>
+  </section>
 
-<!-- SPINNING ICONS (attractive) -->
-<div class="spinning-icons">
-    <div class="spin-icon"><i class="fas fa-quran"></i></div>
-    <div class="spin-icon"><i class="fas fa-hand-sparkles"></i></div>
-    <div class="spin-icon"><i class="fas fa-kaaba"></i></div>
-    <div class="spin-icon"><i class="fas fa-star-and-crescent"></i></div>
-    <div class="spin-icon"><i class="fas fa-pray"></i></div>
-</div>
+  <!-- stats -->
+  <div class="stats-row" id="statsRow" data-aos="zoom-in">
+    <div class="stat-card"><i class="fas fa-eye"></i> <span class="stat-num" id="statViews">0</span> <span>مشاہدات</span></div>
+    <div class="stat-card"><i class="fas fa-share-alt"></i> <span class="stat-num" id="statShares">0</span> <span>شیئرز</span></div>
+    <div class="stat-card"><i class="fas fa-heart"></i> <span class="stat-num" id="statReactions">0</span> <span>ری ایکشنز</span></div>
+  </div>
 
-<!-- MAIN POSTS GRID (only the two original posts, no extra) -->
-<div class="container">
+  <!-- posts grid -->
+  <div class="container">
     <div class="posts-grid" id="postsGrid"></div>
-</div>
+  </div>
 
-<!-- FOOTER -->
-<footer>
-    <p>© 2025 بلاگ لوورز | جملہ حقوق محفوظ ہیں</p>
-</footer>
+  <!-- reactions -->
+  <section class="reactions-section" data-aos="fade-up">
+    <h2 style="color:#f7d44a; text-shadow:0 0 20px #f7d44a;"><i class="fas fa-heart"></i> ری ایکشنز</h2>
+    <div class="reactions-grid" id="reactionsGrid"></div>
+  </section>
 
-<script>
-    (function() {
-        // ===== EXACT POST DATA (only two as per original, without www) =====
-        const posts = [
-            {
-                title: "قرآن مجید پر 50 دلچسپ سوالات",
-                postUrl: "https://bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat",
-                imgUrl: "https://bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.webp"
-            },
-            {
-                title: "نماز کی اہمیت پر مبنی 50 سوالات",
-                postUrl: "https://bloglovers.pk/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat",
-                imgUrl: "https://bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.webp"
-            }
-        ];
+  <!-- footer -->
+  <footer>
+    <div class="footer-links" id="footerLinks"></div>
+    <p style="margin-top:15px;">© 2025 بلاگ لوورز | جملہ حقوق محفوظ ہیں</p>
+  </footer>
 
-        // render posts grid
-        const grid = document.getElementById('postsGrid');
-        grid.innerHTML = '';
-        posts.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'post-card';
-            card.onclick = () => { window.location.href = p.postUrl; };
-            card.innerHTML = `
-                <div class="img-container">
-                    <img src="${p.imgUrl}" alt="${p.title}" loading="lazy">
-                </div>
-                <div class="card-content">
-                    <h3 class="post-title">${p.title}</h3>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-
-        // build main slider with these two posts
-        const sliderTrack = document.getElementById('mainSlider');
-        sliderTrack.innerHTML = '';
-        posts.forEach((p, idx) => {
-            const slideDiv = document.createElement('div');
-            slideDiv.className = 'slide';
-            slideDiv.innerHTML = `
-                <img src="${p.imgUrl}" alt="slider img">
-                <div class="slide-caption">${p.title}</div>
-            `;
-            sliderTrack.appendChild(slideDiv);
-        });
-
-        // simple slider auto transition
-        let currentIndex = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-        if (totalSlides > 1) {
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % totalSlides;
-                sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }, 4700);
+  <!-- scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // ===== CATEGORY DATA =====
+    const CATEGORY_DATA = {
+      name: "اسلامی سوالات",
+      slug: "islami-sawalat",
+      icon: "⚡",
+      fileUrl: "https://bloglovers.pk/category-pages/islami-sawalat.html",
+      metaTitle: "اسلامی سوالات - اسلامی تعلیمات اور روحانی مضامین | بلاگ لوورز",
+      metaDescription: "اسلامی سوالات کی کیٹگری میں قرآن، نماز، تاریخ اور روحانی موضوعات پر دلچسپ سوالات اور جوابات پڑھیں۔",
+      metaKeywords: "اسلامی سوالات, قرآن, نماز, اسلامی تعلیمات, روحانی مضامین",
+      canonicalUrl: "https://bloglovers.pk/category-pages/islami-sawalat.html",
+      ogTitle: "اسلامی سوالات - اسلامی تعلیمات اور روحانی مضامین | بلاگ لوورز",
+      ogDescription: "اسلامی سوالات کی کیٹگری میں قرآن، نماز، تاریخ اور روحانی موضوعات پر دلچسپ سوالات اور جوابات پڑھیں۔",
+      ogImage: "https://bloglovers.pk/images/og-category.jpg",
+      ogUrl: "https://bloglovers.pk/category-pages/islami-sawalat.html",
+      ogType: "website",
+      ogSiteName: "بلاگ لوورز pk",
+      twitterTitle: "اسلامی سوالات - اسلامی تعلیمات اور روحانی مضامین",
+      twitterDescription: "اسلامی سوالات کی کیٹگری میں قرآن، نماز، تاریخ اور روحانی موضوعات پر دلچسپ سوالات اور جوابات پڑھیں۔",
+      twitterImage: "https://bloglovers.pk/images/og-category.jpg",
+      twitterCard: "summary_large_image",
+      breadcrumbItems: [
+        { name: "ہوم", url: "https://bloglovers.pk/" },
+        { name: "اسلامی سوالات", url: "https://bloglovers.pk/category-pages/islami-sawalat.html" }
+      ],
+      heroIcon: "⚡",
+      heroTitle: "اسلامی سوالات",
+      heroSubtitle: "اس کیٹگری میں اسلامی تعلیمات، قرآن، نماز، اور روحانی موضوعات پر مبنی دلچسپ سوالات اور جوابات شامل ہیں۔",
+      typewriterPhrases: [
+        'قرآن مجید کے 50 دلچسپ سوالات',
+        'نماز کی اہمیت پر مبنی 50 سوالات',
+        'اسلامی تاریخ کے سنہری پہلو',
+        'روحانی سکون کے لیے دعائیں'
+      ],
+      posts: [
+        {
+          title: "قرآن مجید پر 50 دلچسپ سوالات",
+          slug: "quran-majeed-par-50-dilchasp-sawalat",
+          url: "https://bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat",
+          image: "https://bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.webp",
+          description: "قرآن مجید کے حیرت انگیز حقائق اور دلچسپ سوالات"
+        },
+        {
+          title: "نماز کی اہمیت پر مبنی 50 سوالات",
+          slug: "namaz-ki-ahmiyat-par-mabni-50-sawalat",
+          url: "https://bloglovers.pk/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat",
+          image: "https://bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.webp",
+          description: "نماز کی فضیلت اور اہمیت پر مبنی سوالات"
         }
+      ],
+      reactions: {
+        excellent: 0, interesting: 0, useful: 0, thoughtful: 0, contemplative: 0, wonderful: 0, awesome: 0
+      },
+      socialLinks: {
+        facebook: "https://facebook.com/blogloverspk",
+        twitter: "https://twitter.com/blogloverspk",
+        instagram: "https://instagram.com/blogloverspk",
+        whatsapp: "https://whatsapp.com/channel/blogloverspk",
+        youtube: "https://youtube.com/blogloverspk"
+      },
+      footerCategories: [
+        { name: "تعلیمات اسلامی", url: "https://bloglovers.pk/category-pages/islami-taleemat.html" },
+        { name: "تاریخ", url: "https://bloglovers.pk/category-pages/tareekh.html" },
+        { name: "موٹیویشنل", url: "https://bloglovers.pk/category-pages/motivation.html" },
+        { name: "علامات کبریٰ", url: "https://bloglovers.pk/category-pages/alamaat-kubra.html" }
+      ],
+      usefulLinks: [
+        { name: "ہمارے بارے میں", url: "https://bloglovers.pk/about-us.html" },
+        { name: "پرائیویسی پالیسی", url: "https://bloglovers.pk/privacy-policy.html" },
+        { name: "ہم سے رابطہ", url: "https://bloglovers.pk/contact-us.html" },
+        { name: "ڈسکلیمر", url: "https://bloglovers.pk/dmca.html" }
+      ]
+    };
 
-        // share function (all platforms + copy)
-        window.sharePage = function(platform) {
-            const pageUrl = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent('اسلامی سوالات | بلاگ لوورز');
-            let shareLink = '';
-            switch(platform) {
-                case 'facebook': shareLink = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`; break;
-                case 'twitter': shareLink = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${title}`; break;
-                case 'whatsapp': shareLink = `https://wa.me/?text=${title}%20${pageUrl}`; break;
-                case 'telegram': shareLink = `https://t.me/share/url?url=${pageUrl}&text=${title}`; break;
-                case 'linkedin': shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`; break;
-                case 'copy': 
-                    navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!'));
-                    return;
-                default: return;
-            }
-            if (shareLink) window.open(shareLink, '_blank', 'width=600,height=450');
-        };
-    })();
-</script>
+    // ===== INIT =====
+    AOS.init({ duration: 800, once: true });
 
-<!-- fix social links behavior -->
-<script>
-    document.querySelectorAll('.social-share-float a, .social-share-float button').forEach(el => {
-        el.addEventListener('click', (e) => {
-            if (el.tagName === 'A' && el.getAttribute('onclick')) {
-                e.preventDefault(); 
-            } else if (el.tagName === 'BUTTON') {
-                e.preventDefault();
-            }
-        });
+    // particles
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: "#6a4f9b" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#7a5fc0", opacity: 0.15, width: 1 },
+        move: { enable: true, speed: 1.5, direction: "none", random: true, straight: false, out_mode: "out" }
+      },
+      interactivity: { detect_on: "canvas", events: { onhover: { enable: false } } }
     });
-</script>
+
+    // ===== TYPEWRITER =====
+    const phrases = CATEGORY_DATA.typewriterPhrases || ['اسلامی سوالات'];
+    let idx = 0, charIdx = 0, isDeleting = false;
+    const tw = document.getElementById('typewriter');
+    function typeEffect() {
+      const current = phrases[idx];
+      if (!isDeleting) {
+        tw.textContent = current.substring(0, charIdx+1);
+        charIdx++;
+        if (charIdx === current.length) { isDeleting = true; setTimeout(typeEffect, 2000); return; }
+        setTimeout(typeEffect, 80);
+      } else {
+        tw.textContent = current.substring(0, charIdx-1);
+        charIdx--;
+        if (charIdx === 0) { isDeleting = false; idx = (idx+1)%phrases.length; setTimeout(typeEffect, 500); return; }
+        setTimeout(typeEffect, 40);
+      }
+    }
+    typeEffect();
+
+    // ===== RENDER POSTS =====
+    const grid = document.getElementById('postsGrid');
+    CATEGORY_DATA.posts.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'post-card';
+      card.setAttribute('data-aos', 'fade-up');
+      card.onclick = () => window.location.href = p.url;
+      card.innerHTML = `
+        <div class="img-container"><img src="${p.image}" alt="${p.title}" loading="lazy"></div>
+        <div class="card-content"><h3 class="post-title">${p.title}</h3></div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // ===== REACTIONS =====
+    const rGrid = document.getElementById('reactionsGrid');
+    const reactionMap = {
+      excellent: '🌟', interesting: '🤩', useful: '💡', thoughtful: '🤔', contemplative: '🧘', wonderful: '✨', awesome: '🔥'
+    };
+    const reactionKeys = Object.keys(CATEGORY_DATA.reactions);
+    reactionKeys.forEach(key => {
+      const div = document.createElement('div');
+      div.className = 'reaction-item';
+      div.innerHTML = `<i class="fas fa-${key === 'excellent' ? 'star' : key === 'interesting' ? 'eye' : key === 'useful' ? 'lightbulb' : key === 'thoughtful' ? 'brain' : key === 'contemplative' ? 'spa' : key === 'wonderful' ? 'magic' : 'rocket'}"></i> ${reactionMap[key] || key} <span class="reaction-count" id="r-${key}">0</span>`;
+      rGrid.appendChild(div);
+      div.onclick = () => {
+        fetch('https://bloglovers-api.uzairhameed01.workers.dev/api/post-reaction', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug: CATEGORY_DATA.slug, type: key })
+        }).then(res => res.json()).then(data => {
+          if (data.success) {
+            CATEGORY_DATA.reactions[key] = (CATEGORY_DATA.reactions[key] || 0) + 1;
+            document.getElementById(`r-${key}`).textContent = CATEGORY_DATA.reactions[key];
+          }
+        }).catch(console.warn);
+      };
+    });
+
+    // ===== FETCH STATS =====
+    function fetchStats() {
+      fetch('https://bloglovers-api.uzairhameed01.workers.dev/api/home-stats')
+        .then(r => r.json()).then(data => {
+          if (data.views) document.getElementById('statViews').textContent = data.views;
+          if (data.shares) document.getElementById('statShares').textContent = data.shares;
+          if (data.reactions) document.getElementById('statReactions').textContent = data.reactions;
+        }).catch(()=>{});
+      // fetch category reactions
+      fetch(`https://bloglovers-api.uzairhameed01.workers.dev/api/category-stats/${CATEGORY_DATA.slug}`)
+        .then(r => r.json()).then(data => {
+          if (data.reactions) {
+            Object.keys(data.reactions).forEach(k => {
+              if (document.getElementById(`r-${k}`)) {
+                document.getElementById(`r-${k}`).textContent = data.reactions[k];
+                CATEGORY_DATA.reactions[k] = data.reactions[k];
+              }
+            });
+          }
+        }).catch(()=>{});
+    }
+    fetchStats();
+
+    // ===== SHARE =====
+    window.sharePage = function(platform) {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent('اسلامی سوالات | بلاگ لوورز');
+      let shareLink = '';
+      switch(platform) {
+        case 'facebook': shareLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+        case 'twitter': shareLink = `https://twitter.com/intent/tweet?url=${url}&text=${title}`; break;
+        case 'whatsapp': shareLink = `https://wa.me/?text=${title}%20${url}`; break;
+        case 'telegram': shareLink = `https://t.me/share/url?url=${url}&text=${title}`; break;
+        case 'linkedin': shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+        case 'copy': navigator.clipboard.writeText(window.location.href).then(() => alert('لنک کاپی ہو گیا!')); return;
+        default: return;
+      }
+      if (shareLink) window.open(shareLink, '_blank', 'width=600,height=450');
+      // call share api
+      fetch('https://bloglovers-api.uzairhameed01.workers.dev/api/share-site', { method: 'POST' }).catch(()=>{});
+    };
+
+    // ===== FOOTER LINKS =====
+    const footerDiv = document.getElementById('footerLinks');
+    const allLinks = [...CATEGORY_DATA.footerCategories, ...CATEGORY_DATA.usefulLinks];
+    allLinks.forEach(link => {
+      const a = document.createElement('a');
+      a.href = link.url;
+      a.textContent = link.name;
+      a.target = '_blank';
+      footerDiv.appendChild(a);
+    });
+    // add social icons
+    const socials = CATEGORY_DATA.socialLinks;
+    Object.values(socials).forEach(url => {
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.innerHTML = '<i class="fas fa-share-alt"></i>';
+      footerDiv.appendChild(a);
+    });
+
+    // ===== ADD VIEW =====
+    fetch('https://bloglovers-api.uzairhameed01.workers.dev/api/add-view', { method: 'POST' }).catch(()=>{});
+  </script>
 </body>
 </html>
