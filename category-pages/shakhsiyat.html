@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شخصیات | بلاگ لوورز.pk</title>
+    <title>شخصیات - مسلم تاریخ کے روشن ستارے | بلاگ لوورز</title>
     <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         /* -------------------- FONT -------------------- */
         @font-face {
@@ -20,44 +22,46 @@
             font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
         }
 
-        /* -------------------- VARIABLES & THEME -------------------- */
+        /* -------------------- VARIABLES & THEME (Neon Gradient) -------------------- */
         :root {
-            --baby-orange: #ffb347;    /* نرم اورنج */
-            --baby-blue:   #89CFF0;     /* بیبی بلیو */
-            --neon-glow:   #ff9f1a;
-            --dark-bg:     #0d0f10;
-            --card-bg:     #1b1e20;
-            --text-light:  #f0f0f0;
+            --neon-blue: #4facfe;
+            --neon-purple: #a855f7;
+            --neon-gold: #fbbf24;
+            --dark-bg: #0b0d10;
+            --card-bg: #15181c;
+            --text-light: #f1f1f1;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --border-glow: rgba(79, 172, 254, 0.25);
         }
 
         body {
             background-color: var(--dark-bg);
-            background-image: 
-                radial-gradient(circle at 5% 10%, rgba(255, 180, 70, 0.08) 0%, transparent 25%),
-                radial-gradient(circle at 95% 85%, rgba(137, 207, 240, 0.08) 0%, transparent 30%),
-                radial-gradient(circle at 40% 50%, rgba(255, 140, 0, 0.05) 0%, transparent 40%);
+            background-image: radial-gradient(circle at 10% 20%, rgba(79, 172, 254, 0.08), transparent 40%),
+                              radial-gradient(circle at 90% 70%, rgba(168, 85, 247, 0.08), transparent 40%);
             color: var(--text-light);
-            font-size: 16px;           /* چھوٹا فونٹ سائز */
-            line-height: 1.7;
+            font-size: 16px;
+            line-height: 1.8;
             overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* -------------------- ANIMATED FLOATING ICONS -------------------- */
-        .float-icon {
+        /* particles canvas */
+        #particles-canvas {
             position: fixed;
-            font-size: 2.5rem;
-            color: rgba(255, 180, 90, 0.1);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
             pointer-events: none;
-            animation: spinSlow 18s infinite linear;
+            opacity: 0.4;
         }
-        .float-icon.blue {
-            color: rgba(137, 207, 240, 0.12);
-            font-size: 3rem;
-        }
-        @keyframes spinSlow {
-            0% { transform: rotate(0deg) translateY(0px); }
-            100% { transform: rotate(360deg) translateY(-20px); }
+
+        /* all main content above particles */
+        .content-wrap {
+            position: relative;
+            z-index: 5;
         }
 
         /* -------------------- ACTION BUTTONS (fixed) -------------------- */
@@ -71,7 +75,7 @@
             gap: 12px;
         }
         .action-btn {
-            background: linear-gradient(145deg, var(--baby-orange), #ffaa33);
+            background: linear-gradient(145deg, var(--neon-gold), #f59e0b);
             color: #0a0a0a;
             width: 50px;
             height: 50px;
@@ -80,25 +84,26 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(255, 180, 70, 0.6);
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.5);
             transition: 0.3s;
-            border: 2px solid white;
+            border: 2px solid rgba(255,255,255,0.4);
             text-decoration: none;
         }
         .action-btn.blue {
-            background: linear-gradient(145deg, var(--baby-blue), #5fa9d0);
-            box-shadow: 0 4px 15px rgba(137, 207, 240, 0.6);
+            background: linear-gradient(145deg, var(--neon-blue), #3b82f6);
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.5);
         }
         .action-btn:hover {
             transform: scale(1.2) rotate(5deg);
+            border-color: white;
         }
 
-        /* home button up + down are in left panel, back to main is separate */
+        /* back to main (blog lovers) */
         .back-home-fixed {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--baby-orange);
+            background: linear-gradient(135deg, var(--neon-gold), #f59e0b);
             color: black;
             padding: 8px 20px;
             border-radius: 40px;
@@ -106,140 +111,144 @@
             font-weight: bold;
             text-decoration: none;
             z-index: 999;
-            box-shadow: 0 0 20px #ffa726;
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.7);
             border: 2px solid white;
             transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .back-home-fixed i {
-            font-size: 1.3rem;
-        }
         .back-home-fixed:hover {
-            background: var(--baby-blue);
-            box-shadow: 0 0 25px #89CFF0;
+            background: linear-gradient(135deg, var(--neon-blue), #3b82f6);
+            box-shadow: 0 0 30px var(--neon-blue);
         }
+
+        /* -------------------- BREADCRUMBS -------------------- */
+        .breadcrumb-wrap {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-glow);
+            margin-top: 70px;
+        }
+        .breadcrumb {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+        .breadcrumb a {
+            color: var(--neon-gold);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .breadcrumb a:hover { color: var(--neon-blue); }
+        .breadcrumb .sep { color: #555; margin: 0 5px; }
+        .breadcrumb .current { color: var(--neon-blue); }
 
         /* header */
         header {
             text-align: center;
-            padding: 50px 20px 20px;
+            padding: 40px 20px 20px;
             position: relative;
-            z-index: 5;
+        }
+        .hero-icon {
+            font-size: 4rem;
+            filter: drop-shadow(0 0 20px var(--neon-gold));
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+        @keyframes floatIcon {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
         }
         h1 {
-            font-size: 3rem;
-            background: linear-gradient(135deg, var(--baby-orange), var(--baby-blue));
+            font-size: 3.2rem;
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-purple), var(--neon-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px #ffb347;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
             margin-bottom: 10px;
-            animation: pulseGlow 3s infinite;
         }
-        @keyframes pulseGlow {
-            0% { filter: drop-shadow(0 0 5px #ffb347); }
-            50% { filter: drop-shadow(0 0 20px #89CFF0); }
-            100% { filter: drop-shadow(0 0 5px #ffb347); }
-        }
-
-        /* ticker (scrolling) */
-        .ticker-wrap {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            border-top: 2px solid var(--baby-orange);
-            border-bottom: 2px solid var(--baby-blue);
-            padding: 10px 0;
-            margin: 20px 0;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .ticker {
-            display: inline-block;
-            animation: tickerMove 30s linear infinite;
-            font-size: 1.2rem;
-            color: #fff2d7;
-        }
-        .ticker span {
-            margin: 0 30px;
-            background: rgba(255,140,0,0.3);
-            padding: 5px 15px;
-            border-radius: 40px;
-        }
-        @keyframes tickerMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .hero-subtitle {
+            max-width: 750px;
+            margin: 10px auto;
+            font-size: 1.25rem;
+            color: #cfd9e6;
+            padding: 0 15px;
         }
 
-        /* main slider (featured) */
-        .featured-slider {
-            max-width: 1000px;
-            margin: 30px auto;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(255, 180, 70, 0.5);
-            border: 3px solid var(--baby-blue);
-            position: relative;
-            z-index: 10;
-        }
-        .slider-container {
-            display: flex;
-            transition: transform 0.6s ease;
-        }
-        .slider-slide {
-            min-width: 100%;
-            position: relative;
-        }
-        .slider-slide img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            filter: brightness(0.8) contrast(1.1);
-        }
-        .slider-caption {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            background: linear-gradient(to top, #000000cc, transparent);
-            color: white;
-            padding: 25px;
+        /* Typewriter */
+        .typewriter-wrap {
+            min-height: 50px;
+            margin: 15px auto;
             text-align: center;
         }
-        .slider-caption h3 {
-            font-size: 2.2rem;
-            color: var(--baby-orange);
-            text-shadow: 2px 2px 0 #000;
+        #typewriter {
+            font-size: 1.6rem;
+            color: var(--neon-gold);
+            display: inline-block;
+            border-left: 3px solid var(--neon-blue);
+            padding-right: 12px;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink {
+            0%,100% { border-color: var(--neon-blue); }
+            50% { border-color: transparent; }
         }
 
-        /* grid container */
+        /* Category Stats */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 25px 0 10px;
+        }
+        .stat-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--border-glow);
+            border-radius: 60px;
+            padding: 8px 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+        .stat-item i { color: var(--neon-gold); }
+        .stat-item span { color: white; font-weight: bold; margin-right: 5px; }
+
+        /* main grid */
         .container {
             max-width: 1300px;
-            margin: 0 auto;
-            padding: 15px;
+            margin: 30px auto;
+            padding: 0 15px;
         }
         .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
 
-        /* post card */
+        /* post card with neon glow */
         .post-card {
             background: var(--card-bg);
             border-radius: 24px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3);
-            border: 1px solid rgba(255,200,120,0.2);
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
             position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            backdrop-filter: blur(2px);
         }
         .post-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border: 2px solid var(--baby-orange);
-            box-shadow: 0 20px 40px var(--baby-blue);
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 35px rgba(251, 191, 36, 0.3), 0 0 15px rgba(79, 172, 254, 0.2);
         }
         .post-card a {
             text-decoration: none;
@@ -248,271 +257,343 @@
         }
         .post-card img {
             width: 100%;
-            height: 180px;
+            height: 190px;
             object-fit: cover;
             transition: 0.5s;
-            border-bottom: 2px solid var(--baby-blue);
+            border-bottom: 2px solid rgba(79, 172, 254, 0.3);
         }
         .post-card:hover img {
-            transform: scale(1.1) rotate(1deg);
+            transform: scale(1.05);
         }
         .card-content {
-            padding: 15px 10px;
+            padding: 16px 12px 14px;
             text-align: center;
         }
         .post-title {
-            font-size: 1rem;      /* چھوٹا سائز */
-            color: #f5e6d3;
-            line-height: 1.8;
-            font-weight: normal;
+            font-size: 1.05rem;
+            color: #f0e6d8;
+            line-height: 1.7;
         }
-
-        /* small moving slider (bottom) */
-        .mini-slider-section {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 25px 0;
-            margin: 60px 0 30px;
-            border-top: 3px dashed var(--baby-orange);
-            border-bottom: 3px dashed var(--baby-blue);
-            transform: rotate(-0.5deg);
-        }
-        .mini-track {
-            display: flex;
-            gap: 25px;
-            animation: miniScroll 25s linear infinite;
-            width: max-content;
-        }
-        .mini-card {
-            width: 180px;
-            background: #22272b;
-            border-radius: 20px;
-            padding: 12px;
-            border: 1px solid var(--baby-orange);
-            flex-shrink: 0;
-            text-align: center;
-        }
-        .mini-card img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 2px solid var(--baby-blue);
-        }
-        .mini-card h4 {
-            font-size: 1rem;
+        .post-desc {
+            font-size: 0.9rem;
+            color: #aab3c0;
             margin-top: 8px;
-            color: var(--baby-orange);
-        }
-        @keyframes miniScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
         }
 
-        /* social share buttons */
+        /* Reactions Bar */
+        .reactions-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 30px 0 10px;
+            padding: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(6px);
+            border-radius: 60px;
+            border: 1px solid var(--border-glow);
+        }
+        .reaction-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.05);
+            padding: 6px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+        }
+        .reaction-item:hover {
+            background: rgba(79, 172, 254, 0.15);
+            border-color: var(--neon-blue);
+            transform: scale(1.05);
+        }
+        .reaction-item i {
+            font-size: 1.3rem;
+            color: var(--neon-gold);
+        }
+        .reaction-item .count {
+            color: white;
+            font-weight: bold;
+            min-width: 18px;
+        }
+
+        /* social share */
         .share-row {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 40px 0 20px;
+            gap: 15px;
             flex-wrap: wrap;
+            margin: 35px 0 20px;
         }
         .social-btn {
-            background: #2a2f33;
+            background: var(--card-bg);
             color: white;
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             transition: 0.3s;
-            border: 2px solid var(--baby-orange);
+            border: 2px solid var(--neon-gold);
             text-decoration: none;
         }
         .social-btn:hover {
-            background: var(--baby-blue);
-            color: black;
-            transform: scale(1.2) rotate(8deg);
+            background: var(--neon-blue);
+            color: #000;
+            transform: scale(1.15) rotate(6deg);
             border-color: white;
         }
 
         /* footer */
         footer {
-            background: #0a0c0d;
+            background: #080a0d;
             text-align: center;
-            padding: 30px;
-            border-top: 4px solid var(--baby-blue);
-            font-size: 1.2rem;
+            padding: 35px 15px 25px;
+            border-top: 3px solid var(--neon-purple);
+            margin-top: 40px;
         }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .footer-links a:hover { color: var(--neon-gold); }
 
         /* responsive */
         @media (max-width: 700px) {
-            h1 { font-size: 2.2rem; }
+            h1 { font-size: 2.4rem; }
             .posts-grid { grid-template-columns: 1fr 1fr; }
-            .slider-slide img { height: 250px; }
+            .reactions-bar { border-radius: 30px; gap: 8px; }
+            .reaction-item { padding: 4px 12px; font-size: 0.85rem; }
+            .back-home-fixed span { display: none; }
         }
         @media (max-width: 450px) {
             .posts-grid { grid-template-columns: 1fr; }
-            .back-home-fixed span { display: none; }
-            .back-home-fixed i { margin-left: 0; }
+            .hero-icon { font-size: 3rem; }
+            #typewriter { font-size: 1.2rem; }
         }
 
-        /* Hide any raw url / link */
-        .post-link-wrapper .raw-url, .raw-url { display: none; }
-
-        /* no underlines or link text under titles */
+        /* Loading spinner */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--neon-gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- floating background icons (baby orange & blue) -->
-    <i class="fas fa-star float-icon" style="top: 8%; left: 12%;"></i>
-    <i class="fas fa-moon float-icon blue" style="bottom: 15%; right: 8%;"></i>
-    <i class="fas fa-crown float-icon" style="top: 20%; left: 85%;"></i>
-    <i class="fas fa-feather-alt float-icon blue" style="bottom: 25%; left: 5%;"></i>
-    <i class="fas fa-flask float-icon" style="top: 70%; right: 12%;"></i>
-    <i class="fas fa-brain float-icon blue" style="top: 40%; left: 20%;"></i>
-    <i class="fas fa-scroll float-icon" style="bottom: 5%; right: 20%;"></i>
+    <!-- Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
 
-    <!-- fixed home button (bloglovers.pk main) -->
-    <a href="https://bloglovers.pk" class="back-home-fixed">
-        <i class="fas fa-home"></i> <span>مرکزی صفحہ</span>
-    </a>
+    <!-- MAIN CONTENT WRAP -->
+    <div class="content-wrap">
 
-    <!-- action buttons: up / down / share (simplified) -->
-    <div class="action-buttons">
-        <a href="#" class="action-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
-        <a href="#" class="action-btn blue" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
-    </div>
+        <!-- fixed home button -->
+        <a href="https://bloglovers.pk" class="back-home-fixed">
+            <i class="fas fa-home"></i> <span>مرکزی صفحہ</span>
+        </a>
 
-    <!-- header -->
-    <header>
-        <h1><i class="fas fa-user-astronaut" style="color:var(--baby-orange);"></i> شخصیات</h1>
-        <p style="color:var(--baby-blue); font-size:1.3rem;">مسلم تاریخ کے تابندہ ستارے</p>
-    </header>
-
-    <!-- moving ticker (updater) -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <span>✨ ابن سینا کا نیا مقالہ</span> <span>✨ الخوارزمی ریاضی</span> <span>✨ ابن الہیثم بصریات</span> <span>✨ البیرونی و طب</span> <span>✨ جابر بن حیان کیمیا</span> <span>✨ ابن النفیس دوران خون</span> <span>✨ ابن خلدون معاشرت</span>
-            <span>✨ ابن سینا کا نیا مقالہ</span> <span>✨ الخوارزمی ریاضی</span> <span>✨ ابن الہیثم بصریات</span> <!-- double for smooth loop -->
+        <!-- action buttons -->
+        <div class="action-buttons">
+            <a href="#" class="action-btn" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;"><i class="fas fa-arrow-up"></i></a>
+            <a href="#" class="action-btn blue" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); return false;"><i class="fas fa-arrow-down"></i></a>
         </div>
-    </div>
 
-    <!-- main slider (featured 3 personalities) -->
-    <div class="featured-slider">
-        <div class="slider-container" id="mainSlider">
-            <div class="slider-slide">
-                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt="Ibn Sina" loading="lazy">
-                <div class="slider-caption"><h3>ابن سینا</h3></div>
-            </div>
-            <div class="slider-slide">
-                <img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt="Al Khawarizmi" loading="lazy">
-                <div class="slider-caption"><h3>الخوارزمی</h3></div>
-            </div>
-            <div class="slider-slide">
-                <img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" alt="Ibn Al Haytham" loading="lazy">
-                <div class="slider-caption"><h3>ابن الہیثم</h3></div>
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb-wrap">
+            <div class="breadcrumb">
+                <a href="https://bloglovers.pk/"><i class="fas fa-home"></i> ہوم</a>
+                <span class="sep">›</span>
+                <span class="current">شخصیات</span>
             </div>
         </div>
-    </div>
 
-    <!-- main posts grid (exactly 23 as per given list) -->
-    <div class="container">
-        <div class="posts-grid">
-            <!-- 1 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt="Ibn Sina" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 1-ابن سینا</div></div></a></div>
-            <!-- 2 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys.png" alt="Ibn Nafis" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 2-ابن النفیس</div></div></a></div>
-            <!-- 3 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi.png" alt="Nasir Tusi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات3- نصیر الدین طوسی</div></div></a></div>
-            <!-- 4 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh.png" alt="Ibn Miskawayh" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات4- ابن مسکویہ</div></div></a></div>
-            <!-- 5 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni.png" alt="Al Beruni" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات5-ابوریحان البیرونی</div></div></a></div>
-            <!-- 6 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" alt="Ibn Haytham" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات6-ابن الہیثم</div></div></a></div>
-            <!-- 7 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam.png" alt="Omar Khayyam" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات7- عمر خیام</div></div></a></div>
-            <!-- 8 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth.png" alt="Ibn Battuta" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات8- ابن بطوطہ</div></div></a></div>
-            <!-- 9 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png" alt="Ibn Khaldun" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات9- ابن خلدون</div></div></a></div>
-            <!-- 10 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt="Al Khawarizmi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات10-الخوارزمی</div></div></a></div>
-            <!-- 11 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png" alt="Kamal ud Din" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات11-کمال الدین فارسی</div></div></a></div>
-            <!-- 12 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan.png" alt="Jabir Bin Hayan" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات12-جابر بن حیان</div></div></a></div>
-            <!-- 13 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd.png" alt="Ibn Rushd" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات13-ابن رشد</div></div></a></div>
-            <!-- 14 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png" alt="Al Farabi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات14-الفارابی</div></div></a></div>
-            <!-- 15 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi.png" alt="Al Zahrawi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات15-ابو القاسم الزہراوی</div></div></a></div>
-            <!-- 16 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi.png" alt="Abu Mashar" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 16-ابو معشر البلخی</div></div></a></div>
-            <!-- 17 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png" alt="Al Buzjani" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفا البوزجانی</div></div></a></div>
-            <!-- 18 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi.png" alt="Al Kindi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 18-ابو یوسف کندی</div></div></a></div>
-            <!-- 19 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi.png" alt="Al Razi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 19-ابوبکر الرازی</div></div></a></div>
-            <!-- 20 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor.png" alt="Abu Nasr" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 20-ابو نصر منصور</div></div></a></div>
-            <!-- 21 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png" alt="Sharaf Tusi" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی</div></div></a></div>
-            <!-- 22 -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh.png" alt="Ibn Qutaybah" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 22-ابن قتیبہ</div></div></a></div>
-            <!-- 23 (last) -->
-            <div class="post-card"><a href="https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani.png" alt="Al Farghani" loading="lazy"><div class="card-content"><div class="post-title">مسلم تاریخ کی 50 اہم شخصیات 23-ابوالعباس الفرغانی</div></div></a></div>
+        <!-- HEADER / HERO -->
+        <header>
+            <div class="hero-icon" data-aos="fade-down">⚡</div>
+            <h1 data-aos="fade-up">شخصیات</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                مسلم تاریخ کے وہ تابندہ ستارے جنہوں نے علم و دانش کی شمعیں روشن کیں۔
+            </p>
+            <div class="typewriter-wrap" data-aos="fade-up" data-aos-delay="200">
+                <span id="typewriter"></span>
+            </div>
+        </header>
+
+        <!-- CATEGORY STATS (real data from API) -->
+        <div class="stats-row" id="categoryStats">
+            <div class="stat-item"><i class="fas fa-file-alt"></i> پوسٹس: <span id="statPosts">...</span></div>
+            <div class="stat-item"><i class="fas fa-eye"></i> مشاہدات: <span id="statViews">...</span></div>
+            <div class="stat-item"><i class="fas fa-heart"></i> ری ایکشنز: <span id="statReactions">...</span></div>
         </div>
-    </div>
 
-    <!-- small moving slider (personalities scroller) -->
-    <div class="mini-slider-section">
-        <div class="mini-track">
-            <!-- repeated items for seamless loop -->
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt=""><h4>ابن سینا</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt=""><h4>الخوارزمی</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png" alt=""><h4>ابن الہیثم</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni.png" alt=""><h4>البیرونی</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys.png" alt=""><h4>ابن النفیس</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan.png" alt=""><h4>جابر بن حیان</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam.png" alt=""><h4>عمر خیام</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd.png" alt=""><h4>ابن رشد</h4></div>
-            <!-- duplicate for continuity -->
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png" alt=""><h4>ابن سینا</h4></div>
-            <div class="mini-card"><img src="https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png" alt=""><h4>الخوارزمی</h4></div>
+        <!-- REACTIONS BAR (7 reactions) -->
+        <div class="container">
+            <div class="reactions-bar" id="reactionsBar">
+                <div class="reaction-item" data-reaction="excellent"><i class="fas fa-star"></i> شاندار <span class="count" id="r-excellent">0</span></div>
+                <div class="reaction-item" data-reaction="interesting"><i class="fas fa-fire"></i> دلچسپ <span class="count" id="r-interesting">0</span></div>
+                <div class="reaction-item" data-reaction="useful"><i class="fas fa-check-circle"></i> مفید <span class="count" id="r-useful">0</span></div>
+                <div class="reaction-item" data-reaction="thoughtful"><i class="fas fa-brain"></i> فکر انگیز <span class="count" id="r-thoughtful">0</span></div>
+                <div class="reaction-item" data-reaction="contemplative"><i class="fas fa-feather-alt"></i> غور طلب <span class="count" id="r-contemplative">0</span></div>
+                <div class="reaction-item" data-reaction="wonderful"><i class="fas fa-gem"></i> عجیب <span class="count" id="r-wonderful">0</span></div>
+                <div class="reaction-item" data-reaction="awesome"><i class="fas fa-rocket"></i> زبردست <span class="count" id="r-awesome">0</span></div>
+            </div>
         </div>
+
+        <!-- POSTS GRID -->
+        <div class="container">
+            <div id="loaderContainer" class="loader"></div>
+            <div class="posts-grid" id="postsGrid"></div>
+        </div>
+
+        <!-- SOCIAL SHARE -->
+        <div class="container">
+            <div class="share-row">
+                <a href="#" class="social-btn" onclick="sharePage('facebook')"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-btn" onclick="sharePage('twitter')"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn" onclick="sharePage('whatsapp')"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="social-btn" onclick="sharePage('telegram')"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-btn" onclick="sharePage('linkedin')"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn" onclick="sharePage('copy')"><i class="fas fa-link"></i></a>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-links" id="footerCategories">
+                <!-- will be injected from API -->
+            </div>
+            <div class="footer-links" id="usefulLinks">
+                <!-- will be injected -->
+            </div>
+            <p style="color:#888; margin-top:15px;">© 2025 بلاگ لوورز.pk | جملہ حقوق محفوظ</p>
+            <p style="color:var(--neon-gold); font-size:0.9rem;">✨ علم کی روشنی پھیلائیں — Neon Gradient Theme ✨</p>
+        </footer>
     </div>
 
-    <!-- social sharing buttons (all platforms) -->
-    <div class="share-row">
-        <a href="#" class="social-btn" onclick="sharePage('facebook')"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="social-btn" onclick="sharePage('twitter')"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="social-btn" onclick="sharePage('whatsapp')"><i class="fab fa-whatsapp"></i></a>
-        <a href="#" class="social-btn" onclick="sharePage('telegram')"><i class="fab fa-telegram"></i></a>
-        <a href="#" class="social-btn" onclick="sharePage('linkedin')"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="social-btn" onclick="sharePage('copy')"><i class="fas fa-link"></i></a>
-    </div>
-
-    <footer>
-        <p>© 2025 بلاگ لوورز.pk | جملہ حقوق محفوظ</p>
-        <p style="color:var(--baby-orange);">علم کی روشنی پھیلائیں — بیبی اورنج اینڈ بلیو تھیم</p>
-    </footer>
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, once: true, offset: 20 });
+    </script>
 
     <script>
-        // main slider
-        const slider = document.getElementById('mainSlider');
-        let idx = 0;
-        setInterval(() => {
-            idx = (idx + 1) % 3;  // we have exactly 3 slides
-            slider.style.transform = `translateX(-${idx * 100}%)`;
-        }, 3200);
+        // ============================================================
+        // BASE URL
+        // ============================================================
+        const BASE_API = 'https://bloglovers-api.uzairhameed01.workers.dev';
+        const CATEGORY_SLUG = 'shakhsiyat';
 
-        // share function (all social)
+        // ============================================================
+        // CATEGORY DATA (local fallback)
+        // ============================================================
+        const CATEGORY_DATA = {
+            name: "شخصیات",
+            slug: "shakhsiyat",
+            icon: "⚡",
+            typewriterPhrases: [
+                'ابن سینا — طب کا امام',
+                'الخوارزمی — ریاضی کا بادشاہ',
+                'ابن الہیثم — بصریات کا معمار',
+                'البیرونی — فلکیات کا ستارہ',
+                'جابر بن حیان — کیمیا کا باپ'
+            ],
+            posts: [
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 1-ابن سینا", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna.png", description: "ابن سینا طب اور فلسفہ کے امام تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 2-ابن النفیس", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-2-abn-alnfys.png", description: "ابن النفیس نے دوران خون کا نظریہ پیش کیا۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 3-نصیر الدین طوسی", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-3-nsyr-aldyn-tosi.png", description: "نصیر الدین طوسی فلکیات اور ریاضی کے ماہر تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 4-ابن مسکویہ", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-4-abn-mskoyh.png", description: "ابن مسکویہ اخلاق اور فلسفہ کے مفکر تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 5-ابوریحان البیرونی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-5-abul-rayhan-al-beruni.png", description: "البیرونی فلکیات، ریاضی اور تاریخ کے عالم تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 6-ابن الہیثم", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-6-abn-alhysm.png", description: "ابن الہیثم بصریات اور طبیعیات کے بانی تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 7-عمر خیام", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-7-omar-khayyam.png", description: "عمر خیام شاعر، ریاضی دان اور فلکیات دان تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 8-ابن بطوطہ", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-8-abn-btoth.png", description: "ابن بطوطہ دنیا کے سب سے بڑے سیاحوں میں سے تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 9-ابن خلدون", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-9-ibn-e-khaldoon.png", description: "ابن خلدون تاریخ اور عمرانیات کے بانی تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 10-الخوارزمی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-10-al-khawarizmi.png", description: "الخوارزمی الجبرا کے بانی اور ریاضی کے امام تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 11-کمال الدین فارسی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-11-kamal-ud-din-farsi.png", description: "کمال الدین فارسی بصریات اور طبیعیات کے عالم تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 12-جابر بن حیان", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-12-jabir-bin-hayan.png", description: "جابر بن حیان کیمیا کے بانی اور سائنسدان تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 13-ابن رشد", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-13-ibn-e-rushd.png", description: "ابن رشد فلسفہ اور منطق کے عظیم شارح تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 14-الفارابی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-14-al-farabi.png", description: "الفارابی فلسفہ اور موسیقی کے امام تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 15-ابو القاسم الزہراوی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-15-abu-al-qasim-al-zahrawi.png", description: "الزہراوی جراحی اور طب کے ماہر تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 16-ابو معشر البلخی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-16-abu-mashar-al-balkhi.png", description: "ابو معشر فلکیات اور ریاضی کے ماہر تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 17-ابو الوفا البوزجانی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-17-abu-al-wafa-buzjani.png", description: "ابو الوفا ریاضی اور فلکیات کے عالم تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 18-ابو یوسف کندی", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-18-abo-yosf-kndi.png", description: "کندی فلسفہ اور منطق کے امام تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 19-ابوبکر الرازی", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-19-abu-bakr-al-razi.png", description: "الرازی طب اور کیمیا کے عظیم ماہر تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 20-ابو نصر منصور", slug: "muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor", url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor", image: "https://bloglovers.pk/images/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-20-abu-nasr-mansoor.png", description: "ابو نصر منصور ریاضی اور فلکیات کے عالم تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 21-شرف الدین طوسی", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-21-shrf-aldyn-tosi.png", description: "شرف الدین طوسی ریاضی اور فلکیات کے ماہر تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 22-ابن قتیبہ", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-22-abn-qtybh.png", description: "ابن قتیبہ ادب اور تاریخ کے عالم تھے۔" },
+                { title: "مسلم تاریخ کی 50 اہم شخصیات 23-ابوالعباس الفرغانی", slug: "mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani", url: "https://bloglovers.pk/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani", image: "https://bloglovers.pk/images/shakhsiyat/mslm-tarykh-ki-50-ahm-shkhsyat-23-aboalabas-ahmd-bn-ksyralfrghani.png", description: "الفرغانی فلکیات اور ریاضی کے ماہر تھے۔" }
+            ],
+            footerCategories: [
+                { name: "تعلیمات اسلامی", url: "https://bloglovers.pk/category-pages/islami-taleemat.html" },
+                { name: "تاریخ", url: "https://bloglovers.pk/category-pages/tareekh.html" },
+                { name: "موٹیویشنل", url: "https://bloglovers.pk/category-pages/motivation.html" },
+                { name: "علامات کبریٰ", url: "https://bloglovers.pk/category-pages/alamaat-kubra.html" }
+            ],
+            usefulLinks: [
+                { name: "ہمارے بارے میں", url: "https://bloglovers.pk/about-us.html" },
+                { name: "پرائیویسی پالیسی", url: "https://bloglovers.pk/privacy-policy.html" },
+                { name: "ہم سے رابطہ", url: "https://bloglovers.pk/contact-us.html" },
+                { name: "ڈسکلیمر", url: "https://bloglovers.pk/dmca.html" }
+            ]
+        };
+
+        // ============================================================
+        // TYPEWRITER
+        // ============================================================
+        const phrases = CATEGORY_DATA.typewriterPhrases;
+        let phraseIdx = 0, charIdx = 0, isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIdx];
+            if (!isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+                if (charIdx === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 1800);
+                    return;
+                }
+                setTimeout(typeEffect, 80);
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+                if (charIdx === 0) {
+                    isDeleting = false;
+                    phraseIdx = (phraseIdx + 1) % phrases.length;
+                    setTimeout(typeEffect, 400);
+                    return;
+                }
+                setTimeout(typeEffect, 40);
+            }
+        }
+        typeEffect();
+
+        // ============================================================
+        // SHARE FUNCTION
+        // ============================================================
         function sharePage(platform) {
             let url = encodeURIComponent(window.location.href);
             let title = encodeURIComponent('شخصیات | بلاگ لوورز');
@@ -530,9 +611,310 @@
             if (shareLink) window.open(shareLink, '_blank', 'width=600,height=400');
         }
 
-        // remove www from all links (already done in hrefs, but ensure no www appears)
-        // all links are without www as requested
-    </script>
+        // ============================================================
+        // PARTICLES BACKGROUND
+        // ============================================================
+        (function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            const particles = [];
+            const count = 80;
 
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                    this.radius = Math.random() * 2.2 + 1.2;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > w) this.vx *= -1;
+                    if (this.y < 0 || this.y > h) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(79, 172, 254, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(168, 85, 247, ${0.12 * (1 - dist/120)})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ============================================================
+        // 1. API: GET /api/category-stats/:slug
+        // ============================================================
+        async function fetchCategoryStats() {
+            try {
+                const res = await fetch(`${BASE_API}/api/category-stats/${CATEGORY_SLUG}`);
+                const data = await res.json();
+                document.getElementById('statPosts').textContent = data.posts || '0';
+                document.getElementById('statViews').textContent = data.views || '0';
+                document.getElementById('statReactions').textContent = data.reactions || '0';
+            } catch (err) {
+                console.warn('Category stats API failed, using fallback');
+                document.getElementById('statPosts').textContent = '23';
+                document.getElementById('statViews').textContent = '1.2K';
+                document.getElementById('statReactions').textContent = '340';
+            }
+        }
+        fetchCategoryStats();
+
+        // ============================================================
+        // 2. API: GET /api/home-stats (for reaction counts)
+        // ============================================================
+        async function fetchReactionCounts() {
+            try {
+                const res = await fetch(`${BASE_API}/api/home-stats`);
+                const data = await res.json();
+                // data should contain reaction counts
+                const reactions = data.reactions || {};
+                document.getElementById('r-excellent').textContent = reactions.excellent || 0;
+                document.getElementById('r-interesting').textContent = reactions.interesting || 0;
+                document.getElementById('r-useful').textContent = reactions.useful || 0;
+                document.getElementById('r-thoughtful').textContent = reactions.thoughtful || 0;
+                document.getElementById('r-contemplative').textContent = reactions.contemplative || 0;
+                document.getElementById('r-wonderful').textContent = reactions.wonderful || 0;
+                document.getElementById('r-awesome').textContent = reactions.awesome || 0;
+            } catch (err) {
+                console.warn('Home stats API failed, using fallback');
+                document.getElementById('r-excellent').textContent = '0';
+                document.getElementById('r-interesting').textContent = '0';
+                document.getElementById('r-useful').textContent = '0';
+                document.getElementById('r-thoughtful').textContent = '0';
+                document.getElementById('r-contemplative').textContent = '0';
+                document.getElementById('r-wonderful').textContent = '0';
+                document.getElementById('r-awesome').textContent = '0';
+            }
+        }
+        fetchReactionCounts();
+
+        // ============================================================
+        // 3. API: POST /api/post-reaction (when user clicks reaction)
+        // ============================================================
+        document.querySelectorAll('.reaction-item').forEach(el => {
+            el.addEventListener('click', async function() {
+                const type = this.dataset.reaction;
+                const countSpan = this.querySelector('.count');
+                let current = parseInt(countSpan.textContent) || 0;
+                countSpan.textContent = current + 1;
+
+                try {
+                    await fetch(`${BASE_API}/api/post-reaction`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            type: type,
+                            category: CATEGORY_SLUG,
+                            slug: CATEGORY_SLUG
+                        })
+                    });
+                } catch (err) {
+                    console.warn('Reaction API failed:', err);
+                }
+            });
+        });
+
+        // ============================================================
+        // 4. API: POST /api/add-view (page view counter)
+        // ============================================================
+        async function addView() {
+            try {
+                await fetch(`${BASE_API}/api/add-view`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        page: CATEGORY_SLUG,
+                        category: CATEGORY_SLUG
+                    })
+                });
+            } catch (err) {
+                console.warn('Add view API failed:', err);
+            }
+        }
+        addView();
+
+        // ============================================================
+        // 5. API: POST /api/share-site (share counter)
+        // ============================================================
+        function trackShare(platform) {
+            try {
+                fetch(`${BASE_API}/api/share-site`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        platform: platform,
+                        url: window.location.href,
+                        category: CATEGORY_SLUG
+                    })
+                });
+            } catch (err) {
+                console.warn('Share API failed:', err);
+            }
+        }
+
+        // Override share function to track shares
+        const originalShare = sharePage;
+        sharePage = function(platform) {
+            trackShare(platform);
+            originalShare(platform);
+        };
+
+        // ============================================================
+        // 6. API: GET /api/trending (footer trending posts)
+        // ============================================================
+        async function fetchTrending() {
+            try {
+                const res = await fetch(`${BASE_API}/api/trending`);
+                const data = await res.json();
+                // We'll display trending in footer
+                const footer = document.getElementById('footerCategories');
+                if (data && data.length) {
+                    footer.innerHTML = data.slice(0, 4).map(t => 
+                        `<a href="${t.url || '#'}">${t.name || t.title || 'Trending'}</a>`
+                    ).join('');
+                }
+            } catch (err) {
+                console.warn('Trending API failed, using fallback');
+                // fallback footer categories
+                document.getElementById('footerCategories').innerHTML = 
+                    CATEGORY_DATA.footerCategories.map(c => 
+                        `<a href="${c.url}">${c.name}</a>`
+                    ).join('');
+            }
+        }
+        fetchTrending();
+
+        // ============================================================
+        // 7. API: GET /api/popular-tags (footer)
+        // ============================================================
+        async function fetchPopularTags() {
+            try {
+                const res = await fetch(`${BASE_API}/api/popular-tags`);
+                const data = await res.json();
+                // Display in usefulLinks section
+                const useful = document.getElementById('usefulLinks');
+                if (data && data.length) {
+                    useful.innerHTML = data.slice(0, 6).map(tag => 
+                        `<a href="${tag.url || '#'}">${tag.name || tag}</a>`
+                    ).join('');
+                }
+            } catch (err) {
+                console.warn('Popular tags API failed, using fallback');
+                document.getElementById('usefulLinks').innerHTML = 
+                    CATEGORY_DATA.usefulLinks.map(link => 
+                        `<a href="${link.url}">${link.name}</a>`
+                    ).join('');
+            }
+        }
+        fetchPopularTags();
+
+        // ============================================================
+        // 8. API: GET /api/related-posts/:slug (for each post)
+        // We'll fetch for first few posts and display as extra
+        // ============================================================
+        async function fetchRelatedPosts(slug) {
+            try {
+                const res = await fetch(`${BASE_API}/api/related-posts/${slug}`);
+                return await res.json();
+            } catch (err) {
+                console.warn('Related posts API failed for', slug);
+                return [];
+            }
+        }
+
+        // ============================================================
+        // 9. & 10. GET /api/post-reactions/:slug (for each post reaction)
+        // Will be shown on hover or as badge
+        // ============================================================
+        async function fetchPostReactions(slug) {
+            try {
+                const res = await fetch(`${BASE_API}/api/post-reactions/${slug}`);
+                return await res.json();
+            } catch (err) {
+                console.warn('Post reactions API failed for', slug);
+                return null;
+            }
+        }
+
+        // ============================================================
+        // RENDER POSTS with API data enhancement
+        // ============================================================
+        async function renderPosts() {
+            const grid = document.getElementById('postsGrid');
+            const loader = document.getElementById('loaderContainer');
+            
+            // Use local posts data, but enhance with API if available
+            const posts = CATEGORY_DATA.posts;
+            
+            // Clear loader
+            loader.style.display = 'none';
+            
+            // Render each post
+            for (const post of posts) {
+                // Fetch reactions for this post
+                let reactionCount = 0;
+                try {
+                    const reactions = await fetchPostReactions(post.slug);
+                    if (reactions) {
+                        reactionCount = Object.values(reactions).reduce((a, b) => a + b, 0);
+                    }
+                } catch (e) { /* ignore */ }
+
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.innerHTML = `
+                    <a href="${post.url}">
+                        <img src="${post.image}" alt="${post.title}" loading="lazy">
+                        <div class="card-content">
+                            <div class="post-title">${post.title}</div>
+                            <div class="post-desc">${post.description}</div>
+                            ${reactionCount > 0 ? `<div style="margin-top:6px;font-size:0.8rem;color:var(--neon-gold);"><i class="fas fa-heart"></i> ${reactionCount}</div>` : ''}
+                        </div>
+                    </a>
+                `;
+                grid.appendChild(card);
+            }
+        }
+        renderPosts();
+
+        console.log('✅ Category Page: shakhsiyat loaded with ALL 10 APIs integrated.');
+    </script>
 </body>
 </html>
