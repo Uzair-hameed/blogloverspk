@@ -1,4 +1,4 @@
-// auto-interlink.js - پیراگراف کے بعد خوبصورت کارڈ لنکس
+// auto-interlink.js - سمارٹ بینر انٹرلنکس
 
 (function() {
     'use strict';
@@ -16,22 +16,18 @@
     function getTitleFromUrl(url) {
         let slug = url.split('/').pop();
         let title = slug.replace(/-/g, ' ');
-        // پہلے حرف کو بڑا کریں
         title = title.charAt(0).toUpperCase() + title.slice(1);
         return title;
     }
 
     // URL سے امیج یوآرایل بنائیں
     function getImageFromUrl(url) {
-        // example: https://bloglovers.pk/alamaat-sughra/aap-ka-is-dnya-main-tshryf-lana
-        // -> https://bloglovers.pk/images/alamaat-sughra/aap-ka-is-dnya-main-tshryf-lana.png
         let path = url.replace('https://bloglovers.pk/', '');
-        let imageUrl = `https://bloglovers.pk/images/${path}.png`;
-        return imageUrl;
+        return `https://bloglovers.pk/images/${path}.png`;
     }
 
     // متعلقہ پوسٹس تلاش کریں (اسی کیٹیگری سے)
-    function getRelatedPosts(count = 6) {
+    function getRelatedPosts(count = 4) {
         const currentPath = window.location.pathname;
         const category = currentPath.split('/')[1] || '';
 
@@ -39,30 +35,35 @@
             return url.includes('/' + category + '/') && url !== currentPageUrl;
         });
 
-        // Randomly shuffle and pick
+        // Randomly shuffle
         const shuffled = related.sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     }
 
-    // خوبصورت کارڈ بنائیں
-    function createCard(url, index) {
+    // سمارٹ بینر بنائیں (چھوٹا، خوبصورت، غیر مداخلتی)
+    function createSmartBanner(url, index) {
         const title = getTitleFromUrl(url);
         const imageUrl = getImageFromUrl(url);
         
-        // مختلف ڈیزائن کے لیے کلاس
-        const cardClass = index % 2 === 0 ? 'card-left' : 'card-right';
+        // مختلف قسم کے بینرز
+        const styles = ['style-1', 'style-2', 'style-3'];
+        const style = styles[index % styles.length];
         
         return `
-            <div class="interlink-card ${cardClass}">
-                <a href="${url}" class="card-link">
-                    <div class="card-content">
-                        <div class="card-image">
+            <div class="smart-banner ${style}" data-index="${index}">
+                <a href="${url}" class="banner-link">
+                    <div class="banner-inner">
+                        <div class="banner-icon">
                             <img src="${imageUrl}" alt="${title}" loading="lazy" onerror="this.style.display='none'">
                         </div>
-                        <div class="card-text">
-                            <span class="card-badge">✨ مزید پڑھیں</span>
-                            <h4 class="card-title">${title}</h4>
-                            <span class="card-arrow">👉 کلک کریں</span>
+                        <div class="banner-content">
+                            <span class="banner-label">📖 تجویز کردہ</span>
+                            <span class="banner-title">${title}</span>
+                        </div>
+                        <div class="banner-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
                         </div>
                     </div>
                 </a>
@@ -91,70 +92,62 @@
         return document.body;
     }
 
-    // پیراگراف کے بعد کارڈ داخل کریں
-    function insertCardsInContent() {
+    // بینرز داخل کریں
+    function insertBannersInContent() {
         const container = getContentContainer();
         if (!container) {
             console.warn('⚠️ مواد کا کنٹینر نہیں ملا');
             return;
         }
 
-        // صرف پیراگراف تلاش کریں
         const paragraphs = container.querySelectorAll('p');
-        if (paragraphs.length < 3) {
-            console.log('ℹ️ بہت کم پیراگراف، کارڈ نہیں ڈالے');
+        if (paragraphs.length < 4) {
+            console.log('ℹ️ بہت کم پیراگراف');
             return;
         }
 
-        // متعلقہ پوسٹس حاصل کریں
-        const relatedPosts = getRelatedPosts(4);
+        const relatedPosts = getRelatedPosts(3);
         if (relatedPosts.length === 0) {
             console.log('ℹ️ کوئی متعلقہ پوسٹ نہیں ملی');
             return;
         }
 
-        // کارڈز کی تعداد (زیادہ سے زیادہ 4)
-        const cardCount = Math.min(relatedPosts.length, 4);
-        const selectedPosts = relatedPosts.slice(0, cardCount);
+        // صرف 3 بینرز (پوری پوسٹ میں)
+        const bannerCount = Math.min(relatedPosts.length, 3);
+        const selectedPosts = relatedPosts.slice(0, bannerCount);
 
-        // پیراگراف کے درمیان پوزیشنز
-        const positions = [];
+        // پوزیشنز: پہلا 30% کے بعد، دوسرا 60% کے بعد، تیسرا 85% کے بعد
         const totalParas = paragraphs.length;
-        
-        // ہر 3-4 پیراگراف کے بعد کارڈ
-        let interval = Math.floor(totalParas / (cardCount + 1));
-        if (interval < 2) interval = 2;
-        
-        for (let i = 1; i <= cardCount; i++) {
-            let pos = i * interval;
-            if (pos >= totalParas) pos = totalParas - 1;
-            positions.push(pos);
-        }
+        const positions = [
+            Math.floor(totalParas * 0.3),
+            Math.floor(totalParas * 0.6),
+            Math.floor(totalParas * 0.85)
+        ].slice(0, bannerCount);
 
-        // کارڈز ڈالیں (الٹ ترتیب میں تاکہ انڈیکس متاثر نہ ہوں)
-        for (let i = cardCount - 1; i >= 0; i--) {
+        // بینرز ڈالیں (الٹ ترتیب میں)
+        for (let i = bannerCount - 1; i >= 0; i--) {
             const pos = positions[i];
             if (pos < paragraphs.length) {
-                const cardHtml = createCard(selectedPosts[i], i);
+                const bannerHtml = createSmartBanner(selectedPosts[i], i);
                 const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = cardHtml;
-                const cardNode = tempDiv.firstElementChild;
+                tempDiv.innerHTML = bannerHtml;
+                const bannerNode = tempDiv.firstElementChild;
                 
-                // پیراگراف کے بعد کارڈ داخل کریں
-                paragraphs[pos].parentNode.insertBefore(cardNode, paragraphs[pos].nextSibling);
+                // پیراگراف کے بعد بینر داخل کریں
+                paragraphs[pos].parentNode.insertBefore(bannerNode, paragraphs[pos].nextSibling);
             }
         }
 
-        console.log(`✅ ${cardCount} انٹرلنک کارڈز شامل کیے گئے`);
+        console.log(`✅ ${bannerCount} سمارٹ بینرز شامل کیے گئے`);
     }
 
     // صفحہ لوڈ ہونے پر چلائیں
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', insertCardsInContent);
+        document.addEventListener('DOMContentLoaded', insertBannersInContent);
     } else {
-        insertCardsInContent();
+        insertBannersInContent();
     }
 
-    console.log('🔗 Auto-Interlink Cards System Started with ' + allUrls.length + ' URLs');
+    console.log('🔗 Smart Banner System Started with ' + allUrls.length + ' URLs');
 
 })();
