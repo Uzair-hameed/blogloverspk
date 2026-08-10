@@ -1,11 +1,11 @@
-// auto-interlink.js - سمارٹ بینر انٹرلنکس (اپ ڈیٹڈ)
+// auto-interlink.js - سمارٹ بینر انٹرلنکس (اردو انکوڈنگ درست)
 
 (function() {
     'use strict';
 
     console.log('🔍 Auto-Interlink Starting...');
 
-    const allUrls = typeof interlinkData !== 'undefined' ? interlinkData : [];
+    var allUrls = typeof interlinkData !== 'undefined' ? interlinkData : [];
     console.log('📊 Total URLs loaded:', allUrls.length);
 
     if (allUrls.length === 0) {
@@ -13,94 +13,105 @@
         return;
     }
 
-    const currentPageUrl = window.location.href.split('#')[0].split('?')[0];
+    var currentPageUrl = window.location.href.split('#')[0].split('?')[0];
     console.log('📄 Current Page:', currentPageUrl);
 
-    // URL سے ٹائٹل نکالیں
+    // URL سے ٹائٹل نکالیں (اردو کے لیے درست)
     function getTitleFromUrl(url) {
-        let slug = url.split('/').pop();
-        let title = slug.replace(/-/g, ' ');
-        title = title.charAt(0).toUpperCase() + title.slice(1);
-        return title;
+        try {
+            var slug = url.split('/').pop();
+            // صرف hyphens کو spaces میں تبدیل کریں
+            var title = slug.split('-').join(' ');
+            // پہلا حرف بڑا کریں
+            title = title.charAt(0).toUpperCase() + title.slice(1);
+            return title;
+        } catch(e) {
+            return url;
+        }
     }
 
     // URL سے امیج یوآرایل بنائیں
     function getImageFromUrl(url) {
-        let path = url.replace('https://bloglovers.pk/', '');
-        return `https://bloglovers.pk/images/${path}.png`;
+        try {
+            var path = url.replace('https://bloglovers.pk/', '');
+            return 'https://bloglovers.pk/images/' + path + '.png';
+        } catch(e) {
+            return '';
+        }
     }
 
     // متعلقہ پوسٹس تلاش کریں
-    function getRelatedPosts(count = 4) {
-        const currentPath = window.location.pathname;
-        const category = currentPath.split('/')[1] || '';
+    function getRelatedPosts(count) {
+        count = count || 3;
+        var currentPath = window.location.pathname;
+        var parts = currentPath.split('/');
+        var category = parts.length > 1 ? parts[1] : '';
         console.log('📁 Current Category:', category);
 
-        const related = allUrls.filter(url => {
-            return url.includes('/' + category + '/') && url !== currentPageUrl;
-        });
+        var related = [];
+        for (var i = 0; i < allUrls.length; i++) {
+            var url = allUrls[i];
+            if (url.indexOf('/' + category + '/') !== -1 && url !== currentPageUrl) {
+                related.push(url);
+            }
+        }
 
         console.log('🔗 Related Posts Found:', related.length);
-        const shuffled = related.sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, count);
+        
+        // Shuffle array
+        for (var j = related.length - 1; j > 0; j--) {
+            var k = Math.floor(Math.random() * (j + 1));
+            var temp = related[j];
+            related[j] = related[k];
+            related[k] = temp;
+        }
+        
+        return related.slice(0, count);
     }
 
     // سمارٹ بینر بنائیں
     function createSmartBanner(url, index) {
-        const title = getTitleFromUrl(url);
-        const imageUrl = getImageFromUrl(url);
-        const styles = ['style-1', 'style-2', 'style-3'];
-        const style = styles[index % styles.length];
+        var title = getTitleFromUrl(url);
+        var imageUrl = getImageFromUrl(url);
+        var styles = ['style-1', 'style-2', 'style-3'];
+        var style = styles[index % styles.length];
         
-        return `
-            <div class="smart-banner ${style}" data-index="${index}">
-                <a href="${url}" class="banner-link">
-                    <div class="banner-inner">
-                        <div class="banner-icon">
-                            <img src="${imageUrl}" alt="${title}" loading="lazy" onerror="this.style.display='none'">
-                        </div>
-                        <div class="banner-content">
-                            <span class="banner-label">📖 تجویز کردہ</span>
-                            <span class="banner-title">${title}</span>
-                        </div>
-                        <div class="banner-arrow">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        `;
+        return '<div class="smart-banner ' + style + '" data-index="' + index + '">' +
+            '<a href="' + url + '" class="banner-link">' +
+                '<div class="banner-inner">' +
+                    '<div class="banner-icon">' +
+                        '<img src="' + imageUrl + '" alt="' + title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+                    '</div>' +
+                    '<div class="banner-content">' +
+                        '<span class="banner-label">📖 تجویز کردہ</span>' +
+                        '<span class="banner-title">' + title + '</span>' +
+                    '</div>' +
+                    '<div class="banner-arrow">' +
+                        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                            '<path d="M5 12h14M12 5l7 7-7 7"/>' +
+                        '</svg>' +
+                    '</div>' +
+                '</div>' +
+            '</a>' +
+        '</div>';
     }
 
-    // مضمون کا کنٹینر تلاش کریں - تمام ممکنہ کلاسز
+    // مضمون کا کنٹینر تلاش کریں
     function getContentContainer() {
-        // تمام ممکنہ سلیکٹرز
-        const selectors = [
-            '.post-content',
-            '.entry-content', 
-            '.article-content',
-            '.content',
-            'article',
-            '.blog-post',
-            '.post-body',
-            '.main-content',
-            '.post',
-            '.container main',
-            'main',
-            '.container'
+        var selectors = [
+            '.post-content', '.entry-content', '.article-content', 
+            '.content', 'article', '.blog-post', '.post-body', 
+            '.main-content', '.post', 'main', '.container'
         ];
         
-        for (let selector of selectors) {
-            const el = document.querySelector(selector);
+        for (var i = 0; i < selectors.length; i++) {
+            var el = document.querySelector(selectors[i]);
             if (el) {
-                console.log('✅ Container found with selector:', selector);
+                console.log('✅ Container found with selector:', selectors[i]);
                 return el;
             }
         }
         
-        // اگر کوئی نہ ملے تو پورا body
         console.warn('⚠️ کوئی کنٹینر نہیں ملا، body استعمال ہو رہا ہے');
         return document.body;
     }
@@ -109,22 +120,21 @@
     function insertBannersInContent() {
         console.log('🔄 insertBannersInContent() started...');
         
-        const container = getContentContainer();
+        var container = getContentContainer();
         if (!container) {
             console.warn('⚠️ مواد کا کنٹینر نہیں ملا');
             return;
         }
 
-        // تمام پیراگراف تلاش کریں
-        const paragraphs = container.querySelectorAll('p');
+        var paragraphs = container.querySelectorAll('p');
         console.log('📝 Total paragraphs found:', paragraphs.length);
 
         if (paragraphs.length < 3) {
             console.log('ℹ️ بہت کم پیراگراف (کم از کم 3 درکار ہیں)');
-            // پھر بھی کوشش کریں
+            return;
         }
 
-        const relatedPosts = getRelatedPosts(3);
+        var relatedPosts = getRelatedPosts(3);
         console.log('📚 Related posts to show:', relatedPosts.length);
 
         if (relatedPosts.length === 0) {
@@ -132,63 +142,55 @@
             return;
         }
 
-        const bannerCount = Math.min(relatedPosts.length, 3);
-        const selectedPosts = relatedPosts.slice(0, bannerCount);
+        var bannerCount = Math.min(relatedPosts.length, 3);
+        var selectedPosts = relatedPosts.slice(0, bannerCount);
 
-        const totalParas = paragraphs.length;
+        var totalParas = paragraphs.length;
+        var positions = [
+            Math.floor(totalParas * 0.25),
+            Math.floor(totalParas * 0.55),
+            Math.floor(totalParas * 0.82)
+        ];
         
-        // اگر پیراگراف کم ہیں تو پھر بھی ڈالیں
-        let positions = [];
-        if (totalParas >= 3) {
-            positions = [
-                Math.floor(totalParas * 0.25),
-                Math.floor(totalParas * 0.55),
-                Math.floor(totalParas * 0.82)
-            ].slice(0, bannerCount);
-        } else {
-            // کم پیراگراف ہوں تو پھر بھی ڈالیں
-            for (let i = 0; i < bannerCount && i < totalParas; i++) {
-                positions.push(i);
-            }
-        }
-
+        // صرف اتنی پوزیشنز لیں جتنی بینرز ہیں
+        positions = positions.slice(0, bannerCount);
         console.log('📌 Banner positions:', positions);
 
-        let bannersAdded = 0;
-        for (let i = bannerCount - 1; i >= 0; i--) {
-            const pos = positions[i];
+        var bannersAdded = 0;
+        for (var i = bannerCount - 1; i >= 0; i--) {
+            var pos = positions[i];
             if (pos !== undefined && pos < paragraphs.length) {
-                const bannerHtml = createSmartBanner(selectedPosts[i], i);
-                const tempDiv = document.createElement('div');
+                var bannerHtml = createSmartBanner(selectedPosts[i], i);
+                var tempDiv = document.createElement('div');
                 tempDiv.innerHTML = bannerHtml;
-                const bannerNode = tempDiv.firstElementChild;
+                var bannerNode = tempDiv.firstElementChild;
                 
                 if (bannerNode) {
-                    // اگر پیراگراف کے بعد ڈالنا ہے
-                    if (paragraphs[pos].nextSibling) {
-                        paragraphs[pos].parentNode.insertBefore(bannerNode, paragraphs[pos].nextSibling);
+                    var parent = paragraphs[pos].parentNode;
+                    var nextSibling = paragraphs[pos].nextSibling;
+                    if (nextSibling) {
+                        parent.insertBefore(bannerNode, nextSibling);
                     } else {
-                        paragraphs[pos].parentNode.appendChild(bannerNode);
+                        parent.appendChild(bannerNode);
                     }
                     bannersAdded++;
-                    console.log(`✅ Banner ${i+1} added at position ${pos}`);
+                    console.log('✅ Banner ' + (i+1) + ' added at position ' + pos);
                 }
             }
         }
 
-        console.log(`✅ ${bannersAdded} سمارٹ بینرز شامل کیے گئے`);
+        console.log('✅ ' + bannersAdded + ' سمارٹ بینرز شامل کیے گئے');
         
         if (bannersAdded === 0) {
             console.warn('⚠️ کوئی بینر شامل نہیں ہو سکا۔ پوسٹ کا ڈھانچہ چیک کریں۔');
         }
     }
 
-    // ڈیلی کے ساتھ چلائیں (صفحہ مکمل لوڈ ہونے کے بعد)
+    // بینرز ڈالنے کا فنکشن (تھوڑی دیر بعد)
     function initBanners() {
-        // تھوڑا انتظار کریں تاکہ تمام ڈیٹا لوڈ ہو جائے
         setTimeout(function() {
             insertBannersInContent();
-        }, 500);
+        }, 800);
     }
 
     // صفحہ لوڈ ہونے پر چلائیں
@@ -198,10 +200,9 @@
         initBanners();
     }
 
-    // اگر مواد ڈائنامک ہے تو دوبارہ چیک کریں
+    // مکمل لوڈ ہونے کے بعد دوبارہ چیک کریں
     window.addEventListener('load', function() {
-        // دوبارہ چیک کریں اگر پہلی بار نہیں لگے
-        setTimeout(insertBannersInContent, 1000);
+        setTimeout(insertBannersInContent, 1500);
     });
 
     console.log('🔗 Smart Banner System Started with ' + allUrls.length + ' URLs');
