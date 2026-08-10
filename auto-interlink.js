@@ -1,4 +1,4 @@
-// auto-interlink.js - سمارٹ بینر انٹرلنکس (h1,h2,h3 ورژن)
+// auto-interlink.js - سمارٹ بینر انٹرلنکس (آئی کیچنگ لائنز کے ساتھ)
 
 (function() {
     'use strict';
@@ -15,6 +15,24 @@
 
     var currentPageUrl = window.location.href.split('#')[0].split('?')[0];
     console.log('📄 Current Page:', currentPageUrl);
+
+    // صرف پوسٹ پیج چیک کریں (ہوم اور کیٹگری پیج کو نظر انداز کریں)
+    var isPostPage = false;
+    var path = window.location.pathname;
+    // اگر path میں /alamaat-، /islami-، /azkar، /taleem، /mazameen، /english-، /technology، /kids، /aqwal، /islami-sawalat، /motivation، /tareekh، /shakhsiyat میں سے کوئی ہے تو یہ پوسٹ پیج ہے
+    var postPatterns = ['/alamaat-', '/islami-', '/azkar/', '/taleem/', '/mazameen/', '/english-', '/technology/', '/kids/', '/aqwal/', '/islami-sawalat/', '/motivation/', '/tareekh/', '/shakhsiyat/'];
+    
+    for (var p = 0; p < postPatterns.length; p++) {
+        if (path.indexOf(postPatterns[p]) !== -1 && path !== '/' && path.indexOf('/category-pages/') === -1) {
+            isPostPage = true;
+            break;
+        }
+    }
+
+    if (!isPostPage) {
+        console.log('ℹ️ یہ پوسٹ پیج نہیں ہے، بینرز نظر انداز کیے گئے');
+        return;
+    }
 
     // URL سے ٹائٹل نکالیں
     function getTitleFromUrl(url) {
@@ -38,6 +56,16 @@
         }
     }
 
+    // ڈیٹا سے ٹائٹل اور ٹیزر نکالیں
+    function getPostData(url) {
+        for (var i = 0; i < allUrls.length; i++) {
+            if (allUrls[i].url === url) {
+                return allUrls[i];
+            }
+        }
+        return null;
+    }
+
     // متعلقہ پوسٹس تلاش کریں
     function getRelatedPosts(count) {
         count = count || 3;
@@ -48,7 +76,8 @@
 
         var related = [];
         for (var i = 0; i < allUrls.length; i++) {
-            var url = allUrls[i];
+            var item = allUrls[i];
+            var url = item.url || item;
             if (url.indexOf('/' + category + '/') !== -1 && url !== currentPageUrl) {
                 related.push(url);
             }
@@ -67,24 +96,56 @@
         return related.slice(0, count);
     }
 
+    // کلرز کی فہرست (رینبو)
+    var colors = [
+        '#dc3545', // سرخ
+        '#fd7e14', // نارنجی
+        '#ffc107', // پیلا
+        '#28a745', // سبز
+        '#17a2b8', // نیلا
+        '#6f42c1', // جامنی
+        '#e83e8c', // گلابی
+        '#20c997', // فیروزی
+        '#6610f2', // انڈیگو
+        '#d63384', // میجنٹا
+        '#ff6b6b', // ہلکا سرخ
+        '#ffa94d', // ہلکا نارنجی
+        '#ffd93d', // ہلکا پیلا
+        '#6bcb77', // ہلکا سبز
+        '#4d96ff', // ہلکا نیلا
+        '#9b59b6', // ہلکا جامنی
+        '#fd79a8', // ہلکا گلابی
+        '#00b894', // ہلکا فیروزی
+        '#6c5ce7', // ہلکا انڈیگو
+        '#e17055'  // ہلکا میجنٹا
+    ];
+
     // سمارٹ بینر بنائیں
     function createSmartBanner(url, index) {
-        var title = getTitleFromUrl(url);
+        var postData = getPostData(url);
+        var title = postData ? postData.title : getTitleFromUrl(url);
+        var teaser = postData ? postData.teaser : '📖 مزید پڑھیں';
         var imageUrl = getImageFromUrl(url);
         var styles = ['style-1', 'style-2', 'style-3'];
         var style = styles[index % styles.length];
         
-        return '<div class="smart-banner ' + style + '" data-index="' + index + '">' +
+        // ہر بینر کا مختلف کلر
+        var colorIndex = index % colors.length;
+        var borderColor = colors[colorIndex];
+        var nextColor = colors[(colorIndex + 1) % colors.length];
+        
+        return '<div class="smart-banner ' + style + '" data-index="' + index + '" style="--banner-color: ' + borderColor + '; --banner-color2: ' + nextColor + ';">' +
             '<a href="' + url + '" class="banner-link">' +
                 '<div class="banner-inner">' +
                     '<div class="banner-icon">' +
                         '<img src="' + imageUrl + '" alt="' + title + '" loading="lazy" onerror="this.style.display=\'none\'">' +
                     '</div>' +
                     '<div class="banner-content">' +
-                        '<span class="banner-label">📖 تجویز کردہ</span>' +
+                        '<span class="banner-label" style="color: ' + borderColor + ';">📖 تجویز کردہ</span>' +
                         '<span class="banner-title">' + title + '</span>' +
+                        '<span class="banner-teaser" style="color: ' + borderColor + ';">' + teaser + '</span>' +
                     '</div>' +
-                    '<div class="banner-arrow">' +
+                    '<div class="banner-arrow" style="color: ' + borderColor + ';">' +
                         '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
                             '<path d="M5 12h14M12 5l7 7-7 7"/>' +
                         '</svg>' +
@@ -114,35 +175,34 @@
         return document.body;
     }
 
-    // h1, h2, h3 ہیڈنگز تلاش کریں
-    function getHeadings(container) {
-        var headings = [];
+    // ہیڈنگز اور پیراگراف تلاش کریں
+    function getTextBlocks(container) {
+        var blocks = [];
         
-        // تمام h1, h2, h3, h4, h5, h6 تلاش کریں
-        var elements = container.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        // تمام h1, h2, h3, h4, h5, h6, p تلاش کریں
+        var elements = container.querySelectorAll('h1, h2, h3, h4, h5, h6, p');
         
         for (var i = 0; i < elements.length; i++) {
             var el = elements[i];
             var text = el.textContent.trim();
-            // اگر ہیڈنگ خالی نہیں اور اس میں پہلے سے بینر نہیں ہے
-            if (text.length > 0 && !el.querySelector('.smart-banner')) {
-                headings.push(el);
+            if (text.length > 20 && !el.querySelector('.smart-banner')) {
+                blocks.push(el);
             }
         }
         
-        // اگر کوئی ہیڈنگ نہ ملا تو تمام بلاک عناصر چیک کریں
-        if (headings.length === 0) {
-            var blocks = container.querySelectorAll('p, div, section, article');
-            for (var j = 0; j < blocks.length; j++) {
-                var block = blocks[j];
-                var text = block.textContent.trim();
-                if (text.length > 30 && !block.querySelector('.smart-banner')) {
-                    headings.push(block);
+        // اگر کوئی بلاک نہ ملا تو تمام چائلڈ نوڈز چیک کریں
+        if (blocks.length === 0) {
+            var children = container.children;
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                var text = child.textContent.trim();
+                if (text.length > 30 && !child.querySelector('.smart-banner')) {
+                    blocks.push(child);
                 }
             }
         }
         
-        return headings;
+        return blocks;
     }
 
     // بینرز داخل کریں
@@ -155,29 +215,12 @@
             return;
         }
 
-        // ہیڈنگز تلاش کریں
-        var headings = getHeadings(container);
-        console.log('📝 Total headings/blocks found:', headings.length);
+        var blocks = getTextBlocks(container);
+        console.log('📝 Total text blocks found:', blocks.length);
 
-        if (headings.length < 2) {
-            console.log('ℹ️ بہت کم ہیڈنگز (کم از کم 2 درکار ہیں)');
-            // اگر کوئی ہیڈنگ نہیں تو پھر بھی کوشش کریں
-            if (headings.length === 0) {
-                // تمام بچوں کو چیک کریں
-                var children = container.children;
-                for (var i = 0; i < children.length; i++) {
-                    var child = children[i];
-                    var text = child.textContent.trim();
-                    if (text.length > 30) {
-                        headings.push(child);
-                    }
-                }
-                console.log('📝 After fallback, total blocks:', headings.length);
-            }
-            
-            if (headings.length < 2) {
-                return;
-            }
+        if (blocks.length < 2) {
+            console.log('ℹ️ بہت کم ٹیکسٹ بلاکس (کم از کم 2 درکار ہیں)');
+            return;
         }
 
         var relatedPosts = getRelatedPosts(3);
@@ -191,45 +234,44 @@
         var bannerCount = Math.min(relatedPosts.length, 3);
         var selectedPosts = relatedPosts.slice(0, bannerCount);
 
-        var totalHeadings = headings.length;
-        
-        // پوزیشنز: پہلی ہیڈنگ کے بعد، درمیان میں، آخری کے قریب
+        var totalBlocks = blocks.length;
         var positions = [];
-        if (totalHeadings >= 3) {
+        
+        if (totalBlocks >= 3) {
             positions = [
-                Math.floor(totalHeadings * 0.2),
-                Math.floor(totalHeadings * 0.5),
-                Math.floor(totalHeadings * 0.8)
+                Math.floor(totalBlocks * 0.2),
+                Math.floor(totalBlocks * 0.5),
+                Math.floor(totalBlocks * 0.8)
             ];
-        } else if (totalHeadings === 2) {
+        } else if (totalBlocks === 2) {
             positions = [0, 1];
         } else {
             positions = [0];
         }
         
         positions = positions.slice(0, bannerCount);
-        console.log('📌 Banner positions (heading indexes):', positions);
+        console.log('📌 Banner positions:', positions);
 
         var bannersAdded = 0;
         for (var i = bannerCount - 1; i >= 0; i--) {
             var pos = positions[i];
-            if (pos !== undefined && pos < headings.length) {
-                var heading = headings[pos];
+            if (pos !== undefined && pos < blocks.length) {
+                var block = blocks[pos];
                 var bannerHtml = createSmartBanner(selectedPosts[i], i);
                 var tempDiv = document.createElement('div');
                 tempDiv.innerHTML = bannerHtml;
                 var bannerNode = tempDiv.firstElementChild;
                 
                 if (bannerNode) {
-                    var parent = heading.parentNode;
-                    var nextSibling = heading.nextSibling;
+                    var parent = block.parentNode;
+                    var nextSibling = block.nextSibling;
                     if (nextSibling) {
                         parent.insertBefore(bannerNode, nextSibling);
                     } else {
                         parent.appendChild(bannerNode);
                     }
                     bannersAdded++;
-                    console.log('✅ Banner ' + (i+1) + ' added after heading #' + (pos+1));
+                    console.log('✅ Banner ' + (i+1) + ' added at position ' + pos);
                 }
             }
         }
