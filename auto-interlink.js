@@ -1,4 +1,7 @@
-// auto-interlink.js - سمارٹ بینر انٹرلنکس (آئی کیچنگ لائنز کے ساتھ)
+// ===========================================================================
+// VERSION: 2.0 - UPDATED: 2026
+// ===========================================================================
+// auto-interlink.js - سمارٹ بینر انٹرلنکس (صرف پوسٹ پیجز پر)
 
 (function() {
     'use strict';
@@ -16,14 +19,44 @@
     var currentPageUrl = window.location.href.split('#')[0].split('?')[0];
     console.log('📄 Current Page:', currentPageUrl);
 
-    // صرف پوسٹ پیج چیک کریں (ہوم اور کیٹگری پیج کو نظر انداز کریں)
+    // ============================================================
+    // صرف پوسٹ پیج چیک کریں - ہوم اور کیٹگری پیج کو نظر انداز کریں
+    // ============================================================
     var isPostPage = false;
     var path = window.location.pathname;
-    // اگر path میں /alamaat-، /islami-، /azkar، /taleem، /mazameen، /english-، /technology، /kids، /aqwal، /islami-sawalat، /motivation، /tareekh، /shakhsiyat میں سے کوئی ہے تو یہ پوسٹ پیج ہے
-    var postPatterns = ['/alamaat-', '/islami-', '/azkar/', '/taleem/', '/mazameen/', '/english-', '/technology/', '/kids/', '/aqwal/', '/islami-sawalat/', '/motivation/', '/tareekh/', '/shakhsiyat/'];
-    
+
+    // اگر ہوم پیج ہے تو بینرز نہ دکھائیں
+    if (path === '/' || path === '/index.html' || path === '') {
+        console.log('ℹ️ ہوم پیج ہے، بینرز نظر انداز کیے گئے');
+        return;
+    }
+
+    // اگر کیٹگری پیج ہے تو بینرز نہ دکھائیں
+    if (path.indexOf('/category-pages/') !== -1) {
+        console.log('ℹ️ کیٹگری پیج ہے، بینرز نظر انداز کیے گئے');
+        return;
+    }
+
+    // پوسٹ پیج کی شناخت
+    var postPatterns = [
+        '/alamaat-sughra/',
+        '/alamaat-kubra/',
+        '/islami-taleemat/',
+        '/azkar/',
+        '/taleem/',
+        '/mazameen/',
+        '/english-adab/',
+        '/technology/',
+        '/kids/',
+        '/aqwal/',
+        '/islami-sawalat/',
+        '/motivation/',
+        '/tareekh/',
+        '/shakhsiyat/'
+    ];
+
     for (var p = 0; p < postPatterns.length; p++) {
-        if (path.indexOf(postPatterns[p]) !== -1 && path !== '/' && path.indexOf('/category-pages/') === -1) {
+        if (path.indexOf(postPatterns[p]) !== -1) {
             isPostPage = true;
             break;
         }
@@ -34,7 +67,12 @@
         return;
     }
 
-    // URL سے ٹائٹل نکالیں
+    console.log('✅ یہ پوسٹ پیج ہے، بینرز شامل کیے جا رہے ہیں');
+
+    // ============================================================
+    // باقی کوڈ
+    // ============================================================
+
     function getTitleFromUrl(url) {
         try {
             var slug = url.split('/').pop();
@@ -46,7 +84,6 @@
         }
     }
 
-    // URL سے امیج یوآرایل بنائیں
     function getImageFromUrl(url) {
         try {
             var path = url.replace('https://bloglovers.pk/', '');
@@ -56,7 +93,6 @@
         }
     }
 
-    // ڈیٹا سے ٹائٹل اور ٹیزر نکالیں
     function getPostData(url) {
         for (var i = 0; i < allUrls.length; i++) {
             if (allUrls[i].url === url) {
@@ -66,7 +102,6 @@
         return null;
     }
 
-    // متعلقہ پوسٹس تلاش کریں
     function getRelatedPosts(count) {
         count = count || 3;
         var currentPath = window.location.pathname;
@@ -85,7 +120,6 @@
 
         console.log('🔗 Related Posts Found:', related.length);
         
-        // Shuffle
         for (var j = related.length - 1; j > 0; j--) {
             var k = Math.floor(Math.random() * (j + 1));
             var temp = related[j];
@@ -96,31 +130,13 @@
         return related.slice(0, count);
     }
 
-    // کلرز کی فہرست (رینبو)
     var colors = [
-        '#dc3545', // سرخ
-        '#fd7e14', // نارنجی
-        '#ffc107', // پیلا
-        '#28a745', // سبز
-        '#17a2b8', // نیلا
-        '#6f42c1', // جامنی
-        '#e83e8c', // گلابی
-        '#20c997', // فیروزی
-        '#6610f2', // انڈیگو
-        '#d63384', // میجنٹا
-        '#ff6b6b', // ہلکا سرخ
-        '#ffa94d', // ہلکا نارنجی
-        '#ffd93d', // ہلکا پیلا
-        '#6bcb77', // ہلکا سبز
-        '#4d96ff', // ہلکا نیلا
-        '#9b59b6', // ہلکا جامنی
-        '#fd79a8', // ہلکا گلابی
-        '#00b894', // ہلکا فیروزی
-        '#6c5ce7', // ہلکا انڈیگو
-        '#e17055'  // ہلکا میجنٹا
+        '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#17a2b8', 
+        '#6f42c1', '#e83e8c', '#20c997', '#6610f2', '#d63384',
+        '#ff6b6b', '#ffa94d', '#ffd93d', '#6bcb77', '#4d96ff',
+        '#9b59b6', '#fd79a8', '#00b894', '#6c5ce7', '#e17055'
     ];
 
-    // سمارٹ بینر بنائیں
     function createSmartBanner(url, index) {
         var postData = getPostData(url);
         var title = postData ? postData.title : getTitleFromUrl(url);
@@ -129,7 +145,6 @@
         var styles = ['style-1', 'style-2', 'style-3'];
         var style = styles[index % styles.length];
         
-        // ہر بینر کا مختلف کلر
         var colorIndex = index % colors.length;
         var borderColor = colors[colorIndex];
         var nextColor = colors[(colorIndex + 1) % colors.length];
@@ -155,7 +170,6 @@
         '</div>';
     }
 
-    // مضمون کا کنٹینر تلاش کریں
     function getContentContainer() {
         var selectors = [
             '.post-content', '.entry-content', '.article-content', 
@@ -175,11 +189,9 @@
         return document.body;
     }
 
-    // ہیڈنگز اور پیراگراف تلاش کریں
     function getTextBlocks(container) {
         var blocks = [];
         
-        // تمام h1, h2, h3, h4, h5, h6, p تلاش کریں
         var elements = container.querySelectorAll('h1, h2, h3, h4, h5, h6, p');
         
         for (var i = 0; i < elements.length; i++) {
@@ -190,7 +202,6 @@
             }
         }
         
-        // اگر کوئی بلاک نہ ملا تو تمام چائلڈ نوڈز چیک کریں
         if (blocks.length === 0) {
             var children = container.children;
             for (var j = 0; j < children.length; j++) {
@@ -205,7 +216,6 @@
         return blocks;
     }
 
-    // بینرز داخل کریں
     function insertBannersInContent() {
         console.log('🔄 insertBannersInContent() started...');
         
@@ -279,25 +289,22 @@
         console.log('✅ ' + bannersAdded + ' سمارٹ بینرز شامل کیے گئے');
         
         if (bannersAdded === 0) {
-            console.warn('⚠️ کوئی بینر شامل نہیں ہو سکا۔ پوسٹ کا ڈھانچہ چیک کریں۔');
+            console.warn('⚠️ کوئی بینر شامل نہیں ہو سکا۔');
         }
     }
 
-    // بینرز ڈالنے کا فنکشن
     function initBanners() {
         setTimeout(function() {
             insertBannersInContent();
         }, 1000);
     }
 
-    // صفحہ لوڈ ہونے پر چلائیں
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initBanners);
     } else {
         initBanners();
     }
 
-    // مکمل لوڈ ہونے کے بعد دوبارہ چیک کریں
     window.addEventListener('load', function() {
         setTimeout(insertBannersInContent, 2000);
     });
