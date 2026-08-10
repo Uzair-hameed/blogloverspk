@@ -1,7 +1,9 @@
-// interlink-data.js - URLs، ٹائٹلز اور آئی کیچنگ لائنز
+// interlink-data.js - تمام URLs، ٹائٹلز اور آئی کیچنگ لائنز
 
 const interlinkData = [
-    // ===== alamaat-sughra =====
+    // ============================================================
+    // ALAMAAT-SUGHRA (تمام 100+ URLs)
+    // ============================================================
     { 
         url: "https://bloglovers.pk/alamaat-sughra/aap-ka-is-dnya-main-tshryf-lana", 
         title: "آپ ﷺ کا اس دنیا سے تشریف لانا",
@@ -538,7 +540,9 @@ const interlinkData = [
         teaser: "🔴 وقت میں برکت کا خاتمہ - ایک اہم سوال"
     },
 
-    // ===== alamaat-kubra =====
+    // ============================================================
+    // ALAMAAT-KUBRA
+    // ============================================================
     { 
         url: "https://bloglovers.pk/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl", 
         title: "5 ایسے کون سے واقعات پیش آئیں گے ؟ فتنہ دجال سے قبل",
@@ -630,7 +634,9 @@ const interlinkData = [
         teaser: "🔴 وہ آگ جو لوگوں کو محشر کی طرف لے جائے گی"
     },
 
-    // ===== islami-taleemat =====
+    // ============================================================
+    // ISLAMI-TALEEMAT
+    // ============================================================
     { 
         url: "https://bloglovers.pk/islami-taleemat/ahkamat-e-sharai-libas-w-ahmiyat", 
         title: "احکامات ِ شرعی لباس و اہمیت",
@@ -717,7 +723,9 @@ const interlinkData = [
         teaser: "🟣 ڈیجیٹل دور میں غیبت اور ہماری ذمہ داری"
     },
 
-    // ===== azkar =====
+    // ============================================================
+    // AZKAR
+    // ============================================================
     { 
         url: "https://bloglovers.pk/azkar/main-aur-aap-allah-ko-kaise-na-pukareen", 
         title: "میں اور آپ اللہ کو کیسے نہ پکاریں؟",
@@ -749,7 +757,9 @@ const interlinkData = [
         teaser: "🟣 اذکار کا معمول اور بدنصیبی"
     },
 
-    // ===== taleem =====
+    // ============================================================
+    // TALEEM
+    // ============================================================
     { 
         url: "https://bloglovers.pk/taleem/krona-ki-sort-main-kmyonti-bysd-skolz-ke-bchon-ko-kaise-snbhalyn", 
         title: "کرونا کی صورت میں کمیونٹی بیسڈ سکولز کے بچوں کو کیسے سنبھالیں؟",
@@ -781,7 +791,9 @@ const interlinkData = [
         teaser: "🟣 تعلیم کا بنیادی مقصد"
     },
 
-    // ===== mazameen =====
+    // ============================================================
+    // MAZAMEEN
+    // ============================================================
     { 
         url: "https://bloglovers.pk/mazameen/musalmanon-ne-apna-waqar-kaise-khoya", 
         title: "مسلمانوں نے اپنا وقار کیسے کھویا؟",
@@ -813,7 +825,9 @@ const interlinkData = [
         teaser: "🟣 ہیکل سلیمانی کی تعمیر اور تباہی"
     },
 
-    // ===== english-adab =====
+    // ============================================================
+    // ENGLISH-ADAB
+    // ============================================================
     { 
         url: "https://bloglovers.pk/english-adab/wktoryn-dor-part-wn-1837-1913", 
         title: "وکٹورین دور (پارٹ ون) (1913-1837)",
@@ -835,7 +849,9 @@ const interlinkData = [
         teaser: "🟢 شیکسپیئر اور انسانی فطرت"
     },
 
-    // ===== technology =====
+    // ============================================================
+    // TECHNOLOGY
+    // ============================================================
     { 
         url: "https://bloglovers.pk/technology/har-talib-e-ilm-ke-pas-ye-10-muft-tools-zaroor-hone-chahiye", 
         title: "ہر طالب علم کے پاس یہ 10 مفت ٹولز ضرور ہونے چاہیں",
@@ -852,7 +868,9 @@ const interlinkData = [
         teaser: "🔴 پاکستان اور ٹیکنالوجی کی دوڑ"
     },
 
-    // ===== kids =====
+    // ============================================================
+    // KIDS
+    // ============================================================
     { 
         url: "https://bloglovers.pk/kids/bachchon-ke-liye-akbar-birbal-ki-10-behtareen-kahaniyan", 
         title: "بچوں کے لیے اکبر بیربل کی 10 بہترین کہانیاں",
@@ -869,7 +887,9 @@ const interlinkData = [
         teaser: "🟢 ایمانداری کی اہمیت"
     },
 
-    // ===== aqwal =====
+    // ============================================================
+    // AQWAL
+    // ============================================================
     { 
         url: "https://bloglovers.pk/aqwal/taleem-ki-roshni-par-50-aqwal-zareen", 
         title: "تعلیم کی روشنی پر 50 اقوال زریں",
@@ -881,7 +901,9 @@ const interlinkData = [
         teaser: "🟣 اقبال اور ڈیجیٹل گمراہی"
     },
 
-    // ===== islami-sawalat =====
+    // ============================================================
+    // ISLAMI-SAWALAT
+    // ============================================================
     { 
         url: "https://bloglovers.pk/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat", 
         title: "قرآن مجید پر 50 دلچسپ سوالات",
@@ -893,14 +915,18 @@ const interlinkData = [
         teaser: "🟠 نماز کی اہمیت پر پچاس سوالات"
     },
 
-    // ===== motivation =====
+    // ============================================================
+    // MOTIVATION
+    // ============================================================
     { 
         url: "https://bloglovers.pk/motivation/hausla-afzai-ke-50-paighamaat", 
         title: "حوصلہ افزائی کے 50 پیغامات",
         teaser: "🟡 پچاس حوصلہ افزا پیغامات"
     },
 
-    // ===== tareekh =====
+    // ============================================================
+    // TAREEKH
+    // ============================================================
     { 
         url: "https://bloglovers.pk/tareekh/taxila-se-nalanda-tak-ilm-ki-woh-shahrah-jis-par-chal-kar-dunya-bad-gai", 
         title: "تکشاشیلا سے نالندہ تک علم کی وہ شاہراہ جس پر چل کر دنیا بدل گئی",
@@ -942,7 +968,9 @@ const interlinkData = [
         teaser: "🔵 منگولوں کا اسلام قبول کرنا"
     },
 
-    // ===== shakhsiyat =====
+    // ============================================================
+    // SHAKHSIYAT
+    // ============================================================
     { 
         url: "https://bloglovers.pk/shakhsiyat/muslim-tareekh-ki-50-eham-shakhsiyat-1-ibn-e-sina-avicenna", 
         title: "مسلم تاریخ کی 50 اہم شخصیات 1-ابن سینا (Avicenna)",
