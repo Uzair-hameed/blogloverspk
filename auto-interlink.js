@@ -1,5 +1,5 @@
 // ============================================================
-// auto-interlink.js - انتہائی آسان ورژن
+// auto-interlink.js - انتہائی آسان ورژن (FIXED)
 // ============================================================
 
 (function() {
@@ -22,19 +22,16 @@
     // ============================================================
     var path = window.location.pathname;
     
-    // ہوم پیج چھوڑیں
     if (path === '/' || path === '/index.html' || path === '') {
         console.log('ℹ️ ہوم پیج ہے، بینرز نظر انداز');
         return;
     }
 
-    // کیٹگری پیج چھوڑیں
     if (path.indexOf('/category-pages/') !== -1) {
         console.log('ℹ️ کیٹگری پیج ہے، بینرز نظر انداز');
         return;
     }
 
-    // پوسٹ چیک کریں
     var categories = [
         '/alamaat-sughra/', '/alamaat-kubra/', '/islami-taleemat/',
         '/azkar/', '/taleem/', '/mazameen/', '/english-adab/',
@@ -73,7 +70,6 @@
             }
         }
 
-        // تصادفی ترتیب
         for (var j = related.length - 1; j > 0; j--) {
             var k = Math.floor(Math.random() * (j + 1));
             var temp = related[j];
@@ -111,12 +107,11 @@
     }
 
     // ============================================================
-    // 5. بینرز شامل کریں - بغیر کسی پیچیدگی کے
+    // 5. بینرز شامل کریں - FIXED
     // ============================================================
     function insertBanners() {
         console.log('🔄 بینرز شامل کیے جا رہے ہیں...');
 
-        // متعلقہ پوسٹس
         var related = getRelatedPosts();
         console.log('📚 متعلقہ پوسٹس:', related.length);
 
@@ -125,7 +120,6 @@
             return;
         }
 
-        // مواد کا کنٹینر تلاش کریں
         var container = document.querySelector('.post-content, .entry-content, .article-content, .blog-post, article, .content, .post-body, .main-content');
         
         if (!container) {
@@ -135,7 +129,6 @@
 
         console.log('✅ کنٹینر ملا:', container.className || container.id || 'body');
 
-        // تمام پیراگراف تلاش کریں
         var paragraphs = container.querySelectorAll('p');
         console.log('📝 کل پیراگراف:', paragraphs.length);
 
@@ -144,7 +137,6 @@
             return;
         }
 
-        // پوزیشنز
         var positions = [];
         if (paragraphs.length >= 3) {
             positions = [
@@ -172,9 +164,19 @@
                 var banner = temp.firstElementChild;
                 
                 if (banner) {
-                    // اگر پہلے سے بینر موجود نہ ہو
-                    if (!p.nextSibling || !p.nextSibling.querySelector('.interlink-banner')) {
-                        p.parentNode.insertBefore(banner, p.nextSibling);
+                    // ✅ FIX: nextSibling کو محفوظ طریقے سے چیک کریں
+                    var next = p.nextSibling;
+                    var hasBanner = false;
+                    
+                    // چیک کریں کہ next موجود ہے اور element ہے
+                    if (next && next.nodeType === 1) { // 1 = element node
+                        if (next.querySelector && next.querySelector('.interlink-banner')) {
+                            hasBanner = true;
+                        }
+                    }
+                    
+                    if (!hasBanner) {
+                        p.parentNode.insertBefore(banner, next);
                         added++;
                         console.log('✅ بینر', i+1, 'شامل ہو گیا (پوزیشن:', pos, ')');
                     }
@@ -186,7 +188,6 @@
         
         if (added === 0) {
             console.warn('⚠️ کوئی بینر شامل نہیں ہو سکا');
-            // آخری کوشش - آخر میں ڈالیں
             try {
                 var lastP = paragraphs[paragraphs.length - 1];
                 var temp2 = document.createElement('div');
@@ -206,7 +207,6 @@
     // 6. شروع کریں
     // ============================================================
     function init() {
-        // تھوڑا انتظار کریں
         setTimeout(function() {
             insertBanners();
         }, 2000);
@@ -218,7 +218,6 @@
         init();
     }
 
-    // دوبارہ کوشش
     setTimeout(function() {
         var existing = document.querySelectorAll('.interlink-banner');
         if (existing.length === 0) {
