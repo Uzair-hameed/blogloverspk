@@ -1,18 +1,21 @@
-// ===========================================================================
-// VERSION: 2.0 - UPDATED: 2026
-// ===========================================================================
+// ============================================================
 // auto-interlink.js - سمارٹ بینر انٹرلنکس (صرف پوسٹ پیجز پر)
+// ورژن: 3.0 - 2026
+// ============================================================
 
 (function() {
     'use strict';
 
     console.log('🔍 Auto-Interlink Starting...');
 
+    // ============================================================
+    // 1. ڈیٹا چیک کریں
+    // ============================================================
     var allUrls = typeof interlinkData !== 'undefined' ? interlinkData : [];
     console.log('📊 Total URLs loaded:', allUrls.length);
 
     if (allUrls.length === 0) {
-        console.warn('⚠️ کوئی URL نہیں ملا!');
+        console.warn('⚠️ کوئی URL نہیں ملا! براہ کرم interlink-data.js چیک کریں۔');
         return;
     }
 
@@ -20,7 +23,7 @@
     console.log('📄 Current Page:', currentPageUrl);
 
     // ============================================================
-    // صرف پوسٹ پیج چیک کریں - ہوم اور کیٹگری پیج کو نظر انداز کریں
+    // 2. صرف پوسٹ پیج چیک کریں - ہوم اور کیٹگری پیج کو نظر انداز کریں
     // ============================================================
     var isPostPage = false;
     var path = window.location.pathname;
@@ -70,9 +73,10 @@
     console.log('✅ یہ پوسٹ پیج ہے، بینرز شامل کیے جا رہے ہیں');
 
     // ============================================================
-    // باقی کوڈ
+    // 3. ہیلپر فنکشنز
     // ============================================================
 
+    // URL سے ٹائٹل نکالیں (اگر ڈیٹا میں نہ ہو تو)
     function getTitleFromUrl(url) {
         try {
             var slug = url.split('/').pop();
@@ -84,6 +88,7 @@
         }
     }
 
+    // URL سے تصویر کا راستہ بنائیں
     function getImageFromUrl(url) {
         try {
             var path = url.replace('https://bloglovers.pk/', '');
@@ -93,6 +98,7 @@
         }
     }
 
+    // پوسٹ کا ڈیٹا حاصل کریں
     function getPostData(url) {
         for (var i = 0; i < allUrls.length; i++) {
             if (allUrls[i].url === url) {
@@ -102,6 +108,9 @@
         return null;
     }
 
+    // ============================================================
+    // 4. متعلقہ پوسٹس حاصل کریں
+    // ============================================================
     function getRelatedPosts(count) {
         count = count || 3;
         var currentPath = window.location.pathname;
@@ -113,6 +122,7 @@
         for (var i = 0; i < allUrls.length; i++) {
             var item = allUrls[i];
             var url = item.url || item;
+            // صرف اسی کیٹگری کی پوسٹس اور موجودہ پوسٹ کو خارج کریں
             if (url.indexOf('/' + category + '/') !== -1 && url !== currentPageUrl) {
                 related.push(url);
             }
@@ -120,6 +130,7 @@
 
         console.log('🔗 Related Posts Found:', related.length);
         
+        // تصادفی طور پر ترتیب دیں
         for (var j = related.length - 1; j > 0; j--) {
             var k = Math.floor(Math.random() * (j + 1));
             var temp = related[j];
@@ -130,6 +141,9 @@
         return related.slice(0, count);
     }
 
+    // ============================================================
+    // 5. کلرز
+    // ============================================================
     var colors = [
         '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#17a2b8', 
         '#6f42c1', '#e83e8c', '#20c997', '#6610f2', '#d63384',
@@ -137,19 +151,20 @@
         '#9b59b6', '#fd79a8', '#00b894', '#6c5ce7', '#e17055'
     ];
 
+    // ============================================================
+    // 6. سمارٹ بینر بنائیں
+    // ============================================================
     function createSmartBanner(url, index) {
         var postData = getPostData(url);
         var title = postData ? postData.title : getTitleFromUrl(url);
         var teaser = postData ? postData.teaser : '📖 مزید پڑھیں';
         var imageUrl = getImageFromUrl(url);
-        var styles = ['style-1', 'style-2', 'style-3'];
-        var style = styles[index % styles.length];
         
         var colorIndex = index % colors.length;
         var borderColor = colors[colorIndex];
         var nextColor = colors[(colorIndex + 1) % colors.length];
         
-        return '<div class="smart-banner ' + style + '" data-index="' + index + '" style="--banner-color: ' + borderColor + '; --banner-color2: ' + nextColor + ';">' +
+        return '<div class="smart-banner" data-index="' + index + '" style="--banner-color: ' + borderColor + '; --banner-color2: ' + nextColor + ';">' +
             '<a href="' + url + '" class="banner-link">' +
                 '<div class="banner-inner">' +
                     '<div class="banner-icon">' +
@@ -170,11 +185,27 @@
         '</div>';
     }
 
+    // ============================================================
+    // 7. کونٹینر تلاش کریں (IMPORTANT - اسے اپنی ویب سائٹ کے مطابق کریں)
+    // ============================================================
     function getContentContainer() {
+        // پہلے مخصوص کونٹینر کو چیک کریں
+        // 👇 اپنے پوسٹ پیج کے مین کونٹینر کا selector یہاں لکھیں
+        var container = document.querySelector('.post-content');
+        if (container) {
+            console.log('✅ Container found: .post-content');
+            return container;
+        }
+
+        // ورنہ پھر دوسرے آپشنز چیک کریں
         var selectors = [
-            '.post-content', '.entry-content', '.article-content', 
-            '.content', 'article', '.blog-post', '.post-body', 
-            '.main-content', '.post', 'main', '.container'
+            '.entry-content', 
+            '.article-content', 
+            '.blog-post', 
+            'article', 
+            '.content',
+            '.post-body',
+            '.main-content'
         ];
         
         for (var i = 0; i < selectors.length; i++) {
@@ -185,23 +216,30 @@
             }
         }
         
-        console.warn('⚠️ کوئی کنٹینر نہیں ملا، body استعمال ہو رہا ہے');
+        // آخر میں body استعمال کریں (صرف ڈیبگنگ کے لیے)
+        console.warn('⚠️ کوئی خاص کنٹینر نہیں ملا، body استعمال ہو رہا ہے');
         return document.body;
     }
 
+    // ============================================================
+    // 8. ٹیکسٹ بلاکس تلاش کریں
+    // ============================================================
     function getTextBlocks(container) {
         var blocks = [];
         
+        // H1 سے H6 اور P ٹیگز تلاش کریں
         var elements = container.querySelectorAll('h1, h2, h3, h4, h5, h6, p');
         
         for (var i = 0; i < elements.length; i++) {
             var el = elements[i];
             var text = el.textContent.trim();
+            // کم از کم 20 حروف والے بلاکس کو شامل کریں اور جہاں پہلے سے بینر نہ ہو
             if (text.length > 20 && !el.querySelector('.smart-banner')) {
                 blocks.push(el);
             }
         }
         
+        // اگر کوئی بلاک نہ ملا تو بچوں کو چیک کریں
         if (blocks.length === 0) {
             var children = container.children;
             for (var j = 0; j < children.length; j++) {
@@ -213,9 +251,13 @@
             }
         }
         
+        console.log('📝 Total text blocks found:', blocks.length);
         return blocks;
     }
 
+    // ============================================================
+    // 9. بینرز داخل کریں
+    // ============================================================
     function insertBannersInContent() {
         console.log('🔄 insertBannersInContent() started...');
         
@@ -247,6 +289,7 @@
         var totalBlocks = blocks.length;
         var positions = [];
         
+        // پوزیشنز کا حساب: پہلا 20%، دوسرا 50%، تیسرا 80%
         if (totalBlocks >= 3) {
             positions = [
                 Math.floor(totalBlocks * 0.2),
@@ -263,6 +306,7 @@
         console.log('📌 Banner positions:', positions);
 
         var bannersAdded = 0;
+        // الٹی ترتیب میں داخل کریں تاکہ پوزیشنز متاثر نہ ہوں
         for (var i = bannerCount - 1; i >= 0; i--) {
             var pos = positions[i];
             if (pos !== undefined && pos < blocks.length) {
@@ -293,18 +337,24 @@
         }
     }
 
+    // ============================================================
+    // 10. انیشیلائزیشن
+    // ============================================================
     function initBanners() {
+        // پہلے 1 سیکنڈ بعد چلائیں
         setTimeout(function() {
             insertBannersInContent();
         }, 1000);
     }
 
+    // ڈوم لوڈ ہونے پر چلائیں
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initBanners);
     } else {
         initBanners();
     }
 
+    // مکمل لوڈ ہونے پر دوبارہ چلائیں (سیفٹی کے لیے)
     window.addEventListener('load', function() {
         setTimeout(insertBannersInContent, 2000);
     });
