@@ -1,0 +1,35 @@
+name: Add Interlink to Posts
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  add-interlink:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Add Interlink to all HTML files
+        run: |
+          # انٹرلنکس کوڈ
+          INTERLINK='<!-- INTERLINK --><script src="https://bloglovers.pk/interlink-data.js" defer></script><script src="https://bloglovers.pk/auto-interlink.js" defer></script>'
+          
+          # تمام HTML فائلوں میں شامل کریں
+          for file in $(find . -name "*.html" -type f); do
+            if ! grep -q "interlink-data.js" "$file"; then
+              echo "✅ Adding interlink to: $file"
+              sed -i "s|</body>|$INTERLINK</body>|g" "$file"
+            else
+              echo "⏭️ Skipping: $file (already has interlink)"
+            fi
+          done
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --staged --quiet || (git commit -m "🤖 Auto: Add interlink to posts" && git push)
