@@ -2299,3 +2299,36 @@ console.log("🔗 Total URLs in interlink-data.js:", postData.length);
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { postData, categories };
 }
+// ============================================================
+// ENSURE interlinkData IS GLOBALLY AVAILABLE
+// ============================================================
+
+// اگر interlinkData موجود نہیں ہے تو اسے window پر سیٹ کریں
+if (typeof interlinkData === 'undefined') {
+    // پہلے چیک کریں کہ کوئی اور variable تو نہیں ہے
+    if (typeof window.interlinkData !== 'undefined') {
+        var interlinkData = window.interlinkData;
+        console.log('✅ interlinkData loaded from window');
+    } else if (typeof window.posts !== 'undefined') {
+        var interlinkData = window.posts;
+        console.log('✅ interlinkData loaded from window.posts');
+    } else if (typeof window.allPosts !== 'undefined') {
+        var interlinkData = window.allPosts;
+        console.log('✅ interlinkData loaded from window.allPosts');
+    } else if (typeof window.data !== 'undefined') {
+        var interlinkData = window.data;
+        console.log('✅ interlinkData loaded from window.data');
+    } else {
+        // اگر کچھ نہ ملا تو خالی array
+        var interlinkData = [];
+        console.warn('⚠️ interlinkData created as empty array');
+    }
+}
+
+// Windows پر بھی سیٹ کریں
+window.interlinkData = interlinkData;
+
+// تصدیق
+console.log('✅ interlinkData is ready!');
+console.log('📊 Total URLs:', interlinkData.length);
+console.log('📁 First URL:', interlinkData.length > 0 ? interlinkData[0].url : 'None');
