@@ -2300,35 +2300,38 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = { postData, categories };
 }
 // ============================================================
-// ENSURE interlinkData IS GLOBALLY AVAILABLE
+// ENSURE interlinkData IS GLOBALLY AVAILABLE - FIXED
 // ============================================================
 
-// اگر interlinkData موجود نہیں ہے تو اسے window پر سیٹ کریں
-if (typeof interlinkData === 'undefined') {
-    // پہلے چیک کریں کہ کوئی اور variable تو نہیں ہے
-    if (typeof window.interlinkData !== 'undefined') {
-        var interlinkData = window.interlinkData;
-        console.log('✅ interlinkData loaded from window');
-    } else if (typeof window.posts !== 'undefined') {
-        var interlinkData = window.posts;
-        console.log('✅ interlinkData loaded from window.posts');
-    } else if (typeof window.allPosts !== 'undefined') {
-        var interlinkData = window.allPosts;
-        console.log('✅ interlinkData loaded from window.allPosts');
-    } else if (typeof window.data !== 'undefined') {
-        var interlinkData = window.data;
-        console.log('✅ interlinkData loaded from window.data');
+// اگر interlinkData پہلے سے موجود ہے تو اسے استعمال کریں
+if (typeof interlinkData !== 'undefined' && interlinkData.length > 0) {
+    console.log('✅ interlinkData already exists with', interlinkData.length, 'items');
+} else {
+    // اگر interlinkData موجود نہیں ہے تو دوسرے ناموں سے چیک کریں
+    if (typeof window.interlinkData !== 'undefined' && window.interlinkData.length > 0) {
+        interlinkData = window.interlinkData;
+        console.log('✅ interlinkData loaded from window with', interlinkData.length, 'items');
+    } else if (typeof window.posts !== 'undefined' && window.posts.length > 0) {
+        interlinkData = window.posts;
+        console.log('✅ interlinkData loaded from window.posts with', interlinkData.length, 'items');
+    } else if (typeof window.allPosts !== 'undefined' && window.allPosts.length > 0) {
+        interlinkData = window.allPosts;
+        console.log('✅ interlinkData loaded from window.allPosts with', interlinkData.length, 'items');
+    } else if (typeof window.data !== 'undefined' && window.data.length > 0) {
+        interlinkData = window.data;
+        console.log('✅ interlinkData loaded from window.data with', interlinkData.length, 'items');
     } else {
-        // اگر کچھ نہ ملا تو خالی array
-        var interlinkData = [];
-        console.warn('⚠️ interlinkData created as empty array');
+        console.warn('⚠️ No data found! interlinkData is empty');
     }
 }
 
-// Windows پر بھی سیٹ کریں
+// window پر بھی سیٹ کریں
 window.interlinkData = interlinkData;
 
 // تصدیق
 console.log('✅ interlinkData is ready!');
-console.log('📊 Total URLs:', interlinkData.length);
-console.log('📁 First URL:', interlinkData.length > 0 ? interlinkData[0].url : 'None');
+console.log('📊 Total URLs:', interlinkData ? interlinkData.length : 0);
+if (interlinkData && interlinkData.length > 0) {
+    console.log('📁 First URL:', interlinkData[0].url || interlinkData[0]);
+    console.log('📁 First Title:', interlinkData[0].title || 'No title');
+}
