@@ -1,3 +1,8 @@
+// ============================================================
+// MAIN DATA VARIABLE - GLOBAL
+// ============================================================
+var interlinkData = [];  // ← یہ لائن شامل کریں
+
 // interlink-data.js - All Blog Posts Data
 // Total Posts: 364
 
@@ -2280,58 +2285,20 @@ const categories = {
     "Tareekh": postData.slice(333, 341),
     "Shakhsiyat": postData.slice(341, 364)
 };
-
-// ==========================================
-// CONSOLE STATISTICS
-// ==========================================
-console.log("📊 ===== INTERLINK DATA STATISTICS =====");
-console.log(`📚 Total Posts: ${postData.length}`);
-console.log("\n📁 Category-wise Breakdown:");
-for (const [category, posts] of Object.entries(categories)) {
-    console.log(`   ${category}: ${posts.length} posts`);
-}
-console.log("\n✅ All data loaded successfully!");
-console.log("🔗 Total URLs in interlink-data.js:", postData.length);
-
-// ==========================================
-// EXPORT (for modular JavaScript)
-// ==========================================
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { postData, categories };
-}
 // ============================================================
-// ENSURE interlinkData IS GLOBALLY AVAILABLE - FIXED
+// ASSIGN postData TO interlinkData
 // ============================================================
 
-// اگر interlinkData پہلے سے موجود ہے تو اسے استعمال کریں
-if (typeof interlinkData !== 'undefined' && interlinkData.length > 0) {
-    console.log('✅ interlinkData already exists with', interlinkData.length, 'items');
-} else {
-    // اگر interlinkData موجود نہیں ہے تو دوسرے ناموں سے چیک کریں
-    if (typeof window.interlinkData !== 'undefined' && window.interlinkData.length > 0) {
-        interlinkData = window.interlinkData;
-        console.log('✅ interlinkData loaded from window with', interlinkData.length, 'items');
-    } else if (typeof window.posts !== 'undefined' && window.posts.length > 0) {
-        interlinkData = window.posts;
-        console.log('✅ interlinkData loaded from window.posts with', interlinkData.length, 'items');
-    } else if (typeof window.allPosts !== 'undefined' && window.allPosts.length > 0) {
-        interlinkData = window.allPosts;
-        console.log('✅ interlinkData loaded from window.allPosts with', interlinkData.length, 'items');
-    } else if (typeof window.data !== 'undefined' && window.data.length > 0) {
-        interlinkData = window.data;
-        console.log('✅ interlinkData loaded from window.data with', interlinkData.length, 'items');
-    } else {
-        console.warn('⚠️ No data found! interlinkData is empty');
-    }
-}
+// postData کو interlinkData میں ڈالیں
+interlinkData = postData;
 
 // window پر بھی سیٹ کریں
 window.interlinkData = interlinkData;
 
 // تصدیق
 console.log('✅ interlinkData is ready!');
-console.log('📊 Total URLs:', interlinkData ? interlinkData.length : 0);
-if (interlinkData && interlinkData.length > 0) {
-    console.log('📁 First URL:', interlinkData[0].url || interlinkData[0]);
-    console.log('📁 First Title:', interlinkData[0].title || 'No title');
+console.log('📊 Total URLs:', interlinkData.length);
+if (interlinkData.length > 0) {
+    console.log('📁 First URL:', interlinkData[0].url);
+    console.log('📁 First Title:', interlinkData[0].title);
 }
