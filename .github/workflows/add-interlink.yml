@@ -3,21 +3,25 @@ name: Add Interlink to Posts
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   add-interlink:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Add Interlink to all HTML files
         run: |
-          # انٹرلنکس کوڈ
           INTERLINK='<!-- INTERLINK --><script src="https://bloglovers.pk/interlink-data.js" defer></script><script src="https://bloglovers.pk/auto-interlink.js" defer></script>'
           
-          # تمام HTML فائلوں میں شامل کریں
           for file in $(find . -name "*.html" -type f); do
             if ! grep -q "interlink-data.js" "$file"; then
               echo "✅ Adding interlink to: $file"
@@ -29,7 +33,12 @@ jobs:
       
       - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add .
-          git diff --staged --quiet || (git commit -m "🤖 Auto: Add interlink to posts" && git push)
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🤖 Auto: Add interlink to posts"
+            git push
+          fi
