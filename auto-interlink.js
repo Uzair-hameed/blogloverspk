@@ -1,12 +1,12 @@
 // ============================================================
-// auto-interlink.js - سمارٹ بینر انٹرلنکس (صرف پوسٹ پیجز پر)
-// ورژن: 3.0 - 2026
+// auto-interlink.js - سمارٹ بینر انٹرلنکس (تمام پوسٹس کے لیے)
+// ورژن: 4.0 - فیچر 2026
 // ============================================================
 
 (function() {
     'use strict';
 
-    console.log('🔍 Auto-Interlink Starting...');
+    console.log('🔍 Auto-Interlink System Starting...');
 
     // ============================================================
     // 1. ڈیٹا چیک کریں
@@ -40,7 +40,7 @@
         return;
     }
 
-    // پوسٹ پیج کی شناخت
+    // پوسٹ پیج کی شناخت - تمام کیٹگریز
     var postPatterns = [
         '/alamaat-sughra/',
         '/alamaat-kubra/',
@@ -123,7 +123,7 @@
             var item = allUrls[i];
             var url = item.url || item;
             // صرف اسی کیٹگری کی پوسٹس اور موجودہ پوسٹ کو خارج کریں
-            if (url.indexOf('/' + category + '/') !== -1 && url !== currentPageUrl) {
+            if (url.indexOf('/' + category + '/') !== -1 && url !== currentPageUrl && url !== currentPath) {
                 related.push(url);
             }
         }
@@ -186,26 +186,20 @@
     }
 
     // ============================================================
-    // 7. کونٹینر تلاش کریں (IMPORTANT - اسے اپنی ویب سائٹ کے مطابق کریں)
+    // 7. کونٹینر تلاش کریں - اپ ڈیٹ شدہ
     // ============================================================
     function getContentContainer() {
-        // پہلے مخصوص کونٹینر کو چیک کریں
-        // 👇 اپنے پوسٹ پیج کے مین کونٹینر کا selector یہاں لکھیں
-        var container = document.querySelector('.post-content');
-        if (container) {
-            console.log('✅ Container found: .post-content');
-            return container;
-        }
-
-        // ورنہ پھر دوسرے آپشنز چیک کریں
+        // ✅ پہلے سب سے عام کنٹینرز کو چیک کریں
         var selectors = [
+            '.post-content',
             '.entry-content', 
             '.article-content', 
             '.blog-post', 
             'article', 
             '.content',
             '.post-body',
-            '.main-content'
+            '.main-content',
+            '.container'
         ];
         
         for (var i = 0; i < selectors.length; i++) {
@@ -216,13 +210,13 @@
             }
         }
         
-        // آخر میں body استعمال کریں (صرف ڈیبگنگ کے لیے)
+        // ⚠️ اگر کوئی خاص کنٹینر نہ ملا تو پورے body کو استعمال کریں
         console.warn('⚠️ کوئی خاص کنٹینر نہیں ملا، body استعمال ہو رہا ہے');
         return document.body;
     }
 
     // ============================================================
-    // 8. ٹیکسٹ بلاکس تلاش کریں
+    // 8. ٹیکسٹ بلاکس تلاش کریں - اپ ڈیٹ شدہ
     // ============================================================
     function getTextBlocks(container) {
         var blocks = [];
@@ -233,8 +227,8 @@
         for (var i = 0; i < elements.length; i++) {
             var el = elements[i];
             var text = el.textContent.trim();
-            // کم از کم 20 حروف والے بلاکس کو شامل کریں اور جہاں پہلے سے بینر نہ ہو
-            if (text.length > 20 && !el.querySelector('.smart-banner')) {
+            // کم از کم 15 حروف والے بلاکس کو شامل کریں اور جہاں پہلے سے بینر نہ ہو
+            if (text.length > 15 && !el.querySelector('.smart-banner')) {
                 blocks.push(el);
             }
         }
@@ -245,8 +239,20 @@
             for (var j = 0; j < children.length; j++) {
                 var child = children[j];
                 var text = child.textContent.trim();
-                if (text.length > 30 && !child.querySelector('.smart-banner')) {
+                if (text.length > 20 && !child.querySelector('.smart-banner')) {
                     blocks.push(child);
+                }
+            }
+        }
+        
+        // اگر پھر بھی کوئی نہ ملا تو container میں موجود تمام divs کو چیک کریں
+        if (blocks.length === 0) {
+            var divs = container.querySelectorAll('div');
+            for (var k = 0; k < divs.length; k++) {
+                var div = divs[k];
+                var text = div.textContent.trim();
+                if (text.length > 30 && !div.querySelector('.smart-banner')) {
+                    blocks.push(div);
                 }
             }
         }
@@ -289,10 +295,10 @@
         var totalBlocks = blocks.length;
         var positions = [];
         
-        // پوزیشنز کا حساب: پہلا 20%، دوسرا 50%، تیسرا 80%
+        // پوزیشنز کا حساب: پہلا 15%، دوسرا 50%، تیسرا 80%
         if (totalBlocks >= 3) {
             positions = [
-                Math.floor(totalBlocks * 0.2),
+                Math.floor(totalBlocks * 0.15),
                 Math.floor(totalBlocks * 0.5),
                 Math.floor(totalBlocks * 0.8)
             ];
@@ -338,16 +344,35 @@
     }
 
     // ============================================================
-    // 10. انیشیلائزیشن
+    // 10. انیشیلائزیشن - اپ ڈیٹ شدہ
     // ============================================================
     function initBanners() {
-        // پہلے 1 سیکنڈ بعد چلائیں
+        // پہلے چیک کریں کہ interlinkData موجود ہے یا نہیں
+        if (typeof interlinkData === 'undefined') {
+            console.log('⏳ interlinkData لوڈ ہو رہا ہے، انتظار کریں...');
+            // 3 سیکنڈ بعد دوبارہ کوشش کریں
+            setTimeout(function() {
+                if (typeof interlinkData !== 'undefined') {
+                    console.log('✅ interlinkData اب دستیاب ہے، بینرز شامل کیے جا رہے ہیں');
+                    allUrls = interlinkData;
+                    insertBannersInContent();
+                } else {
+                    console.error('❌ interlinkData لوڈ نہیں ہو سکی۔ براہ کرم interlink-data.js چیک کریں۔');
+                }
+            }, 3000);
+            return;
+        }
+        
+        console.log('✅ interlinkData موجود ہے، بینرز شامل کیے جا رہے ہیں');
+        // تھوڑا انتظار کریں تاکہ DOM مکمل طور پر لوڈ ہو جائے
         setTimeout(function() {
             insertBannersInContent();
         }, 1000);
     }
 
-    // ڈوم لوڈ ہونے پر چلائیں
+    // ============================================================
+    // 11. شروع کریں
+    // ============================================================
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initBanners);
     } else {
@@ -356,7 +381,14 @@
 
     // مکمل لوڈ ہونے پر دوبارہ چلائیں (سیفٹی کے لیے)
     window.addEventListener('load', function() {
-        setTimeout(insertBannersInContent, 2000);
+        setTimeout(function() {
+            // اگر پہلے سے بینرز نہیں ہیں تو دوبارہ چلائیں
+            var existingBanners = document.querySelectorAll('.smart-banner');
+            if (existingBanners.length === 0) {
+                console.log('🔄 کوئی بینر نہیں ملا، دوبارہ کوشش کر رہے ہیں...');
+                insertBannersInContent();
+            }
+        }, 3000);
     });
 
     console.log('🔗 Smart Banner System Started with ' + allUrls.length + ' URLs');
