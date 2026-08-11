@@ -1,5 +1,5 @@
 // ============================================================
-// auto-interlink.js - انتہائی آسان ورژن (FIXED)
+// auto-interlink.js - تصویر کے ساتھ مکمل ورژن
 // ============================================================
 
 (function() {
@@ -81,11 +81,23 @@
     }
 
     // ============================================================
-    // 4. بینر بنائیں
+    // 4. بینر بنائیں - WITH IMAGE
     // ============================================================
     function createBanner(post, index) {
         var colors = ['#dc3545', '#fd7e14', '#ffc107'];
         var color = colors[index % colors.length];
+        
+        var imageUrl = post.image || '';
+        
+        // اگر image موجود نہ ہو تو URL سے بنائیں
+        if (!imageUrl && post.url) {
+            var path = post.url.replace('https://bloglovers.pk/', '');
+            imageUrl = 'https://bloglovers.pk/images/' + path + '.png';
+        }
+        
+        var imageHtml = imageUrl ? 
+            `<img src="${imageUrl}" alt="${post.title}" style="width:45px;height:45px;object-fit:cover;border-radius:10px;" onerror="this.parentElement.innerHTML='<div style=\\'width:45px;height:45px;border-radius:12px;background:${color}20;border:2px solid ${color};display:flex;align-items:center;justify-content:center;font-size:20px;\\'>📖</div>'">` :
+            `<div style="width:45px;height:45px;border-radius:12px;background:${color}20;border:2px solid ${color};display:flex;align-items:center;justify-content:center;font-size:20px;">📖</div>`;
         
         return `
         <div class="interlink-banner" style="margin:25px 0;padding:0;border-radius:16px;overflow:hidden;background:transparent;">
@@ -93,11 +105,13 @@
                onmouseover="this.style.borderColor='${color}';this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,0.3)'"
                onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)';this.style.boxShadow='none'">
                 <div style="display:flex;align-items:center;gap:15px;">
-                    <div style="flex:0 0 45px;width:45px;height:45px;border-radius:12px;background:${color}20;border:2px solid ${color};display:flex;align-items:center;justify-content:center;font-size:20px;">📖</div>
+                    <div style="flex:0 0 45px;width:45px;height:45px;border-radius:10px;overflow:hidden;flex-shrink:0;">
+                        ${imageHtml}
+                    </div>
                     <div style="flex:1;min-width:0;">
                         <div style="font-size:11px;color:${color};font-weight:700;text-transform:uppercase;letter-spacing:1px;">✦ تجویز کردہ</div>
-                        <div style="font-size:16px;font-weight:700;color:#fff;line-height:1.4;">${post.title}</div>
-                        <div style="font-size:13px;color:${color};opacity:0.8;">${post.teaser || 'مزید پڑھیں'}</div>
+                        <div style="font-size:16px;font-weight:700;color:#fff;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${post.title}</div>
+                        <div style="font-size:13px;color:${color};opacity:0.8;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;">${post.teaser || 'مزید پڑھیں'}</div>
                     </div>
                     <div style="color:${color};font-size:20px;flex-shrink:0;">›</div>
                 </div>
@@ -107,7 +121,7 @@
     }
 
     // ============================================================
-    // 5. بینرز شامل کریں - FIXED
+    // 5. بینرز شامل کریں
     // ============================================================
     function insertBanners() {
         console.log('🔄 بینرز شامل کیے جا رہے ہیں...');
@@ -164,12 +178,10 @@
                 var banner = temp.firstElementChild;
                 
                 if (banner) {
-                    // ✅ FIX: nextSibling کو محفوظ طریقے سے چیک کریں
                     var next = p.nextSibling;
                     var hasBanner = false;
                     
-                    // چیک کریں کہ next موجود ہے اور element ہے
-                    if (next && next.nodeType === 1) { // 1 = element node
+                    if (next && next.nodeType === 1) {
                         if (next.querySelector && next.querySelector('.interlink-banner')) {
                             hasBanner = true;
                         }
