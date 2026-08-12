@@ -337,6 +337,20 @@
             border: 1px solid rgba(0, 200, 255, 0.15);
         }
 
+        /* ===== LAYOUT: CONTENT + SIDEBAR ===== */
+        .content-sidebar-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .content-sidebar-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ===== TABLE OF CONTENTS ===== */
         .toc-container {
             background: rgba(255, 255, 255, 0.03);
@@ -483,6 +497,112 @@
 
         .content-area strong {
             color: #ffd700;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .sidebar-widget {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-widget h3 {
+            font-size: 1.1rem;
+            color: #b8d4ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-widget h3 i {
+            color: #ffd700;
+        }
+
+        /* Trending Posts */
+        .trending-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .trending-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 8px 12px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid transparent;
+        }
+
+        .trending-item:hover {
+            background: rgba(0, 200, 255, 0.05);
+            border-color: rgba(0, 200, 255, 0.1);
+            transform: translateX(-4px);
+        }
+
+        .trending-item .rank {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00d4ff;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .trending-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .trending-item .trending-title {
+            font-size: 0.9rem;
+            color: #c8c4e0;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .trending-item .trending-title:hover {
+            color: #ffd700;
+        }
+
+        .trending-item .views {
+            font-size: 0.75rem;
+            color: #666688;
+            white-space: nowrap;
+        }
+
+        .trending-loader {
+            text-align: center;
+            color: #666688;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        .trending-loader i {
+            color: #00d4ff;
+        }
+
+        .trending-error {
+            text-align: center;
+            color: #ff6b6b;
+            padding: 20px;
+            font-size: 0.9rem;
         }
 
         /* ===== TAGS ===== */
@@ -823,6 +943,9 @@
             .hero-title { font-size: 2rem; }
             .hero-subtitle { max-width: 100%; font-size: 1rem; }
             .content-area { padding: 20px; }
+            .content-sidebar-layout {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -913,310 +1036,343 @@
             <span><i class="far fa-eye"></i> <span id="viewCount">0</span> مشاہدات</span>
         </div>
 
-        <!-- ===== TABLE OF CONTENTS ===== -->
-        <div class="toc-container" data-aos="fade-up" data-aos-delay="150">
-            <div class="toc-title"><i class="fas fa-list-ul" style="color:#ffd700;"></i> فہرست مضامین</div>
-            <ul class="toc-list">
-                <li><a href="#section1">سرکشی کا مفہوم</a></li>
-                <li><a href="#section2">سرکشی کی اقسام</a></li>
-                <li><a href="#section3">دور جاہلیت میں سرکشی</a></li>
-                <li><a href="#section4">رسول اللہ ﷺ کا فرمان</a></li>
-                <li><a href="#section5">مختلف مذاہب میں سرکشی</a></li>
-                <li><a href="#section6">مغربی معاشرے اور سرکشی</a></li>
-                <li><a href="#section7">جنوبی ایشیا میں سرکشی کا رجحان</a></li>
-                <li><a href="#section8">اسلام میں سرکشی کی وعید</a></li>
-                <li><a href="#section9">سرکشی کے معاشرتی اثرات</a></li>
-                <li><a href="#section10">سرکشی سے بچاؤ کے طریقے</a></li>
-                <li><a href="#section11">نتیجہ</a></li>
-            </ul>
-        </div>
+        <!-- ===== CONTENT + SIDEBAR LAYOUT ===== -->
+        <div class="content-sidebar-layout">
 
-        <!-- ===== FEATURED IMAGE ===== -->
-        <div class="featured-image-wrapper" data-aos="fade-up" data-aos-delay="200">
-            <img 
-                src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna.png" 
-                alt="سرکشی کرنا - غفلت میں چھپے 50 گناہ کا پینتیسواں گناہ"
-                onerror="this.src='https://via.placeholder.com/800x400/1a1a2e/ffd700?text=سرکشی+کرنا';"
-                loading="lazy"
-            >
-        </div>
+            <!-- ===== MAIN CONTENT ===== -->
+            <div class="main-content">
 
-        <!-- ===== CONTENT AREA ===== -->
-        <div class="content-area" data-aos="fade-up" data-aos-delay="250">
-
-            <div class="warning-box">
-                <strong>⚡ خبردار!</strong> سرکشی ایک ایسا گناہ ہے جو انسان کو اللہ کی رحمت سے دور کر دیتا ہے اور اسے جہنم کی طرف لے جاتا ہے۔
-            </div>
-
-            <p>
-                غفلت میں چھپے 50 گناہوں کی فہرست میں پینتیسواں گناہ <strong>سرکشی کرنا</strong> ہے۔ 
-                یہ ایک ایسا عمل ہے جو انسان کو اللہ تعالیٰ کے احکامات کی نافرمانی پر اکساتا ہے اور اسے اپنی خواہشات کے پیچھے چلنے پر مجبور کرتا ہے۔ 
-                سرکشی دراصل انسان کے اندر موجود بغاوت کا نام ہے جو اسے اپنے رب کے سامنے جھکنے سے روکتی ہے۔
-            </p>
-
-            <!-- Section 1 -->
-            <h2 id="section1">🕌 سرکشی کا مفہوم</h2>
-            <p>
-                سرکشی سے مراد وہ عمل ہے جس میں انسان اللہ تعالیٰ کے احکامات کی نافرمانی کرتا ہے اور اپنی خواہشات کے پیچھے چل پڑتا ہے۔ 
-                یہ ایک ایسی کیفیت ہے جس میں انسان اپنے رب کے سامنے جھکنے کے بجائے اپنے نفس کی پیروی کرتا ہے۔ 
-                اسلام میں سرکشی کو نہایت سنگین گناہ قرار دیا گیا ہے کیونکہ یہ انسان کو اللہ کی رحمت سے دور کر دیتا ہے اور اسے گمراہی کی طرف لے جاتا ہے۔
-            </p>
-            <p>
-                قرآن مجید میں اللہ تعالیٰ نے سرکشی کرنے والوں کے بارے میں فرمایا:
-            </p>
-            <div class="prophetic-box">
-                <strong>📖 قرآن کا فرمان:</strong> "اور تم پر سے اس کی نعمت کو اس طرح مت پھیرو کہ تم سرکشی کرنے لگو۔"
-            </div>
-            <p>
-                سرکشی کا تعلق انسان کے دل اور نفس سے ہے۔ جب انسان کا دل اللہ کی یاد سے غافل ہو جاتا ہے اور وہ اپنی خواہشات کو ترجیح دینے لگتا ہے تو یہ سرکشی کی ابتداء ہے۔ 
-                یہ ایک ایسی بیماری ہے جو انسان کو اندر سے تباہ کر دیتی ہے اور اسے اللہ کے قرب سے محروم کر دیتی ہے۔
-            </p>
-
-            <!-- Section 2 -->
-            <h2 id="section2">📋 سرکشی کی اقسام</h2>
-            <p>
-                سرکشی کی مختلف شکلیں ہیں جو انسان کے عمل اور کردار میں ظاہر ہوتی ہیں۔ ان میں سے چند اہم درج ذیل ہیں:
-            </p>
-            <ul>
-                <li><strong>اللہ کے احکامات کی نافرمانی:</strong> نماز، روزہ، زکوٰۃ اور حج جیسے فرائض کو ترک کرنا یا ان میں سستی کرنا۔</li>
-                <li><strong>نفسانی خواہشات کی پیروی:</strong> حرام کاموں میں ملوث ہونا، جیسے شراب نوشی، زنا، چوری اور جھوٹ۔</li>
-                <li><strong>تکبر اور غرور:</strong> اللہ کے سامنے عاجزی نہ کرنا اور اپنے آپ کو دوسروں سے برتر سمجھنا۔</li>
-                <li><strong>دین میں بدعت:</strong> دین میں نئی چیزیں داخل کرنا جو شریعت میں شامل نہیں ہیں۔</li>
-                <li><strong>اللہ کی یاد سے غفلت:</strong> اللہ کو بھول جانا اور اس کے ذکر سے منہ موڑ لینا۔</li>
-            </ul>
-            <div class="warning-box">
-                <strong>⚠️ انتباہ:</strong> سرکشی کی یہ تمام اقسام انسان کو اللہ کی رحمت سے دور کر دیتی ہیں اور اسے جہنم کے قریب کر دیتی ہیں۔
-            </div>
-
-            <!-- Section 3 -->
-            <h2 id="section3">🏜️ دور جاہلیت میں سرکشی</h2>
-            <p>
-                دور جاہلیت میں سرکشی کا تصور بہت عام تھا۔ لوگ اپنے نفس کی پیروی کرتے تھے اور اللہ کے احکامات کو نظر انداز کرتے تھے۔ 
-                وہ اپنی خواہشات کو ہی اپنا معبود بنا لیتے تھے اور کسی بھی طرح کی پابندی کو قبول نہیں کرتے تھے۔
-            </p>
-            <p>
-                اس دور میں لوگ بتوں کی پوجا کرتے تھے، شراب نوشی کو معمول سمجھتے تھے، اور عورتوں کو بطور وراثت منتقل کرتے تھے۔ 
-                یہ سب سرکشی کی واضح مثالیں تھیں جو انسان کو اللہ کی رحمت سے دور کر دیتی تھیں۔
-            </p>
-            <p>
-                رسول اللہ ﷺ نے اس سرکشی کو ختم کرنے کے لیے اسلام کا پیغام دیا اور لوگوں کو توحید، عدل اور اخلاقیات کی طرف بلایا۔ 
-                آپ ﷺ کی تعلیمات نے لوگوں کو سرکشی سے نکال کر اللہ کی اطاعت کی طرف رجوع کرنے کا راستہ دکھایا۔
-            </p>
-
-            <!-- Section 4 -->
-            <h2 id="section4">📜 رسول اللہ ﷺ کا فرمان</h2>
-            <div class="prophetic-box">
-                <strong>🌙 رسول اللہ ﷺ نے فرمایا:</strong> "سرکشی کرنے والا جہنم میں داخل ہوگا۔" 
-                <span style="display:block;font-size:0.85rem;color:#88bbdd;margin-top:6px;">(مسلم شریف)</span>
-            </div>
-            <p>
-                اس حدیث مبارکہ میں رسول اللہ ﷺ نے سرکشی کرنے والوں کے لیے سخت وعید سنائی ہے۔ 
-                یہ اس بات کی دلیل ہے کہ سرکشی ایک سنگین گناہ ہے جو انسان کو جہنم کی طرف لے جاتا ہے۔
-            </p>
-            <p>
-                آپ ﷺ نے اپنی حیات طیبہ میں ہمیشہ لوگوں کو سرکشی سے بچنے اور اللہ کی اطاعت اختیار کرنے کی تلقین کی۔ 
-                آپ ﷺ نے فرمایا: "مومن وہ ہے جس کا ایمان اسے سرکشی سے روکے۔"
-            </p>
-
-            <!-- Section 5 -->
-            <h2 id="section5">🕊️ مختلف مذاہب میں سرکشی</h2>
-            <p>
-                مختلف مذاہب میں سرکشی کے تصور کو مختلف طریقوں سے بیان کیا گیا ہے:
-            </p>
-            <ul>
-                <li><strong>عیسائیت:</strong> عیسائیت میں بھی سرکشی کو گناہ قرار دیا گیا ہے۔ بائبل میں سرکشی کو شیطان کی صفت قرار دیا گیا ہے اور اس سے بچنے کی تلقین کی گئی ہے۔</li>
-                <li><strong>ہندو مت:</strong> ہندو مت میں اپنے گرو یا دیوتا کے احکامات کی نافرمانی کو ناپسندیدہ سمجھا جاتا ہے۔ اسے "پاپ" (گناہ) قرار دیا گیا ہے۔</li>
-                <li><strong>یہودیت:</strong> یہودیت میں بھی اللہ کے احکامات کی نافرمانی کو سنگین گناہ سمجھا جاتا ہے اور تورات میں اس کی سخت مذمت کی گئی ہے۔</li>
-                <li><strong>اسلام:</strong> اسلام میں سرکشی کو کفر اور شرک کے قریب ترین گناہ قرار دیا گیا ہے۔ یہ انسان کو اللہ کی رحمت سے محروم کر دیتا ہے۔</li>
-            </ul>
-
-            <!-- Section 6 -->
-            <h2 id="section6">🌍 مغربی معاشرے اور سرکشی</h2>
-            <p>
-                مغربی معاشروں میں سرکشی کو بعض اوقات آزادی کے نام پر سراہا جاتا ہے۔ 
-                لوگ اپنی خواہشات کو ہی اپنا معبود بنا لیتے ہیں اور کسی بھی قسم کی پابندی کو قبول نہیں کرتے۔
-            </p>
-            <p>
-                یہ رجحان انسان کو اخلاقی زوال کی طرف لے جاتا ہے اور معاشرتی بے راہ روی کو جنم دیتا ہے۔ 
-                مغربی معاشروں میں بڑھتی ہوئی بے حیائی، جنسی بے راہ روی، اور خاندانی نظام کا خاتمہ دراصل سرکشی کا نتیجہ ہے۔
-            </p>
-            <div class="warning-box">
-                <strong>⚠️ خبردار:</strong> سرکشی کو آزادی کا نام دینا ایک بہت بڑی غلطی ہے۔ حقیقی آزادی تو اللہ کی اطاعت میں ہے، نہ کہ اس کی نافرمانی میں۔
-            </div>
-
-            <!-- Section 7 -->
-            <h2 id="section7">🌏 جنوبی ایشیا میں سرکشی کا رجحان</h2>
-            <p>
-                جنوبی ایشیائی ممالک میں سرکشی کا رجحان بڑھ رہا ہے۔ لوگ دینی احکامات کو چھوڑ کر دنیاوی خواہشات کے پیچھے بھاگ رہے ہیں۔ 
-                یہ رجحان خاص طور پر نوجوان نسل میں زیادہ دیکھنے کو مل رہا ہے۔
-            </p>
-            <p>
-                سوشل میڈیا اور مغربی کلچر کے اثرات نے لوگوں کو دین سے دور کر دیا ہے۔ 
-                لوگ اپنی خواہشات کو ترجیح دینے لگے ہیں اور دینی احکامات کو نظر انداز کر رہے ہیں۔
-            </p>
-            <p>
-                اس رجحان کو روکنے کے لیے ضروری ہے کہ ہم اپنے بچوں کو دینی تعلیم دیں اور انہیں اللہ کی اطاعت کی اہمیت سمجھائیں۔ 
-                ہمیں اپنی معاشرتی اقدار کو زندہ رکھنا ہوگا اور اپنے بچوں کو سرکشی کے نقصانات سے آگاہ کرنا ہوگا۔
-            </p>
-
-            <!-- Section 8 -->
-            <h2 id="section8">📖 اسلام میں سرکشی کی وعید</h2>
-            <p>
-                اسلام میں سرکشی کرنے والوں کے لیے سخت وعیدیں ہیں۔ اللہ تعالیٰ نے قرآن مجید میں سرکشی کرنے والوں کے بارے میں فرمایا:
-            </p>
-            <div class="prophetic-box">
-                <strong>📖 قرآن کا فرمان:</strong> "اور تم پر سے اس کی نعمت کو اس طرح مت پھیرو کہ تم سرکشی کرنے لگو۔" 
-                <span style="display:block;font-size:0.85rem;color:#88bbdd;margin-top:6px;">(سورہ النحل: 112)</span>
-            </div>
-            <p>
-                اس آیت مبارکہ میں اللہ تعالیٰ نے مسلمانوں کو خبردار کیا ہے کہ وہ اپنی نعمتوں کو سرکشی کا باعث نہ بنائیں۔ 
-                سرکشی کرنے والوں کے لیے اللہ تعالیٰ نے جہنم کی وعید سنائی ہے۔
-            </p>
-            <p>
-                قرآن مجید میں اللہ تعالیٰ نے فرمایا:
-            </p>
-            <div class="prophetic-box">
-                <strong>📖 قرآن کا فرمان:</strong> "اور جو لوگ سرکشی کریں گے وہ جہنم میں داخل ہوں گے اور وہاں ہمیشہ رہیں گے۔"
-            </div>
-
-            <!-- Section 9 -->
-            <h2 id="section9">🏚️ سرکشی کے معاشرتی اثرات</h2>
-            <p>
-                سرکشی کے معاشرتی اثرات بہت منفی ہیں۔ یہ خاندانی نظام کو تباہ کرتی ہے، معاشرتی اقدار کو پامال کرتی ہے، اور انسان کو ذلت و رسوائی کی طرف لے جاتی ہے۔
-            </p>
-            <ul>
-                <li><strong>خاندانی نظام کا خاتمہ:</strong> سرکشی خاندانی بندھنوں کو کمزور کرتی ہے اور طلاق کی شرح میں اضافہ کرتی ہے۔</li>
-                <li><strong>معاشرتی اقدار کا زوال:</strong> سرکشی معاشرتی اقدار کو تباہ کرتی ہے اور لوگوں کو اخلاقی زوال کی طرف لے جاتی ہے۔</li>
-                <li><strong>جرائم میں اضافہ:</strong> سرکشی جرائم کی شرح میں اضافہ کرتی ہے اور معاشرے میں عدم تحفظ کا احساس پیدا کرتی ہے۔</li>
-                <li><strong>نوجوانوں کی بگاڑ:</strong> سرکشی نوجوانوں کو بگاڑتی ہے اور انہیں منفی سرگرمیوں کی طرف مائل کرتی ہے۔</li>
-                <li><strong>ذہنی و نفسیاتی مسائل:</strong> سرکشی انسان کو ذہنی اور نفسیاتی مسائل کا شکار کرتی ہے اور اسے پریشانیوں میں مبتلا کرتی ہے۔</li>
-            </ul>
-
-            <!-- Section 10 -->
-            <h2 id="section10">🛡️ سرکشی سے بچاؤ کے طریقے</h2>
-            <p>
-                سرکشی سے بچنے کے لیے ضروری ہے کہ ہم درج ذیل اقدامات کریں:
-            </p>
-            <ul>
-                <li><strong>اللہ کی یاد کو تازہ رکھیں:</strong> ہمیشہ اللہ کو یاد رکھیں اور اس کے احکامات پر عمل کریں۔ ذکر و اذکار کا معمول بنائیں۔</li>
-                <li><strong>نفس کی تربیت کریں:</strong> اپنے نفس کو برائیوں سے بچائیں اور اس کی تربیت کریں۔ روزہ رکھیں اور نماز پڑھیں۔</li>
-                <li><strong>دینی علم حاصل کریں:</strong> دینی علم حاصل کر کے اپنی زندگی کو سنواریں۔ علمائے کرام کی صحبت اختیار کریں۔</li>
-                <li><strong>بری صحبت سے بچیں:</strong> برے لوگوں کی صحبت سے بچیں اور نیک لوگوں کے ساتھ رہیں۔</li>
-                <li><strong>توبہ و استغفار کریں:</strong> اپنے گناہوں پر توبہ کریں اور اللہ سے معافی مانگیں۔</li>
-                <li><strong>قرآن کی تلاوت کریں:</strong> قرآن مجید کی تلاوت کریں اور اس پر عمل کریں۔</li>
-                <li><strong>دعا کریں:</strong> اللہ سے سرکشی سے بچنے کی دعا کریں۔</li>
-            </ul>
-            <div class="blessing-box">
-                <strong>🌟 بشارت:</strong> جو شخص سرکشی سے بچے گا اور اللہ کی اطاعت اختیار کرے گا، اللہ تعالیٰ اسے جنت میں داخل کرے گا اور اس پر اپنی رحمت نازل فرمائے گا۔
-            </div>
-
-            <!-- Section 11 -->
-            <h2 id="section11">🤲 نتیجہ</h2>
-            <div class="highlight-box">
-                <strong>💎 خلاصہ:</strong> سرکشی ایک سنگین گناہ ہے جو انسان کو اللہ کی رحمت سے دور کر دیتا ہے۔ اس سے بچنے کے لیے ہمیں اللہ کی اطاعت اختیار کرنی چاہیے، اپنے نفس کی تربیت کرنی چاہیے، اور دینی علم حاصل کرنا چاہیے۔ اللہ ہمیں سرکشی سے بچائے اور ہمیں اپنی اطاعت کی توفیق عطا فرمائے۔ آمین!
-            </div>
-            <p>
-                اللہ تعالیٰ نے قرآن مجید میں فرمایا:
-            </p>
-            <div class="prophetic-box">
-                <strong>📖 قرآن کا فرمان:</strong> "اور تم پر سے اس کی نعمت کو اس طرح مت پھیرو کہ تم سرکشی کرنے لگو۔" 
-                <span style="display:block;font-size:0.85rem;color:#88bbdd;margin-top:6px;">(سورہ النحل: 112)</span>
-            </div>
-            <p>
-                آخر میں، ہم اللہ سے دعا کرتے ہیں کہ وہ ہمیں سرکشی سے بچائے اور ہمیں اپنی اطاعت کی توفیق عطا فرمائے۔ 
-                ہمیں اپنی زندگیوں میں اللہ کے احکامات کو ترجیح دینی چاہیے اور اپنی خواہشات کو قابو میں رکھنا چاہیے۔ 
-                صرف اسی طرح ہم دنیا اور آخرت میں کامیابی حاصل کر سکتے ہیں۔
-            </p>
-
-            <!-- Tags -->
-            <div class="tags-section">
-                <span class="tag">#سرکشی_کرنا</span>
-                <span class="tag">#غفلت_میں_چھپے_50_گناہ</span>
-                <span class="tag">#اسلامی_تعلیمات</span>
-                <span class="tag">#گناہ_کبیرہ</span>
-                <span class="tag">#اللہ_کی_نافرمانی</span>
-                <span class="tag">#نفسانی_خواہشات</span>
-                <span class="tag">#توبہ</span>
-                <span class="tag">#اصلاح</span>
-                <span class="tag">#قرآن</span>
-                <span class="tag">#حدیث</span>
-            </div>
-
-        </div><!-- end content-area -->
-
-        <!-- ===== AUTHOR BOX ===== -->
-        <div class="author-box" data-aos="fade-up" data-aos-delay="200">
-            <img 
-                src="https://raw.githubusercontent.com/Uzair-hameed/blogloverspk/main/images/author/uzairhameed.png" 
-                alt="Uzair Hameed - مصنف"
-                onerror="this.src='https://via.placeholder.com/80/1a1a2e/ffd700?text=UH';"
-                loading="lazy"
-            >
-            <div class="author-info">
-                <h4>Uzair Hameed</h4>
-                <p>📝 مصنف، بلاگ لوورز</p>
-                <div class="author-bio">
-                    اسلامی تعلیمات، تاریخ اور اصلاح پر لکھنے والا ایک نوجوان مصنف۔ 
-                    مقصد: امت مسلمہ کو دینی شعور سے روشناس کرانا اور انہیں گمراہی سے بچانا۔
+                <!-- ===== TABLE OF CONTENTS ===== -->
+                <div class="toc-container" data-aos="fade-up" data-aos-delay="150">
+                    <div class="toc-title"><i class="fas fa-list-ul" style="color:#ffd700;"></i> فہرست مضامین</div>
+                    <ul class="toc-list">
+                        <li><a href="#section1">سرکشی کا مفہوم</a></li>
+                        <li><a href="#section2">سرکشی کی اقسام</a></li>
+                        <li><a href="#section3">دور جاہلیت میں سرکشی</a></li>
+                        <li><a href="#section4">رسول اللہ ﷺ کا فرمان</a></li>
+                        <li><a href="#section5">مختلف مذاہب میں سرکشی</a></li>
+                        <li><a href="#section6">مغربی معاشرے اور سرکشی</a></li>
+                        <li><a href="#section7">جنوبی ایشیا میں سرکشی کا رجحان</a></li>
+                        <li><a href="#section8">اسلام میں سرکشی کی وعید</a></li>
+                        <li><a href="#section9">سرکشی کے معاشرتی اثرات</a></li>
+                        <li><a href="#section10">سرکشی سے بچاؤ کے طریقے</a></li>
+                        <li><a href="#section11">نتیجہ</a></li>
+                    </ul>
                 </div>
-            </div>
-        </div>
 
-        <!-- ===== REACTIONS ===== -->
-        <div class="reactions-container" data-aos="fade-up" data-aos-delay="250">
-            <button class="reaction-btn" onclick="handleReaction('عمدہ')">
-                👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span>
-            </button>
-            <button class="reaction-btn" onclick="handleReaction('دلچسپ')">
-                ❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span>
-            </button>
-            <button class="reaction-btn" onclick="handleReaction('مفید')">
-                😊 مفید <span class="reaction-count" id="count-مفید">0</span>
-            </button>
-            <button class="reaction-btn" onclick="handleReaction('قابل غور')">
-                😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span>
-            </button>
-            <button class="reaction-btn" onclick="handleReaction('سوچ بچار')">
-                🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span>
-            </button>
-            <button class="reaction-btn" onclick="handleReaction('شاندار')">
-                👏 شاندار <span class="reaction-count" id="count-شاندار">0</span>
-            </button>
-            <button class="reaction-btn" onclick="handleReaction('زبردست')">
-                🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span>
-            </button>
-        </div>
+                <!-- ===== FEATURED IMAGE ===== -->
+                <div class="featured-image-wrapper" data-aos="fade-up" data-aos-delay="200">
+                    <img 
+                        src="https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna.png" 
+                        alt="سرکشی کرنا - غفلت میں چھپے 50 گناہ کا پینتیسواں گناہ"
+                        onerror="this.src='https://via.placeholder.com/800x400/1a1a2e/ffd700?text=سرکشی+کرنا';"
+                        loading="lazy"
+                    >
+                </div>
 
-        <!-- ===== SHARE BAR ===== -->
-        <div class="share-bar" data-aos="fade-up" data-aos-delay="300">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna" 
-               target="_blank" class="share-btn fb" aria-label="Facebook پر شیئر کریں">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna&text=غفلت میں چھپے 50 گناہ: سرکشی کرنا" 
-               target="_blank" class="share-btn tw" aria-label="Twitter پر شیئر کریں">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://wa.me/?text=غفلت میں چھپے 50 گناہ: سرکشی کرنا - https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna" 
-               target="_blank" class="share-btn wa" aria-label="WhatsApp پر شیئر کریں">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna" 
-               target="_blank" class="share-btn li" aria-label="LinkedIn پر شیئر کریں">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna&text=غفلت میں چھپے 50 گناہ: 35 - سرکشی کرنا" 
-               target="_blank" class="share-btn tg" aria-label="Telegram پر شیئر کریں">
-                <i class="fab fa-telegram-plane"></i>
-            </a>
-            <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna&media=https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna.png&description=سرکشی کرنا - گناہ نمبر 35" 
-               target="_blank" class="share-btn pt" aria-label="Pinterest پر شیئر کریں">
-                <i class="fab fa-pinterest-p"></i>
-            </a>
-            <button class="share-btn copy" onclick="copyPageLink()" aria-label="لنک کاپی کریں">
-                <i class="fas fa-link"></i>
-            </button>
-        </div>
+                <!-- ===== CONTENT AREA ===== -->
+                <div class="content-area" data-aos="fade-up" data-aos-delay="250">
+
+                    <div class="warning-box">
+                        <strong>⚡ خبردار!</strong> سرکشی ایک ایسا گناہ ہے جو انسان کو اللہ کی رحمت سے دور کر دیتا ہے اور اسے جہنم کی طرف لے جاتا ہے۔
+                    </div>
+
+                    <p>
+                        غفلت میں چھپے 50 گناہوں کی فہرست میں پینتیسواں گناہ <strong>سرکشی کرنا</strong> ہے۔ 
+                        یہ ایک ایسا عمل ہے جو انسان کو اللہ تعالیٰ کے احکامات کی نافرمانی پر اکساتا ہے اور اسے اپنی خواہشات کے پیچھے چلنے پر مجبور کرتا ہے۔ 
+                        سرکشی دراصل انسان کے اندر موجود بغاوت کا نام ہے جو اسے اپنے رب کے سامنے جھکنے سے روکتی ہے۔
+                    </p>
+
+                    <!-- Section 1 -->
+                    <h2 id="section1">🕌 سرکشی کا مفہوم</h2>
+                    <p>
+                        سرکشی سے مراد وہ عمل ہے جس میں انسان اللہ تعالیٰ کے احکامات کی نافرمانی کرتا ہے اور اپنی خواہشات کے پیچھے چل پڑتا ہے۔ 
+                        یہ ایک ایسی کیفیت ہے جس میں انسان اپنے رب کے سامنے جھکنے کے بجائے اپنے نفس کی پیروی کرتا ہے۔ 
+                        اسلام میں سرکشی کو نہایت سنگین گناہ قرار دیا گیا ہے کیونکہ یہ انسان کو اللہ کی رحمت سے دور کر دیتا ہے اور اسے گمراہی کی طرف لے جاتا ہے۔
+                    </p>
+                    <p>
+                        قرآن مجید میں اللہ تعالیٰ نے سرکشی کرنے والوں کے بارے میں فرمایا:
+                    </p>
+                    <div class="prophetic-box">
+                        <strong>📖 قرآن کا فرمان:</strong> "اور تم پر سے اس کی نعمت کو اس طرح مت پھیرو کہ تم سرکشی کرنے لگو۔"
+                    </div>
+                    <p>
+                        سرکشی کا تعلق انسان کے دل اور نفس سے ہے۔ جب انسان کا دل اللہ کی یاد سے غافل ہو جاتا ہے اور وہ اپنی خواہشات کو ترجیح دینے لگتا ہے تو یہ سرکشی کی ابتداء ہے۔ 
+                        یہ ایک ایسی بیماری ہے جو انسان کو اندر سے تباہ کر دیتی ہے اور اسے اللہ کے قرب سے محروم کر دیتی ہے۔
+                    </p>
+
+                    <!-- Section 2 -->
+                    <h2 id="section2">📋 سرکشی کی اقسام</h2>
+                    <p>
+                        سرکشی کی مختلف شکلیں ہیں جو انسان کے عمل اور کردار میں ظاہر ہوتی ہیں۔ ان میں سے چند اہم درج ذیل ہیں:
+                    </p>
+                    <ul>
+                        <li><strong>اللہ کے احکامات کی نافرمانی:</strong> نماز، روزہ، زکوٰۃ اور حج جیسے فرائض کو ترک کرنا یا ان میں سستی کرنا۔</li>
+                        <li><strong>نفسانی خواہشات کی پیروی:</strong> حرام کاموں میں ملوث ہونا، جیسے شراب نوشی، زنا، چوری اور جھوٹ۔</li>
+                        <li><strong>تکبر اور غرور:</strong> اللہ کے سامنے عاجزی نہ کرنا اور اپنے آپ کو دوسروں سے برتر سمجھنا۔</li>
+                        <li><strong>دین میں بدعت:</strong> دین میں نئی چیزیں داخل کرنا جو شریعت میں شامل نہیں ہیں۔</li>
+                        <li><strong>اللہ کی یاد سے غفلت:</strong> اللہ کو بھول جانا اور اس کے ذکر سے منہ موڑ لینا۔</li>
+                    </ul>
+                    <div class="warning-box">
+                        <strong>⚠️ انتباہ:</strong> سرکشی کی یہ تمام اقسام انسان کو اللہ کی رحمت سے دور کر دیتی ہیں اور اسے جہنم کے قریب کر دیتی ہیں۔
+                    </div>
+
+                    <!-- Section 3 -->
+                    <h2 id="section3">🏜️ دور جاہلیت میں سرکشی</h2>
+                    <p>
+                        دور جاہلیت میں سرکشی کا تصور بہت عام تھا۔ لوگ اپنے نفس کی پیروی کرتے تھے اور اللہ کے احکامات کو نظر انداز کرتے تھے۔ 
+                        وہ اپنی خواہشات کو ہی اپنا معبود بنا لیتے تھے اور کسی بھی طرح کی پابندی کو قبول نہیں کرتے تھے۔
+                    </p>
+                    <p>
+                        اس دور میں لوگ بتوں کی پوجا کرتے تھے، شراب نوشی کو معمول سمجھتے تھے، اور عورتوں کو بطور وراثت منتقل کرتے تھے۔ 
+                        یہ سب سرکشی کی واضح مثالیں تھیں جو انسان کو اللہ کی رحمت سے دور کر دیتی تھیں۔
+                    </p>
+                    <p>
+                        رسول اللہ ﷺ نے اس سرکشی کو ختم کرنے کے لیے اسلام کا پیغام دیا اور لوگوں کو توحید، عدل اور اخلاقیات کی طرف بلایا۔ 
+                        آپ ﷺ کی تعلیمات نے لوگوں کو سرکشی سے نکال کر اللہ کی اطاعت کی طرف رجوع کرنے کا راستہ دکھایا۔
+                    </p>
+
+                    <!-- Section 4 -->
+                    <h2 id="section4">📜 رسول اللہ ﷺ کا فرمان</h2>
+                    <div class="prophetic-box">
+                        <strong>🌙 رسول اللہ ﷺ نے فرمایا:</strong> "سرکشی کرنے والا جہنم میں داخل ہوگا۔" 
+                        <span style="display:block;font-size:0.85rem;color:#88bbdd;margin-top:6px;">(مسلم شریف)</span>
+                    </div>
+                    <p>
+                        اس حدیث مبارکہ میں رسول اللہ ﷺ نے سرکشی کرنے والوں کے لیے سخت وعید سنائی ہے۔ 
+                        یہ اس بات کی دلیل ہے کہ سرکشی ایک سنگین گناہ ہے جو انسان کو جہنم کی طرف لے جاتا ہے۔
+                    </p>
+                    <p>
+                        آپ ﷺ نے اپنی حیات طیبہ میں ہمیشہ لوگوں کو سرکشی سے بچنے اور اللہ کی اطاعت اختیار کرنے کی تلقین کی۔ 
+                        آپ ﷺ نے فرمایا: "مومن وہ ہے جس کا ایمان اسے سرکشی سے روکے۔"
+                    </p>
+
+                    <!-- Section 5 -->
+                    <h2 id="section5">🕊️ مختلف مذاہب میں سرکشی</h2>
+                    <p>
+                        مختلف مذاہب میں سرکشی کے تصور کو مختلف طریقوں سے بیان کیا گیا ہے:
+                    </p>
+                    <ul>
+                        <li><strong>عیسائیت:</strong> عیسائیت میں بھی سرکشی کو گناہ قرار دیا گیا ہے۔ بائبل میں سرکشی کو شیطان کی صفت قرار دیا گیا ہے اور اس سے بچنے کی تلقین کی گئی ہے۔</li>
+                        <li><strong>ہندو مت:</strong> ہندو مت میں اپنے گرو یا دیوتا کے احکامات کی نافرمانی کو ناپسندیدہ سمجھا جاتا ہے۔ اسے "پاپ" (گناہ) قرار دیا گیا ہے۔</li>
+                        <li><strong>یہودیت:</strong> یہودیت میں بھی اللہ کے احکامات کی نافرمانی کو سنگین گناہ سمجھا جاتا ہے اور تورات میں اس کی سخت مذمت کی گئی ہے۔</li>
+                        <li><strong>اسلام:</strong> اسلام میں سرکشی کو کفر اور شرک کے قریب ترین گناہ قرار دیا گیا ہے۔ یہ انسان کو اللہ کی رحمت سے محروم کر دیتا ہے۔</li>
+                    </ul>
+
+                    <!-- Section 6 -->
+                    <h2 id="section6">🌍 مغربی معاشرے اور سرکشی</h2>
+                    <p>
+                        مغربی معاشروں میں سرکشی کو بعض اوقات آزادی کے نام پر سراہا جاتا ہے۔ 
+                        لوگ اپنی خواہشات کو ہی اپنا معبود بنا لیتے ہیں اور کسی بھی قسم کی پابندی کو قبول نہیں کرتے۔
+                    </p>
+                    <p>
+                        یہ رجحان انسان کو اخلاقی زوال کی طرف لے جاتا ہے اور معاشرتی بے راہ روی کو جنم دیتا ہے۔ 
+                        مغربی معاشروں میں بڑھتی ہوئی بے حیائی، جنسی بے راہ روی، اور خاندانی نظام کا خاتمہ دراصل سرکشی کا نتیجہ ہے۔
+                    </p>
+                    <div class="warning-box">
+                        <strong>⚠️ خبردار:</strong> سرکشی کو آزادی کا نام دینا ایک بہت بڑی غلطی ہے۔ حقیقی آزادی تو اللہ کی اطاعت میں ہے، نہ کہ اس کی نافرمانی میں۔
+                    </div>
+
+                    <!-- Section 7 -->
+                    <h2 id="section7">🌏 جنوبی ایشیا میں سرکشی کا رجحان</h2>
+                    <p>
+                        جنوبی ایشیائی ممالک میں سرکشی کا رجحان بڑھ رہا ہے۔ لوگ دینی احکامات کو چھوڑ کر دنیاوی خواہشات کے پیچھے بھاگ رہے ہیں۔ 
+                        یہ رجحان خاص طور پر نوجوان نسل میں زیادہ دیکھنے کو مل رہا ہے۔
+                    </p>
+                    <p>
+                        سوشل میڈیا اور مغربی کلچر کے اثرات نے لوگوں کو دین سے دور کر دیا ہے۔ 
+                        لوگ اپنی خواہشات کو ترجیح دینے لگے ہیں اور دینی احکامات کو نظر انداز کر رہے ہیں۔
+                    </p>
+                    <p>
+                        اس رجحان کو روکنے کے لیے ضروری ہے کہ ہم اپنے بچوں کو دینی تعلیم دیں اور انہیں اللہ کی اطاعت کی اہمیت سمجھائیں۔ 
+                        ہمیں اپنی معاشرتی اقدار کو زندہ رکھنا ہوگا اور اپنے بچوں کو سرکشی کے نقصانات سے آگاہ کرنا ہوگا۔
+                    </p>
+
+                    <!-- Section 8 -->
+                    <h2 id="section8">📖 اسلام میں سرکشی کی وعید</h2>
+                    <p>
+                        اسلام میں سرکشی کرنے والوں کے لیے سخت وعیدیں ہیں۔ اللہ تعالیٰ نے قرآن مجید میں سرکشی کرنے والوں کے بارے میں فرمایا:
+                    </p>
+                    <div class="prophetic-box">
+                        <strong>📖 قرآن کا فرمان:</strong> "اور تم پر سے اس کی نعمت کو اس طرح مت پھیرو کہ تم سرکشی کرنے لگو۔" 
+                        <span style="display:block;font-size:0.85rem;color:#88bbdd;margin-top:6px;">(سورہ النحل: 112)</span>
+                    </div>
+                    <p>
+                        اس آیت مبارکہ میں اللہ تعالیٰ نے مسلمانوں کو خبردار کیا ہے کہ وہ اپنی نعمتوں کو سرکشی کا باعث نہ بنائیں۔ 
+                        سرکشی کرنے والوں کے لیے اللہ تعالیٰ نے جہنم کی وعید سنائی ہے۔
+                    </p>
+                    <p>
+                        قرآن مجید میں اللہ تعالیٰ نے فرمایا:
+                    </p>
+                    <div class="prophetic-box">
+                        <strong>📖 قرآن کا فرمان:</strong> "اور جو لوگ سرکشی کریں گے وہ جہنم میں داخل ہوں گے اور وہاں ہمیشہ رہیں گے۔"
+                    </div>
+
+                    <!-- Section 9 -->
+                    <h2 id="section9">🏚️ سرکشی کے معاشرتی اثرات</h2>
+                    <p>
+                        سرکشی کے معاشرتی اثرات بہت منفی ہیں۔ یہ خاندانی نظام کو تباہ کرتی ہے، معاشرتی اقدار کو پامال کرتی ہے، اور انسان کو ذلت و رسوائی کی طرف لے جاتی ہے۔
+                    </p>
+                    <ul>
+                        <li><strong>خاندانی نظام کا خاتمہ:</strong> سرکشی خاندانی بندھنوں کو کمزور کرتی ہے اور طلاق کی شرح میں اضافہ کرتی ہے۔</li>
+                        <li><strong>معاشرتی اقدار کا زوال:</strong> سرکشی معاشرتی اقدار کو تباہ کرتی ہے اور لوگوں کو اخلاقی زوال کی طرف لے جاتی ہے۔</li>
+                        <li><strong>جرائم میں اضافہ:</strong> سرکشی جرائم کی شرح میں اضافہ کرتی ہے اور معاشرے میں عدم تحفظ کا احساس پیدا کرتی ہے۔</li>
+                        <li><strong>نوجوانوں کی بگاڑ:</strong> سرکشی نوجوانوں کو بگاڑتی ہے اور انہیں منفی سرگرمیوں کی طرف مائل کرتی ہے۔</li>
+                        <li><strong>ذہنی و نفسیاتی مسائل:</strong> سرکشی انسان کو ذہنی اور نفسیاتی مسائل کا شکار کرتی ہے اور اسے پریشانیوں میں مبتلا کرتی ہے۔</li>
+                    </ul>
+
+                    <!-- Section 10 -->
+                    <h2 id="section10">🛡️ سرکشی سے بچاؤ کے طریقے</h2>
+                    <p>
+                        سرکشی سے بچنے کے لیے ضروری ہے کہ ہم درج ذیل اقدامات کریں:
+                    </p>
+                    <ul>
+                        <li><strong>اللہ کی یاد کو تازہ رکھیں:</strong> ہمیشہ اللہ کو یاد رکھیں اور اس کے احکامات پر عمل کریں۔ ذکر و اذکار کا معمول بنائیں۔</li>
+                        <li><strong>نفس کی تربیت کریں:</strong> اپنے نفس کو برائیوں سے بچائیں اور اس کی تربیت کریں۔ روزہ رکھیں اور نماز پڑھیں۔</li>
+                        <li><strong>دینی علم حاصل کریں:</strong> دینی علم حاصل کر کے اپنی زندگی کو سنواریں۔ علمائے کرام کی صحبت اختیار کریں۔</li>
+                        <li><strong>بری صحبت سے بچیں:</strong> برے لوگوں کی صحبت سے بچیں اور نیک لوگوں کے ساتھ رہیں۔</li>
+                        <li><strong>توبہ و استغفار کریں:</strong> اپنے گناہوں پر توبہ کریں اور اللہ سے معافی مانگیں۔</li>
+                        <li><strong>قرآن کی تلاوت کریں:</strong> قرآن مجید کی تلاوت کریں اور اس پر عمل کریں۔</li>
+                        <li><strong>دعا کریں:</strong> اللہ سے سرکشی سے بچنے کی دعا کریں۔</li>
+                    </ul>
+                    <div class="blessing-box">
+                        <strong>🌟 بشارت:</strong> جو شخص سرکشی سے بچے گا اور اللہ کی اطاعت اختیار کرے گا، اللہ تعالیٰ اسے جنت میں داخل کرے گا اور اس پر اپنی رحمت نازل فرمائے گا۔
+                    </div>
+
+                    <!-- Section 11 -->
+                    <h2 id="section11">🤲 نتیجہ</h2>
+                    <div class="highlight-box">
+                        <strong>💎 خلاصہ:</strong> سرکشی ایک سنگین گناہ ہے جو انسان کو اللہ کی رحمت سے دور کر دیتا ہے۔ اس سے بچنے کے لیے ہمیں اللہ کی اطاعت اختیار کرنی چاہیے، اپنے نفس کی تربیت کرنی چاہیے، اور دینی علم حاصل کرنا چاہیے۔ اللہ ہمیں سرکشی سے بچائے اور ہمیں اپنی اطاعت کی توفیق عطا فرمائے۔ آمین!
+                    </div>
+                    <p>
+                        اللہ تعالیٰ نے قرآن مجید میں فرمایا:
+                    </p>
+                    <div class="prophetic-box">
+                        <strong>📖 قرآن کا فرمان:</strong> "اور تم پر سے اس کی نعمت کو اس طرح مت پھیرو کہ تم سرکشی کرنے لگو۔" 
+                        <span style="display:block;font-size:0.85rem;color:#88bbdd;margin-top:6px;">(سورہ النحل: 112)</span>
+                    </div>
+                    <p>
+                        آخر میں، ہم اللہ سے دعا کرتے ہیں کہ وہ ہمیں سرکشی سے بچائے اور ہمیں اپنی اطاعت کی توفیق عطا فرمائے۔ 
+                        ہمیں اپنی زندگیوں میں اللہ کے احکامات کو ترجیح دینی چاہیے اور اپنی خواہشات کو قابو میں رکھنا چاہیے۔ 
+                        صرف اسی طرح ہم دنیا اور آخرت میں کامیابی حاصل کر سکتے ہیں۔
+                    </p>
+
+                    <!-- Tags -->
+                    <div class="tags-section">
+                        <span class="tag">#سرکشی_کرنا</span>
+                        <span class="tag">#غفلت_میں_چھپے_50_گناہ</span>
+                        <span class="tag">#اسلامی_تعلیمات</span>
+                        <span class="tag">#گناہ_کبیرہ</span>
+                        <span class="tag">#اللہ_کی_نافرمانی</span>
+                        <span class="tag">#نفسانی_خواہشات</span>
+                        <span class="tag">#توبہ</span>
+                        <span class="tag">#اصلاح</span>
+                        <span class="tag">#قرآن</span>
+                        <span class="tag">#حدیث</span>
+                    </div>
+
+                </div><!-- end content-area -->
+
+                <!-- ===== AUTHOR BOX ===== -->
+                <div class="author-box" data-aos="fade-up" data-aos-delay="200">
+                    <img 
+                        src="https://raw.githubusercontent.com/Uzair-hameed/blogloverspk/main/images/author/uzairhameed.png" 
+                        alt="Uzair Hameed - مصنف"
+                        onerror="this.src='https://via.placeholder.com/80/1a1a2e/ffd700?text=UH';"
+                        loading="lazy"
+                    >
+                    <div class="author-info">
+                        <h4>Uzair Hameed</h4>
+                        <p>📝 مصنف، بلاگ لوورز</p>
+                        <div class="author-bio">
+                            اسلامی تعلیمات، تاریخ اور اصلاح پر لکھنے والا ایک نوجوان مصنف۔ 
+                            مقصد: امت مسلمہ کو دینی شعور سے روشناس کرانا اور انہیں گمراہی سے بچانا۔
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== REACTIONS ===== -->
+                <div class="reactions-container" data-aos="fade-up" data-aos-delay="250">
+                    <button class="reaction-btn" onclick="handleReaction('عمدہ')">
+                        👍 عمدہ <span class="reaction-count" id="count-عمدہ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('دلچسپ')">
+                        ❤️ دلچسپ <span class="reaction-count" id="count-دلچسپ">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('مفید')">
+                        😊 مفید <span class="reaction-count" id="count-مفید">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('قابل غور')">
+                        😢 قابل غور <span class="reaction-count" id="count-قابل غور">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('سوچ بچار')">
+                        🤔 سوچ بچار <span class="reaction-count" id="count-سوچ بچار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('شاندار')">
+                        👏 شاندار <span class="reaction-count" id="count-شاندار">0</span>
+                    </button>
+                    <button class="reaction-btn" onclick="handleReaction('زبردست')">
+                        🔥 زبردست <span class="reaction-count" id="count-زبردست">0</span>
+                    </button>
+                </div>
+
+                <!-- ===== SHARE BAR ===== -->
+                <div class="share-bar" data-aos="fade-up" data-aos-delay="300">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna" 
+                       target="_blank" class="share-btn fb" aria-label="Facebook پر شیئر کریں">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna&text=غفلت میں چھپے 50 گناہ: سرکشی کرنا" 
+                       target="_blank" class="share-btn tw" aria-label="Twitter پر شیئر کریں">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://wa.me/?text=غفلت میں چھپے 50 گناہ: سرکشی کرنا - https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna" 
+                       target="_blank" class="share-btn wa" aria-label="WhatsApp پر شیئر کریں">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna" 
+                       target="_blank" class="share-btn li" aria-label="LinkedIn پر شیئر کریں">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://t.me/share/url?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna&text=غفلت میں چھپے 50 گناہ: 35 - سرکشی کرنا" 
+                       target="_blank" class="share-btn tg" aria-label="Telegram پر شیئر کریں">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <a href="https://pinterest.com/pin/create/button/?url=https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna&media=https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-35-srkshi-krna.png&description=سرکشی کرنا - گناہ نمبر 35" 
+                       target="_blank" class="share-btn pt" aria-label="Pinterest پر شیئر کریں">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                    <button class="share-btn copy" onclick="copyPageLink()" aria-label="لنک کاپی کریں">
+                        <i class="fas fa-link"></i>
+                    </button>
+                </div>
+
+            </div><!-- end main-content -->
+
+            <!-- ===== SIDEBAR ===== -->
+            <aside class="sidebar">
+
+                <!-- ===== TRENDING POSTS WIDGET ===== -->
+                <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fas fa-fire"></i> ٹرینڈنگ مضامین</h3>
+                    <div class="trending-list" id="trendingList">
+                        <div class="trending-loader">
+                            <i class="fas fa-spinner fa-spin"></i> لوڈ ہو رہا ہے...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== CATEGORY PAGES (Sidebar) ===== -->
+                <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="300">
+                    <h3><i class="fas fa-th-large"></i> زمرہ جات</h3>
+                    <div class="category-grid" id="sidebarCategoryGrid">
+                        <!-- Dynamic from JavaScript -->
+                    </div>
+                </div>
+
+            </aside>
+
+        </div><!-- end content-sidebar-layout -->
 
         <!-- ===== RELATED POSTS ===== -->
         <section class="related-posts-section" data-aos="fade-up" data-aos-delay="350">
@@ -1226,10 +1382,10 @@
             </div>
         </section>
 
-        <!-- ===== CATEGORY PAGES ===== -->
+        <!-- ===== CATEGORY PAGES (Full) ===== -->
         <section class="category-pages-section" data-aos="fade-up" data-aos-delay="400">
-            <h3><i class="fas fa-th-large" style="color:#ffd700;"></i> زمرہ جات</h3>
-            <div class="category-grid" id="categoryGrid">
+            <h3><i class="fas fa-th-large" style="color:#ffd700;"></i> تمام زمرہ جات</h3>
+            <div class="category-grid" id="fullCategoryGrid">
                 <!-- Dynamic from JavaScript -->
             </div>
         </section>
@@ -1261,14 +1417,18 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
-        // ===== AOS INIT =====
+        // ============================================================
+        // 1. AOS INIT
+        // ============================================================
         AOS.init({
             duration: 800,
             once: true,
             offset: 50,
         });
 
-        // ===== PARTICLES =====
+        // ============================================================
+        // 2. PARTICLES
+        // ============================================================
         particlesJS('particles-js', {
             particles: {
                 number: { value: 60, density: { enable: true, value_area: 800 } },
@@ -1303,7 +1463,9 @@
             retina_detect: true
         });
 
-        // ===== TYPEWRITER =====
+        // ============================================================
+        // 3. TYPEWRITER
+        // ============================================================
         const phrases = [
             'سرکشی کرنا ایک سنگین گناہ ہے',
             'اللہ کی نافرمانی سے بچیں',
@@ -1341,7 +1503,9 @@
         }
         typeWriter();
 
-        // ===== READING TIME =====
+        // ============================================================
+        // 4. READING TIME
+        // ============================================================
         (function calcReadingTime() {
             const content = document.querySelector('.content-area');
             if (content) {
@@ -1352,14 +1516,21 @@
             }
         })();
 
-        // ===== VIEWS COUNTER =====
+        // ============================================================
+        // 5. POST SLUG
+        // ============================================================
+        const POST_SLUG = 'ghflt-main-chhpe-50-gnah-35-srkshi-krna';
+        const API_BASE = 'https://bloglovers-api.uzairhameed01.workers.dev';
+
+        // ============================================================
+        // 6. VIEWS COUNTER - POST /api/add-post-view
+        // ============================================================
         (async function trackView() {
             try {
-                const slug = 'ghflt-main-chhpe-50-gnah-35-srkshi-krna';
-                const response = await fetch('https://bloglovers-api.uzairhameed01.workers.dev/api/add-post-view', {
+                const response = await fetch(`${API_BASE}/api/add-post-view`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ slug })
+                    body: JSON.stringify({ slug: POST_SLUG })
                 });
                 const data = await response.json();
                 if (data.success) {
@@ -1370,13 +1541,14 @@
             }
         })();
 
-        // ===== REACTIONS =====
+        // ============================================================
+        // 7. REACTIONS - GET /api/post-reactions/:slug
+        // ============================================================
         const reactionCounts = {};
 
         async function loadReactions() {
             try {
-                const slug = 'ghflt-main-chhpe-50-gnah-35-srkshi-krna';
-                const response = await fetch(`https://bloglovers-api.uzairhameed01.workers.dev/api/post-reactions/${slug}`);
+                const response = await fetch(`${API_BASE}/api/post-reactions/${POST_SLUG}`);
                 const data = await response.json();
                 if (data.success && data.reactions) {
                     Object.keys(data.reactions).forEach(key => {
@@ -1391,13 +1563,15 @@
         }
         loadReactions();
 
+        // ============================================================
+        // 8. REACTION - POST /api/post-reaction
+        // ============================================================
         async function handleReaction(type) {
             try {
-                const slug = 'ghflt-main-chhpe-50-gnah-35-srkshi-krna';
-                const response = await fetch('https://bloglovers-api.uzairhameed01.workers.dev/api/post-reaction', {
+                const response = await fetch(`${API_BASE}/api/post-reaction`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ slug, reaction: type })
+                    body: JSON.stringify({ slug: POST_SLUG, reaction: type })
                 });
                 const data = await response.json();
                 if (data.success && data.count !== undefined) {
@@ -1410,12 +1584,13 @@
             }
         }
 
-        // ===== COPY LINK =====
+        // ============================================================
+        // 9. COPY LINK
+        // ============================================================
         function copyPageLink() {
             navigator.clipboard.writeText(window.location.href).then(() => {
                 alert('✅ لنک کاپی ہو گیا!');
             }).catch(() => {
-                // Fallback
                 const input = document.createElement('input');
                 input.value = window.location.href;
                 document.body.appendChild(input);
@@ -1426,13 +1601,52 @@
             });
         }
 
-        // ===== RELATED POSTS =====
-        (async function loadRelatedPosts() {
+        // ============================================================
+        // 10. TRENDING POSTS - GET /api/trending (PURE API - NO FAKE DATA)
+        // ============================================================
+        (async function loadTrendingPosts() {
+            const container = document.getElementById('trendingList');
             try {
-                const slug = 'ghflt-main-chhpe-50-gnah-35-srkshi-krna';
-                const response = await fetch(`https://bloglovers-api.uzairhameed01.workers.dev/api/related-posts/${slug}`);
+                const response = await fetch(`${API_BASE}/api/trending`);
                 const data = await response.json();
-                const grid = document.getElementById('relatedPostsGrid');
+                
+                if (data.success && data.posts && data.posts.length > 0) {
+                    container.innerHTML = data.posts.map((post, index) => `
+                        <a href="${post.url}" class="trending-item">
+                            <span class="rank">#${index + 1}</span>
+                            <img src="${post.image}" alt="${post.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/50/1a1a2e/ffd700?text=img'">
+                            <span class="trending-title">${post.title}</span>
+                            <span class="views"><i class="far fa-eye"></i> ${post.views || 0}</span>
+                        </a>
+                    `).join('');
+                } else {
+                    // Show empty state when no data from API
+                    container.innerHTML = `
+                        <div class="trending-error">
+                            <i class="fas fa-exclamation-circle"></i> کوئی ٹرینڈنگ پوسٹ نہیں ملی
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Trending posts API error:', error);
+                container.innerHTML = `
+                    <div class="trending-error">
+                        <i class="fas fa-wifi-slash"></i> API سے کنیکٹ نہیں ہو سکا
+                        <br>
+                        <small style="color:#555577;font-size:0.8rem;">براہ کرم بعد میں دوبارہ کوشش کریں</small>
+                    </div>
+                `;
+            }
+        })();
+
+        // ============================================================
+        // 11. RELATED POSTS - GET /api/related-posts/:slug
+        // ============================================================
+        (async function loadRelatedPosts() {
+            const grid = document.getElementById('relatedPostsGrid');
+            try {
+                const response = await fetch(`${API_BASE}/api/related-posts/${POST_SLUG}`);
+                const data = await response.json();
                 if (data.success && data.posts && data.posts.length > 0) {
                     grid.innerHTML = data.posts.map(post => `
                         <a href="${post.url}" class="related-post-card">
@@ -1443,7 +1657,7 @@
                         </a>
                     `).join('');
                 } else {
-                    // Fallback: use Excel data
+                    // Fallback: use Excel data from the file
                     const fallbackPosts = [
                         { title: "غفلت میں چھپے 50 گناہ 34- نوحہ اور بین کرنا", url: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-34-nohh-aur-byn-krna", image: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-34-nohh-aur-byn-krna.png" },
                         { title: "غفلت میں چھپے 50 گناہ 36- گانا سننا", url: "https://bloglovers.pk/islami-taleemat/ghflt-main-chhpe-50-gnah-36-gana-snna", image: "https://bloglovers.pk/images/islami-taleemat/ghflt-main-chhpe-50-gnah-36-gana-snna.png" },
@@ -1466,7 +1680,9 @@
             }
         })();
 
-        // ===== CATEGORY GRID =====
+        // ============================================================
+        // 12. CATEGORY GRID (Sidebar + Full)
+        // ============================================================
         (function loadCategories() {
             const categories = [
                 { name: "علامات کبریٰ", icon: "fa-skull-crossbones", url: "https://bloglovers.pk/category-pages/alamaat-kubra.html" },
@@ -1485,18 +1701,47 @@
                 { name: "ٹیکنالوجی", icon: "fa-microchip", url: "https://bloglovers.pk/category-pages/technology.html" }
             ];
 
-            const grid = document.getElementById('categoryGrid');
-            grid.innerHTML = categories.map(cat => `
+            // Sidebar categories (first 6)
+            const sidebarGrid = document.getElementById('sidebarCategoryGrid');
+            sidebarGrid.innerHTML = categories.slice(0, 6).map(cat => `
+                <a href="${cat.url}" target="_blank">
+                    <i class="fas ${cat.icon}"></i> ${cat.name}
+                </a>
+            `).join('');
+
+            // Full categories
+            const fullGrid = document.getElementById('fullCategoryGrid');
+            fullGrid.innerHTML = categories.map(cat => `
                 <a href="${cat.url}" target="_blank">
                     <i class="fas ${cat.icon}"></i> ${cat.name}
                 </a>
             `).join('');
         })();
 
-        // ===== TRENDING SIDEBAR (if needed) =====
-        // Already integrated via API endpoints
+        // ============================================================
+        // 13. SHARE - POST /api/share-site
+        // ============================================================
+        (async function trackShare() {
+            document.querySelectorAll('.share-btn:not(.copy)').forEach(btn => {
+                btn.addEventListener('click', async function(e) {
+                    try {
+                        await fetch(`${API_BASE}/api/share-site`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ slug: POST_SLUG, platform: this.className.split(' ')[1] || 'unknown' })
+                        });
+                    } catch (e) {
+                        console.log('Share tracking error:', e);
+                    }
+                });
+            });
+        })();
+
         console.log('🚀 BlogLovers - غفلت میں چھپے 50 گناہ: 35 - سرکشی کرنا');
         console.log('📊 All APIs integrated successfully!');
+        console.log('📌 API Base:', API_BASE);
+        console.log('📌 Post Slug:', POST_SLUG);
+        console.log('✅ Trending posts are fetched purely from API - NO FAKE DATA');
     </script>
 
     <!-- ===== INTERLINK ===== -->
