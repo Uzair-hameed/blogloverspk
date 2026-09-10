@@ -1,0 +1,48 @@
+name: Convert Dark Theme to Light
+
+on:
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Run Theme Converter
+        run: python3 convert_to_light.py
+      
+      - name: Check for Changes
+        id: check
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit Changes
+        if: steps.check.outputs.changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "🎨 Convert dark theme to light theme"
+          git push
+      
+      - name: Summary
+        run: |
+          echo "## ✅ Theme Conversion Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All HTML files converted to Light theme." >> $GITHUB_STEP_SUMMARY
+          echo "Post_DATA, API links, and JavaScript untouched." >> $GITHUB_STEP_SUMMARY
