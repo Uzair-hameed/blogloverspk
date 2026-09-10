@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Dark to Light Theme Converter - COMPLETE VERSION
-- Converts ALL HTML files from Dark to Light theme
+Dark to Light Theme Converter - SMART VERSION
+- Handles ALL variations of dark theme
 - Covers: root, all category folders, category-pages
 - Preserves Post_DATA, API links, JavaScript exactly as-is
 """
@@ -12,21 +12,37 @@ import re
 
 
 def convert_dark_to_light(content):
-    """Convert Dark theme CSS to Light theme"""
+    """Convert Dark theme CSS to Light theme - handles all variations"""
     
     # Skip if already converted
     if '/* ✅ Light Theme */' in content:
         return content, False
     
-    # Skip if not dark theme
-    if '--bg-primary: #0a0a0f' not in content and '#0a0a0f' not in content:
+    # Check if it's a dark theme file (any variation)
+    dark_indicators = [
+        '--bg-primary: #0a0a0f',
+        '--bg-primary: #07070d',
+        '--bg-primary: #0',
+        '#0a0a0f',
+        '#07070d',
+        '--bg-primary: #'
+    ]
+    
+    is_dark = False
+    for indicator in dark_indicators:
+        if indicator in content:
+            is_dark = True
+            break
+    
+    if not is_dark:
         return content, False
     
     original = content
     
-    # ===== 1. REPLACE :root VARIABLES =====
+    # ===== 1. REPLACE ENTIRE :root BLOCK =====
+    # Smart regex - match from :root { to the closing } of :root
     root_pattern = re.compile(
-        r':root\s*\{.*?--transition:[^}]*?\}',
+        r':root\s*\{[^}]*--transition[^}]*\}',
         re.DOTALL
     )
     
@@ -43,6 +59,12 @@ def convert_dark_to_light(content):
             --gradient-gold: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
             --gradient-blue: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             --gradient-purple: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            
+            /* Fallback for index.html variations */
+            --gradient-1: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #6366f1 100%);
+            --gradient-2: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            --gradient-3: linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #6366f1 100%);
+            --gradient-4: linear-gradient(135deg, #d946ef 0%, #e11d48 50%, #38bdf8 100%);
             
             --text-primary: #1e293b;
             --text-secondary: #475569;
@@ -64,7 +86,14 @@ def convert_dark_to_light(content):
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }'''
     
-    content = root_pattern.sub(root_new, content, count=1)
+    # Try multiple patterns
+    content = re.sub(root_pattern, root_new, content, count=1)
+    
+    # Fallback: if :root still has dark colors, try simpler regex
+    if '--bg-primary: #0a0a0f' in content or '--bg-primary: #07070d' in content:
+        # Simple pattern
+        root_simple = re.compile(r':root\s*\{.*?\n\s*\}', re.DOTALL)
+        content = root_simple.sub(root_new, content, count=1)
     
     # ===== 2. BODY BACKGROUND =====
     content = content.replace(
@@ -72,16 +101,15 @@ def convert_dark_to_light(content):
         'background: linear-gradient(180deg, #f5f7fa 0%, #e0e7ff 100%);\n            background-attachment: fixed;\n            color: var(--text-primary);\n            overflow-x: hidden;'
     )
     
-    # Also handle if different spacing
-    content = content.replace(
-        'background: var(--bg-primary);',
-        'background: linear-gradient(180deg, #f5f7fa 0%, #e0e7ff 100%);',
-        1  # only first occurrence (body)
-    )
-    
     # ===== 3. HEADER NAV =====
     content = content.replace(
         'background: rgba(10, 10, 15, 0.92);',
+        'background: rgba(255, 255, 255, 0.92);'
+    )
+    
+    # Also handle index.html variations
+    content = content.replace(
+        'background: rgba(7, 7, 13, 0.92);',
         'background: rgba(255, 255, 255, 0.92);'
     )
     
@@ -109,7 +137,6 @@ def convert_dark_to_light(content):
     )
     
     # ===== 7. SECTION BOXES =====
-    # Warning
     content = content.replace(
         'background: rgba(255, 0, 0, 0.06);',
         'background: rgba(239, 68, 68, 0.08);'
@@ -119,7 +146,6 @@ def convert_dark_to_light(content):
         '.section-warning p { color: #991b1b; }'
     )
     
-    # Blessing
     content = content.replace(
         'background: rgba(0, 255, 0, 0.05);',
         'background: rgba(34, 197, 94, 0.08);'
@@ -129,7 +155,6 @@ def convert_dark_to_light(content):
         '.section-blessing p { color: #166534; }'
     )
     
-    # Prophetic
     content = content.replace(
         'background: rgba(124, 58, 237, 0.06);',
         'background: rgba(99, 102, 241, 0.08);'
@@ -139,7 +164,6 @@ def convert_dark_to_light(content):
         '.section-prophetic p { color: #3730a3; }'
     )
     
-    # Important
     content = content.replace(
         'background: rgba(255, 215, 0, 0.05);',
         'background: rgba(217, 119, 6, 0.08);'
@@ -212,7 +236,7 @@ def convert_dark_to_light(content):
 
 
 def main():
-    print("🚀 Dark to Light Theme Converter - COMPLETE")
+    print("🚀 Dark to Light Theme Converter - SMART VERSION")
     print("=" * 60)
     
     # ===== Find ALL HTML files =====
@@ -242,6 +266,7 @@ def main():
     converted = 0
     skipped = 0
     errors = 0
+    converted_files = []
     
     for file_path in html_files:
         try:
@@ -254,6 +279,7 @@ def main():
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(new_content)
                 converted += 1
+                converted_files.append(file_path)
                 print(f"✅ {file_path}")
             else:
                 skipped += 1
@@ -271,6 +297,13 @@ def main():
     print(f"❌ Errors:    {errors} files")
     print(f"📁 Total:     {len(html_files)} files")
     print("=" * 60)
+    
+    # ===== Show converted files list =====
+    if converted_files:
+        print("\n📝 Converted files:")
+        for f in converted_files:
+            print(f"   ✓ {f}")
+    
     print("\n✅ Done! Post_DATA, API, and JavaScript untouched.")
 
 
