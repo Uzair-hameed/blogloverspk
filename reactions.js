@@ -85,7 +85,7 @@
                                  pageId.replace(/-/g, ' ');
                 
                 const postImage = document.querySelector('meta[property="og:image"]')?.content || 
-                                 `https://bloglovers.pk/images/${pageId}.png`;
+                                 `https://bloglovers.pk/images/${pageId}.webp`;
                 
                 const postCategory = document.querySelector('meta[name="category"]')?.content || 
                                     document.querySelector('.post-category')?.textContent?.trim() || 
