@@ -1,0 +1,137 @@
+name: FORCE Convert All Files
+
+on:
+  workflow_dispatch:
+
+jobs:
+  force-convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: DEBUG - Show all files
+        run: |
+          echo "═══════════════════════════════════════"
+          echo "ALL HTML FILES IN REPOSITORY"
+          echo "═══════════════════════════════════════"
+          find . -name "*.html" -type f -not -path "./.git/*" | sort
+          echo ""
+          echo "TOTAL COUNT:"
+          find . -name "*.html" -type f -not -path "./.git/*" | wc -l
+          echo ""
+          echo "═══════════════════════════════════════"
+          echo "DARK FILES (contain #0a0a1a)"
+          echo "═══════════════════════════════════════"
+          grep -rl "#0a0a1a" --include="*.html" . | sort
+          echo ""
+          echo "DARK COUNT:"
+          grep -rl "#0a0a1a" --include="*.html" . | wc -l
+          echo ""
+          echo "═══════════════════════════════════════"
+          echo "LIGHT FILES (contain 'Light Theme')"
+          echo "═══════════════════════════════════════"
+          grep -rl "Light Theme" --include="*.html" . | sort
+          echo ""
+          echo "LIGHT COUNT:"
+          grep -rl "Light Theme" --include="*.html" . | wc -l
+      
+      - name: FORCE Convert - Direct sed
+        run: |
+          echo "═══════════════════════════════════════"
+          echo "FORCING CONVERSION ON ALL HTML FILES"
+          echo "═══════════════════════════════════════"
+          
+          # Find all HTML files
+          FILES=$(find . -name "*.html" -type f -not -path "./.git/*")
+          
+          for file in $FILES; do
+            # Skip if already light
+            if grep -q "Light Theme - READABLE" "$file"; then
+              echo "⏭️  SKIP (already light): $file"
+              continue
+            fi
+            
+            # Skip if not dark
+            if ! grep -q "#0a0a1a\|#060612\|#e0e0e0\|#0a0a0f" "$file"; then
+              echo "⏭️  SKIP (not dark): $file"
+              continue
+            fi
+            
+            echo "✅ CONVERTING: $file"
+            
+            # Apply all replacements using sed
+            # Dark colors → Light
+            sed -i 's/#0a0a1a/#f5f7fa/g' "$file"
+            sed -i 's/#060612/#e8eef5/g' "$file"
+            sed -i 's/#0a0a0f/#f5f7fa/g' "$file"
+            sed -i 's/#07070d/#f5f7fa/g' "$file"
+            sed -i 's/#12121a/#e8eef5/g' "$file"
+            sed -i 's/#0d0d16/#e8eef5/g' "$file"
+            
+            # Text colors
+            sed -i 's/#e0e0e0/#1f2937/g' "$file"
+            sed -i 's/#c0c0d0/#374151/g' "$file"
+            sed -i 's/#a0a0b0/#4b5563/g' "$file"
+            sed -i 's/#6a6a7a/#6b7280/g' "$file"
+            
+            # Accent colors
+            sed -i 's/#4a90e2/#0284c7/g' "$file"
+            sed -i 's/#2ecc71/#059669/g' "$file"
+            sed -i 's/#e74c3c/#dc2626/g' "$file"
+            sed -i 's/#f1c40f/#b45309/g' "$file"
+            sed -i 's/#00f2ff/#0ea5e9/g' "$file"
+            sed -i 's/#7c3aed/#6366f1/g' "$file"
+            sed -i 's/#ffd700/#d97706/g' "$file"
+            
+            # Add light theme marker
+            sed -i 's|/\* ============================================================\n           CSS VARIABLES|/* ✅ Light Theme - READABLE */\n        /* CSS VARIABLES|' "$file"
+            
+            # Fix section box text colors
+            sed -i 's/color: #fca5a5/color: #7f1d1d/g' "$file"
+            sed -i 's/color: #86efac/color: #14532d/g' "$file"
+            sed -i 's/color: #c4b5fd/color: #3730a3/g' "$file"
+            sed -i 's/color: #fde047/color: #78350f/g' "$file"
+            
+            # Fix backgrounds
+            sed -i 's/rgba(10, 10, 15, 0.92)/rgba(255, 255, 255, 0.95)/g' "$file"
+            sed -i 's/rgba(10, 10, 26, 0.92)/rgba(255, 255, 255, 0.95)/g' "$file"
+            sed -i 's/rgba(6, 6, 18, 0.92)/rgba(255, 255, 255, 0.95)/g' "$file"
+            
+            # Body background
+            sed -i 's/background: var(--darker);/background: linear-gradient(180deg, #f5f7fa 0%, #e0e7ff 100%);/g' "$file"
+            sed -i 's/background: var(--dark);/background: linear-gradient(180deg, #f5f7fa 0%, #e0e7ff 100%);/g' "$file"
+          done
+          
+          echo ""
+          echo "═══════════════════════════════════════"
+          echo "CONVERSION COMPLETE"
+          echo "═══════════════════════════════════════"
+      
+      - name: VERIFY - Count remaining dark files
+        run: |
+          echo "═══════════════════════════════════════"
+          echo "AFTER CONVERSION"
+          echo "═══════════════════════════════════════"
+          echo "Dark files remaining:"
+          grep -rl "#0a0a1a" --include="*.html" . | wc -l
+          echo ""
+          echo "Light files now:"
+          grep -rl "Light Theme" --include="*.html" . | wc -l
+          echo ""
+          echo "Files changed:"
+          git status --porcelain | head -50
+          echo ""
+          echo "Total changes:"
+          git status --porcelain | wc -l
+      
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "🎨 FORCE: Convert all dark themes to light"
+          git push
