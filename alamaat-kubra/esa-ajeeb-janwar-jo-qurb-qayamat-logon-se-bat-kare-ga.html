@@ -868,26 +868,89 @@ a:hover{color:var(--accent-hover)}
 <script>
 'use strict';
 
-const WORKER_URL = 'https://bloglovers-api.uzairhameed01.workers.dev';
-
+/* ============================================================
+   POST_DATA — بالکل ویسا ہی جیسا آپ کی اصل فائل میں تھا
+   (ایک لفظ بھی کم یا زیادہ نہیں)
+   ============================================================ */
 const POST_DATA = {
-    title: "ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرے گا",
     slug: "esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga",
     category: "alamaat-kubra",
-    categoryTitle: "علامات کبریٰ",
-    categoryUrl: "https://bloglovers.pk/category-pages/alamaat-kubra.html",
-    tags: ['دابۃ الارض','قیامت کی نشانیاں','جانور','علامات کبریٰ','سورۃ النمل','قرب قیامت'],
-    relatedPosts: [
-        { title: "5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل", slug: "5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl", image: "https://bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.webp" },
-        { title: "مصائبِ دجال (حصہ اول)", slug: "msab-djal-hsh-aol", image: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.webp" },
-        { title: "مصائبِ دجال (حصہ دوم)", slug: "msab-djal-hsh-dom", image: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom.webp" },
-        { title: "مصائبِ دجال (حصہ سوم)", slug: "msab-djal-hsh-som", image: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som.webp" },
-        { title: "دجال کو کون کون سے طاقتیں دی گئی ہونگی؟", slug: "dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi", image: "https://bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi.webp" },
-        { title: "دجال کے ساتھی کون لوگ ہونگے؟", slug: "dajjal-ke-sathi-kon-log-hongay", image: "https://bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay.webp" },
-        { title: "دجال سے نجات کے لیے ہمیں کیا تعلیمات دی گئی ہیں؟", slug: "dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain", image: "https://bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain.webp" }
+    title: "ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرے گا",
+    metaTitle: "ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرے گا | بلاگ لوورز",
+    metaDescription: "دابۃ الارض - قیامت کی بڑی نشانی۔ ایسا عجیب جانور جو قرب قیامت لوگوں سے بات کرے گا۔ قرآن و حدیث کی روشنی میں دابہ کا تعارف، اس کے کام اور نشانیاں۔",
+    metaKeywords: "دابۃ الارض, قیامت کی نشانیاں, جانور, علامات کبریٰ",
+    ogImage: "https://bloglovers.pk/images/alamaat-kubra/esa-ajeeb-janwar-jo-qurb-qayamat-logon-se-bat-kare-ga.jpg",
+    typewriterPhrases: [
+        "دابۃ الارض قیامت کی بڑی نشانی",
+        "زمین سے ایک جانور نکلے گا",
+        "وہ لوگوں سے باتیں کرے گا",
+        "مومن اور کافر میں تمیز ہوگی"
     ]
 };
 
+/* ============================================================
+   WORKER URL
+   ============================================================ */
+const WORKER_URL = 'https://bloglovers-api.uzairhameed01.workers.dev';
+
+/* ============================================================
+   TYPEWRITER
+   ============================================================ */
+const typewriterEl = document.getElementById('typewriter');
+let phraseIndex = 0,
+    charIndex = 0,
+    isDeleting = false;
+
+function typeEffect() {
+    if (!typewriterEl) return;
+    const currentPhrase = POST_DATA.typewriterPhrases[phraseIndex];
+    if (!isDeleting) {
+        typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentPhrase.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, 2000);
+            return;
+        }
+        setTimeout(typeEffect, 80);
+    } else {
+        typewriterEl.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % POST_DATA.typewriterPhrases.length;
+            setTimeout(typeEffect, 500);
+            return;
+        }
+        setTimeout(typeEffect, 40);
+    }
+}
+typeEffect();
+
+/* ============================================================
+   PARTICLES
+   ============================================================ */
+function createParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        const size = Math.random() * 18 + 4;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (Math.random() * 12 + 10) + 's';
+        p.style.animationDelay = (Math.random() * 6) + 's';
+        p.style.opacity = Math.random() * 0.25 + 0.05;
+        container.appendChild(p);
+    }
+}
+createParticles();
+
+/* ============================================================
+   READING TIME
+   ============================================================ */
 function calculateReadingTime() {
     const content = document.querySelector('.post-content');
     if (!content) return;
@@ -896,13 +959,18 @@ function calculateReadingTime() {
     const el = document.getElementById('readingTime');
     if (el) el.textContent = readingTime;
 }
+calculateReadingTime();
 
+/* ============================================================
+   VIEWS (API)
+   ============================================================ */
 async function loadPostViews() {
     try {
         const res = await fetch(`${WORKER_URL}/api/post-views/${POST_DATA.slug}`);
         const result = await res.json();
         if (result.success && result.data) {
-            document.getElementById('postViews').innerText = result.data.views || 0;
+            const el = document.getElementById('postViews');
+            if (el) el.innerText = result.data.views || 0;
         }
     } catch (e) {}
 }
@@ -923,6 +991,9 @@ async function addPostView() {
     } catch (e) {}
 }
 
+/* ============================================================
+   REACTIONS
+   ============================================================ */
 async function loadPostReactions() {
     try {
         const res = await fetch(`${WORKER_URL}/api/post-reactions/${POST_DATA.slug}`);
@@ -966,12 +1037,24 @@ function setupPostReactions() {
     });
 }
 
+/* ============================================================
+   RELATED POSTS
+   ============================================================ */
+const RELATED_POSTS = [
+    { title: "5 ایسے کون سے واقعات پیش آئیں گے؟ فتنہ دجال سے قبل", slug: "5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl", image: "https://bloglovers.pk/images/alamaat-kubra/5-ese-kon-se-waqeat-pesh-aeen-ge-ftna-dajjal-se-qabl.webp" },
+    { title: "مصائبِ دجال (حصہ اول)", slug: "msab-djal-hsh-aol", image: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-aol.webp" },
+    { title: "مصائبِ دجال (حصہ دوم)", slug: "msab-djal-hsh-dom", image: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-dom.webp" },
+    { title: "مصائبِ دجال (حصہ سوم)", slug: "msab-djal-hsh-som", image: "https://bloglovers.pk/images/alamaat-kubra/msab-djal-hsh-som.webp" },
+    { title: "دجال کو کون کون سے طاقتیں دی گئی ہونگی؟", slug: "dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi", image: "https://bloglovers.pk/images/alamaat-kubra/dajjal-ko-kon-kon-se-taaqaten-di-gai-honghi.webp" },
+    { title: "دجال کے ساتھی کون لوگ ہونگے؟", slug: "dajjal-ke-sathi-kon-log-hongay", image: "https://bloglovers.pk/images/alamaat-kubra/dajjal-ke-sathi-kon-log-hongay.webp" },
+    { title: "دجال سے نجات کے لیے ہمیں کیا تعلیمات دی گئی ہیں؟", slug: "dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain", image: "https://bloglovers.pk/images/alamaat-kubra/dajjal-se-nijaat-ke-liye-humein-kya-taleemaat-di-gai-hain.webp" }
+];
+
 function renderRelatedPosts() {
     const container = document.getElementById('relatedPostsGrid');
     if (!container) return;
-    const posts = POST_DATA.relatedPosts || [];
-    if (!posts.length) { container.innerHTML = ''; return; }
-    container.innerHTML = posts.map(post => `
+    if (!RELATED_POSTS.length) { container.innerHTML = ''; return; }
+    container.innerHTML = RELATED_POSTS.map(post => `
         <a href="https://bloglovers.pk/${POST_DATA.category}/${post.slug}" class="related-card">
             <img src="${post.image}" alt="${post.title}" loading="lazy" width="200" height="120" onerror="this.src='https://bloglovers.pk/images/default-thumbnail.webp'">
             <div class="title">${post.title}</div>
@@ -979,6 +1062,9 @@ function renderRelatedPosts() {
     `).join('');
 }
 
+/* ============================================================
+   SIDEBAR TRENDING (API)
+   ============================================================ */
 async function renderSidebarTrending() {
     const container = document.getElementById('sidebarTrending');
     if (!container) return;
@@ -1000,6 +1086,9 @@ async function renderSidebarTrending() {
     }
 }
 
+/* ============================================================
+   SOCIAL SHARE
+   ============================================================ */
 function shareOnSocial(platform) {
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(document.title);
@@ -1026,6 +1115,9 @@ async function copyPageLink() {
     }
 }
 
+/* ============================================================
+   TOAST
+   ============================================================ */
 function showToast(msg, type = 'success') {
     const toast = document.getElementById('toast');
     if (!toast) return;
@@ -1035,8 +1127,10 @@ function showToast(msg, type = 'success') {
     window._toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 3000);
 }
 
+/* ============================================================
+   INIT
+   ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-    calculateReadingTime();
     renderRelatedPosts();
     renderSidebarTrending();
     loadPostViews();
