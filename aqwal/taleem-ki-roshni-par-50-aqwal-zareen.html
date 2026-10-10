@@ -973,12 +973,12 @@ const POST_DATA = {
     categoryUrl: "https://bloglovers.pk/category-pages/aqwal.html",
     tags: ['تعلیم','اقوال زریں','علم','نلسن منڈیلا','علامہ اقبال','حضرت علیؓ','ملالہ','استاد','کردار'],
     relatedPosts: [
-        { title: "عورت کی عظمت پر 55 بہترین کوٹیشنز", slug: "aort-ki-azmt-par-55-bhtryn-kotyshnz", image: "https://bloglovers.pk/images/aqwal/aort-ki-azmt-par-55-bhtryn-kotyshnz.webp" },
-        { title: "تعلیم کی اہمیت پر 60 بہترین کوٹیشنز", slug: "talym-ki-ahmyt-par-60-bhtryn-kotyshnz", image: "https://bloglovers.pk/images/aqwal/talym-ki-ahmyt-par-60-bhtryn-kotyshnz.webp" },
-        { title: "حوصلہ افزائی کے 50 پیغامات", slug: "hausla-afzai-ke-50-paighamaat", image: "https://bloglovers.pk/images/aqwal/hausla-afzai-ke-50-paighamaat.webp" },
-        { title: "والدین کی وفات کے بعد اولاد کی 10 اہم دینی ذمہ داریاں", slug: "walidain-ki-wafat-ke-baad-aulad-ki-10-eham-deeni-zimma-dariyan", image: "https://bloglovers.pk/images/aqwal/walidain-ki-wafat-ke-baad-aulad-ki-10-eham-deeni-zimma-dariyan.webp" },
-        { title: "بچوں کی تربیت پر 16 بہترین ٹپس", slug: "bchon-ki-trbyt-par-16-bhtryn-tps", image: "https://bloglovers.pk/images/aqwal/bchon-ki-trbyt-par-16-bhtryn-tps.webp" },
-        { title: "مسلمانوں نے اپنا وقار کیسے کھویا؟", slug: "musalmanon-ne-apna-waqar-kaise-khoya", image: "https://bloglovers.pk/images/aqwal/musalmanon-ne-apna-waqar-kaise-khoya.webp" }
+        { title: "تعلیم کی اہمیت پر 60 بہترین کوٹیشنز", slug: "talym-ki-ahmyt-par-60-bhtryn-kotyshnz", image: "https://bloglovers.pk/images/mazameen/talym-ki-ahmyt-par-60-bhtryn-kotyshnz.webp" },
+        { title: "عورت کی عظمت پر 55 بہترین کوٹیشنز", slug: "aort-ki-azmt-par-55-bhtryn-kotyshnz", image: "https://bloglovers.pk/images/mazameen/aort-ki-azmt-par-55-bhtryn-kotyshnz.webp" },
+        { title: "حوصلہ افزائی کے 50 پیغامات", slug: "hausla-afzai-ke-50-paighamaat", image: "https://bloglovers.pk/images/motivation/hausla-afzai-ke-50-paighamaat.webp" },
+        { title: "قرآن مجید پر 50 دلچسپ سوالات", slug: "quran-majeed-par-50-dilchasp-sawalat", image: "https://bloglovers.pk/images/islami-sawalat/quran-majeed-par-50-dilchasp-sawalat.webp" },
+        { title: "نماز کی اہمیت پر مبنی 50 سوالات", slug: "namaz-ki-ahmiyat-par-mabni-50-sawalat", image: "https://bloglovers.pk/images/islami-sawalat/namaz-ki-ahmiyat-par-mabni-50-sawalat.webp" },
+        { title: "بچوں کی تربیت پر 16 بہترین ٹپس", slug: "bchon-ki-trbyt-par-16-bhtryn-tps", image: "https://bloglovers.pk/images/mazameen/bchon-ki-trbyt-par-16-bhtryn-tps.webp" }
     ]
 };
 
@@ -1065,8 +1065,10 @@ function renderRelatedPosts() {
     if (!container) return;
     const posts = POST_DATA.relatedPosts || [];
     if (!posts.length) { container.innerHTML = ''; return; }
-    container.innerHTML = posts.map(post => `
-        <a href="https://bloglovers.pk/${POST_DATA.category}/${post.slug}" class="related-card">
+    // Shuffle for variety
+    const shuffled = [...posts].sort(() => 0.5 - Math.random());
+    container.innerHTML = shuffled.map(post => `
+        <a href="https://bloglovers.pk/${post.image.includes('/mazameen/') ? 'mazameen' : post.image.includes('/motivation/') ? 'motivation' : post.image.includes('/islami-sawalat/') ? 'islami-sawalat' : post.image.includes('/aqwal/') ? 'aqwal' : post.image.includes('/taleem/') ? 'taleem' : post.image.includes('/tareekh/') ? 'tareekh' : post.image.includes('/shakhsiyat/') ? 'shakhsiyat' : post.image.includes('/azkar/') ? 'azkar' : post.image.includes('/kids/') ? 'kids' : post.image.includes('/technology/') ? 'technology' : post.image.includes('/english-adab/') ? 'english-adab' : post.image.includes('/islami-taleemat/') ? 'islami-taleemat' : post.image.includes('/alamaat-kubra/') ? 'alamaat-kubra' : post.image.includes('/alamaat-sughra/') ? 'alamaat-sughra' : 'aqwal'}/${post.slug}" class="related-card">
             <img src="${post.image}" alt="${post.title}" loading="lazy" width="200" height="120" onerror="this.src='https://bloglovers.pk/images/default-thumbnail.webp'">
             <div class="title">${post.title}</div>
         </a>
@@ -1081,7 +1083,7 @@ async function renderSidebarTrending() {
         const result = await res.json();
         if (result.success && result.data && result.data.length) {
             container.innerHTML = result.data.slice(0, 4).map(post => `
-                <a href="${post.url || `https://bloglovers.pk/${POST_DATA.category}/${post.slug}`}" class="sidebar-post-item">
+                <a href="${post.url || `https://bloglovers.pk/${post.category || 'aqwal'}/${post.slug}`}" class="sidebar-post-item">
                     <img src="${post.image || 'https://bloglovers.pk/images/default-thumbnail.webp'}" alt="${post.title}" loading="lazy" width="52" height="52" onerror="this.src='https://bloglovers.pk/images/default-thumbnail.webp'">
                     <span class="title">${post.title}</span>
                 </a>
